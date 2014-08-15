@@ -1,0 +1,50 @@
+# Disable the spring security default configuration from spring-boot-actuator
+management.security.enabled: true
+security.basic.enabled: false
+
+# Disable Jolokia - An http/json bridge for remote JMX access
+endpoints.jolokia.enabled: false
+
+# security configuration (this key should be unique for your application, and kept secret)
+fmu.security.rememberme.key: fmu
+
+async:
+    corePoolSize: 2
+    maxPoolSize: 50
+    queueCapacity: 10000
+
+spring:
+    mail:
+        host: localhost
+        port: 25
+        user:
+        password:
+        protocol: smtp
+        tls: false
+        auth: false
+
+    messageSource:
+        cacheSeconds: 1
+
+    activiti:
+        checkProcessDefinitions: true
+
+swagger:
+    title: FMU API
+    description: Inera FMU...
+    termsOfServiceUrl:
+    contact:
+    license:
+    licenseUrl:
+
+logging:
+    file: logs/fmu.log
+
+tomcat:
+    accessLogEnabled: false
+    protocolHeader: x-forwarded-proto
+    remoteIpHeader: x-forwarded-for
+    backgroundProcessorDelay: 30
+
+server:
+    sessionTimeout: 30
