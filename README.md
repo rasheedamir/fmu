@@ -67,18 +67,23 @@ Single Web Page Application (SPA)
 ###Project Structure
 
   1. `src\integration-test` - Specifically for integration tests!
-    1.1: `src\integration-test\java`    
-    1.2: `src\integration-test\resources`   
+      - `src\integration-test\java`    
+
+      - `src\integration-test\resources`   
     
   2. `src\main`
-    2.1: `src\main\java`    
-    2.2: `src\main\resources`   
-    2.3: `src\main\webapp` 
+      -  `src\main\java`    
+      
+      -  `src\main\resources`   
+      
+      -  `src\main\webapp` 
 
   3. `src\test` - Pure unit tests only!
-    3.1: `src\test\java`    
-    3.2: `src\test\javascript`   
-    3.3: `src\test\resources`       
+      -  `src\test\java`    
+      
+      -  `src\test\javascript`   
+      
+      -  `src\test\resources`       
       
 ##Setting up the Environment:
 
