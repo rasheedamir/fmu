@@ -1,64 +1,85 @@
-##Project fmu-core
+##Project FMU - Fördjupade Medicinska Utredningar
 
 ##JIRA Link:
 [Inera FMU](https://inera-certificate.atlassian.net/browse/FMU)
 
-##Technology Stack (Languages, Tools & Frameworks):
+##Architecture Link:
+[FMU Architecture](https://drive.google.com/file/d/0B_H5gem6D0BZd3dwTGdVZWlNeWs)
 
-1. Language: _Java 1.7_
-2. IDE: _IntelliJ (Recommended), STS, or NetBeans_
-3. Production Database: _MySql 5.6.4+_
-4. Test Database: _H2_
-5. Code Management: _Git_
-6. Dependency & Build Management: _Maven 3.0_
-7. Database Migration Tool: _Liquibase 3_
-8. Logging Abstraction: _SFL4J_
-9. Logging Implementation: _logback_
-10. Unit Testing: _JUnit 4_ — The de-facto standard for unit testing Java applications.
-11. Persistence (Data Access): _JPA_, _Hibernate 4_ (One of the most popular JPA implementations.), _Spring Data JPA_ (Makes it easy to easily implement JPA based repositories), _Spring ORMs_ (Core ORM support from the Spring Framework)
-12. BPM: _Activiti 5.15_
-13. Mocking: _Mockito_
-14. Application Server: _Tomcat_
-15. Object to JSON Mapping: _Jackson_
-16. Date Time Utility: _Joda-Time_
-17. Assertion Library: _Hamcrest_ - A library of matcher objects (also known as constraints or predicates) allowing assertThat style JUnit assertions.
-18. Integration Test Support: _Spring Test_ — integration test support for Spring applications.
-19. JDBC Connection Pool: _HikariCP_ - [HikariCP](http://brettwooldridge.github.io/HikariCP/) is a high performance JDBC connection pool.
-20. Properties file format: _YAML_
-21. @ToString: [_lombok_](http://projectlombok.org/)
-22. AOP: _Spring AOP_ Logging, Transactions, 
-23. Profiles: _Maven & Spring Profiles_
-24. Scripting Language: _Groovy_
-25. IDE for Activiti: _Eclipse Juno_
-26. Caching: 
-27. i18n: 
-28. Templating Engine: thymeleaf
-29. 
+##Technology Stack:
 
 ###Backend (Server Side)
 
+1. Language(s): _Java 1.7_,_Groovy_
+2. Production Database: _MySql 5.6.4+_
+3. Test Database: _H2_
+4. Dependency & Build Management: _Maven 3.0_
+5. Database Migration Tool: _Liquibase 3_
+6. Logging Abstraction: _SFL4J_
+7. Logging Implementation: _logback_
+8. Unit Testing: _JUnit 4_ — The de-facto standard for unit testing Java applications.
+9. Persistence (Data Access): _JPA_, _Hibernate 4_ (One of the most popular JPA implementations.), _Spring Data JPA_ (Makes it easy to easily implement JPA based repositories), _Spring ORMs_ (Core ORM support from the Spring Framework)
+10. BPM: _Activiti 5.15_
+11. Mocking: _Mockito_
+12. Application Server (embedded): _Tomcat_
+13. Object to JSON Mapping: _Jackson_
+14. Date Time Utility: _Joda-Time_
+15. Assertion Library: _Hamcrest_ - A library of matcher objects (also known as constraints or predicates) allowing assertThat style JUnit assertions.
+16. Integration Test Support: _Spring Test_ — integration test support for Spring applications.
+17. JDBC Connection Pool: _HikariCP_ - [HikariCP](http://brettwooldridge.github.io/HikariCP/) is a high performance JDBC connection pool.
+18. Properties file format: _YAML_
+19. @ToString: [_lombok_](http://projectlombok.org/)
+20. AOP: _Spring AOP_ Logging, Transactions, 
+21. Profiles: _Maven & Spring Profiles_
+26. Local Caching: [_Ehcache_](http://ehcache.org/)
+27. i18n: 
+28. Templating Engine: thymeleaf (if a single Web page application isn't enough for our needs)
+29. [_Spring Boot_](http://projects.spring.io/spring-boot/): For easy configuration
+30. Security: [_Spring Security_](http://docs.spring.io/spring-security/site/index.html)
+31. Mail: 
+
 ###Frontend (Client Side)
 
-Single Web Page Application
+Single Web Page Application (SPA)
 
-1. [HTML5 Boilerplate](http://html5boilerplate.com/)
-2. [Twitter Bootstrap](http://getbootstrap.com/)
-2. AngularJS
-3. Grunt
-4. Karma
-5. Bower
-6. Bootstrap CSS
-7. 
+1. Responsive Web Design!
+2. [HTML5 Boilerplate](http://html5boilerplate.com/)
+3. [Twitter Bootstrap](http://getbootstrap.com/)
+4. [AngularJS](http://angularjs.org/)
+5. Build, Optimization & Live Reload: [_Grunt_](http://gruntjs.com/) : is the most widely used and most mature build tool for your JavaScript and CSS assets
+6. Testing: [_Karma_](http://karma-runner.github.io/) & [_PhantomJS_](http://phantomjs.org/)
+7. Dependency Management: [_Bower_](http://bower.io/)
+8. Full internationalization support with [_Angular Translate_](https://github.com/angular-translate/angular-translate)
+
+###Other
+
+1. Source Code Management: _Git_
+2. IDE: _IntelliJ (Recommended), STS, Eclipse Juno (Must for Activiti) or NetBeans_
+3. REST API Documentation: [_Swagger_](https://helloreverb.com/developers/swagger)
+4. Monitoring: [_Metrics_](http://metrics.codahale.com/)
 
 ###Code Base
 1. Download and install Git.
 2. Right the folder which you want to be the home for the codebase, and choose Git Bash.(For integration of IntelliJ with Git, refer to  the section below _Setting Up the Environment->IntelliJ_ point 4 onward)
-3. Paste `git clone https://github.com/rasheedamir/fmu-core.git`
-4. Give the password when prompted.
+3. Paste `git clone https://github.com/rasheedamir/fmu.git`
+4. Give the password (if) prompted.
     
 ###Project Structure
 
+  1. `src\integration-test` - Specifically for integration tests!
+    1.1: `src\integration-test\java`    
+    1.2: `src\integration-test\resources`   
     
+  2. `src\main`
+    2.1: `src\main\java`    
+    2.2: `src\main\resources`   
+    2.3: `src\main\webapp` 
+
+  3. `src\test` - Pure unit tests only!
+    3.1: `src\test\java`    
+    3.2: `src\test\javascript`   
+    3.3: `src\test\resources`       
+      
 ##Setting up the Environment:
 
 ###- JAVA
@@ -137,7 +158,7 @@ Follow [this guide](http://www.mysqltutorial.org/install-mysql/), if there is an
 
 - Ubuntu/Debian users: `sudo apt-get install mysql-server mysql-client`
 
-###- Database Setup
+#### Database Setup
 
   1. Create a new database named `fmu`
   2. MySql Settings:
@@ -155,8 +176,6 @@ HikariCP MySQL recommended settings can be found here: `https://github.com/brett
 
 ###Using Codebase
 
-    
-###fmu-core on IntelliJ
 
 ##Logging
 
@@ -240,17 +259,20 @@ EditorConfig helps developers define and maintain consistent coding styles betwe
 
 ##Testing
 
-###Unit Tests
+###Unit Tests (Java)
 We use the Surefire Maven plugin to run our unit tests. Run following command to run unit tests:
 
 `mvn clean test`
 
 During development unit test's can be run from within the IDE.
 
-###Integration Tests
+###Integration Tests (Java)
 The Failsafe Maven plugin is used to execute our integration tests. Run following command to run integration tests:
  
 `mvn clean verify -P integration-test`
+
+###Unit Tests (JavaScript)
+Karma
 
 ##Authentication
 

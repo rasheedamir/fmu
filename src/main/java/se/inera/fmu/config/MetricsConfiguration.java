@@ -23,7 +23,8 @@ import java.lang.management.ManagementFactory;
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
 
-//@Configuration
+@SuppressWarnings("ALL")
+@Configuration
 @EnableMetrics(proxyTargetClass = true)
 public class MetricsConfiguration extends MetricsConfigurerAdapter implements EnvironmentAware {
 
@@ -79,7 +80,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
         }
     }
 
-    //@Configuration
+    @Configuration
     @ConditionalOnClass(Graphite.class)
     public static class GraphiteRegistry implements EnvironmentAware {
 

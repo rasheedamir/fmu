@@ -38,14 +38,14 @@ import java.util.List;
  * @author Josh Long
  * @author Rasheed Amir
  */
-@Configuration
+//@Configuration
 @ConditionalOnClass({ProcessEngine.class, EnableActiviti.class})
 @ConditionalOnBean(DataSource.class)
 @AutoConfigureAfter(DatabaseConfiguration.class)
 @ConditionalOnMissingBean(ProcessEngine.class)
 public class ProcessEngineConfiguration {
 
-    @Configuration
+    //@Configuration
     @EnableActiviti
     public static class DefaultActivitiConfiguration implements ActivitiConfigurer, EnvironmentAware {
 

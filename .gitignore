@@ -4,6 +4,8 @@
 *.*~
 *~
 logs/
+node_modules/
+src/main/webapp/dist/
 
 ######################
 # Eclipse

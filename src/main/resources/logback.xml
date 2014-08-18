@@ -24,6 +24,7 @@
     <logger name="com.mangofactory.swagger" level="warn"/>
     <logger name="com.wordnik.swagger" level="warn"/>
     <logger name="liquibase" level="warn"/>
+    <logger name="org.activiti" level="warn"/>
 
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
         <resetJUL>true</resetJUL>

@@ -33,15 +33,15 @@ public class WebConfigurer implements ServletContextInitializer {
     @Inject
     private Environment env;
 
-    //@Inject
-    //private MetricRegistry metricRegistry;
+    @Inject
+    private MetricRegistry metricRegistry;
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         log.info("Web application configuration, using profiles: {}", Arrays.toString(env.getActiveProfiles()));
         EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
 
-        //initMetrics(servletContext, disps);
+        initMetrics(servletContext, disps);
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
             initStaticResourcesProductionFilter(servletContext, disps);
             initCachingHttpHeadersFilter(servletContext, disps);
@@ -116,7 +116,7 @@ public class WebConfigurer implements ServletContextInitializer {
     /**
      * Initializes Metrics.
      */
-    /*private void initMetrics(ServletContext servletContext, EnumSet<DispatcherType> disps) {
+    private void initMetrics(ServletContext servletContext, EnumSet<DispatcherType> disps) {
         log.debug("Initializing Metrics registries");
         servletContext.setAttribute(InstrumentedFilter.REGISTRY_ATTRIBUTE,
                 metricRegistry);
@@ -137,7 +137,7 @@ public class WebConfigurer implements ServletContextInitializer {
         metricsAdminServlet.addMapping("/metrics/metrics/*");
         metricsAdminServlet.setAsyncSupported(true);
         metricsAdminServlet.setLoadOnStartup(2);
-    }*/
+    }
 
     /**
      * Initializes H2 console
@@ -148,6 +148,5 @@ public class WebConfigurer implements ServletContextInitializer {
         h2ConsoleServlet.addMapping("/console/*");
         h2ConsoleServlet.setLoadOnStartup(1);
     }
-
 
 }
