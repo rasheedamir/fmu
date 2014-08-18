@@ -92,6 +92,7 @@ Single Web Page Application (SPA)
 ###- Maven
 
 ###- IntelliJ
+
 1. Install an IDE. Here we will assume the usage of IntelliJ. Download [IntelliJ IDEA](http://www.jetbrains.com/idea/download/index.html). Ultimate version needs to be bought. Install IntelliJ.
 2. Configure Groovy in IntelliJ.
     - At startup after IntelliJ installation, add support for the plugin of Grails.
