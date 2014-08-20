@@ -4,4 +4,4 @@
  * Interfaces for managing system resources.
  *
  */
-package se.inera.fmu.managing;
+package se.inera.fmu.interfaces.managing;

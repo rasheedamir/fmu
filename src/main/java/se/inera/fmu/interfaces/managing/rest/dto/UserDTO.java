@@ -1,4 +1,4 @@
-package se.inera.fmu.managing.rest.dto;
+package se.inera.fmu.interfaces.managing.rest.dto;
 
 import java.util.List;
 

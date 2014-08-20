@@ -1,4 +1,4 @@
-package se.inera.fmu.managing.rest;
+package se.inera.fmu.interfaces.managing.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import se.inera.fmu.domain.model.authentication.Authority;
@@ -9,7 +9,7 @@ import se.inera.fmu.domain.model.authentication.UserRepository;
 import se.inera.fmu.infrastructure.security.SecurityUtils;
 import se.inera.fmu.infrastructure.mail.MailService;
 import se.inera.fmu.application.impl.UserService;
-import se.inera.fmu.managing.rest.dto.UserDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.UserDTO;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

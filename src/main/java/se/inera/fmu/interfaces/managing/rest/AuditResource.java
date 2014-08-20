@@ -1,8 +1,8 @@
-package se.inera.fmu.managing.rest;
+package se.inera.fmu.interfaces.managing.rest;
 
 import se.inera.fmu.infrastructure.security.AuthoritiesConstants;
 import se.inera.fmu.infrastructure.audit.AuditEventService;
-import se.inera.fmu.managing.propertyeditors.LocaleDateTimeEditor;
+import se.inera.fmu.interfaces.managing.propertyeditors.LocaleDateTimeEditor;
 import org.joda.time.LocalDateTime;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.http.MediaType;

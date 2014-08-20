@@ -22,7 +22,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import se.inera.fmu.managing.rest.AccountResource;
 
 import javax.inject.Inject;
 import java.util.HashSet;

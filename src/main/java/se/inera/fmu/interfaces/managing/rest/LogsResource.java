@@ -1,9 +1,9 @@
-package se.inera.fmu.managing.rest;
+package se.inera.fmu.interfaces.managing.rest;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 import com.codahale.metrics.annotation.Timed;
-import se.inera.fmu.managing.rest.dto.LoggerDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.LoggerDTO;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

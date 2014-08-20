@@ -1,4 +1,4 @@
-package se.inera.fmu.managing.rest;
+package se.inera.fmu.interfaces.managing.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import se.inera.fmu.domain.model.authentication.User;

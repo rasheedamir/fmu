@@ -1,4 +1,4 @@
-package se.inera.fmu.managing.propertyeditors;
+package se.inera.fmu.interfaces.managing.propertyeditors;
 
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;

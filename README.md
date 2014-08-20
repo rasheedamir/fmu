@@ -87,6 +87,8 @@ Single Web Page Application (SPA)
       
 ##Setting up the Environment:
 
+###- Node
+
 ###- JAVA
 
 ###- Maven

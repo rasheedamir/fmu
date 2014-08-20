@@ -19,7 +19,7 @@ public abstract class AbstractServiceImpl {
     protected RuntimeService runtimeService;
     protected TaskService taskService;
 
-    /*@Inject
+    @Inject
     public void setRuntimeService(RuntimeService runtimeService) {
         this.runtimeService = runtimeService;
     }
@@ -27,7 +27,7 @@ public abstract class AbstractServiceImpl {
     @Inject
     public void setTaskService(TaskService taskService) {
         this.taskService = taskService;
-    }*/
+    }
 
     /**
      *
