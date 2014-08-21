@@ -201,11 +201,11 @@ HikariCP MySQL recommended settings can be found here: `https://github.com/brett
 ##Logging
 
 ###Log file location
-  - Application logs can be found here: `fmu-core/logs`
+  - Application logs can be found here: `fmu/logs`
 
 ###Log configuration
-  - For unit testing log configuration can be found here:  `fmu-core/src/test/resources/logback-test.xml`    
-  - For production log configuration can be found here:  `fmu-core/src/main/resources/logback.xml`
+  - For unit testing log configuration can be found here:  `fmu/src/test/resources/logback-test.xml`
+  - For production log configuration can be found here:  `fmu/src/main/resources/logback.xml`
       
 ##TroubleShooting
   - There may be errors while running the application:
@@ -251,7 +251,7 @@ If you want more information on using Maven, please go to `http://maven.apache.o
 
 ##Profiles
 
-fmu-core comes with two "profiles":
+fmu comes with two "profiles":
 
   - _"dev"_ for development: it focuses on ease of development and productivity
   - _"prod"_ for production: it focuses on performance and scalability
@@ -264,13 +264,13 @@ Those profiles come in two different configurations:
 Spring profiles are set by Maven, so we have a consistency between the two methods: of course, we have a "prod" profile on _Maven_ and _Spring_ at the same time.
 
 ###dev
-In default mode, fmu-core will use the `"dev"` profile
+In default mode, fmu will use the `"dev"` profile
 If you run the application without Maven, launch the "Application" class (you can probably run it easily from your IDE by right-clicking on it).
 
 If you run the application with Maven, run `mvn -Pdev spring-boot:run`
 
 ###prod
-In production, fmu-core has to run with the `"prod"` profile
+In production, fmu has to run with the `"prod"` profile
 Use Maven to build the application with the "prod" profile: `mvn -Pprod spring-boot:run`
 
 ##Plugins
