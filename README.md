@@ -154,6 +154,19 @@ Make sure the "Contact all updates sites.." checkbox is checked, because all the
 
 - Ubuntu/Debian users: `sudo apt-get install git-core`
 
+###- Node.js, Grunt and Bower
+To be able to run the application with Spring-Boot in production mode, you need:
+    * Grunt, which is a Javascript task runner
+    * Bowers, which is a front-end package manager
+    * Node.js, Grunt and Bowers are based on Node.js, so first install node.js & npm on your machine
+    
+1. If you don't already have Node.js installed, download the latest Node.js version. at http://nodejs.org/download/ (if you use the .msi installer a reboot might be required for the npm to be registerd correctly)
+2. Open a command line prompt and run the following commands
+    `npm update -g npm` , to ensure that you have the latest version of npm
+    `npm install -g grunt-cli` , to install the Grunt's command line interface (CLI) and put it on the system path
+    `npm install -g bower` ,`to install Bower. Make sure that Git is installed prior becasue Bower is dependent on it
+
+
 ###- MySql
 - Window users:
 
