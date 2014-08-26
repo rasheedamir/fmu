@@ -291,13 +291,6 @@ Use Maven to build the application with the "prod" profile: `mvn -Pprod spring-b
 EditorConfig helps developers define and maintain consistent coding styles between different editors and IDEs. Read more [here](http://editorconfig.org/)
 
 ##Testing
-###Front-end testing
-Front end tests can be run directly using command line at the project folder.
-`grunt test` or `grunt karma`
-####Run seperate test cases in the test specs
-Use
- `ddescribe()` or `iit()` instead of `describe()` and `it()` to single out the test cases you want to run
-
 ###Unit Tests (Java)
 We use the Surefire Maven plugin to run our unit tests. Run following command to run unit tests:
 
@@ -311,7 +304,11 @@ The Failsafe Maven plugin is used to execute our integration tests. Run followin
 `mvn clean verify -P integration-test`
 
 ###Unit Tests (JavaScript)
-Karma
+Front end tests can be run directly using command line at the project folder.
+`grunt test` or `grunt karma`
+####Run seperate test cases in the test specs
+Use
+ `ddescribe()` or `iit()` instead of `describe()` and `it()` to single out the test cases you want to run
 
 ##Authentication
 
