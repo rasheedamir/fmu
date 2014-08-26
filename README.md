@@ -220,9 +220,21 @@ e.g.
 Invoking the resources is necessary in order to have the liquibase.properties placeholders filtered. The -P option tells Maven the profile to use and thus the set of values (from the filter properties file) to use for filtering.
 
 ##Running/Debugging the Application
+####Eclipse set and forget run configurations
+Right-click on the `project folder -> Run as ->`
+From here there should be many different Maven run configurations but if you want to add your own configurations or run any Maven commands.
+#####Create ´dev´ run configuration
+1. Right-click on the `project folder -> Run as`
+2. click `Run Configurations`
+2. fill in a name, lets call it fmu-dev in the `Name` field
+3. browse to the correct `Base directory`, it should be something like `${workspace_loc:/fmu}`
+4. fill in `spring-boot:run -Pdev` maven command under `Goals`
+5. fill in ``dev` under `Profiles` and Click Run.
+
+Now the dev run configuration should be available directly from the dropdown menu at the green triangle `Run` icon.
+Repeat the same step for other profiles if needed.
 
 ###Add _'resources'_ directory to classpath in IntelliJ 13
-
 1. Click on the Project view or unhide it by clicking on the "1: Project" button on the left border of the window or by pressing Alt + 1
 2. Find your project or sub-module and click on it to highlight it, then press F4, or right click and choose "Open Module Settings"
 3. Click on the dependencies tab
@@ -279,6 +291,12 @@ Use Maven to build the application with the "prod" profile: `mvn -Pprod spring-b
 EditorConfig helps developers define and maintain consistent coding styles between different editors and IDEs. Read more [here](http://editorconfig.org/)
 
 ##Testing
+###Front-end testing
+Front end tests can be run directly using command line at the project folder.
+`grunt test` or `grunt karma`
+####Run seperate test cases in the test specs
+Use
+ `ddescribe()` or `iit()` instead of `describe()` and `it()` to single out the test cases you want to run
 
 ###Unit Tests (Java)
 We use the Surefire Maven plugin to run our unit tests. Run following command to run unit tests:
