@@ -43,6 +43,55 @@ describe('Services Tests ', function () {
         });
 
     });
+
+    ddescribe('EavropTableService', function(){
+        var eavropTableservice, httpBackend;
+
+        beforeEach(inject(function(_EavropTableService_, $httpBackend){
+            eavropTableservice = _EavropTableService_;
+            httpBackend = $httpBackend;
+        }));
+
+        it("should return all eavrops", function(){
+            httpBackend.whenGET("http://fmu.se/eavrops").respond([
+                {"ärende-id":"12345", "typ":"TMU", "datum":"2014/11/12"},
+                {"ärende-id":"678910", "typ":"SLU", "datum":"2014/12/12"},
+                {"ärende-id":"11221213", "typ":"TMU", "datum":"2014/10/12"}
+            ]);
+            eavropTableservice.getEavrops().then(function(result){
+                expect(result).toEqual(
+                    [{"ärende-id":"12345", "typ":"TMU", "datum":"2014/11/12"},
+                        {"ärende-id":"678910", "typ":"SLU", "datum":"2014/12/12"},
+                        {"ärende-id":"11221213", "typ":"TMU", "datum":"2014/10/12"}]);
+            });
+        });
+
+        it("should return correct number of rows", function(){
+            httpBackend.whenGET("http://fmu.se/eavrops").respond([
+                {"ärende-id":"12345", "typ":"TMU", "datum":"2014/11/12"},
+                {"ärende-id":"678910", "typ":"SLU", "datum":"2014/12/12"},
+                {"ärende-id":"11221213", "typ":"TMU", "datum":"2014/10/12"}
+            ]);
+            eavropTableservice.getEavrops().then(function(result){
+                expect(result.length).toEqual(3);
+            });
+        })
+
+        it("should have non-null fields on each row", function(){
+            httpBackend.whenGET("http://fmu.se/eavrops").respond([
+                {"ärende-id":"12345", "typ":"TMU", "datum":"2014/11/12"},
+                {"ärende-id":"678910", "typ":"SLU", "datum":"2014/12/12"},
+                {"ärende-id":"11221213", "typ":"TMU", "datum":"2014/10/12"}
+            ]);
+            eavropTableservice.getEavrops().then(function(result){
+                angular.forEach(result, function(value, key){
+                    expect(value["datum"]).toBeTruthy;
+                    expect(value["ärende-id"]).toBeTruthy;
+                    expect(value["typ"]).toBeTruthy;
+                })
+            });
+        })
+    });
 });
 
 

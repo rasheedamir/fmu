@@ -201,11 +201,11 @@ HikariCP MySQL recommended settings can be found here: `https://github.com/brett
 ##Logging
 
 ###Log file location
-  - Application logs can be found here: `fmu-core/logs`
+  - Application logs can be found here: `fmu/logs`
 
 ###Log configuration
-  - For unit testing log configuration can be found here:  `fmu-core/src/test/resources/logback-test.xml`    
-  - For production log configuration can be found here:  `fmu-core/src/main/resources/logback.xml`
+  - For unit testing log configuration can be found here:  `fmu/src/test/resources/logback-test.xml`
+  - For production log configuration can be found here:  `fmu/src/main/resources/logback.xml`
       
 ##TroubleShooting
   - There may be errors while running the application:
@@ -220,9 +220,21 @@ e.g.
 Invoking the resources is necessary in order to have the liquibase.properties placeholders filtered. The -P option tells Maven the profile to use and thus the set of values (from the filter properties file) to use for filtering.
 
 ##Running/Debugging the Application
+####Eclipse set and forget run configurations
+Right-click on the `project folder -> Run as ->`
+From here there should be many different Maven run configurations but if you want to add your own configurations or run any Maven commands.
+#####Create ´dev´ run configuration
+1. Right-click on the `project folder -> Run as`
+2. click `Run Configurations`
+2. fill in a name, lets call it fmu-dev in the `Name` field
+3. browse to the correct `Base directory`, it should be something like `${workspace_loc:/fmu}`
+4. fill in `spring-boot:run -Pdev` maven command under `Goals`
+5. fill in ``dev` under `Profiles` and Click Run.
+
+Now the dev run configuration should be available directly from the dropdown menu at the green triangle `Run` icon.
+Repeat the same step for other profiles if needed.
 
 ###Add _'resources'_ directory to classpath in IntelliJ 13
-
 1. Click on the Project view or unhide it by clicking on the "1: Project" button on the left border of the window or by pressing Alt + 1
 2. Find your project or sub-module and click on it to highlight it, then press F4, or right click and choose "Open Module Settings"
 3. Click on the dependencies tab
@@ -251,7 +263,7 @@ If you want more information on using Maven, please go to `http://maven.apache.o
 
 ##Profiles
 
-fmu-core comes with two "profiles":
+fmu comes with two "profiles":
 
   - _"dev"_ for development: it focuses on ease of development and productivity
   - _"prod"_ for production: it focuses on performance and scalability
@@ -264,13 +276,13 @@ Those profiles come in two different configurations:
 Spring profiles are set by Maven, so we have a consistency between the two methods: of course, we have a "prod" profile on _Maven_ and _Spring_ at the same time.
 
 ###dev
-In default mode, fmu-core will use the `"dev"` profile
+In default mode, fmu will use the `"dev"` profile
 If you run the application without Maven, launch the "Application" class (you can probably run it easily from your IDE by right-clicking on it).
 
 If you run the application with Maven, run `mvn -Pdev spring-boot:run`
 
 ###prod
-In production, fmu-core has to run with the `"prod"` profile
+In production, fmu has to run with the `"prod"` profile
 Use Maven to build the application with the "prod" profile: `mvn -Pprod spring-boot:run`
 
 ##Plugins
@@ -279,7 +291,6 @@ Use Maven to build the application with the "prod" profile: `mvn -Pprod spring-b
 EditorConfig helps developers define and maintain consistent coding styles between different editors and IDEs. Read more [here](http://editorconfig.org/)
 
 ##Testing
-
 ###Unit Tests (Java)
 We use the Surefire Maven plugin to run our unit tests. Run following command to run unit tests:
 
@@ -293,7 +304,11 @@ The Failsafe Maven plugin is used to execute our integration tests. Run followin
 `mvn clean verify -P integration-test`
 
 ###Unit Tests (JavaScript)
-Karma
+Front end tests can be run directly using command line at the project folder.
+`grunt test` or `grunt karma`
+####Run seperate test cases in the test specs
+Use
+ `ddescribe()` or `iit()` instead of `describe()` and `it()` to single out the test cases you want to run
 
 ##Authentication
 

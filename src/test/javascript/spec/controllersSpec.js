@@ -120,4 +120,51 @@ describe('Controllers Tests ', function () {
             expect($scope.success).toBe('OK');
         });
     });
+
+    describe('EavropTableController', function(){
+        var scope, eavropTableService;
+
+        beforeEach(function(){
+            var mockRestService = {};
+
+            module('fmuApp', function($provide){
+                $provide.value('EavropTableService', mockRestService);
+            });
+
+            inject(function($q){
+                mockRestService.data = [
+                    {"ärende-id":"12345", "typ":"TMU", "datum":"2014/11/12"},
+                    {"ärende-id":"678910", "typ":"SLU", "datum":"2014/12/12"},
+                    {"ärende-id":"11221213", "typ":"TMU", "datum":"2014/10/12"}
+                ];
+
+                mockRestService.getEavrops = function(){
+                    var defer = $q.defer();
+                    defer.resolve(this.data);
+                    return defer.promise;
+                };
+            });
+
+            beforeEach(inject(function($controller, $rootScope, _EavropTableService_){
+                scope = $rootScope.new();
+                eavropTableService = _EavropTableService_;
+                $controller('EavropTableController', {$scope: scope, EavropTableService: eavropTableService});
+                scope.$digest();
+            }));
+
+            it("should get all eavrops", function(){
+                expect(scope.eavrops).toEqual([
+                    {"ärende-id":"12345", "typ":"TMU", "datum":"2014/11/12"},
+                    {"ärende-id":"678910", "typ":"SLU", "datum":"2014/12/12"},
+                    {"ärende-id":"11221213", "typ":"TMU", "datum":"2014/10/12"}
+                ]);
+            });
+
+            it("Should have none null date values", function(){
+                angular.forEach(scope.eavrops, function(key, value){
+
+                })
+            });
+        });
+    });
 });

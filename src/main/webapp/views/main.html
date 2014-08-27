@@ -20,6 +20,23 @@
 
             </div>
 
+            <div class="row" ng-controller="EavropTableController">
+                <table class="table table-bordered">
+                    <thread>
+                        <tr>
+                            <th scope="col">Ärende-ID</th>
+                            <th scope="col">Typ</th>
+                            <th scope="col">Datum</th>
+                        </tr>
+                    </thread>
+                    <tr ng-repeat="e in eavrops">
+                        <td>{{e["ärende-id"]}}</td>
+                        <td>{{e["typ"]}}</td>
+                        <td>{{e["datum"]}}</td>
+                    </tr>
+                </table>
+            </div>
+
         </div>
     </div>
 </div>
