@@ -26,7 +26,7 @@ public class SimpleFmuProcessTest {
     @Deployment(resources = {"processes/fmu.bpmn"})
     public void test() {
         Eavrop eavrop = EavropUtil.createEavrop();
-        String businessKey = eavrop.getÄrendeId().toString();
+        String businessKey = eavrop.getArendeId().toString();
 
         // Also set the eavrop as process-variable
         HashMap<String, Object> variables = new HashMap<String, Object>();

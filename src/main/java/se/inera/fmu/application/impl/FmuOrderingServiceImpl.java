@@ -35,18 +35,18 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
     }
 
     @Override
-    public ÄrendeId createNewEavrop(ÄrendeId ärendeId, UtredningType utredningType, String tolk, String personalNumber,
+    public ArendeId createNewEavrop(ArendeId arendeId, UtredningType utredningType, String tolk, String personalNumber,
                                     Name patientName, Gender patientGender, Address patientHomeAddress,
                                     String patientEmail) {
         Patient patient = new Patient(personalNumber, patientName, patientGender, patientHomeAddress, patientEmail);
         patient = patientRepository.save(patient);
         log.debug(String.format("patient created :: %s", patient.toString()));
 
-        Eavrop eavrop = new Eavrop(ärendeId, utredningType, tolk, patient);
+        Eavrop eavrop = new Eavrop(arendeId, utredningType, tolk, patient);
         eavrop = eavropRepository.save(eavrop);
         log.debug(String.format("eavrop created :: %s", eavrop));
 
-        String businessKey = eavrop.getÄrendeId().toString();
+        String businessKey = eavrop.getArendeId().toString();
 
         // Also set the eavrop as process-variable
         HashMap<String, Object> variables = new HashMap<String, Object>();
@@ -55,7 +55,7 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("fmuProcess", businessKey, variables);
         log.debug(String.format("business process started :: %s", processInstance.getId()));
 
-        return eavrop.getÄrendeId();
+        return eavrop.getArendeId();
     }
 
 }
