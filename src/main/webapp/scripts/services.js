@@ -197,3 +197,19 @@ fmuApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authServi
             }
         };
     }]);
+
+fmuApp.factory('EavropTableService', ['$q', '$http',
+    function($q, $http){
+        return {
+            getEavrops: function(){
+                return $http.get('foo.json').then(function(data){
+                    // Success
+                    return data.data;
+                }, function(err){
+                    // Failed to retrieve data
+                    return $q.reject(err.data);
+                });
+            }
+        }
+    }]);
+
