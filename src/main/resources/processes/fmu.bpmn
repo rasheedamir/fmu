@@ -4,7 +4,7 @@
     <startEvent id="startevent1" name="Start"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <scriptTask id="scripttask1" name="Print E-avrop" scriptFormat="groovy" activiti:autoStoreVariables="false">
-      <script>out:println "New e-avrop created : " + eavrop.getÄrendeId().toString();</script>
+      <script>out:println "New e-avrop created : " + eavrop.getArendeId().toString();</script>
     </scriptTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="scripttask1"></sequenceFlow>
     <userTask id="assignUtförare" name="Assign To Utförare" activiti:assignee="kermit">
