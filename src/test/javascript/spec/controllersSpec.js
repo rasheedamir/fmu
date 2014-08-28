@@ -121,14 +121,14 @@ describe('Controllers Tests ', function () {
         });
     });
 
-    describe('EavropTableController', function(){
-        var scope, eavropTableService;
+    describe('EavropController', function(){
+        var scope, eavropService;
 
         beforeEach(function(){
             var mockRestService = {};
 
             module('fmuApp', function($provide){
-                $provide.value('EavropTableService', mockRestService);
+                $provide.value('EavropService', mockRestService);
             });
 
             inject(function($q){
@@ -145,10 +145,10 @@ describe('Controllers Tests ', function () {
                 };
             });
 
-            beforeEach(inject(function($controller, $rootScope, _EavropTableService_){
+            beforeEach(inject(function($controller, $rootScope, _EavropService_){
                 scope = $rootScope.new();
-                eavropTableService = _EavropTableService_;
-                $controller('EavropTableController', {$scope: scope, EavropTableService: eavropTableService});
+                eavropService = _EavropService_;
+                $controller('EavropController', {$scope: scope, EavropService: eavropService});
                 scope.$digest();
             }));
 

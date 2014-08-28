@@ -13,6 +13,30 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
 
   grunt.initConfig({
+      shell: {
+        options: {
+          stdout: true,
+          stderr: true
+        },
+        startprodbuild: {
+          command: 'mvn spring-boot:run -Pprod'
+        }
+      },
+    protractor: {
+        options: {
+            keepAlive: true,
+            configFile: "src/test/javascript/protractor.conf.js"
+        },
+        singlerun: {},
+        auto: {
+            keepAlive: false,
+            options: {
+                args: {
+                    seleniumPort: 4444
+                }
+            }
+        }
+    },
     yeoman: {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
@@ -87,7 +111,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to 'localhost' to deny access to the server from outside.
-        hostname: '0.0.0.0',
+        hostname: 'localhost',
         livereload: 35729
       },
       livereload: {
@@ -357,7 +381,8 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma'
+    'karma',
+    'protractor:singlerun'
   ]);
 
   grunt.registerTask('build', [
