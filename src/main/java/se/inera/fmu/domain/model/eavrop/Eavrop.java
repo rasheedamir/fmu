@@ -29,7 +29,7 @@ public class Eavrop extends AbstractAuditingEntity implements IEntity<Eavrop> {
     // business key!
     @NotNull
     @Embedded
-    private ÄrendeId ärendeId;
+    private ArendeId arendeId;
 
     @Column(name = "utredning_type", nullable = false, updatable = false)
     @Enumerated(EnumType.STRING)
@@ -51,11 +51,11 @@ public class Eavrop extends AbstractAuditingEntity implements IEntity<Eavrop> {
 
     /**
      *
-     * @param ärendeId
+     * @param arendeId
      */
-    public Eavrop(final ÄrendeId ärendeId, final UtredningType utredningType, final String tolk, final Patient patient) {
-        Validate.notNull(ärendeId);
-        setÄrendeId(ärendeId);
+    public Eavrop(final ArendeId arendeId, final UtredningType utredningType, final String tolk, final Patient patient) {
+        Validate.notNull(arendeId);
+        setArendeId(arendeId);
         setUtredningType(utredningType);
         setTolk(tolk);
         setPatient(patient);
@@ -64,12 +64,12 @@ public class Eavrop extends AbstractAuditingEntity implements IEntity<Eavrop> {
     //~ Property Methods ===============================================================================================
 
     /**
-     * The ärendeId is the identity of this entity, and is unique.
+     * The arendeId is the identity of this entity, and is unique.
      *
-     * @return ärendeId
+     * @return arendeId
      */
-    public ÄrendeId getÄrendeId() {
-        return ärendeId;
+    public ArendeId getArendeId() {
+        return arendeId;
     }
 
     public UtredningType getUtredningType() {
@@ -92,8 +92,8 @@ public class Eavrop extends AbstractAuditingEntity implements IEntity<Eavrop> {
         this.utredningType = utredningType;
     }
 
-    private void setÄrendeId(ÄrendeId ärendeId) {
-        this.ärendeId = ärendeId;
+    private void setArendeId(ArendeId arendeId) {
+        this.arendeId = arendeId;
     }
 
     private void setPatient(Patient patient) {
@@ -108,7 +108,7 @@ public class Eavrop extends AbstractAuditingEntity implements IEntity<Eavrop> {
 
     @Override
     public boolean sameIdentityAs(final Eavrop other) {
-        return other != null && this.getÄrendeId().sameValueAs(other.getÄrendeId());
+        return other != null && this.getArendeId().sameValueAs(other.getArendeId());
     }
 
     /**
@@ -130,6 +130,6 @@ public class Eavrop extends AbstractAuditingEntity implements IEntity<Eavrop> {
      */
     @Override
     public int hashCode() {
-        return ärendeId.hashCode();
+        return arendeId.hashCode();
     }
 }

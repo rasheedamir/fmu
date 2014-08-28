@@ -9,7 +9,7 @@ import org.joda.time.DateTime;
 @ToString
 public class EavropDTO {
 
-    private String ärendeId;
+    private String arendeId;
 
     private String utredningType;
 
@@ -18,18 +18,18 @@ public class EavropDTO {
     public EavropDTO() {
     }
 
-    public EavropDTO(String ärendeId, String utredningType, DateTime creationTime) {
-        this.ärendeId = ärendeId;
+    public EavropDTO(String arendeId, String utredningType, DateTime creationTime) {
+        this.arendeId = arendeId;
         this.utredningType = utredningType;
         this.creationTime = creationTime;
     }
 
-    public String getÄrendeId() {
-        return ärendeId;
+    public String getArendeId() {
+        return arendeId;
     }
 
-    public void setÄrendeId(String ärendeId) {
-        this.ärendeId = ärendeId;
+    public void setArendeId(String arendeId) {
+        this.arendeId = arendeId;
     }
 
     public String getUtredningType() {

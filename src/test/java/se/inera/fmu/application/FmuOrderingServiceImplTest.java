@@ -14,7 +14,7 @@ import se.inera.fmu.application.util.EavropUtil;
 import se.inera.fmu.application.util.PatientUtil;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
-import se.inera.fmu.domain.model.eavrop.ÄrendeId;
+import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.patient.Patient;
 import se.inera.fmu.domain.model.patient.PatientRepository;
 
@@ -53,19 +53,19 @@ public class FmuOrderingServiceImplTest {
     public void shouldCreateNewEavrop() {
         final Eavrop savedEavrop = stubRepositoryToReturnEavropOnSave();
         final Patient savedPatient = stubRepositoryToReturnPatientOnSave();
-        final ÄrendeId ärendeId = fmuOrderingService.createNewEavrop(EavropUtil.ÄRENDE_ID, EavropUtil.UTREDNING_TYPE,
+        final ArendeId arendeId = fmuOrderingService.createNewEavrop(EavropUtil.ARENDE_ID, EavropUtil.UTREDNING_TYPE,
                                                                          EavropUtil.TOLK, PatientUtil.PERSONAL_NUMBER,
                                                                          PatientUtil.NAME, PatientUtil.GENDER,
                                                                          PatientUtil.HOME_ADDRESS, PatientUtil.EMAIL);
         // verify repository's were called
         verify(patientRepository, times(1)).save(savedPatient);
         verify(eavropRepository, times(1)).save(savedEavrop);
-        assertEquals("Returned ÄrendeId should come from the repository", savedEavrop.getÄrendeId(), ärendeId);
+        assertEquals("Returned ArendeId should come from the repository", savedEavrop.getArendeId(), arendeId);
 
         // verify a business process has been started
         // check if the process is started
         ProcessInstance processInstance = activitiRule.getRuntimeService().createProcessInstanceQuery()
-                                        .processInstanceBusinessKey(ärendeId.toString())
+                                        .processInstanceBusinessKey(arendeId.toString())
                                         .singleResult();
         assertNotNull(processInstance);
 

@@ -17,18 +17,18 @@ import javax.validation.constraints.Size;
  */
 @ToString
 @Embeddable
-public final class ÄrendeId implements ValueObject<ÄrendeId> {
+public final class ArendeId implements ValueObject<ArendeId> {
 
     //~ Instance fields ================================================================================================
 
-    @Column(name = "ärende_id", nullable = false, updatable = false, unique = true)
+    @Column(name = "arende_id", nullable = false, updatable = false, unique = true)
     @NotNull
     @Size(max = 24)
     private String id;
 
     //~ Constructors ===================================================================================================
 
-    ÄrendeId() {
+    ArendeId() {
         // Needed by Hibernate
     }
 
@@ -37,7 +37,7 @@ public final class ÄrendeId implements ValueObject<ÄrendeId> {
      *
      * @param id Id string.
      */
-    public ÄrendeId(final String id) {
+    public ArendeId(final String id) {
         Validate.notNull(id);
         this.id = id;
     }
@@ -49,7 +49,7 @@ public final class ÄrendeId implements ValueObject<ÄrendeId> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ÄrendeId other = (ÄrendeId) o;
+        ArendeId other = (ArendeId) o;
 
         return sameValueAs(other);
     }
@@ -60,7 +60,7 @@ public final class ÄrendeId implements ValueObject<ÄrendeId> {
     }
 
     @Override
-    public boolean sameValueAs(ÄrendeId other) {
+    public boolean sameValueAs(ArendeId other) {
         return other != null && this.id.equals(other.id);
     }
 
