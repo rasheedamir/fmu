@@ -191,7 +191,10 @@ Make sure the "Contact all updates sites.." checkbox is checked, because all the
 3. Open console and check `git --version`. The result should be like `git version 1.9.0.msysgit.0`.
 4. If git installation successful, generate ssh keys and add it to Bitbucket account, follow to the [official guide](https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git).
 
-- Ubuntu/Debian users: `sudo apt-get install git`
+- Ubuntu/Debian users: 
+
+`sudo apt-get install git`
+`sudo apt-get install git-gui` : GUI for Git!
 
 ###- Node.js, Grunt and Bower
 1. To be able to run the application with Spring-Boot in production mode, you need:
