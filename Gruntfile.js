@@ -25,7 +25,7 @@ module.exports = function (grunt) {
     protractor: {
         options: {
             keepAlive: true,
-            configFile: "src/test/javascript/protractor.conf.js"
+            configFile: "src/integration-test/javascript/protractor.conf.js"
         },
         singlerun: {},
         auto: {

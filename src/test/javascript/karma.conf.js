@@ -25,11 +25,11 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/angular-dynamic-locale/src/tmhDinamicLocale.js',
             'src/main/webapp/scripts/*.js',
             'src/main/webapp/scripts/**/*.js',
-            'src/test/javascript/**/!(*.conf).js'
+            'src/test/javascript/**/!(karma.conf).js'
         ],
 
         // list of files / patterns to exclude
-        exclude: ['src/test/javascript/spec/*e2eSpec.js'],
+        exclude: [],
 
         // web server port
         port: 9876,
