@@ -95,7 +95,7 @@ Single Web Page Application (SPA)
 
 1. Create "Tools" folder in your home directory.
 2. Create "Java" folder inside "Tools" folder.
-3. Go to oracle website to download [_Java 7_] (http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html). Download the binary (usually its a zip file) of required version.
+3. Go to oracle website to download [_Java 7_] (http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html). Download the binary (usually its a zip file) of required version. [I downloaded jdk-7u67-linux-x64.tar.gz so, I will use it in upcoming steps]
 4. Copy the downloaded file and paste it in "Java" folder. Then right click and extract. Delete the zip file; its not required anymore now
 5. Create a symlink at _"~/Tools/java"_ and that link points to one of the specific Java version directories. Run this command (open terminal CTR+ALT+T): _ln -s ~/Tools/Java/jdk1.7.0_ _ _67 ~/Tools/java_
 6. From command terminal run: _nano .bashrc_ The .bashrc file will open in editor. (Please note this file is usually hidden in the home folder.)
@@ -112,6 +112,25 @@ Close terminal and open again!
 10.  To verify the installation of Java. Run this command on terminal: _java -version_
 
 ###- Maven
+
+- Ubuntu (Manually)
+
+1. Create "Tools" folder in your home directory. (If not present already)
+2. Create "Maven" folder inside "Tools" folder.
+3. Download [_Maven_](http://maven.apache.org/download.cgi). Download the binary (usually its a zip file) of required version. [I downloaded apache-maven-3.2.3 so, I will use it in upcoming steps]
+4. Copy the downloaded file and paste it in "Maven" folder. Then right click and extract. Delete the zip file; its not required anymore now.
+4. Create a symlink at _"~/Tools/Maven"_ and that link points to one of the specific Maven version directories. Run this command (open terminal CTR+ALT+T): _ln -s ~/Tools/Maven/apache-maven-3.2.1 ~/Tools/maven_
+5. From command terminal run: nano .bashrc The .bashrc file will open in editor. (Please note this file is usually hidden in the home folder.)
+6. Update the MAVEN_HOME to point the symlink
+I update the ".bashrc" file in my home folder. And I do this: (The file has been opened above).
+export MAVEN_HOME=~/Tools/maven
+export PATH=$MAVEN_HOME/bin:$PATH
+CTRL+O & then CTRL+X
+7. Add different aliases for the versions you have to first remove existing symlink and then create new symlink. E.g. for Maven I have defined following aliases in my .bashrc file:
+alias mvn323='rm ~/Tools/maven && ln -s ~/Tools/Maven/apache-maven-3.2.3 ~/Tools/maven'
+8. To switch the version just open the terminal and type: mvn323 or mvn305 and you are done! This way you can switch to different versions.
+9.  To verify the installation of Maven. Run this command on terminal:
+mvn -version
 
 ###- IntelliJ
 
