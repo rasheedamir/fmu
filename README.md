@@ -91,6 +91,26 @@ Single Web Page Application (SPA)
 
 ###- JAVA
 
+- Ubuntu (Manually):
+
+1. Create "Tools" folder in your home directory.
+2. Create "Java" folder inside "Tools" folder.
+3. Go to oracle website to download [_Java 7_] (http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html). Download the binary (usually its a zip file) of required version.
+4. Copy the downloaded file and paste it in "Java" folder. Then right click and extract. Delete the zip file; its not required anymore now
+5. Create a symlink at _"~/Tools/java"_ and that link points to one of the specific Java version directories. Run this command (open terminal CTR+ALT+T): _ln -s ~/Tools/Java/jdk1.7.0_ _ _67 ~/Tools/java_
+6. From command terminal run: _nano .bashrc_ The .bashrc file will open in editor. (Please note this file is usually hidden in the home folder.)
+7. Update the JAVA_HOME to point the symlink
+I update the ".bashrc" file in my home folder. And I do this: (The file has been opened above).
+export JAVA_HOME=~/Tools/java
+export PATH=$JAVA_HOME/bin:$PATH
+CTRL+O & then CTRL+X
+8. Add different aliases for the versions you have to first remove existing symlink and then create new symlink.
+E.g. for Java I have defined following aliases in my .bashrc file:
+_alias java7='rm ~/Tools/java && ln -s ~/Tools/Java/jdk1.7.0_ _ _67 ~/Tools/java'_
+Close terminal and open again!
+9. To switch the version just open the terminal and type: java7 and you are done! This way you can switch to different versions.
+10.  To verify the installation of Java. Run this command on terminal: _java -version_
+
 ###- Maven
 
 ###- IntelliJ
@@ -152,7 +172,7 @@ Make sure the "Contact all updates sites.." checkbox is checked, because all the
 3. Open console and check `git --version`. The result should be like `git version 1.9.0.msysgit.0`.
 4. If git installation successful, generate ssh keys and add it to Bitbucket account, follow to the [official guide](https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git).
 
-- Ubuntu/Debian users: `sudo apt-get install git-core`
+- Ubuntu/Debian users: `sudo apt-get install git`
 
 ###- Node.js, Grunt and Bower
 1. To be able to run the application with Spring-Boot in production mode, you need:
@@ -197,6 +217,9 @@ HikariCP MySQL recommended settings can be found here: `https://github.com/brett
 
 ###Using Codebase
 
+###- kdiff3
+
+###- dbVisualizer
 
 ##Logging
 
