@@ -85,6 +85,9 @@ Single Web Page Application (SPA)
       
       -  `src\test\resources`       
       
+###Using Codebase
+
+
 ##Setting up the Environment:
 
 ###- Node
@@ -100,7 +103,7 @@ An alternative that can get you a more recent version of Node.js is to add a PPA
 3. After that, you can install the Node.js package: `sudo apt-get install nodejs` and you can verify it by running `node --version`
 4. You'll probably want to install npm as well: `sudo apt-get install npm` and you can verify it by running `npm --version`
 
-- Window users:
+- Windows:
 
 1. If you don't already have Node.js installed, download the latest [Node.js](http://nodejs.org/download/) (if you use the .msi installer a reboot might be required for the npm to be registerd correctly)
 2. Open a command line prompt and run the following commands
@@ -214,18 +217,6 @@ Make sure the "Contact all updates sites.." checkbox is checked, because all the
 1. Git Core: `sudo apt-get install git`
 2. Git GUI:  `sudo apt-get install git-gui`
 
-###- Node.js, Grunt and Bower
-1. To be able to run the application with Spring-Boot in production mode, you need:
-    - Grunt, which is a Javascript task runner
-    - Bowers, which is a front-end package manager
-    - Node.js, Grunt and Bowers are based on Node.js, so first install node.js & npm on your machine
-    
-2. If you don't already have Node.js installed, download the latest Node.js version. at http://nodejs.org/download/ (if you use the .msi installer a reboot might be required for the npm to be registerd correctly)
-3. Open a command line prompt and run the following commands
-    - `npm update -g npm` , to ensure that you have the latest version of npm
-    - `npm install -g grunt-cli` , to install the Grunt's command line interface (CLI) and put it on the system path
-    - `npm install -g bower` ,`to install Bower. Make sure that Git is installed prior becasue Bower is dependent on it
-
 ###- MySql
 - Window users:
 
@@ -253,8 +244,6 @@ Follow [this guide](http://www.mysqltutorial.org/install-mysql/), if there is an
 In case you need to drop existing database; `DROP DATABASE fmu;`
 
 HikariCP MySQL recommended settings can be found here: `https://github.com/brettwooldridge/HikariCP/wiki/MySQL-Configuration`
-
-###Using Codebase
 
 ###- kdiff3
 
