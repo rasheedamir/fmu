@@ -89,6 +89,17 @@ Single Web Page Application (SPA)
 
 ###- Node
 
+Node.js is a Javascript platform for server-side programming that allows users to build network applications quickly. In most cases, you'll also want to also install npm, which is the Node.js package manager. This will allow you to easily install modules and packages to use with Node.js.
+
+- Ubuntu 14.04:
+
+An alternative that can get you a more recent version of Node.js is to add a PPA (personal package archive) maintained by Chris Lea. This will probably have more up-to-date versions of Node.js than the official Ubuntu repositories.
+
+1. First, you need to install the PPA in order to get access to its contents: `sudo add-apt-repository ppa:chris-lea/node.js`
+2. The PPA will be added to your configuration. However, you still need to update your local package cache for your server to become aware of the new packages:  `sudo apt-get update`
+3. After that, you can install the Node.js package: `sudo apt-get install nodejs`
+4. You'll probably want to install npm as well: `sudo apt-get install npm`
+
 ###- JAVA
 
 - Ubuntu (Manually):
