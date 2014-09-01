@@ -107,13 +107,30 @@ An alternative that can get you a more recent version of Node.js is to add a PPA
 1. If you don't already have Node.js installed, download the latest [Node.js](http://nodejs.org/download/) (if you use the .msi installer a reboot might be required for the npm to be registerd correctly)
 2. Open a command line prompt and run the following commands
     - `npm update -g npm` , to ensure that you have the latest version of npm
-    - `npm install -g grunt-cli` , to install the Grunt's command line interface (CLI) and put it on the system path
-    - `npm install -g bower` ,`to install Bower. Make sure that Git is installed prior becasue Bower is dependent on it
 
 ###- Bower
 
+- Ubuntu 14.04:
+
 1. `sudo npm install -g bower`
 2. Now verify the version by running `bower --version`
+
+- Windows:
+
+1. `npm install -g bower` ,`to install Bower. Make sure that Git is installed prior becasue Bower is dependent on it
+2. Now verify the version by running `bower --version`    
+
+###- Grunt
+
+- Ubuntu 14.04:
+
+1. `npm install -g grunt-cli`
+2. Now verify the version by running `grunt --version`
+
+- Windows:
+
+1. `npm install -g grunt-cli` , to install the Grunt's command line interface (CLI) and put it on the system path
+2. Now verify the version by running `grunt --version`
 
 ###- JAVA
 
