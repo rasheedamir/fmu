@@ -100,6 +100,14 @@ An alternative that can get you a more recent version of Node.js is to add a PPA
 3. After that, you can install the Node.js package: `sudo apt-get install nodejs` and you can verify it by running `node --version`
 4. You'll probably want to install npm as well: `sudo apt-get install npm` and you can verify it by running `npm --version`
 
+- Window users:
+
+1. If you don't already have Node.js installed, download the latest [Node.js](http://nodejs.org/download/) (if you use the .msi installer a reboot might be required for the npm to be registerd correctly)
+2. Open a command line prompt and run the following commands
+    - `npm update -g npm` , to ensure that you have the latest version of npm
+    - `npm install -g grunt-cli` , to install the Grunt's command line interface (CLI) and put it on the system path
+    - `npm install -g bower` ,`to install Bower. Make sure that Git is installed prior becasue Bower is dependent on it
+
 ###- JAVA
 
 - Ubuntu (Manually):
@@ -162,7 +170,6 @@ More info on this topic can be found [here](http://stackoverflow.com/questions/3
 ###- Eclipse (for Activiti Diagram Only)
 
 #### Install Eclipse Juno
-
 
 In addition to installing the maven package and the eclipse package, and all their dependencies, you need to install the m2e extension. The best way to do this is using the Eclipse Marketplace, but the marketplace is not installed by default in the Ubuntu package.
 
