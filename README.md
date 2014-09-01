@@ -189,7 +189,7 @@ Make sure the "Contact all updates sites.." checkbox is checked, because all the
     - [msgit for windows](https://code.google.com/p/msysgit/downloads/list?q=full+installer+official+git)
 2. Select point 3 _Run git and included unix tools from the windows command prompt_, when needed. _Path_ will be updated during installation.
 3. Open console and check `git --version`. The result should be like `git version 1.9.0.msysgit.0`.
-4. If git installation successful, generate ssh keys and add it to Bitbucket account, follow to the [official guide](https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git).
+4. If git installation successful, generate ssh keys and add it to GitHub/Bitbucket account, follow to the [Bitbuckt official guide](https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git).
 
 - Ubuntu/Debian users:
 
@@ -207,7 +207,6 @@ Make sure the "Contact all updates sites.." checkbox is checked, because all the
     - `npm update -g npm` , to ensure that you have the latest version of npm
     - `npm install -g grunt-cli` , to install the Grunt's command line interface (CLI) and put it on the system path
     - `npm install -g bower` ,`to install Bower. Make sure that Git is installed prior becasue Bower is dependent on it
-
 
 ###- MySql
 - Window users:
