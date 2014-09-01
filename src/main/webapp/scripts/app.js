@@ -3,7 +3,7 @@
 /* App Module */
 
 var fmuApp = angular.module('fmuApp', ['http-auth-interceptor', 'tmh.dynamicLocale',
-    'ngResource', 'ngRoute', 'ngCookies', 'fmuAppUtils', 'pascalprecht.translate', 'truncate']);
+    'ngResource', 'ngRoute', 'ngCookies', 'fmuAppUtils', 'pascalprecht.translate', 'truncate','trNgGrid']);
 
 fmuApp
     .config(['$routeProvider', '$httpProvider', '$translateProvider',  'tmhDynamicLocaleProvider', 'USER_ROLES',
