@@ -251,6 +251,14 @@ HikariCP MySQL recommended settings can be found here: `https://github.com/brett
 
 ###- kdiff3
 
+- Ubuntu/Debian users
+
+1. It's helps when you need to merge conflicting files! watch some youtube video to learn how to use it! 
+2. Go to [kdiff3](https://apps.ubuntu.com/cat/applications/kdiff3/)
+3. Select your ubuntu version from the left
+4. Then simply click the install button!
+5. Change merge tool in "Git Gui" options; Edit -> Options...
+
 ###- dbVisualizer
 
 ##Logging
