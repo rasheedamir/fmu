@@ -192,6 +192,7 @@ Make sure the "Contact all updates sites.." checkbox is checked, because all the
 4. If git installation successful, generate ssh keys and add it to Bitbucket account, follow to the [official guide](https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git).
 
 - Ubuntu/Debian users:
+
 1. Git Core: `sudo apt-get install git`
 2. Git GUI:  `sudo apt-get install git-gui`
 
