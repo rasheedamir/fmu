@@ -97,8 +97,8 @@ An alternative that can get you a more recent version of Node.js is to add a PPA
 
 1. First, you need to install the PPA in order to get access to its contents: `sudo add-apt-repository ppa:chris-lea/node.js`
 2. The PPA will be added to your configuration. However, you still need to update your local package cache for your server to become aware of the new packages:  `sudo apt-get update`
-3. After that, you can install the Node.js package: `sudo apt-get install nodejs`
-4. You'll probably want to install npm as well: `sudo apt-get install npm`
+3. After that, you can install the Node.js package: `sudo apt-get install nodejs` and you can verify it by running `node --version`
+4. You'll probably want to install npm as well: `sudo apt-get install npm` and you can verify it by running `npm --version`
 
 ###- JAVA
 
