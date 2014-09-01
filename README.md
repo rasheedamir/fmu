@@ -93,7 +93,7 @@ Single Web Page Application (SPA)
 
 - Ubuntu (Manually):
 
-1. Create "Tools" folder in your home directory.
+1. Create "Tools" folder in your home directory. (If not present already)
 2. Create "Java" folder inside "Tools" folder.
 3. Go to oracle website to download [_Java 7_] (http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html). Download the binary (usually its a zip file) of required version. [I downloaded jdk-7u67-linux-x64.tar.gz so, I will use it in upcoming steps]
 4. Copy the downloaded file and paste it in "Java" folder. Then right click and extract. Delete the zip file; its not required anymore now
@@ -191,10 +191,9 @@ Make sure the "Contact all updates sites.." checkbox is checked, because all the
 3. Open console and check `git --version`. The result should be like `git version 1.9.0.msysgit.0`.
 4. If git installation successful, generate ssh keys and add it to Bitbucket account, follow to the [official guide](https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git).
 
-- Ubuntu/Debian users: 
-
-`sudo apt-get install git`
-`sudo apt-get install git-gui` : GUI for Git!
+- Ubuntu/Debian users:
+1. Git Core: `sudo apt-get install git`
+2. Git GUI:  `sudo apt-get install git-gui`
 
 ###- Node.js, Grunt and Bower
 1. To be able to run the application with Spring-Boot in production mode, you need:
