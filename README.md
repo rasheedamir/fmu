@@ -89,49 +89,6 @@ Single Web Page Application (SPA)
 
 ##Setting up the Environment:
 
-###- Node
-
-Node.js is a Javascript platform for server-side programming that allows users to build network applications quickly. In most cases, you'll also want to also install npm, which is the Node.js package manager. This will allow you to easily install modules and packages to use with Node.js.
-
-- Ubuntu 14.04:
-
-An alternative that can get you a more recent version of Node.js is to add a PPA (personal package archive) maintained by Chris Lea. This will probably have more up-to-date versions of Node.js than the official Ubuntu repositories.
-
-1. First, you need to install the PPA in order to get access to its contents: `sudo add-apt-repository ppa:chris-lea/node.js`
-2. The PPA will be added to your configuration. However, you still need to update your local package cache for your server to become aware of the new packages:  `sudo apt-get update`
-3. After that, you can install the Node.js package: `sudo apt-get install nodejs` and you can verify it by running `node --version`
-4. You'll probably want to install npm as well: `sudo apt-get install npm` and you can verify it by running `npm --version`
-
-- Windows:
-
-1. If you don't already have Node.js installed, download the latest [Node.js](http://nodejs.org/download/) (if you use the .msi installer a reboot might be required for the npm to be registerd correctly)
-2. Open a command line prompt and run the following commands
-    - `npm update -g npm` , to ensure that you have the latest version of npm
-
-###- Bower
-
-- Ubuntu 14.04:
-
-1. `sudo npm install -g bower`
-2. Now verify the version by running `bower --version`
-
-- Windows:
-
-1. `npm install -g bower` ,`to install Bower. Make sure that Git is installed prior becasue Bower is dependent on it
-2. Now verify the version by running `bower --version`    
-
-###- Grunt
-
-- Ubuntu 14.04:
-
-1. `npm install -g grunt-cli`
-2. Now verify the version by running `grunt --version`
-
-- Windows:
-
-1. `npm install -g grunt-cli` , to install the Grunt's command line interface (CLI) and put it on the system path
-2. Now verify the version by running `grunt --version`
-
 ###- JAVA
 
 - Ubuntu (Manually):
@@ -241,6 +198,49 @@ Make sure the "Contact all updates sites.." checkbox is checked, because all the
 IMPORTANT! For projects being developed on cross-platform operating systems, windows uses CRLF line endings(a format) and Linux, OS X use LF line ending format. If not taken care of these line endings will be changed from one format to the other, causing in merge conflicts. You need to change the `core.autocrlf` property in the Git config to `true`(for Windows) or to `input` in case of Linux.
 
 On Ubuntu you can find the ".gitconfig" under the home directory. It's usually hidden.
+
+###- Node
+
+Node.js is a Javascript platform for server-side programming that allows users to build network applications quickly. In most cases, you'll also want to also install npm, which is the Node.js package manager. This will allow you to easily install modules and packages to use with Node.js.
+
+- Ubuntu 14.04:
+
+An alternative that can get you a more recent version of Node.js is to add a PPA (personal package archive) maintained by Chris Lea. This will probably have more up-to-date versions of Node.js than the official Ubuntu repositories.
+
+1. First, you need to install the PPA in order to get access to its contents: `sudo add-apt-repository ppa:chris-lea/node.js`
+2. The PPA will be added to your configuration. However, you still need to update your local package cache for your server to become aware of the new packages:  `sudo apt-get update`
+3. After that, you can install the Node.js package: `sudo apt-get install nodejs` and you can verify it by running `node --version`
+4. You'll probably want to install npm as well: `sudo apt-get install npm` and you can verify it by running `npm --version`
+
+- Windows:
+
+1. If you don't already have Node.js installed, download the latest [Node.js](http://nodejs.org/download/) (if you use the .msi installer a reboot might be required for the npm to be registerd correctly)
+2. Open a command line prompt and run the following commands
+    - `npm update -g npm` , to ensure that you have the latest version of npm
+
+###- Bower
+
+- Ubuntu 14.04:
+
+1. `sudo npm install -g bower`
+2. Now verify the version by running `bower --version`
+
+- Windows:
+
+1. `npm install -g bower` ,`to install Bower. Make sure that Git is installed prior becasue Bower is dependent on it
+2. Now verify the version by running `bower --version`    
+
+###- Grunt
+
+- Ubuntu 14.04:
+
+1. `npm install -g grunt-cli`
+2. Now verify the version by running `grunt --version`
+
+- Windows:
+
+1. `npm install -g grunt-cli` , to install the Grunt's command line interface (CLI) and put it on the system path
+2. Now verify the version by running `grunt --version`
 
 ###- MySql
 - Window users:
