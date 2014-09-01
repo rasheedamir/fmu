@@ -50,6 +50,8 @@ Single Web Page Application (SPA)
 6. Testing: [_Karma_](http://karma-runner.github.io/) & [_PhantomJS_](http://phantomjs.org/)
 7. Dependency Management: [_Bower_](http://bower.io/)
 8. Full internationalization support with [_Angular Translate_](https://github.com/angular-translate/angular-translate)
+9. Protractor
+10. 
 
 ###Other
 
@@ -84,9 +86,6 @@ Single Web Page Application (SPA)
       -  `src\test\javascript`   
       
       -  `src\test\resources`       
-      
-###Using Codebase
-
 
 ##Setting up the Environment:
 
@@ -216,6 +215,8 @@ Make sure the "Contact all updates sites.." checkbox is checked, because all the
 
 1. Git Core: `sudo apt-get install git`
 2. Git GUI:  `sudo apt-get install git-gui`
+
+IMPORTANT! For projects being developed on cross-platform operatins systems, windows uses CRLF line endings(a format) and Linux, OS X use LF line ending format. If not taken care of these line endings will be changed from one format to the other, causing in merge conflicts. You need to change the 'core.autocrlf' property in the Git config to 'true'(for Windows) or to 'input' in case of Linux.
 
 ###- MySql
 - Window users:
