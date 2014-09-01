@@ -216,7 +216,9 @@ Make sure the "Contact all updates sites.." checkbox is checked, because all the
 1. Git Core: `sudo apt-get install git`
 2. Git GUI:  `sudo apt-get install git-gui`
 
-IMPORTANT! For projects being developed on cross-platform operatins systems, windows uses CRLF line endings(a format) and Linux, OS X use LF line ending format. If not taken care of these line endings will be changed from one format to the other, causing in merge conflicts. You need to change the 'core.autocrlf' property in the Git config to 'true'(for Windows) or to 'input' in case of Linux.
+IMPORTANT! For projects being developed on cross-platform operating systems, windows uses CRLF line endings(a format) and Linux, OS X use LF line ending format. If not taken care of these line endings will be changed from one format to the other, causing in merge conflicts. You need to change the `core.autocrlf` property in the Git config to `true`(for Windows) or to `input` in case of Linux.
+
+On Ubuntu you can find the ".gitconfig" under the home directory. It's usually hidden.
 
 ###- MySql
 - Window users:
