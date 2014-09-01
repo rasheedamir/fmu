@@ -110,6 +110,11 @@ An alternative that can get you a more recent version of Node.js is to add a PPA
     - `npm install -g grunt-cli` , to install the Grunt's command line interface (CLI) and put it on the system path
     - `npm install -g bower` ,`to install Bower. Make sure that Git is installed prior becasue Bower is dependent on it
 
+###- Bower
+
+1. `sudo npm install -g bower`
+2. Now verify the version by running `bower --version`
+
 ###- JAVA
 
 - Ubuntu (Manually):
