@@ -1,7 +1,9 @@
 package se.inera.fmu.domain.model.eavrop;
 
 import lombok.ToString;
+
 import org.apache.commons.lang3.Validate;
+
 import se.inera.fmu.domain.shared.ValueObject;
 
 import javax.persistence.Column;
@@ -63,5 +65,9 @@ public final class ArendeId implements ValueObject<ArendeId> {
     public boolean sameValueAs(ArendeId other) {
         return other != null && this.id.equals(other.id);
     }
-
+    
+    @Override
+    public String toString() {
+    	return id;
+    }
 }

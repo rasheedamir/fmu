@@ -15,13 +15,12 @@
                 </div>
 
             </div>
-
             <table tr-ng-grid="" items="eavrops" ng-controller="EavropController">
                 <thead>
                 <tr>
-                <th field-name="id" display-name="Ärende-ID">
-                </th><th field-name="typ" display-name="Typ" display-format="uppercase">
-                </th><th field-name="datum" display-name="Datum" display-format="uppercase">
+                <th field-name="arendeId" display-name="Ärende-ID" enable-filtering="false">
+                </th><th field-name="utredningType" display-name="Typ" display-format="uppercase" enable-filtering="false">
+                </th><th field-name="creationTime" display-name="Datum" display-format="uppercase" enable-filtering="false">
                 </th></tr>
                 </thead>
             </table>
