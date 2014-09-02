@@ -121,21 +121,21 @@ describe('Controllers Tests ', function () {
         });
     });
 
-    describe('EavropTableController', function(){
-        var scope, eavropTableService;
+    describe('EavropController', function(){
+        var scope, eavropService;
 
         beforeEach(function(){
             var mockRestService = {};
 
             module('fmuApp', function($provide){
-                $provide.value('EavropTableService', mockRestService);
+                $provide.value('EavropService', mockRestService);
             });
 
             inject(function($q){
                 mockRestService.data = [
-                    {"ärende-id":"12345", "typ":"TMU", "datum":"2014/11/12"},
-                    {"ärende-id":"678910", "typ":"SLU", "datum":"2014/12/12"},
-                    {"ärende-id":"11221213", "typ":"TMU", "datum":"2014/10/12"}
+                    {"id":"12345", "typ":"TMU", "datum":"2014/11/12"},
+                    {"id":"678910", "typ":"SLU", "datum":"2014/12/12"},
+                    {"id":"11221213", "typ":"TMU", "datum":"2014/10/12"}
                 ];
 
                 mockRestService.getEavrops = function(){
@@ -145,18 +145,18 @@ describe('Controllers Tests ', function () {
                 };
             });
 
-            beforeEach(inject(function($controller, $rootScope, _EavropTableService_){
+            beforeEach(inject(function($controller, $rootScope, _EavropService_){
                 scope = $rootScope.new();
-                eavropTableService = _EavropTableService_;
-                $controller('EavropTableController', {$scope: scope, EavropTableService: eavropTableService});
+                eavropService = _EavropService_;
+                $controller('EavropController', {$scope: scope, EavropService: eavropService});
                 scope.$digest();
             }));
 
             it("should get all eavrops", function(){
                 expect(scope.eavrops).toEqual([
-                    {"ärende-id":"12345", "typ":"TMU", "datum":"2014/11/12"},
-                    {"ärende-id":"678910", "typ":"SLU", "datum":"2014/12/12"},
-                    {"ärende-id":"11221213", "typ":"TMU", "datum":"2014/10/12"}
+                    {"id":"12345", "typ":"TMU", "datum":"2014/11/12"},
+                    {"id":"678910", "typ":"SLU", "datum":"2014/12/12"},
+                    {"id":"11221213", "typ":"TMU", "datum":"2014/10/12"}
                 ]);
             });
 

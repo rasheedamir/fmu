@@ -50,6 +50,8 @@ Single Web Page Application (SPA)
 6. Testing: [_Karma_](http://karma-runner.github.io/) & [_PhantomJS_](http://phantomjs.org/)
 7. Dependency Management: [_Bower_](http://bower.io/)
 8. Full internationalization support with [_Angular Translate_](https://github.com/angular-translate/angular-translate)
+9. Protractor
+10. 
 
 ###Other
 
@@ -84,10 +86,8 @@ Single Web Page Application (SPA)
       -  `src\test\javascript`   
       
       -  `src\test\resources`       
-      
-##Setting up the Environment:
 
-###- Node
+##Setting up the Environment:
 
 ###- JAVA
 
@@ -152,7 +152,6 @@ More info on this topic can be found [here](http://stackoverflow.com/questions/3
 
 #### Install Eclipse Juno
 
-
 In addition to installing the maven package and the eclipse package, and all their dependencies, you need to install the m2e extension. The best way to do this is using the Eclipse Marketplace, but the marketplace is not installed by default in the Ubuntu package.
 
 #### Install the Eclipse Marketplace
@@ -196,17 +195,52 @@ Make sure the "Contact all updates sites.." checkbox is checked, because all the
 1. Git Core: `sudo apt-get install git`
 2. Git GUI:  `sudo apt-get install git-gui`
 
-###- Node.js, Grunt and Bower
-1. To be able to run the application with Spring-Boot in production mode, you need:
-    - Grunt, which is a Javascript task runner
-    - Bowers, which is a front-end package manager
-    - Node.js, Grunt and Bowers are based on Node.js, so first install node.js & npm on your machine
-    
-2. If you don't already have Node.js installed, download the latest Node.js version. at http://nodejs.org/download/ (if you use the .msi installer a reboot might be required for the npm to be registerd correctly)
-3. Open a command line prompt and run the following commands
+IMPORTANT! For projects being developed on cross-platform operating systems, windows uses CRLF line endings(a format) and Linux, OS X use LF line ending format. If not taken care of these line endings will be changed from one format to the other, causing in merge conflicts. You need to change the `core.autocrlf` property in the Git config to `true`(for Windows) or to `input` in case of Linux.
+
+On Ubuntu you can find the ".gitconfig" under the home directory. It's usually hidden.
+
+###- Node
+
+Node.js is a Javascript platform for server-side programming that allows users to build network applications quickly. In most cases, you'll also want to also install npm, which is the Node.js package manager. This will allow you to easily install modules and packages to use with Node.js.
+
+- Ubuntu 14.04:
+
+An alternative that can get you a more recent version of Node.js is to add a PPA (personal package archive) maintained by Chris Lea. This will probably have more up-to-date versions of Node.js than the official Ubuntu repositories.
+
+1. First, you need to install the PPA in order to get access to its contents: `sudo add-apt-repository ppa:chris-lea/node.js`
+2. The PPA will be added to your configuration. However, you still need to update your local package cache for your server to become aware of the new packages:  `sudo apt-get update`
+3. After that, you can install the Node.js package: `sudo apt-get install nodejs` and you can verify it by running `node --version`
+4. You'll probably want to install npm as well: `sudo apt-get install npm` and you can verify it by running `npm --version`
+
+- Windows:
+
+1. If you don't already have Node.js installed, download the latest [Node.js](http://nodejs.org/download/) (if you use the .msi installer a reboot might be required for the npm to be registerd correctly)
+2. Open a command line prompt and run the following commands
     - `npm update -g npm` , to ensure that you have the latest version of npm
-    - `npm install -g grunt-cli` , to install the Grunt's command line interface (CLI) and put it on the system path
-    - `npm install -g bower` ,`to install Bower. Make sure that Git is installed prior becasue Bower is dependent on it
+
+###- Bower
+
+- Ubuntu 14.04:
+
+1. `sudo npm install -g bower`
+2. Now verify the version by running `bower --version`
+
+- Windows:
+
+1. `npm install -g bower` ,`to install Bower. Make sure that Git is installed prior becasue Bower is dependent on it
+2. Now verify the version by running `bower --version`    
+
+###- Grunt
+
+- Ubuntu 14.04:
+
+1. `npm install -g grunt-cli`
+2. Now verify the version by running `grunt --version`
+
+- Windows:
+
+1. `npm install -g grunt-cli` , to install the Grunt's command line interface (CLI) and put it on the system path
+2. Now verify the version by running `grunt --version`
 
 ###- MySql
 - Window users:
@@ -236,9 +270,15 @@ In case you need to drop existing database; `DROP DATABASE fmu;`
 
 HikariCP MySQL recommended settings can be found here: `https://github.com/brettwooldridge/HikariCP/wiki/MySQL-Configuration`
 
-###Using Codebase
-
 ###- kdiff3
+
+- Ubuntu/Debian users
+
+1. It's helps when you need to merge conflicting files! watch some youtube video to learn how to use it! 
+2. Go to [kdiff3](https://apps.ubuntu.com/cat/applications/kdiff3/)
+3. Select your ubuntu version from the left
+4. Then simply click the install button!
+5. Change merge tool in "Git Gui" options; Edit -> Options...
 
 ###- dbVisualizer
 
@@ -277,6 +317,21 @@ From here there should be many different Maven run configurations but if you wan
 
 Now the dev run configuration should be available directly from the dropdown menu at the green triangle `Run` icon.
 Repeat the same step for other profiles if needed.
+
+####Increase permGem size while building with Maven
+Maven is currently having issues with memory. To increase the pemGem memory size include this VM arguments `XX:MaxPermSize=512m` in the `run-configuration -> JRE`. 512m can be adjusted to any number you see fit
+
+### Build and deploy front end app
+Since front end code does not depend on back-end code the app can be built and run by itself using grunt. The following commands should be used at the project root folder when building front end resources.
+`npm install` to fetch all packages specified in the Package.json file
+`bower install` to fetch all packages specified in the bower.json file
+`grunt` to run all grunt tasks to make sure nothing breaks
+When invoking these commands they should be invoked in this order. 
+There is also `grunt shell:assemble` command to run all these commands at once.
+
+###Live-coding
+When developing front-end app live-coding could be a useful feature to use while developing the UI. 
+use `grunt server` to start live-coding, all changes made to the .html, .js, .css files will be loaded and refreshed automatically by grunt. 
 
 ###Add _'resources'_ directory to classpath in IntelliJ 13
 1. Click on the Project view or unhide it by clicking on the "1: Project" button on the left border of the window or by pressing Alt + 1
@@ -348,8 +403,12 @@ The Failsafe Maven plugin is used to execute our integration tests. Run followin
 `mvn clean verify -P integration-test`
 
 ###Unit Tests (JavaScript)
-Front end tests can be run directly using command line at the project folder.
-`grunt test` or `grunt karma`
+Front end unit tests can be run directly using command line at the project folder.
+Use `grunt karma` for unit testing 
+
+###E2E tests
+Front end e2e tests can be run using `grunt protractor:singlerun` command. Make sure the rest server is active while running these tests.
+
 ####Run seperate test cases in the test specs
 Use
  `ddescribe()` or `iit()` instead of `describe()` and `it()` to single out the test cases you want to run

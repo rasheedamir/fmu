@@ -11,18 +11,75 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
-
+  
+  // Configurable paths for the application
+  var appConfig = {
+    app: require('./bower.json').appPath || 'src/main/webapp',
+    dist: 'src/main/webapp/dist'
+  };
+  
   grunt.initConfig({
-    yeoman: {
-      // configurable paths
-      app: require('./bower.json').appPath || 'app',
-      dist: 'src/main/webapp/dist'
-    },
-    watch: {
-    styles: {
-        files: ['src/main/webapp/styles/{,*/}*.css'],
-        tasks: ['copy:styles', 'autoprefixer']
+	  yeoman: appConfig,
+      shell: {
+        options: {
+          stdout: true,
+          stderr: true
+        },
+        assemble: {
+          command: 'npm install & bower install & grunt'
+        }
       },
+   bowerInstall: {
+	  target: {
+	    src: '<%= yeoman.app %>/index.html' // point to your HTML file.
+	      }
+	    },
+    protractor: {
+        options: {
+            keepAlive: true,
+            configFile: "src/integration-test/javascript/protractor.conf.js"
+        },
+        singlerun: {},
+        auto: {
+            keepAlive: false,
+            options: {
+                args: {
+                    seleniumPort: 4444
+                }
+            }
+        }
+    },
+    // Watches files for changes and runs tasks based on the changed files
+    watch: {
+      bower: {
+        files: ['bower.json'],
+        tasks: ['bowerInstall']
+      },
+      js: {
+        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+//        tasks: ['newer:jshint:all'],
+        options: {
+          livereload: '<%= connect.options.livereload %>'
+        }
+      },
+      jsTest: {
+        files: ['src/test/javascript/spec/{,*/}*.js', 'src/integration-test/javascript/spec/{,*/}*.js'],
+        tasks: ['newer:jshint:test', 'karma', 'protractor:singlerun']
+      },
+      gruntfile: {
+        files: ['Gruntfile.js']
+      },
+      livereload: {
+        options: {
+          livereload: '<%= connect.options.livereload %>'
+        },
+        files: [
+          '<%= yeoman.app %>/{,*/}*.html',
+          '.tmp/styles/{,*/}*.css',
+          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+        ]
+      }
+    },
     livereload: {
         options: {
           livereload: 35729
@@ -33,7 +90,6 @@ module.exports = function (grunt) {
           '{.tmp/,}src/main/webapp/scripts/{,*/}*.js',
           'src/main/webapp/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
-      }
     },
     autoprefixer: {
       options: ['last 1 version'],
@@ -87,7 +143,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to 'localhost' to deny access to the server from outside.
-        hostname: '0.0.0.0',
+        hostname: 'localhost',
         livereload: 35729
       },
       livereload: {
@@ -354,14 +410,17 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+    'bowerInstall',
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma'
+    'karma',
+    'protractor:singlerun'
   ]);
 
   grunt.registerTask('build', [
     'clean:dist',
+    'bowerInstall',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',

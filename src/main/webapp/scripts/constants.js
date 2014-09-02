@@ -15,3 +15,7 @@ fmuApp.constant('FLAGS', {
         en: 'gb',
         sv: "sv"
     });
+
+fmuApp.constant('RestUrl', {
+    eavrop: "http://fmu.se/eavrops"
+});
