@@ -20,7 +20,15 @@
 
             </div>
 
-            <table tr-ng-grid="" items="eavrops" ng-controller="EavropController"></table>
+            <table tr-ng-grid="" items="eavrops" ng-controller="EavropController">
+                <thead>
+                <tr>
+                <th field-name="id" display-name="Ärende-ID">
+                </th><th field-name="typ" display-name="Typ" display-format="uppercase">
+                </th><th field-name="datum" display-name="Datum" display-format="uppercase">
+                </th></tr>
+                </thead>
+            </table>
         </div>
     </div>
 </div>

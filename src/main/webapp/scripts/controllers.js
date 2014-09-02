@@ -293,8 +293,8 @@ fmuApp.controller('EavropController', ['$scope', 'EavropService',
 //        EavropService.getEavrops().then(function(data){
 //            $scope.eavrops = data;
 //        });
-        $scope.eavrops = [{"ärende-id":"12345", "typ":"TMU", "datum":"2014/11/12"},
-            {"ärende-id":"678910", "typ":"SLU", "datum":"2014/12/12"},
-            {"ärende-id":"11221213", "typ":"TMU", "datum":"2014/10/12"}];
+        $scope.eavrops = [{"id":"12345", "typ":"TMU", "datum":"2014/11/12"},
+            {"id":"678910", "typ":"SLU", "datum":"2014/12/12"},
+            {"id":"11221213", "typ":"TMU", "datum":"2014/10/12"}];
     }]);
 

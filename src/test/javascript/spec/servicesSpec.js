@@ -52,18 +52,18 @@ describe('Services Tests ', function () {
             httpBackend = $httpBackend;
             // Mock http response
             httpBackend.whenGET(_RestUrl_.eavrop).respond([
-                {"ärende-id":"12345", "typ":"TMU", "datum":"2014/11/12"},
-                {"ärende-id":"678910", "typ":"SLU", "datum":"2014/12/12"},
-                {"ärende-id":"11221213", "typ":"TMU", "datum":"2014/10/12"}
+                {"id":"12345", "typ":"TMU", "datum":"2014/11/12"},
+                {"id":"678910", "typ":"SLU", "datum":"2014/12/12"},
+                {"id":"11221213", "typ":"TMU", "datum":"2014/10/12"}
             ]);
         }));
 
         it("should return all eavrops", function(){
             eavropservice.getEavrops().then(function(result){
                 expect(result).toEqual(
-                    [{"ärende-id":"12345", "typ":"TMU", "datum":"2014/11/12"},
-                        {"ärende-id":"678910", "typ":"SLU", "datum":"2014/12/12"},
-                        {"ärende-id":"11221213", "typ":"TMU", "datum":"2014/10/12"}]);
+                    [{"id":"12345", "typ":"TMU", "datum":"2014/11/12"},
+                        {"id":"678910", "typ":"SLU", "datum":"2014/12/12"},
+                        {"id":"11221213", "typ":"TMU", "datum":"2014/10/12"}]);
             });
         });
 
@@ -77,7 +77,7 @@ describe('Services Tests ', function () {
             eavropservice.getEavrops().then(function(result){
                 angular.forEach(result, function(value, key){
                     expect(value["datum"]).toBeTruthy;
-                    expect(value["ärende-id"]).toBeTruthy;
+                    expect(value["id"]).toBeTruthy;
                     expect(value["typ"]).toBeTruthy;
                 })
             });

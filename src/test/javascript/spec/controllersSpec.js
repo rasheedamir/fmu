@@ -133,9 +133,9 @@ describe('Controllers Tests ', function () {
 
             inject(function($q){
                 mockRestService.data = [
-                    {"ärende-id":"12345", "typ":"TMU", "datum":"2014/11/12"},
-                    {"ärende-id":"678910", "typ":"SLU", "datum":"2014/12/12"},
-                    {"ärende-id":"11221213", "typ":"TMU", "datum":"2014/10/12"}
+                    {"id":"12345", "typ":"TMU", "datum":"2014/11/12"},
+                    {"id":"678910", "typ":"SLU", "datum":"2014/12/12"},
+                    {"id":"11221213", "typ":"TMU", "datum":"2014/10/12"}
                 ];
 
                 mockRestService.getEavrops = function(){
@@ -154,9 +154,9 @@ describe('Controllers Tests ', function () {
 
             it("should get all eavrops", function(){
                 expect(scope.eavrops).toEqual([
-                    {"ärende-id":"12345", "typ":"TMU", "datum":"2014/11/12"},
-                    {"ärende-id":"678910", "typ":"SLU", "datum":"2014/12/12"},
-                    {"ärende-id":"11221213", "typ":"TMU", "datum":"2014/10/12"}
+                    {"id":"12345", "typ":"TMU", "datum":"2014/11/12"},
+                    {"id":"678910", "typ":"SLU", "datum":"2014/12/12"},
+                    {"id":"11221213", "typ":"TMU", "datum":"2014/10/12"}
                 ]);
             });
 
