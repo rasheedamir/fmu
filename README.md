@@ -318,6 +318,21 @@ From here there should be many different Maven run configurations but if you wan
 Now the dev run configuration should be available directly from the dropdown menu at the green triangle `Run` icon.
 Repeat the same step for other profiles if needed.
 
+####Increase permGem size while building with Maven
+Maven is currently having issues with memory. To increase the pemGem memory size include this VM arguments `XX:MaxPermSize=512m` in the `run-configuration -> JRE`. 512m can be adjusted to any number you see fit
+
+### Build and deploy front end app
+Since front end code does not depend on back-end code the app can be built and run by itself using grunt. The following commands should be used at the project root folder when building front end resources.
+`npm install` to fetch all packages specified in the Package.json file
+`bower install` to fetch all packages specified in the bower.json file
+`grunt` to run all grunt tasks to make sure nothing breaks
+When invoking these commands they should be invoked in this order. 
+There is also `grunt shell:assemble` command to run all these commands at once.
+
+###Live-coding
+When developing front-end app live-coding could be a useful feature to use while developing the UI. 
+use `grunt server` to start live-coding, all changes made to the .html, .js, .css files will be loaded and refreshed automatically by grunt. 
+
 ###Add _'resources'_ directory to classpath in IntelliJ 13
 1. Click on the Project view or unhide it by clicking on the "1: Project" button on the left border of the window or by pressing Alt + 1
 2. Find your project or sub-module and click on it to highlight it, then press F4, or right click and choose "Open Module Settings"
@@ -388,8 +403,12 @@ The Failsafe Maven plugin is used to execute our integration tests. Run followin
 `mvn clean verify -P integration-test`
 
 ###Unit Tests (JavaScript)
-Front end tests can be run directly using command line at the project folder.
-`grunt test` or `grunt karma`
+Front end unit tests can be run directly using command line at the project folder.
+Use `grunt karma` for unit testing 
+
+###E2E tests
+Front end e2e tests can be run using `grunt protractor:singlerun` command. Make sure the rest server is active while running these tests.
+
 ####Run seperate test cases in the test specs
 Use
  `ddescribe()` or `iit()` instead of `describe()` and `it()` to single out the test cases you want to run
