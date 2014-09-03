@@ -1,9 +1,9 @@
 package se.inera.fmu.application.util;
 
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
-
 import org.joda.time.LocalDate;
 import org.junit.Test;
 
@@ -101,10 +101,10 @@ public class BusinessDaysUtilTest {
 		//Week without holidays
 		assertEquals(5, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2014,1,27), new LocalDate(2014,02,03)));
 		
-		//Easter week 2014 4 workingdays
+		//Easter week 2014 4 working days
 		assertEquals(4, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2014,4,14), new LocalDate(2014,04,21)));
 		
-		//Easter week 2015 4 workingdays
+		//Easter week 2015 4 working days
 		assertEquals(4, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2015,3,30), new LocalDate(2015,04,6)));
 		
 		//Christmas week 2014
@@ -113,13 +113,28 @@ public class BusinessDaysUtilTest {
 		//Christmas week 2015
 		assertEquals(3, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2015,12,21), new LocalDate(2015,12,28)));
 		
-		//Christmas holiday 2014, 9 workingdays
+		//Christmas holiday 2014, 9 working days
 		assertEquals(9, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2014,12,22), new LocalDate(2015,1,12)));
 
 		//Christmas holiday 2015
 		assertEquals(10, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2015,12,21), new LocalDate(2016,1,11)));
 
 	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testIsBusinessDayNullValues() {
+		BusinessDaysUtil.isBusinessDay(null);
+	}
+	
 
+	@Test(expected=IllegalArgumentException.class)
+	public void testIsHolidayNullValue() {
+		BusinessDaysUtil.isHoliday(null);
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void testNumberOfBusinessDaysNullValues() {
+		BusinessDaysUtil.numberOfBusinessDays(null, null);
+	}
 
 }

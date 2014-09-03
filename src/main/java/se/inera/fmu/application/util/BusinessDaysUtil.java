@@ -33,7 +33,7 @@ public class BusinessDaysUtil {
     }
 	
 	//Set up floating day holidays when first needed. i.e. when the floting holidays or a specific year is needed a set is created and added to the map for further use.
-	private static final Map<Integer,Set<Holiday>> floadtingDayHolidaysPerYearMap = new HashMap<Integer,Set<Holiday>>();
+	private static final Map<Integer,Set<Holiday>> floatingDayHolidaysPerYearMap = new HashMap<Integer,Set<Holiday>>();
 	private static Set<Holiday> createFloatingHolidaysForYear(Integer year) {
 		Set<Holiday> floatingHolidaysForYear = new HashSet<Holiday>(); 
 		
@@ -77,9 +77,9 @@ public class BusinessDaysUtil {
 		//Allhelgonaafton - Friday preceding all 19/6 - 25/6, No holiday but less workinghours during day. TODO: investigate if it should be included
 		//floatingHolidaysForYear.add(new Holiday(allSaintsDay.minusDays(DateTimeConstants.SATURDAY - DateTimeConstants.FRIDAY)));
 
-		floadtingDayHolidaysPerYearMap.put(year, Collections.unmodifiableSet(floatingHolidaysForYear));
+		floatingDayHolidaysPerYearMap.put(year, Collections.unmodifiableSet(floatingHolidaysForYear));
 		
-		return floadtingDayHolidaysPerYearMap.get(year);
+		return floatingDayHolidaysPerYearMap.get(year);
 	}
 	
 	
@@ -130,7 +130,12 @@ public class BusinessDaysUtil {
 	 * Utility method for calculating number of business days between two dates considering weekends and swedish holidays
 	 * The to date is exclusive
 	 * */
-	public static int numberOfBusinessDays(@NotNull LocalDate from, @NotNull LocalDate to){
+	public static int numberOfBusinessDays(LocalDate from, LocalDate to){
+		
+		if(from == null || to == null ){
+			throw new IllegalArgumentException("From and to date need to be valid dates");
+		}
+		
 		int numberOfBusinessDays = 0;
 		
 		//Iterate over all dates in the period, exluding the 'to' date, and check if is a business day 
@@ -150,7 +155,10 @@ public class BusinessDaysUtil {
 	 * The to date is exclusive
 	 * */
 	public static boolean isBusinessDay(LocalDate date){
-	
+		if(date == null ){
+			throw new IllegalArgumentException("Date need to be valid");
+		}
+
 		if(isWeekend(date)){
 			return false;
 		}
@@ -167,6 +175,10 @@ public class BusinessDaysUtil {
 	 * The to date is exclusive
 	 * */
 	public static boolean isHoliday(LocalDate date ){
+		if(date == null ){
+			throw new IllegalArgumentException("Date need to be valid");
+		}
+
 		Holiday day = new Holiday(date);
 		
 		if(fixedDayHolidays.contains(day)){
@@ -189,7 +201,7 @@ public class BusinessDaysUtil {
 
 	
 	private static Set<Holiday> getFloatingHolidaysForYear(int year) {
-		Set<Holiday> floatingHolidaysForYear = floadtingDayHolidaysPerYearMap.get(Integer.valueOf(year));
+		Set<Holiday> floatingHolidaysForYear = floatingDayHolidaysPerYearMap.get(Integer.valueOf(year));
 		
 		if(floatingHolidaysForYear == null){
 			floatingHolidaysForYear = createFloatingHolidaysForYear(Integer.valueOf(year));
