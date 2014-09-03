@@ -416,3 +416,16 @@ Use
 ##Authentication
 
 Cookie-Based Authentication (Session)
+
+##Endpoints
+
+Actuator endpoints allow you to monitor and interact with your application. Spring Boot includes a number of built-in endpoints and you can also add your own. For example the health endpoint provides basic application `health` information.
+
+The way that endpoints are exposed will depend on the type of technology that you choose. Most applications choose HTTP monitoring, where the ID of the endpoint is mapped to a URL. For example, by default, the `health` endpoint will be mapped to `/health`.
+
+Here you can see list of [endpoints](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-endpoints)
+
+##H2 Console
+
+When running application in "dev" mode then H2 Console can be accessed through the URL: `http://localhost:8080/console`
+For database URL use: `jdbc:h2:mem:fmu`
