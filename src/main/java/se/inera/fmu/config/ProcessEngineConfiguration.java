@@ -39,10 +39,6 @@ import java.util.List;
  * @author Rasheed Amir
  */
 @Configuration
-@ConditionalOnClass({ProcessEngine.class, EnableActiviti.class})
-@ConditionalOnBean(DataSource.class)
-@AutoConfigureAfter(DatabaseConfiguration.class)
-@ConditionalOnMissingBean(ProcessEngine.class)
 public class ProcessEngineConfiguration {
 
     @Configuration
