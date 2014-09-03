@@ -15,7 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "T_PATIENT")
 @ToString
-public class Patient extends AbstractAuditingEntity implements IEntity<Patient> {
+public class Patient extends AbstractBaseEntity implements IEntity<Patient> {
 
     //~ Instance fields ================================================================================================
 

@@ -10,7 +10,6 @@
     <!-- JHipster core -->
     <changeSet id="1" author="rasheed">
         <createTable tableName="T_USER">
-            <column name="version" type="BIGINT"/>
             <column name="login" type="varchar(50)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>

@@ -4,6 +4,7 @@ import lombok.ToString;
 import org.apache.commons.lang3.Validate;
 import se.inera.fmu.domain.model.patient.Patient;
 import se.inera.fmu.domain.shared.AbstractAuditingEntity;
+import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
 
 import javax.persistence.*;
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "T_EAVROP")
 @ToString
-public class Eavrop extends AbstractAuditingEntity implements IEntity<Eavrop> {
+public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 
     //~ Instance fields ================================================================================================
 

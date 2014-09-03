@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Created by Rasheed on 7/17/14.
  */
 @MappedSuperclass
-public abstract class AbstractBaseEntity implements Serializable {
+public abstract class AbstractBaseEntity extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
 
