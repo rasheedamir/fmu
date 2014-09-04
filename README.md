@@ -339,7 +339,13 @@ Maven is currently having issues with memory. To increase the pemGem memory size
 You can now run your application and it will have the selected path in the classpath.
 
 ###As a "main" Java class
-From your IDE, right-click on the "Application" class at the root of your Java package hierarchy, and run it directly. You should also be able to debug it as easily.
+1. Go to `Run` then `Edit Configurations...`
+2. Then click on `+` sign on the top left corner then select `Application`
+3. Give name `Application` (or whatever you like)
+4. Main class `se.inera.fmu.Application`
+5. VM Options `-XX:MaxPermSize=256M` (this is must otherwise you might run in to PermGem or OutOfMemory issues)
+
+From your IDE, right-click on the `se.inera.fmu.Application` class at the root of your Java package hierarchy, and run it directly. You should also be able to debug it as easily.
 
 The application will be available on `http://localhost:8080`.
 Note: The default profile is `dev` so, it will run on port `8080`
@@ -392,16 +398,11 @@ Spring profiles are set by Maven, so we have a consistency between the two metho
 In default mode, fmu will use the `"dev"` profile
 If you run the application without Maven, launch the "Application" class (you can probably run it easily from your IDE by right-clicking on it).
 
-If you run the application with Maven, run `mvn -Pdev spring-boot:run`
+If you run the application with Maven, run `mvn -Pdev spring-boot:run -Drun.jvmArguments="-XX:MaxPermSize=256M"`
 
 ###prod
 In production, fmu has to run with the `"prod"` profile
-Use Maven to build the application with the "prod" profile: `mvn -Pprod spring-boot:run`
-
-##Plugins
-
-###EditorConfig
-EditorConfig helps developers define and maintain consistent coding styles between different editors and IDEs. Read more [here](http://editorconfig.org/)
+Use Maven to build the application with the "prod" profile: `mvn -Pprod spring-boot:run -Drun.jvmArguments="-XX:MaxPermSize=256M"`
 
 ##Testing
 ###Unit Tests (Java)
@@ -433,7 +434,7 @@ Cookie-Based Authentication (Session)
 
 ##Endpoints
 
-Actuator endpoints allow you to monitor and interact with your application. Spring Boot includes a number of built-in endpoints and you can also add your own. For example the health endpoint provides basic application `health` information.
+Spring-Boot Actuator endpoints allow you to monitor and interact with your application. Spring Boot includes a number of built-in endpoints and you can also add your own. For example the health endpoint provides basic application `health` information.
 
 The way that endpoints are exposed will depend on the type of technology that you choose. Most applications choose HTTP monitoring, where the ID of the endpoint is mapped to a URL. For example, by default, the `health` endpoint will be mapped to `/health`.
 
@@ -443,3 +444,8 @@ Here you can see list of [endpoints](http://docs.spring.io/spring-boot/docs/curr
 
 When running application in "dev" mode then H2 Console can be accessed through the URL: `http://localhost:8080/console`
 For database URL use: `jdbc:h2:mem:fmu`
+
+##Plugins
+
+###EditorConfig
+EditorConfig helps developers define and maintain consistent coding styles between different editors and IDEs. Read more [here](http://editorconfig.org/)
