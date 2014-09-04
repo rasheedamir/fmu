@@ -456,3 +456,8 @@ Please pass this JVM argument `-Drun.jvmArguments="-XX:MaxPermSize=256M"` if run
 
 ####EditorConfig
 EditorConfig helps developers define and maintain consistent coding styles between different editors and IDEs. Read more [here](http://editorconfig.org/)
+
+Add SSH key
+Follow this tutorial: https://help.github.com/articles/generating-ssh-keys
+If you run into issue like: ssh: connect to host github.com port 22: Connection refused
+Then follow advice here: http://stackoverflow.com/questions/7953806/github-ssh-via-public-wifi-port-22-blocked
