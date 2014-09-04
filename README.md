@@ -348,6 +348,7 @@ Note: The default profile is `dev` so, it will run on port `8080`
 
 ###Deploy frontend only (Grunt)
 Since front end code does not depend on back-end code the app can be built and run by itself using grunt. The following commands should be used at the project root folder when building front end resources:
+
 1. `npm install` to fetch all packages specified in the Package.json file
 2. `bower install` to fetch all packages specified in the bower.json file
 3. `grunt` to run all grunt tasks to make sure nothing breaks
