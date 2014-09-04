@@ -304,9 +304,13 @@ e.g.
 Invoking the resources is necessary in order to have the liquibase.properties placeholders filtered. The -P option tells Maven the profile to use and thus the set of values (from the filter properties file) to use for filtering.
 
 ##Running/Debugging the Application
+
+###Eclipse
+
 ####Eclipse set and forget run configurations
 Right-click on the `project folder -> Run as ->`
 From here there should be many different Maven run configurations but if you want to add your own configurations or run any Maven commands.
+
 #####Create ´dev´ run configuration
 1. Right-click on the `project folder -> Run as`
 2. click `Run Configurations`
@@ -316,22 +320,13 @@ From here there should be many different Maven run configurations but if you wan
 5. fill in ``dev` under `Profiles` and Click Run.
 
 Now the dev run configuration should be available directly from the dropdown menu at the green triangle `Run` icon.
+
 Repeat the same step for other profiles if needed.
 
 ####Increase permGem size while building with Maven
 Maven is currently having issues with memory. To increase the pemGem memory size include this VM arguments `XX:MaxPermSize=512m` in the `run-configuration -> JRE`. 512m can be adjusted to any number you see fit
 
-### Build and deploy front end app
-Since front end code does not depend on back-end code the app can be built and run by itself using grunt. The following commands should be used at the project root folder when building front end resources.
-`npm install` to fetch all packages specified in the Package.json file
-`bower install` to fetch all packages specified in the bower.json file
-`grunt` to run all grunt tasks to make sure nothing breaks
-When invoking these commands they should be invoked in this order. 
-There is also `grunt shell:assemble` command to run all these commands at once.
-
-###Live-coding
-When developing front-end app live-coding could be a useful feature to use while developing the UI. 
-use `grunt server` to start live-coding, all changes made to the .html, .js, .css files will be loaded and refreshed automatically by grunt. 
+###IntelliJ
 
 ###Add _'resources'_ directory to classpath in IntelliJ 13
 1. Click on the Project view or unhide it by clicking on the "1: Project" button on the left border of the window or by pressing Alt + 1
@@ -349,23 +344,42 @@ From your IDE, right-click on the "Application" class at the root of your Java p
 The application will be available on `http://localhost:8080`.
 Note: The default profile is `dev` so, it will run on port `8080`
 
-###As a Maven project
-You can launch the Java server with Maven:
+###Console
+
+###Deploy frontend only (Grunt)
+Since front end code does not depend on back-end code the app can be built and run by itself using grunt. The following commands should be used at the project root folder when building front end resources:
+1. `npm install` to fetch all packages specified in the Package.json file
+2. `bower install` to fetch all packages specified in the bower.json file
+3. `grunt` to run all grunt tasks to make sure nothing breaks
+
+When invoking these commands they should be invoked in this order. 
+
+There is also `grunt shell:assemble` command to run all these commands at once.
+
+###Live-coding
+When developing front-end app live-coding could be a useful feature to use while developing the UI. 
+use `grunt server` to start live-coding, all changes made to the .html, .js, .css files will be loaded and refreshed automatically by grunt. 
+
+###Deploy both frontend & backend (Maven)
+You can launch the Java server with Maven by running following command at the project root folder:
 
 `mvn spring-boot:run -P<profile_name>`
 e.g.
-`mvn spring-boot:run -Pprod`
+`mvn spring-boot:run -Pprod -Drun.jvmArguments="-XX:MaxPermSize=256M"`
 
 The application will be available on `http://localhost:9090`
+
+Please note that due to `PerGem` & `OutOfMemory` issues on few systems we have to pass this extra argument when running through maven: `-Drun.jvmArguments="-XX:MaxPermSize=256M"`
 
 If you want more information on using Maven, please go to `http://maven.apache.org`
 
 ##Profiles
 
-fmu comes with two "profiles":
+fmu comes with three "profiles":
 
   - _"dev"_ for development: it focuses on ease of development and productivity
-  - _"prod"_ for production: it focuses on performance and scalability
+  - _"integration-test"_ for integration-test: ...
+  - _"prod"_ for production: it focuses on performance and scalability  
 
 Those profiles come in two different configurations:
 
