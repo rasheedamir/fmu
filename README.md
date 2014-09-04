@@ -291,9 +291,6 @@ HikariCP MySQL recommended settings can be found here: `https://github.com/brett
   - For unit testing log configuration can be found here:  `fmu/src/test/resources/logback-test.xml`
   - For production log configuration can be found here:  `fmu/src/main/resources/logback.xml`
       
-##TroubleShooting
-  - There may be errors while running the application:
-  - 
 
 ##Generating Liquibase ChangeLog
 
@@ -445,6 +442,11 @@ Here you can see list of [endpoints](http://docs.spring.io/spring-boot/docs/curr
 
 When running application in "dev" mode then H2 Console can be accessed through the URL: `http://localhost:8080/console`
 For database URL use: `jdbc:h2:mem:fmu`
+
+##TroubleShooting
+
+####PerGem or OutOfMemory Issue
+Please pass this JVM argument `-Drun.jvmArguments="-XX:MaxPermSize=256M"` if running through maven. 
 
 ##Plugins
 
