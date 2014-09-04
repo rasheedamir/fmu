@@ -392,34 +392,38 @@ Those profiles come in two different configurations:
 
 Spring profiles are set by Maven, so we have a consistency between the two methods: of course, we have a "prod" profile on _Maven_ and _Spring_ at the same time.
 
-###dev
+####dev
 In default mode, fmu will use the `"dev"` profile
 If you run the application without Maven, launch the "Application" class (you can probably run it easily from your IDE by right-clicking on it).
 
 If you run the application with Maven, run `mvn -Pdev spring-boot:run -Drun.jvmArguments="-XX:MaxPermSize=256M"`
 
-###prod
+####prod
 In production, fmu has to run with the `"prod"` profile
 Use Maven to build the application with the "prod" profile: `mvn -Pprod spring-boot:run -Drun.jvmArguments="-XX:MaxPermSize=256M"`
 
+####integration-test
+...
+
 ##Testing
-###Unit Tests (Java)
+
+####Unit Tests (Java)
 We use the Surefire Maven plugin to run our unit tests. Run following command to run unit tests:
 
 `mvn clean test`
 
 During development unit test's can be run from within the IDE.
 
-###Integration Tests (Java)
+####Integration Tests (Java)
 The Failsafe Maven plugin is used to execute our integration tests. Run following command to run integration tests:
  
 `mvn clean verify -P integration-test`
 
-###Unit Tests (JavaScript)
+####Unit Tests (JavaScript)
 Front end unit tests can be run directly using command line at the project folder.
 Use `grunt karma` for unit testing 
 
-###E2E tests
+####E2E tests
 Front end e2e tests can be run using `grunt protractor:singlerun` command. Make sure the rest server is active while running these tests.
 
 ####Run seperate test cases in the test specs
@@ -450,5 +454,5 @@ Please pass this JVM argument `-Drun.jvmArguments="-XX:MaxPermSize=256M"` if run
 
 ##Plugins
 
-###EditorConfig
+####EditorConfig
 EditorConfig helps developers define and maintain consistent coding styles between different editors and IDEs. Read more [here](http://editorconfig.org/)
