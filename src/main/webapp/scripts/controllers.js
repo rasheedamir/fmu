@@ -293,5 +293,5 @@ fmuApp.controller('EavropController', ['$scope', 'EavropService',
         EavropService.getEavrops().then(function(data){
             $scope.eavrops = data;
         });
-}]);
+    }]);
 
