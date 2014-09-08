@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropRepositoryStub;
+import se.inera.fmu.interfaces.managing.dtomapper.EavropDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 
 import com.codahale.metrics.annotation.Timed;
@@ -32,6 +33,8 @@ public class EavropResource {
 
 	@Inject
 	private EavropRepositoryStub eavropRepository;
+	
+	private EavropDTOMapper eavropMapper = new EavropDTOMapper();
 
 	@RequestMapping(value = "/rest/eavrop", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
@@ -39,7 +42,7 @@ public class EavropResource {
 		DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-mm-dd");
 		ResponseEntity<List<EavropDTO>> list = new ResponseEntity<List<EavropDTO>>(new ArrayList<EavropDTO>(), HttpStatus.OK);
 		for (Eavrop e : eavropRepository.findAll()) {
-			list.getBody().add(new EavropDTO(e.getArendeId().toString(), e.getUtredningType().toString(), e.getCreatedDate()));
+			list.getBody().add(eavropMapper.mappToDTO(e));
 		}
 		return list;
 	}

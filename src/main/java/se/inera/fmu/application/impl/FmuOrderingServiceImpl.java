@@ -6,11 +6,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.eavrop.*;
-import se.inera.fmu.domain.model.patient.*;
+import se.inera.fmu.domain.model.patient.Address;
+import se.inera.fmu.domain.model.patient.Gender;
+import se.inera.fmu.domain.model.patient.Name;
+import se.inera.fmu.domain.model.patient.Patient;
+import se.inera.fmu.domain.model.patient.PatientRepository;
 
 import javax.inject.Inject;
+
 import java.util.HashMap;
 
 /**

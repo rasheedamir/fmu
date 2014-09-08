@@ -1,6 +1,11 @@
 package se.inera.fmu.application.util;
 
-import se.inera.fmu.domain.model.patient.*;
+import se.inera.fmu.domain.model.eavrop.*;
+import se.inera.fmu.domain.model.patient.Address;
+import se.inera.fmu.domain.model.patient.Gender;
+import se.inera.fmu.domain.model.patient.Initials;
+import se.inera.fmu.domain.model.patient.Name;
+import se.inera.fmu.domain.model.patient.Patient;
 
 /**
  * Created by Rasheed on 8/7/14.

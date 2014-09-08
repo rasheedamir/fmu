@@ -1,28 +1,32 @@
 <div ng-cloak>
-        <div class="row">
-            <h1 translate="main.title">Welcome to FMU - FÃ¶rdjupade Medicinska Utredningar!</h1>
-            <p class="lead" translate="main.subtitle">This is your homepage</p>
+	<div class="row">
+		<h1 translate="main.title">Welcome to FMU - Fördjupade
+			Medicinska Utredningar!</h1>
+		<p class="lead" translate="main.subtitle">This is your homepage</p>
 
-            <div ng-switch="authenticated">
-                <div class="alert alert-success" ng-switch-when="true"
-                     translate="main.logged.message" translate-values="{username: '{{account.login}}'}">
-                    You are logged in as user "Admin".
-                </div>
+		<div ng-switch="authenticated">
+			<div id="authenticated" class="alert alert-success"
+				ng-switch-when="true" translate="main.logged.message"
+				translate-values="{username: '{{account.login}}'}">You are
+				logged in as user "Admin".</div>
 
-                <div class="alert alert-warning" ng-switch-when="false" translate="global.messages.info.authenticated">
-                    If you want to <a href="#/login">authenticate</a>, you can try the default login="admin" and
-                    password="admin".
-                </div>
+			<div id="notAuthenticated" class="alert alert-warning"
+				ng-switch-when="false"
+				translate="global.messages.info.authenticated">
+				If you want to <a href="#/login">authenticate</a>, you can try the
+				default login="admin" and password="admin".
+			</div>
 
-            </div>
-            <table tr-ng-grid="" items="eavrops" ng-controller="EavropController">
-                <thead>
-                <tr>
-                <th field-name="arendeId" display-name="Ã„rende-ID" enable-filtering="false">
-                </th><th field-name="utredningType" display-name="Typ" display-format="uppercase" enable-filtering="false">
-                </th><th field-name="creationTime" display-name="Datum" display-format="uppercase" enable-filtering="false">
-                </th></tr>
-                </thead>
-            </table>
-        </div>
+		</div>
+		<table class="table" tr-ng-grid="" items="eavrops"
+			ng-controller="EavropController">
+			<!--                 <thead>
+                                    <tr>
+                                    <th field-name="arendeId" display-name="ärende-ID" display-format="uppercase" enable-filtering="false">
+                                    </th><th field-name="utredningType" display-name="Typ" display-format="uppercase" enable-filtering="false">
+                                    </th><th field-name="creationTime" display-name="Datum" display-format="uppercase" enable-filtering="false">
+                                    </th></tr>
+                                    </thead> -->
+		</table>
+	</div>
 </div>
