@@ -99,3 +99,10 @@ ul#strength {
     width:20px;
 }
 /* end Password strength bar style */
+
+/* start table styling*/
+.table-wrapper {overflow-x: auto}
+.scroll-table th{background-color: #000000; color: #ffffff}
+@media only screen and (max-width: 40em) { /*640*/
+    .scroll-table {display: block}
+}

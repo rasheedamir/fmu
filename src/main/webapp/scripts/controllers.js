@@ -290,8 +290,20 @@ fmuApp.controller('AuditsController', ['$scope', '$translate', '$filter', 'Audit
 
 fmuApp.controller('EavropController', ['$scope', 'EavropService',
     function($scope, EavropService){
-        EavropService.getEavrops().then(function(data){
-            $scope.eavrops = data;
-        });
+        // EavropService.getEavrops().then(function(data){
+        //     $scope.eavrops = data;
+        // });
+    $scope.eavrops = [{"id":"12345", "typ":"TMU", "datum":"2014/11/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12"},
+            {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12"},
+        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12"},
+        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12"},
+        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12"},
+        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12"},
+        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12"},
+        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12"},
+        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12"},
+        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12"},
+        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12"},
+            {"id":"11221213", "typ":"TMU", "datum":"2014/10/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12"}];
     }]);
 

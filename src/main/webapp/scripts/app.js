@@ -145,4 +145,7 @@ fmuApp
                 $rootScope.$on('event:auth-loginCancelled', function() {
                     $location.path('');
                 });
+
+                // Setup TrNgGrid global settings
+                TrNgGrid.tableCssClass = "tr-ng-grid table table-bordered table-hover scroll-table";
         }]);
