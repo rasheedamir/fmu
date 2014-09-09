@@ -1,29 +1,43 @@
 <div ng-cloak>
-	<div class="row">
-		<h1 translate="main.title">Welcome to FMU - Fördjupade
-			Medicinska Utredningar!</h1>
-		<p class="lead" translate="main.subtitle">This is your homepage</p>
+    <div class="row">
+        <h1 translate="main.title">Welcome to FMU - Fördjupade
+            Medicinska Utredningar!</h1>
 
-		<div ng-switch="authenticated">
-			<div id="authenticated" class="alert alert-success"
-				ng-switch-when="true" translate="main.logged.message"
-				translate-values="{username: '{{account.login}}'}">You are
-				logged in as user "Admin".</div>
+        <p class="lead" translate="main.subtitle">This is your homepage</p>
 
-			<div id="notAuthenticated" class="alert alert-warning"
-				ng-switch-when="false"
-				translate="global.messages.info.authenticated">
-				If you want to <a href="#/login">authenticate</a>, you can try the
-				default login="admin" and password="admin".
-			</div>
+        <div ng-switch="authenticated">
+            <div id="authenticated" class="alert alert-success"
+                 ng-switch-when="true" translate="main.logged.message"
+                 translate-values="{username: '{{account.login}}'}">You are
+                logged in as user "Admin".
+            </div>
 
-		</div>
+            <div id="notAuthenticated" class="alert alert-warning"
+                 ng-switch-when="false"
+                 translate="global.messages.info.authenticated">
+                If you want to <a href="#/login">authenticate</a>, you can try the
+                default login="admin" and password="admin".
+            </div>
+
+        </div>
 
         <div class="table-wrapper">
             <table tr-ng-grid="" items="eavrops"
-                   ng-controller="EavropController" enable-filtering="false">
+                   ng-controller="EavropController" enable-filtering="false" page-items="10">
+                <tfoot>
+                <tr>
+                    <td>
+                        <span class="form-group pull-left">
+                            Page Count
+                            <select data-ng-model="gridOptions.pageItems" ng-options="a for a in [] | pageCount: gridOptions.totalItems">
+                            </select>
+                        </span>
+                        <span tr-ng-grid-pager=""></span>
+                    </td>
+                </tr>
+                </tfoot>
             </table>
         </div>
 
-	</div>
+    </div>
 </div>

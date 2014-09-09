@@ -64,7 +64,7 @@ module.exports = function (grunt) {
       },
       jsTest: {
         files: ['src/test/javascript/spec/{,*/}*.js', 'src/integration-test/javascript/spec/{,*/}*.js'],
-        tasks: ['newer:jshint:test', 'karma', 'protractor:singlerun']
+        tasks: ['karma']
       },
       gruntfile: {
         files: ['Gruntfile.js']
