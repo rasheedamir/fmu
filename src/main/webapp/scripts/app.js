@@ -3,7 +3,7 @@
 /* App Module */
 
 var fmuApp = angular.module('fmuApp', ['http-auth-interceptor', 'tmh.dynamicLocale',
-    'ngResource', 'ngRoute', 'ngCookies', 'fmuAppUtils', 'pascalprecht.translate', 'truncate','trNgGrid']);
+    'ngResource', 'ngRoute', 'ngCookies', 'fmuAppUtils', 'pascalprecht.translate', 'truncate','ngTable']);
 
 fmuApp
     .config(['$routeProvider', '$httpProvider', '$translateProvider',  'tmhDynamicLocaleProvider', 'USER_ROLES',
@@ -109,8 +109,8 @@ fmuApp
             tmhDynamicLocaleProvider.useCookieStorage('NG_TRANSLATE_LANG_KEY');
 
         }])
-        .run(['$rootScope', '$location', '$http', 'AuthenticationSharedService', 'Session', 'USER_ROLES',
-            function($rootScope, $location, $http, AuthenticationSharedService, Session, USER_ROLES) {
+        .run(['$rootScope', '$location', '$http', 'AuthenticationSharedService', 'Session', 'USER_ROLES', '$templateCache',
+            function($rootScope, $location, $http, AuthenticationSharedService, Session, USER_ROLES, $templateCache) {
                 $rootScope.$on('$routeChangeStart', function (event, next) {
                     $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
                     $rootScope.userRoles = USER_ROLES;
