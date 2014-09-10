@@ -1,4 +1,4 @@
-package se.inera.fmu.domain.model.eavrop;
+package se.inera.fmu.infrastructure.persistence.stub;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
+import se.inera.fmu.domain.model.eavrop.ArendeId;
+import se.inera.fmu.domain.model.eavrop.Eavrop;
+import se.inera.fmu.domain.model.eavrop.EavropRepository;
+import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.patient.Address;
 import se.inera.fmu.domain.model.patient.Gender;
 import se.inera.fmu.domain.model.patient.Initials;
