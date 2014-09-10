@@ -9,12 +9,15 @@
         <title>fmu</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
+
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <!-- build:css(.tmp) styles/main.css -->
+        <!-- build:css(src/main/webapp) styles/vendor.css -->
         <!-- bower:css -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="bower_components/trNgGrid/release/trNgGrid.min.css" />
         <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <link rel="stylesheet" href="styles/famfamfam-flags.css">
         <!-- endbuild -->
@@ -116,13 +119,19 @@
             </div>
         </div>
 
-        <!-- build:js scripts/scripts.js -->
+        <!-- build:js(src/main/webapp) scripts/oldieshim.js -->
+        <!--[if lt IE 9]>
+        <script src="bower_components/es5-shim/es5-shim.js"></script>
+        <script src="bower_components/json3/lib/json3.min.js"></script>
+        <![endif]-->
+        <!-- endbuild -->
+
+        <!-- build:js(src/main/webapp) scripts/vendor.js -->
         <!-- bower:js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
         <script src="bower_components/angular/angular.js"></script>
-        <script src="bower_components/json3/lib/json3.min.js"></script>
         <script src="bower_components/angular-route/angular-route.js"></script>
         <script src="bower_components/angular-resource/angular-resource.js"></script>
         <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -132,6 +141,9 @@
         <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
         <script src="bower_components/trNgGrid/release/trNgGrid.min.js"></script>
         <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:js({.tmp,src/main/webapp}) scripts/scripts.js -->
         <script src="bower_components/angular-dynamic-locale/src/tmhDinamicLocale.js"></script>
         <script src="scripts/http-auth-interceptor.js"></script>
         <script src="scripts/truncate.js"></script>
