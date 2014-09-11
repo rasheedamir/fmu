@@ -17,5 +17,5 @@ fmuApp.constant('FLAGS', {
     });
 
 fmuApp.constant('RestUrl', {
-    eavrop: "http://localhost:8080/app/rest/eavrop"
+    eavrop: "/app/rest/eavrop"
 });
