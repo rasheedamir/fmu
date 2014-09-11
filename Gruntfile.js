@@ -43,7 +43,7 @@ module.exports = function (grunt) {
           }
       },
       jsTest: {
-        files: ['src/test/javascript/spec/{,*/}*.js', 'src/integration-test/javascript/spec/{,*/}*.js'],
+        files: ['<%= yeoman.unittest %>/spec/{,*/}*.js', '<%= yeoman.e2etest %>/spec/{,*/}*.js'],
         tasks: ['karma']
       },
       gruntfile: {
@@ -136,22 +136,16 @@ module.exports = function (grunt) {
           }
         }
       },
-       test: {
-        options: {
-          port: 9001,
-          middleware: function (connect) {
-            return [
-              connect.static('.tmp'),
-              connect.static(appConfig.unittest),
-              connect().use(
-                '<%= yeoman.app %>/bower_components',
-                connect.static('./<%= yeoman.dist %>/bower_components')
-              ),
-              connect.static(appConfig.app)
-            ];
-          }
-        }
-      },
+        test: {
+            options: {
+                port: 9001,
+                base: [
+                    '.tmp',
+                    '<%= yeoman.unittest %>',
+                    '<%= yeoman.app %>'
+                ]
+            }
+        },
       dist: {
         options: {
           open: true,

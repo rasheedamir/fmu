@@ -292,6 +292,7 @@ fmuApp.controller('EavropController', ['$scope','$filter', 'EavropService', 'ngT
     function($scope, $filter, EavropService, ngTableParams, EAVROPHEADERS){
         $scope.tableHeaders = EAVROPHEADERS;
         $scope.tableKeys = [];
+
         EavropService.getEavrops().then(function(result){
             if(result != null && result.length > 0)
                 $scope.tableKeys = _.keys(result[0]);
