@@ -290,11 +290,13 @@ fmuApp.controller('AuditsController', ['$scope', '$translate', '$filter', 'Audit
 
 fmuApp.controller('EavropController', ['$scope','$filter', 'EavropService', 'ngTableParams','EAVROPHEADERS',
     function($scope, $filter, EavropService, ngTableParams, EAVROPHEADERS){
-         EavropService.getEavrops().then(function(result){
+        $scope.tableHeaders = EAVROPHEADERS;
+        $scope.tableKeys = [];
+        EavropService.getEavrops().then(function(result){
+            if(result != null && result.length > 0)
+                $scope.tableKeys = _.keys(result[0]);
+
              var data = result;
-             $scope.tableHeaders = EAVROPHEADERS;
-
-
              $scope.tableParams = new ngTableParams({
                  page: 1,            // show first page
                  count: 10          // count per page
@@ -305,7 +307,6 @@ fmuApp.controller('EavropController', ['$scope','$filter', 'EavropService', 'ngT
                      var orderedData = params.sorting() ?
                          $filter('orderBy')(data, params.orderBy()) :
                          data;
-
                      $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                  }
              });

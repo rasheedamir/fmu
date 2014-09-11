@@ -47,11 +47,11 @@ describe('Services Tests ', function () {
     describe('EavropService', function(){
         var eavropservice, httpBackend;
 
-        beforeEach(inject(function(_EavropService_, $httpBackend, _RestUrl_){
+        beforeEach(inject(function(_EavropService_, $httpBackend, _RESTURL_){
             eavropservice = _EavropService_;
             httpBackend = $httpBackend;
             // Mock http response
-            httpBackend.whenGET(_RestUrl_.eavrop).respond([
+            httpBackend.whenGET(_RESTURL_.eavrop).respond([
                 {"id":"12345", "typ":"TMU", "datum":"2014/11/12"},
                 {"id":"678910", "typ":"SLU", "datum":"2014/12/12"},
                 {"id":"11221213", "typ":"TMU", "datum":"2014/10/12"}

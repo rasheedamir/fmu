@@ -198,11 +198,11 @@ fmuApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authServi
         };
     }]);
 
-fmuApp.factory('EavropService', ['$q', '$http', 'RestUrl',
-    function($q, $http, RestUrl){
+fmuApp.factory('EavropService', ['$q', '$http', 'RESTURL',
+    function($q, $http, RESTURL){
         return {
             getEavrops: function(){
-                return $http.get(RestUrl.eavrop).then(function(data){
+                return $http.get(RESTURL.eavrop).then(function(data){
                     // Success
                     return data.data;
                 }, function(err){

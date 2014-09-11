@@ -21,14 +21,14 @@ fmuApp.constant('RESTURL', {
 });
 
 fmuApp.constant('EAVROPHEADERS', {
-    arendeID: 'Ärende ID',
-    typ: 'Typ',
+    arendeId: 'Ärende ID',
+    utredningType: 'Typ',
     enhet: 'Enhet/Avdelning',
-    skickadDatum: 'Förfrågan skickad datum',
-    patientOrt: 'Patientens bostadsort',
+    creationTime: 'Förfrågan skickad datum',
+    patientCity: 'Patientens bostadsort',
     bestallareOrganisation: 'Organisation',
-    mottagenOrganisation: 'Organisation',
+    mottagarenOrganisation: 'Organisation',
     utredare: 'Utredare',
     status: 'Status',
-    antalPasserandeDagar: 'Antal dagar efter förfrågan om utredning'
+    antalDagarEfterForfragan: 'Antal dagar efter förfrågan om utredning'
 });
