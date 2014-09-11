@@ -2,6 +2,7 @@
     <div class="row">
         <h1 translate="main.title">Welcome to FMU - Fördjupade
             Medicinska Utredningar!</h1>
+
         <p class="lead" translate="main.subtitle">This is your homepage</p>
 
         <div ng-switch="authenticated">
@@ -20,12 +21,20 @@
 
         </div>
 
-        <div ng-controller="EavropController" class="table-responsive" style="background-color: #ffffff">
-            <table ng-table="tableParams" class="table table-bordered table-hover">
-                <tr ng-repeat="row in $data" ng-class="row.color">
-                    <td data-title="'Ärende ID'">{{row.id}}</td>
-                    <td data-title="'Typ'">{{row.typ}}</td>
-                    <td data-title="'Datum'">{{row.datum}}</td>
+        <div ng-controller="EavropController" class="table-wrapper" style="background-color: #ffffff">
+            <table ng-table="tableParams" class="table table-responsive">
+
+                <tr ng-repeat="row in $data" ng-style="{'background-color': row.color}">
+                    <td data-title="tableHeaders.arendeID" sortable="'arendeId'">{{row.arendeId}}</td>
+                    <td data-title="tableHeaders.typ" sortable="'utredningType'">{{row.utredningType}}</td>
+                    <td data-title="tableHeaders.bestallareOrganisation" sortable="'bestallareOrganisation'">{{row.bestallareOrganisation}}</td>
+                    <td data-title="tableHeaders.enhet" sortable="'enhet'">{{row.enhet}}</td>
+                    <td data-title="tableHeaders.skickadDatum" sortable="'creationTime'">{{row.creationTime}}</td>
+                    <td data-title="tableHeaders.patientOrt" sortable="'patientCity'" class="text-capitalize">{{row.patientCity}}</td>
+                    <td data-title="tableHeaders.mottagenOrganisation" sortable="'mottagarenOrganisation'">{{row.mottagarenOrganisation}}</td>
+                    <td data-title="tableHeaders.utredare" sortable="'utredare'" class="text-capitalize">{{row.utredare}}</td>
+                    <td data-title="tableHeaders.status" sortable="'status'">{{row.status}}</td>
+                    <td data-title="tableHeaders.antalPasserandeDagar" sortable="'antalDagarEfterForfragan'">{{row.antalDagarEfterForfragan}}</td>
                 </tr>
             </table>
         </div>
@@ -40,15 +49,22 @@
                 </li>
                 <li>
                     <div class="btn-group">
-                        <button type="button" ng-class="{'active':params.count() == 10}" ng-click="params.count(10)" class="btn btn-default">10</button>
-                        <button type="button" ng-class="{'active':params.count() == 25}" ng-click="params.count(25)" class="btn btn-default">25</button>
-                        <button type="button" ng-class="{'active':params.count() == 50}" ng-click="params.count(50)" class="btn btn-default">50</button>
-                        <button type="button" ng-class="{'active':params.count() == 100}" ng-click="params.count(100)" class="btn btn-default">100</button>
+                        <button type="button" ng-class="{'active':params.count() == 10}" ng-click="params.count(10)"
+                                class="btn btn-default">10
+                        </button>
+                        <button type="button" ng-class="{'active':params.count() == 25}" ng-click="params.count(25)"
+                                class="btn btn-default">25
+                        </button>
+                        <button type="button" ng-class="{'active':params.count() == 50}" ng-click="params.count(50)"
+                                class="btn btn-default">50
+                        </button>
+                        <button type="button" ng-class="{'active':params.count() == 100}" ng-click="params.count(100)"
+                                class="btn btn-default">100
+                        </button>
                     </div>
                 </li>
             </ul>
         </script>
 
     </div>
->>>>>>> refs/heads/master
 </div>

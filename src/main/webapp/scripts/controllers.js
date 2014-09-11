@@ -288,33 +288,27 @@ fmuApp.controller('AuditsController', ['$scope', '$translate', '$filter', 'Audit
         });
     }]);
 
-fmuApp.controller('EavropController', ['$scope', 'EavropService', 'ngTableParams',
-    function($scope, EavropService, ngTableParams){
-        // EavropService.getEavrops().then(function(data){
-        //     $scope.eavrops = data;
-        // });
-    $scope.eavrops = [
-        {"id":"12345", "typ":"TMU", "datum":"2014/11/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12", "color":"alert alert-danger"},
-        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12", "color":"alert alert-danger"},
-        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12", "color":"alert alert-warning"},
-        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12", "color":"alert alert-info"},
-        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12", "color":"alert alert-info"},
-        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12", "color":"alert alert-warning"},
-        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12", "color":"alert alert-info"},
-        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12", "color":"alert alert-success"},
-        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12", "color":"alert alert-warning"},
-        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12", "color":"alert alert-danger"},
-        {"id":"678910", "typ":"SLU", "datum":"2014/12/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12", "color":"alert alert-danger"},
-        {"id":"11221213", "typ":"TMU", "datum":"2014/10/12","datum1ssssssssssssssssssssss":"2014/11/12", "datum2":"2014/11/12", "datum3":"2014/11/12", "datum4":"2014/11/12","datum5":"2014/11/12", "datum6":"2014/11/12", "datum7":"2014/11/12", "datum8":"2014/11/12", "color":"alert alert-danger"}];
+fmuApp.controller('EavropController', ['$scope','$filter', 'EavropService', 'ngTableParams','EAVROPHEADERS',
+    function($scope, $filter, EavropService, ngTableParams, EAVROPHEADERS){
+         EavropService.getEavrops().then(function(result){
+             var data = result;
+             $scope.tableHeaders = EAVROPHEADERS;
 
-        $scope.tableParams = new ngTableParams({
-            page: 1,            // show first page
-            count: 5           // count per page
-        }, {
-            total: $scope.eavrops.length, // length of data
-            getData: function($defer, params) {
-                $defer.resolve($scope.eavrops.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-            }
-        });
+
+             $scope.tableParams = new ngTableParams({
+                 page: 1,            // show first page
+                 count: 10          // count per page
+             }, {
+                 total: data.length, // length of data
+                 getData: function($defer, params) {
+                     // use build-in angular filter
+                     var orderedData = params.sorting() ?
+                         $filter('orderBy')(data, params.orderBy()) :
+                         data;
+
+                     $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                 }
+             });
+         });
     }]);
 

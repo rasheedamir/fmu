@@ -438,7 +438,7 @@ grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', fu
     'concat',
     'ngmin',
     'copy:dist',
-    'cdnify',
+    //'cdnify', Somehow not work in 'prod'  profile, could be old version of bower or grunt ?
     'cssmin',
     'uglify',
     'filerev',

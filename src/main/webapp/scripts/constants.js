@@ -16,6 +16,19 @@ fmuApp.constant('FLAGS', {
         sv: "sv"
     });
 
-fmuApp.constant('RestUrl', {
-    eavrop: "http://localhost:8080/app/rest/eavrop"
+fmuApp.constant('RESTURL', {
+    eavrop: "/app/rest/eavrop"
+});
+
+fmuApp.constant('EAVROPHEADERS', {
+    arendeID: 'Ärende ID',
+    typ: 'Typ',
+    enhet: 'Enhet/Avdelning',
+    skickadDatum: 'Förfrågan skickad datum',
+    patientOrt: 'Patientens bostadsort',
+    bestallareOrganisation: 'Organisation',
+    mottagenOrganisation: 'Organisation',
+    utredare: 'Utredare',
+    status: 'Status',
+    antalPasserandeDagar: 'Antal dagar efter förfrågan om utredning'
 });
