@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.inera.fmu.domain.model.eavrop.Eavrop;
-import se.inera.fmu.domain.model.eavrop.EavropRepositoryStub;
+import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.interfaces.managing.dtomapper.EavropDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 
@@ -32,10 +32,17 @@ import com.codahale.metrics.annotation.Timed;
 public class EavropResource {
 
 	@Inject
-	private EavropRepositoryStub eavropRepository;
+	private EavropRepository eavropRepository;
 	
 	private EavropDTOMapper eavropMapper = new EavropDTOMapper();
 
+    /**
+     *
+     * TODO#1: Add parameter date range.
+     * TODO#2: Add parameter status of utredning (new, in-process or finished)
+     *
+     * @return
+     */
 	@RequestMapping(value = "/rest/eavrop", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	public ResponseEntity<List<EavropDTO>> getEavrops() {
