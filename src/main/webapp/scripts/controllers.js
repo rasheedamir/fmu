@@ -293,6 +293,7 @@ fmuApp.controller('EavropController', ['$scope','$filter', 'EavropService', 'ngT
         $scope.tableHeaders = EAVROPHEADERS;
         $scope.tableKeys = [];
 
+
         EavropService.getEavrops().then(function(result){
             if(result != null && result.length > 0)
                 $scope.tableKeys = _.keys(result[0]);
@@ -311,6 +312,14 @@ fmuApp.controller('EavropController', ['$scope','$filter', 'EavropService', 'ngT
                      $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                  }
              });
+
+            $scope.sort = function(key, tableParams){
+                console.log(key);
+                var params = {};
+                params[key] = tableParams.isSortBy(key, 'asc') ? 'desc' : 'asc';
+                tableParams.sorting(params);
+                $scope.$broadcast();
+            }
          });
     }]);
 

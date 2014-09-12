@@ -12,6 +12,8 @@
                 logged in as user "Admin".
             </div>
 
+            <div ng-if="authenticated" ng-include src="'views/templates/eavropsTable.html'"></div>
+
             <div id="notAuthenticated" class="alert alert-warning"
                  ng-switch-when="false"
                  translate="global.messages.info.authenticated">
@@ -20,119 +22,5 @@
             </div>
 
         </div>
-
-        <div ng-controller="EavropController" class="table-wrapper">
-            <table ng-table="tableParams" class="qa-table table-hover">
-
-                <thead>
-                <tr>
-                    <th colspan="2"></th>
-                    <th colspan="4" class="text-center alert alert-warning">Beställare</th>
-                    <th colspan="2" class="text-center alert alert-danger">Leverantör</th>
-                    <th colspan="2" class="text-center"></th>
-                </tr>
-
-                <tr class="header">
-                    <th class="text-center sortable"
-                        ng-class="{'sort-asc': tableParams.isSortBy('arendeId', 'asc'),'sort-desc': tableParams.isSortBy('arendeId', 'desc')}"
-                        ng-click="tableParams.sorting({'arendeId' : tableParams.isSortBy('arendeId', 'asc') ? 'desc' : 'asc'})">
-                        <div ng-bind="tableHeaders['arendeId']"></div>
-                    </th>
-
-                    <th class="text-center sortable"
-                        ng-class="{'sort-asc': tableParams.isSortBy('utredningType', 'asc'),'sort-desc': tableParams.isSortBy('utredningType', 'desc')}"
-                        ng-click="tableParams.sorting({'utredningType' : tableParams.isSortBy('utredningType', 'asc') ? 'desc' : 'asc'})">
-                        <div ng-bind="tableHeaders['utredningType']"></div>
-                    </th>
-
-                    <th class="text-center sortable"
-                        ng-class="{'sort-asc': tableParams.isSortBy('bestallareOrganisation', 'asc'),'sort-desc': tableParams.isSortBy('bestallareOrganisation', 'desc')}"
-                        ng-click="tableParams.sorting({'bestallareOrganisation' : tableParams.isSortBy('bestallareOrganisation', 'asc') ? 'desc' : 'asc'})">
-                        <div ng-bind="tableHeaders['bestallareOrganisation']"></div>
-                    </th>
-
-                    <th class="text-center sortable"
-                        ng-class="{'sort-asc': tableParams.isSortBy('enhet', 'asc'),'sort-desc': tableParams.isSortBy('enhet', 'desc')}"
-                        ng-click="tableParams.sorting({'enhet' : tableParams.isSortBy('enhet', 'asc') ? 'desc' : 'asc'})">
-                        <div ng-bind="tableHeaders['enhet']"></div>
-                    </th>
-
-                    <th class="text-center sortable"
-                        ng-class="{'sort-asc': tableParams.isSortBy('creationTime', 'asc'),'sort-desc': tableParams.isSortBy('creationTime', 'desc')}"
-                        ng-click="tableParams.sorting({'creationTime' : tableParams.isSortBy('creationTime', 'asc') ? 'desc' : 'asc'})">
-                        <div ng-bind="tableHeaders['creationTime']"></div>
-                    </th>
-
-                    <th class="text-center sortable"
-                        ng-class="{'sort-asc': tableParams.isSortBy('patientCity', 'asc'),'sort-desc': tableParams.isSortBy('patientCity', 'desc')}"
-                        ng-click="tableParams.sorting({'patientCity' : tableParams.isSortBy('patientCity', 'asc') ? 'desc' : 'asc'})">
-                        <div ng-bind="tableHeaders['patientCity']"></div>
-                    </th>
-
-                    <th class="text-center sortable"
-                        ng-class="{'sort-asc': tableParams.isSortBy('mottagarenOrganisation', 'asc'),'sort-desc': tableParams.isSortBy('mottagarenOrganisation', 'desc')}"
-                        ng-click="tableParams.sorting({'mottagarenOrganisation' : tableParams.isSortBy('mottagarenOrganisation', 'asc') ? 'desc' : 'asc'})">
-                        <div ng-bind="tableHeaders['mottagarenOrganisation']"></div>
-                    </th>
-
-                    <th class="text-center sortable"
-                        ng-class="{'sort-asc': tableParams.isSortBy('utredare', 'asc'),'sort-desc': tableParams.isSortBy('utredare', 'desc')}"
-                        ng-click="tableParams.sorting({'utredare' : tableParams.isSortBy('utredare', 'asc') ? 'desc' : 'asc'})">
-                        <div ng-bind="tableHeaders['utredare']"></div>
-                    </th>
-
-                    <th class="text-center sortable"
-                        ng-class="{'sort-asc': tableParams.isSortBy('status', 'asc'),'sort-desc': tableParams.isSortBy('status', 'desc')}"
-                        ng-click="tableParams.sorting({'status' : tableParams.isSortBy('status', 'asc') ? 'desc' : 'asc'})">
-                        <div ng-bind="tableHeaders['status']"></div>
-                    </th>
-
-                    <th class="text-center sortable"
-                        ng-class="{'sort-asc': tableParams.isSortBy('antalDagarEfterForfragan', 'asc'),'sort-desc': tableParams.isSortBy('antalDagarEfterForfragan', 'desc')}"
-                        ng-click="tableParams.sorting({'antalDagarEfterForfragan' : tableParams.isSortBy('antalDagarEfterForfragan', 'asc') ? 'desc' : 'asc'})">
-                        <div ng-bind="tableHeaders['antalDagarEfterForfragan']"></div>
-                    </th>
-                </tr>
-
-                </thead>
-
-                <tbody>
-                <tr ng-repeat="row in $data" ng-style="{'background-color' : row.color}">
-                    <td ng-repeat="key in tableKeys" sortable="{{key}}"  class="text-capitalize text-center">
-                        <span ng-if="key != 'color'" ng-bind="row[key]"></span>
-                    </td>
-                </tr>
-
-                </tbody>
-            </table>
-        </div>
-
-        <script type="text/ng-template" id="ng-table/pager.html">
-            <ul class="pager ng-cloak">
-                <li ng-repeat="page in pages"
-                    ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
-                    ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
-                    <a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Previous</a>
-                    <a ng-switch-when="next" ng-click="params.page(page.number)" href="">Next &raquo;</a>
-                </li>
-                <li>
-                    <div class="btn-group">
-                        <button type="button" ng-class="{'active':params.count() == 10}" ng-click="params.count(10)"
-                                class="btn btn-default">10
-                        </button>
-                        <button type="button" ng-class="{'active':params.count() == 25}" ng-click="params.count(25)"
-                                class="btn btn-default">25
-                        </button>
-                        <button type="button" ng-class="{'active':params.count() == 50}" ng-click="params.count(50)"
-                                class="btn btn-default">50
-                        </button>
-                        <button type="button" ng-class="{'active':params.count() == 100}" ng-click="params.count(100)"
-                                class="btn btn-default">100
-                        </button>
-                    </div>
-                </li>
-            </ul>
-        </script>
-
     </div>
 </div>
