@@ -17,5 +17,5 @@
   "devDependencies": {
     "angular-scenario": "~1.2.0"
   },
-  "appPath": "src/main/webapp"
+  "appPath": "./src/main/webapp"
 }

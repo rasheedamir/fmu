@@ -17,8 +17,8 @@ module.exports = function (grunt) {
 
   // Configurable paths for the application
   var appConfig = {
-    app: require('./bower.json').appPath || 'app',
-    dist: 'src/main/webapp/dist'
+    app: require('./bower.json').appPath,
+    dist: './src/main/webapp/dist'
   };
 
   // Define the configuration for all the tasks
@@ -385,7 +385,6 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
-   // 'cdnify',
     'cssmin',
     'uglify',
     'filerev',
