@@ -288,8 +288,8 @@ fmuApp.controller('AuditsController', ['$scope', '$translate', '$filter', 'Audit
         });
     }]);
 
-fmuApp.controller('EavropController', ['$scope','$filter', 'EavropService', 'ngTableParams','EAVROPHEADERS',
-    function($scope, $filter, EavropService, ngTableParams, EAVROPHEADERS){
+fmuApp.controller('EavropController', ['$scope','$filter', 'EavropService', 'ngTableParams','EAVROPHEADERS','DateSelectionChangeService',
+    function($scope, $filter, EavropService, ngTableParams, EAVROPHEADERS ,DateSelectionChangeService){
         $scope.tableHeaders = EAVROPHEADERS;
         $scope.tableKeys = [];
 
@@ -297,20 +297,20 @@ fmuApp.controller('EavropController', ['$scope','$filter', 'EavropService', 'ngT
             if(result != null && result.length > 0)
                 $scope.tableKeys = _.keys(result[0]);
 
-             var data = result;
-             $scope.tableParams = new ngTableParams({
-                 page: 1,            // show first page
-                 count: 10          // count per page
-             }, {
-                 total: data.length, // length of data
-                 getData: function($defer, params) {
-                     // use build-in angular filter
-                     var orderedData = params.sorting() ?
-                         $filter('orderBy')(data, params.orderBy()) :
-                         data;
-                     $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                 }
-             });
+            var data = result;
+            $scope.tableParams = new ngTableParams({
+                page: 1,            // show first page
+                count: 10          // count per page
+            }, {
+                total: data.length, // length of data
+                getData: function($defer, params) {
+                    // use build-in angular filter
+                    var orderedData = params.sorting() ?
+                        $filter('orderBy')(data, params.orderBy()) :
+                        data;
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            });
 
             $scope.sort = function(key, tableParams){
                 console.log(key);
@@ -319,6 +319,60 @@ fmuApp.controller('EavropController', ['$scope','$filter', 'EavropService', 'ngT
                 tableParams.sorting(params);
                 $scope.$broadcast();
             }
-         });
+
+            var dateSortKey = 'creationTime';
+            if(data.length > 0){
+                $filter('orderBy')(data, dateSortKey, false);
+                DateSelectionChangeService.setInitialDateRange(_.first(data)[dateSortKey], _.last(data)[dateSortKey]);
+            }
+        });
     }]);
 
+fmuApp.controller('DateSelectionController', ['$scope', 'DateSelectionChangeService',
+    function ($scope, DateSelectionChangeService) {
+
+        $scope.$watch('initialDate', function(){
+            $scope.startDate = new Date(DateSelectionChangeService.startDate);
+            $scope.endDate = new Date(DateSelectionChangeService.endDate);
+            console.log(DateSelectionChangeService.endDate);
+        });
+
+        $scope.clearStartDate = function () {
+            $scope.startDate = null;
+        };
+
+        $scope.clearEndDate = function () {
+            $scope.endDate = null;
+        };
+
+        // Disable weekend selection
+        $scope.disabled = function(date, mode) {
+            return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+        };
+
+        $scope.toggleMin = function() {
+            $scope.minDate = $scope.minDate ? null : new Date();
+        };
+        $scope.toggleMin();
+
+        $scope.openStart = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.startDateOpened = true;
+        };
+
+        $scope.openEnd = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.endDateOpened = true;
+        };
+
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1
+        };
+
+        $scope.format = 'dd-MMMM-yyyy';
+    }]);

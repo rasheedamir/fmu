@@ -83,6 +83,18 @@ describe('Services Tests ', function () {
             });
         })
     });
+
+    describe('DateSelectionChangeService', function(){
+        var dateSelectionService;
+
+        beforeEach(inject(function(_DateSelectionChangeService_, $httpBackend){
+            dateSelectionService = _DateSelectionChangeService_;
+        }));
+
+        it("should pass", function(){
+
+        })
+    });
 });
 
 

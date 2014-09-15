@@ -213,3 +213,29 @@ fmuApp.factory('EavropService', ['$q', '$http', 'RESTURL',
         }
     }]);
 
+fmuApp.factory('DateSelectionChangeService',
+    function($rootScope){
+        var service = {};
+        service.startDate = null;
+        service.endDate = null;
+
+        service.setInitialDateRange = function(start, end){
+            this.startDate = start;
+            this.endDate = end;
+            //$rootScope.$broadcast('initialDate');
+        }
+
+        service.updateStartDate = function(date)
+        {
+            this.startDate = date;
+            $rootScope.$broadcast('startDateChanged');
+        };
+
+        service.updateEndDate = function(date)
+        {
+            this.endDate = date;
+            $rootScope.$broadcast('endDateChanged');
+        };
+
+        return service;
+    });

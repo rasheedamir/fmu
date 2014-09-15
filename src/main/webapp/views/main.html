@@ -12,15 +12,16 @@
                 logged in as user "Admin".
             </div>
 
-            <div ng-if="authenticated" ng-include src="'views/templates/eavropsTable.html'"></div>
-
             <div id="notAuthenticated" class="alert alert-warning"
                  ng-switch-when="false"
                  translate="global.messages.info.authenticated">
                 If you want to <a href="#/login">authenticate</a>, you can try the
                 default login="admin" and password="admin".
             </div>
-
         </div>
     </div>
+
+    <div ng-if="authenticated" ng-include src="'views/templates/datePicker.html'"></div>
+    <div ng-if="authenticated" ng-include src="'views/templates/eavropsTable.html'"></div>
+
 </div>

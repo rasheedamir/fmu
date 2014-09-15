@@ -18,7 +18,8 @@
     "angular-i18n": "1.2.5",
     "swagger-ui": "2.0.18",
     "ng-table" : "0.3.3",
-    "underscore":"^1.7.0"
+    "underscore":"^1.7.0",
+    "angular-bootstrap": "latest"
   },
   "devDependencies": {
     "angular-mocks": "1.2.18",

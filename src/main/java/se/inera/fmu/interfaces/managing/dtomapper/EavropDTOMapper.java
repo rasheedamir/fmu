@@ -2,6 +2,8 @@ package se.inera.fmu.interfaces.managing.dtomapper;
 
 import java.util.Random;
 
+import org.joda.time.DateTime;
+
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.patient.Address;
 import se.inera.fmu.domain.model.patient.Patient;
@@ -21,7 +23,7 @@ public class EavropDTOMapper {
 		.setEnhet(devstatus)
 		.setUtredare(devstatus)
 		.setAntalDagarEfterForfragan(getRandomInt(0, 100))
-		.setCreationTime(eavrop.getCreatedDate())
+		.setCreationTime(DateTime.now())
 		.setPatientCity(address.getCity())
 		.setUtredningType(eavrop.getUtredningType())
 		.setStatus(devstatus)
