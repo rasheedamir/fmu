@@ -52,7 +52,7 @@ Single Web Page Application (SPA)
 7. Dependency Management: [_Bower_](http://bower.io/)
 8. Full internationalization support with [_Angular Translate_](https://github.com/angular-translate/angular-translate)
 9. Protractor
-10. 
+10. [Jasmine](http://jasmine.github.io/)
 
 ###Other
 
