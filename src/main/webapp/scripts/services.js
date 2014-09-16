@@ -219,22 +219,22 @@ fmuApp.factory('DateSelectionChangeService',
         service.startDate = null;
         service.endDate = null;
 
-        service.setInitialDateRange = function(start, end){
-            this.startDate = start;
-            this.endDate = end;
-            //$rootScope.$broadcast('initialDate');
+        service.setInitialDateRange = function(startDate, endDate){
+            this.startDate = startDate;
+            this.endDate = endDate;
+            $rootScope.$broadcast("initialDateIsSet");
         }
 
         service.updateStartDate = function(date)
         {
             this.startDate = date;
-            $rootScope.$broadcast('startDateChanged');
+            $rootScope.$broadcast("newDateSelected");
         };
 
         service.updateEndDate = function(date)
         {
             this.endDate = date;
-            $rootScope.$broadcast('endDateChanged');
+            $rootScope.$broadcast("newDateSelected");
         };
 
         return service;

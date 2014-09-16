@@ -17,13 +17,15 @@ public class EavropDTOMapper {
 		Address address = patient.getHomeAddress();
 		String devstatus = "In progress";
 		
+		DateTime dateTime = DateTime.now();
+		
 		dto.setArendeId(eavrop.getArendeId().toString())
 		.setBestallareOrganisation(devstatus)
 		.setMottagarenOrganisation(devstatus)
 		.setEnhet(devstatus)
 		.setUtredare(devstatus)
 		.setAntalDagarEfterForfragan(getRandomInt(0, 100))
-		.setCreationTime(DateTime.now())
+		.setCreationTime(dateTime.plusDays(getRandomInt(0, 1000)))
 		.setPatientCity(address.getCity())
 		.setUtredningType(eavrop.getUtredningType())
 		.setStatus(devstatus)

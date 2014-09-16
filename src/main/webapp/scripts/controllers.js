@@ -292,6 +292,11 @@ fmuApp.controller('EavropController', ['$scope','$filter', 'EavropService', 'ngT
     function($scope, $filter, EavropService, ngTableParams, EAVROPHEADERS ,DateSelectionChangeService){
         $scope.tableHeaders = EAVROPHEADERS;
         $scope.tableKeys = [];
+        var dateSortKey = 'creationTime';
+
+        var getData = function(data){
+            return $filter('dateFilter')(data, dateSortKey, DateSelectionChangeService.startDate, DateSelectionChangeService.endDate);
+        };
 
         EavropService.getEavrops().then(function(result){
             if(result != null && result.length > 0)
@@ -302,39 +307,57 @@ fmuApp.controller('EavropController', ['$scope','$filter', 'EavropService', 'ngT
                 page: 1,            // show first page
                 count: 10          // count per page
             }, {
-                total: data.length, // length of data
+                total: function () { return getData(data).length; }, // length of data
                 getData: function($defer, params) {
-                    // use build-in angular filter
+                    var filteredData = getData(data);
                     var orderedData = params.sorting() ?
-                        $filter('orderBy')(data, params.orderBy()) :
-                        data;
+                        $filter('orderBy')(filteredData, params.orderBy()) :
+                        filteredData;
+
                     $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                 }
             });
 
+            $scope.tableParams.settings().$scope = $scope;
+
+            $scope.getFormattedDate = function(date){
+                return $filter('date')(date, 'dd MMMM yyyy');
+            }
+
             $scope.sort = function(key, tableParams){
-                console.log(key);
                 var params = {};
                 params[key] = tableParams.isSortBy(key, 'asc') ? 'desc' : 'asc';
                 tableParams.sorting(params);
                 $scope.$broadcast();
             }
 
-            var dateSortKey = 'creationTime';
+            // Set initial date range
             if(data.length > 0){
-                $filter('orderBy')(data, dateSortKey, false);
-                DateSelectionChangeService.setInitialDateRange(_.first(data)[dateSortKey], _.last(data)[dateSortKey]);
+                var ordered = $filter('orderBy')(data, dateSortKey, false);
+                DateSelectionChangeService.setInitialDateRange(_.first(ordered)[dateSortKey], _.last(ordered)[dateSortKey]);
             }
+
+            // Listen to date changes and apply filter
+            $scope.$on('newDateSelected', function(){
+                $scope.tableParams.reload();
+            });
         });
     }]);
 
 fmuApp.controller('DateSelectionController', ['$scope', 'DateSelectionChangeService',
     function ($scope, DateSelectionChangeService) {
 
-        $scope.$watch('initialDate', function(){
+        $scope.$on('initialDateIsSet', function(){
             $scope.startDate = new Date(DateSelectionChangeService.startDate);
             $scope.endDate = new Date(DateSelectionChangeService.endDate);
-            console.log(DateSelectionChangeService.endDate);
+        });
+
+        $scope.$watch('startDate', function(){
+            DateSelectionChangeService.updateStartDate($scope.startDate);
+        });
+
+        $scope.$watch('endDate', function(){
+            DateSelectionChangeService.updateEndDate($scope.endDate);
         });
 
         $scope.clearStartDate = function () {
@@ -350,11 +373,6 @@ fmuApp.controller('DateSelectionController', ['$scope', 'DateSelectionChangeServ
             return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
         };
 
-        $scope.toggleMin = function() {
-            $scope.minDate = $scope.minDate ? null : new Date();
-        };
-        $scope.toggleMin();
-
         $scope.openStart = function($event) {
             $event.preventDefault();
             $event.stopPropagation();
@@ -368,11 +386,5 @@ fmuApp.controller('DateSelectionController', ['$scope', 'DateSelectionChangeServ
 
             $scope.endDateOpened = true;
         };
-
-        $scope.dateOptions = {
-            formatYear: 'yy',
-            startingDay: 1
-        };
-
-        $scope.format = 'dd-MMMM-yyyy';
+        $scope.dateFormat = 'dd-MMMM-yyyy';
     }]);

@@ -23,7 +23,8 @@
         <tbody>
         <tr ng-repeat="row in $data" ng-style="{'background-color' : row.color}">
             <td ng-repeat="key in tableKeys" sortable="{{key}}"  class="text-capitalize text-center">
-                <span ng-if="key != 'color'" ng-bind="row[key]"></span>
+                <span ng-if="key == 'creationTime'" ng-bind="getFormattedDate(row[key])"></span>
+                <span ng-if="key != 'color' && key != 'creationTime'" ng-bind="row[key]"></span>
             </td>
         </tr>
 
