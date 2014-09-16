@@ -120,43 +120,54 @@ describe('Controllers Tests ', function () {
             expect($scope.success).toBe('OK');
         });
     });
-/*
-    describe('EavropController', function(){
-        var scope, eavropService;
 
-        beforeEach(function(){
-            var mockRestService = {};
+    describe("EavropController", function(){
+        var rootScope, scope, controller, serviceMock, filter, ngTableParams, EAVROPHEADERS, DateSelectionChangeService, data;
 
-            module('fmuApp', function($provide){
-                $provide.value('EavropService', mockRestService);
-            });
+        beforeEach(inject(function(
+            $rootScope, $controller, $q, _$filter_, _ngTableParams_, _EAVROPHEADERS_, _DateSelectionChangeService_, $httpBackend) {
+            rootScope = $rootScope;
+            scope = $rootScope.$new();
+            controller = $controller;
+            filter = _$filter_;
+            ngTableParams = _ngTableParams_;
+            EAVROPHEADERS = _EAVROPHEADERS_;
+            DateSelectionChangeService =_DateSelectionChangeService_;
 
-            inject(function($q){
-                mockRestService.data = [
-                    {"id":"12345", "typ":"TMU", "datum":"2014/11/12"},
-                    {"id":"678910", "typ":"SLU", "datum":"2014/12/12"},
-                    {"id":"11221213", "typ":"TMU", "datum":"2014/10/12"}
-                ];
+            data = [{"arendeId":"123421","utredningType":"AFU","bestallareOrganisation":"In progress","enhet":"In progress","creationTime":1445451264483,"patientCity":"LinkÃ¶ping","mottagarenOrganisation":"In progress","utredare":"In progress","status":"In progress","antalDagarEfterForfragan":93,"color":"#105cc7"},
+                {"arendeId":"753423","utredningType":"SLU","bestallareOrganisation":"In progress","enhet":"In progress","creationTime":1490811264484,"patientCity":"GÃ¶teborg","mottagarenOrganisation":"In progress","utredare":"In progress","status":"In progress","antalDagarEfterForfragan":89,"color":"#10e722"},
+                {"arendeId":"44240","utredningType":"AFU","bestallareOrganisation":"In progress","enhet":"In progress","creationTime":1481310864484,"patientCity":"Stockholm","mottagarenOrganisation":"In progress","utredare":"In progress","status":"In progress","antalDagarEfterForfragan":92,"color":"#105d5c"},
+                {"arendeId":"78743","utredningType":"TMU","bestallareOrganisation":"In progress","enhet":"In progress","creationTime":1492884864484,"patientCity":"oskarshamn","mottagarenOrganisation":"In progress","utredare":"In progress","status":"In progress","antalDagarEfterForfragan":95,"color":"#107934"}];
 
-                mockRestService.getEavrops = function(){
-                    var defer = $q.defer();
-                    defer.resolve(this.data);
-                    return defer.promise;
-                };
-            });
+            serviceMock = {
+                getEavrops: function(){
+                    // mock promise
+                    var deferred = $q.defer();
+                    deferred.resolve(data);
+                    return deferred.promise;
+                }
+            }
 
-            beforeEach(inject(function($controller, $rootScope, _EavropService_, _$filter_, _ngTableParams_,_EAVROPHEADERS_){
-                scope = $rootScope.new();
-                eavropService = _EavropService_;
-                $controller('EavropController', {'$scope': $rootScope,'$filter': _$filter_, 'EavropService':_EavropService_, 'ngTableParams': _ngTableParams_,'EAVROPHEADERS': _EAVROPHEADERS_});
-                scope.$digest();
-            }));
+            $httpBackend.when('GET', 'i18n/en.json').respond({});
+            $httpBackend.flush();
+        }));
 
-            it("should fail", function(){
-                console.log("Running");
-                expect(0).toEqual(0);
-            });
+        it('should call EavropService and set result in the scope', function(){
+            controller("EavropController",
+                {
+                    $scope: scope,
+                    $filter: filter,
+                    EavropService: serviceMock,
+                    ngTableParams: ngTableParams,
+                    EAVROPHEADERS: EAVROPHEADERS,
+                    DateSelectionChangeService: DateSelectionChangeService
+                });
+
+            //causes promises to check to see if they are fulfilled
+            scope.$apply();
+            expect(scope.eavrops).toEqual(data);
         });
+
+
     });
-    */
 });

@@ -11,6 +11,8 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
+            // assets
+            { pattern: 'src/main/webapp/i18n/*.json', included: false, served: true },
             'src/main/webapp/bower_components/modernizr/modernizr.js',
             'src/main/webapp/bower_components/jquery/dist/jquery.js',
             'src/main/webapp/bower_components/angular/angular.js',
