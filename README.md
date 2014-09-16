@@ -53,6 +53,7 @@ Single Web Page Application (SPA)
 8. Full internationalization support with [_Angular Translate_](https://github.com/angular-translate/angular-translate)
 9. Protractor
 10. [Jasmine](http://jasmine.github.io/)
+11. [JSHint](http://www.jshint.com/) The static code analysis and code quality tools!
 
 ###Other
 
