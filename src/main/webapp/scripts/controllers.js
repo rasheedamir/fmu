@@ -293,32 +293,44 @@ fmuApp.controller('EavropController', ['$scope','$filter', 'EavropService', 'ngT
         $scope.tableHeaders = EAVROPHEADERS;
         $scope.tableKeys = [];
         var dateSortKey = 'creationTime';
+        var eavrops = [];
 
-        var getData = function(data){
-            return $filter('dateFilter')(data, dateSortKey, DateSelectionChangeService.startDate, DateSelectionChangeService.endDate);
+        var applyDateFilter = function(eavrops){
+            return $filter('dateFilter')(eavrops, dateSortKey, DateSelectionChangeService.startDate, DateSelectionChangeService.endDate);
         };
 
+
+        // Fetch eavrops data from server
         EavropService.getEavrops().then(function(result){
-            if(result != null && result.length > 0)
-                $scope.tableKeys = _.keys(result[0]);
-
-            var data = result;
-            $scope.tableParams = new ngTableParams({
-                page: 1,            // show first page
-                count: 10          // count per page
-            }, {
-                total: function () { return getData(data).length; }, // length of data
-                getData: function($defer, params) {
-                    var filteredData = getData(data);
-                    var orderedData = params.sorting() ?
-                        $filter('orderBy')(filteredData, params.orderBy()) :
-                        filteredData;
-
-                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+            eavrops = result;
+            if(eavrops != null && result.length > 0){
+                // Set initial date range
+                if(eavrops.length > 0){
+                    $scope.tableKeys = _.keys(result[0]);
+                    var ordered = $filter('orderBy')(eavrops, dateSortKey, false);
+                    DateSelectionChangeService.setInitialDateRange(_.first(ordered)[dateSortKey], _.last(ordered)[dateSortKey]);
                 }
-            });
+            }
 
-            $scope.tableParams.settings().$scope = $scope;
+            // Set up ngtable options
+            var filteredData = applyDateFilter(eavrops);
+            if(!$scope.tableParams){
+                $scope.tableParams = new ngTableParams({
+                    page: 1,            // show first page
+                    count: 2          // count per page
+                }, {
+                    total: filteredData.length, // length of data
+                    getData: function($defer, params) {
+                        filteredData = params.sorting() ?
+                            $filter('orderBy')(filteredData, params.orderBy()) :
+                            filteredData;
+
+                        $defer.resolve(filteredData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    }
+                });
+                $scope.tableParams.settings().$scope = $scope;
+
+            }
 
             $scope.getFormattedDate = function(date){
                 return $filter('date')(date, 'dd MMMM yyyy');
@@ -331,14 +343,9 @@ fmuApp.controller('EavropController', ['$scope','$filter', 'EavropService', 'ngT
                 $scope.$broadcast();
             }
 
-            // Set initial date range
-            if(data.length > 0){
-                var ordered = $filter('orderBy')(data, dateSortKey, false);
-                DateSelectionChangeService.setInitialDateRange(_.first(ordered)[dateSortKey], _.last(ordered)[dateSortKey]);
-            }
-
             // Listen to date changes and apply filter
             $scope.$on('newDateSelected', function(){
+                filteredData = applyDateFilter(eavrops);
                 $scope.tableParams.reload();
             });
         });

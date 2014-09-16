@@ -47,6 +47,6 @@ public class EavropDTOMapper {
             sb.append(Integer.toHexString(r.nextInt()));
         }
 
-        return "#20" + sb.toString().substring(0, numchars);
+        return "#10" + sb.toString().substring(0, numchars);
     }
 }
