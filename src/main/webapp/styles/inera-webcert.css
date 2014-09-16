@@ -108,6 +108,17 @@
         background: transparent url(/images/back-link-icon.gif) center left no-repeat;
     }
 
+    a.fmu-backlink {
+        display: inline-block;
+        line-height: 24px;
+        padding-left: 26px;
+        background: transparent url(/images/tillbaka.png) center left no-repeat;
+    }
+
+    a.fmu-backlink:hover {
+        background: transparent url(/images/tillbaka_hoover.png) center left no-repeat;
+    }
+
     h1, h2, h3, h4, h5, h6 {
         margin: 0;
         padding-bottom: 10px;
