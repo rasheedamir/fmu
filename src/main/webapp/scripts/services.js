@@ -225,15 +225,9 @@ fmuApp.factory('DateSelectionChangeService',
             $rootScope.$broadcast("initialDateIsSet");
         }
 
-        service.updateStartDate = function(date)
-        {
-            this.startDate = date;
-            $rootScope.$broadcast("newDateSelected");
-        };
-
-        service.updateEndDate = function(date)
-        {
-            this.endDate = date;
+        service.update = function(date1, date2){
+            this.startDate = date1;
+            this.endDate = date2;
             $rootScope.$broadcast("newDateSelected");
         };
 

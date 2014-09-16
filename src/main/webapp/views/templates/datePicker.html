@@ -5,12 +5,11 @@
             <input type="text" class="form-control"
                    datepicker-popup="{{dateFormat}}"
                    ng-model="startDate" is-open="startDateOpened"
-                   datepicker-options="dateOptions"
                    date-disabled="disabled(date, mode)"
                    ng-required="true"
                    close-text="Close" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="openStart($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          <span class="input-group-addon">
+            <a ng-click="openStart($event)"><i class="glyphicon glyphicon-calendar"></i></a>
           </span>
         </div>
     </div>
@@ -21,13 +20,14 @@
             <input type="text" class="form-control"
                    datepicker-popup="{{dateFormat}}"
                    ng-model="endDate" is-open="endDateOpened"
-                   datepicker-options="dateOptions"
                    date-disabled="disabled(date, mode)"
                    ng-required="true"
                    close-text="Close" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          <span class="input-group-addon">
+            <a ng-click="openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></a>
           </span>
         </div>
     </div>
+
+    <button class="btn btn-default" ng-click="doFilter()">Visa</button>
 </div>

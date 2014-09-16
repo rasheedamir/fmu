@@ -317,7 +317,7 @@ fmuApp.controller('EavropController', ['$scope','$filter', 'EavropService', 'ngT
             if(!$scope.tableParams){
                 $scope.tableParams = new ngTableParams({
                     page: 1,            // show first page
-                    count: 2          // count per page
+                    count: 10          // count per page
                 }, {
                     total: filteredData.length, // length of data
                     getData: function($defer, params) {
@@ -333,7 +333,7 @@ fmuApp.controller('EavropController', ['$scope','$filter', 'EavropService', 'ngT
             }
 
             $scope.getFormattedDate = function(date){
-                return $filter('date')(date, 'dd MMMM yyyy');
+                return $filter('date')(date, 'dd-MM-yyyy');
             }
 
             $scope.sort = function(key, tableParams){
@@ -359,13 +359,9 @@ fmuApp.controller('DateSelectionController', ['$scope', 'DateSelectionChangeServ
             $scope.endDate = new Date(DateSelectionChangeService.endDate);
         });
 
-        $scope.$watch('startDate', function(){
-            DateSelectionChangeService.updateStartDate($scope.startDate);
-        });
-
-        $scope.$watch('endDate', function(){
-            DateSelectionChangeService.updateEndDate($scope.endDate);
-        });
+        $scope.doFilter = function(){
+            DateSelectionChangeService.update($scope.startDate, $scope.endDate);
+        };
 
         $scope.clearStartDate = function () {
             $scope.startDate = null;
@@ -393,5 +389,5 @@ fmuApp.controller('DateSelectionController', ['$scope', 'DateSelectionChangeServ
 
             $scope.endDateOpened = true;
         };
-        $scope.dateFormat = 'dd-MMMM-yyyy';
+        $scope.dateFormat = 'dd-MM-yyyy';
     }]);
