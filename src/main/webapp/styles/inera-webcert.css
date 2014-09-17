@@ -38,10 +38,6 @@
         font-weight: bold;
     }
 
-    input, textarea, .uneditable-input {
-        max-width: 206px;
-    }
-
     select {
         max-width: 220px;
     }
@@ -510,7 +506,7 @@
     .table > thead > tr > td,
     .table > tbody > tr > th,
     .table > tbody > tr > td {
-        padding: 2px 0;
+        padding: 10px 10px;
         border: 0;
         vertical-align: middle;
     }

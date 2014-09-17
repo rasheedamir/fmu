@@ -1,6 +1,6 @@
 <div ng-cloak ng-controller="EavropController" class="table-wrapper">
 
-    <table ng-table="tableParams" template-pagination="custom/pager" class="qa-table table-bordered table-hover">
+    <table ng-table="tableParams" template-pagination="custom/pager" class="table table-bordered table-hover">
 
         <thead>
         <tr>
@@ -49,5 +49,20 @@
                 </div>
             </li>
         </ul>
+
+        <div class="table-legend">
+            <p>Antal dagar har överträtts och/eller annan avvikelse finns</p>
+            <div class="circle error"></div>
+        </div>
+
+        <div class="table-legend">
+            <p>Utredning accepterad</p>
+            <div class="circle warning"></div>
+        </div>
+
+        <div class="table-legend">
+            <p>Godkänd för ersättning</p>
+            <div class="circle info"></div>
+        </div>
     </script>
 </div>

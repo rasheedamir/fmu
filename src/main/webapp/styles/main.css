@@ -106,8 +106,8 @@ ul#strength {
     margin-top: 20px;
 }
 
-.input-group-btn{
-    float: left;
+.input-group-addon{
+    margin-left: 0;
 }
 .scroll-table th{background-color: #0d3349; color: #ffffff}
 @media only screen and (max-width: 40em) { /*640*/
@@ -119,4 +119,28 @@ ul#strength {
     margin-right: 15px;
     margin-top: 20px;
     margin-left: 15px;
+}
+
+.circle {
+     width: 15px;
+     height: 15px;
+     -moz-border-radius: 50px;
+     -webkit-border-radius: 50px;
+    border-width: 2px;
+     border-style: solid;
+     border-radius: 50px;
+     border-color: #245269;
+     float: right; }
+
+.table-legend p{
+    margin-left: 0;
+    display: inline;
+    float: right;
+    padding-right: 10px;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.warning {
+    background-color: #ffff99;
 }
