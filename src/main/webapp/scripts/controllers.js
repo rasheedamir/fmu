@@ -14,10 +14,10 @@ angular.module('fmuClientApp')
 
         // Fetch eavrops data from server
         //EavropService.getEavrops().then(function(result){
-            $scope.eavrops = [{'arendeId':'123421','utredningType':'AFU','bestallareOrganisation':'In progress','enhet':'In progress','creationTime':1445451264483,'patientCity':'LinkÃ¶ping','mottagarenOrganisation':'In progress','utredare':'In progress','status':'In progress','antalDagarEfterForfragan':93,'color':'#105cc7'},
-                {'arendeId':'753423','utredningType':'SLU','bestallareOrganisation':'In progress','enhet':'In progress','creationTime':1490811264484,'patientCity':'GÃ¶teborg','mottagarenOrganisation':'In progress','utredare':'In progress','status':'In progress','antalDagarEfterForfragan':89,'color':'#10e722'},
-                {'arendeId':'44240','utredningType':'AFU','bestallareOrganisation':'In progress','enhet':'In progress','creationTime':1481310864484,'patientCity':'Stockholm','mottagarenOrganisation':'In progress','utredare':'In progress','status':'In progress','antalDagarEfterForfragan':92,'color':'#105d5c'},
-                {'arendeId':'78743','utredningType':'TMU','bestallareOrganisation':'In progress','enhet':'In progress','creationTime':1492884864484,'patientCity':'oskarshamn','mottagarenOrganisation':'In progress','utredare':'In progress','status':'In progress','antalDagarEfterForfragan':95,'color':'#107934'}];
+            $scope.eavrops = [{'arendeId':'123421','utredningType':'AFU','bestallareOrganisation':'In progress','enhet':'In progress','creationTime':1445451264483,'patientCity':'LinkÃ¶ping','mottagarenOrganisation':'In progress','utredare':'In progress','status':'In progress','antalDagarEfterForfragan':93,'color':'#ffffff'},
+                {'arendeId':'753423','utredningType':'SLU','bestallareOrganisation':'In progress','enhet':'In progress','creationTime':1490811264484,'patientCity':'GÃ¶teborg','mottagarenOrganisation':'In progress','utredare':'In progress','status':'In progress','antalDagarEfterForfragan':89,'color':'#ffff99'},
+                {'arendeId':'44240','utredningType':'AFU','bestallareOrganisation':'In progress','enhet':'In progress','creationTime':1481310864484,'patientCity':'Stockholm','mottagarenOrganisation':'In progress','utredare':'In progress','status':'In progress','antalDagarEfterForfragan':92,'color':'#ffccff'},
+                {'arendeId':'78743','utredningType':'TMU','bestallareOrganisation':'In progress','enhet':'In progress','creationTime':1492884864484,'patientCity':'oskarshamn','mottagarenOrganisation':'In progress','utredare':'In progress','status':'In progress','antalDagarEfterForfragan':95,'color':'#ffcccc'}];
             if($scope.eavrops !== null && $scope.eavrops.length > 0){
                 // Set initial date range
                 if($scope.eavrops.length > 0){
