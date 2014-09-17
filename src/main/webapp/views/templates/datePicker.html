@@ -1,6 +1,6 @@
 <div class="row" ng-cloak ng-controller="DateSelectionController">
     <div class="col-md-3">
-        <h5>Från, datum</h5>
+        <b>Från, datum</b>
         <div class="input-group">
             <input type="text" class="form-control"
                    datepicker-popup="{{dateFormat}}"
@@ -9,13 +9,13 @@
                    ng-required="true"
                    close-text="Close" />
           <span class="input-group-addon">
-            <a ng-click="openStart($event)"><i class="glyphicon glyphicon-calendar"></i></a>
+            <button ng-click="openStart($event)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
         </div>
     </div>
 
     <div class="col-md-3">
-        <h5>Till, datum</h5>
+        <b>Till, datum</b>
         <div class="input-group">
             <input type="text" class="form-control"
                    datepicker-popup="{{dateFormat}}"
@@ -23,11 +23,11 @@
                    date-disabled="disabled(date, mode)"
                    ng-required="true"
                    close-text="Close" />
-          <span class="input-group-addon">
-            <a ng-click="openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></a>
+          <span class="input-group-addon datepicker">
+            <button ng-click="openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
         </div>
     </div>
 
-    <button class="btn btn-default" ng-click="doFilter()">Visa</button>
+    <button class="btn btn-info dateBtn" ng-click="doFilter()">Visa</button>
 </div>

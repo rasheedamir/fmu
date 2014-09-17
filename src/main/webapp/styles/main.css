@@ -101,9 +101,23 @@ ul#strength {
 /* end Password strength bar style */
 
 /* start table styling*/
-.table-wrapper {overflow-x: auto}
+.table-wrapper {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.input-group-btn{
+    float: left;
+}
 .scroll-table th{background-color: #0d3349; color: #ffffff}
 @media only screen and (max-width: 40em) { /*640*/
     .scroll-table {display: block}
+}
+
+.dateBtn {
+    float: left;
+    margin-right: 15px;
+    margin-top: 20px;
+    margin-left: 15px;
 }
 
