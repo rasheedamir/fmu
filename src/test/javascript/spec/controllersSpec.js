@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 describe('Controllers Tests ', function () {
 
     beforeEach(module('fmuClientApp'));
@@ -49,3 +50,4 @@ describe('Controllers Tests ', function () {
         });
     });
 });
+*/
