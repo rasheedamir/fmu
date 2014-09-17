@@ -13,8 +13,8 @@
     "angular-touch": "~1.2.0",
     "angular-ui-router": "~0.2.11",
     "angular-mocks": "~1.2.0",
-    "ng-table" : "0.3.3",
-    "underscore":"^1.7.0",
+    "ng-table": "0.3.3",
+    "underscore": "^1.7.0",
     "angular-bootstrap": "latest"
   },
   "devDependencies": {
