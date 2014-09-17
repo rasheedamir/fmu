@@ -1,6 +1,6 @@
 'use strict';
 
-/*
+
 describe('Controllers Tests ', function () {
 
     beforeEach(module('fmuClientApp'));
@@ -33,6 +33,7 @@ describe('Controllers Tests ', function () {
             };
         }));
 
+        /*
         it('should call EavropService and set result in the scope', function(){
             controller('EavropController',
                 {
@@ -48,6 +49,8 @@ describe('Controllers Tests ', function () {
             scope.$digest();
             expect(scope.eavrops).toEqual(data);
         });
+        */
+
     });
 });
-*/
+
