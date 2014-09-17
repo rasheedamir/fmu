@@ -21,6 +21,9 @@ module.exports = function (config) {
             "src/main/webapp/bower_components/angular-touch/angular-touch.js",
             "src/main/webapp/bower_components/angular-ui-router/release/angular-ui-router.js",
             "src/main/webapp/bower_components/angular-mocks/angular-mocks.js",
+            'src/main/webapp/bower_components/ng-table/ng-table.js',
+            'src/main/webapp/bower_components/underscore/underscore.js',
+            'src/main/webapp/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
             'src/main/webapp/scripts/*.js',
             'src/main/webapp/scripts/**/*.js',
             'src/test/javascript/**/!(karma.conf).js'

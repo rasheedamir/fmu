@@ -5,8 +5,6 @@ import lombok.ToString;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.UtredningType;
-import se.inera.fmu.domain.model.patient.Gender;
-import se.inera.fmu.domain.model.patient.Initials;
 
 /**
  * Created by Rasheed on 8/25/14.
@@ -17,34 +15,24 @@ public class EavropDTO {
     private String arendeId;
 
     private String utredningType;
-
+    
+    private String bestallareOrganisation;
+    
+    private String enhet;
+    
     private DateTime creationTime;
-    
-    private String patientPersonalNumber;
-
-    private Initials initials;
-
-    private String firstName;
-
-    private String middleName;
-
-    private String lastName;
-
-    private String patientGender;
-
-    private String patientEmail;
-    
-    private String patientAddress1;
-
-    private String patientAddress2;
-
-    private String patientPostalCode;
-
-    private String patientState;
 
     private String patientCity;
 
-    private String patientCountry;
+    private String mottagarenOrganisation;
+    
+    private String utredare;
+    
+    private String status;
+    
+    private int antalDagarEfterForfragan;
+
+	private String color;
 
     public EavropDTO() {
     }
@@ -76,69 +64,6 @@ public class EavropDTO {
 		return this;
     }
 
-	public String getPatientPersonalNumber() {
-		return patientPersonalNumber;
-	}
-
-	public EavropDTO setPatientPersonalNumber(String patientPerrsonalNumber) {
-		this.patientPersonalNumber = patientPerrsonalNumber;
-		return this;
-	}
-
-	public String getPatientGender() {
-		return patientGender;
-	}
-
-	public EavropDTO setPatientGender(Gender patientGender) {
-		this.patientGender = patientGender.toString();
-		return this;
-	}
-
-	public String getPatientEmail() {
-		return patientEmail;
-	}
-
-	public EavropDTO setPatientEmail(String patientEmail) {
-		this.patientEmail = patientEmail;
-		return this;
-	}
-
-	public String getPatientAddress1() {
-		return patientAddress1;
-	}
-
-	public EavropDTO setPatientAddress1(String patientAddress1) {
-		this.patientAddress1 = patientAddress1;
-		return this;
-	}
-
-	public String getPatientAddress2() {
-		return patientAddress2;
-	}
-
-	public EavropDTO setPatientAddress2(String patientAddress2) {
-		this.patientAddress2 = patientAddress2;
-		return this;
-	}
-
-	public String getPatientPostalCode() {
-		return patientPostalCode;
-	}
-
-	public EavropDTO setPatientPostalCode(String patientPostalCode) {
-		this.patientPostalCode = patientPostalCode;
-		return this;
-	}
-
-	public String getPatientState() {
-		return patientState;
-	}
-
-	public EavropDTO setPatientState(String patientState) {
-		this.patientState = patientState;
-		return this;
-	}
-
 	public String getPatientCity() {
 		return patientCity;
 	}
@@ -148,48 +73,71 @@ public class EavropDTO {
 		return this;
 	}
 
-	public String getPatientCountry() {
-		return patientCountry;
-	}
-
-	public EavropDTO setPatientCountry(String patientCountry) {
-		this.patientCountry = patientCountry;
+	public EavropDTO setRowColor(String randomHexString) {
+		this.setColor(randomHexString);
 		return this;
 	}
 
-	public Initials getInitials() {
-		return initials;
+	public String getColor() {
+		return color;
 	}
 
-	public EavropDTO setInitials(Initials initials) {
-		this.initials = initials;
+	public EavropDTO setColor(String color) {
+		this.color = color;
 		return this;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getBestallareOrganisation() {
+		return bestallareOrganisation;
 	}
 
-	public EavropDTO setFirstName(String firstName) {
-		this.firstName = firstName;
+	public EavropDTO setBestallareOrganisation(String bestallareOrganisation) {
+		this.bestallareOrganisation = bestallareOrganisation;
 		return this;
 	}
 
-	public String getMiddleName() {
-		return middleName;
+	public String getEnhet() {
+		return enhet;
 	}
 
-	public EavropDTO setMiddleName(String middleName) {
-		this.middleName = middleName;
+	public EavropDTO setEnhet(String enhet) {
+		this.enhet = enhet;
 		return this;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getMottagarenOrganisation() {
+		return mottagarenOrganisation;
 	}
 
-	public EavropDTO setLastName(String lastName) {
-		this.lastName = lastName;
+	public EavropDTO setMottagarenOrganisation(String mottagarenOrganisation) {
+		this.mottagarenOrganisation = mottagarenOrganisation;
+		return this;
+	}
+
+	public String getUtredare() {
+		return utredare;
+	}
+
+	public EavropDTO setUtredare(String utredare) {
+		this.utredare = utredare;
+		return this;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public EavropDTO setStatus(String status) {
+		this.status = status;
+		return this;
+	}
+
+	public int getAntalDagarEfterForfragan() {
+		return antalDagarEfterForfragan;
+	}
+
+	public EavropDTO setAntalDagarEfterForfragan(int antalDagarEfterForfragan) {
+		this.antalDagarEfterForfragan = antalDagarEfterForfragan;
 		return this;
 	}
 }

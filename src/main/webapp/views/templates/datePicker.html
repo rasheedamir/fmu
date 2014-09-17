@@ -1,0 +1,33 @@
+<div class="row" ng-controller="DateSelectionController">
+    <div class="col-md-3">
+        <b>Från, datum</b>
+        <div class="input-group">
+            <input type="text" class="form-control"
+                   datepicker-popup="{{dateFormat}}"
+                   ng-model="startDate" is-open="startDateOpened"
+                   date-disabled="disabled(date, mode)"
+                   ng-required="true"
+                   close-text="Close" />
+          <span class="input-group-addon">
+            <button ng-click="openStart($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <b>Till, datum</b>
+        <div class="input-group">
+            <input type="text" class="form-control"
+                   datepicker-popup="{{dateFormat}}"
+                   ng-model="endDate" is-open="endDateOpened"
+                   date-disabled="disabled(date, mode)"
+                   ng-required="true"
+                   close-text="Close" />
+          <span class="input-group-addon datepicker">
+            <button ng-click="openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </div>
+    </div>
+
+    <button class="btn btn-info dateBtn" ng-click="doFilter()">Visa</button>
+</div>

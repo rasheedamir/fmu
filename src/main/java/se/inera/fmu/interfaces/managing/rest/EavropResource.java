@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.inera.fmu.domain.model.eavrop.Eavrop;
-import se.inera.fmu.domain.model.eavrop.EavropRepository;
+import se.inera.fmu.infrastructure.persistence.stub.EavropRepositoryStub;
 import se.inera.fmu.interfaces.managing.dtomapper.EavropDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 
@@ -32,7 +32,7 @@ import com.codahale.metrics.annotation.Timed;
 public class EavropResource {
 
 	@Inject
-	private EavropRepository eavropRepository;
+	private EavropRepositoryStub eavropRepository;
 	
 	private EavropDTOMapper eavropMapper = new EavropDTOMapper();
 
