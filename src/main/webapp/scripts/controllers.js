@@ -3,108 +3,58 @@
 /* Controllers */
 angular.module('fmuClientApp')
     .controller('EavropController',
-    ['$scope','$filter', 'EavropService', 'ngTableParams','EAVROPHEADERS','DateSelectionChangeService',
-    function($scope, $filter, EavropService, ngTableParams, EAVROPHEADERS ,DateSelectionChangeService){
-        $scope.tableHeaders = EAVROPHEADERS;
-        $scope.tableKeys = [];
-        var dateSortKey = 'creationTime';
-        var applyDateFilter = function(eavrops){
-            return $filter('dateFilter')(eavrops, dateSortKey, DateSelectionChangeService.startDate, DateSelectionChangeService.endDate);
-        };
+    ['$scope', '$filter', 'EavropService', 'TableService', 'ngTableParams', 'EAVROPHEADERS', 'DateSelectionChangeService',
+        function ($scope, $filter, EavropService, TableService, ngTableParams, EAVROPHEADERS, DateSelectionChangeService) {
+            $scope.dateService = DateSelectionChangeService;
+            $scope.tableService = TableService;
 
-        // Fetch eavrops data from server
-        //EavropService.getEavrops().then(function(result){
-            $scope.eavrops = [{'arendeId':'123421','utredningType':'AFU','bestallareOrganisation':'In progress','enhet':'In progress','creationTime':1445451264483,'patientCity':'Linköping','mottagarenOrganisation':'In progress','utredare':'In progress','status':'In progress','antalDagarEfterForfragan':93,'color':'#ffffff'},
-                {'arendeId':'753423','utredningType':'SLU','bestallareOrganisation':'In progress','enhet':'In progress','creationTime':1490811264484,'patientCity':'Göteborg','mottagarenOrganisation':'In progress','utredare':'In progress','status':'In progress','antalDagarEfterForfragan':89,'color':'#ffff99'},
-                {'arendeId':'44240','utredningType':'AFU','bestallareOrganisation':'In progress','enhet':'In progress','creationTime':1481310864484,'patientCity':'Stockholm','mottagarenOrganisation':'In progress','utredare':'In progress','status':'In progress','antalDagarEfterForfragan':92,'color':'#ffcccc'},
-                {'arendeId':'78743','utredningType':'TMU','bestallareOrganisation':'In progress','enhet':'In progress','creationTime':1492884864484,'patientCity':'oskarshamn','mottagarenOrganisation':'In progress','utredare':'In progress','status':'In progress','antalDagarEfterForfragan':95,'color':'#ffcccc'}];
-            if($scope.eavrops !== null && $scope.eavrops.length > 0){
-                // Set initial date range
-                if($scope.eavrops.length > 0){
-                    $scope.tableKeys = _.keys($scope.eavrops[0]);
-                    var ordered = $filter('orderBy')($scope.eavrops, dateSortKey, false);
-                    DateSelectionChangeService.setInitialDateRange(_.first(ordered)[dateSortKey], _.last(ordered)[dateSortKey]);
-                }
-            }
+            var dateKey = 'creationTime';
+            var headerGroups = [
+                {name: null, colSpan: 1, colorClass: null},
+                {name: 'beställare', colSpan: 4, colorClass: 'bg-danger'},
+                {name: 'leverantör', colSpan: 2, colorClass: 'bg-warning'},
+                {name: null, colSpan: 2, colorClass: null}
+            ];
+            var headerNameMappings = [
+                {key: 'arendeId', value: 'Ärende ID'},
+                {key: 'utredningType', value: 'Typ'},
+                {key: 'enhet', value: 'Enhet/Avdelning'},
+                {key: 'creationTime', value: 'Förfrågan skickad datum'},
+                {key: 'patientCity', value: 'Patientens bostadsort'},
+                {key: 'bestallareOrganisation', value: 'Organisation'},
+                {key: 'mottagarenOrganisation', value: 'Organisation'},
+                {key: 'utredare', value: 'Utredare'},
+                {key: 'status', value: 'Status'},
+                {key: 'antalDagarEfterForfragan', value: 'Antal dagar efter förfrågan om utredning'}
+            ];
 
-            /* jshint -W055 */ // XXX: ngTableParams.
-            // Set up ngtable options
-            var filteredData = applyDateFilter($scope.eavrops);
-            if(!$scope.tableParams){
-                /* jshint -W055 */ // XXX: ngTableParams.
-                $scope.tableParams = new ngTableParams({
-                    page: 1,            // show first page
-                    count: 2          // count per page
-                }, {
-                    total: filteredData.length, // length of data
-                    getData: function($defer, params) {
-                        filteredData = params.sorting() ?
-                            $filter('orderBy')(filteredData, params.orderBy()) :
-                            filteredData;
+            // EavropService.getEavrops().then(function(result){
+            $scope.tableService.unfilteredData =
+                [
+                    {'arendeId': '123421', 'utredningType': 'AFU', 'bestallareOrganisation': 'In progress', 'enhet': 'In progress', 'creationTime': 1445451264483, 'patientCity': 'Linköping', 'mottagarenOrganisation': 'In progress', 'utredare': 'In progress', 'status': 'In progress', 'antalDagarEfterForfragan': 93, 'color': null},
+                    {'arendeId': '753423', 'utredningType': 'SLU', 'bestallareOrganisation': 'In progress', 'enhet': 'In progress', 'creationTime': 1490811264484, 'patientCity': 'Göteborg', 'mottagarenOrganisation': 'In progress', 'utredare': 'In progress', 'status': 'In progress', 'antalDagarEfterForfragan': 89, 'color': 'bg-warning'},
+                    {'arendeId': '44240', 'utredningType': 'AFU', 'bestallareOrganisation': 'In progress', 'enhet': 'In progress', 'creationTime': 1481310864484, 'patientCity': 'Stockholm', 'mottagarenOrganisation': 'In progress', 'utredare': 'In progress', 'status': 'In progress', 'antalDagarEfterForfragan': 92, 'color': 'bg-danger'},
+                    {'arendeId': '78743', 'utredningType': 'TMU', 'bestallareOrganisation': 'In progress', 'enhet': 'In progress', 'creationTime': 1492884864484, 'patientCity': 'oskarshamn', 'mottagarenOrganisation': 'In progress', 'utredare': 'In progress', 'status': 'In progress', 'antalDagarEfterForfragan': 95, 'color': 'bg-success'}
+                ];
 
-                        $defer.resolve(filteredData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                    }
-                });
-                /* jshint +W055 */
-                $scope.tableParams.settings().$scope = $scope;
-            }
+            // init initial date picker range
+            $scope.dateService.calculateInitialDateRange($scope.tableService.unfilteredData, dateKey);
+            $scope.tableService.applyDateFilter(dateKey, $scope.dateService.startDate, $scope.dateService.endDate);
+            $scope.tableService.setHeaderGroups(headerGroups);
+            $scope.tableService.setHeadersNameMapping(headerNameMappings);
+            $scope.tableService.initTableParameters();
+            $scope.tableService.tableParams.settings().$scope = $scope;
+            // });
 
-            $scope.getFormattedDate = function(date){
-                return $filter('date')(date, 'dd-MM-yyyy');
-            };
-
-            $scope.sort = function(key, tableParams){
+            $scope.sort = function(key){
                 var params = {};
-                params[key] = tableParams.isSortBy(key, 'asc') ? 'desc' : 'asc';
-                tableParams.sorting(params);
-                $scope.$broadcast();
+                params[key] = $scope.tableService.tableParams.isSortBy(key, 'asc') ? 'desc' : 'asc';
+                $scope.tableService.tableParams.sorting(params);
+                $scope.tableService.tableParams.reload();
             };
 
-            // Listen to date changes and apply filter
-            $scope.$on('newDateSelected', function(){
-                filteredData = applyDateFilter($scope.eavrops);
-                $scope.tableParams.reload();
-            });
-        //});
-    }])
-
-    .controller('DateSelectionController', ['$scope', 'DateSelectionChangeService',
-    function ($scope, DateSelectionChangeService) {
-
-        $scope.$on('initialDateIsSet', function(){
-            $scope.startDate = new Date(DateSelectionChangeService.startDate);
-            $scope.endDate = new Date(DateSelectionChangeService.endDate);
-        });
-
-        $scope.doFilter = function(){
-            DateSelectionChangeService.update($scope.startDate, $scope.endDate);
-        };
-
-        $scope.clearStartDate = function () {
-            $scope.startDate = null;
-        };
-
-        $scope.clearEndDate = function () {
-            $scope.endDate = null;
-        };
-
-        // Disable weekend selection
-        $scope.disabled = function(date, mode) {
-            return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-        };
-
-        $scope.openStart = function($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-
-            $scope.startDateOpened = true;
-        };
-
-        $scope.openEnd = function($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-
-            $scope.endDateOpened = true;
-        };
-        $scope.dateFormat = 'dd-MM-yyyy';
-    }]);
+            $scope.doFilter = function () {
+                $scope.tableService.applyDateFilter(dateKey, $scope.dateService.startDate, $scope.dateService.endDate);
+                $scope.tableService.tableParams.reload();
+            };
+        }]);

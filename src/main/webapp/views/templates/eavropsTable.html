@@ -1,71 +1,72 @@
-<div ng-cloak ng-controller="EavropController" class="table-wrapper">
+<div ng-cloak class="table-wrapper">
 
     <table ng-table="tableParams" template-pagination="custom/pager" class="table table-bordered table-hover">
 
         <thead>
-        <tr>
-            <th colspan="2"></th>
-            <th colspan="4" class="text-center alert alert-warning">Beställare</th>
-            <th colspan="2" class="text-center alert alert-danger">Leverantör</th>
-            <th colspan="2" class="text-center"></th>
-        </tr>
+            <tr>
+                <th 
+                class="text-capitalize text-center"
+                ng-repeat="value in tableService.headerGroups" colspan="{{value.colSpan}}"
+                ng-class="value.colorClass">{{value.name}}</th>
+            </tr>
 
-        <tr class="header">
-            <th ng-repeat="key in tableKeys" ng-if="key != 'color'" class="text-center sortable"
-                ng-class="{'sort-asc': tableParams.isSortBy(key, 'asc'),'sort-desc': tableParams.isSortBy(key, 'desc')}"
-                ng-click="sort(key, tableParams)">
-                <div ng-if="key != 'color'" ng-bind="tableHeaders[key]"></div>
+            <tr class="header">
+                <th 
+                ng-repeat="header in tableService.headersMapping" class="text-center sortable"
+                ng-class="{'sort-asc': tableService.tableParams.isSortBy(header.key, 'asc'),'sort-desc': tableService.tableParams.isSortBy(header.key, 'desc')}"
+                ng-click="sort(header.key)">
+                <div>{{header.value}}</div>
             </th>
         </tr>
 
-        </thead>
+    </thead>
 
-        <tbody>
-        <tr ng-repeat="row in $data"  ng-style="{'background-color' : row.color}">
-            <td ng-repeat="key in tableKeys" ng-if="key != 'color'" sortable="{{key}}"  class="text-capitalize text-center">
-                <span ng-if="key == 'creationTime'" ng-bind="getFormattedDate(row[key])"></span>
-                <span ng-if="key != 'creationTime'" ng-bind="row[key]"></span>
+    <tbody>
+        <tr ng-repeat="row in tableService.filteredData"  ng-class="row.color">
+            <td ng-repeat="header in tableService.headersMapping" ng-if="header.key != 'color'" sortable="{{header.key}}"  class="text-capitalize text-center">
+                <span ng-if="header.key == 'creationTime'" ng-bind="dateService.getFormattedDate(row[header.key])"></span>
+                <span ng-if="header.key != 'creationTime'" ng-bind="row[header.key]"></span>
             </td>
         </tr>
 
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
-    <script type="text/ng-template" id="custom/pager">
-        <ul class="pager ng-cloak">
-            <li ng-repeat="page in pages"
-                ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
-                ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
-                <a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Previous</a>
-                <a ng-switch-when="next" ng-click="params.page(page.number)" href="">Next &raquo;</a>
-            </li>
+<script type="text/ng-template" id="custom/pager">
+    <ul class="pager ng-cloak">
+        <li ng-repeat="page in pages"
+        ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
+        ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
+        <a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Previous</a>
+        <a ng-switch-when="next" ng-click="params.page(page.number)" href="">Next &raquo;</a>
+    </li>
 
-            <li>
-                <div class="btn-group">
-                    <button type="button" ng-class="{'active':params.count() == 10}" ng-click="params.count(10)" class="btn btn-default">10</button>
-                    <button type="button" ng-class="{'active':params.count() == 25}" ng-click="params.count(25)" class="btn btn-default">25</button>
-                    <button type="button" ng-class="{'active':params.count() == 50}" ng-click="params.count(50)" class="btn btn-default">50</button>
-                    <button type="button" ng-class="{'active':params.count() == 100}" ng-click="params.count(100)" class="btn btn-default">100</button>
-                </div>
-            </li>
-        </ul>
-
-
-        <div class="col-lg-9">
-            <div class="table-legend">
-                <div class="circle error"></div>
-                <p>Antal dagar har överträtts och/eller annan avvikelse finns</p>
-            </div>
-
-            <div class="table-legend">
-                <div class="circle warning"></div>
-                <p>Utredning accepterad</p>
-            </div>
-
-            <div class="table-legend">
-                <div class="circle info"></div>
-                <p>Godkänd för ersättning</p>
-            </div>
+    <li>
+        <div class="btn-group">
+            <button type="button" ng-class="{'active':params.count() == 10}" ng-click="params.count(10)" class="btn btn-default">10</button>
+            <button type="button" ng-class="{'active':params.count() == 25}" ng-click="params.count(25)" class="btn btn-default">25</button>
+            <button type="button" ng-class="{'active':params.count() == 50}" ng-click="params.count(50)" class="btn btn-default">50</button>
+            <button type="button" ng-class="{'active':params.count() == 100}" ng-click="params.count(100)" class="btn btn-default">100</button>
         </div>
-    </script>
+    </li>
+</ul>
+
+
+<div class="col-lg-9">
+    <div class="table-legend">
+        <div class="circle bg-danger"></div>
+        <p>Antal dagar har överträtts och/eller annan avvikelse finns</p>
+    </div>
+
+    <div class="table-legend">
+        <div class="circle bg-warning"></div>
+        <p>Utredning accepterad</p>
+    </div>
+
+    <div class="table-legend">
+        <div class="circle bg-success"></div>
+        <p>Godkänd för ersättning</p>
+    </div>
+</div>
+</script>
 </div>

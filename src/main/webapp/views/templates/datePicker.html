@@ -1,15 +1,15 @@
-<div class="row" ng-controller="DateSelectionController">
+<div class="row">
     <div class="col-md-3">
         <b>Från, datum</b>
         <div class="input-group">
             <input type="text" class="form-control"
                    datepicker-popup="{{dateFormat}}"
-                   ng-model="startDate" is-open="startDateOpened"
+                   ng-model="dateService.startDate" is-open="dateService.startDateOpened.value"
                    date-disabled="disabled(date, mode)"
                    ng-required="true"
                    close-text="Close" />
           <span class="input-group-addon">
-            <button ng-click="openStart($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            <a ng-click="dateService.openStart($event)"><i class="glyphicon glyphicon-calendar"></i></a>
           </span>
         </div>
     </div>
@@ -19,15 +19,15 @@
         <div class="input-group">
             <input type="text" class="form-control"
                    datepicker-popup="{{dateFormat}}"
-                   ng-model="endDate" is-open="endDateOpened"
+                   ng-model="dateService.endDate" is-open="dateService.endDateOpened.value"
                    date-disabled="disabled(date, mode)"
                    ng-required="true"
                    close-text="Close" />
           <span class="input-group-addon datepicker">
-            <button ng-click="openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            <a ng-click="dateService.openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></a>
           </span>
         </div>
     </div>
 
-    <button class="btn btn-info dateBtn" ng-click="doFilter()">Visa</button>
+    <button class="btn btn-info dateBtn" data-ng-model="tableParams.filter()[dateKey]" ng-click="doFilter()">Visa</button>
 </div>

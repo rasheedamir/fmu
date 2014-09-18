@@ -36,7 +36,8 @@ angular.module('fmuClientApp', [
     })
     .state('overview.orders', {
         url: '/orders',
-        templateUrl: 'views/overview/orders.html'
+        templateUrl: 'views/overview/orders.html',
+        controller: 'EavropController'
     })
     .state('overview.ongoing', {
         url: '/ongoing',
