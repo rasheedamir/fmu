@@ -1,2 +1,5 @@
 <h2>Genomförda utredningar</h2>
-<a href="#/eavrop/1/order">Link to eavrop</a>
+
+<ul ng-repeat="eavrop in eavrops">
+    <li><a ui-sref="eavrop.order({eavropId: eavrop.eavropId})">{{eavrop.arendeId}}</a></li>
+</ul>

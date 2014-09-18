@@ -15,7 +15,8 @@ angular
     'ngResource',
     'ngSanitize',
     'ngTouch',
-    'ui.router'
+    'ui.router',
+    'ui.bootstrap'
 ])
 .run(['$rootScope', '$state', function($rootScope, $state){
     $rootScope.$state = $state;
@@ -48,6 +49,12 @@ angular
     .state('eavrop', {
         url: '/eavrop/{eavropId:[0-9]+}',
         abstract: true,
+        resolve: {
+            currentEavrop: function($stateParams, Eavrop){
+                return Eavrop.get({eavropId: $stateParams.eavropId});
+            }
+        },
+        controller: 'EavropCtrl',
         templateUrl: 'views/eavrop/eavrop.html',
     })
     .state('eavrop.order', {

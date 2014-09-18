@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('fmuClientApp').
-    controller('EavropCtrl',['$scope', function($scope){
+    controller('EavropCtrl',['$scope', 'currentEavrop', function($scope, currentEavrop){
+
+    $scope.currentEavrop = currentEavrop;
 
     $scope.links = [
         {name: 'Beställning', state: 'order'},

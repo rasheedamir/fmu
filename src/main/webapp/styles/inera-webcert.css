@@ -501,6 +501,7 @@
         color: #28b4c4;
     }
 
+    /*
     .table {
         border-collapse: separate;
         border-spacing: 0 0;
@@ -522,6 +523,7 @@
     .table-striped tbody > tr:nth-child(odd) > th {
         background: none;
     }
+    */
 
     th.center, td.center {
         text-align: center;
