@@ -28,6 +28,12 @@ angular.module('fmuClientApp')
                 {key: 'antalDagarEfterForfragan', value: 'Antal dagar efter förfrågan om utredning'}
             ];
 
+            var footerHints = [
+                {description: 'Antal dagar har överträtts och/eller annan avvikelse finns', colorClass: 'bg-danger'},
+                {description: 'Utredning accepterad', colorClass: 'bg-warning'},
+                {description: 'Godkänd för ersättning', colorClass: 'bg-success'}
+            ];
+
             // EavropService.getEavrops().then(function(result){
             $scope.tableService.unfilteredData =
                 [
@@ -43,6 +49,7 @@ angular.module('fmuClientApp')
             $scope.tableService.setHeaderGroups(headerGroups);
             $scope.tableService.setHeadersNameMapping(headerNameMappings);
             $scope.tableService.initTableParameters();
+            $scope.tableService.setFooterHintCircles(footerHints);
             $scope.tableService.tableParams.settings().$scope = $scope;
             // });
 

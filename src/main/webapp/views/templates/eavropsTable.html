@@ -51,21 +51,10 @@
     </li>
 </ul>
 
-
 <div class="col-lg-9">
-    <div class="table-legend">
-        <div class="circle bg-danger"></div>
-        <p>Antal dagar har överträtts och/eller annan avvikelse finns</p>
-    </div>
-
-    <div class="table-legend">
-        <div class="circle bg-warning"></div>
-        <p>Utredning accepterad</p>
-    </div>
-
-    <div class="table-legend">
-        <div class="circle bg-success"></div>
-        <p>Godkänd för ersättning</p>
+    <div ng-repeat="value in params.footerHints" class="table-legend">
+        <div class="circle {{value.colorClass}}"></div>
+        <p>{{value.description}}</p>
     </div>
 </div>
 </script>
