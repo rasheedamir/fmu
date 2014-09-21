@@ -29,5 +29,5 @@
         </div>
     </div>
 
-    <button class="btn btn-info dateBtn" data-ng-model="tableParams.filter()[dateKey]" ng-click="doFilter()">Visa</button>
+    <button class="btn btn-info dateBtn" ng-click="tableService.doDateFilter(dateKey, dateService.startDate, dateService.endDate)">Visa</button>
 </div>

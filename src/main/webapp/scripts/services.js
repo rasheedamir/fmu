@@ -110,6 +110,18 @@ angular.module('fmuClientApp').factory('EavropService', ['$q', '$http', 'RESTURL
                 this.tableParams.footerHints = hints;
             };
 
+            service.sort = function(key){
+                var params = {};
+                params[key] = this.tableParams.isSortBy(key, 'asc') ? 'desc' : 'asc';
+                this.tableParams.sorting(params);
+            };
+
+            service.doDateFilter = function (dateKey, startDate, endDate) {
+                console.log(dateKey);
+                this.applyDateFilter(dateKey, startDate, endDate);
+                this.tableParams.reload();
+            };
+
             service.initTableParameters = function () {
                 var self = this;
                 if (!self.tableParams) {

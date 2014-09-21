@@ -8,7 +8,7 @@ angular.module('fmuClientApp')
             $scope.dateService = DateSelectionChangeService;
             $scope.tableService = TableService;
 
-            var dateKey = 'creationTime';
+            $scope.dateKey = 'creationTime';
             var headerGroups = [
                 {name: null, colSpan: 1, colorClass: null},
                 {name: 'beställare', colSpan: 4, colorClass: 'bg-danger'},
@@ -44,24 +44,12 @@ angular.module('fmuClientApp')
                 ];
 
             // init initial date picker range
-            $scope.dateService.calculateInitialDateRange($scope.tableService.unfilteredData, dateKey);
-            $scope.tableService.applyDateFilter(dateKey, $scope.dateService.startDate, $scope.dateService.endDate);
+            $scope.dateService.calculateInitialDateRange($scope.tableService.unfilteredData, $scope.dateKey);
+            $scope.tableService.applyDateFilter($scope.dateKey, $scope.dateService.startDate, $scope.dateService.endDate);
             $scope.tableService.setHeaderGroups(headerGroups);
             $scope.tableService.setHeadersNameMapping(headerNameMappings);
             $scope.tableService.initTableParameters();
             $scope.tableService.setFooterHintCircles(footerHints);
             $scope.tableService.tableParams.settings().$scope = $scope;
             // });
-
-            $scope.sort = function(key){
-                var params = {};
-                params[key] = $scope.tableService.tableParams.isSortBy(key, 'asc') ? 'desc' : 'asc';
-                $scope.tableService.tableParams.sorting(params);
-                $scope.tableService.tableParams.reload();
-            };
-
-            $scope.doFilter = function () {
-                $scope.tableService.applyDateFilter(dateKey, $scope.dateService.startDate, $scope.dateService.endDate);
-                $scope.tableService.tableParams.reload();
-            };
         }]);

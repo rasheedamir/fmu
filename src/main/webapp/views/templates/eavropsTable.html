@@ -14,7 +14,7 @@
                 <th 
                 ng-repeat="header in tableService.headersMapping" class="text-center sortable"
                 ng-class="{'sort-asc': tableService.tableParams.isSortBy(header.key, 'asc'),'sort-desc': tableService.tableParams.isSortBy(header.key, 'desc')}"
-                ng-click="sort(header.key)">
+                ng-click="tableService.sort(header.key)">
                 <div>{{header.value}}</div>
             </th>
         </tr>
