@@ -1,13 +1,13 @@
 <div ng-cloak class="table-wrapper">
 
-    <table ng-table="tableService.tableParams" template-pagination="custom/pager" class="table table-bordered table-hover">
+    <table ng-table="tableService.tableParams" template-pagination="custom/pager" class="table table-hover">
 
         <thead>
             <tr>
                 <th 
                 class="text-capitalize text-center"
                 ng-repeat="value in tableService.headerGroups" colspan="{{value.colSpan}}"
-                ng-class="value.colorClass">{{value.name}}</th>
+                ng-class="value.colorClass == null && value.name == null ? 'invisible-header' : value.colorClass">{{value.name}}</th>
             </tr>
 
             <tr class="header">

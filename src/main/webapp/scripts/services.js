@@ -117,7 +117,6 @@ angular.module('fmuClientApp').factory('EavropService', ['$q', '$http', 'RESTURL
             };
 
             service.doDateFilter = function (dateKey, startDate, endDate) {
-                console.log(dateKey);
                 this.applyDateFilter(dateKey, startDate, endDate);
                 this.tableParams.reload();
             };

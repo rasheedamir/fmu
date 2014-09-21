@@ -41,7 +41,8 @@ angular.module('fmuClientApp', [
     })
     .state('overview.ongoing', {
         url: '/ongoing',
-        templateUrl: 'views/overview/ongoing.html'
+        templateUrl: 'views/overview/ongoing.html',
+        controller: 'OngoingController'
     })
     .state('overview.completed', {
         url: '/completed',
