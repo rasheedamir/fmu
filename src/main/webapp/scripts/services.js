@@ -106,13 +106,17 @@ angular.module('fmuClientApp').factory('EavropService', ['$q', '$http', 'RESTURL
                 this.filteredData = $filter('dateFilter')(this.unfilteredData, dateKey, startDate, endDate);
             };
 
+            service.setFooterHintCircles = function(hints){
+                this.tableParams.footerHints = hints;
+            };
+
             service.initTableParameters = function () {
                 var self = this;
                 if (!self.tableParams) {
                     /* jshint -W055 */ // XXX: ngTableParams.
                     self.tableParams = new ngTableParams({
                         page: 1,            // show first page
-                        count: 10          // count per page
+                        count: 2          // count per page
                     }, {
                         total: self.filteredData.length, // length of data
                         getData: function ($defer, params) {
