@@ -162,5 +162,6 @@ angular.module('fmuClientApp').factory('EavropService', ['$q', '$http', 'RESTURL
                 });
                 /* jshint +W055 */
             };
+
             return service;
         }]);

@@ -36,6 +36,7 @@ angular.module('fmuClientApp')
 
             EavropService.getEavrops().then(function (result) {
                 $scope.tableService.setUnfilteredData(result);
+                console.log($scope.tableService.unfilteredData.length);
 
                 // Setup Datetime and Table services
                 $scope.dateService.calculateInitialDateRange($scope.tableService.unfilteredData, $scope.dateKey);
@@ -45,5 +46,6 @@ angular.module('fmuClientApp')
                 $scope.tableService.initTableParameters();
                 $scope.tableService.setFooterHintCircles(footerHints);
                 $scope.tableService.tableParams.settings().$scope = $scope;
+                $scope.tableService.tableParams.reload();
             });
         }]);
