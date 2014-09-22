@@ -1,4 +1,4 @@
-package se.inera.fmu.domain.model.patient;
+package se.inera.fmu.domain.model.shared;
 
 /**
  * Created by Rasheed on 7/23/14.

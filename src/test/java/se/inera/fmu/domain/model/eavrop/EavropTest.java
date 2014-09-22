@@ -1,21 +1,26 @@
 package se.inera.fmu.domain.model.eavrop;
 
 import junit.framework.TestCase;
-import se.inera.fmu.domain.model.patient.Address;
-import se.inera.fmu.domain.model.patient.Gender;
-import se.inera.fmu.domain.model.patient.Initials;
-import se.inera.fmu.domain.model.patient.Name;
-import se.inera.fmu.domain.model.patient.Patient;
+import se.inera.fmu.domain.model.invanare.Invanare;
+import se.inera.fmu.domain.model.invanare.PersonalNumber;
+import se.inera.fmu.domain.model.landsting.Landsting;
+import se.inera.fmu.domain.model.landsting.LandstingId;
+import se.inera.fmu.domain.model.shared.Address;
+import se.inera.fmu.domain.model.shared.Gender;
+import se.inera.fmu.domain.model.shared.Name;
+import se.inera.fmu.domain.party.Bestallaradministrator;
 
 public class EavropTest extends TestCase {
 	private Eavrop eavrop;
 	
-	private Patient patient;
-	private String personalNumber;
+	private Invanare invanare;
+	private PersonalNumber personalNumber; 
 	private Gender gender;
 
 	private String email;
-
+	private String specialNeeds; 
+	
+	
 	private Address address;
 	private String address1;
 	private String address2;
@@ -25,7 +30,6 @@ public class EavropTest extends TestCase {
 	private String country;
 
 	private Name name;
-	private Initials initials;
 	private String firstName;
 	private String middleName;
 	private String lastName;
@@ -35,10 +39,13 @@ public class EavropTest extends TestCase {
 	private UtredningType utredningType;
 
 	private String tolk;
+	
+	private Landsting landsting;
+	
+	private Bestallaradministrator bestallaradministrator;
 
 	@Override
 	protected void setUp() throws Exception {
-		initials = Initials.MR;
 		firstName = "john";
 		middleName = "k";
 		lastName = "lars";
@@ -49,16 +56,19 @@ public class EavropTest extends TestCase {
 		state = "test county";
 		city = "test city";
 		country = "testland";
-		personalNumber = "6677665577";
+		personalNumber = new PersonalNumber("6677665577");
 		gender = Gender.MALE;
+		invanare = new Invanare(personalNumber, name, gender, address, email, specialNeeds);
 		arendeId = new ArendeId("1312421532151");
 		utredningType = UtredningType.SLU;
 		tolk = "Swedish";
+		landsting = new Landsting (new LandstingId(1), "Stockholms läns landsting");
+		bestallaradministrator = new Bestallaradministrator("Per Elofsson","Handläggare", "LFC Stockholm", "08123456", "per.elofsson@forsakringskassan.se");
+
 	}
 	
 	public void testCreateName() {
-		name = new Name(initials, firstName, middleName, lastName);
-		assertEquals(initials, name.getInitials());
+		name = new Name(firstName, middleName, lastName);
 		assertEquals(firstName, name.getFirstName());
 		assertEquals(middleName, name.getMiddleName());
 		assertEquals(lastName, name.getLastName());
@@ -84,20 +94,22 @@ public class EavropTest extends TestCase {
 		assertEquals(state, address.getState());
 	}
 	
-	public void testPatient() {
-		patient = new Patient(personalNumber, name, gender, address, email);
-		assertEquals(personalNumber, patient.getPersonalNumber());
-		assertEquals(name, patient.getName());
-		assertEquals(gender, patient.getGender());
-		assertEquals(address, patient.getHomeAddress());
-		assertEquals(email, patient.getEmail());
+	public void testInvanare() {
+		invanare = new Invanare(personalNumber, name, gender, address, email, specialNeeds);
+		assertEquals(personalNumber, invanare.getPersonalNumber());
+		assertEquals(name, invanare.getName());
+		assertEquals(gender, invanare.getGender());
+		assertEquals(address, invanare.getHomeAddress());
+		assertEquals(email, invanare.getEmail());
 	}
 	
 	public void  testCreateEavrop() {
-		eavrop = new Eavrop(arendeId, utredningType, tolk, patient);
-		assertEquals(patient, eavrop.getPatient());
-		assertEquals(tolk, eavrop.getTolk());
+		eavrop = new Eavrop(arendeId, utredningType, invanare, landsting, bestallaradministrator );
+		
+		assertEquals(invanare, eavrop.getInvanare());
 		assertEquals(utredningType, eavrop.getUtredningType());
 		assertEquals(arendeId, eavrop.getArendeId());
-	}
+		
+		//TODO:Test more properties when added	
+		}
 }

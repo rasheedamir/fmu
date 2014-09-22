@@ -1,12 +1,10 @@
-package se.inera.fmu.domain.model.patient;
+package se.inera.fmu.domain.model.invanare;
 
 import lombok.ToString;
 import se.inera.fmu.domain.shared.ValueObject;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import java.io.Serializable;
 
 /**
@@ -15,32 +13,33 @@ import java.io.Serializable;
  */
 @ToString
 @Embeddable
-public final class PatientId implements ValueObject<PatientId>, Serializable {
+public final class PersonalNumber implements ValueObject<PersonalNumber>, Serializable {
 
     //~ Instance fields ================================================================================================
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "patient_id", updatable = false, nullable = false)
-    protected Long id;
+    @Column(name = "PERSONAL_NUMBER", updatable = false, nullable = false)
+    protected String personalNumber;
 
     //~ Constructors ===================================================================================================
 
-    PatientId() {
+    PersonalNumber() {
         // Needed by hibernate
     }
 
-    public PatientId(Long id) {
-        this.setId(id);
+    public PersonalNumber(String personalNumber) {
+    	
+    	//TODO: Validate personal number
+        this.setPersonalNumber(personalNumber);
     }
 
     //~ Property Methods ===============================================================================================
 
-    public Long getId() {
-        return id;
+    public String getPersonalNumber() {
+        return this.personalNumber;
     }
 
-    private void setId(Long id) {
-        this.id = id;
+    private void setPersonalNumber(String personalNumber) {
+        this.personalNumber = personalNumber;
     }
 
     //~ Other fields ===================================================================================================
@@ -50,18 +49,18 @@ public final class PatientId implements ValueObject<PatientId>, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PatientId other = (PatientId) o;
+        PersonalNumber other = (PersonalNumber) o;
 
         return sameValueAs(other);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return personalNumber.hashCode();
     }
 
     @Override
-    public boolean sameValueAs(PatientId other) {
-        return other != null && this.id.equals(other.id);
+    public boolean sameValueAs(PersonalNumber other) {
+        return other != null && this.personalNumber.equals(other.personalNumber);
     }
 }

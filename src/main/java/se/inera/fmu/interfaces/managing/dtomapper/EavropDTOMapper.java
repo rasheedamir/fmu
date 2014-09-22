@@ -5,22 +5,22 @@ import java.util.Random;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.Eavrop;
-import se.inera.fmu.domain.model.patient.Address;
-import se.inera.fmu.domain.model.patient.Patient;
+import se.inera.fmu.domain.model.invanare.Invanare;
+import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 
 public class EavropDTOMapper {
 
 	public EavropDTO mappToDTO(Eavrop eavrop) {
 		EavropDTO dto = new EavropDTO();
-		Patient patient = eavrop.getPatient();
-		Address address = patient.getHomeAddress();
+		Invanare invanare = eavrop.getInvanare();
+		Address address = invanare.getHomeAddress();
 		String devstatus = "In progress";
 		
 		DateTime dateTime = DateTime.now();
 		
 		dto.setArendeId(eavrop.getArendeId().toString())
-		.setBestallareOrganisation(devstatus)
+		.setBestallareOrganisation(eavrop.getBestallaradministrator().getOrganistation())
 		.setMottagarenOrganisation(devstatus)
 		.setEnhet(devstatus)
 		.setUtredare(devstatus)

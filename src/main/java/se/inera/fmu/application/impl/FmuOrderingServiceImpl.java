@@ -9,11 +9,14 @@ import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.eavrop.*;
-import se.inera.fmu.domain.model.patient.Address;
-import se.inera.fmu.domain.model.patient.Gender;
-import se.inera.fmu.domain.model.patient.Name;
-import se.inera.fmu.domain.model.patient.Patient;
-import se.inera.fmu.domain.model.patient.PatientRepository;
+import se.inera.fmu.domain.model.invanare.Invanare;
+import se.inera.fmu.domain.model.invanare.InvanareRepository;
+import se.inera.fmu.domain.model.invanare.PersonalNumber;
+import se.inera.fmu.domain.model.landsting.Landsting;
+import se.inera.fmu.domain.model.shared.Address;
+import se.inera.fmu.domain.model.shared.Gender;
+import se.inera.fmu.domain.model.shared.Name;
+import se.inera.fmu.domain.party.Bestallaradministrator;
 
 import javax.inject.Inject;
 
@@ -32,23 +35,31 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final EavropRepository eavropRepository;
-    private final PatientRepository patientRepository;
+    private final InvanareRepository invanareRepository;
 
     @Inject
-    public FmuOrderingServiceImpl(final EavropRepository eavropRepository, final PatientRepository patientRepository) {
+    public FmuOrderingServiceImpl(final EavropRepository eavropRepository, final InvanareRepository invanareRepository) {
         this.eavropRepository = eavropRepository;
-        this.patientRepository = patientRepository;
+        this.invanareRepository = invanareRepository;
     }
 
     @Override
-    public ArendeId createNewEavrop(ArendeId arendeId, UtredningType utredningType, String tolk, String personalNumber,
-                                    Name patientName, Gender patientGender, Address patientHomeAddress,
-                                    String patientEmail) {
-        Patient patient = new Patient(personalNumber, patientName, patientGender, patientHomeAddress, patientEmail);
-        patient = patientRepository.save(patient);
-        log.debug(String.format("patient created :: %s", patient.toString()));
+    public ArendeId createNewEavrop(ArendeId arendeId,  UtredningType utredningType, String tolk, PersonalNumber personalNumber,
+                                    Name invanareName, Gender invanareGender, Address invanareHomeAddress,
+                                    String invanareEmail, String invanareSpecialNeeds, Landsting landsting, String administratorName, 
+                                    String administratorBefattning, String administratorOrganisation, String administratorPhone, 
+                                    String administratorEmail  ) {
+        
+        Invanare invanare = createInvanare(personalNumber, invanareName, invanareGender, invanareHomeAddress, invanareEmail, invanareSpecialNeeds);
+    	
+        Bestallaradministrator bestallaradministrator = createBestallaradministrator(administratorName, administratorBefattning, administratorOrganisation, administratorPhone, administratorEmail);
+        
+        log.debug(String.format("invanare created :: %s", invanare.toString()));
 
-        Eavrop eavrop = new Eavrop(arendeId, utredningType, tolk, patient);
+        Eavrop eavrop = new Eavrop(arendeId, utredningType, invanare, landsting, bestallaradministrator);
+        
+        //TODO: fix tolk setting, should there be a boolean with a language description string or only a string?
+        eavrop.setTolk(true);
         eavrop = eavropRepository.save(eavrop);
         log.debug(String.format("eavrop created :: %s", eavrop));
 
@@ -63,5 +74,18 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
 
         return eavrop.getArendeId();
     }
-
+    
+    private Invanare createInvanare(PersonalNumber personalNumber, Name invanareName, Gender invanareGender, Address invanareHomeAddress, String invanareEmail, String specialNeeds ){
+    	Invanare invanare = new Invanare(personalNumber, invanareName, invanareGender, invanareHomeAddress, invanareEmail, specialNeeds);
+    	invanare = invanareRepository.save(invanare);
+        return invanare;
+    }
+    
+    private Bestallaradministrator createBestallaradministrator(String name, String befattning, String organisation, String phone, String email){
+    	
+    	Bestallaradministrator bestallaradministrator = new Bestallaradministrator(name, befattning, organisation, phone, email);
+    	//TODO: Set up repository, for this subclass or abstract superclass; 
+//    	bestallaradministrator = bestallaradministrator.save(invanare);
+    	return bestallaradministrator;
+    }
 }

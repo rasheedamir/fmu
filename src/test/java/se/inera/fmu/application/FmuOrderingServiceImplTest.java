@@ -9,19 +9,26 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
 import se.inera.fmu.application.impl.FmuOrderingServiceImpl;
+import se.inera.fmu.application.util.BestallaradministratorUtil;
 import se.inera.fmu.application.util.EavropUtil;
-import se.inera.fmu.application.util.PatientUtil;
+import se.inera.fmu.application.util.InvanareUtil;
+import se.inera.fmu.application.util.LandstingUtil;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
-import se.inera.fmu.domain.model.patient.Patient;
-import se.inera.fmu.domain.model.patient.PatientRepository;
-
+import se.inera.fmu.domain.model.eavrop.UtredningType;
+import se.inera.fmu.domain.model.invanare.Invanare;
+import se.inera.fmu.domain.model.invanare.InvanareRepository;
+import se.inera.fmu.domain.model.invanare.PersonalNumber;
+import se.inera.fmu.domain.model.landsting.Landsting;
+import se.inera.fmu.domain.model.shared.Address;
+import se.inera.fmu.domain.model.shared.Gender;
+import se.inera.fmu.domain.model.shared.Name;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
-
 import static org.junit.Assert.*;
 
 /**
@@ -34,7 +41,7 @@ public class FmuOrderingServiceImplTest {
     private EavropRepository eavropRepository;
 
     @Mock
-    private PatientRepository patientRepository;
+    private InvanareRepository patientRepository;
 
     @Rule
     public ActivitiRule activitiRule = new ActivitiRule();
@@ -52,11 +59,15 @@ public class FmuOrderingServiceImplTest {
     @Deployment(resources = {"processes/fmu.bpmn"})
     public void shouldCreateNewEavrop() {
         final Eavrop savedEavrop = stubRepositoryToReturnEavropOnSave();
-        final Patient savedPatient = stubRepositoryToReturnPatientOnSave();
+        final Invanare savedPatient = stubRepositoryToReturnPatientOnSave();
         final ArendeId arendeId = fmuOrderingService.createNewEavrop(EavropUtil.ARENDE_ID, EavropUtil.UTREDNING_TYPE,
-                                                                         EavropUtil.TOLK, PatientUtil.PERSONAL_NUMBER,
-                                                                         PatientUtil.NAME, PatientUtil.GENDER,
-                                                                         PatientUtil.HOME_ADDRESS, PatientUtil.EMAIL);
+                                                                         EavropUtil.TOLK, InvanareUtil.PERSONAL_NUMBER,
+                                                                         InvanareUtil.NAME, InvanareUtil.GENDER,
+                                                                         InvanareUtil.HOME_ADDRESS, InvanareUtil.EMAIL, InvanareUtil.SPECIAL_NEED,
+                                                                         LandstingUtil.createLandsting(), BestallaradministratorUtil.NAME, 
+                                                                         BestallaradministratorUtil.BEFATTNING, BestallaradministratorUtil.ORGANISATION, 
+                                                                         BestallaradministratorUtil.PHONE, BestallaradministratorUtil.EMAIL);
+        
         // verify repository's were called
         verify(patientRepository, times(1)).save(savedPatient);
         verify(eavropRepository, times(1)).save(savedEavrop);
@@ -80,9 +91,9 @@ public class FmuOrderingServiceImplTest {
         return eavrop;
     }
 
-    private Patient stubRepositoryToReturnPatientOnSave() {
-        Patient patient = PatientUtil.createPatient();
-        when(patientRepository.save(any(Patient.class))).thenReturn(patient);
+    private Invanare stubRepositoryToReturnPatientOnSave() {
+        Invanare patient = InvanareUtil.createInvanare();
+        when(patientRepository.save(any(Invanare.class))).thenReturn(patient);
         return patient;
     }
 }
