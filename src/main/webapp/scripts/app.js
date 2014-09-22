@@ -37,17 +37,17 @@ angular.module('fmuClientApp', [
     .state('overview.orders', {
         url: '/orders',
         templateUrl: 'views/overview/orders.html',
-        controller: 'EavropsOrderController'
+        controller: 'OrderController'
     })
     .state('overview.ongoing', {
         url: '/ongoing',
         templateUrl: 'views/overview/ongoing.html',
-        controller: 'EavropsOngoingController'
+        controller: 'OngoingController'
     })
     .state('overview.completed', {
         url: '/completed',
         templateUrl: 'views/overview/completed.html',
-        controller: 'EavropsCompletedController'
+        controller: 'CompletedController'
     })
     .state('eavrop', {
         url: '/eavrop/{eavropId:[0-9]+}',

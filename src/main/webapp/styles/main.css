@@ -154,7 +154,7 @@ ul#strength {
 }
 
 .dateBtn {
-    float: left;
+    float: right;
     margin-right: 15px;
     margin-top: 20px;
     margin-left: 15px;
@@ -170,6 +170,11 @@ ul#strength {
     border-radius: 50px;
     border-color: #245269;
     float: left;
+}
+
+
+.table {
+    margin: 30px, 0, 30px, 0;
 }
 
 .table-legend p {
@@ -213,7 +218,7 @@ ul#strength {
     background-color: inherit;
     border-top: solid;
     border-bottom: solid;
-    border-width: 1px;
+    border-width: 2px;
     border-color: grey;
     border-collapse: collapse;
 }
