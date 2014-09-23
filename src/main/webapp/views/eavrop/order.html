@@ -1,6 +1,7 @@
 <h1>
     Beställning
 </h1>
+<input type="button" value="Save" ng-click="currentEavrop.$update()"/>
 
 <tabset>
     <tab heading="Innehåll i beställningen">
@@ -10,19 +11,19 @@
                 <table class="table table-bordered">
                     <tr>
                         <th>Ärende-ID:</th>
-                        <td>saasds</td>
+                        <td>{{currentEavrop.arendeId}}</td>
                     </tr>
                     <tr>
                         <th>Förfrågan inkom:</th>
-                        <td>sdasd</td>
+                        <td>{{currentEavrop.inquiryDate}}</td>
                     </tr>
                     <tr>
                         <th>Typ av utredning:</th>
-                        <td></td>
+                        <td>{{currentEavrop.type}}</td>
                     </tr>
                     <tr>
                         <th>Tolk:</th>
-                        <td></td>
+                        <td>{{currentEavrop.interpreter}}</td>
                     </tr>
                     <tr>
                         <th>Val av inriktning:</th>
@@ -35,26 +36,123 @@
                 <table class="table table-bordered">
                     <tr>
                         <th>LFC:</th>
-                        <td>saasds</td>
+                        <td>{{currentEavrop.orderer.lfc}}</td>
                     </tr>
                     <tr>
                         <th>Beställare, namn:</th>
-                        <td></td>
+                        <td>{{currentEavrop.orderer.name}}</td>
                     </tr>
                     <tr>
                         <th>Beställare, tel:</th>
-                        <td></td>
+                        <td>{{currentEavrop.orderer.phone}}</td>
                     </tr>
                     <tr>
                         <th>Beställare, e-post:</th>
-                        <td></td>
+                        <td>{{currentEavrop.orderer.email}}</td>
                     </tr>
                 </table>
             </div>
         </div>
     </tab>
-    <tab heading="Handlingar och kompletteringar">
+    <tab heading="Handlingar och tillägg">
+        <div class="row">
+            <div class="col-md-5">
+                <h2>Handlingar</h2>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>
+                            Handling
+                        </th>
+                        <th>
+                            Registrerad av
+                        </th>
+                        <th>
+                            Registrerad, datum
+                        </th>
+                    </tr>
+                    <tr ng-repeat="doc in currentEavrop.documents">
+                        <td>{{doc.name}}</td>
+                        <td>{{doc.regBy.name}}, {{doc.regBy.org}}</td>
+                        <td>{{doc.regDate}}</td>
+                    </tr>
+                </table>
+
+                <input type="button" restricted role="ROLE_UTREDARE" ng-click="openAddDocumentModal()" class="btn btn-default" value="Lägg till handling"/>
+
+                <h2>Tillägg</h2>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>
+                            Handling
+                        </th>
+                        <th>Begäran skickad, av</th>
+                        <th>Begäran skickad, datum</th>
+                        <th>Begäran skickad till:</th>
+                    </tr>
+                    <tr ng-repeat="am in currentEavrop.reqAmendments">
+                        <td>{{am.name}}</td>
+                        <td>{{am.reqFrom.name}}, {{am.reqFrom.org}}</td>
+                        <td>{{am.reqDate}}</td>
+                        <td>{{am.reqTo.name}}, {{am.reqFrom.org}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </tab>
-    <tab heading="Patienten">
+    <tab heading="Invånaren">
+        <div class="row">
+            <div class="col-md-3">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Initialer:</th>
+                        <td>{{currentEavrop.patient.initials}}</td>
+                    </tr>
+                    <tr>
+                        <th>Kön:</th>
+                        <td>{{currentEavrop.patient.gender}}</td>
+                    </tr>
+                    <tr>
+                        <th>Födelseår:</th>
+                        <td>{{currentEavrop.patient.dobYear}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bostadsort:</th>
+                        <td>{{currentEavrop.patient.residence}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div restricted role="ROLE_UTREDARE" class="col-md-3">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Personnummer:</th>
+                        <td>{{currentEavrop.patient.details.socSecNo}}</td>
+                    </tr>
+                    <tr>
+                        <th>Namn:</th>
+                        <td>{{currentEavrop.patient.details.name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Telefonnummer:</th>
+                        <td>{{currentEavrop.patient.details.phone}}</td>
+                    </tr>
+                    <tr>
+                        <th>Tidigare utredd vid:</th>
+                        <td>{{currentEavrop.patient.details.prevInvestigatedAt}}</td>
+                    </tr>
+                    <tr>
+                        <th>Sjukskrivande vårdcentral/klinik</th>
+                        <td>{{currentEavrop.patient.details.sickLeaveClinic}}</td>
+                    </tr>
+                    <tr>
+                        <th>Sjukskrivande läkare:</th>
+                        <td>{{currentEavrop.patient.details.sickLeaveDoctor}}</td>
+                    </tr>
+                    <tr>
+                        <th>Särskilda behov</th>
+                        <td>{{currentEavrop.patient.details.specialNeeds}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </tab>
 </tabset>

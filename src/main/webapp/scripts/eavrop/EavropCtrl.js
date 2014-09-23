@@ -1,20 +1,15 @@
 'use strict';
 
 angular.module('fmuClientApp').
-    controller('EavropCtrl',['$scope', 'currentEavrop', function($scope, currentEavrop){
+    controller('EavropCtrl',['$scope','$modal', 'currentEavrop', function($scope, $modal, currentEavrop){
 
     $scope.currentEavrop = currentEavrop;
 
-    $scope.links = [
-        {name: 'Beställning', state: 'order'},
-        {name: 'Utredning', state: 'investigation'},
-        {name: 'Alla händelser', state: 'allevents'},
-        {name: 'Anteckningar', state: 'notes'},
-        {name: 'Underlag för ersättning', state: 'compensation'},
-    ];
-
-    $scope.clickLink = function(link){
-        var url = '^.'+link.state;
-        $scope.$state.go(url);
+    $scope.openAddDocumentModal = function(){
+        var mod = $modal.open({
+            templateUrl: 'views/eavrop/add-doc-modal.html',
+            controller: 'AddDocCtrl',
+            size: 'sm'
+        });
     };
 }]);

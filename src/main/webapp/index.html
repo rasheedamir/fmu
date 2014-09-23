@@ -29,7 +29,7 @@
             </span>
         </span>
     </div>
-    <div class="headerbox-user pull-right">
+    <!-- <div class="headerbox-user pull-right">
         <div class="headerbox-user-profile headerbox-avatar"
             ng-show="authenticated">
             <span>{{ account.userRoles | json }} - {{ account.firstName }} {{account.lastName}}</span> <br>
@@ -37,6 +37,18 @@
                 <a class="pull-right" id="logoutLink">Logga
                     ut</a>
             </div>
+        </div>
+    </div> -->
+    <div class="headerbox-user pull-right">
+        <div class="headerbox-user-profile headerbox-avatar">
+            <table ng-controller="FakeRoleCtrl">
+                <tr ng-repeat="role in roles">
+                    <td>{{role}}</td><td>
+                            <input type="button" class="btn btn-xs btn-danger" value="-" ng-click="removeRole(role)" ng-show="hasRole(role)"/>
+                            <input type="button" class="btn btn-xs" value="+" ng-click="addRole(role)" ng-show="!hasRole(role)"/>
+                    </td>                
+                </tr>
+            </table>
         </div>
     </div>
 </div>
@@ -84,7 +96,11 @@ ga('send', 'pageview');
 <script src="scripts/app-dev.js"></script>
 <script src="scripts/overview/OverviewCtrl.js"></script>
 <script src="scripts/eavrop/EavropCtrl.js"></script>
+<script src="scripts/eavrop/AddDocCtrl.js"></script>
 <script src="scripts/eavrop/EavropService.js"></script>
+<script src="scripts/authentication/AuthService.js"></script>
+<script src="scripts/authentication/RestrictedDirective.js"></script>
+<script src="scripts/authentication/FakeRoleCtrl.js"></script>
 <!-- endbuild -->
 </body>
 </html>
