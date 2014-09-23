@@ -143,8 +143,11 @@ ul#strength {
 
 
 .fmu-table {
-    border-collapse: separate;
-    border-spacing: 0 0;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  border-collapse: separate;
+  border-spacing: 0 0;
 }
 
 .fmu-table > thead > tr:nth-child(2) {
