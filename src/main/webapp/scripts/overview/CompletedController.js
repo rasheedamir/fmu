@@ -2,29 +2,31 @@
 
 angular.module('fmuClientApp')
     .controller('CompletedController',
-    ['$scope', '$filter', 'EavropService', 'TableService', 'ngTableParams', 'DatePickerService',
-        function ($scope, $filter, EavropService, TableService, ngTableParams, DatePickerService) {
+    ['$scope', '$filter', 'OverviewCompletedService', 'TableService', 'ngTableParams', 'DatePickerService',
+        function ($scope, $filter, OverviewCompletedService, TableService, ngTableParams, DatePickerService) {
             $scope.dateService = DatePickerService;
+            if(TableService){
+                TableService.clearData();
+            }
             $scope.tableService = TableService;
 
-            $scope.dateKey = 'creationTime';
+            $scope.dateKey = 'approvedDate';
             var headerGroups = [
-                {name: null, colSpan: 2, colorClass: null},
-                {name: 'beställare', colSpan: 4, colorClass: 'bg-danger'},
-                {name: 'leverantör', colSpan: 2, colorClass: 'bg-warning'},
-                {name: null, colSpan: 2, colorClass: null}
+//                {name: null, colSpan: 2, colorClass: null},
+//                {name: 'beställare', colSpan: 4, colorClass: 'bg-danger'},
+//                {name: 'leverantör', colSpan: 2, colorClass: 'bg-warning'},
+//                {name: null, colSpan: 2, colorClass: null}
             ];
             var headerNameMappings = [
                 {key: 'arendeId', value: 'Ärende ID'},
                 {key: 'utredningType', value: 'Typ'},
-                {key: 'enhet', value: 'Enhet/Avdelning'},
-                {key: 'creationTime', value: 'Förfrågan skickad datum'},
-                {key: 'patientCity', value: 'Patientens bostadsort'},
-                {key: 'bestallareOrganisation', value: 'Organisation'},
-                {key: 'mottagarenOrganisation', value: 'Organisation'},
-                {key: 'utredare', value: 'Utredare'},
-                {key: 'status', value: 'Status'},
-                {key: 'antalDagarEfterForfragan', value: 'Antal dagar efter förfrågan om utredning'}
+                {key: 'totalDaysPassed', value: 'Antal dagar'},
+                {key: 'totalCompletionDays', value: 'Antal dagar för komplettering'},
+                {key: 'avikelser', value: 'avikelser'},
+                {key: 'UtredareOrganisation', value: 'Utredare, organisation'},
+                {key: 'utredareAnsvarig', value: 'Utredare, ansvarig'},
+                {key: 'isCompleted', value: 'Utredning komplett ?'},
+                {key: 'approvedDate', value: 'Godkänd datum'}
             ];
 
             var footerHints = [
@@ -33,22 +35,17 @@ angular.module('fmuClientApp')
                 {description: 'Godkänd för ersättning', colorClass: 'bg-success'}
             ];
 
-            // EavropService.getEavrops().then(function(result){
-            $scope.tableService.unfilteredData =
-                [
-                    {'arendeId': '123421', 'utredningType': 'AFU', 'bestallareOrganisation': 'In progress', 'enhet': 'In progress', 'creationTime': 1445451264483, 'patientCity': 'Linköping', 'mottagarenOrganisation': 'In progress', 'utredare': 'In progress', 'status': 'In progress', 'antalDagarEfterForfragan': 93, 'color': null},
-                    {'arendeId': '753423', 'utredningType': 'SLU', 'bestallareOrganisation': 'In progress', 'enhet': 'In progress', 'creationTime': 1490811264484, 'patientCity': 'Göteborg', 'mottagarenOrganisation': 'In progress', 'utredare': 'In progress', 'status': 'In progress', 'antalDagarEfterForfragan': 89, 'color': 'bg-warning'},
-                    {'arendeId': '44240', 'utredningType': 'AFU', 'bestallareOrganisation': 'In progress', 'enhet': 'In progress', 'creationTime': 1481310864484, 'patientCity': 'Stockholm', 'mottagarenOrganisation': 'In progress', 'utredare': 'In progress', 'status': 'In progress', 'antalDagarEfterForfragan': 92, 'color': 'bg-danger'},
-                    {'arendeId': '78743', 'utredningType': 'TMU', 'bestallareOrganisation': 'In progress', 'enhet': 'In progress', 'creationTime': 1492884864484, 'patientCity': 'oskarshamn', 'mottagarenOrganisation': 'In progress', 'utredare': 'In progress', 'status': 'In progress', 'antalDagarEfterForfragan': 95, 'color': 'bg-success'}
-                ];
+            OverviewCompletedService.getEavrops().then(function (result) {
+                $scope.tableService.setUnfilteredData(result);
 
-            // Setup Datetime and Table services
-            $scope.dateService.calculateInitialDateRange($scope.tableService.unfilteredData, $scope.dateKey);
-            $scope.tableService.applyDateFilter($scope.dateKey, $scope.dateService.startDate, $scope.dateService.endDate);
-            $scope.tableService.setHeaderGroups(headerGroups);
-            $scope.tableService.setHeadersNameMapping(headerNameMappings);
-            $scope.tableService.initTableParameters();
-            $scope.tableService.setFooterHintCircles(footerHints);
-            $scope.tableService.tableParams.settings().$scope = $scope;
-            // });
+                // Setup Datetime and Table services
+                $scope.dateService.calculateInitialDateRange($scope.tableService.unfilteredData, $scope.dateKey);
+                $scope.tableService.applyDateFilter($scope.dateKey, $scope.dateService.startDate, $scope.dateService.endDate);
+                $scope.tableService.setHeaderGroups(headerGroups);
+                $scope.tableService.setHeadersNameMapping(headerNameMappings);
+                $scope.tableService.initTableParameters();
+                $scope.tableService.setFooterHintCircles(footerHints);
+                $scope.tableService.tableParams.settings().$scope = $scope;
+                $scope.tableService.tableParams.reload();
+            });
         }]);

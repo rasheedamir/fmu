@@ -1,6 +1,6 @@
-<div ng-cloak class="row table-wrapper">
+<div class="row table-wrapper">
 
-    <table ng-table="tableService.tableParams" template-pagination="custom/pager" class="table table-hover">
+    <table ng-table="tableService.tableParams" template-pagination="custom/pager" class="fmu-table">
 
         <thead>
             <tr>
@@ -24,8 +24,8 @@
     <tbody>
         <tr ng-repeat="row in tableService.tableParams.data" ng-class="row.color">
             <td ng-repeat="header in tableService.headersMapping" ng-if="header.key != 'color'" sortable="{{header.key}}"  class="text-capitalize text-center">
-                <span ng-if="header.key == 'creationTime'" ng-bind="dateService.getFormattedDate(row[header.key])"></span>
-                <span ng-if="header.key != 'creationTime'" ng-bind="row[header.key]"></span>
+                <span ng-if="header.key == dateKey" ng-bind="dateService.getFormattedDate(row[header.key])"></span>
+                <span ng-if="header.key != dateKey" ng-bind="row[header.key]"></span>
             </td>
         </tr>
 

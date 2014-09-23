@@ -6,7 +6,7 @@ describe('Controllers Tests ', function () {
     beforeEach(module('fmuClientApp'));
 
     describe('OrderController', function () {
-        var rootScope, scope, createController, filter, tableParams, eavropServiceMock, tableService, datePickerService, eavrops, httpBackend;
+        var rootScope, scope, createController, filter, tableParams, OrderServiceMock, tableService, datePickerService, eavrops, httpBackend;
 
         beforeEach(inject(function ($rootScope, $controller, $q, $filter, ngTableParams, TableService, DatePickerService, $httpBackend) {
             rootScope = $rootScope;
@@ -44,8 +44,8 @@ describe('Controllers Tests ', function () {
                 {'arendeId': '44240', 'utredningType': 'AFU', 'bestallareOrganisation': 'Försäkringskassan', 'enhet': 'Stockholm Söderort', 'creationTime': 1481310864484, 'patientCity': 'Stockholm', 'mottagarenOrganisation': 'Stockholms Läns Landsting', 'utredare': 'Utredare 1 i Skåne', 'status': 'Förfrågan ej accepterad av utredare', 'antalDagarEfterForfragan': 10, 'color': 'bg-danger'},
                 {'arendeId': '78743', 'utredningType': 'TMU', 'bestallareOrganisation': 'Arbetsförmedlingen', 'enhet': 'Malmö', 'creationTime': 1492884864484, 'patientCity': 'malmö', 'mottagarenOrganisation': 'Region Skåne', 'utredare': 'Region Skåne', 'status': 'In progress', 'antalDagarEfterForfragan': 15, 'color': 'bg-warning'}
             ];
-            eavropServiceMock = {};
-            eavropServiceMock.getEavrops = function () {
+            OrderServiceMock = {};
+            OrderServiceMock.getEavrops = function () {
                 // mock promise
                 var deferred = $q.defer();
                 deferred.resolve(eavrops);
@@ -57,7 +57,7 @@ describe('Controllers Tests ', function () {
                     {
                         $scope: scope,
                         $filter: filter,
-                        EavropService: eavropServiceMock,
+                        OrderService: OrderServiceMock,
                         TableService: tableService,
                         ngTableParams: tableParams,
                         DatePickerService: datePickerService
@@ -67,7 +67,7 @@ describe('Controllers Tests ', function () {
             };
         }));
 
-        it('should call EavropService getEavrops', function () {
+        it('should call OrderService getEavrops', function () {
             createController();
             expect(scope.tableService.unfilteredData).toBe(eavrops);
         });

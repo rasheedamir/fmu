@@ -1,5 +1,6 @@
 'use strict';
 
+
 describe('TableService Tests ', function () {
     var tableService;
     var date1 = new Date('2011-01-11').getTime();
@@ -37,6 +38,13 @@ describe('TableService Tests ', function () {
         tableService.setUnfilteredData(data);
         tableService.applyDateFilter(dateKey, date1, date2);
         expect(tableService.unfilteredData).toBe(data);
+    });
+
+    it('should handle data with only one element', function(){
+        var oneRowData = [data[0]];
+        tableService.setUnfilteredData(oneRowData);
+        tableService.applyDateFilter(dateKey, date1, date1);
+        expect(tableService.unfilteredData).toBe(oneRowData);
     });
 
     it('should filter out data not in range', function () {
