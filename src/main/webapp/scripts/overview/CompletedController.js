@@ -5,19 +5,20 @@ angular.module('fmuClientApp')
     ['$scope', '$filter', 'OverviewCompletedService', 'TableService', 'ngTableParams', 'DatePickerService',
         function ($scope, $filter, OverviewCompletedService, TableService, ngTableParams, DatePickerService) {
             $scope.dateService = DatePickerService;
-            if(TableService){
-                TableService.clearData();
-            }
+            $scope.dateService.setScope($scope);
+            
             $scope.tableService = TableService;
+            $scope.tableService.setScope($scope);
 
             $scope.dateKey = 'approvedDate';
-            var headerGroups = [
+
+            $scope.headerGroups = [
 //                {name: null, colSpan: 2, colorClass: null},
 //                {name: 'beställare', colSpan: 4, colorClass: 'bg-danger'},
 //                {name: 'leverantör', colSpan: 2, colorClass: 'bg-warning'},
 //                {name: null, colSpan: 2, colorClass: null}
             ];
-            var headerNameMappings = [
+            $scope.headerNameMappings = [
                 {key: 'arendeId', value: 'Ärende ID'},
                 {key: 'utredningType', value: 'Typ'},
                 {key: 'totalDaysPassed', value: 'Antal dagar'},
@@ -29,23 +30,17 @@ angular.module('fmuClientApp')
                 {key: 'approvedDate', value: 'Godkänd datum'}
             ];
 
-            var footerHints = [
+            $scope.footerHints = [
                 {description: 'Antal dagar har överträtts och/eller annan avvikelse finns', colorClass: 'bg-danger'},
                 {description: 'Utredning accepterad', colorClass: 'bg-warning'},
                 {description: 'Godkänd för ersättning', colorClass: 'bg-success'}
             ];
 
             OverviewCompletedService.getEavrops().then(function (result) {
-                $scope.tableService.setUnfilteredData(result);
+                $scope.tableData = result;
 
                 // Setup Datetime and Table services
-                $scope.dateService.calculateInitialDateRange($scope.tableService.unfilteredData, $scope.dateKey);
-                $scope.tableService.applyDateFilter($scope.dateKey, $scope.dateService.startDate, $scope.dateService.endDate);
-                $scope.tableService.setHeaderGroups(headerGroups);
-                $scope.tableService.setHeadersNameMapping(headerNameMappings);
+                $scope.dateService.calculateInitialDateRange();
                 $scope.tableService.initTableParameters();
-                $scope.tableService.setFooterHintCircles(footerHints);
-                $scope.tableService.tableParams.settings().$scope = $scope;
-                $scope.tableService.tableParams.reload();
             });
         }]);

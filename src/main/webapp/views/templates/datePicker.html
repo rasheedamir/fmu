@@ -4,8 +4,7 @@
         <div class="input-group">
             <input type="text" class="form-control"
                    datepicker-popup="{{dateFormat}}"
-                   ng-model="dateService.startDate" is-open="dateService.startDateOpened.value"
-                   date-disabled="disabled(date, mode)"
+                   ng-model="$parent.startDate" is-open="dateService.startDateOpened.value"
                    ng-required="true"
                    close-text="Close" />
           <span class="input-group-addon">
@@ -19,8 +18,7 @@
         <div class="input-group">
             <input type="text" class="form-control"
                    datepicker-popup="{{dateFormat}}"
-                   ng-model="dateService.endDate" is-open="dateService.endDateOpened.value"
-                   date-disabled="disabled(date, mode)"
+                   ng-model="$parent.endDate" is-open="dateService.endDateOpened.value"
                    ng-required="true"
                    close-text="Close" />
           <span class="input-group-addon datepicker">

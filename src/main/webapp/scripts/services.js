@@ -85,6 +85,11 @@ angular.module('fmuClientApp')
 
                         // utredare ska bort
                         return [
+                            {'arendeId': 12462745, 'utredningType': 'AFU', 'totalDaysPassed': 20, 'totalCompletionDays': 0, 'avikelser': 0, 'UtredareOrganisation': 'Danderyds sjukhus', 'utredareAnsvarig': 'Assar Sverin', 'isCompleted': 'ja', 'approvedDate': 1335451264483, 'color': 'bg-success'},
+                            {'arendeId': 12462745, 'utredningType': 'AFU', 'totalDaysPassed': 20, 'totalCompletionDays': 0, 'avikelser': 0, 'UtredareOrganisation': 'Danderyds sjukhus', 'utredareAnsvarig': 'Assar Sverin', 'isCompleted': 'ja', 'approvedDate': 1335451264483, 'color': 'bg-success'},
+                            {'arendeId': 12462745, 'utredningType': 'AFU', 'totalDaysPassed': 20, 'totalCompletionDays': 0, 'avikelser': 0, 'UtredareOrganisation': 'Danderyds sjukhus', 'utredareAnsvarig': 'Assar Sverin', 'isCompleted': 'ja', 'approvedDate': 1335451264483, 'color': 'bg-success'},
+                            {'arendeId': 12462745, 'utredningType': 'AFU', 'totalDaysPassed': 20, 'totalCompletionDays': 0, 'avikelser': 0, 'UtredareOrganisation': 'Danderyds sjukhus', 'utredareAnsvarig': 'Assar Sverin', 'isCompleted': 'ja', 'approvedDate': 1335451264483, 'color': 'bg-success'},
+                            {'arendeId': 12462745, 'utredningType': 'AFU', 'totalDaysPassed': 20, 'totalCompletionDays': 0, 'avikelser': 0, 'UtredareOrganisation': 'Danderyds sjukhus', 'utredareAnsvarig': 'Assar Sverin', 'isCompleted': 'ja', 'approvedDate': 1335451264483, 'color': 'bg-success'},
                             {'arendeId': 12462745, 'utredningType': 'AFU', 'totalDaysPassed': 20, 'totalCompletionDays': 0, 'avikelser': 0, 'UtredareOrganisation': 'Danderyds sjukhus', 'utredareAnsvarig': 'Assar Sverin', 'isCompleted': 'ja', 'approvedDate': 1335451264483, 'color': 'bg-success'}
                         ];
                     }, function (err) {
@@ -101,24 +106,41 @@ angular.module('fmuClientApp')
             var service = {};
             service.dateFormat = 'dd-MM-yyyy';
 
-            service.calculateInitialDateRange = function (dataList, dateSortKey) {
-                if (dataList.length > 0) {
-                    if (dataList.length == 1) {
-                        this.update(_.first(dataList[dateSortKey], _.first(dataList)[dateSortKey]));
-                    } else {
-                        var ordered = $filter('orderBy')(dataList, dateSortKey, false);
-                        this.update(_.first(ordered)[dateSortKey], _.last(ordered)[dateSortKey]);
-                    }
+            service.setScope = function (newScope) {
+                this.scope = newScope;
+            };
+
+            service.getTableData = function () {
+                return this.scope.tableData;
+            };
+
+            service.getDateKey = function () {
+                return this.scope.dateKey;
+            };
+
+            service.calculateInitialDateRange = function () {
+                var data = this.getTableData();
+                var dateKey = this.getDateKey();
+
+                if (!data || data.length === 0) {
+                    return;
+                }
+
+                if (data.length === 1) {
+                    this.update(_.first(data[dateKey], _.first(data)[dateKey]));
+                } else {
+                    var ordered = $filter('orderBy')(data, dateKey, false);
+                    this.update(_.first(ordered)[dateKey], _.last(ordered)[dateKey]);
                 }
             };
 
             // Clear date selection
             service.clearStartDate = function () {
-                this.startDate = null;
+                this.scope.startDate = null;
             };
 
             service.clearEndDate = function () {
-                this.endDate = null;
+                this.scope.endDate = null;
             };
 
             // Disable weekend selection
@@ -153,8 +175,8 @@ angular.module('fmuClientApp')
 
             // Date picker specific function
             service.update = function (date1, date2) {
-                this.startDate = date1;
-                this.endDate = date2;
+                this.scope.startDate = date1;
+                this.scope.endDate = date2;
             };
 
             service.getFormattedDate = function (date) {
@@ -168,73 +190,89 @@ angular.module('fmuClientApp')
         function (ngTableParams, $filter) {
             var service = {};
 
-            // Set unfiltered data which sorting and filtering will be based on
-            service.setUnfilteredData = function (data) {
-                this.unfilteredData = data;
+            service.setScope = function (newScope) {
+                this.scope = newScope;
             };
 
-            // Set headers groups
-            service.setHeaderGroups = function (groups) {
-                this.headerGroups = groups;
+            service.getDateKey = function () {
+                if (!this.scope) {
+                    return null;
+                }
+                return this.scope.dateKey;
             };
 
-            // Set headers name mapping
-            service.setHeadersNameMapping = function (mapping) {
-                this.headersMapping = mapping;
+            service.getStartDate = function () {
+                if (!this.scope) {
+                    return null;
+                }
+                return this.scope.startDate;
             };
 
-            service.applyDateFilter = function (dateKey, startDate, endDate) {
-                if (this.unfilteredData.length > 1) {
-                    this.filteredData = $filter('dateFilter')(this.unfilteredData, dateKey, startDate, endDate);
+            service.getEndDate = function () {
+                if (!this.scope) {
+                    return null;
+                }
+                return this.scope.endDate;
+            };
+
+            service.getTableData = function () {
+                if (!this.scope || !this.scope.tableData) {
+                    return [];
+                }
+
+                return this.scope.tableData;
+            };
+
+            service.getDateFilteredData = function () {
+                var data = this.getTableData();
+
+                if (data.length > 1) {
+                    return $filter('dateFilter')(data, this.getDateKey(), this.getStartDate(), this.getEndDate());
                 } else {
-                    this.filteredData = this.unfilteredData;
+                    return data;
                 }
             };
 
-            service.setFooterHintCircles = function (hints) {
-                this.tableParams.footerHints = hints;
+            service.getTableParameters = function () {
+                if (!this.scope.tableParams) {
+                    return null;
+                }
+
+                return this.scope.tableParams;
             };
 
             service.sort = function (key) {
                 var params = {};
-                params[key] = this.tableParams.isSortBy(key, 'asc') ? 'desc' : 'asc';
-                this.tableParams.sorting(params);
+                params[key] = this.getTableParameters().isSortBy(key, 'asc') ? 'desc' : 'asc';
+                this.getTableParameters().sorting(params);
             };
 
-            service.doDateFilter = function (dateKey, startDate, endDate) {
-                this.applyDateFilter(dateKey, startDate, endDate);
-                this.tableParams.reload();
+            service.doDateFilter = function () {
+                this.getTableParameters().reload();
             };
 
 
             service.initTableParameters = function () {
                 var self = this;
-                /* jshint -W055 */ // XXX: ngTableParams.
-                self.tableParams = new ngTableParams({
-                    page: 1,            // show first page
-                    count: 10          // count per page
-                }, {
-                    total: self.filteredData.length, // length of data
-                    getData: function ($defer, params) {
-                        if (self.filteredData.length > 1) {
-                            self.filteredData = params.sorting() ?
-                                $filter('orderBy')(self.filteredData, params.orderBy()) :
-                                self.filteredData;
-                            params.total(self.filteredData.length);
-                            $defer.resolve(self.filteredData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                        } else {
-                            params.total(self.filteredData.length);
-                            $defer.resolve(self.filteredData);
-                        }
-                    }
-                });
-                /* jshint +W055 */
-            };
+                if (!self.getTableParameters()) {
+                    /* jshint -W055 */ // XXX: ngTableParams.
+                    self.scope.tableParams = new ngTableParams({
+                        page: 1,            // show first page
+                        count: 10          // count per page
+                    }, {
+                        total: self.getDateFilteredData().length,
+                        getData: function ($defer, params) {
+                            var filteredData = params.sorting() ?
+                                $filter('orderBy')(self.getDateFilteredData(), params.orderBy()) :
+                                self.getDateFilteredData();
 
-            service.clearData = function(){
-                this.unfilteredData = [];
-                this.filteredData = [];
-                this.headerGroups = [];
+                            params.total(filteredData.length);
+                            $defer.resolve(filteredData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                        }, 
+                        $scope: self.scope
+                    });
+                    /* jshint +W055 */
+                }
             };
 
             return service;
