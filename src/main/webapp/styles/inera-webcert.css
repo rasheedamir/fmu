@@ -39,7 +39,7 @@
     }
 
     input, textarea, .uneditable-input {
-        max-width: 206px;
+        /*max-width: 206px;*/
     }
 
     select {

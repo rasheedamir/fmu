@@ -66,7 +66,6 @@ angular.module('fmuClientAppDev').run(function($httpBackend){
         },
     ];
     function putEavrop(id, eavrop){
-        eavrop.arendeId = 666;
         for (var i=0; i < eavrops.length; ++i) {
             if(eavrops[i].eavropId === id){
                 eavrops.splice(i, 1, eavrop);
@@ -107,4 +106,5 @@ angular.module('fmuClientAppDev').run(function($httpBackend){
 
 angular.module('fmuClientAppDev').run(function(AuthService){
     AuthService.userInfo.roles.push("ROLE_SAMORDNARE");
+    AuthService.userInfo.roles.push("ROLE_UTREDARE");
 });

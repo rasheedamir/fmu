@@ -9,7 +9,10 @@ angular.module('fmuClientApp').
         var mod = $modal.open({
             templateUrl: 'views/eavrop/add-doc-modal.html',
             controller: 'AddDocCtrl',
-            size: 'sm'
+            resolve:{
+                currentEavrop: function(){return $scope.currentEavrop}
+            },
+            size: 'md'
         });
     };
 }]);
