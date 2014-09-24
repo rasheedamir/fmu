@@ -8,3 +8,304 @@
 .nav-tabs {
     margin-bottom: 0;
 }
+body {
+    background: #fafafa;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #333;
+}
+
+.development {
+    position: absolute;
+    width: 149px;
+    height: 149px;
+    top: 0;
+    left: 0;
+    border: 0;
+    z-index: 1000;
+    background-image: url("../images/development_ribbon.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.hero-unit {
+    margin: 50px auto 0 auto;
+    width: 300px;
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 30px;
+    background-color: #eee;
+    border-radius: 6px;
+    padding: 60px;
+}
+
+.hero-unit h1 {
+    font-size: 60px;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.error {
+    color: white;
+    background-color: red;
+}
+
+.fmu {
+    display: inline-block;
+    width: 463px;
+    height: 640px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.hand {
+    cursor: pointer;
+}
+
+#threadDump .popover, #healthCheck .popover {
+    top: inherit;
+    display: block;
+    font-size: 10px;
+    max-width: 1024px;
+}
+
+#healthCheck .popover {
+    margin-left: -50px;
+}
+
+.alert .popover pre {
+    font-size: 10px;
+}
+
+.voffset {
+    margin-top: 2px;
+}
+
+.voffset1 {
+    margin-top: 5px;
+}
+
+.voffset2 {
+    margin-top: 10px;
+}
+
+.voffset3 {
+    margin-top: 15px;
+}
+
+.voffset4 {
+    margin-top: 30px;
+}
+
+.voffset5 {
+    margin-top: 40px;
+}
+
+.voffset6 {
+    margin-top: 60px;
+}
+
+.voffset7 {
+    margin-top: 80px;
+}
+
+.voffset8 {
+    margin-top: 100px;
+}
+
+.voffset9 {
+    margin-top: 150px;
+}
+
+/* start Password strength bar style */
+ul#strength {
+    display: inline;
+    list-style: none;
+    margin: 0;
+    margin-left: 15px;
+    padding: 0;
+    vertical-align: 2px;
+}
+
+.point:last {
+    margin: 0 !important;
+}
+
+.point {
+    background: #DDD;
+    border-radius: 2px;
+    display: inline-block;
+    height: 5px;
+    margin-right: 1px;
+    width: 20px;
+}
+
+/* end Password strength bar style */
+
+/* start table styling*/
+
+.table-wrapper {
+    overflow-x: auto;
+    margin-top: 20px;
+    box-shadow: 0px 3px 3px 2px #999;
+    padding: 10px;
+    border-radius: 10px 10px 10px 10px;
+}
+
+
+.fmu-table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  border-collapse: separate;
+  border-spacing: 0 0;
+}
+
+.fmu-table > thead > tr:nth-child(2) {
+    background-color: rgb(26, 54, 66);
+}
+
+.fmu-table > thead > tr > th,
+.fmu-table > thead > tr > td,
+.fmu-table > tbody > tr > th,
+.fmu-table > tbody > tr > td {
+    padding: 10px 10px;
+    border: 0;
+    vertical-align: middle;
+}
+
+/* Group headers */
+.fmu-table > thead > tr:first-child > th {
+    empty-cells: hide;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 1px 3px 3px 2px #999;
+}
+
+/* Data headers */
+.fmu-table > thead > tr:last-child > th:first-child {
+    border-radius: 10px 0 0 0;
+}
+
+.fmu-table > thead > tr:last-child > th:last-child {
+    border-radius: 0 10px 0 0;
+}
+
+/* Data fields */
+.fmu-table > tbody > tr{
+    box-shadow: 1px 3px 3px 2px #999;
+}
+
+.dateBtn {
+    float: right;
+    margin-right: 15px;
+    margin-top: 20px;
+    margin-left: 15px;
+}
+
+.circle {
+    width: 15px;
+    height: 15px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    float: left;
+    box-shadow: 0px 0px 1px 1px #000;
+}
+
+
+.table-legend p {
+    float: left;
+    padding-right: 10px;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+/*Ng-Table override*/
+.ng-table th.sortable.sort-desc div:after {
+    border-bottom: none;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #ffffff;
+    visibility: visible;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    filter: alpha(opacity=60);
+    -khtml-opacity: 0.6;
+    -moz-opacity: 0.6;
+    opacity: 0.6;
+}
+
+/*Table row hover animation*/
+.fmu-table> tbody > tr:hover {
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transform: scale(1.02);
+    transform: scale(1.02);
+}
+
+/*Table hover animation*/
+.fmu-table > tbody > tr:hover > td{
+    background-color: inherit;
+}
+
+.ng-table th.sortable div:after,
+.ng-table th.sortable div:before {
+    content: "";
+    border-width: 0 4px 4px;
+    border-style: solid;
+    border-color: #ffffff transparent;
+    visibility: visible;
+    right: 8px;
+    top: 50%;
+    position: absolute;
+    opacity: .3;
+    margin-top: -4px;
+}
+.ng-table th.sortable div:before {
+    margin-top: 2px;
+    border-bottom: none;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #ffffff;
+}
+
+.invisible-header {
+    color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border: none;
+    visibility: hidden;
+}
+
+.ng-table th.sortable.sort-desc,
+.ng-table th.sortable.sort-asc {
+    background-color: rgba(141, 192, 219, 0.25);
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0);
+}
+
+.bg-head-danger {
+    background-color: rgba(255, 75, 73, 0.8);
+}
+
+.bg-head-warning {
+    background-color: rgba(250, 206, 65, 0.8);
+}
+
+.bg-head-success {
+    background-color: rgba(153, 219, 102, 0.8);
+}
+
+.bg-danger {
+    background-color: rgba(255, 75, 73, 0.5);
+}
+
+.bg-warning {
+    background-color: rgba(250, 206, 65, 0.5);
+}
+
+.bg-success {
+    background-color: rgb(153, 219, 102);
+}

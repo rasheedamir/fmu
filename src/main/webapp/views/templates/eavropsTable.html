@@ -1,0 +1,61 @@
+<div class="row table-wrapper">
+
+    <table ng-table="tableParams" template-pagination="custom/pager" class="fmu-table">
+
+        <thead>
+            <tr>
+                <th 
+                class="text-capitalize text-center"
+                ng-repeat="value in headerGroups" colspan="{{value.colSpan}}"
+                ng-class="value.colorClass == null && value.name == null ? 'invisible-header' : value.colorClass">{{value.name}}</th>
+            </tr>
+
+            <tr class="header">
+                <th 
+                ng-repeat="header in headerNameMappings" class="text-center sortable"
+                ng-class="{'sort-asc': tableParams.isSortBy(header.key, 'asc'),'sort-desc': tableParams.isSortBy(header.key, 'desc')}"
+                ng-click="tableService.sort(header.key)">
+                <div>{{header.value}}</div>
+            </th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+        <tr ng-repeat="row in tableParams.data" ng-class="row.color">
+            <td ng-repeat="header in headerNameMappings" ng-if="header.key != 'color'" sortable="{{header.key}}"  class="text-capitalize text-center">
+                <span ng-if="header.key == dateKey" ng-bind="dateService.getFormattedDate(row[header.key])"></span>
+                <span ng-if="header.key != dateKey" ng-bind="row[header.key]"></span>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<script type="text/ng-template" id="custom/pager">
+    <ul class="pager ng-cloak">
+        <li ng-repeat="page in pages"
+        ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
+        ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
+        <a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Previous</a>
+        <a ng-switch-when="next" ng-click="params.page(page.number)" href="">Next &raquo;</a>
+    </li>
+
+    <li>
+        <div class="btn-group">
+            <button type="button" ng-class="{'active':params.count() == 10}" ng-click="params.count(10)" class="btn btn-default">10</button>
+            <button type="button" ng-class="{'active':params.count() == 25}" ng-click="params.count(25)" class="btn btn-default">25</button>
+            <button type="button" ng-class="{'active':params.count() == 50}" ng-click="params.count(50)" class="btn btn-default">50</button>
+            <button type="button" ng-class="{'active':params.count() == 100}" ng-click="params.count(100)" class="btn btn-default">100</button>
+        </div>
+    </li>
+</ul>
+
+<div class="col-lg-9">
+    <div ng-repeat="value in params.footerHints" class="table-legend">
+        <div class="circle {{value.colorClass}}"></div>
+        <p>{{value.description}}</p>
+    </div>
+</div>
+</script>
+</div>

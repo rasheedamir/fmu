@@ -1,40 +1,45 @@
-package se.inera.fmu.domain.model.patient;
+package se.inera.fmu.domain.model.invanare;
 
 import lombok.ToString;
+
 import org.hibernate.validator.constraints.Email;
-import se.inera.fmu.domain.model.eavrop.Eavrop;
-import se.inera.fmu.domain.shared.*;
+
+import se.inera.fmu.domain.model.shared.Address;
+import se.inera.fmu.domain.model.shared.Gender;
+import se.inera.fmu.domain.model.shared.Name;
+import se.inera.fmu.domain.shared.AbstractBaseEntity;
+import se.inera.fmu.domain.shared.IEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 /**
  * Created by Rasheed on 7/23/14.
  */
 @Entity
-@Table(name = "T_PATIENT")
+@Table(name = "T_INVANARE")
 @ToString
-public class Patient extends AbstractBaseEntity implements IEntity<Patient> {
+public class Invanare extends AbstractBaseEntity implements IEntity<Invanare> {
 
     //~ Instance fields ================================================================================================
 
     // database primary key
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "patient_id", updatable = false, nullable = false)
-    private Long patientId;
+    @Column(name = "ID", updatable = false, nullable = false)
+    private Long id;
 
     // business key
+    //TODO: replace with value object, maybe this should not be business key and allow several instances of same pnr
     @NotNull
-    @Column(name = "personal_number", updatable = false, nullable = false, unique = true)
-    private String personalNumber;
+    @Embedded
+    private PersonalNumber personalNumber;
 
     @NotNull
     @Embedded
     private Name name;
 
-    @Column(name = "gender", nullable = false)
+    @Column(name = "GENDER", nullable = false)
     @Enumerated(EnumType.STRING)
     @NotNull
     private Gender gender;
@@ -44,24 +49,25 @@ public class Patient extends AbstractBaseEntity implements IEntity<Patient> {
     private Address homeAddress;
 
     @Email
-    @Column(name = "email")
+    @Column(name = "EMAIL")
     private String email;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "patient")
-    private Set<Eavrop> eavrops;
+    @Column(name = "SPECIAL_NEEDS")
+    private String specialNeeds;
 
     //~ Constructors ===================================================================================================
 
-    Patient() {
+    Invanare() {
         // Needed by Hibernate
     }
 
-    public Patient(String personalNumber, Name name, Gender gender, Address homeAddress, String email) {
+    public Invanare(PersonalNumber personalNumber, Name name, Gender gender, Address homeAddress, String email, String specialNeeds) {
         this.setPersonalNumber(personalNumber);
         this.setName(name);
         this.setGender(gender);
         this.setHomeAddress(homeAddress);
         this.setEmail(email);
+        this.setSpecialNeeds(specialNeeds);
     }
 
     //~ Property Methods ===============================================================================================
@@ -97,23 +103,27 @@ public class Patient extends AbstractBaseEntity implements IEntity<Patient> {
     private void setEmail(String email) {
         this.email = email;
     }
+    
+    public String getSpecialNeeds() {
+		return specialNeeds;
+	}
 
-    public Set<Eavrop> getEavrops() {
-        return eavrops;
-    }
+	private void setSpecialNeeds(String specialNeeds) {
+		this.specialNeeds = specialNeeds;
+	}
 
-    public String getPersonalNumber() {
+    public PersonalNumber getPersonalNumber() {
         return personalNumber;
     }
 
-    private void setPersonalNumber(String personalNumber) {
+    private void setPersonalNumber(PersonalNumber personalNumber) {
         this.personalNumber = personalNumber;
     }
 
     //~ Other Methods ==================================================================================================
-
+    
     @Override
-    public boolean sameIdentityAs(final Patient other) {
+    public boolean sameIdentityAs(final Invanare other) {
         return other != null && this.getPersonalNumber().equals(other.getPersonalNumber());
     }
 
@@ -122,7 +132,7 @@ public class Patient extends AbstractBaseEntity implements IEntity<Patient> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Patient patient = (Patient) o;
+        Invanare patient = (Invanare) o;
 
         if (!this.getPersonalNumber().equals(patient.getPersonalNumber())) return false;
 

@@ -1,4 +1,4 @@
-package se.inera.fmu.domain.model.patient;
+package se.inera.fmu.domain.model.shared;
 
 import lombok.ToString;
 import se.inera.fmu.domain.shared.ValueObject;

@@ -9,11 +9,13 @@
 <!-- build:css styles/vendor.css -->
 <!-- bower:css -->
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="bower_components/ng-table/ng-table.css" />
+<link rel="stylesheet" href="bower_components/Hover/css/hover.css" />
 <!-- endbower -->
 <!-- endbuild -->
 <!-- build:css styles/main.css -->
-<link rel="stylesheet" href="styles/main.css">
 <link rel="stylesheet" href="styles/inera-webcert.css">
+<link rel="stylesheet" href="styles/main.css">
 <!-- endbuild -->
 </head>
 <body ng-app="fmuClientAppDev">
@@ -87,6 +89,8 @@ ga('send', 'pageview');
 <script src="bower_components/angular-touch/angular-touch.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+<script src="bower_components/ng-table/ng-table.js"></script>
+<script src="bower_components/underscore/underscore.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
@@ -101,6 +105,12 @@ ga('send', 'pageview');
 <script src="scripts/authentication/AuthService.js"></script>
 <script src="scripts/authentication/RestrictedDirective.js"></script>
 <script src="scripts/authentication/FakeRoleCtrl.js"></script>
+<script src="scripts/overview/CompletedController.js"></script>
+<script src="scripts/overview/OngoingController.js"></script>
+<script src="scripts/overview/OrderController.js"></script>
+<script src="scripts/constants.js"></script>
+<script src="scripts/filters.js"></script>
+<script src="scripts/services.js"></script>
 <!-- endbuild -->
 </body>
 </html>

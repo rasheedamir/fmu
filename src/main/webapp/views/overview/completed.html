@@ -1,5 +1,7 @@
-<h2>Genomförda utredningar</h2>
-
-<ul ng-repeat="eavrop in eavrops">
-    <li><a ui-sref="eavrop.order({eavropId: eavrop.eavropId})">{{eavrop.arendeId}}</a></li>
-</ul>
+<div ng-cloak style="margin: 30px">
+    <div class="row" >
+        <h1 class="col-md-4">Genomförda utredningar</h1>
+        <div ng-include src="'views/templates/datePicker.html'"></div>
+    </div>
+    <div ng-include src="'views/templates/eavropsTable.html'"></div>
+</div>

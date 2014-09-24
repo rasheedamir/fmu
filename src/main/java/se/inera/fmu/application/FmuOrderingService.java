@@ -2,9 +2,11 @@ package se.inera.fmu.application;
 
 import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
-import se.inera.fmu.domain.model.patient.Address;
-import se.inera.fmu.domain.model.patient.Gender;
-import se.inera.fmu.domain.model.patient.Name;
+import se.inera.fmu.domain.model.invanare.PersonalNumber;
+import se.inera.fmu.domain.model.landsting.Landsting;
+import se.inera.fmu.domain.model.shared.Address;
+import se.inera.fmu.domain.model.shared.Gender;
+import se.inera.fmu.domain.model.shared.Name;
 
 /**
  * Created by Rasheed on 7/7/14.
@@ -24,7 +26,10 @@ public interface FmuOrderingService {
      * @param patientEmail
      * @return
      */
-    ArendeId createNewEavrop(ArendeId arendeId, UtredningType utredningType, String tolk, String personalNumber,
-                             Name patientName, Gender patientGender, Address patientHomeAddress, String patientEmail);
+    ArendeId createNewEavrop(ArendeId arendeId,  UtredningType utredningType, String tolk, PersonalNumber personalNumber,
+            Name invanareName, Gender invanareGender, Address invanareHomeAddress,
+            String invanareEmail, String invanareSpecialNeeds, Landsting landsting, String administratorName, 
+            String administratorBefattning, String administratorOrganisation, String administratorPhone, 
+            String administratorEmail);
 
 }

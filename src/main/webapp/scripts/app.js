@@ -8,14 +8,14 @@
  *
  * Main module of the application.
  */
-angular
-.module('fmuClientApp', [
+angular.module('fmuClientApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngSanitize',
     'ngTouch',
     'ui.router',
+    'ngTable',
     'ui.bootstrap'
 ])
 .run(['$rootScope', '$state', function($rootScope, $state){
@@ -32,19 +32,22 @@ angular
         url: '/overview',
         abstract: true,
         controller: 'OverviewCtrl',
-        templateUrl: 'views/overview/overview.html',
+        templateUrl: 'views/overview/overview.html'
     })
     .state('overview.orders', {
         url: '/orders',
         templateUrl: 'views/overview/orders.html',
+        controller: 'OrderController'
     })
     .state('overview.ongoing', {
         url: '/ongoing',
         templateUrl: 'views/overview/ongoing.html',
+        controller: 'OngoingController'
     })
     .state('overview.completed', {
         url: '/completed',
         templateUrl: 'views/overview/completed.html',
+        controller: 'CompletedController'
     })
     .state('eavrop', {
         url: '/eavrop/{eavropId:[0-9]+}',
@@ -59,22 +62,22 @@ angular
     })
     .state('eavrop.order', {
         url: '/order',
-        templateUrl: 'views/eavrop/order.html',
+        templateUrl: 'views/eavrop/order.html'
     })
     .state('eavrop.allevents', {
         url: '/all-events',
-        templateUrl: 'views/eavrop/all-events.html',
+        templateUrl: 'views/eavrop/all-events.html'
     })
     .state('eavrop.compensation', {
         url: '/compensation',
-        templateUrl: 'views/eavrop/compensation.html',
+        templateUrl: 'views/eavrop/compensation.html'
     })
     .state('eavrop.investigation', {
         url: '/investigation',
-        templateUrl: 'views/eavrop/investigation.html',
+        templateUrl: 'views/eavrop/investigation.html'
     })
     .state('eavrop.notes', {
         url: '/notes',
-        templateUrl: 'views/eavrop/notes.html',
+        templateUrl: 'views/eavrop/notes.html'
     });
 });
