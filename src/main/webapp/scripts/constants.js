@@ -2,5 +2,7 @@
 
 /* Constants */
 angular.module('fmuClientApp').constant('RESTURL', {
-    eavrop: '/app/rest/eavrop'
+    eavrop: '/eavrop/:eavropId',
+    eavropDocuments: '/eavrop/:eavropId/documents',
+    eavropRequestedDocuments: '/eavrop/:eavropId/requested-documents',
 });

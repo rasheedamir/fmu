@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-md-3">
+        <h2>Beställning</h2>
+        <table class="table table-bordered">
+            <tr>
+                <th>Ärende-ID:</th>
+                <td>{{currentEavrop.arendeId}}</td>
+            </tr>
+            <tr>
+                <th>Förfrågan inkom:</th>
+                <td>{{currentEavrop.inquiryDate}}</td>
+            </tr>
+            <tr>
+                <th>Typ av utredning:</th>
+                <td>{{currentEavrop.type}}</td>
+            </tr>
+            <tr>
+                <th>Tolk:</th>
+                <td>{{currentEavrop.interpreter}}</td>
+            </tr>
+            <tr>
+                <th>Val av inriktning:</th>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-3">
+        <h2>Beställare</h2>
+        <table class="table table-bordered">
+            <tr>
+                <th>LFC:</th>
+                <td>{{currentEavrop.orderer.lfc}}</td>
+            </tr>
+            <tr>
+                <th>Beställare, namn:</th>
+                <td>{{currentEavrop.orderer.name}}</td>
+            </tr>
+            <tr>
+                <th>Beställare, tel:</th>
+                <td>{{currentEavrop.orderer.phone}}</td>
+            </tr>
+            <tr>
+                <th>Beställare, e-post:</th>
+                <td>{{currentEavrop.orderer.email}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

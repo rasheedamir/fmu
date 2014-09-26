@@ -1,18 +1,7 @@
 'use strict';
 
 angular.module('fmuClientApp').
-    controller('EavropCtrl',['$scope','$modal', 'currentEavrop', function($scope, $modal, currentEavrop){
+    controller('EavropCtrl',['$scope','currentEavrop', function($scope,  currentEavrop){
 
     $scope.currentEavrop = currentEavrop;
-
-    $scope.openAddDocumentModal = function(){
-        var mod = $modal.open({
-            templateUrl: 'views/eavrop/add-doc-modal.html',
-            controller: 'AddDocCtrl',
-            resolve:{
-                currentEavrop: function(){return $scope.currentEavrop}
-            },
-            size: 'md'
-        });
-    };
 }]);
