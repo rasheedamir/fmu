@@ -1,7 +1,7 @@
 'use strict';
 
 
-ddescribe('TableService Tests ', function () {
+describe('TableService Tests ', function () {
     var tableService, scope;
     var date1 = new Date('2011-01-11').getTime();
     var date2 = new Date('2011-02-11').getTime();

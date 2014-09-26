@@ -201,6 +201,10 @@ ul#strength {
     margin-left: 15px;
 }
 
+.dateDescription {
+    margin-top: 10px;
+}
+
 .circle {
     width: 15px;
     height: 15px;

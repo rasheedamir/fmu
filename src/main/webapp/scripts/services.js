@@ -251,10 +251,10 @@ angular.module('fmuClientApp')
                 this.getTableParameters().reload();
             };
 
-
             service.initTableParameters = function () {
                 var self = this;
                 if (!self.getTableParameters()) {
+
                     /* jshint -W055 */ // XXX: ngTableParams.
                     self.scope.tableParams = new ngTableParams({
                         page: 1,            // show first page
