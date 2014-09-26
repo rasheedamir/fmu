@@ -18,7 +18,7 @@ angular.module('fmuClientApp')
                 colorClass: null,
                 children: [{
                     key: 'arendeId',
-                    value: 'Ärende ID',
+                    value: 'Ärende-ID',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                 }, {
                     key: 'utredningType',
@@ -43,10 +43,6 @@ angular.module('fmuClientApp')
                 children: [{
                     key: 'mottagarenOrganisation',
                     value: 'Organisation',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }, {
-                    key: 'utredare',
-                    value: 'namn',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                 }]
             }, {

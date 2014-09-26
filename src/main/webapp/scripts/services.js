@@ -294,7 +294,7 @@ angular.module('fmuClientApp')
 
                         // utredare ska bort
                         return [{
-                            'arendeId': 123453621,
+                            'arendeId': 34453621,
                             'utredningType': 'AFU',
                             'bestallareOrganisation': 'Försäkringskassan',
                             'enhet': 'Stockholm City',
@@ -305,7 +305,7 @@ angular.module('fmuClientApp')
                             'avikelser': 0,
                             'color': null
                         }, {
-                            'arendeId': 123453621,
+                            'arendeId': 53453621,
                             'utredningType': 'AFU',
                             'bestallareOrganisation': 'Försäkringskassan',
                             'enhet': 'Stockholm City',
@@ -316,7 +316,7 @@ angular.module('fmuClientApp')
                             'avikelser': 39,
                             'color': 'bg-danger'
                         }, {
-                            'arendeId': 123453621,
+                            'arendeId': 563453621,
                             'utredningType': 'AFU',
                             'bestallareOrganisation': 'Försäkringskassan',
                             'enhet': 'Stockholm City',
@@ -327,7 +327,7 @@ angular.module('fmuClientApp')
                             'avikelser': 37,
                             'color': 'bg-danger'
                         }, {
-                            'arendeId': 123453621,
+                            'arendeId': 093453621,
                             'utredningType': 'AFU',
                             'bestallareOrganisation': 'Försäkringskassan',
                             'enhet': 'Stockholm City',
@@ -338,9 +338,9 @@ angular.module('fmuClientApp')
                             'avikelser': 0,
                             'color': null
                         }, {
-                            'arendeId': 123453621,
+                            'arendeId': 6873453621,
                             'utredningType': 'AFU',
-                            'bestallareOrganisation': 'Försäkringskassan',
+                            'bestallareOrganisation': 'Arbetsförmedlingen',
                             'enhet': 'Stockholm City',
                             'mottagarenOrganisation': 'Stockholms Läns Landsting',
                             'status': 'Utredning påbörjat',
@@ -349,9 +349,9 @@ angular.module('fmuClientApp')
                             'avikelser': 0,
                             'color': null
                         }, {
-                            'arendeId': 123453621,
+                            'arendeId':3453621,
                             'utredningType': 'AFU',
-                            'bestallareOrganisation': 'Försäkringskassan',
+                            'bestallareOrganisation': 'Arbetsförmedlingen',
                             'enhet': 'Stockholm City',
                             'mottagarenOrganisation': 'Stockholms Läns Landsting',
                             'status': 'Utredning påbörjat',
@@ -360,9 +360,9 @@ angular.module('fmuClientApp')
                             'avikelser': 0,
                             'color': null
                         }, {
-                            'arendeId': 123453621,
+                            'arendeId': 8554453621,
                             'utredningType': 'AFU',
-                            'bestallareOrganisation': 'Försäkringskassan',
+                            'bestallareOrganisation': 'Arbetsförmedlingen',
                             'enhet': 'Stockholm City',
                             'mottagarenOrganisation': 'Stockholms Läns Landsting',
                             'status': 'Utredning påbörjat',
@@ -371,7 +371,7 @@ angular.module('fmuClientApp')
                             'avikelser': 0,
                             'color': null
                         }, {
-                            'arendeId': 123453621,
+                            'arendeId': 9983453621,
                             'utredningType': 'AFU',
                             'bestallareOrganisation': 'Försäkringskassan',
                             'enhet': 'Stockholm City',
@@ -382,9 +382,9 @@ angular.module('fmuClientApp')
                             'avikelser': 27,
                             'color': 'bg-danger'
                         }, {
-                            'arendeId': 123453621,
+                            'arendeId': 67983475084375,
                             'utredningType': 'AFU',
-                            'bestallareOrganisation': 'Försäkringskassan',
+                            'bestallareOrganisation': 'Arbetsförmedlingen',
                             'enhet': 'Stockholm City',
                             'mottagarenOrganisation': 'Stockholms Läns Landsting',
                             'status': 'Utförare utsedd, inväntar handlingar i ärendet',
@@ -393,7 +393,7 @@ angular.module('fmuClientApp')
                             'avikelser': 51,
                             'color': 'bg-danger'
                         }, {
-                            'arendeId': 123453621,
+                            'arendeId': 89346984369,
                             'utredningType': 'AFU',
                             'bestallareOrganisation': 'Försäkringskassan',
                             'enhet': 'Stockholm City',
@@ -404,9 +404,9 @@ angular.module('fmuClientApp')
                             'avikelser': 0,
                             'color': null
                         }, {
-                            'arendeId': 123453621,
+                            'arendeId': 294850947,
                             'utredningType': 'AFU',
-                            'bestallareOrganisation': 'Försäkringskassan',
+                            'bestallareOrganisation': 'Arbetsförmedlingen',
                             'enhet': 'Stockholm City',
                             'mottagarenOrganisation': 'Stockholms Läns Landsting',
                             'status': 'Utredning påbörjat',
@@ -415,7 +415,7 @@ angular.module('fmuClientApp')
                             'avikelser': 36,
                             'color': 'bg-danger'
                         }, {
-                            'arendeId': 123453621,
+                            'arendeId': 764576,
                             'utredningType': 'AFU',
                             'bestallareOrganisation': 'Försäkringskassan',
                             'enhet': 'Stockholm City',
@@ -539,6 +539,10 @@ angular.module('fmuClientApp')
         };
 
         service.calculateInitialDateRange = function() {
+            if(this.scope.authService.userInfo.roles.length < 1){
+                return;
+            }
+
             var data = this.getTableData();
             var dateKey = this.getDateKey();
 

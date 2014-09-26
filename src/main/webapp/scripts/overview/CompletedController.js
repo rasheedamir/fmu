@@ -17,7 +17,7 @@ angular.module('fmuClientApp')
                 colorClass: null,
                 children: [{
                         key: 'arendeId',
-                        value: 'Ärende ID',
+                        value: 'Ärende-ID',
                         restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                     }, {
                         key: 'utredningType',
