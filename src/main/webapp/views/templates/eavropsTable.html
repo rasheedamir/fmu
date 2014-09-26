@@ -6,14 +6,14 @@
             <tr>
                 <th 
                 class="text-capitalize text-center"
-                ng-repeat="value in headerGroups" colspan="{{value.children.length - restrictedFields(value.children)}}"
-                ng-show="value.children.length > restrictedFields(value.children)"
+                ng-repeat="value in headerGroups" colspan="{{value.children.length - tableService.restrictedFields(value.children)}}"
+                ng-show="value.children.length > tableService.restrictedFields(value.children)"
                 ng-class="value.colorClass == null && value.name == null ? 'invisible-header' : value.colorClass">{{value.name}}</th>
             </tr>
 
             <tr class="header">
                 <th 
-                ng-repeat="header in getFields()" class="text-center sortable"
+                ng-repeat="header in tableService.getFields()" class="text-center sortable"
                 ng-class="{'sort-asc': tableParams.isSortBy(header.key, 'asc'),'sort-desc': tableParams.isSortBy(header.key, 'desc')}"
                 ng-click="tableService.sort(header.key)">
                 <div>{{header.value}}</div>
@@ -24,7 +24,8 @@
 
     <tbody>
         <tr ng-repeat="row in tableParams.data" ng-class="row.color">
-            <td ng-repeat="header in getFields()" ng-if="header.key != 'color'" sortable="{{header.key}}"  class="text-capitalize text-center">
+            <td ng-repeat="header in tableService.getFields()" ng-if="header.key != 'color'" 
+            sortable="{{header.key}}"  class="text-capitalize text-center">
                 <span ng-if="header.key == dateKey" ng-bind="dateService.getFormattedDate(row[header.key])"></span>
                 <span ng-if="header.key != dateKey" ng-bind="row[header.key]"></span>
             </td>
@@ -34,7 +35,7 @@
 </table>
 
 <script type="text/ng-template" id="custom/pager">
-    <div ng-show="params.settings().$scope.getFields().length > 0">
+    <div ng-show="params.settings().$scope.tableService.getFields().length > 0">
         <ul class="pager ng-cloak">
         <li ng-repeat="page in pages"
         ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"

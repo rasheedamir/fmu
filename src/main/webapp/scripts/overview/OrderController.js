@@ -79,27 +79,6 @@ angular.module('fmuClientApp')
                 colorClass: 'bg-success'
             }];
 
-            $scope.getFields = function() {
-                var result = [];
-                _.each($scope.headerGroups, function(group) {
-                    _.each(group.children, function(child){
-                        if(_.intersection(child.restricted, $scope.authService.userInfo.roles).length > 0)
-                            result.push(child);
-                    });
-                });
-
-                return result;
-            };
-
-            $scope.restrictedFields = function(fields) {
-                var total = 0;
-                _.each(fields, function(field) {
-                    total = _.intersection(field.restricted, $scope.authService.userInfo.roles).length > 0 ? total: total + 1;
-                });
-
-                return total;
-            };
-
             OrderService.getEavrops().then(function(result) {
                 $scope.tableData = result;
 
