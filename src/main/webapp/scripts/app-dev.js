@@ -56,13 +56,18 @@ angular.module('fmuClientAppDev').run(function($httpBackend){
         }
     }
     var EAVROP_PATTERN = /\/eavrop\/(\d+)/;
-    var EAVROP_DOCUMENTS_PATTERN = /\/eavrop\/(\d+)\/documents/;
-    var EAVROP_REQ_DOCUMENTS_PATTERN = /\/eavrop\/(\d+)\/requested-documents/;
+    var EAVROP_DOCUMENTS_PATTERN = /^\/eavrop\/(\d+)\/documents$/;
+    var EAVROP_REQ_DOCUMENTS_PATTERN = /^\/eavrop\/(\d+)\/requested-documents$/;
 
 
+    $httpBackend.whenPOST(EAVROP_REQ_DOCUMENTS_PATTERN).respond(function(method, url, data){
+        var id = EAVROP_PATTERN.exec(url)[1];
+        getEavropById(parseInt(id)).reqDocuments.push(angular.fromJson(data));
+        return [200, {}, {}];
+    });
     $httpBackend.whenPOST(EAVROP_DOCUMENTS_PATTERN).respond(function(method, url, data){
         var id = EAVROP_PATTERN.exec(url)[1];
-        getEavropById(parseInt(id)).documents.push(angular.fromJson(data))
+        getEavropById(parseInt(id)).documents.push(angular.fromJson(data));
         return [200, {}, {}];
     });
     $httpBackend.whenGET(EAVROP_DOCUMENTS_PATTERN).respond(function(method, url){
@@ -91,6 +96,6 @@ angular.module('fmuClientAppDev').run(function($httpBackend){
 
 
 angular.module('fmuClientAppDev').run(function(AuthService){
-    AuthService.userInfo.roles.push("ROLE_SAMORDNARE");
-    AuthService.userInfo.roles.push("ROLE_UTREDARE");
+    AuthService.userInfo.roles.push('ROLE_SAMORDNARE');
+    AuthService.userInfo.roles.push('ROLE_UTREDARE');
 });

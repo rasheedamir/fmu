@@ -81,13 +81,17 @@ angular.module('fmuClientApp', [
             }
         },
         controller: function($scope, Documents, ReqDocuments, $modal, $stateParams){
-            $scope.reqDocuments = ReqDocuments.query({eavropId: $stateParams.eavropId});
 
             function loadDocuments(){
                 $scope.documents = Documents.query({eavropId: $stateParams.eavropId});
             }
 
+            function loadReqDocuments(){
+                $scope.reqDocuments = ReqDocuments.query({eavropId: $stateParams.eavropId});
+            }
+
             loadDocuments();
+            loadReqDocuments();
 
             var addDocModalCtrl = ['$scope','$modalInstance',  function($scope, $modalInstance){
 
@@ -102,12 +106,32 @@ angular.module('fmuClientApp', [
                 $scope.save = function(){
                     $modalInstance.close($scope.doc);
                 };
-                $scope.close = function(){$modalInstance.dismiss()};
+                $scope.close = function(){$modalInstance.dismiss();};
+            }];
+            var reqAmendmentModalCtrl = ['$scope','$modalInstance',  function($scope, $modalInstance){
+
+                $scope.doc = {};
+                $scope.save = function(){
+                    $modalInstance.close($scope.doc);
+                };
+                $scope.close = function(){$modalInstance.dismiss();};
             }];
 
+            $scope.openReqAmendmentModal = function(){
+                var mod = $modal.open({
+                    templateUrl: 'views/eavrop/order/req-amendment-modal.html',
+                    size: 'md',
+                    controller: reqAmendmentModalCtrl,
+                });
+
+                mod.result.then(function(result){
+                    new ReqDocuments(result).$save({eavropId: $stateParams.eavropId});
+                    loadReqDocuments();
+                });
+            };
             $scope.openAddDocumentModal = function(){
                 var mod = $modal.open({
-                    templateUrl: 'views/eavrop/add-doc-modal.html',
+                    templateUrl: 'views/eavrop/order/add-doc-modal.html',
                     size: 'md',
                     controller: addDocModalCtrl,
                 });

@@ -1,3 +1,4 @@
+'use strict';
 angular.module('fmuClientApp')
 .directive('restricted', ['AuthService', function(AuthService){
     return {
@@ -16,7 +17,7 @@ angular.module('fmuClientApp')
                     elm.css('display', 'none');
                 }
             }
-            $scope.$watch('userInfo', function(n,o){
+            $scope.$watch('userInfo', function(){
                 updateCSS();
             }, true);
 

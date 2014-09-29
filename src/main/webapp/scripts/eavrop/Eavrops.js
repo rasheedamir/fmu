@@ -1,4 +1,4 @@
-
+'use strict';
 angular.module('fmuClientApp').factory('Eavrops', ['$resource', 'RESTURL', function($resource, RESTURL){
     return $resource(RESTURL.eavrop, {eavropId: '@eavropId'});
 }]);
