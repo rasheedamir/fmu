@@ -72,6 +72,17 @@ angular.module('fmuClientApp')
                 colorClass: 'bg-danger'
             }];
 
+            $scope.dateDescription = 'Datumen utgår från det datum då utredningen startat';
+
+            $scope.getDataValue = function(key, eavrop){
+                switch(key){
+                    case $scope.dateKey:
+                        return $scope.dateService.getFormattedDate(eavrop[key]);
+                    default:
+                        return eavrop[key];
+                }
+            };
+
 
             OnGoingService.getEavrops().then(function(result) {
                 $scope.tableData = result;

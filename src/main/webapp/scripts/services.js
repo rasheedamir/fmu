@@ -453,6 +453,7 @@ angular.module('fmuClientApp')
                         'UtredareOrganisation': 'Vårdenheten K',
                         'utredareAnsvarig': 'Anna Ang',
                         'isCompleted': 'ja',
+                        'dateDelivered': 1335451212483,
                         'approvedDate': 1335451264483,
                         'color': 'bg-success'
                     }, {
@@ -464,6 +465,7 @@ angular.module('fmuClientApp')
                         'UtredareOrganisation': 'Vårdenheten C',
                         'utredareAnsvarig': 'Assar Sverin',
                         'isCompleted': 'ja',
+                        'dateDelivered': 1335451164483,
                         'approvedDate': 1335451264483,
                         'color': 'bg-success'
                     }, {
@@ -475,6 +477,7 @@ angular.module('fmuClientApp')
                         'UtredareOrganisation': 'Danderyds sjukhus',
                         'utredareAnsvarig': 'Ola Svensson',
                         'isCompleted': 'ja',
+                        'dateDelivered': 1335450964483,
                         'approvedDate': 1335451264483,
                         'color': 'bg-success'
                     }, {
@@ -486,6 +489,7 @@ angular.module('fmuClientApp')
                         'UtredareOrganisation': 'Vårdenheten X',
                         'utredareAnsvarig': 'Åsa Lin',
                         'isCompleted': 'ja',
+                        'dateDelivered': 1335451244483,
                         'approvedDate': 1335451264483,
                         'color': 'bg-success'
                     }, {
@@ -497,7 +501,8 @@ angular.module('fmuClientApp')
                         'UtredareOrganisation': 'Vårdenheten Y',
                         'utredareAnsvarig': 'Karl Linder',
                         'isCompleted': 'nej',
-                        'approvedDate': 1335451264483,
+                        'dateDelivered': 1335451214483,
+                        'approvedDate': null,
                         'color': 'bg-warning'
                     }, {
                         'arendeId': 12462745,
@@ -508,7 +513,8 @@ angular.module('fmuClientApp')
                         'UtredareOrganisation': 'Danderyds sjukhus',
                         'utredareAnsvarig': 'Karl Linder',
                         'isCompleted': 'nej',
-                        'approvedDate': 1335451264483,
+                        'dateDelivered': 1335451124483,
+                        'approvedDate': null,
                         'color': 'bg-danger'
                     }];
                 }, function(err) {
@@ -539,10 +545,6 @@ angular.module('fmuClientApp')
         };
 
         service.calculateInitialDateRange = function() {
-            if(this.scope.authService.userInfo.roles.length < 1){
-                return;
-            }
-
             var data = this.getTableData();
             var dateKey = this.getDateKey();
 
@@ -553,7 +555,7 @@ angular.module('fmuClientApp')
             if (data.length === 1) {
                 this.update(_.first(data[dateKey], _.first(data)[dateKey]));
             } else {
-                var ordered = $filter('orderBy')(data, dateKey, false);
+                var ordered = $filter('orderBy')(_.filter(data, function(current){return current[dateKey] !== null;}), dateKey, false);
                 this.update(_.first(ordered)[dateKey], _.last(ordered)[dateKey]);
             }
         };
@@ -604,6 +606,9 @@ angular.module('fmuClientApp')
         };
 
         service.getFormattedDate = function(date) {
+            if(!date){
+                return '';
+            }
             return $filter('date')(date, 'dd-MM-yyyy');
         };
 

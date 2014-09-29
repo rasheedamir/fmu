@@ -23,11 +23,10 @@
     </thead>
 
     <tbody>
-        <tr ng-repeat="row in tableParams.data" ng-class="row.color">
+        <tr ng-repeat="row in tableParams.data" ng-class="row.color" ng-click="click(row.arendeId)">
             <td ng-repeat="header in tableService.getFields()" ng-if="header.key != 'color'" 
             sortable="{{header.key}}"  class="text-capitalize text-center">
-                <span ng-if="header.key == dateKey" ng-bind="dateService.getFormattedDate(row[header.key])"></span>
-                <span ng-if="header.key != dateKey" ng-bind="row[header.key]"></span>
+                <span ng-bind="getDataValue(header.key, row)"></span>
             </td>
         </tr>
 
