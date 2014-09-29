@@ -33,6 +33,22 @@ describe('TableService Tests ', function () {
         expect(tableService.scope).toBe(scope);
     });
 
+    it('should return correct filtered data with null values involved', function(){
+        scope.tableData = [
+        {'creationTime': null},
+        {'creationTime': null},
+        {'creationTime': date3},
+        {'creationTime': date4}
+        ];
+
+        scope.startDate = date1;
+        scope.endDate = date4;
+        var result = tableService.getDateFilteredData();
+
+        expect(result.length).toEqual(4);
+        expect(_.difference(result, scope.tableData).length).toBe(0);
+    });
+
     it('should return filtered data', function () {
         scope.startDate = date1;
         scope.endDate = date2;

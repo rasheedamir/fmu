@@ -2,8 +2,8 @@
 
 /* Controllers */
 angular.module('fmuClientApp')
-    .controller('OrderController', ['$scope', '$filter', 'OrderService', 'TableService', 'ngTableParams', 'DatePickerService', 'AuthService',
-        function($scope, $filter, OrderService, TableService, ngTableParams, DatePickerService, AuthService) {
+    .controller('OrderController', ['$scope','$state', '$filter', 'OrderService', 'TableService', 'ngTableParams', 'DatePickerService', 'AuthService',
+        function($scope, $state, $filter, OrderService, TableService, ngTableParams, DatePickerService, AuthService) {
             $scope.authService = AuthService;
             $scope.dateService = DatePickerService;
             $scope.dateService.setScope($scope);
@@ -12,6 +12,10 @@ angular.module('fmuClientApp')
             $scope.tableService.setScope($scope);
 
             $scope.dateKey = 'creationTime';
+
+            $scope.click = function(id){
+                $state.go('eavrop.order', {eavropId: id});
+            };
 
             $scope.headerGroups = [{
                 name: null,
@@ -42,7 +46,7 @@ angular.module('fmuClientApp')
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                 }, {
                     key: 'patientCity',
-                    value: 'Patientens bostadsort',
+                    value: 'Den försäkrades bostadsort',
                     restricted: ['ROLE_SAMORDNARE']
                 }]
             }, {
@@ -78,6 +82,17 @@ angular.module('fmuClientApp')
                 description: 'Godkänd för ersättning',
                 colorClass: 'bg-success'
             }];
+
+            $scope.dateDescription = 'Datumen utgår från det datum då beställningen inkommit';
+
+            $scope.getDataValue = function(key, eavrop){
+                switch(key){
+                    case $scope.dateKey:
+                        return $scope.dateService.getFormattedDate(eavrop[key]);
+                    default:
+                        return eavrop[key];
+                }
+            };
 
             OrderService.getEavrops().then(function(result) {
                 $scope.tableData = result;

@@ -10,7 +10,7 @@ angular.module('fmuClientApp')
             $scope.tableService = TableService;
             $scope.tableService.setScope($scope);
 
-            $scope.dateKey = 'approvedDate';
+            $scope.dateKey = 'dateDelivered';
 
             $scope.headerGroups = [{
                 name: null,
@@ -25,11 +25,11 @@ angular.module('fmuClientApp')
                         restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                     }, {
                         key: 'totalDaysPassed',
-                        value: 'Antal dagar',
+                        value: 'Antal dgr klar',
                         restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                     }, {
                         key: 'totalCompletionDays',
-                        value: 'Antal dagar för komplettering',
+                        value: 'Antal dgr för komplettering',
                         restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                     }, {
                         key: 'avikelser',
@@ -39,34 +39,51 @@ angular.module('fmuClientApp')
 
                     {
                         key: 'UtredareOrganisation',
-                        value: 'Vårdleverantör, organisation',
+                        value: 'Utförare, organisation',
                         restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']
                     }, {
                         key: 'utredareAnsvarig',
-                        value: 'Vårdleverantör, namn',
+                        value: 'Utförare, ansvarig',
                         restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']
                     }, {
+                        key: 'dateDelivered',
+                        value: 'Intyg levererades, datum',
+                        restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']
+                    },{
                         key: 'isCompleted',
                         value: 'Utredning komplett ?',
                         restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                     }, {
                         key: 'approvedDate',
-                        value: 'Godkänd datum',
+                        value: 'Godkänd för ersättning',
                         restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                     }
                 ]
             }];
 
             $scope.footerHints = [{
-                description: 'Antal dagar har överträtts och/eller annan avvikelse finns',
+                description: 'Ej godkänd',
                 colorClass: 'bg-danger'
             }, {
-                description: 'Utredning accepterad',
+                description: 'avikelser finns',
                 colorClass: 'bg-warning'
             }, {
-                description: 'Godkänd för ersättning',
+                description: 'Utredning är avslutad och godkänd',
                 colorClass: 'bg-success'
             }];
+
+            $scope.dateDescription = 'Datumen utgår från det datum då intyg levererats';
+
+            $scope.getDataValue = function(key, eavrop){
+                switch(key){
+                    case $scope.dateKey:
+                        return $scope.dateService.getFormattedDate(eavrop[key]);
+                    case 'approvedDate':
+                        return $scope.dateService.getFormattedDate(eavrop[key]);
+                    default:
+                        return eavrop[key];
+                }
+            };
 
             OverviewCompletedService.getEavrops().then(function(result) {
                 $scope.tableData = result;
