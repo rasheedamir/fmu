@@ -8,7 +8,12 @@ angular.module('fmuClientApp')
         {name: 'Genomförda utredningar', state: 'overview.completed'}
     ];
 
-    $scope.currentOverview = $scope.overviews[0];
+    for (var i=0; i < $scope.overviews.length; ++i) {
+        if($scope.overviews[i].state == $scope.$state.current.name){
+            $scope.currentOverview = $scope.overviews[i];
+            break;
+        }
+    }
 
     $scope.$watch('currentOverview', function(val){
         $scope.$state.go(val.state);
