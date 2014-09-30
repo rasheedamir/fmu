@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="styles/main.css">
 <!-- endbuild -->
 </head>
-<body ng-app="fmuClientApp">
+<body ng-app="fmuClientAppDev">
 <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -31,7 +31,7 @@
             </span>
         </span>
     </div>
-    <div class="headerbox-user pull-right">
+    <!-- <div class="headerbox-user pull-right">
         <div class="headerbox-user-profile headerbox-avatar"
             ng-show="authenticated">
             <span>{{ account.userRoles | json }} - {{ account.firstName }} {{account.lastName}}</span> <br>
@@ -39,6 +39,18 @@
                 <a class="pull-right" id="logoutLink">Logga
                     ut</a>
             </div>
+        </div>
+    </div> -->
+    <div class="headerbox-user pull-right">
+        <div class="headerbox-user-profile headerbox-avatar">
+            <table ng-controller="FakeRoleCtrl">
+                <tr ng-repeat="role in roles">
+                    <td>{{role}}</td><td>
+                            <input type="button" class="btn btn-xs btn-danger" value="-" ng-click="removeRole(role)" ng-show="hasRole(role)"/>
+                            <input type="button" class="btn btn-xs" value="+" ng-click="addRole(role)" ng-show="!hasRole(role)"/>
+                    </td>                
+                </tr>
+            </table>
         </div>
     </div>
 </div>
@@ -88,10 +100,17 @@ ga('send', 'pageview');
 <script src="scripts/app-dev.js"></script>
 <script src="scripts/overview/OverviewCtrl.js"></script>
 <script src="scripts/eavrop/EavropCtrl.js"></script>
+<script src="scripts/eavrop/Eavrops.js"></script>
+<script src="scripts/eavrop/AddDocCtrl.js"></script>
+<script src="scripts/authentication/AuthService.js"></script>
+<script src="scripts/authentication/RestrictedDirective.js"></script>
+<script src="scripts/authentication/FakeRoleCtrl.js"></script>
+<script src="scripts/overview/CompletedController.js"></script>
+<script src="scripts/overview/OngoingController.js"></script>
+<script src="scripts/overview/OrderController.js"></script>
 <script src="scripts/constants.js"></script>
-<script src="scripts/services.js"></script>
-<script src="scripts/controllers.js"></script>
 <script src="scripts/filters.js"></script>
+<script src="scripts/services.js"></script>
 <!-- endbuild -->
 </body>
 </html>

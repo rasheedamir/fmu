@@ -1,3 +1,13 @@
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+}
 body {
     background: #fafafa;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -132,32 +142,67 @@ ul#strength {
 /* end Password strength bar style */
 
 /* start table styling*/
+
 .table-wrapper {
     overflow-x: auto;
     margin-top: 20px;
+    box-shadow: 0px 3px 3px 2px #999;
+    padding: 10px;
+    border-radius: 10px 10px 10px 10px;
 }
 
-.input-group-addon {
-    margin-left: 0;
+
+.fmu-table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  border-collapse: separate;
+  border-spacing: 0 0;
 }
 
-.scroll-table th {
-    background-color: #0d3349;
-    color: #ffffff
+.fmu-table > thead > tr:nth-child(2) {
+    background-color: rgb(26, 54, 66);
 }
 
-@media only screen and (max-width: 40em) {
-    /*640*/
-    .scroll-table {
-        display: block
-    }
+.fmu-table > thead > tr > th,
+.fmu-table > thead > tr > td,
+.fmu-table > tbody > tr > th,
+.fmu-table > tbody > tr > td {
+    padding: 10px 10px;
+    border: 0;
+    vertical-align: middle;
+}
+
+/* Group headers */
+.fmu-table > thead > tr:first-child > th {
+    empty-cells: hide;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 1px 3px 3px 2px #999;
+}
+
+/* Data headers */
+.fmu-table > thead > tr:last-child > th:first-child {
+    border-radius: 10px 0 0 0;
+}
+
+.fmu-table > thead > tr:last-child > th:last-child {
+    border-radius: 0 10px 0 0;
+}
+
+/* Data fields */
+.fmu-table > tbody > tr{
+    box-shadow: 1px 3px 3px 2px #999;
 }
 
 .dateBtn {
-    float: left;
+    float: right;
     margin-right: 15px;
     margin-top: 20px;
     margin-left: 15px;
+}
+
+.dateDescription {
+    margin-top: 10px;
 }
 
 .circle {
@@ -165,12 +210,10 @@ ul#strength {
     height: 15px;
     -moz-border-radius: 50px;
     -webkit-border-radius: 50px;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 50px;
-    border-color: #245269;
     float: left;
+    box-shadow: 0px 0px 1px 1px #000;
 }
+
 
 .table-legend p {
     float: left;
@@ -196,7 +239,7 @@ ul#strength {
 }
 
 /*Table row hover animation*/
-.table-hover > tbody > tr:hover {
+.fmu-table> tbody > tr:hover {
     -webkit-transition-duration: 0.3s;
     transition-duration: 0.3s;
     -webkit-transition-property: transform;
@@ -209,13 +252,8 @@ ul#strength {
 }
 
 /*Table hover animation*/
-.table-hover > tbody > tr:hover > td{
+.fmu-table > tbody > tr:hover > td{
     background-color: inherit;
-    border-top: solid;
-    border-bottom: solid;
-    border-width: 1px;
-    border-color: grey;
-    border-collapse: collapse;
 }
 
 .ng-table th.sortable div:after,
@@ -250,4 +288,28 @@ ul#strength {
 .ng-table th.sortable.sort-asc {
     background-color: rgba(141, 192, 219, 0.25);
     text-shadow: 0px 1px 1px rgba(255, 255, 255, 0);
+}
+
+.bg-head-danger {
+    background-color: rgba(255, 75, 73, 0.8);
+}
+
+.bg-head-warning {
+    background-color: rgba(250, 206, 65, 0.8);
+}
+
+.bg-head-success {
+    background-color: rgba(153, 219, 102, 0.8);
+}
+
+.bg-danger {
+    background-color: rgba(255, 75, 73, 0.5);
+}
+
+.bg-warning {
+    background-color: rgba(250, 206, 65, 0.5);
+}
+
+.bg-success {
+    background-color: rgb(153, 219, 102);
 }

@@ -1,18 +1,15 @@
 'use strict';
 
 angular.module('fmuClientApp').
-    controller('EavropCtrl',['$scope', function($scope){
+    controller('EavropCtrl',['$scope','currentEavrop', 'AuthService', function($scope,  currentEavrop, AuthService){
 
-    $scope.links = [
-        {name: 'Beställning', state: 'order'},
-        {name: 'Utredning', state: 'investigation'},
-        {name: 'Alla händelser', state: 'allevents'},
-        {name: 'Anteckningar', state: 'notes'},
-        {name: 'Underlag för ersättning', state: 'compensation'},
-    ];
+    $scope.currentEavrop = currentEavrop;
 
-    $scope.clickLink = function(link){
-        var url = '^.'+link.state;
-        $scope.$state.go(url);
-    };
+    $scope.patientInfoText = function(){
+        if(AuthService.hasRole('ROLE_UTREDARE')){
+            return currentEavrop.patient.details.socSecNo + ', ' + currentEavrop.patient.details.name;
+        } else {
+            return currentEavrop.patient.dobYear + ', ' + currentEavrop.patient.initials;
+        }
+    }
 }]);

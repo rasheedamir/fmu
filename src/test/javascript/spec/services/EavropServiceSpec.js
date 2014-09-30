@@ -4,11 +4,11 @@ describe('Services Tests ', function () {
 
     beforeEach(module('fmuClientApp'));
 
-    describe('EavropService', function(){
+    describe('OrderService', function(){
         var eavropservice, httpBackend;
 
-        beforeEach(inject(function(_EavropService_, $httpBackend, _RESTURL_){
-            eavropservice = _EavropService_;
+        beforeEach(inject(function(_OrderService_, $httpBackend, _RESTURL_){
+            eavropservice = _OrderService_;
             httpBackend = $httpBackend;
             // Mock http response
             httpBackend.whenGET(_RESTURL_.eavrop).respond([
@@ -43,18 +43,4 @@ describe('Services Tests ', function () {
             });
         });
     });
-
-    describe('DateSelectionChangeService', function(){
-        var dateSelectionService;
-
-        beforeEach(inject(function(_DateSelectionChangeService_){
-            dateSelectionService = _DateSelectionChangeService_;
-        }));
-
-        it('should pass', function(){
-
-        });
-    });
 });
-
-

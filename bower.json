@@ -15,7 +15,8 @@
     "angular-mocks": "~1.2.0",
     "ng-table": "0.3.3",
     "underscore": "^1.7.0",
-    "angular-bootstrap": "latest"
+    "angular-bootstrap": "latest",
+    "Hover": "latest"
   },
   "devDependencies": {
     "angular-scenario": "~1.2.0"

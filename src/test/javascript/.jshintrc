@@ -32,7 +32,9 @@
     "jasmine": false,
     "spyOn": false,
     "_": false,
-    "fmuClientApp": false
+    "fmuClientApp": false,
+    "iit": false,
+    "ddescribe": false
   }
 }
 
