@@ -3,12 +3,15 @@ package se.inera.fmu.domain.model.eavrop.booking;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -18,6 +21,7 @@ import org.apache.commons.lang.Validate;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
 
+import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.party.Party;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
@@ -48,18 +52,22 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
     @Column(name = "END_DATETIME", nullable = false, updatable = false)
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
  	private LocalDateTime endDateTime;
-
-	//TODO: Maybe this should be a status instead 
-    @Column(name = "CANCELLATION_TYPE", nullable = true, updatable = true)
-    @Enumerated(EnumType.STRING)
-    @NotNull
-	private BookingDeviationType cancellationReason;
-
+    
 	//TODO: embed?
 	@NotNull
 	@OneToMany //TODO: maybe many to many if we kan reuse the party entity
  	private Set<Party> parties;
 
+	//TODO: Maybe this should be a status instead 
+    @Column(name = "DEVIATION_TYPE", nullable = true, updatable = true)
+    @Enumerated(EnumType.STRING)
+    @NotNull
+	private BookingDeviationType deviationType;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="DEVIATION_NOTE_ID", nullable = true)
+	private Note deviationNote;
+    
     //~ Constructors ===================================================================================================
     
 	Booking(){
@@ -120,21 +128,28 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
 			this.parties = parties;
 		}
 
-		public BookingDeviationType getCancellationReason() {
-			return cancellationReason;
+		public BookingDeviationType getBookingDeviationType() {
+			return this.deviationType;
 		}
 
-		public void setCancellationReason(BookingDeviationType cancellationReason) {
-			this.cancellationReason = cancellationReason;
+		public void setBookingDeviationType(BookingDeviationType bookingDeviationType) {
+			this.deviationType = bookingDeviationType;
 		}
-	
+		
+		public Note getBookingDeviationNote() {
+			return this.deviationNote;
+		}
+
+		public void setBookingDeviationNote(Note bookingDeviationNote) {
+			this.deviationNote = bookingDeviationNote;
+		}
+
 	//~ Other Methods ==================================================================================================
 
 	@Override
 	public boolean sameIdentityAs(Booking other) {
 		return other != null && this.id.equals(other.id);
 	}
-	
 
 	/**
      * @param object to compare
