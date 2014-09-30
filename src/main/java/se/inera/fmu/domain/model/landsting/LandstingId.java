@@ -11,7 +11,6 @@ import se.inera.fmu.domain.shared.ValueObject;
 @Embeddable
 public class LandstingId implements ValueObject<LandstingId>, Serializable {
 	
-	
 	//~ Instance fields ================================================================================================
 
     @Column(name = "LANDSTING_ID", nullable = false, updatable = false, unique = true)
@@ -27,7 +26,6 @@ public class LandstingId implements ValueObject<LandstingId>, Serializable {
 	public LandstingId(final int landstingId) throws IllegalArgumentException {
 		setLandstingId(landstingId);
 	}
-
 	
     //~ Property Methods ===============================================================================================
 

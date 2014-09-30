@@ -21,7 +21,7 @@ public abstract class Party implements Serializable  {
     private Long id;
 
     @Column(name = "NAME", nullable = false)
-    private String namn;
+    private String name;
 
     @Column(name = "ROLE", nullable = true)
     private String role;
@@ -29,7 +29,7 @@ public abstract class Party implements Serializable  {
     //TODO: maybe also unit information?
     
     @Column(name = "ORGANISATION", nullable = true)
-    private String organistation;
+    private String organisation;
 
     
     //~ Constructors ===================================================================================================
@@ -38,22 +38,22 @@ public abstract class Party implements Serializable  {
 		//Needed by Hibernate
 	}
 
-	public Party(String namn, String role, String organistation) {
+	public Party(String name, String role, String organisation) {
 		super();
-		this.namn = namn;
+		this.name = name;
 		this.role = role;
-		this.organistation = organistation;
+		this.organisation = organisation;
 	}
 
 
 	//~ Property Methods ===============================================================================================
 
-	public String getNamn() {
-		return namn;
+	public String getName() {
+		return this.name;
 	}
 
-	private void setNamn(String namn) {
-		this.namn = namn;
+	private void setNamn(String name) {
+		this.name = name;
 	}
 
 	public String getRole() {
@@ -64,11 +64,11 @@ public abstract class Party implements Serializable  {
 		this.role = role;
 	}
 
-	public String getOrganistation() {
-		return organistation;
+	public String getOrganisation() {
+		return organisation;
 	}
 
-	private void setOrganistation(String organistation) {
-		this.organistation = organistation;
+	private void setOrganisation(String organisation) {
+		this.organisation = organisation;
 	}
 }

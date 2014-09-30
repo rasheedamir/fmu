@@ -5,7 +5,7 @@ import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropEvent;
 
 public class BookingDeviationEvent extends EavropEvent{
-//TODO: Maybe there should be a RebookingEvent only	
+
 	private final String bookingId;
 	
 	//~ Constructors ===================================================================================================

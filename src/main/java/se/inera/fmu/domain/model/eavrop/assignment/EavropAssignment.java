@@ -25,9 +25,6 @@ import se.inera.fmu.domain.shared.IEntity;
 public class EavropAssignment extends AbstractBaseEntity implements
 		IEntity<EavropAssignment> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	// database primary key, using UUID and not a Hibernate sequence
@@ -38,15 +35,13 @@ public class EavropAssignment extends AbstractBaseEntity implements
 	// TODO:
 	@OneToOne 
 	private Vardgivarenhet vardgivarenhet;
-
 	
     @Column(name = "STATUS", nullable = false)
     @Enumerated(EnumType.STRING)
     @NotNull
     private EavropAssignmentStatusType assignmentStatus;
 
-	// ~ Constructors
-	// ===================================================================================================
+	// ~ Constructors ===================================================================================================
 
 	EavropAssignment() {
 		// Needed by Hibernate
@@ -59,8 +54,7 @@ public class EavropAssignment extends AbstractBaseEntity implements
 		setVardgivarenhet(vardivareenhet);
 	}
 
-	// ~ Property Methods
-	// ===============================================================================================
+	// ~ Property Methods ===============================================================================================
 
 	public String getId() {
 		return id;
@@ -104,8 +98,7 @@ public class EavropAssignment extends AbstractBaseEntity implements
 		}
 	}
 
-	// ~ Other Methods
-	// ==================================================================================================
+	// ~ Other Methods ==================================================================================================
 
 	@Override
 	public boolean sameIdentityAs(EavropAssignment other) {
@@ -113,8 +106,7 @@ public class EavropAssignment extends AbstractBaseEntity implements
 	}
 
 	/**
-	 * @param object
-	 *            to compare
+	 * @param object to compare
 	 * @return True if they have the same identity
 	 * @see #sameIdentityAs(EavropAssignment)
 	 */

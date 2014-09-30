@@ -77,9 +77,6 @@ public class Document extends AbstractBaseEntity implements IEntity<Document>{
 		this.documentType = documentType;
 	}
 
-
-	
-
 	//~ Other Methods ==================================================================================================
 
 	@Override

@@ -64,5 +64,4 @@ public abstract class IntygInformation{
 		this.party = party;
 	}
 	
-	
 }

@@ -1,6 +1,5 @@
 package se.inera.fmu.domain.model.eavrop.booking;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -28,10 +27,6 @@ import se.inera.fmu.domain.shared.IEntity;
 @ToString
 public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
 
-	
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	// database primary key, using UUID and not a Hibernate sequence

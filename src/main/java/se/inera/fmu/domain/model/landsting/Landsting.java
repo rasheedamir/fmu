@@ -28,8 +28,6 @@ import se.inera.fmu.domain.shared.IEntity;
 @Table(name = "T_LANDSTING",  uniqueConstraints=@UniqueConstraint(columnNames="LANDSTING_ID"))
 @ToString
 public class Landsting extends AbstractBaseEntity implements IEntity<Landsting>{
-
-		
 		
 	    //~ Instance fields ================================================================================================
 
@@ -50,7 +48,6 @@ public class Landsting extends AbstractBaseEntity implements IEntity<Landsting>{
 	    @Column(name = "NAME", nullable = false)
 	    private String name;
 	    
-	    
 	    //TODO: Is this relation necessary? 
 //	    @ManyToMany
 //	    private Set<Vardgivare> vardgivare;
@@ -60,7 +57,6 @@ public class Landsting extends AbstractBaseEntity implements IEntity<Landsting>{
 	    
 	    @ManyToMany
 	    private Set<Landstingssamordnare> landstingssamordnare;
-	    
 	    
 	    //~ Constructors ===================================================================================================
 
@@ -73,7 +69,6 @@ public class Landsting extends AbstractBaseEntity implements IEntity<Landsting>{
 	    	Validate.notEmpty(name);
 	    	this.setLandstingId(landstingId);
 	    	this.setName(name);
-	    	
 	    }
 
 	    //~ Property Methods ===============================================================================================
@@ -93,21 +88,6 @@ public class Landsting extends AbstractBaseEntity implements IEntity<Landsting>{
 		private void setName(String name) {
 			this.name = name;
 		}
-
-//	    public Set<Vardgivare> getVardgivare() {
-//			return vardgivare;
-//		}
-//
-//	    private void setVardgivare(Set<Vardgivare> vardgivare) {
-//			this.vardgivare = vardgivare;
-//		}
-//	    
-//	    public boolean addVardgivare(Vardgivare vardgivare){
-//	    	if(this.vardgivare == null){
-//	    		this.vardgivare = new HashSet<Vardgivare>();
-//	    	}
-//	    	return this.vardgivare.add(vardgivare);
-//	    }
 	    
 	    public Set<Vardgivarenhet> getVardgivarenheter() {
 			return vardgivarenheter;

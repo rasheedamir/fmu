@@ -31,9 +31,6 @@ import se.inera.fmu.domain.shared.IEntity;
 @ToString
 public class HoSPersonal extends AbstractBaseEntity implements IEntity<HoSPersonal> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	// database primary key
@@ -62,7 +59,6 @@ public class HoSPersonal extends AbstractBaseEntity implements IEntity<HoSPerson
     public HoSPersonal() {
         //Needed by hibernate
     }
-
     
     /**
      *
@@ -139,6 +135,5 @@ public class HoSPersonal extends AbstractBaseEntity implements IEntity<HoSPerson
     public int hashCode() {
         return getHsaId().hashCode();
     }
-
 
 }

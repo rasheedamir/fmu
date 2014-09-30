@@ -23,8 +23,6 @@ public class Bestallaradministrator extends Party {
     @Column(name = "EMAIL", nullable = true)
     private String email;
     
-    
-
     //~ Constructors ===================================================================================================
 
     Bestallaradministrator() {
@@ -36,7 +34,6 @@ public class Bestallaradministrator extends Party {
     	Validate.notEmpty(organisation);
     	setPhone(phone);
     	setEmail(email);
-    	
     }
 
     //~ Property Methods ===============================================================================================

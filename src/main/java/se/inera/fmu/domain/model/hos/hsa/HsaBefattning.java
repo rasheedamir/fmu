@@ -36,6 +36,8 @@ public class HsaBefattning {
     	this.setBeskrivning(beskrivning);
     }
 
+    //~ Property Methods ===============================================================================================
+
 	public String getBefattningskod() {
 		return befattningskod;
 	}
@@ -51,8 +53,5 @@ public class HsaBefattning {
 	private void setBeskrivning(String beskrivning) {
 		this.beskrivning = beskrivning;
 	}
-
-    //~ Property Methods ===============================================================================================
-
     
 }

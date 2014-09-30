@@ -7,8 +7,6 @@ import lombok.ToString;
 @Entity
 @ToString
 public class HoSParty extends Party {
-
-	
 	
 	HoSParty() {
         //Needed by hibernate
@@ -16,6 +14,6 @@ public class HoSParty extends Party {
     
     public HoSParty( final String name, String role, String organisation){
     	super(name, role, organisation);
-    	
     }
+
 }

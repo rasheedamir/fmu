@@ -92,22 +92,6 @@ public class Vardgivare extends AbstractBaseEntity implements IEntity<Vardgivare
 		this.name = name;
 	}
 
-	//See comment  on property variable
-//    public Set<Landsting> getLandsting() {
-//		return this.landsting;
-//	}
-//
-//	private void setLandsting(Set<Landsting> landsting) {
-//		this.landsting = landsting;
-//	}
-//
-//    public boolean addLandsting(Landsting landsting){
-//    	if(this.landsting == null){
-//    		this.landsting = new HashSet<Landsting>();
-//    	}
-//    	return this.landsting.add(landsting);
-//    }
-
     public Set<Vardgivarenhet> getVardgivarenheter() {
 		return this.vardgivarenheter;
 	}
@@ -145,7 +129,7 @@ public class Vardgivare extends AbstractBaseEntity implements IEntity<Vardgivare
     }
 
     /**
-     * @return Hash code of tracking id.
+     * @return Hash code of id.
      */
     @Override
     public int hashCode() {

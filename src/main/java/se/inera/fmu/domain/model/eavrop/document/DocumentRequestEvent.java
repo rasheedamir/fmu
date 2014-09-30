@@ -24,11 +24,6 @@ public class DocumentRequestEvent extends EavropEvent {
 	public String getDocumentId() {
 		return documentId;
 	}
-
-	//add document id
-	
-//	create the document
-//	document will have a type
 	
 	//~ Other Methods ==================================================================================================
 }

@@ -15,7 +15,6 @@ public class IntygSignedInformation extends IntygInformation{
 
 	public IntygSignedInformation(LocalDateTime informationTimestamp, Party party) {
 		super(informationTimestamp, party);
-		// TODO Auto-generated constructor stub
 	}
 
 }
