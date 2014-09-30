@@ -313,3 +313,12 @@ ul#strength {
 .bg-success {
     background-color: rgb(153, 219, 102);
 }
+
+.summary-badge-text {
+    font-size: 150%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.summary-badge{
+    min-height: 9em;
+}

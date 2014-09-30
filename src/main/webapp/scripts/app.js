@@ -149,6 +149,14 @@ angular.module('fmuClientApp', [
     })
     .state('eavrop.allevents', {
         url: '/all-events',
+        resolve: {
+            documents: function(EavropDocuments, $stateParams){return EavropDocuments.query({eavropId: $stateParams.eavropId});},
+            requestedDocuments: function(EavropRequestedDocuments, $stateParams){return EavropRequestedDocuments.query({eavropId: $stateParams.eavropId});}
+        },
+        controller: function($scope, documents, requestedDocuments){
+            $scope.documents = documents;
+            $scope.requestedDocuments = requestedDocuments;
+        },
         templateUrl: 'views/eavrop/all-events.html',
     })
     .state('eavrop.compensation', {

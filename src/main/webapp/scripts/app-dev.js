@@ -16,13 +16,24 @@ angular.module('fmuClientAppDev').run(function($httpBackend){
             eavropId: 1,
             arendeId: 123,
             inquiryDate: '2014-01-02',
+            acceptedDate: '2014-02-02',
+            documentsDeliveryDate: '2014-02-02',
+            investigationAcceptedDate: '2014-02-02',
+            certificateSentDate: '2014-02-02',
+            investigationNoDays: 7,
+            noDeviations: 5,
             type: 'TMU',
             interpreter: 'italienska',
+            investigator: {
+                org: 'Stockholms läns landsting',
+                unit: 'Danderyds sjukhus',
+            },
             orderer:{
                 lfc: 'Nordväst, Sundbyberg',
                 name: 'Per Handläggarsson',
                 phone: '070-112233',
                 email: 'namn@epost.se',
+                org: 'Försäkringskassan'
             },
             patient:{
                 initials: 'VW',
