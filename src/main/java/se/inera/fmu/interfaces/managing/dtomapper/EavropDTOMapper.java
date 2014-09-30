@@ -20,7 +20,7 @@ public class EavropDTOMapper {
 		DateTime dateTime = DateTime.now();
 		
 		dto.setArendeId(eavrop.getArendeId().toString())
-		.setBestallareOrganisation(eavrop.getBestallaradministrator().getOrganistation())
+		.setBestallareOrganisation(eavrop.getBestallaradministrator().getOrganisation())
 		.setMottagarenOrganisation(devstatus)
 		.setEnhet(devstatus)
 		.setUtredare(devstatus)
