@@ -1,18 +1,15 @@
 'use strict';
 
 angular.module('fmuClientApp').
-    controller('EavropCtrl',['$scope','$modal', 'currentEavrop', function($scope, $modal, currentEavrop){
+    controller('EavropCtrl',['$scope','currentEavrop', 'AuthService', function($scope,  currentEavrop, AuthService){
 
     $scope.currentEavrop = currentEavrop;
 
-    $scope.openAddDocumentModal = function(){
-        var mod = $modal.open({
-            templateUrl: 'views/eavrop/add-doc-modal.html',
-            controller: 'AddDocCtrl',
-            resolve:{
-                currentEavrop: function(){return $scope.currentEavrop}
-            },
-            size: 'md'
-        });
-    };
+    $scope.patientInfoText = function(){
+        if(AuthService.hasRole('ROLE_UTREDARE')){
+            return currentEavrop.patient.details.socSecNo + ', ' + currentEavrop.patient.details.name;
+        } else {
+            return currentEavrop.patient.dobYear + ', ' + currentEavrop.patient.initials;
+        }
+    }
 }]);

@@ -1,3 +1,4 @@
+'use strict';
 angular.module('fmuClientApp')
 .controller('AddDocCtrl', ['$scope', '$modalInstance','currentEavrop', function($scope, $modalInstance, currentEavrop) {
 

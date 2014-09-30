@@ -7,7 +7,6 @@ import lombok.ToString;
 @Entity
 @ToString
 public class Bestallarsamordnare extends Party {
-
 	
 	Bestallarsamordnare() {
         //Needed by hibernate

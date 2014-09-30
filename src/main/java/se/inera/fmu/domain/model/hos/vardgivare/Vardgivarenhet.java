@@ -32,9 +32,6 @@ public class Vardgivarenhet extends AbstractBaseEntity implements IEntity<Vardgi
 
     //~ Instance fields ================================================================================================
 	
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	// database primary key
@@ -47,7 +44,6 @@ public class Vardgivarenhet extends AbstractBaseEntity implements IEntity<Vardgi
     @NotNull
     @Embedded
     private HsaId hsaId;
-    
     
     @NotNull
     @Size(min = 0, max = 255)
@@ -87,7 +83,6 @@ public class Vardgivarenhet extends AbstractBaseEntity implements IEntity<Vardgi
     public HsaId getHsaId(){
     	return this.hsaId; 
     }
-
     
     private void setHsaId(HsaId hsaId){
     	this.hsaId = hsaId; 
@@ -117,7 +112,6 @@ public class Vardgivarenhet extends AbstractBaseEntity implements IEntity<Vardgi
 		this.vardgivare = vardgivare;
 	}
 
-
 	public Set<Landsting> getLandsting() {
 		return landsting;
 	}
@@ -134,7 +128,6 @@ public class Vardgivarenhet extends AbstractBaseEntity implements IEntity<Vardgi
 	}
 	
 	//~ Other Methods ==================================================================================================
-
 
 	@Override
     public boolean sameIdentityAs(final Vardgivarenhet other) {

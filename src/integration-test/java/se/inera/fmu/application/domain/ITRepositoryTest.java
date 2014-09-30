@@ -2,6 +2,7 @@ package se.inera.fmu.application.domain;
 
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +11,8 @@ import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
+import se.inera.fmu.domain.model.eavrop.booking.Booking;
+import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.hos.hsa.HsaBefattning;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
@@ -28,7 +31,11 @@ import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
 import se.inera.fmu.domain.party.Bestallaradministrator;
+import se.inera.fmu.domain.party.HoSParty;
+import se.inera.fmu.domain.party.Party;
 
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -215,6 +222,14 @@ public class ITRepositoryTest {
     	
     	Eavrop eavrop = new Eavrop(arendeId, UtredningType.TMU, invanare, landsting, bestallaradministrator);
     	
+//    	eavrop.getBookings();
+//    	eavrop.getEvents()
+//    	eavrop.getLandstingssamordnare() //Remove?
+//    	eavrop.getNotes()
+//    	eavrop.getPriorMedicalExamination();
+    	
+    	eavrop.addBooking(createBooking());
+    	
     	eavropRepository.saveAndFlush(eavrop);
     	return eavrop;
     }
@@ -233,7 +248,21 @@ public class ITRepositoryTest {
     	Bestallaradministrator bestallaradministrator = new Bestallaradministrator("Per Elofsson", "Handläggare", "LFC Nedre Dalarna", "010-1234567", "per.elofsson@fk.se");
     	
     	return bestallaradministrator;
-    }
+    }   
 
+
+    private Booking createBooking(){
+    	
+    	LocalDateTime today = new LocalDateTime(new LocalDate());
+    	LocalDateTime start = today.plusDays(5).plusHours(13);
+    	LocalDateTime end = start.plusHours(1);
+    	Party party = new HoSParty("Dr Mengele", "Surgeon", "Danderyds sjukhus");
+    	Set<Party> set = new HashSet<Party>();
+    	set.add(party);
+    	Booking booking = new Booking(BookingType.EXAMINATION, start,end, set );
+    	
+    	
+    	return booking;
+    }
 
 }

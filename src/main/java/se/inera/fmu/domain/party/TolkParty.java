@@ -9,14 +9,12 @@ import lombok.ToString;
 @Entity
 @ToString
 public class TolkParty extends Party {
-
-	
 	
 	TolkParty() {
         //Needed by hibernate
     }
     
-    public TolkParty( final String name, String organisation){
+    public TolkParty( final String name, final String organisation){
     	super(name, "Tolk", organisation);
     	
     }

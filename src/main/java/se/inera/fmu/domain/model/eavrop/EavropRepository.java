@@ -11,9 +11,8 @@ import se.inera.fmu.domain.model.landsting.Landsting;
  */
 public interface EavropRepository extends JpaRepository<Eavrop, Long> {
 
-    Eavrop findByArendeId(ArendeId arendeId);
-    
-    List<Eavrop> findAllByLandsting(Landsting landsting);
-    
-}
+	Eavrop findByArendeId(ArendeId arendeId);
 
+	List<Eavrop> findAllByLandsting(Landsting landsting);
+
+}

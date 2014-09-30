@@ -1,10 +1,11 @@
+'use strict';
 
 angular.module('fmuClientApp')
 .factory('AuthService', function(){
     var userInfo = {roles: []};
 
     function hasRole(roleName){
-        return userInfo.roles.indexOf(roleName) != -1;
+        return userInfo.roles.indexOf(roleName) !== -1;
     }
 
     function removeRole(roleName){

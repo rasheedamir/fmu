@@ -1,4 +1,4 @@
-
+'use strict';
 angular.module('fmuClientApp')
 .controller('FakeRoleCtrl', ['$scope','AuthService', function($scope, AuthService){
 

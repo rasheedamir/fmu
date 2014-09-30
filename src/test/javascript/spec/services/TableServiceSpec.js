@@ -1,7 +1,7 @@
 'use strict';
 
 
-ddescribe('TableService Tests ', function () {
+describe('TableService Tests ', function () {
     var tableService, scope;
     var date1 = new Date('2011-01-11').getTime();
     var date2 = new Date('2011-02-11').getTime();
@@ -16,17 +16,37 @@ ddescribe('TableService Tests ', function () {
     ];
 
     beforeEach(module('fmuClientApp'));
-    beforeEach(inject(function ($rootScope, TableService) {
+    beforeEach(inject(function ($rootScope, TableService, AuthService) {
         tableService = TableService;
         scope = $rootScope.$new();
         scope.tableData = data;
         scope.dateKey = dateKey;
+        scope.authService = AuthService;
         tableService.setScope(scope);
+
+        scope.authService.addRole('ROLE_SAMORDNARE');
+        scope.authService.addRole('ROLE_UTREDARE');
     }));
 
     it('should define a tableService', function () {
         expect(tableService).toBeDefined();
         expect(tableService.scope).toBe(scope);
+    });
+
+    it('should return correct filtered data with null values involved', function(){
+        scope.tableData = [
+        {'creationTime': null},
+        {'creationTime': null},
+        {'creationTime': date3},
+        {'creationTime': date4}
+        ];
+
+        scope.startDate = date1;
+        scope.endDate = date4;
+        var result = tableService.getDateFilteredData();
+
+        expect(result.length).toEqual(4);
+        expect(_.difference(result, scope.tableData).length).toBe(0);
     });
 
     it('should return filtered data', function () {
@@ -55,25 +75,13 @@ ddescribe('TableService Tests ', function () {
         tableService.initTableParameters();
         expect(tableService.getDateFilteredData()).toBe(oneRowData);
         expect(scope.tableParams.total()).toBe(1);
-        console.log(scope.tableParams.data);
     });
 
-    /*
-
-
-
-
-    it('should filter out data not in range', function () {
-        tableService.setUnfilteredData(data);
-        tableService.applyDateFilter(dateKey, date2, date4);
-        expect(_.difference(_.rest(data), tableService.filteredData).length).toBe(0);
+    it('should return correct number of restricted fields', function(){
+        expect(tableService.restrictedFields([{restricted: []}])).toEqual(1);
+        expect(tableService.restrictedFields([{restricted: ['ROLE_UNDEFINED']}])).toEqual(1);
+        expect(tableService.restrictedFields([{restricted: ['ROLE_SAMORDNARE']}])).toEqual(0);
+        expect(tableService.restrictedFields([{restricted: ['ROLE_UTREDARE']}])).toEqual(0);
+        expect(tableService.restrictedFields([{restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']}])).toEqual(0);
     });
-
-    it('should return empty array if all data are out of date range', function () {
-        tableService.setUnfilteredData(data);
-        tableService.applyDateFilter(dateKey, date4 + 1, date4 + 2);
-        expect(tableService.filteredData.length).toBe(0);
-    });
-
-*/
 });

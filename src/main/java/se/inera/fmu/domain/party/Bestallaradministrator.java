@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString
 public class Bestallaradministrator extends Party {
     
-//	//TODO:Same as bestallare i.e organisation or unit? move to bestallare!
+//	//TODO:Same as bestallare i.e organisation or unit? move to Party!
 //	@Column(name = "LFC", nullable = false)
 //    private String lfc;
 
@@ -23,8 +23,6 @@ public class Bestallaradministrator extends Party {
     @Column(name = "EMAIL", nullable = true)
     private String email;
     
-    
-
     //~ Constructors ===================================================================================================
 
     Bestallaradministrator() {
@@ -36,7 +34,6 @@ public class Bestallaradministrator extends Party {
     	Validate.notEmpty(organisation);
     	setPhone(phone);
     	setEmail(email);
-    	
     }
 
     //~ Property Methods ===============================================================================================
