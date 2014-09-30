@@ -9,8 +9,8 @@ spring:
         url: jdbc:mysql://localhost:3306/fmu
         databaseName:
         serverName:
-        username: root
-        password: root
+        username: fmu
+        password: fmu$786£2
 
     jpa:
         database-platform: org.hibernate.dialect.MySQLInnoDBDialect
