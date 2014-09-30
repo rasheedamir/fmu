@@ -159,8 +159,6 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 
     //~ Property Methods ===============================================================================================
 
-    
-
 	public String getAdditionalInformation() {
 		return additionalInformation;
 	}
@@ -170,7 +168,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	}
 
     /**
-     * The arendeId is the identity of this entity, and is unique.
+     * The arendeId is the identity of this entity and is unique.
      *
      * @return arendeId
      */

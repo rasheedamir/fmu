@@ -1,5 +1,6 @@
 package se.inera.fmu.application.impl;
 
+import com.google.common.eventbus.AsyncEventBus;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,13 +35,23 @@ import java.util.HashMap;
 public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOrderingService {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     private final EavropRepository eavropRepository;
     private final InvanareRepository invanareRepository;
+    private final AsyncEventBus asyncEventBus;
 
+    /**
+     *
+     * @param eavropRepository
+     * @param invanareRepository
+     * @param asyncEventBus
+     */
     @Inject
-    public FmuOrderingServiceImpl(final EavropRepository eavropRepository, final InvanareRepository invanareRepository) {
+    public FmuOrderingServiceImpl(final EavropRepository eavropRepository, final InvanareRepository invanareRepository,
+                                  final AsyncEventBus asyncEventBus) {
         this.eavropRepository = eavropRepository;
         this.invanareRepository = invanareRepository;
+        this.asyncEventBus = asyncEventBus;
     }
 
     @Override

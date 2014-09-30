@@ -37,7 +37,9 @@
 29. [_Spring Boot_](http://projects.spring.io/spring-boot/): For easy configuration
 30. Security: [_Spring Security_](http://docs.spring.io/spring-security/site/index.html)
 31. Mail:
-32.  
+32. [Guava EventBus](https://code.google.com/p/guava-libraries/wiki/EventBusExplained) EventBus allows publish-subscribe-style communication between components 
+without requiring the components to explicitly register with one another (and thus be aware of each other). It is designed 
+exclusively to replace traditional Java in-process event distribution using explicit registration. 
 
 ###Frontend (Client Side)
 

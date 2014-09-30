@@ -1,5 +1,6 @@
 package se.inera.fmu.application;
 
+import com.google.common.eventbus.AsyncEventBus;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
@@ -43,6 +44,9 @@ public class FmuOrderingServiceImplTest {
     @Mock
     private InvanareRepository patientRepository;
 
+    @Mock
+    private AsyncEventBus asyncEventBus;
+
     @Rule
     public ActivitiRule activitiRule = new ActivitiRule();
 
@@ -50,7 +54,7 @@ public class FmuOrderingServiceImplTest {
 
     @Before
     public void setUp() {
-        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository);
+        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, asyncEventBus);
         fmuOrderingService.setRuntimeService(activitiRule.getRuntimeService());
         fmuOrderingService.setTaskService(activitiRule.getTaskService());
     }
