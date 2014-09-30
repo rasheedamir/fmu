@@ -1,4 +1,4 @@
-package se.inera.fmu.domain.model.booking;
+package se.inera.fmu.domain.model.eavrop.booking;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +19,6 @@ import org.apache.commons.lang.Validate;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
 
-import se.inera.fmu.domain.model.event.EavropEvent;
 import se.inera.fmu.domain.party.Party;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
@@ -59,16 +58,12 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
     @Column(name = "CANCELLATION_TYPE", nullable = true, updatable = true)
     @Enumerated(EnumType.STRING)
     @NotNull
-	private BookingCancellationType cancellationReason;
+	private BookingDeviationType cancellationReason;
 
 	//TODO: embed?
 	@NotNull
 	@OneToMany //TODO: maybe many to many if we kan reuse the party entity
  	private Set<Party> parties;
-	
-    //TODO: Should we track events connected to bookings as a relation with this or only trough eavrop?  
-    @OneToMany
-    private Set<EavropEvent> events;
 
     //~ Constructors ===================================================================================================
     
@@ -76,7 +71,7 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
 		//Needed by Hibernate
 	}
 	
-	Booking(BookingType type,  LocalDateTime startDateTime, LocalDateTime endDateTime, Set<Party> parties){
+	public Booking(BookingType type,  LocalDateTime startDateTime, LocalDateTime endDateTime, Set<Party> parties){
     	this.setId(UUID.randomUUID().toString());
     	Validate.notNull(type);
     	Validate.notNull(startDateTime);
@@ -130,30 +125,13 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
 			this.parties = parties;
 		}
 
-		public BookingCancellationType getCancellationReason() {
+		public BookingDeviationType getCancellationReason() {
 			return cancellationReason;
 		}
 
-		public void setCancellationReason(BookingCancellationType cancellationReason) {
+		public void setCancellationReason(BookingDeviationType cancellationReason) {
 			this.cancellationReason = cancellationReason;
 		}
-		
-		public Set<EavropEvent> getEvents() {
-			return events;
-		}
-
-		private void setEvents(Set<EavropEvent> events) {
-			this.events = events;
-		}
-
-		public void addEvent(EavropEvent event) {
-			if(this.events == null){
-				this.events = new HashSet<EavropEvent>();
-			}
-			this.events.add(event);
-		}
-
-	
 	
 	//~ Other Methods ==================================================================================================
 

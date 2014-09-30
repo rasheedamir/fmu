@@ -1,4 +1,4 @@
-package se.inera.fmu.domain.model.note;
+package se.inera.fmu.domain.model.eavrop.note;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -19,17 +19,14 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>, Seria
 	    //~ Instance fields ================================================================================================
 
 	    // database primary key
-		//TODO: maybe replace with UUID, to be able to use id as equals and hashcode prop
-	    @Id
-	    //@GeneratedValue(strategy = GenerationType.AUTO)
+		@Id
 	    @Column(name = "ID", updatable = false, nullable = false)
 	    private String id;
-
 
 	    @Column(name = "TEXT")
 	    private String text;
 	    
-	    //TODO: Maybe add party if not reachable from audit created by
+	    //TODO: Maybe add party if not reachable from audit created by and also if notes from bestallare should be represented with this entity
 
 	    
 	    //~ Constructors ===================================================================================================

@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString
 public class Bestallaradministrator extends Party {
     
-//	//TODO:Same as bestallare i.e organisation or unit? move to bestallare!
+//	//TODO:Same as bestallare i.e organisation or unit? move to Party!
 //	@Column(name = "LFC", nullable = false)
 //    private String lfc;
 

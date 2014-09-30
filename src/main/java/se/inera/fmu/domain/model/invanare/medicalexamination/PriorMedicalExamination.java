@@ -2,14 +2,19 @@ package se.inera.fmu.domain.model.invanare.medicalexamination;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.ToString;
+import se.inera.fmu.domain.party.Party;
 import se.inera.fmu.domain.shared.ValueObject;
 
 @Entity
@@ -30,8 +35,13 @@ public class PriorMedicalExamination implements ValueObject<PriorMedicalExaminat
 	    @Column(name = "MEDICAL_LEAVE_ISSUED_AT")
 	    private String medicalLeaveIssuedAt;
 
-	    @Column(name = "MEDICAL_LEAVE_ISSUED_BY")
-	    private String medicalLeaveIssuedBy;
+//	    @Column(name = "MEDICAL_LEAVE_ISSUED_BY")
+//	    private String medicalLeaveIssuedBy;
+		@NotNull
+	    @OneToOne(cascade = CascadeType.ALL)
+	    @JoinColumn(name="PARTY_ID")
+		private Party medicalLeaveIssuedBy;
+
    
 	    //~ Constructors ===================================================================================================
 
@@ -45,7 +55,7 @@ public class PriorMedicalExamination implements ValueObject<PriorMedicalExaminat
 	     * @param medicalLeaveIssuedAt, 
 	     * @param medicalLeaveIssuedBy,  
 	     */
-	    public PriorMedicalExamination(String examinedAt, String medicalLeaveIssuedAt, String medicalLeaveIssuedBy ) {
+	    public PriorMedicalExamination(String examinedAt, String medicalLeaveIssuedAt, Party medicalLeaveIssuedBy ) {
 	    	this.setExaminedAt(examinedAt);
 	    	this.setMedicalLeaveIssuedAt(medicalLeaveIssuedAt);
 	    	this.setMedicalLeaveIssuedBy(medicalLeaveIssuedBy);
@@ -69,11 +79,11 @@ public class PriorMedicalExamination implements ValueObject<PriorMedicalExaminat
 			this.medicalLeaveIssuedAt = medicalLeaveIssuedAt;
 		}
 
-		public String getMedicalLeaveIssuedBy() {
+		public Party getMedicalLeaveIssuedBy() {
 			return medicalLeaveIssuedBy;
 		}
 
-		private void setMedicalLeaveIssuedBy(String medicalLeaveIssuedBy) {
+		private void setMedicalLeaveIssuedBy(Party medicalLeaveIssuedBy) {
 			this.medicalLeaveIssuedBy = medicalLeaveIssuedBy;
 		}
 

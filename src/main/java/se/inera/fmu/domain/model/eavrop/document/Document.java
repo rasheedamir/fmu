@@ -1,4 +1,6 @@
-package se.inera.fmu.domain.model.document;
+package se.inera.fmu.domain.model.eavrop.document;
+
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.Table;
 import lombok.ToString;
 
 import org.apache.commons.lang.Validate;
+import org.hibernate.validator.constraints.URL;
 
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
@@ -21,31 +24,40 @@ public class Document extends AbstractBaseEntity implements IEntity<Document>{
 
     // database primary key
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", updatable = false, nullable = false)
-    private Long id;
+    private String id;
+    
+    private DocumentType documentType;
     
     @Column(name = "NAME", updatable = false,  nullable = false)
     private String name;
-	
+
+    //Investigation is being performed, to check if documents can be made available from bestallare via url.  
+//    @URL	
+//    @Column(name = "URL")
+//    private String url;
+
     //~ Constructors ===================================================================================================
     
 	Document(){
 		//Needed by Hibernate
 	}
 	
-	Document(final String documentName){
+	Document(final String documentName, final DocumentType documentType){
+    	this.setId(UUID.randomUUID().toString());
     	Validate.notNull(documentName);
     	this.setDocumentName(documentName);
+    	Validate.notNull(documentType);
+    	this.setDocumentType(documentType);
 	}
 
     //~ Property Methods ===============================================================================================
 	
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	private void setId(Long id) {
+	private void setId(String id) {
 		this.id = id;
 	}
 
@@ -57,6 +69,16 @@ public class Document extends AbstractBaseEntity implements IEntity<Document>{
 		this.name = documentName;
 	}
 
+	public DocumentType getDocumentType() {
+		return documentType;
+	}
+
+	private void setDocumentType(DocumentType documentType) {
+		this.documentType = documentType;
+	}
+
+
+	
 
 	//~ Other Methods ==================================================================================================
 

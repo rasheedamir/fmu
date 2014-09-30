@@ -26,6 +26,8 @@ public abstract class Party implements Serializable  {
     @Column(name = "ROLE", nullable = true)
     private String role;
     
+    //TODO: maybe also unit information?
+    
     @Column(name = "ORGANISATION", nullable = true)
     private String organistation;
 

@@ -1,4 +1,4 @@
-package se.inera.fmu.domain.model.booking;
+package se.inera.fmu.domain.model.eavrop.booking;
 
 public enum BookingType {
 	EXAMINATION,

@@ -3,21 +3,39 @@ package se.inera.fmu.domain.model.eavrop;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import lombok.ToString;
 
 import org.apache.commons.lang3.Validate;
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDateTime;
 
-import se.inera.fmu.domain.model.booking.Booking;
-import se.inera.fmu.domain.model.document.Document;
-import se.inera.fmu.domain.model.event.EavropEvent;
+import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
+import se.inera.fmu.domain.model.eavrop.booking.Booking;
+import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
+import se.inera.fmu.domain.model.eavrop.document.Document;
+import se.inera.fmu.domain.model.eavrop.intyg.IntygInformation;
+import se.inera.fmu.domain.model.eavrop.note.Note;
+import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.invanare.Invanare;
 import se.inera.fmu.domain.model.invanare.medicalexamination.PriorMedicalExamination;
 import se.inera.fmu.domain.model.landsting.Landsting;
-import se.inera.fmu.domain.model.landsting.Landstingssamordnare;
-import se.inera.fmu.domain.model.note.Note;
 import se.inera.fmu.domain.party.Bestallaradministrator;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
@@ -38,46 +56,55 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
     @Column(name = "EAVROP_ID", updatable = false, nullable = false)
     private Long eavropId;
 
-    // business key!
+    // business key! Received from client in create request
     @NotNull
     @Embedded
     private ArendeId arendeId;
 
-    //TODO:remove? in DIM but not in prototype
+    //TODO:remove? in DIM but not in prototype, ask FK or Mattias about it
     @Column(name = "DESCRIPTION")
     private String description;
 
+    //Local status of Eavrop, initially set to 'NEW'
     @Column(name = "STATUS", nullable = false, updatable = false)
     @Enumerated(EnumType.STRING)
     @NotNull
     private EavropStatus status = EavropStatus.NEW;
-        
+    
+    //Type of utredning. An utredning can be one of tree types
     @Column(name = "UTREDNING_TYPE", nullable = false, updatable = false)
     @Enumerated(EnumType.STRING)
     @NotNull
     private UtredningType utredningType;
 
-    //private FmuKod fmuKod = FmuKod.EAVROP;
-    
+    //Defines if there might be a need for an interpreter
     @Column(name = "TOLK")
     private boolean tolk;
     
+    //Defines the needed language skills of the interpreter. //TODO:Check with FK if maybe only this is needed and not the boolean 'TOLK'
     @Column(name = "TOLK_LANG")
     private String tolkLanguage;
 
-    //TODO: Neccessary? Present in DIM but not in gui prototype.
+    //TODO: Neccessary? Present in DIM but not in gui prototype. //TODO: Ask FK or Mattias about it.
 //    @Column(name = "ELEVATOR")
 //    private boolean elevator;
 
+    //If UtredningType is SLU there might be a focus of the examination set by the beställare. Corresponds to GUI value 'Val av inriktning' property in the GUI 
     @Column(name = "EXAMINATION_FOCUS")
     private String examinationFocus;
 
+    //Additional information related to the eavrop   
     @Column(name = "ADDITIONAL_INFO")
     private String additionalInformation;
     
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "eavrop")
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<EavropEvent> events;
+    // A log of all assignments to vardgivarenheter and there replies  
+    @OneToMany
+    private Set<EavropAssignment> assignments;
+    
+    //Maps the current assignment of the eavrop  
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="CURRENT_ASSIGNMENT_ID")
+    private EavropAssignment currentAssignment;
 
     
     //TODO:Maybe the relation is wrong, maybe only a OneToOne relation. and treat invånare as Value Object
@@ -90,44 +117,51 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
     @NotNull
     @JoinColumn(name="BESTALLAR_PARTY_ID")
     private Bestallaradministrator bestallaradministrator;
-
+    
+    //The Landsting that this eavrop has directed to 
     @ManyToOne
     private Landsting landsting;
  
-    //TODO:Maybe not neccessary? Only an event?
-    @ManyToOne
-    private Landstingssamordnare landstingssamordnare;
-
+    //The bookings made
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Booking> bookings;
 
+    //The notes related to this eavrop
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Note> notes;
 
+    //Examination that led up to this FMU 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="PRIOR_EXAMINATION_ID")
     private PriorMedicalExamination priorMedicalExamination;
 
-    //TODO#1:FMU_TID, CreateTS or somehing else is it enough with audit creation_time?
+    //Documents received or requested regarding this FMU
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Document> documents;
+    
+    //When documents were sent from bestallare 
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+    @Column(name = "DOCUMENTS_SENT_DATE_TIME")
+    private LocalDateTime documentsSentFromBestallareDateTime;
+    
+    // A log of all assignments to vardgivarenheter and there replies  
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<BookingDeviationResponse> bookingDeviationResponses;
 
+    // A log of all intyg events  
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<IntygInformation> intygInformations;
+    
+    //The compensation approval of this eavrop 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="EAVROP_COMP_APPROVAL_ID")
+    private EavropCompensationApproval eavropCompensationApproval;
 
-    ///TODO: Check these values from DIM
-    
-    //TID? is this creation time or something else?
-    
-    //Ärende in ÄHS; What is this?
-    
-    //Tidigare Utredning; Can there be more than one? and is it connected to the Invånare or Eavrop 
-    	//Tidigare utredd vid?
-    	//Sjukskrivande Enhet
-    	//Sjukskrivande läkare
-    	
-    //FK?	Is this the Bestallare?
-    //LFC?
-    //Namn?
-    //Telefonnummer? 
-    //Epostadress
-    //
+    //The approval of this eavrop 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="EAVROP_APPROVAL_ID")
+    private EavropApproval eavropApproval;
+
     
     //~ Constructors ===================================================================================================
 
@@ -169,7 +203,16 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.additionalInformation = additionalInformation;
 	}
 
-    /**
+    
+	public EavropApproval getEavropApproval() {
+		return eavropApproval;
+	}
+
+	public void setEavropApproval(	EavropApproval eavropApproval) {
+		this.eavropApproval = eavropApproval;
+	}
+
+	/**
      * The arendeId is the identity of this entity, and is unique.
      *
      * @return arendeId
@@ -182,6 +225,44 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
         this.arendeId = arendeId;
     }
 
+    public void assignEavropToVardgivare(Vardgivarenhet vardgivarenhet){
+    	EavropAssignment eavropAssignment = new EavropAssignment(vardgivarenhet);
+    	this.setCurrentAssignment(eavropAssignment);
+    	this.addAssignment(eavropAssignment);
+    }
+
+    public void acceptEavropAssignment(){
+    	this.getCurrentAssignment().acceptAssignment(); ;
+    }
+    
+    public void rejectEavropAssignment(){
+    	this.getCurrentAssignment().rejectAssignment(); ;
+    	this.setCurrentAssignment(null);
+    }
+
+	private EavropAssignment getCurrentAssignment() {
+		return currentAssignment;
+	}
+
+	private void setCurrentAssignment(EavropAssignment currentAssignment) {
+		this.currentAssignment = currentAssignment;
+	}
+
+	public Set<EavropAssignment> getAssignmens() {
+		return assignments;
+	}
+
+	private void setAssignments(Set<EavropAssignment> assignmens) {
+		this.assignments = assignments;
+	}
+
+	public void addAssignment(EavropAssignment assignment) {
+		if(this.assignments == null){
+			this.assignments = new HashSet<EavropAssignment>();
+		}
+		this.assignments.add(assignment);
+	}
+	
 	public Bestallaradministrator getBestallaradministrator() {
 		return bestallaradministrator;
 	}
@@ -204,6 +285,21 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		}
 		this.bookings.add(booking);
 	}
+	
+    public Set<BookingDeviationResponse> getBookingDeviationResponses() {
+		return bookingDeviationResponses;
+	}
+
+	private void setBookingDeviationResponses(Set<BookingDeviationResponse> bookingDeviationResponses) {
+		this.bookingDeviationResponses = bookingDeviationResponses;
+	}
+	
+	public void addBookingDeviationResponse(BookingDeviationResponse bookingDeviationResponse){
+		if(this.bookingDeviationResponses == null){
+			this.bookingDeviationResponses = new HashSet<BookingDeviationResponse>();
+		}
+		this.bookingDeviationResponses.add(bookingDeviationResponse);
+	}
 
 	public String getDescription() {
 		return description;
@@ -213,27 +309,35 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.description = description;
 	}
 
-    public EavropId getEavropId() {
+	public Set<Document> getDocuments() {
+		return documents;
+	}
+
+	private void setDocuments(Set<Document> documents) {
+		this.documents = documents;
+	}
+
+	public void addDocument(Document document) {
+		if(this.documents == null){
+			this.documents = new HashSet<Document>();
+		}
+		this.documents.add(document);
+	}
+
+	public LocalDateTime getDocumentsSentFromBestallareDateTime(){
+		return this.documentsSentFromBestallareDateTime;
+	}
+	
+	public void setDocumentsSentFromBestallareDateTime(LocalDateTime documentsSentFromBestallareDateTime){
+		this.documentsSentFromBestallareDateTime = documentsSentFromBestallareDateTime;
+	}
+	
+	public EavropId getEavropId() {
         return new EavropId(this.eavropId);
     }
     
 	private void setEavropId(Long eavropId) {
 		this.eavropId = eavropId;
-	}
-
-	public Set<EavropEvent> getEvents() {
-		return events;
-	}
-
-	private void setEvents(Set<EavropEvent> events) {
-		this.events = events;
-	}
-
-	public void addEvent(EavropEvent event) {
-		if(this.events == null){
-			this.events = new HashSet<EavropEvent>();
-		}
-		this.events.add(event);
 	}
 
 	public String getExaminationFocus() {
@@ -244,8 +348,33 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.examinationFocus = examinationFocus;
 	}
 
+
+	public EavropCompensationApproval getEavropCompensationApproval() {
+		return eavropCompensationApproval;
+	}
+
+	public void setEavropCompensationApproval(	EavropCompensationApproval eavropCompensationApproval) {
+		this.eavropCompensationApproval = eavropCompensationApproval;
+	}
+
+	//TODO:Probably not necessary
 	public FmuKod getFmuKod() {
 		return FmuKod.EAVROP;
+	}
+
+	public Set<IntygInformation> getIntygInformations() {
+		return intygInformations;
+	}
+
+	private void setIntygInformations(Set<IntygInformation> intygInformations) {
+		this.intygInformations = intygInformations;
+	}
+
+	public void addIntygInformation(IntygInformation intygInformation){
+		if(this.intygInformations == null){
+			this.intygInformations = new HashSet<IntygInformation>();
+		}
+		this.intygInformations.add(intygInformation);
 	}
 
     public Invanare getInvanare() {
@@ -264,14 +393,6 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.landsting = landsting;
 	}
     
-	public Landstingssamordnare getLandstingssamordnare() {
-		return this.landstingssamordnare;
-	}
-
-	public void setLandstingssamordnare(Landstingssamordnare landstingssamordnare) {
-		this.landstingssamordnare = landstingssamordnare;
-	}
-
 	public Set<Note> getNotes() {
 		return notes;
 	}
