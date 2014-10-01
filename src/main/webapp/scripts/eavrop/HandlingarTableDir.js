@@ -41,12 +41,14 @@ angular.module('fmuClientApp')
                 </th>\
                 <th>Begäran skickad, av</th>\
                 <th>Begäran skickad, datum</th>\
+                <th>Kommentar</th>\
                 <th>Begäran skickad till:</th>\
             </tr>\
             <tr ng-repeat="am in tillagg">\
                 <td>{{am.name}}</td>\
                 <td>{{am.reqBy.name}}, {{am.reqBy.unit}}</td>\
                 <td>{{am.reqDate}}</td>\
+                <td>{{am.comment}}</td>\
                 <td>{{am.reqTo.name}}, {{am.reqBy.unit}}</td>\
             </tr>\
         </table>\

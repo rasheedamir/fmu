@@ -121,6 +121,12 @@
                     Datum
                 </th>
             </tr>
+            <tr ng-repeat="note in notes">
+            <td>{{note.type}}</td>
+            <td>{{note.content}}</td>
+            <td>{{note.createdBy.name}},{{note.createdBy.role}},{{note.createdBy.org}}</td>
+            <td>{{note.createdDate}}</td>
+            </tr>
         </table>
     </div>
 </div>

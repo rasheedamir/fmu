@@ -54,8 +54,11 @@ angular.module('fmuClientAppDev').run(function($httpBackend){
                 {name: 'Sassam', regDate: '2014-01-01', regBy: {name: 'Dora Doktoren', unit: 'Danderyds sjukhus'}}
             ],
             reqDocuments: [
-                {name: 'Intyg Y', reqDate: '2014-01-01', reqBy: {name: 'Dora Doktoren', unit: 'Danderyds sjukhus'}, reqTo: {name: 'Per handläggarsson', unit: 'Försäkringskassan'}}
+                {name: 'Intyg Y', reqDate: '2014-01-01', comment: 'En kommentar', reqBy: {name: 'Dora Doktoren', unit: 'Danderyds sjukhus'}, reqTo: {name: 'Per handläggarsson', unit: 'Försäkringskassan'}}
             ],
+            notes: [
+                {type: 'Länk', content: 'http://www.lank.com', createdBy: {name: 'Per handläggarsson', role: 'Handläggare', org: 'Försäkringskassan'}, createdDate: '2014-01-01'}
+            ]
         },
     ];
 
@@ -69,6 +72,7 @@ angular.module('fmuClientAppDev').run(function($httpBackend){
     var EAVROP_PATTERN = /\/eavrop\/(\d+)/;
     var EAVROP_DOCUMENTS_PATTERN = /^\/eavrop\/(\d+)\/documents$/;
     var EAVROP_REQ_DOCUMENTS_PATTERN = /^\/eavrop\/(\d+)\/requested-documents$/;
+    var EAVROP_NOTES_PATTERN = /^\/eavrop\/(\d+)\/notes/;
 
 
     $httpBackend.whenPOST(EAVROP_REQ_DOCUMENTS_PATTERN).respond(function(method, url, data){
@@ -88,6 +92,10 @@ angular.module('fmuClientAppDev').run(function($httpBackend){
     $httpBackend.whenGET(EAVROP_REQ_DOCUMENTS_PATTERN).respond(function(method, url){
         var id = EAVROP_PATTERN.exec(url)[1];
         return [200, getEavropById(parseInt(id)).reqDocuments, {}];
+    });
+    $httpBackend.whenGET(EAVROP_NOTES_PATTERN).respond(function(method, url){
+        var id = EAVROP_PATTERN.exec(url)[1];
+        return [200, getEavropById(parseInt(id)).notes, {}];
     });
 
     $httpBackend.whenGET(EAVROP_PATTERN).respond(function(method, url){
