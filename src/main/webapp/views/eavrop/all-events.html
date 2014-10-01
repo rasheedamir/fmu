@@ -101,41 +101,9 @@
 
         </table>
         <h2>Handlingar</h2>
-        <table class="table table-bordered">
-            <tr>
-                <th>
-                    Handling
-                </th>
-                <th>
-                    Registrerad av
-                </th>
-                <th>
-                    Registrerad, datum
-                </th>
-            </tr>
-            <tr ng-repeat="doc in documents">
-                <td>{{doc.name}}</td>
-                <td>{{doc.regBy.name}}, {{doc.regBy.unit}}</td>
-                <td>{{doc.regDate}}</td>
-            </tr>
-        </table>
+        <fmu-handlingar-table handlingar="documents"></fmu-handlingar-table>
         <h2>Tillägg</h2>
-        <table class="table table-bordered">
-            <tr>
-                <th>
-                    Handling
-                </th>
-                <th>Begäran skickad, av</th>
-                <th>Begäran skickad, datum</th>
-                <th>Begäran skickad till:</th>
-            </tr>
-            <tr ng-repeat="am in requestedDocuments">
-                <td>{{am.name}}</td>
-                <td>{{am.reqBy.name}}, {{am.reqBy.unit}}</td>
-                <td>{{am.reqDate}}</td>
-                <td>{{am.reqTo.name}}, {{am.reqBy.unit}}</td>
-            </tr>
-        </table>
+        <fmu-tillagg-table tillagg="requestedDocuments"></fmu-tillagg-table>
         <h2>Utredning</h2>
         <h2>Anteckningar</h2>
         <table class="table table-bordered">
