@@ -57,6 +57,7 @@ angular.module('fmuClientAppDev').run(function($httpBackend){
                 {name: 'Intyg Y', reqDate: '2014-01-01', comment: 'En kommentar', reqBy: {name: 'Dora Doktoren', unit: 'Danderyds sjukhus'}, reqTo: {name: 'Per handläggarsson', unit: 'Försäkringskassan'}}
             ],
             notes: [
+                {type: 'Länk', content: 'http://www.lank.com', createdBy: {name: 'Per handläggarsson', role: 'Handläggare', org: 'Försäkringskassan'}, createdDate: '2014-01-01'},
                 {type: 'Länk', content: 'http://www.lank.com', createdBy: {name: 'Per handläggarsson', role: 'Handläggare', org: 'Försäkringskassan'}, createdDate: '2014-01-01'}
             ]
         },

@@ -322,4 +322,146 @@ ul#strength {
 .summary-badge{
     min-height: 9em;
 }
+.fmu-table-v{
+	margin:0px;padding:0px;
+    margin-bottom: 1em;
+	width:100%;
+	border:1px solid #999999;
+	
+	-moz-border-radius-bottomleft:5px;
+	-webkit-border-bottom-left-radius:5px;
+	border-bottom-left-radius:5px;
+	
+	-moz-border-radius-bottomright:5px;
+	-webkit-border-bottom-right-radius:5px;
+	border-bottom-right-radius:5px;
+	
+	-moz-border-radius-topright:5px;
+	-webkit-border-top-right-radius:5px;
+	border-top-right-radius:5px;
+	
+	-moz-border-radius-topleft:5px;
+	-webkit-border-top-left-radius:5px;
+	border-top-left-radius:5px;
+}
+.fmu-table-v table{
+    border-collapse: collapse;
+    border-spacing: 0;
+	width:100%;
+	height:100%;
+	margin:0px;padding:0px;
+}
+.fmu-table-v tr:last-child td:last-child {
+	-moz-border-radius-bottomright:5px;
+	-webkit-border-bottom-right-radius:5px;
+	border-bottom-right-radius:5px;
+}
+.fmu-table-v table tr:first-child td:first-child {
+	-moz-border-radius-topleft:5px;
+	-webkit-border-top-left-radius:5px;
+	border-top-left-radius:5px;
+}
+.fmu-table-v table tr:first-child td:last-child {
+	-moz-border-radius-topright:5px;
+	-webkit-border-top-right-radius:5px;
+	border-top-right-radius:5px;
+}.fmu-table-v tr:last-child td:first-child{
+	-moz-border-radius-bottomleft:5px;
+	-webkit-border-bottom-left-radius:5px;
+	border-bottom-left-radius:5px;
+}
+.fmu-table-v tr:nth-child(odd){ background-color:#f3f3f3; }
+.fmu-table-v tr:nth-child(even){ background-color:#ffffff; }
+.fmu-table-v td{
+	vertical-align:middle;
+	text-align:left;
+	padding: 0.5em;
+	font-weight:normal;
+	color:#000000;
+}
+.fmu-table-v tr td:first-child{
+	background-color:#3c4e57;
+	text-align:left;
+	font-weight:bold;
+	color:#ffffff;
+}
 
+
+
+.fmu-table-k {
+	margin:0px;padding:0px;
+    margin-bottom: 1em;
+	width:100%;
+	border:1px solid #999999;
+	
+	-moz-border-radius-bottomleft:5px;
+	-webkit-border-bottom-left-radius:5px;
+	border-bottom-left-radius:5px;
+	
+	-moz-border-radius-bottomright:5px;
+	-webkit-border-bottom-right-radius:5px;
+	border-bottom-right-radius:5px;
+	
+	-moz-border-radius-topright:5px;
+	-webkit-border-top-right-radius:5px;
+	border-top-right-radius:5px;
+	
+	-moz-border-radius-topleft:5px;
+	-webkit-border-top-left-radius:5px;
+	border-top-left-radius:5px;
+}.fmu-table-k table{
+    border-collapse: collapse;
+    border-spacing: 0;
+	width:100%;
+	height:100%;
+	margin:0px;padding:0px;
+}.fmu-table-k tr:last-child td:last-child {
+	-moz-border-radius-bottomright:5px;
+	-webkit-border-bottom-right-radius:5px;
+	border-bottom-right-radius:5px;
+}
+.fmu-table-k table tr:first-child td:first-child {
+	-moz-border-radius-topleft:5px;
+	-webkit-border-top-left-radius:5px;
+	border-top-left-radius:5px;
+}
+.fmu-table-k table tr:first-child td:last-child {
+	-moz-border-radius-topright:5px;
+	-webkit-border-top-right-radius:5px;
+	border-top-right-radius:5px;
+}.fmu-table-k tr:last-child td:first-child{
+	-moz-border-radius-bottomleft:5px;
+	-webkit-border-bottom-left-radius:5px;
+	border-bottom-left-radius:5px;
+}
+.fmu-table-k tr:nth-child(odd){ background-color:#f3f3f3; }
+.fmu-table-k tr:nth-child(even){ background-color:#ffffff; }.fmu-table-k td{
+	vertical-align:middle;
+	text-align:left;
+	padding: 0.5em;
+	font-weight:normal;
+	color:#000000;
+}
+.fmu-table-k tr:first-child td{
+		background:-o-linear-gradient(bottom, #3c4e57 5%, #3c4e57 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3c4e57), color-stop(1, #3c4e57) );
+	background:-moz-linear-gradient( center top, #3c4e57 5%, #3c4e57 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#3c4e57", endColorstr="#3c4e57");	background: -o-linear-gradient(top,#3c4e57,3c4e57);
+
+	background-color:#3c4e57;
+	text-align:left;
+	font-weight:bold;
+	color:#ffffff;
+}
+.fmu-table-k tr:first-child:hover td{
+	background:-o-linear-gradient(bottom, #3c4e57 5%, #3c4e57 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3c4e57), color-stop(1, #3c4e57) );
+	background:-moz-linear-gradient( center top, #3c4e57 5%, #3c4e57 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#3c4e57", endColorstr="#3c4e57");	background: -o-linear-gradient(top,#3c4e57,3c4e57);
+
+	background-color:#3c4e57;
+}
+
+h2{
+    color: #4c4c4c;
+    text-transform: uppercase;
+    font-size: 75%;
+}

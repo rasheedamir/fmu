@@ -7,24 +7,26 @@ angular.module('fmuClientApp')
         },
         restrict: 'E',
         template: '\
-        <table class="table table-bordered">\
+        <div class="fmu-table-k">\
+        <table>\
             <tr>\
-                <th>\
+                <td>\
                     Handling\
-                </th>\
-                <th>\
+                </td>\
+                <td>\
                     Registrerad av\
-                </th>\
-                <th>\
+                </td>\
+                <td>\
                     Registrerad, datum\
-                </th>\
+                </td>\
             </tr>\
             <tr ng-repeat="doc in handlingar">\
                 <td>{{doc.name}}</td>\
                 <td>{{doc.regBy.name}}, {{doc.regBy.unit}}</td>\
                 <td>{{doc.regDate}}</td>\
             </tr>\
-        </table>'
+        </table>\
+        </div>'
     };
 })
 .directive('fmuTillaggTable', function(){
@@ -34,15 +36,16 @@ angular.module('fmuClientApp')
         },
         restrict: 'E',
         template: '\
-        <table class="table table-bordered">\
+        <div class="fmu-table-k">\
+        <table>\
             <tr>\
-                <th>\
+                <td>\
                     Handling\
-                </th>\
-                <th>Begäran skickad, av</th>\
-                <th>Begäran skickad, datum</th>\
-                <th>Kommentar</th>\
-                <th>Begäran skickad till:</th>\
+                </td>\
+                <td>Begäran skickad, av</th>\
+                <td>Begäran skickad, datum</th>\
+                <td>Kommentar</th>\
+                <td>Begäran skickad till:</th>\
             </tr>\
             <tr ng-repeat="am in tillagg">\
                 <td>{{am.name}}</td>\
@@ -52,6 +55,6 @@ angular.module('fmuClientApp')
                 <td>{{am.reqTo.name}}, {{am.reqBy.unit}}</td>\
             </tr>\
         </table>\
-        '
+        </div>'
     };
 });
