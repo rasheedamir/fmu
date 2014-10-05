@@ -381,6 +381,11 @@ Please note that due to `PerGem` & `OutOfMemory` issues on few systems we have t
 
 If you want more information on using Maven, please go to `http://maven.apache.org`
 
+#####Generate WAR file
+
+Run `mvn package -Pprod`
+And then you can find the WAR file under target directory.
+
 ##Profiles
 
 fmu comes with three "profiles":
