@@ -1,29 +1,21 @@
 package se.inera.fmu.domain.model.eavrop;
 
-import java.util.UUID;
-
 import org.apache.commons.lang.Validate;
 import org.joda.time.LocalDateTime;
 
 import se.inera.fmu.domain.shared.DomainEvent;
 
 public abstract class EavropEvent implements DomainEvent<EavropEvent>{
-	private final String id;
 	private final LocalDateTime eventDateTime = LocalDateTime.now();
 	private final ArendeId arendeId;
 	
 	//~ Constructors ===================================================================================================
 	public EavropEvent(final ArendeId arendeId) {
-		this.id = UUID.randomUUID().toString();
 		Validate.notNull(arendeId);
     	this.arendeId = arendeId;
 	}
 	
 	//~ Property Methods ===============================================================================================
-
-	public String getId() {
-		return this.id;
-	}
 
 	public ArendeId getArendeId() {
 		return this.arendeId;
@@ -34,15 +26,16 @@ public abstract class EavropEvent implements DomainEvent<EavropEvent>{
 	}
 
 	//~ Other Methods ==================================================================================================
+	
 	@Override
 	public boolean sameEventAs(final EavropEvent other) {
 		return other != null 
-				&& this.getId().equals(other.getId());
+				&& this.getArendeId().equals(other.getArendeId())
+				&& this.getEventDateTime().equals(other.getEventDateTime());
 	}
 
 	/**
-	 * @param object
-	 *            to compare
+	 * @param object to compare
 	 * @return True if they have the same identity
 	 * @see #sameIdentityAs(EavropEvent)
 	 */
@@ -58,10 +51,12 @@ public abstract class EavropEvent implements DomainEvent<EavropEvent>{
 	}
 
 	/**
-	 * @return Hash code of tracking id.
+	 * @return HashCode.
 	 */
 	@Override
 	public int hashCode() {
-		return getId().hashCode();
+		int result = getArendeId().hashCode();
+		result = 31 * result + getEventDateTime().hashCode();
+		return getArendeId().hashCode() + getEventDateTime().hashCode();
 	}
 }

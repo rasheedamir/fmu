@@ -1,4 +1,4 @@
-package se.inera.fmu.domain.model.invanare;
+package se.inera.fmu.domain.model.eavrop.invanare;
 
 import lombok.ToString;
 
@@ -26,7 +26,7 @@ public class Invanare extends AbstractBaseEntity implements IEntity<Invanare> {
     // database primary key
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", updatable = false, nullable = false)
+    @Column(name = "INVANARE_ID", updatable = false, nullable = false)
     private Long id;
 
     // business key

@@ -19,6 +19,11 @@ import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
 
+/**
+ * 
+ * @author richjo
+ * Entity - 
+ */
 @Entity
 @Table(name = "T_ASSIGNMENT")
 @ToString
@@ -29,7 +34,7 @@ public class EavropAssignment extends AbstractBaseEntity implements
 
 	// database primary key, using UUID and not a Hibernate sequence
 	@Id
-	@Column(name = "ID", updatable = false, nullable = false)
+	@Column(name = "ASSIGNMENT_ID", updatable = false, nullable = false)
 	private String id;
 
 	// TODO:

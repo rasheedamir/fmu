@@ -25,21 +25,23 @@ public class EavropApproval {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID", updatable = false, nullable = false)
-	private Long id;
+	@Column(name = "EAVROP_APPROVAL_ID", updatable = false, nullable = false)
+	private Long eavropApprovalId;
 	 
 	@NotNull
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     @Column(name = "RESPONSE_DATE_TIME")
-	private LocalDateTime responseTimestamp;
+	private LocalDateTime approvalTimestamp;
 
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="PARTY_ID")
 	private Party party;
 
-	public EavropApproval(LocalDateTime responseTimestamp, Party party) {
+	public EavropApproval(LocalDateTime approvalTimestamp, Party party) {
 		super();
-		this.responseTimestamp = responseTimestamp;
+		this.approvalTimestamp = approvalTimestamp;
 		this.party = party;
 	}
+	
+	//TODO embedded or own entity, value object
 }

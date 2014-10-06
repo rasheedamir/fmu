@@ -24,7 +24,7 @@ public class Document extends AbstractBaseEntity implements IEntity<Document>{
 
     // database primary key
     @Id
-    @Column(name = "ID", updatable = false, nullable = false)
+    @Column(name = "DOCUMENT_ID", updatable = false, nullable = false)
     private String id;
     
     private DocumentType documentType;

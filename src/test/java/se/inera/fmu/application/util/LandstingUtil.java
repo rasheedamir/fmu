@@ -1,7 +1,7 @@
 package se.inera.fmu.application.util;
 
 import se.inera.fmu.domain.model.landsting.Landsting;
-import se.inera.fmu.domain.model.landsting.LandstingId;
+import se.inera.fmu.domain.model.landsting.LandstingCode;
 
 
 /**
@@ -9,7 +9,7 @@ import se.inera.fmu.domain.model.landsting.LandstingId;
  */
 public final class LandstingUtil {
 
-    public static final LandstingId LANDSTING_ID = new LandstingId(1);
+    public static final LandstingCode LANDSTING_ID = new LandstingCode(1);
     public static final String NAME = "Stocholms Läns Landsting";
 
     public static Landsting createLandsting() {

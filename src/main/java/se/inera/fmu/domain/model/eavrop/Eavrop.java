@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -28,13 +30,15 @@ import org.joda.time.LocalDateTime;
 
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
+import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
+import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.document.Document;
 import se.inera.fmu.domain.model.eavrop.document.DocumentType;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygInformation;
+import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
-import se.inera.fmu.domain.model.invanare.Invanare;
 import se.inera.fmu.domain.model.invanare.medicalexamination.PriorMedicalExamination;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.party.Bestallaradministrator;
@@ -43,6 +47,8 @@ import se.inera.fmu.domain.shared.IEntity;
 
 /**
  * Created by Rasheed on 7/7/14.
+ * 
+ * Aggregate Root - 
  */
 @Entity
 @Table(name = "T_EAVROP", uniqueConstraints = @UniqueConstraint(columnNames = "ARENDE_ID"))
@@ -52,17 +58,18 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	// ~ Instance fields
 	// ================================================================================================
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	// database primary key
+//	// database primary key
+//	//@Id
+//	@EmbeddedId
+//	private EavropId eavropId;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "EAVROP_ID", updatable = false, nullable = false)
 	private Long eavropId;
-
+	
 	// business key! Received from client in create request
 	@NotNull
 	@Embedded
@@ -73,7 +80,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	private String description;
 
 	// Local status of Eavrop, initially set to 'NEW'
-	@Column(name = "STATUS", nullable = false, updatable = false)
+	@Column(name = "STATUS", nullable = false)
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private EavropStatus status = EavropStatus.NEW;
@@ -84,15 +91,10 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	@NotNull
 	private UtredningType utredningType;
 
-	// Defines if there might be a need for an interpreter
-	@Column(name = "TOLK")
-	private boolean tolk;
-
-	// Defines the needed language skills of the interpreter. //TODO:Check with
-	// FK if maybe only this is needed and not the boolean 'TOLK'
-	@Column(name = "TOLK_LANG")
-	private String tolkLanguage;
-
+	// Defines if there might be a need for an interpreter and also the language skills needed
+    @Embedded
+    private Interpreter interpreter;
+    
 	// TODO: Neccessary? Present in DIM but not in gui prototype. //TODO: Ask FK
 	// or Mattias about it.
 	// @Column(name = "ELEVATOR")
@@ -110,6 +112,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 
 	// A log of all assignments to vardgivarenheter and there replies
 	@OneToMany
+	@JoinTable(name = "R_EAVROP_ASSIGNMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "ASSIGNMENT_ID"))
 	private Set<EavropAssignment> assignments;
 
 	// Maps the current assignment of the eavrop
@@ -121,6 +124,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	// treat invånare as Value Object
 	@ManyToOne
 	@NotNull
+	@JoinColumn(name = "INVANARE_ID")
 	private Invanare invanare;
 
 	// TODO: set as embeded object or create a relation to value object or only
@@ -132,14 +136,17 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 
 	// The Landsting that this eavrop has directed to
 	@ManyToOne
+	@JoinColumn(name = "LANDSTING_ID")
 	private Landsting landsting;
 
 	// The bookings made
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "R_EAVROP_BOOKING", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "BOOKING_ID"))
 	private Set<Booking> bookings;
 
 	// The notes related to this eavrop
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "R_EAVROP_NOTE", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "NOTE_ID"))
 	private Set<Note> notes;
 
 	// Examination that led up to this FMU
@@ -149,6 +156,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 
 	// Documents received or requested regarding this FMU
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "R_EAVROP_DOCUMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "DOCUMENT_ID"))
 	private Set<Document> documents;
 
 	// When documents were sent from bestallare
@@ -156,12 +164,13 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	@Column(name = "DOCUMENTS_SENT_DATE_TIME")
 	private LocalDateTime documentsSentFromBestallareDateTime;
 
-	// A log of all assignments to vardgivarenheter and there replies
-	@OneToMany(cascade = CascadeType.ALL)
-	private Set<BookingDeviationResponse> bookingDeviationResponses;
-
+//	// A log of all assignments to vardgivarenheter and there replies
+//	@OneToMany(cascade = CascadeType.ALL)
+//	private Set<BookingDeviationResponse> bookingDeviationResponses;
+	
 	// A log of all intyg events
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "R_EAVROP_INTYG", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "INTYG_INFORMATION_ID"))
 	private Set<IntygInformation> intygInformations;
 
 	// The compensation approval of this eavrop
@@ -181,40 +190,34 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		// Needed by hibernate
 	}
 
-	/**
-	 * @param arendeId
-	 *            ,
-	 * @param utredningType
-	 *            ,
-	 * @param invanare
-	 *            ,
-	 * @param landsting
-	 *            ,
-	 * @param bestallaradministrator
-	 *            ,
-	 */
-	public Eavrop(final ArendeId arendeId, final UtredningType utredningType,
-			final Invanare invanare, final Landsting landsting,
-			final Bestallaradministrator bestallaradministrator) {
-		Validate.notNull(arendeId);
-		setArendeId(arendeId);
-		Validate.notNull(utredningType);
-		setUtredningType(utredningType);
-		Validate.notNull(invanare);
-		setInvanare(invanare);
-		Validate.notNull(landsting);
-		setLandsting(landsting);
-		Validate.notNull(bestallaradministrator);
-		setBestallaradministrator(bestallaradministrator);
+	Eavrop(EavropBuilder builder){
+		//Required properties
+		Validate.notNull(builder.arendeId);
+		Validate.notNull(builder.utredningType);
+		Validate.notNull(builder.invanare);
+		Validate.notNull(builder.landsting);
+		Validate.notNull(builder.bestallaradministrator);
+		//this.setEavropId(new EavropId());
+		this.setArendeId(builder.arendeId);
+        this.setUtredningType(builder.utredningType);
+        this.setInvanare(builder.invanare);
+        this.setLandsting(builder.landsting);
+        this.setBestallaradministrator(builder.bestallaradministrator);
+        //Optional properties
+        this.setDescription(builder.description);
+        this.setInterpreter(builder.interpreter);
+    	this.setUtredningFocus(builder.utredningFocus);
+    	this.setAdditionalInformation(builder.additionalInformation);
+    	this.setPriorMedicalExamination(builder.priorMedicalExamination);
 	}
-
+	
 	// ~ Property Methods
 	// ===============================================================================================
 	public String getAdditionalInformation() {
 		return additionalInformation;
 	}
 
-	public void setAdditionalInformation(String additionalInformation) {
+	private void setAdditionalInformation(String additionalInformation) {
 		this.additionalInformation = additionalInformation;
 	}
 
@@ -260,10 +263,9 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.addAssignment(eavropAssignment);
 	}
 
-	// TODO: check that the user accepting the eavrop belongs to the currently
-	// assigned caregiver?
+	// TODO: Object security, ensure that its okay for the user to accept or reject the assigmnent
 	/**
-	 * Accepts the eavrop to the currently assigned vardgivare
+	 * The currently assigned vardgivarenhet accepts the assigned Eavrop
 	 *
 	 */
 	public void acceptEavropAssignment() {
@@ -274,10 +276,8 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		}
 	}
 
-	// TODO: check that the user rejecting the eavrop belongs to the currently
-	// assigned caregiver?
 	/**
-	 * Accepts the eavrop to the currently assigned vardgivare
+	 * The currently assigned vardgivarenhet rejects the assigned Eavrop
 	 *
 	 */
 	public void rejectEavropAssignment() {
@@ -345,6 +345,38 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		return bookings;
 	}
 
+	/**
+	 * Return the booking that corresponds to the specified booking id
+	 *
+	 * @return booking
+	 * @see Booking
+	 */
+	public Booking getBooking(BookingId bookingId) {
+		for (Booking booking : getBookings()) {
+			if(booking.getBookingId().equals(bookingId)){
+				return booking;
+			}
+		}
+
+		return null;
+	}
+
+	
+	/**
+	 * Return the bookingDeviation that corresponds to the specified booking id
+	 *
+	 * @return bookingDeviation
+	 * @see BookingDevaition
+	 */
+	public BookingDeviation getBookingDeviation(BookingId bookingId) {
+		Booking booking = this.getBooking(bookingId);
+		if(booking!=null){
+			return booking.getBookingDeviation();
+		}
+		return null;
+	}
+
+	
 	private void setBookings(Set<Booking> bookings) {
 		this.bookings = bookings;
 	}
@@ -363,33 +395,17 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.bookings.add(booking);
 	}
 
-	/**
-	 * When the orderer replies to a booking deviation event, the response is
-	 * stored in the eavrop, this method return all of them.
-	 *
-	 * @return bookingDeviationResponses
-	 */
-	public Set<BookingDeviationResponse> getBookingDeviationResponses() {
-		return bookingDeviationResponses;
-	}
-
-	private void setBookingDeviationResponses(Set<BookingDeviationResponse> bookingDeviationResponses) {
-		this.bookingDeviationResponses = bookingDeviationResponses;
-	}
-
-	/**
-	 * When a the orderer replies to a booking deviation, the response should be
-	 * added to the eavrop using this method.
-	 *
-	 * @return bookingDeviationResponses
-	 */
-	public void addBookingDeviationResponse(BookingDeviationResponse bookingDeviationResponse) {
-		if (this.bookingDeviationResponses == null) {
-			this.bookingDeviationResponses = new HashSet<BookingDeviationResponse>();
+	public void addBookingDeviationResponse(BookingId bookingId, BookingDeviationResponse bookingDeviationResponse) {
+		BookingDeviation bookingDeviation = getBookingDeviation(bookingId);
+		
+		if(bookingDeviation!=null){
+			bookingDeviation.getBookingDeviationResponse();
+			//TODO: Update status!
+		}else{
+			// TODO: throw something
 		}
-		this.bookingDeviationResponses.add(bookingDeviationResponse);
 	}
-
+	
 	/**
 	 * Returns the description property of this eavrop
 	 *
@@ -476,18 +492,31 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	}
 
 	
+//	/**
+//	 * The internal id of the Eavrop
+//	 * @return  EavropId
+//	 */
+//	public EavropId getEavropId() {
+//		return this.eavropId;
+//	}
+//	
+//	private void setEavropId(EavropId eavropId) {
+//		this.eavropId = eavropId;
+//	}
+
 	/**
 	 * The internal id of the Eavrop
 	 * @return  EavropId
 	 */
-	public EavropId getEavropId() {
-		return new EavropId(this.eavropId);
+	public Long getEavropId() {
+		return this.eavropId;
 	}
 	
 	private void setEavropId(Long eavropId) {
 		this.eavropId = eavropId;
 	}
 
+	
 	/**
 	 * A description of the focus of the utredning
 	 * @return
@@ -631,30 +660,29 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.status = status;
 	}
 
-	/**
-	 * Returns a true value if the 
-	 * @return
-	 */
-	public boolean getTolk() {
-		return tolk;
+	
+	private void setInterpreter(Interpreter interpreter) {
+		this.interpreter = interpreter; 
 	}
 
-	//TODO: Maybe set in the constructor 
-	public void setTolk(boolean tolk) {
-		this.tolk = tolk;
+	/**
+	 * Returns a true value if an interpreter is needed according to the bestallare
+	 * @return
+	 */
+	public boolean isInterpreterNeeded() {
+		return this.interpreter != null; 
 	}
 
 	/**
 	 * Returns a descriptive String about the language requirements of the interpreter
 	 * @return
 	 */
-	public String getTolkLanguage() {
-		return this.tolkLanguage;
-	}
-
-	//TODO: Maybe set in the constructor
-	public void setTolkLanguage(String tolkLanguage) {
-		this.tolkLanguage = tolkLanguage;
+	public String getIterpreterLanguageSkills() 
+	{
+		if(isInterpreterNeeded()){
+			return this.interpreter.getInterpreterLanguage();
+		} 
+		return null;
 	}
 
 	/**

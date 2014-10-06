@@ -18,7 +18,7 @@ import se.inera.fmu.domain.party.Party;
 import se.inera.fmu.domain.shared.ValueObject;
 
 @Entity
-@Table(name = "T_PRIO_MEDICAL_EXAMINATION")
+@Table(name = "T_PRIOR_MEDICAL_EXAMINATION")
 @ToString
 public class PriorMedicalExamination implements ValueObject<PriorMedicalExamination>, Serializable {  
 	    //~ Instance fields ================================================================================================
@@ -26,7 +26,7 @@ public class PriorMedicalExamination implements ValueObject<PriorMedicalExaminat
 	    // database primary key
 		@Id
 	    @GeneratedValue(strategy = GenerationType.AUTO)
-	    @Column(name = "ID", updatable = false, nullable = false)
+	    @Column(name = "PRIOR_MEDICAL_EXAM_ID", updatable = false, nullable = false)
 		private Long id	;
 
 	    @Column(name = "EXAMINED_AT")

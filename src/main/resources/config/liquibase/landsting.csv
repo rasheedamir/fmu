@@ -1,4 +1,4 @@
-ID;LANDSTING_ID;NAME;version;created_by;created_date;last_modified_by;last_modified_date
+LANDSTING_ID;LANDSTING_CODE;NAME;version;created_by;created_date;last_modified_by;last_modified_date
 1;1;Stockholms läns landsting;0;System;null;System;null
 2;3;Uppsala läns landsting;0;System;null;System;null
 3;4;Södermanlands läns landsting;0;System;null;System;null

@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public abstract class Party implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", updatable = false, nullable = false)
+    @Column(name = "PARTY_ID", updatable = false, nullable = false)
     private Long id;
 
     @Column(name = "NAME", nullable = false)

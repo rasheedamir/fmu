@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -37,7 +38,7 @@ public class Vardgivarenhet extends AbstractBaseEntity implements IEntity<Vardgi
 	// database primary key
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", updatable = false, nullable = false)
+    @Column(name = "VARDGIVARENHET_ID", updatable = false, nullable = false)
     private Long Id;
 
 	// business id
@@ -56,9 +57,10 @@ public class Vardgivarenhet extends AbstractBaseEntity implements IEntity<Vardgi
     private Address address;    
     
     @ManyToOne
+    @JoinColumn(name = "VARDGIVARE_ID")
     private Vardgivare vardgivare;
 
-    @ManyToMany(mappedBy = "vardgivarenheter")
+    @ManyToMany
     private Set<Landsting> landsting;
 
     

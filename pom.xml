@@ -31,6 +31,8 @@
 		<lombok.version>1.14.4</lombok.version>
 		<liquibase-core.version>3.2.2</liquibase-core.version>
 		<liquibase_hibernate_version>3.3</liquibase_hibernate_version>
+		<!-- <liquibase-core.version>3.2.2-SNAPSHOT</liquibase-core.version> -->
+		<!-- <liquibase_hibernate_version>3.4</liquibase_hibernate_version> -->
 		<liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
 		<assertj-core.version>1.6.0</assertj-core.version>
 		<awaitility.version>1.4.0</awaitility.version>
@@ -49,9 +51,7 @@
 		<skip.integration.tests>true</skip.integration.tests>
 		<skip.unit.tests>false</skip.unit.tests>
 	</properties>
-
 	<profiles>
-
 		<profile>
 			<id>dev</id>
 			<activation>
@@ -174,7 +174,7 @@
 						<groupId>org.liquibase</groupId>
 						<artifactId>liquibase-maven-plugin</artifactId>
 						<version>${liquibase-core.version}</version>
-						<!-- <version>3.3.0-SNAPSHOT</version> -->
+						<!--<version>3.3.0-SNAPSHOT</version> -->
 						<configuration>
 							<propertyFile>target/classes/liquibase.properties</propertyFile>
 						</configuration>
@@ -569,18 +569,12 @@
 			<artifactId>neo4j-cypher-compiler-2.1</artifactId>
 			<version>2.1.2</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-batch</artifactId>
-		</dependency>
-
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>18.0</version>
         </dependency>
-
-    </dependencies>
+	</dependencies>
 	<build>
 		<resources>
 			<resource>

@@ -9,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -37,22 +39,21 @@ public class Landsting extends AbstractBaseEntity implements IEntity<Landsting>{
 	   //TODO: Is this neccessary use business id as primary key 
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.AUTO)
-	    @Column(name = "ID", updatable = false, nullable = false)
+	    @Column(name = "LANDSTING_ID", updatable = false, nullable = false)
 	    private Long id;
 
 		// business id
 	    @NotNull
 	    @Embedded
-	    private LandstingId landstingId;
+	    private LandstingCode landstingCode;
 
 	    @Column(name = "NAME", nullable = false)
 	    private String name;
 	    
-	    //TODO: Is this relation necessary? 
-//	    @ManyToMany
-//	    private Set<Vardgivare> vardgivare;
-	    
 	    @ManyToMany
+	    @JoinTable(name="R_LANDSTING_VARDGIVARENHET",
+	    	      joinColumns={ @JoinColumn (name="LANDSTING_ID", referencedColumnName="LANDSTING_ID")},
+	    	      inverseJoinColumns={@JoinColumn(name="VARDGIVARENHET_ID", referencedColumnName="VARDGIVARENHET_ID")})
 	    private Set<Vardgivarenhet> vardgivarenheter;
 	    
 	    @ManyToMany
@@ -64,21 +65,21 @@ public class Landsting extends AbstractBaseEntity implements IEntity<Landsting>{
 	        //Needed by hibernate
 	    }
 
-	    public Landsting(final LandstingId landstingId,  final String name){
-	    	Validate.notNull(landstingId);
+	    public Landsting(final LandstingCode landstingCode,  final String name){
+	    	Validate.notNull(landstingCode);
 	    	Validate.notEmpty(name);
-	    	this.setLandstingId(landstingId);
+	    	this.setLandstingCode(landstingCode);
 	    	this.setName(name);
 	    }
 
 	    //~ Property Methods ===============================================================================================
 
-	    public LandstingId getLandstingId() {
-			return this.landstingId;
+	    public LandstingCode getLandstingCode() {
+			return this.landstingCode;
 		}
 
-		private void setLandstingId(LandstingId landstingId) {
-			this.landstingId = landstingId;
+		private void setLandstingCode(LandstingCode landstingCode) {
+			this.landstingCode = landstingCode;
 		}
 
 	    public String getName() {
@@ -123,7 +124,7 @@ public class Landsting extends AbstractBaseEntity implements IEntity<Landsting>{
 
 		@Override
 	    public boolean sameIdentityAs(final Landsting other) {
-	        return other != null && this.getLandstingId().equals(other.getLandstingId());
+	        return other != null && this.getLandstingCode().equals(other.getLandstingCode());
 	    }
 
 	    /**
@@ -145,6 +146,6 @@ public class Landsting extends AbstractBaseEntity implements IEntity<Landsting>{
 	     */
 	    @Override
 	    public int hashCode() {
-	        return getLandstingId().hashCode();
+	        return getLandstingCode().hashCode();
 	    }
 }

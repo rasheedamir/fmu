@@ -1,7 +1,7 @@
 package se.inera.fmu.application.util;
 
-import se.inera.fmu.domain.model.invanare.Invanare;
-import se.inera.fmu.domain.model.invanare.PersonalNumber;
+import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
+import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;

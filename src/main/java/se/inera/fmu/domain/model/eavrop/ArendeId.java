@@ -23,10 +23,11 @@ public final class ArendeId implements ValueObject<ArendeId> {
 
     //~ Instance fields ================================================================================================
 
-    @Column(name = "arende_id", nullable = false, updatable = false, unique = true)
+	@Column(name = "ARENDE_ID", nullable = false, updatable = false, unique = true)
     @NotNull
+    //TODO Should we really limit the size of a business key that we don't own ourselves. If so then we could also add the ' length = 24' attribute to the @Column 
     @Size(max = 24)
-    private String id;
+    private String arendeId;
 
     //~ Constructors ===================================================================================================
 
@@ -37,11 +38,11 @@ public final class ArendeId implements ValueObject<ArendeId> {
     /**
      * Constructor.
      *
-     * @param id Id string.
+     * @param arendeId Id string.
      */
-    public ArendeId(final String id) {
-        Validate.notNull(id);
-        this.id = id;
+    public ArendeId(final String arendeId) {
+        Validate.notNull(arendeId);
+        this.arendeId = arendeId;
     }
 
     //~ Other Methods ==================================================================================================
@@ -58,16 +59,16 @@ public final class ArendeId implements ValueObject<ArendeId> {
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return arendeId.hashCode();
     }
 
     @Override
     public boolean sameValueAs(ArendeId other) {
-        return other != null && this.id.equals(other.id);
+        return other != null && this.arendeId.equals(other.arendeId);
     }
     
     @Override
     public String toString() {
-    	return id;
+    	return arendeId;
     }
 }

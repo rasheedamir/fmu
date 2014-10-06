@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -36,7 +37,7 @@ public class HoSPersonal extends AbstractBaseEntity implements IEntity<HoSPerson
 	// database primary key
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", updatable = false, nullable = false)
+    @Column(name = "HOSPERSONAL_ID", updatable = false, nullable = false)
     private Long Id;
 
 	// business id
@@ -52,6 +53,7 @@ public class HoSPersonal extends AbstractBaseEntity implements IEntity<HoSPerson
     private HsaBefattning hsaBefattning;
         
     @ManyToOne
+    @JoinColumn(name = "VARDGIVARENHET_ID")
     private Vardgivarenhet vardgivarenhet;
     
     //~ Constructors ===================================================================================================

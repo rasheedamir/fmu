@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface LandstingRepository extends JpaRepository<Landsting, Long> {
 	
-	Landsting findByLandstingId(LandstingId landstingId);
+	Landsting findByLandstingCode(LandstingCode landstingCode);
 }
