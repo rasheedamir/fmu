@@ -478,6 +478,9 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
+            <!-- To build a war file that is both executable and deployable into an external container you need to mark
+                 the embedded container dependencies as “provided” -->
+            <scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

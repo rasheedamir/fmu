@@ -327,7 +327,7 @@ angular.module('fmuClientApp')
                             'avikelser': 37,
                             'color': 'bg-danger'
                         }, {
-                            'arendeId': 093453621,
+                            'arendeId': 993453621,
                             'utredningType': 'AFU',
                             'bestallareOrganisation': 'Försäkringskassan',
                             'enhet': 'Stockholm City',
