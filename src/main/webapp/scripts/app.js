@@ -125,8 +125,9 @@ angular.module('fmuClientApp', [
                 });
 
                 mod.result.then(function(result){
-                    new ReqDocuments(result).$save({eavropId: $stateParams.eavropId});
-                    loadReqDocuments();
+                    new ReqDocuments(result).$save({eavropId: $stateParams.eavropId}).then(function(){
+                        loadReqDocuments();
+                    });
                 });
             };
             $scope.openAddDocumentModal = function(){
@@ -137,8 +138,9 @@ angular.module('fmuClientApp', [
                 });
 
                 mod.result.then(function(result){
-                    new Documents(result).$save({eavropId: $stateParams.eavropId});
-                    loadDocuments();
+                    new Documents(result).$save({eavropId: $stateParams.eavropId}).then(function(){
+                        loadDocuments();
+                    });
                 });
             };
         }
@@ -171,6 +173,43 @@ angular.module('fmuClientApp', [
     })
     .state('eavrop.notes', {
         url: '/notes',
-        templateUrl: 'views/eavrop/notes.html'
+        templateUrl: 'views/eavrop/notes.html',
+        controller: function($scope, $modal, $stateParams, EavropNotes){
+            function loadNotes(){
+                $scope.notes = EavropNotes.query({eavropId: $stateParams.eavropId});
+            }
+            loadNotes();
+            $scope.openAddNoteModal = function(){
+                var modalInstance = $modal.open({
+                    templateUrl: 'views/eavrop/add-note-modal.html',
+                    size: 'md',
+                    controller: function($scope, EavropNotes){
+                        $scope.picker = {opened: false}
+                        $scope.note = new EavropNotes({
+                            content: 'asd',
+                            createdDate: new Date()
+                        });
+                        $scope.open = function($event){
+                            $event.preventDefault();
+                            $event.stopPropagation();
+                            $scope.picker.opened = true;
+                        };
+
+                        $scope.save = function(){
+                            modalInstance.close($scope.note);
+                        },
+                        $scope.close = function(){
+                            modalInstance.dismiss();
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function(result){
+                    result.$save({eavropId: $stateParams.eavropId}).then(function(){
+                        loadNotes();
+                    });
+                });
+            }
+        },
     });
 });
