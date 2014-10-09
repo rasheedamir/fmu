@@ -1,6 +1,7 @@
 package se.inera.fmu.domain.model.landsting;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.ToString;
@@ -17,6 +18,7 @@ import se.inera.fmu.domain.model.shared.Name;
 public class Landstingssamordnare extends HoSPersonal {
 
 	@ManyToOne
+	@JoinColumn(name = "LANDSTING_ID")
 	private Landsting landsting; //TODO:should this mapping be in superclass
 
 	Landstingssamordnare() {

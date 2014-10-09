@@ -2,6 +2,7 @@ package se.inera.fmu.domain.model.eavrop.booking;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,20 +17,15 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
 
+import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.party.Party;
 import lombok.ToString;
 
-@Entity
-@Table(name = "T_DEVIATION_RESPONSE")
+@Embeddable
 @ToString
 public class BookingDeviationResponse {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID", updatable = false, nullable = false)
-	private Long id;
-
-	@Column(name = "DEVIATION_RESPONSE_TYPE", nullable = false, updatable = false)
+	@Column(name = "DEVIATION_RESPONSE_TYPE")
     @Enumerated(EnumType.STRING)
     @NotNull
     private BookingDeviationResponseType responseType;
@@ -42,6 +38,11 @@ public class BookingDeviationResponse {
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="PARTY_ID")
 	private Party party;
+	
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="RESPONSE_NOTE_ID", nullable = true)
+	private Note deviationResponseNote;
+
 
 	public BookingDeviationResponse(BookingDeviationResponseType responseType, LocalDateTime responseTimestamp, Party party) {
 		super();
@@ -50,6 +51,39 @@ public class BookingDeviationResponse {
 		this.party = party;
 	}
 	
-	
+	public BookingDeviationResponseType getResponseType() {
+		return responseType;
+	}
 
+
+	private void setResponseType(BookingDeviationResponseType responseType) {
+		this.responseType = responseType;
+	}
+
+
+	public LocalDateTime getResponseTimestamp() {
+		return responseTimestamp;
+	}
+
+
+	private void setResponseTimestamp(LocalDateTime responseTimestamp) {
+		this.responseTimestamp = responseTimestamp;
+	}
+
+	public Party getParty() {
+		return party;
+	}
+
+	private void setParty(Party party) {
+		this.party = party;
+	}
+
+	public Note getDeviationResponseNote() {
+		return deviationResponseNote;
+	}
+
+	public void setDeviationResponseNote(Note deviationResponseNote) {
+		this.deviationResponseNote = deviationResponseNote;
+	}
+	
 }

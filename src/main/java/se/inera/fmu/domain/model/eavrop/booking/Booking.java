@@ -5,13 +5,14 @@ import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -21,7 +22,6 @@ import org.apache.commons.lang.Validate;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
 
-import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.party.Party;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
@@ -34,9 +34,9 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
 	private static final long serialVersionUID = 1L;
 
 	// database primary key, using UUID and not a Hibernate sequence
-    @Id
-    @Column(name = "ID", updatable = false, nullable = false)
-    private String id;
+    @EmbeddedId
+    @Column(name = "BOOKING_ID", updatable = false, nullable = false)
+    private BookingId bookingId;
 
     @Column(name = "BOOKING_TYPE", nullable = false, updatable = false)
     @Enumerated(EnumType.STRING)
@@ -53,21 +53,15 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
  	private LocalDateTime endDateTime;
     
-	//TODO: embed?
 	@NotNull
-	@OneToMany //TODO: maybe many to many if we kan reuse the party entity
- 	private Set<Party> parties;
+	@OneToMany(cascade = CascadeType.ALL) //TODO: maybe many to many if we kan reuse the party entity
+	@JoinTable(name = "R_BOOKING_PARTY", joinColumns = @JoinColumn(name = "BOOKING_ID"), inverseJoinColumns = @JoinColumn(name = "PARTY_ID"))
+ 	private Set<Party> parties; //value object
+	
+	@Embedded
+	private BookingDeviation bookingDeviation;
 
-	//TODO: Maybe this should be a status instead 
-    @Column(name = "DEVIATION_TYPE", nullable = true, updatable = true)
-    @Enumerated(EnumType.STRING)
-    @NotNull
-	private BookingDeviationType deviationType;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="DEVIATION_NOTE_ID", nullable = true)
-	private Note deviationNote;
-    
+   
     //~ Constructors ===================================================================================================
     
 	Booking(){
@@ -75,7 +69,7 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
 	}
 	
 	public Booking(BookingType type,  LocalDateTime startDateTime, LocalDateTime endDateTime, Set<Party> parties){
-    	this.setId(UUID.randomUUID().toString());
+    	this.setBookingId(new BookingId(UUID.randomUUID().toString()));
     	Validate.notNull(type);
     	Validate.notNull(startDateTime);
     	Validate.notNull(endDateTime);
@@ -88,12 +82,12 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
 	
     //~ Property Methods ===============================================================================================
 
-	   public String getId() {
-			return id;
+	   public BookingId getBookingId() {
+			return bookingId;
 		}
 
-		private void setId(String id) {
-			this.id = id;
+		private void setBookingId(BookingId id) {
+			this.bookingId = id;
 		}
 
 		public BookingType getBookingType() {
@@ -128,27 +122,20 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
 			this.parties = parties;
 		}
 
-		public BookingDeviationType getBookingDeviationType() {
-			return this.deviationType;
+		public BookingDeviation getBookingDeviation() {
+			return this.bookingDeviation;
 		}
 
-		public void setBookingDeviationType(BookingDeviationType bookingDeviationType) {
-			this.deviationType = bookingDeviationType;
+		public void setBookingDeviation(BookingDeviation bookingDeviation) {
+			this.bookingDeviation = bookingDeviation;
 		}
 		
-		public Note getBookingDeviationNote() {
-			return this.deviationNote;
-		}
-
-		public void setBookingDeviationNote(Note bookingDeviationNote) {
-			this.deviationNote = bookingDeviationNote;
-		}
 
 	//~ Other Methods ==================================================================================================
 
 	@Override
 	public boolean sameIdentityAs(Booking other) {
-		return other != null && this.id.equals(other.id);
+		return other != null && this.bookingId.equals(other.bookingId);
 	}
 
 	/**
@@ -170,6 +157,6 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
      */
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return bookingId.hashCode();
     }
 }

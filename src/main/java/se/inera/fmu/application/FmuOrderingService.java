@@ -2,7 +2,7 @@ package se.inera.fmu.application;
 
 import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
-import se.inera.fmu.domain.model.invanare.PersonalNumber;
+import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;

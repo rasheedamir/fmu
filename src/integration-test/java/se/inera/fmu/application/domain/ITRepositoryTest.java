@@ -9,21 +9,22 @@ import java.util.Set;
 import se.inera.fmu.Application;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
+import se.inera.fmu.domain.model.eavrop.EavropBuilder;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
+import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
+import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
+import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.hos.hsa.HsaBefattning;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
 import se.inera.fmu.domain.model.hos.vardgivare.VardgivareRepository;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.hos.vardgivare.VardgivarenhetRepository;
-import se.inera.fmu.domain.model.invanare.Invanare;
-import se.inera.fmu.domain.model.invanare.InvanareRepository;
-import se.inera.fmu.domain.model.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.landsting.Landsting;
-import se.inera.fmu.domain.model.landsting.LandstingId;
+import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.domain.model.landsting.LandstingRepository;
 import se.inera.fmu.domain.model.landsting.Landstingssamordnare;
 import se.inera.fmu.domain.model.landsting.LandstingssamordnareRepository;
@@ -34,7 +35,6 @@ import se.inera.fmu.domain.party.Bestallaradministrator;
 import se.inera.fmu.domain.party.HoSParty;
 import se.inera.fmu.domain.party.Party;
 
-import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,7 +79,7 @@ public class ITRepositoryTest {
 	private EavropRepository eavropRepository;
 	
 
-	private LandstingId landstingId;
+	private LandstingCode landstingCode;
     
     private HsaId vardgivareId;
     
@@ -91,8 +91,8 @@ public class ITRepositoryTest {
 
     @Before
 	public void setUp() throws Exception {
-		this.landstingId = new LandstingId(99);
-		Landsting landsting = createLandsting(this.landstingId, "Stockholms Läns Landsting");
+		this.landstingCode = new LandstingCode(99);
+		Landsting landsting = createLandsting(this.landstingCode, "Stockholms Läns Landsting");
 
 		this.landstingssamordnarId = new HsaId("SE160000000000-00000000A");
 		Landstingssamordnare landstingssamordnare = createLandstingssamordnare(this.landstingssamordnarId, new Name("Sam", null, "Ordnarsson"), new HsaBefattning("S3", "Samordnare"), landsting);
@@ -112,7 +112,7 @@ public class ITRepositoryTest {
     
     @Test
     public void testLandsting(){
-    	Landsting landsting = landstingRepository.findByLandstingId(this.landstingId);
+    	Landsting landsting = landstingRepository.findByLandstingCode(this.landstingCode);
     	assertNotNull(landsting);
     	System.out.print(landsting);
     }
@@ -140,7 +140,7 @@ public class ITRepositoryTest {
     
     @Test
     public void testGetLandstingsamordnareFromLandsting(){
-    	Landsting landsting = landstingRepository.findByLandstingId(this.landstingId);
+    	Landsting landsting = landstingRepository.findByLandstingCode(this.landstingCode);
     	assertNotNull(landsting);
     	Set<Landstingssamordnare> samordnare = landsting.getLandstingssamordnare();
     	assertNotNull(samordnare);
@@ -160,7 +160,7 @@ public class ITRepositoryTest {
     @Test
     public void testGetEavropFromLandsting(){
     	
-    	Landsting landsting = landstingRepository.findByLandstingId(this.landstingId);
+    	Landsting landsting = landstingRepository.findByLandstingCode(this.landstingCode);
     	assertNotNull(landsting);
     	List<Eavrop> eavrops = eavropRepository.findAllByLandsting(landsting);
     	assertNotNull(eavrops);
@@ -170,7 +170,7 @@ public class ITRepositoryTest {
     
     @Test
     public void testGetVardgivarenhetFromLandsting(){
-    	Landsting landsting = landstingRepository.findByLandstingId(this.landstingId);
+    	Landsting landsting = landstingRepository.findByLandstingCode(this.landstingCode);
     	assertNotNull(landsting);
     	Set<Vardgivarenhet> vardgivarenheter = landsting.getVardgivarenheter();
     	assertNotNull(vardgivarenheter);
@@ -209,8 +209,8 @@ public class ITRepositoryTest {
     	return vardgivare; 
     }
     
-    private Landsting createLandsting(LandstingId landstingId, String name){
-    	Landsting landsting = new Landsting(landstingId, name);
+    private Landsting createLandsting(LandstingCode landstingCode, String name){
+    	Landsting landsting = new Landsting(landstingCode, name);
   
     	landstingRepository.saveAndFlush(landsting);
     	return landsting;
@@ -220,14 +220,14 @@ public class ITRepositoryTest {
     	Invanare invanare = createInvanare(); 
     	Bestallaradministrator bestallaradministrator = createBestallaradministrator();
     	
-    	Eavrop eavrop = new Eavrop(arendeId, UtredningType.TMU, invanare, landsting, bestallaradministrator);
-    	
-//    	eavrop.getBookings();
-//    	eavrop.getEvents()
-//    	eavrop.getLandstingssamordnare() //Remove?
-//    	eavrop.getNotes()
-//    	eavrop.getPriorMedicalExamination();
-    	
+        Eavrop eavrop = EavropBuilder.eavrop()
+		.withArendeId(arendeId)
+		.withUtredningType(UtredningType.TMU) 
+		.withInvanare(invanare)
+		.withLandsting(landsting)
+		.withBestallaradministrator(bestallaradministrator)
+		.build();
+
     	eavrop.addBooking(createBooking());
     	
     	eavropRepository.saveAndFlush(eavrop);
@@ -253,10 +253,9 @@ public class ITRepositoryTest {
 
     private Booking createBooking(){
     	
-    	LocalDateTime today = new LocalDateTime(new LocalDate());
-    	LocalDateTime start = today.plusDays(5).plusHours(13);
+    	LocalDateTime start = new LocalDateTime();
     	LocalDateTime end = start.plusHours(1);
-    	Party party = new HoSParty("Dr Mengele", "Surgeon", "Danderyds sjukhus");
+    	Party party = new HoSParty("Dr Hudson", "Surgeon", "Danderyds sjukhus");
     	Set<Party> set = new HashSet<Party>();
     	set.add(party);
     	Booking booking = new Booking(BookingType.EXAMINATION, start,end, set );

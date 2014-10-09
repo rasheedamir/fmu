@@ -1,4 +1,4 @@
-package se.inera.fmu.domain.model.invanare;
+package se.inera.fmu.domain.model.eavrop.invanare;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

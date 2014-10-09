@@ -10,7 +10,7 @@ spring:
         databaseName:
         serverName:
         username: fmu
-        password: fmu$786£2
+        password: fmuM0t0rv4g
 
     jpa:
         database-platform: org.hibernate.dialect.MySQLInnoDBDialect

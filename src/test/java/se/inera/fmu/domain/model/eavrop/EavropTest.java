@@ -1,10 +1,10 @@
 package se.inera.fmu.domain.model.eavrop;
 
 import junit.framework.TestCase;
-import se.inera.fmu.domain.model.invanare.Invanare;
-import se.inera.fmu.domain.model.invanare.PersonalNumber;
+import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
+import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.landsting.Landsting;
-import se.inera.fmu.domain.model.landsting.LandstingId;
+import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
@@ -62,7 +62,7 @@ public class EavropTest extends TestCase {
 		arendeId = new ArendeId("1312421532151");
 		utredningType = UtredningType.SLU;
 		tolk = "Swedish";
-		landsting = new Landsting (new LandstingId(1), "Stockholms läns landsting");
+		landsting = new Landsting (new LandstingCode(1), "Stockholms läns landsting");
 		bestallaradministrator = new Bestallaradministrator("Per Elofsson","Handläggare", "LFC Stockholm", "08123456", "per.elofsson@forsakringskassan.se");
 
 	}
@@ -104,7 +104,14 @@ public class EavropTest extends TestCase {
 	}
 	
 	public void  testCreateEavrop() {
-		eavrop = new Eavrop(arendeId, utredningType, invanare, landsting, bestallaradministrator );
+		
+		eavrop = EavropBuilder.eavrop()
+		.withArendeId(arendeId)
+		.withUtredningType(utredningType) 
+		.withInvanare(invanare)
+		.withLandsting(landsting)
+		.withBestallaradministrator(bestallaradministrator)
+		.build();
 		
 		assertEquals(invanare, eavrop.getInvanare());
 		assertEquals(utredningType, eavrop.getUtredningType());

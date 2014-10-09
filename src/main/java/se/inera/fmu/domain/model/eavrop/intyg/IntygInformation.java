@@ -29,7 +29,7 @@ public abstract class IntygInformation{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID", updatable = false, nullable = false)
+	@Column(name = "INTYG_INFORMATION_ID", updatable = false, nullable = false)
 	private Long id;
 
 	@NotNull

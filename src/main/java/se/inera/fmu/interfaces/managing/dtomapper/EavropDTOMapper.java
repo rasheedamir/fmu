@@ -5,7 +5,7 @@ import java.util.Random;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.Eavrop;
-import se.inera.fmu.domain.model.invanare.Invanare;
+import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 

@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -42,7 +44,7 @@ public class Vardgivare extends AbstractBaseEntity implements IEntity<Vardgivare
 	// database primary key
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", updatable = false, nullable = false)
+    @Column(name = "VARDGIVARE_ID", updatable = false, nullable = false)
     private Long id;
 
 	// business id
@@ -53,11 +55,8 @@ public class Vardgivare extends AbstractBaseEntity implements IEntity<Vardgivare
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    //TODO: Probably not necessary relation, go through vargivareenheter instead
-//    @ManyToMany(mappedBy = "vardgivare")
-//    private Set<Landsting> landsting;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vardgivare")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "R_VARDGIVARE_VARDGIVARENHET", joinColumns = @JoinColumn(name = "VARDGIVARE_ID"), inverseJoinColumns = @JoinColumn(name = "VARDGIVARENHET_ID"))
     private Set<Vardgivarenhet> vardgivarenheter;
     
     

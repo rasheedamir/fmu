@@ -9,32 +9,32 @@ import javax.validation.constraints.NotNull;
 import se.inera.fmu.domain.shared.ValueObject;
 
 @Embeddable
-public class LandstingId implements ValueObject<LandstingId>, Serializable {
+public class LandstingCode implements ValueObject<LandstingCode>, Serializable {
 	
 	//~ Instance fields ================================================================================================
 
-    @Column(name = "LANDSTING_ID", nullable = false, updatable = false, unique = true)
+    @Column(name = "LANDSTING_CODE", nullable = false, updatable = false, unique = true)
     @NotNull
-    private int landstingId;
+    private int code;
 
     //~ Constructors ===================================================================================================
 
-	LandstingId() {
+	LandstingCode() {
 	    // Needed by Hibernate
 	}
 
-	public LandstingId(final int landstingId) throws IllegalArgumentException {
-		setLandstingId(landstingId);
+	public LandstingCode(final int code) throws IllegalArgumentException {
+		setCode(code);
 	}
 	
     //~ Property Methods ===============================================================================================
 
-	public int getLandstingId(){
-		return this.landstingId;
+	public int getCode(){
+		return this.code;
 	}
 
-	private void setLandstingId(int landstingId) {
-		this.landstingId = landstingId;
+	private void setCode(final int code) {
+		this.code = code;
 	}
 
     //~ Other Methods ==================================================================================================
@@ -42,7 +42,7 @@ public class LandstingId implements ValueObject<LandstingId>, Serializable {
 
 	@Override
 	public String toString() {
-		return "" + getLandstingId();
+		return "" + getCode();
 	}
 
     @Override
@@ -50,7 +50,7 @@ public class LandstingId implements ValueObject<LandstingId>, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        LandstingId other = (LandstingId) o;
+        LandstingCode other = (LandstingCode) o;
 
         return sameValueAs(other);
     }
@@ -61,8 +61,8 @@ public class LandstingId implements ValueObject<LandstingId>, Serializable {
     }
 
     @Override
-    public boolean sameValueAs(LandstingId other) {
-        return other != null && this.getLandstingId() == other.getLandstingId();
+    public boolean sameValueAs(LandstingCode other) {
+        return other != null && this.getCode() == other.getCode();
     }
 
 }

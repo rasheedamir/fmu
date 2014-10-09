@@ -1,6 +1,7 @@
 package se.inera.fmu.application.impl;
 
 import com.google.common.eventbus.AsyncEventBus;
+
 import org.activiti.engine.runtime.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +11,9 @@ import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.eavrop.*;
-import se.inera.fmu.domain.model.invanare.Invanare;
-import se.inera.fmu.domain.model.invanare.InvanareRepository;
-import se.inera.fmu.domain.model.invanare.PersonalNumber;
+import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
+import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
+import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
@@ -55,7 +56,7 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
     }
 
     @Override
-    public ArendeId createNewEavrop(ArendeId arendeId,  UtredningType utredningType, String tolk, PersonalNumber personalNumber,
+    public ArendeId createNewEavrop(ArendeId arendeId,  UtredningType utredningType, String interpreterLanguages, PersonalNumber personalNumber,
                                     Name invanareName, Gender invanareGender, Address invanareHomeAddress,
                                     String invanareEmail, String invanareSpecialNeeds, Landsting landsting, String administratorName, 
                                     String administratorBefattning, String administratorOrganisation, String administratorPhone, 
@@ -65,12 +66,20 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
     	
         Bestallaradministrator bestallaradministrator = createBestallaradministrator(administratorName, administratorBefattning, administratorOrganisation, administratorPhone, administratorEmail);
         
+        Interpreter interpreter= new Interpreter(interpreterLanguages);
+        
         log.debug(String.format("invanare created :: %s", invanare.toString()));
 
-        Eavrop eavrop = new Eavrop(arendeId, utredningType, invanare, landsting, bestallaradministrator);
-        
+        Eavrop eavrop = EavropBuilder.eavrop()
+		.withArendeId(arendeId)
+		.withUtredningType(utredningType) 
+		.withInvanare(invanare)
+		.withLandsting(landsting)
+		.withBestallaradministrator(bestallaradministrator)
+		.withInterpreter(interpreter)
+		.build();
+
         //TODO: fix tolk setting, should there be a boolean with a language description string or only a string?
-        eavrop.setTolk(true);
         eavrop = eavropRepository.save(eavrop);
         log.debug(String.format("eavrop created :: %s", eavrop));
 

@@ -21,7 +21,7 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>,
 
 	// database primary key
 	@Id
-	@Column(name = "ID", updatable = false, nullable = false)
+	@Column(name = "NOTE_ID", updatable = false, nullable = false)
 	private String id;
 
 	@Column(name = "TEXT")

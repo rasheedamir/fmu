@@ -1,6 +1,7 @@
 package se.inera.fmu.application;
 
 import com.google.common.eventbus.AsyncEventBus;
+
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
@@ -20,9 +21,9 @@ import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
-import se.inera.fmu.domain.model.invanare.Invanare;
-import se.inera.fmu.domain.model.invanare.InvanareRepository;
-import se.inera.fmu.domain.model.invanare.PersonalNumber;
+import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
+import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
+import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;

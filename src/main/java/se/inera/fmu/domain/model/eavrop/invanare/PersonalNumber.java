@@ -1,11 +1,11 @@
-package se.inera.fmu.domain.model.eavrop;
-
-import java.io.Serializable;
-
-import javax.persistence.Embeddable;
+package se.inera.fmu.domain.model.eavrop.invanare;
 
 import lombok.ToString;
 import se.inera.fmu.domain.shared.ValueObject;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 /**
  * Created by Rasheed on 7/26/14.
@@ -13,30 +13,33 @@ import se.inera.fmu.domain.shared.ValueObject;
  */
 @ToString
 @Embeddable
-public final class EavropId implements ValueObject<EavropId>, Serializable {
+public final class PersonalNumber implements ValueObject<PersonalNumber>, Serializable {
 
     //~ Instance fields ================================================================================================
 
-    protected Long id;
+    @Column(name = "PERSONAL_NUMBER", updatable = false, nullable = false)
+    protected String personalNumber;
 
     //~ Constructors ===================================================================================================
 
-    EavropId() {
+    PersonalNumber() {
         // Needed by hibernate
     }
 
-    public EavropId(Long id) {
-        this.setId(id);
+    public PersonalNumber(String personalNumber) {
+    	
+    	//TODO: Validate personal number
+        this.setPersonalNumber(personalNumber);
     }
 
     //~ Property Methods ===============================================================================================
 
-    public Long getId() {
-        return id;
+    public String getPersonalNumber() {
+        return this.personalNumber;
     }
 
-    private void setId(Long id) {
-        this.id = id;
+    private void setPersonalNumber(String personalNumber) {
+        this.personalNumber = personalNumber;
     }
 
     //~ Other fields ===================================================================================================
@@ -46,18 +49,18 @@ public final class EavropId implements ValueObject<EavropId>, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EavropId other = (EavropId) o;
+        PersonalNumber other = (PersonalNumber) o;
 
         return sameValueAs(other);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return personalNumber.hashCode();
     }
 
     @Override
-    public boolean sameValueAs(EavropId other) {
-        return other != null && this.id.equals(other.id);
+    public boolean sameValueAs(PersonalNumber other) {
+        return other != null && this.personalNumber.equals(other.personalNumber);
     }
 }
