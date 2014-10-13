@@ -98,6 +98,11 @@ angular.module('fmuClientAppDev').run(function($httpBackend){
         var id = EAVROP_PATTERN.exec(url)[1];
         return [200, getEavropById(parseInt(id)).notes, {}];
     });
+    $httpBackend.whenPOST(EAVROP_NOTES_PATTERN).respond(function(method, url, data){
+        var id = EAVROP_PATTERN.exec(url)[1];
+        getEavropById(parseInt(id)).notes.push(angular.fromJson(data));
+        return [200, {}, {}];
+    });
 
     $httpBackend.whenGET(EAVROP_PATTERN).respond(function(method, url){
         var id = EAVROP_PATTERN.exec(url)[1];
