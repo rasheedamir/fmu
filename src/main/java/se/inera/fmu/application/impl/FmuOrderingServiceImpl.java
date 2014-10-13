@@ -55,12 +55,31 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
         this.asyncEventBus = asyncEventBus;
     }
 
+    /**
+     *
+     * @param arendeId
+     * @param utredningType
+     * @param interpreterLanguages
+     * @param personalNumber
+     * @param invanareName
+     * @param invanareGender
+     * @param invanareHomeAddress
+     * @param invanareEmail
+     * @param invanareSpecialNeeds
+     * @param landsting
+     * @param administratorName
+     * @param administratorBefattning
+     * @param administratorOrganisation
+     * @param administratorPhone
+     * @param administratorEmail
+     * @return
+     */
     @Override
     public ArendeId createNewEavrop(ArendeId arendeId,  UtredningType utredningType, String interpreterLanguages, PersonalNumber personalNumber,
                                     Name invanareName, Gender invanareGender, Address invanareHomeAddress,
                                     String invanareEmail, String invanareSpecialNeeds, Landsting landsting, String administratorName, 
                                     String administratorBefattning, String administratorOrganisation, String administratorPhone, 
-                                    String administratorEmail  ) {
+                                    String administratorEmail) {
         
         Invanare invanare = createInvanare(personalNumber, invanareName, invanareGender, invanareHomeAddress, invanareEmail, invanareSpecialNeeds);
     	
@@ -102,7 +121,6 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
     }
     
     private Bestallaradministrator createBestallaradministrator(String name, String befattning, String organisation, String phone, String email){
-    	
     	Bestallaradministrator bestallaradministrator = new Bestallaradministrator(name, befattning, organisation, phone, email);
     	//TODO: Set up repository, for this subclass or abstract superclass; 
 //    	bestallaradministrator = bestallaradministrator.save(invanare);
