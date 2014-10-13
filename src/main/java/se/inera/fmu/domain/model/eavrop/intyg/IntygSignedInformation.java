@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 
 import org.joda.time.LocalDateTime;
 
-import se.inera.fmu.domain.party.Party;
+import se.inera.fmu.domain.model.person.Person;
 import lombok.ToString;
 
 @Entity
@@ -13,8 +13,8 @@ import lombok.ToString;
 @ToString
 public class IntygSignedInformation extends IntygInformation{
 
-	public IntygSignedInformation(LocalDateTime informationTimestamp, Party party) {
-		super(informationTimestamp, party);
+	public IntygSignedInformation(LocalDateTime informationTimestamp, Person person) {
+		super(informationTimestamp, person);
 	}
 
 }

@@ -1,6 +1,6 @@
 package se.inera.fmu.application.util;
 
-import se.inera.fmu.domain.party.Bestallaradministrator;
+import se.inera.fmu.domain.model.person.Bestallaradministrator;
 
 
 /**

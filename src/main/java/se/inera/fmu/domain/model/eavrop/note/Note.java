@@ -3,12 +3,16 @@ package se.inera.fmu.domain.model.eavrop.note;
 import java.io.Serializable;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.ToString;
+import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.ValueObject;
 
@@ -27,18 +31,22 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>,
 	@Column(name = "TEXT")
 	private String text;
 
-	// TODO: Maybe add party if not reachable from audit created by and also if
+	// TODO: Maybe add person if not reachable from audit created by and also if
 	// notes from bestallare should be represented with this entity
-
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="PERSON_ID")
+	private Person person;
+	
 	// ~ Constructors ===================================================================================================
 
 	Note() {
 		// Needed by Hibernate
 	}
 
-	public Note(String text) {
+	public Note(String text, Person person) {
 		this.id = UUID.randomUUID().toString();
 		setText(text);
+		setPerson(person);
 	}
 
 	// ~ Property Methods ===============================================================================================
@@ -49,6 +57,14 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>,
 
 	public String getText() {
 		return this.text;
+	}
+
+	private void setPerson(Person person) {
+		this.person = person;
+	}
+
+	public Person getPerson() {
+		return this.person;
 	}
 
 	// ~ Other Methods ==================================================================================================

@@ -1,9 +1,9 @@
 package se.inera.fmu.domain.model.eavrop;
 
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
-import se.inera.fmu.domain.model.invanare.medicalexamination.PriorMedicalExamination;
+import se.inera.fmu.domain.model.eavrop.invanare.medicalexamination.PriorMedicalExamination;
 import se.inera.fmu.domain.model.landsting.Landsting;
-import se.inera.fmu.domain.party.Bestallaradministrator;
+import se.inera.fmu.domain.model.person.Bestallaradministrator;
 
 public class EavropBuilder {
 	//Required

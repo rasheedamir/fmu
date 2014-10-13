@@ -12,15 +12,17 @@ import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropBuilder;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
+import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
+import se.inera.fmu.domain.model.eavrop.EavropState;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
+import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
-import se.inera.fmu.domain.party.Bestallaradministrator;
 
 @Repository
 public class EavropRepositoryStub implements EavropRepository {
@@ -178,5 +180,18 @@ public class EavropRepositoryStub implements EavropRepository {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Eavrop> findByLandstingAndEavropStateIn(Landsting landsting, List<EavropState> eavropState) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//	@Override
+//	public List<Eavrop> findByLandstingAndEavropStateTypeIn(
+//			Landsting landsting, List<EavropStateType> eavropStateTypes) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }

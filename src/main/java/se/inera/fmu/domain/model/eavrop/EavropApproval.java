@@ -16,7 +16,7 @@ import lombok.ToString;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
 
-import se.inera.fmu.domain.party.Party;
+import se.inera.fmu.domain.model.person.Person;
 
 @Entity
 @Table(name = "T_EAVROP_APPROVAL")
@@ -34,13 +34,33 @@ public class EavropApproval {
 	private LocalDateTime approvalTimestamp;
 
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="PARTY_ID")
-	private Party party;
+    @JoinColumn(name="PERSON_ID")
+	private Person person;
 
-	public EavropApproval(LocalDateTime approvalTimestamp, Party party) {
+	EavropApproval(){
+		//Needed by Hibernate
+	}
+
+	public EavropApproval(LocalDateTime approvalTimestamp, Person person) {
 		super();
+		this.setApprovalTimestamp(approvalTimestamp);
+		this.setPerson(person);
+	}
+
+	public LocalDateTime getApprovalTimestamp() {
+		return approvalTimestamp;
+	}
+
+	private void setApprovalTimestamp(LocalDateTime approvalTimestamp) {
 		this.approvalTimestamp = approvalTimestamp;
-		this.party = party;
+	}
+
+	public Person getPerson() {
+		return person;
+	}
+
+	private void setPerson(Person person) {
+		this.person = person;
 	}
 	
 	//TODO embedded or own entity, value object

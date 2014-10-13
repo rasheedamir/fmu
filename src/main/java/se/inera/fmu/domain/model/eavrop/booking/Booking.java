@@ -1,5 +1,6 @@
 package se.inera.fmu.domain.model.eavrop.booking;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -20,9 +21,10 @@ import lombok.ToString;
 
 import org.apache.commons.lang.Validate;
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDateTime;
 
-import se.inera.fmu.domain.party.Party;
+import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
 
@@ -53,10 +55,9 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
  	private LocalDateTime endDateTime;
     
-	@NotNull
-	@OneToMany(cascade = CascadeType.ALL) //TODO: maybe many to many if we kan reuse the party entity
-	@JoinTable(name = "R_BOOKING_PARTY", joinColumns = @JoinColumn(name = "BOOKING_ID"), inverseJoinColumns = @JoinColumn(name = "PARTY_ID"))
- 	private Set<Party> parties; //value object
+	@OneToMany(cascade = CascadeType.ALL) //TODO: maybe many to many if we kan reuse the person entity
+	@JoinTable(name = "R_BOOKING_PERSON", joinColumns = @JoinColumn(name = "BOOKING_ID"), inverseJoinColumns = @JoinColumn(name = "PERSON_ID"))
+ 	private Set<Person> persons; //value object
 	
 	@Embedded
 	private BookingDeviation bookingDeviation;
@@ -68,16 +69,16 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
 		//Needed by Hibernate
 	}
 	
-	public Booking(BookingType type,  LocalDateTime startDateTime, LocalDateTime endDateTime, Set<Party> parties){
+	public Booking(BookingType type,  LocalDateTime startDateTime, LocalDateTime endDateTime, Person person){
     	this.setBookingId(new BookingId(UUID.randomUUID().toString()));
     	Validate.notNull(type);
     	Validate.notNull(startDateTime);
     	Validate.notNull(endDateTime);
-    	Validate.notNull(parties);
+    	Validate.notNull(person);
     	this.setBookingType(type);
     	this.setStartDateTime(startDateTime);
     	this.setEndDateTime(endDateTime);
-    	this.setParties(parties);
+    	this.addPerson(person);
 	}
 	
     //~ Property Methods ===============================================================================================
@@ -114,12 +115,19 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
 			this.endDateTime = endDateTime;
 		}
 
-		public Set<Party> getParties() {
-			return this.parties;
+		public Set<Person> getPersons() {
+			return this.persons;
 		}
 
-		private void setParties(Set<Party> parties) {
-			this.parties = parties;
+		private void setPersons(Set<Person> persons) {
+			this.persons = persons;
+		}
+
+		public void addPerson(Person person) {
+			if(this.persons == null){
+				this.persons = new HashSet<Person>();
+			}
+			this.persons.add(person);
 		}
 
 		public BookingDeviation getBookingDeviation() {
