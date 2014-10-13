@@ -6,17 +6,17 @@ import se.inera.fmu.domain.model.eavrop.EavropEvent;
 
 public class BookingDeviationEvent extends EavropEvent{
 
-	private final String bookingId;
+	private final BookingId bookingId;
 	
 	//~ Constructors ===================================================================================================
-	public BookingDeviationEvent(final ArendeId arendeId, final String bookingId) {
+	public BookingDeviationEvent(final ArendeId arendeId, final BookingId bookingId) {
 		super(arendeId);
 		this.bookingId = bookingId;
 	}
 
 	//~ Property Methods ===============================================================================================
 
-	public String getBookingId() {
+	public BookingId getBookingId() {
 		return this.bookingId;
 	}
 }

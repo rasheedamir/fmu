@@ -14,11 +14,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.Validate;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
 
 import se.inera.fmu.domain.model.eavrop.note.Note;
-import se.inera.fmu.domain.party.Party;
+import se.inera.fmu.domain.model.person.Person;
 import lombok.ToString;
 
 @Embeddable
@@ -36,19 +37,25 @@ public class BookingDeviationResponse {
 	private LocalDateTime responseTimestamp;
 
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="PARTY_ID")
-	private Party party;
+    @JoinColumn(name="PERSON_ID")
+	private Person person;
 	
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="RESPONSE_NOTE_ID", nullable = true)
 	private Note deviationResponseNote;
 
+    
+    public BookingDeviationResponse(){
+    	//Needed by Hibernate
+    }
 
-	public BookingDeviationResponse(BookingDeviationResponseType responseType, LocalDateTime responseTimestamp, Party party) {
+	public BookingDeviationResponse(BookingDeviationResponseType responseType, LocalDateTime responseTimestamp, Person person) {
 		super();
+		Validate.notNull(responseType);
+		Validate.notNull(responseTimestamp);
 		this.responseType = responseType;
 		this.responseTimestamp = responseTimestamp;
-		this.party = party;
+		this.person = person;
 	}
 	
 	public BookingDeviationResponseType getResponseType() {
@@ -70,12 +77,12 @@ public class BookingDeviationResponse {
 		this.responseTimestamp = responseTimestamp;
 	}
 
-	public Party getParty() {
-		return party;
+	public Person getPerson() {
+		return person;
 	}
 
-	private void setParty(Party party) {
-		this.party = party;
+	private void setPerson(Person person) {
+		this.person = person;
 	}
 
 	public Note getDeviationResponseNote() {

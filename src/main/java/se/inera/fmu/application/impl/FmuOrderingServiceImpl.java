@@ -15,14 +15,15 @@ import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.landsting.Landsting;
+import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
-import se.inera.fmu.domain.party.Bestallaradministrator;
 
 import javax.inject.Inject;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Rasheed on 7/7/14.
@@ -54,6 +55,16 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
         this.invanareRepository = invanareRepository;
         this.asyncEventBus = asyncEventBus;
     }
+    
+    @Override
+    public List<Eavrop> findAllUnassignedEavropByLandsting(Landsting landsting){
+    	return this.eavropRepository.findAllByLandsting(landsting);
+    }
+    
+//    private findAllEavropByLandstingAndStatus(){
+//    	
+//    	return this.eavropRepository.findAllByLandsting(landsting);
+//    }
 
     /**
      *

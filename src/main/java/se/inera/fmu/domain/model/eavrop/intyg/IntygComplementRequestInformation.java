@@ -5,17 +5,17 @@ import javax.persistence.Entity;
 
 import org.joda.time.LocalDateTime;
 
-import se.inera.fmu.domain.party.Party;
+import se.inera.fmu.domain.model.person.Person;
 import lombok.ToString;
 
 @Entity
-@DiscriminatorValue("APPROVED")
+@DiscriminatorValue("REQUEST")
 @ToString
 public class IntygComplementRequestInformation extends IntygInformation{
 
 	public IntygComplementRequestInformation(
-			LocalDateTime informationTimestamp, Party party) {
-		super(informationTimestamp, party);
+			LocalDateTime informationTimestamp, Person person) {
+		super(informationTimestamp, person);
 	}
 
 }

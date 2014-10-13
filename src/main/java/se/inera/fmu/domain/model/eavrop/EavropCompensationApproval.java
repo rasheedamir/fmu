@@ -16,7 +16,7 @@ import lombok.ToString;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
 
-import se.inera.fmu.domain.party.Party;
+import se.inera.fmu.domain.model.person.Person;
 
 @Entity
 @Table(name = "T_EAVROP_COMP_APPROVAL")
@@ -34,14 +34,19 @@ public class EavropCompensationApproval {
 	private LocalDateTime responseTimestamp;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "PARTY_ID")
-	private Party party;
+	@JoinColumn(name = "PERSON_ID")
+	private Person person;
 
-	public EavropCompensationApproval(LocalDateTime responseTimestamp,
-			Party party) {
+	public EavropCompensationApproval(){
+		//needed by Hibernate
+	}
+	
+	public EavropCompensationApproval(LocalDateTime responseTimestamp, Person person) {
 		super();
 		this.responseTimestamp = responseTimestamp;
-		this.party = party;
+		this.person = person;
 	}
+	
+	//TODO: embed in eavrop?
 
 }

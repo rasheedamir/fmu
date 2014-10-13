@@ -1,4 +1,4 @@
-package se.inera.fmu.domain.party;
+package se.inera.fmu.domain.model.person;
 
 import java.io.Serializable;
 
@@ -12,12 +12,12 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 	
 @Entity
-@Table(name = "T_PARTY")
+@Table(name = "T_PERSON")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-public abstract class Party implements Serializable  {
+public abstract class Person implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "PARTY_ID", updatable = false, nullable = false)
+    @Column(name = "PERSON_ID", updatable = false, nullable = false)
     private Long id;
 
     @Column(name = "NAME", nullable = false)
@@ -34,11 +34,11 @@ public abstract class Party implements Serializable  {
     
     //~ Constructors ===================================================================================================
 
-	public Party() {
+	public Person() {
 		//Needed by Hibernate
 	}
 
-	public Party(String name, String role, String organisation) {
+	public Person(String name, String role, String organisation) {
 		super();
 		this.name = name;
 		this.role = role;

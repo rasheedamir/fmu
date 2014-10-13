@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
 
-import se.inera.fmu.domain.party.Party;
+import se.inera.fmu.domain.model.person.Person;
 import lombok.ToString;
 
 @Entity
@@ -39,13 +39,13 @@ public abstract class IntygInformation{
 	
 	@NotNull
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="PARTY_ID")
-	private Party party;
+    @JoinColumn(name="PERSON_ID")
+	private Person person;
 	
-	public IntygInformation(LocalDateTime informationTimestamp, Party party) {
+	public IntygInformation(LocalDateTime informationTimestamp, Person person) {
 		super();
 		this.informationTimestamp = informationTimestamp;
-		this.party = party;
+		this.person = person;
 	}
 
 	public LocalDateTime getIntformationTimestamp() {
@@ -56,12 +56,12 @@ public abstract class IntygInformation{
 		this.informationTimestamp = intformationTimestamp;
 	}
 
-	public Party getParty() {
-		return party;
+	public Person getPerson() {
+		return person;
 	}
 
-	private void setParty(Party party) {
-		this.party = party;
+	private void setPerson(Person person) {
+		this.person = person;
 	}
 	
 }
