@@ -31,6 +31,8 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 	@Override
 	public void setDocumentsSentFromBestallareDateTime(Eavrop eavrop, LocalDateTime documentsSentFromBestallareDateTime){
 		
+		//TODO:Use adding of documents, if type is exteral, then check if start should be set
+		//TODO:Remove timestamp and amd only store documents? 
 		//TODO:Can this be sent multiple times and does it have any effect on start date
 		eavrop.setDocumentsSentFromBestallare(documentsSentFromBestallareDateTime);
 		
@@ -45,11 +47,8 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 			
 	@Override
 	public void addBooking(Eavrop eavrop, Booking booking){
-		if (eavrop.bookings == null) {
-			eavrop.bookings = new HashSet<Booking>();
-		}
-		eavrop.bookings.add(booking);
 		
+		eavrop.addToBookings(booking);
 		eavrop.handleBookingAdded(booking.getBookingId());
 		
 		//No state transition
@@ -100,17 +99,11 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 	
 	@Override
 	public void addReceivedDocument(Eavrop eavrop, ReceivedDocument receivedDocument) {
-		if (eavrop.receivedDocuments == null) {
-			eavrop.receivedDocuments = new HashSet<ReceivedDocument>();
-		}
-		eavrop.receivedDocuments.add(receivedDocument);
+		eavrop.addToReceivedDocuments(receivedDocument);
 	}
 	
 	@Override
 	public void addRequestedDocument(Eavrop eavrop, RequestedDocument requestedDocument) {
-		if (eavrop.requestedDocuments == null) {
-			eavrop.requestedDocuments = new HashSet<RequestedDocument>();
-		}
-		eavrop.requestedDocuments.add(requestedDocument);
+		eavrop.addToRequestedDocuments(requestedDocument);
 	}
 }

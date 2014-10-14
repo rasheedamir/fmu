@@ -3,6 +3,7 @@ package se.inera.fmu.infrastructure.persistence.stub;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -187,11 +188,12 @@ public class EavropRepositoryStub implements EavropRepository {
 		return null;
 	}
 
-//	@Override
-//	public List<Eavrop> findByLandstingAndEavropStateTypeIn(
-//			Landsting landsting, List<EavropStateType> eavropStateTypes) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	@Override
+	public List<Eavrop> findByByLandstingAndCreateDateAndEavropStateIn(
+			Landsting landsting, DateTime fromDate, DateTime toDate,
+			List<EavropState> eavropStates) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

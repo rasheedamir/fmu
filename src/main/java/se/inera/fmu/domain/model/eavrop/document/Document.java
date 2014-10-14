@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,11 +16,14 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.ToString;
 
 import org.apache.commons.lang.Validate;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.URL;
+import org.joda.time.LocalDateTime;
 
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
@@ -29,12 +34,22 @@ import se.inera.fmu.domain.shared.IEntity;
 @DiscriminatorColumn(name="DOCUMENT_TYPE")
 @Table(name = "T_DOCUMENT")
 @ToString
-public abstract class Document extends AbstractBaseEntity implements IEntity<Document>{
+public abstract class Document  implements IEntity<Document>{
 
     // database primary key
     @Id
     @Column(name = "DOCUMENT_ID", updatable = false, nullable = false)
     private String id;
+    
+	@Enumerated(EnumType.STRING)
+	@Column(name = "TYPE")
+	private DocumentOriginType documentType;
+	
+	@NotNull
+    @Column(name = "DOCUMENT_DATETIME", nullable = false, updatable = false)
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+	private LocalDateTime documentDateTime;
+
     
     @Column(name = "NAME", updatable = false,  nullable = false)
     private String name;
@@ -49,15 +64,41 @@ public abstract class Document extends AbstractBaseEntity implements IEntity<Doc
 		//Needed by Hibernate
 	}
 	
-	public Document(final String documentName, final Person person){
+	public Document(final DocumentOriginType documentType, final String documentName, final Person person){
     	this.setId(UUID.randomUUID().toString());
+    	Validate.notNull(documentType);
     	Validate.notNull(documentName);
+    	this.setDocumentDateTime(new LocalDateTime());
     	this.setDocumentName(documentName);
     	this.setPerson(person);
 	}
 
+	public Document(final DocumentOriginType documentType, final LocalDateTime documentDateTime, final String documentName, final Person person){
+    	this(documentType, documentName, person);
+    	if(documentDateTime!=null){
+    		this.setDocumentDateTime(documentDateTime);
+    	}
+   }
+
+	
     //~ Property Methods ===============================================================================================
 	
+	private DocumentOriginType getDocumentType() {
+		return documentType;
+	}
+
+	private void setDocumentType(DocumentOriginType documentType) {
+		this.documentType = documentType;
+	}
+	
+	private LocalDateTime getDocumentDateTime() {
+		return documentDateTime;
+	}
+
+	private void setDocumentDateTime(LocalDateTime documentDateTime) {
+		this.documentDateTime = documentDateTime;
+	}
+
 	public String getId() {
 		return id;
 	}

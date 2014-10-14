@@ -6,10 +6,13 @@ import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.ToString;
 import se.inera.fmu.domain.model.person.Person;
@@ -19,8 +22,7 @@ import se.inera.fmu.domain.shared.ValueObject;
 @Entity
 @Table(name = "T_NOTE")
 @ToString
-public class Note extends AbstractBaseEntity implements ValueObject<Note>,
-		Serializable {
+public class Note extends AbstractBaseEntity implements ValueObject<Note>, Comparable<Note>, Serializable  {
 	// ~ Instance fields ================================================================================================
 
 	// database primary key
@@ -28,6 +30,10 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>,
 	@Column(name = "NOTE_ID", updatable = false, nullable = false)
 	private String id;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "TYPE")
+	private NoteType noteType;
+	
 	@Column(name = "TEXT")
 	private String text;
 
@@ -43,14 +49,23 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>,
 		// Needed by Hibernate
 	}
 
-	public Note(String text, Person person) {
+	public Note(NoteType noteType, String text, Person person) {
 		this.id = UUID.randomUUID().toString();
+		this.setNoteType(noteType);
 		setText(text);
 		setPerson(person);
 	}
 
 	// ~ Property Methods ===============================================================================================
 
+	public NoteType getNoteType() {
+		return noteType;
+	}
+
+	private void setNoteType(NoteType noteType) {
+		this.noteType = noteType;
+	}
+	
 	private void setText(String text) {
 		this.text = text;
 	}
@@ -96,5 +111,10 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>,
 	@Override
 	public boolean sameValueAs(Note other) {
 		return other != null && this.id.equals(other.id);
+	}
+
+	@Override
+	public int compareTo(Note other) {
+	        return this.getCreatedDate().compareTo(other.getCreatedDate());
 	}
 }

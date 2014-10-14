@@ -14,6 +14,7 @@ import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
+import se.inera.fmu.domain.model.eavrop.document.DocumentOriginType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
@@ -22,6 +23,7 @@ import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedInformation;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.note.Note;
+import se.inera.fmu.domain.model.eavrop.note.NoteType;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
@@ -211,7 +213,7 @@ public abstract class AbstractEavropStateTest {
 	}
 	
 	protected ReceivedDocument createReceivedDocument(){
-		return new ReceivedDocument("RECEIVED_DOCUMENT", createPerson());
+		return new ReceivedDocument(DocumentOriginType.RECEIVED_EXTERNAL, "RECEIVED_DOCUMENT", createPerson());
 	}
 
 	protected RequestedDocument createRequestedDocument(){
@@ -235,7 +237,7 @@ public abstract class AbstractEavropStateTest {
 	}
 
 	protected Note createNote(){
-		return new Note("Comment", createPerson());
+		return new Note(NoteType.EAVROP, "Comment", createPerson());
 	}
 
 	protected EavropApproval createEavropApproval(){
@@ -243,7 +245,7 @@ public abstract class AbstractEavropStateTest {
 	}
 
 	protected EavropCompensationApproval createEavropCompensationApproval(){
-		return new EavropCompensationApproval(new LocalDateTime(), createPerson());
+		return new EavropCompensationApproval(Boolean.TRUE, new LocalDateTime(), createPerson());
 	}
 
 	protected BookingDeviation createBookingDevation(){

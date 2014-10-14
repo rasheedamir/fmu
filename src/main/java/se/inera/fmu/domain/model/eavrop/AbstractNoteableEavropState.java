@@ -11,10 +11,8 @@ import se.inera.fmu.domain.model.eavrop.note.Note;
 public abstract class AbstractNoteableEavropState extends AbstractEavropState {
 	@Override
 	public void addNote(Eavrop eavrop, Note note) {
-		if(eavrop.notes == null){
-			eavrop.notes = new HashSet<Note>();
-		} 
-		eavrop.notes.add(note);
+		eavrop.addToNotes(note);
+		
 	}
 
 }

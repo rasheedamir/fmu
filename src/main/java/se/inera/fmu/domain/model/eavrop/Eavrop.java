@@ -1,6 +1,9 @@
 package se.inera.fmu.domain.model.eavrop;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -93,12 +96,6 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	@Convert(converter = EavropStateConverter.class)
 	private EavropState eavropState; 
 
-//	@NotNull
-//	@Column(name = "STATE", nullable = false)
-//	@Enumerated(EnumType.STRING)
-//	protected EavropStateType eavropStateType; 
-
-	
 	// Type of utredning. An utredning can be one of tree types
 	@Column(name = "UTREDNING_TYPE", nullable = false, updatable = false)
 	@Enumerated(EnumType.STRING)
@@ -150,12 +147,12 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	// The bookings made
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "R_EAVROP_BOOKING", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "BOOKING_ID"))
-	protected Set<Booking> bookings;
+	private Set<Booking> bookings;
 
 	// The notes related to this eavrop
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "R_EAVROP_NOTE", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "NOTE_ID"))
-	protected Set<Note> notes;
+	private Set<Note> notes;
 
 	// Examination that led up to this FMU
 	@OneToOne(cascade = CascadeType.ALL)
@@ -165,12 +162,12 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	// Documents received received this FMU
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "R_EAVROP_DOCUMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "DOCUMENT_ID"))
-	protected Set<ReceivedDocument> receivedDocuments;
+	private Set<ReceivedDocument> receivedDocuments;
 
 	// Documents requested to this FMU
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "R_EAVROP_DOCUMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "DOCUMENT_ID"))
-	protected Set<RequestedDocument> requestedDocuments;
+	private Set<RequestedDocument> requestedDocuments;
 	
 	//TODO: as list
 	// When documents were sent from bestallare
@@ -401,7 +398,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	}
 
 	/**
-	 * Returns alla booking deviations on all bookings
+	 * Return all booking deviations on all bookings
 	 */
 	public Set<BookingDeviation> getBookingDeviations() {
 		Set<BookingDeviation> result = new HashSet<BookingDeviation>();
@@ -415,7 +412,22 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		return result;
 	}
 
+
+	/**
+	 * Return number of deviation 
+	 */
+	//TODO:is there anything esle that that qualifies as a deviation, and should all booking deviations
+	//be counted here
+	public int getNumberOfDeviations() {
+		int result = 0;
 		
+		if(getBookingDeviations()!=null){
+			result = getBookingDeviations().size();
+		}
+		return result;	
+	}
+
+	
 	private void setBookings(Set<Booking> bookings) {
 		this.bookings = bookings;
 	}
@@ -430,6 +442,18 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	public void addBooking(Booking booking) {
 		this.getEavropState().addBooking(this, booking);
 	}
+	
+
+	/**
+	 * Only to be used from EavropState
+	 */
+	protected void addToBookings(Booking booking) {
+		if (this.bookings == null) {
+			this.bookings = new HashSet<Booking>();
+		}
+		this.bookings.add(booking);
+	}
+
 
 	/**
 	 * Cancel the specified booking with deviation
@@ -483,6 +507,18 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	}
 	
 	/**
+	 * 
+	 * 
+	 */
+	protected void addToReceivedDocuments(ReceivedDocument receivedDocument) {
+		if (this.receivedDocuments == null) {
+			this.receivedDocuments = new HashSet<ReceivedDocument>();
+		}
+		this.receivedDocuments.add(receivedDocument);
+	}
+
+	
+	/**
 	 * Returns a set with requested document information entities added to this eavrop
 	 *
 	 * @return requestedDocuments, as a Set of receivedDocuments
@@ -500,6 +536,17 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	 */
 	public void addRequestedDocument(RequestedDocument requestedDocument){
 		this.getEavropState().addRequestedDocument(this, requestedDocument);
+	}
+	
+	/**
+	 * 
+	 * 
+	 */
+	protected void addToRequestedDocuments(RequestedDocument requestedDocument) {
+		if (this.requestedDocuments == null) {
+			this.requestedDocuments = new HashSet<RequestedDocument>();
+		}
+		this.requestedDocuments.add(requestedDocument);
 	}
 
 	/**
@@ -686,7 +733,50 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.getEavropState().addNote(this, note);
 	}
 	
+
 	/**
+	 * Only to be used from eavropState
+	 */
+	protected void addToNotes(Note note) {
+		if(this.notes == null){
+			this.notes = new HashSet<Note>();
+		} 
+		this.notes.add(note);
+	}
+
+	
+	/**
+	 * Returns all notes added to the eavrop or its child entities
+	 * @return
+	 */
+	public List<Note> getAllNotes(){
+		
+		List<Note> result = new ArrayList<Note>(getNotes());
+		
+		for (BookingDeviation deviation : getBookingDeviations()) {
+			if(deviation.getDeviationNote()!=null){
+				result.add(deviation.getDeviationNote());
+			}
+			if(deviation.getBookingDeviationResponse()!=null && deviation.getBookingDeviationResponse().getDeviationResponseNote()!=null){
+				result.add(deviation.getBookingDeviationResponse().getDeviationResponseNote());
+			}
+		}
+		
+		if(getEavropApproval() != null && getEavropApproval().getNote() != null){
+			result.add(getEavropApproval().getNote());
+		}
+
+		if(getEavropCompensationApproval() != null && getEavropCompensationApproval().getNote() != null){
+			result.add(getEavropCompensationApproval().getNote());
+		}
+		
+		Collections.sort(result);
+		return result;
+	}
+	
+	/**
+	 * 
+	 * 
 	 * Returns information about prior medical examination leading up to this eavrop
 	 * 
 	 * @return priorMedicalExamination
@@ -743,10 +833,10 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	 * Returns a descriptive String about the language requirements of the interpreter
 	 * @return
 	 */
-	public String getIterpreterLanguageSkills() 
+	public String getIterpreterDescription() 
 	{
 		if(isInterpreterNeeded()){
-			return this.interpreter.getInterpreterLanguage();
+			return this.interpreter.getInterpreterDescription();
 		} 
 		return null;
 	}
