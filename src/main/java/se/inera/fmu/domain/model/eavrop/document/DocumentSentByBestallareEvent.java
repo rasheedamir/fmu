@@ -6,13 +6,13 @@ import org.joda.time.LocalDateTime;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropEvent;
 
-public class DocumentsSentFromBestallareEvent extends EavropEvent{
+public class DocumentSentByBestallareEvent extends EavropEvent{
 	
 	private final LocalDateTime documentsSentDateTime; 
 	
 	//~ Constructors ===================================================================================================
     
-	public DocumentsSentFromBestallareEvent(final ArendeId arendeId, final LocalDateTime documentsSentDateTime) {
+	public DocumentSentByBestallareEvent(final ArendeId arendeId, final LocalDateTime documentsSentDateTime) {
 		super(arendeId);
 		Validate.notNull(documentsSentDateTime);
 		this.documentsSentDateTime= documentsSentDateTime;

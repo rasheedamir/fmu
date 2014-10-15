@@ -38,7 +38,7 @@ import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationEvent;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
-import se.inera.fmu.domain.model.eavrop.document.DocumentsSentFromBestallareEvent;
+import se.inera.fmu.domain.model.eavrop.document.DocumentSentByBestallareEvent;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
@@ -786,7 +786,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 
 	protected void handleDocumentsSent(){
 		//TODO: dont know if this event should be created... 
-		DocumentsSentFromBestallareEvent event = new DocumentsSentFromBestallareEvent(this.getArendeId(), getDateTimeDocumentsSentFromBestallare());
+		DocumentSentByBestallareEvent event = new DocumentSentByBestallareEvent(this.getArendeId(), getDateTimeDocumentsSentFromBestallare());
 
 		//TODO: Post event on bus
 	}
