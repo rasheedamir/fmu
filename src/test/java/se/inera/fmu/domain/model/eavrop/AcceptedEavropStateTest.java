@@ -1,15 +1,14 @@
 package se.inera.fmu.domain.model.eavrop;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.Set;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
 import org.junit.Test;
 
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
-import se.inera.fmu.domain.model.eavrop.note.Note;
 
 
 public class AcceptedEavropStateTest extends AbstractNoteableEavropStateTest{

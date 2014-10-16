@@ -1,12 +1,8 @@
 package se.inera.fmu.domain.model.eavrop;
 
-import static org.junit.Assert.*;
-
-import java.util.HashSet;
-import java.util.Set;
+import static org.junit.Assert.assertEquals;
 
 import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
 import org.junit.Test;
 
 import se.inera.fmu.domain.model.eavrop.booking.Booking;

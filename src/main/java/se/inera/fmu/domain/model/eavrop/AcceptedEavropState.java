@@ -1,12 +1,5 @@
 package se.inera.fmu.domain.model.eavrop;
 
-import java.util.HashSet;
-
-import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
-
-import se.inera.fmu.domain.model.eavrop.ApprovedEavropState;
-import se.inera.fmu.domain.model.eavrop.OnHoldEavropState;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationTypeUtil;
