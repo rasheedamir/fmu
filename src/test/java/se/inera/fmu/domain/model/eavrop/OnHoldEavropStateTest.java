@@ -10,19 +10,7 @@ import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
 
 
-public class OnHoldEavropStateTest extends AbstractEavropStateTest{
-
-	@Test
-	@Override
-	public void testAddNoteToEavrop() {
-		Eavrop eavrop = getEavrop();
-		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.addNote(createNote());
-		
-		assertNotNull(eavrop.getNotes());
-		assertEquals(1, eavrop.getNotes().size()); 
-		assertEquals(EavropStateType.ON_HOLD, eavrop.getEavropState().getEavropStateType());
-	}
+public class OnHoldEavropStateTest extends AbstractNoteableEavropStateTest{
 
 	@Test
 	@Override

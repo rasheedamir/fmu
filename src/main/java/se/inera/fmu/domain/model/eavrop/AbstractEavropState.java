@@ -2,6 +2,7 @@ package se.inera.fmu.domain.model.eavrop;
 
 import java.io.Serializable;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 
 import se.inera.fmu.domain.model.eavrop.EavropState;
@@ -47,7 +48,7 @@ public abstract class AbstractEavropState implements EavropState, Serializable {
 
 	@Override
 	public void setDocumentsSentFromBestallareDateTime(Eavrop eavrop,
-			LocalDateTime documentsSentFromBestallareDateTime) {
+			DateTime documentsSentFromBestallareDateTime) {
 		throw new IllegalStateException(
 				"Method setDocumentsSentFromBestallareDateTime is not available in state "
 						+ getEavropStateType().name());
@@ -96,6 +97,13 @@ public abstract class AbstractEavropState implements EavropState, Serializable {
 						+ getEavropStateType().name());
 	}
 
+	@Override
+	public void removeNote(Eavrop eavrop, Note note) {
+		throw new IllegalStateException(
+				"Method removeNote is not available in state "
+						+ getEavropStateType().name());
+	}
+	
 	@Override
 	public void addIntygSignedInformation(Eavrop eavrop,
 			IntygSignedInformation intygSignedInformation) {

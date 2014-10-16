@@ -23,7 +23,7 @@ import lombok.ToString;
 import org.apache.commons.lang.Validate;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.URL;
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
@@ -41,14 +41,10 @@ public abstract class Document  implements IEntity<Document>{
     @Column(name = "DOCUMENT_ID", updatable = false, nullable = false)
     private String id;
     
-	@Enumerated(EnumType.STRING)
-	@Column(name = "TYPE")
-	private DocumentOriginType documentType;
-	
 	@NotNull
     @Column(name = "DOCUMENT_DATETIME", nullable = false, updatable = false)
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-	private LocalDateTime documentDateTime;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime documentDateTime;
 
     
     @Column(name = "NAME", updatable = false,  nullable = false)
@@ -64,38 +60,28 @@ public abstract class Document  implements IEntity<Document>{
 		//Needed by Hibernate
 	}
 	
-	public Document(final DocumentOriginType documentType, final String documentName, final Person person){
+	public Document(final String documentName, final Person person){
     	this.setId(UUID.randomUUID().toString());
-    	Validate.notNull(documentType);
     	Validate.notNull(documentName);
-    	this.setDocumentDateTime(new LocalDateTime());
+    	this.setDocumentDateTime(new DateTime());
     	this.setDocumentName(documentName);
     	this.setPerson(person);
 	}
 
-	public Document(final DocumentOriginType documentType, final LocalDateTime documentDateTime, final String documentName, final Person person){
-    	this(documentType, documentName, person);
+	public Document(final DateTime documentDateTime, final String documentName, final Person person){
+    	this(documentName, person);
     	if(documentDateTime!=null){
     		this.setDocumentDateTime(documentDateTime);
     	}
    }
-
 	
     //~ Property Methods ===============================================================================================
 	
-	private DocumentOriginType getDocumentType() {
-		return documentType;
-	}
-
-	private void setDocumentType(DocumentOriginType documentType) {
-		this.documentType = documentType;
-	}
-	
-	private LocalDateTime getDocumentDateTime() {
+	public DateTime getDocumentDateTime() {
 		return documentDateTime;
 	}
 
-	private void setDocumentDateTime(LocalDateTime documentDateTime) {
+	private void setDocumentDateTime(DateTime documentDateTime) {
 		this.documentDateTime = documentDateTime;
 	}
 

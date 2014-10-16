@@ -1,6 +1,6 @@
 package se.inera.fmu.domain.model.eavrop;
 
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
@@ -27,7 +27,7 @@ public interface EavropState{
 	
 	public void rejectEavropAssignment(Eavrop eavrop);
 	
-	public void setDocumentsSentFromBestallareDateTime(Eavrop eavrop, LocalDateTime documentsSentFromBestallareDateTime);
+	public void setDocumentsSentFromBestallareDateTime(Eavrop eavrop, DateTime documentsSentFromBestallareDateTime);
 	
 	public void addReceivedDocument(Eavrop eavrop, ReceivedDocument receivedDocument);
 	
@@ -40,6 +40,8 @@ public interface EavropState{
 	public void addBookingDeviationResponse(Eavrop eavrop, BookingId bookingId, BookingDeviationResponse bookingDeviationResponse);
 	
 	public void addNote(Eavrop eavrop, Note note);
+	
+	public void removeNote(Eavrop eavrop, Note note);
 	
 	public void addIntygSignedInformation(Eavrop eavrop, IntygSignedInformation intygSignedInformation);
 

@@ -5,19 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 
-public class ApprovedEavropStateTest extends AbstractEavropStateTest{
+public class ApprovedEavropStateTest extends AbstractNoteableEavropStateTest{
 
-	@Test
-	@Override
-	public void testAddNoteToEavrop() {
-		Eavrop eavrop = getEavrop();
-		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.addNote(createNote());
-		
-		assertNotNull(eavrop.getNotes());
-		assertEquals(1, eavrop.getNotes().size()); 
-		assertEquals(EavropStateType.APPROVED, eavrop.getEavropState().getEavropStateType());
-	}
 
 	@Test
 	@Override

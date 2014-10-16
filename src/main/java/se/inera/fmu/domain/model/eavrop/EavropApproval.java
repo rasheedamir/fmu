@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import lombok.ToString;
 
 import org.hibernate.annotations.Type;
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
@@ -33,9 +33,9 @@ public class EavropApproval implements ValueObject<EavropApproval>{
 	private Long eavropApprovalId;
 	 
 	@NotNull
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "APPROVAL_DATE_TIME")
-	private LocalDateTime approvalTimestamp;
+	private DateTime approvalTimestamp;
 
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="PERSON_ID")
@@ -51,24 +51,24 @@ public class EavropApproval implements ValueObject<EavropApproval>{
 		//Needed by Hibernate
 	}
 
-	public EavropApproval(LocalDateTime approvalTimestamp, Person person) {
+	public EavropApproval(DateTime approvalTimestamp, Person person) {
 		super();
 		this.setApprovalTimestamp(approvalTimestamp);
 		this.setPerson(person);
 	}
 
-	public EavropApproval(LocalDateTime approvalTimestamp, Person person, Note note) {
+	public EavropApproval(DateTime approvalTimestamp, Person person, Note note) {
 		this(approvalTimestamp, person);
 		this.setNote(note);
 	}
 
 	//~ Property Methods ===============================================================================================
 	
-	public LocalDateTime getApprovalTimestamp() {
+	public DateTime getApprovalTimestamp() {
 		return approvalTimestamp;
 	}
 
-	private void setApprovalTimestamp(LocalDateTime approvalTimestamp) {
+	private void setApprovalTimestamp(DateTime approvalTimestamp) {
 		this.approvalTimestamp = approvalTimestamp;
 	}
 

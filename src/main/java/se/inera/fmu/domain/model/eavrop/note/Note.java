@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -26,9 +27,8 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>, Compa
 	// ~ Instance fields ================================================================================================
 
 	// database primary key
-	@Id
-	@Column(name = "NOTE_ID", updatable = false, nullable = false)
-	private String id;
+	@EmbeddedId
+	private NoteId noteId;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "TYPE")
@@ -37,8 +37,6 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>, Compa
 	@Column(name = "TEXT")
 	private String text;
 
-	// TODO: Maybe add person if not reachable from audit created by and also if
-	// notes from bestallare should be represented with this entity
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="PERSON_ID")
 	private Person person;
@@ -50,13 +48,21 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>, Compa
 	}
 
 	public Note(NoteType noteType, String text, Person person) {
-		this.id = UUID.randomUUID().toString();
+		this.setNoteId(new NoteId());
 		this.setNoteType(noteType);
 		setText(text);
 		setPerson(person);
 	}
 
 	// ~ Property Methods ===============================================================================================
+
+	public NoteId getNoteId(){
+		return this.noteId;
+	}
+	
+	private void setNoteId(NoteId noteId){
+		this.noteId = noteId;
+	}
 
 	public NoteType getNoteType() {
 		return noteType;
@@ -105,12 +111,12 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>, Compa
 	 */
 	@Override
 	public int hashCode() {
-		return this.id.hashCode();
+		return this.getNoteId().hashCode();
 	}
 
 	@Override
 	public boolean sameValueAs(Note other) {
-		return other != null && this.id.equals(other.id);
+		return other != null && this.getNoteId().equals(other.getNoteId());
 	}
 
 	@Override

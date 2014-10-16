@@ -4,13 +4,15 @@ import static org.junit.Assert.*;
 
 import java.util.Set;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
 
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
+import se.inera.fmu.domain.model.eavrop.note.Note;
 
 
-public class AcceptedEavropStateTest extends AbstractEavropStateTest{
+public class AcceptedEavropStateTest extends AbstractNoteableEavropStateTest{
 
 	@Test
 	@Override
@@ -44,26 +46,16 @@ public class AcceptedEavropStateTest extends AbstractEavropStateTest{
 		assertEquals(EavropStateType.ON_HOLD, eavrop.getEavropState().getEavropStateType());
 	}
 	
-	@Test
-	@Override
-	public void testAddNoteToEavrop() {
-		Eavrop eavrop = getEavrop();
-		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.addNote(createNote());
-		
-		assertNotNull(eavrop.getNotes());
-		assertEquals(1, eavrop.getNotes().size()); 
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getEavropState().getEavropStateType());
-	}
 
-	@Test
-	@Override
-	public void testSetDocumentsSentFromBestallare() {
-		Eavrop eavrop = getEavrop();
-		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.setDateTimeDocumentsSentFromBestallare(new LocalDateTime());
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getEavropState().getEavropStateType());
-	}
+	
+//	@Test
+//	@Override
+//	public void testSetDocumentsSentFromBestallare() {
+//		Eavrop eavrop = getEavrop();
+//		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
+//		eavrop.setDateTimeDocumentsSentFromBestallare(new DateTime());
+//		assertEquals(EavropStateType.ACCEPTED, eavrop.getEavropState().getEavropStateType());
+//	}
 	
 	@Test
 	@Override
@@ -132,10 +124,6 @@ public class AcceptedEavropStateTest extends AbstractEavropStateTest{
 		
 		assertEquals(EavropStateType.APPROVED, eavrop.getEavropState().getEavropStateType());
 	}
-
-
-
-	
 	
 	@Override
 	Eavrop getEavrop() {

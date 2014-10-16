@@ -3,7 +3,7 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
 				   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
 				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">    <changeSet author="richjo (generated)" id="1413292419494-1">
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">    <changeSet author="richjo (generated)" id="002-1">
         <createTable tableName="R_BOOKING_PERSON">
             <column name="BOOKING_ID" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -13,7 +13,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-2">
+    <changeSet author="richjo (generated)" id="002-2">
         <createTable tableName="R_EAVROP_ASSIGNMENT">
             <column name="EAVROP_ID" type="BIGINT">
                 <constraints nullable="false"/>
@@ -23,7 +23,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-3">
+    <changeSet author="richjo (generated)" id="002-3">
         <createTable tableName="R_EAVROP_BOOKING">
             <column name="EAVROP_ID" type="BIGINT">
                 <constraints nullable="false"/>
@@ -33,7 +33,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-4">
+    <changeSet author="richjo (generated)" id="002-4">
         <createTable tableName="R_EAVROP_DOCUMENT">
             <column name="EAVROP_ID" type="BIGINT">
                 <constraints nullable="false"/>
@@ -43,7 +43,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-5">
+    <changeSet author="richjo (generated)" id="002-5">
         <createTable tableName="R_EAVROP_INTYG">
             <column name="EAVROP_ID" type="BIGINT">
                 <constraints nullable="false"/>
@@ -53,7 +53,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-6">
+    <changeSet author="richjo (generated)" id="002-6">
         <createTable tableName="R_EAVROP_NOTE">
             <column name="EAVROP_ID" type="BIGINT">
                 <constraints nullable="false"/>
@@ -63,7 +63,17 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-7">
+    <changeSet author="richjo (generated)" id="002-7">
+        <createTable tableName="R_LANDSTING_HOSPERSONAL">
+            <column name="LANDSTING_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HOSPERSONAL_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="richjo (generated)" id="002-8">
         <createTable tableName="R_LANDSTING_VARDGIVARENHET">
             <column name="LANDSTING_ID" type="BIGINT">
                 <constraints nullable="false"/>
@@ -73,7 +83,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-8">
+    <changeSet author="richjo (generated)" id="002-9">
         <createTable tableName="R_VARDGIVARE_VARDGIVARENHET">
             <column name="VARDGIVARE_ID" type="BIGINT">
                 <constraints nullable="false"/>
@@ -83,7 +93,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-9">
+    <changeSet author="richjo (generated)" id="002-10">
         <createTable tableName="T_ASSIGNMENT">
             <column name="ASSIGNMENT_ID" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -99,7 +109,7 @@
             <column name="vardgivarenhet_VARDGIVARENHET_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-10">
+    <changeSet author="richjo (generated)" id="002-11">
         <createTable tableName="T_BOOKING">
             <column name="BOOKING_ID" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -126,7 +136,7 @@
             <column name="DEVIATION_NOTE_ID" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-11">
+    <changeSet author="richjo (generated)" id="002-12">
         <createTable tableName="T_DOCUMENT">
             <column name="DOCUMENT_TYPE" type="VARCHAR(31)">
                 <constraints nullable="false"/>
@@ -137,14 +147,14 @@
             <column name="DOCUMENT_DATETIME" type="datetime">
                 <constraints nullable="false"/>
             </column>
-            <column name="TYPE" type="VARCHAR(255)"/>
             <column name="NAME" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="EXTERNAL" type="BOOLEAN"/>
             <column name="PERSON_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-12">
+    <changeSet author="richjo (generated)" id="002-13">
         <createTable tableName="T_EAVROP">
             <column autoIncrement="true" name="EAVROP_ID" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="T_EAVROPPK"/>
@@ -158,13 +168,14 @@
             <column name="ARENDE_ID" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CURRENT_START_DATE" type="date"/>
             <column name="DESCRIPTION" type="VARCHAR(255)"/>
             <column name="DOCUMENTS_SENT_DATE_TIME" type="datetime"/>
             <column name="STATE" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="INTERPRETER_DESC" type="VARCHAR(255)"/>
+            <column name="CURRENT_INTYG_SIGNED_DATE" type="datetime"/>
+            <column name="CURRENT_START_DATE" type="date"/>
             <column name="EXAMINATION_FOCUS" type="VARCHAR(255)"/>
             <column name="UTREDNING_TYPE" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -178,7 +189,7 @@
             <column name="PRIOR_EXAMINATION_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-13">
+    <changeSet author="richjo (generated)" id="002-14">
         <createTable tableName="T_EAVROP_APPROVAL">
             <column autoIncrement="true" name="EAVROP_APPROVAL_ID" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="T_EAVROP_APPRPK"/>
@@ -188,7 +199,7 @@
             <column name="PERSON_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-14">
+    <changeSet author="richjo (generated)" id="002-15">
         <createTable tableName="T_EAVROP_COMP_APPROVAL">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="T_EAVROP_COMPPK"/>
@@ -199,7 +210,7 @@
             <column name="PERSON_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-15">
+    <changeSet author="richjo (generated)" id="002-16">
         <createTable tableName="T_HOSPERSONAL">
             <column name="DTYPE" type="VARCHAR(31)">
                 <constraints nullable="false"/>
@@ -228,7 +239,7 @@
             <column name="LANDSTING_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-16">
+    <changeSet author="richjo (generated)" id="002-17">
         <createTable tableName="T_INTYG_INFORMATION">
             <column name="INFO_TYPE" type="VARCHAR(31)">
                 <constraints nullable="false"/>
@@ -242,7 +253,7 @@
             <column name="PERSON_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-17">
+    <changeSet author="richjo (generated)" id="002-18">
         <createTable tableName="T_INVANARE">
             <column autoIncrement="true" name="INVANARE_ID" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="T_INVANAREPK"/>
@@ -283,7 +294,7 @@
             <column name="SPECIAL_NEEDS" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-18">
+    <changeSet author="richjo (generated)" id="002-19">
         <createTable tableName="T_LANDSTING">
             <column autoIncrement="true" name="LANDSTING_ID" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="T_LANDSTINGPK"/>
@@ -306,17 +317,7 @@
                   tableName="T_LANDSTING">
         </loadData>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-19">
-        <createTable tableName="T_LANDSTING_T_HOSPERSONAL">
-            <column name="T_LANDSTING_LANDSTING_ID" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="landstingssamordnare_HOSPERSONAL_ID" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-20">
+    <changeSet author="richjo (generated)" id="002-20">
         <createTable tableName="T_NOTE">
             <column name="NOTE_ID" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -331,7 +332,7 @@
             <column name="PERSON_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-21">
+    <changeSet author="richjo (generated)" id="002-21">
         <createTable tableName="T_PERSON">
             <column name="DTYPE" type="VARCHAR(31)">
                 <constraints nullable="false"/>
@@ -348,7 +349,7 @@
             <column name="PHONE" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-22">
+    <changeSet author="richjo (generated)" id="002-22">
         <createTable tableName="T_PRIOR_MEDICAL_EXAMINATION">
             <column autoIncrement="true" name="PRIOR_MEDICAL_EXAM_ID" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="T_PRIOR_MEDICPK"/>
@@ -358,7 +359,7 @@
             <column name="PERSON_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-23">
+    <changeSet author="richjo (generated)" id="002-23">
         <createTable tableName="T_VARDGIVARE">
             <column autoIncrement="true" name="VARDGIVARE_ID" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="T_VARDGIVAREPK"/>
@@ -376,7 +377,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-24">
+    <changeSet author="richjo (generated)" id="002-24">
         <createTable tableName="T_VARDGIVARENHET">
             <column autoIncrement="true" name="VARDGIVARENHET_ID" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="T_VARDGIVARENPK"/>
@@ -409,7 +410,7 @@
             <column name="VARDGIVARE_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-25">
+    <changeSet author="richjo (generated)" id="002-25">
         <createTable tableName="T_VARDGIVARENHET_T_LANDSTING">
             <column name="T_VARDGIVARENHET_VARDGIVARENHET_ID" type="BIGINT">
                 <constraints nullable="false"/>
@@ -419,221 +420,224 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-26">
+    <changeSet author="richjo (generated)" id="002-26">
         <addPrimaryKey columnNames="BOOKING_ID, PERSON_ID" tableName="R_BOOKING_PERSON"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-27">
+    <changeSet author="richjo (generated)" id="002-27">
         <addPrimaryKey columnNames="EAVROP_ID, ASSIGNMENT_ID" tableName="R_EAVROP_ASSIGNMENT"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-28">
+    <changeSet author="richjo (generated)" id="002-28">
         <addPrimaryKey columnNames="EAVROP_ID, BOOKING_ID" tableName="R_EAVROP_BOOKING"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-29">
+    <changeSet author="richjo (generated)" id="002-29">
         <addPrimaryKey columnNames="EAVROP_ID, DOCUMENT_ID" tableName="R_EAVROP_DOCUMENT"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-30">
+    <changeSet author="richjo (generated)" id="002-30">
         <addPrimaryKey columnNames="EAVROP_ID, INTYG_INFORMATION_ID" tableName="R_EAVROP_INTYG"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-31">
+    <changeSet author="richjo (generated)" id="002-31">
         <addPrimaryKey columnNames="EAVROP_ID, NOTE_ID" tableName="R_EAVROP_NOTE"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-32">
+    <changeSet author="richjo (generated)" id="002-32">
+        <addPrimaryKey columnNames="LANDSTING_ID, HOSPERSONAL_ID" tableName="R_LANDSTING_HOSPERSONAL"/>
+    </changeSet>
+    <changeSet author="richjo (generated)" id="002-33">
         <addPrimaryKey columnNames="LANDSTING_ID, VARDGIVARENHET_ID" tableName="R_LANDSTING_VARDGIVARENHET"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-33">
+    <changeSet author="richjo (generated)" id="002-34">
         <addPrimaryKey columnNames="VARDGIVARE_ID, VARDGIVARENHET_ID" tableName="R_VARDGIVARE_VARDGIVARENHET"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-34">
-        <addPrimaryKey columnNames="T_LANDSTING_LANDSTING_ID, landstingssamordnare_HOSPERSONAL_ID" tableName="T_LANDSTING_T_HOSPERSONAL"/>
-    </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-35">
+    <changeSet author="richjo (generated)" id="002-35">
         <addPrimaryKey columnNames="T_VARDGIVARENHET_VARDGIVARENHET_ID, landsting_LANDSTING_ID" tableName="T_VARDGIVARENHET_T_LANDSTING"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-36">
+    <changeSet author="richjo (generated)" id="002-36">
         <addPrimaryKey columnNames="ASSIGNMENT_ID" constraintName="T_ASSIGNMENTPK" tableName="T_ASSIGNMENT"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-37">
+    <changeSet author="richjo (generated)" id="002-37">
         <addPrimaryKey columnNames="BOOKING_ID" constraintName="T_BOOKINGPK" tableName="T_BOOKING"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-38">
+    <changeSet author="richjo (generated)" id="002-38">
         <addPrimaryKey columnNames="DOCUMENT_ID" constraintName="T_DOCUMENTPK" tableName="T_DOCUMENT"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-39">
+    <changeSet author="richjo (generated)" id="002-39">
         <addPrimaryKey columnNames="NOTE_ID" constraintName="T_NOTEPK" tableName="T_NOTE"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-40">
+    <changeSet author="richjo (generated)" id="002-40">
         <addUniqueConstraint columnNames="PERSON_ID" constraintName="UC_R_BOOKING_PERSON_PERSON_ID" deferrable="false" disabled="false" initiallyDeferred="false" tableName="R_BOOKING_PERSON"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-41">
+    <changeSet author="richjo (generated)" id="002-41">
         <addUniqueConstraint columnNames="ASSIGNMENT_ID" constraintName="UC_R_EAVROP_ASSIGNMENT_ASSIGNMENT_ID" deferrable="false" disabled="false" initiallyDeferred="false" tableName="R_EAVROP_ASSIGNMENT"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-42">
+    <changeSet author="richjo (generated)" id="002-42">
         <addUniqueConstraint columnNames="BOOKING_ID" constraintName="UC_R_EAVROP_BOOKING_BOOKING_ID" deferrable="false" disabled="false" initiallyDeferred="false" tableName="R_EAVROP_BOOKING"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-43">
+    <changeSet author="richjo (generated)" id="002-43">
         <addUniqueConstraint columnNames="DOCUMENT_ID" constraintName="UC_R_EAVROP_DOCUMENT_DOCUMENT_ID" deferrable="false" disabled="false" initiallyDeferred="false" tableName="R_EAVROP_DOCUMENT"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-44">
+    <changeSet author="richjo (generated)" id="002-44">
         <addUniqueConstraint columnNames="INTYG_INFORMATION_ID" constraintName="UC_R_EAVROP_INTYG_INTYG_INFORMATION_ID" deferrable="false" disabled="false" initiallyDeferred="false" tableName="R_EAVROP_INTYG"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-45">
+    <changeSet author="richjo (generated)" id="002-45">
         <addUniqueConstraint columnNames="NOTE_ID" constraintName="UC_R_EAVROP_NOTE_NOTE_ID" deferrable="false" disabled="false" initiallyDeferred="false" tableName="R_EAVROP_NOTE"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-46">
+    <changeSet author="richjo (generated)" id="002-46">
         <addUniqueConstraint columnNames="VARDGIVARENHET_ID" constraintName="UC_R_VARDGIVARE_VARDGIVARENHET_VARDGIVARENHET_ID" deferrable="false" disabled="false" initiallyDeferred="false" tableName="R_VARDGIVARE_VARDGIVARENHET"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-47">
+    <changeSet author="richjo (generated)" id="002-47">
         <addUniqueConstraint columnNames="BOOKING_ID" constraintName="UC_T_BOOKINGBOOKING_ID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="T_BOOKING"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-48">
+    <changeSet author="richjo (generated)" id="002-48">
         <addUniqueConstraint columnNames="ARENDE_ID" constraintName="UC_T_EAVROP_ARENDE_ID" deferrable="false" disabled="false" initiallyDeferred="false" tableName="T_EAVROP"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-49">
+    <changeSet author="richjo (generated)" id="002-49">
         <addUniqueConstraint columnNames="HSA_ID" constraintName="UC_T_HOSPERSONAL_HSA_ID" deferrable="false" disabled="false" initiallyDeferred="false" tableName="T_HOSPERSONAL"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-50">
+    <changeSet author="richjo (generated)" id="002-50">
         <addUniqueConstraint columnNames="LANDSTING_CODE" constraintName="UC_T_LANDSTINGLANDSTING_CODE_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="T_LANDSTING"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-51">
+    <changeSet author="richjo (generated)" id="002-51">
+        <addUniqueConstraint columnNames="NOTE_ID" constraintName="UC_T_NOTENOTE_ID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="T_NOTE"/>
+    </changeSet>
+    <changeSet author="richjo (generated)" id="002-52">
         <addUniqueConstraint columnNames="HSA_ID" constraintName="UC_T_VARDGIVARENHET_HSA_ID" deferrable="false" disabled="false" initiallyDeferred="false" tableName="T_VARDGIVARENHET"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-52">
+    <changeSet author="richjo (generated)" id="002-53">
         <addUniqueConstraint columnNames="HSA_ID" constraintName="UC_T_VARDGIVARE_HSA_ID" deferrable="false" disabled="false" initiallyDeferred="false" tableName="T_VARDGIVARE"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-53">
+    <changeSet author="richjo (generated)" id="002-54">
         <addForeignKeyConstraint baseColumnNames="PERSON_ID" baseTableName="T_NOTE" constraintName="FK_1btrn6b3tl1y5pm8ukss0x0sa" deferrable="false" initiallyDeferred="false" referencedColumnNames="PERSON_ID" referencedTableName="T_PERSON"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-54">
+    <changeSet author="richjo (generated)" id="002-55">
         <addForeignKeyConstraint baseColumnNames="LANDSTING_ID" baseTableName="R_LANDSTING_VARDGIVARENHET" constraintName="FK_1y5uwmuyv88p3sa1um19xkbq2" deferrable="false" initiallyDeferred="false" referencedColumnNames="LANDSTING_ID" referencedTableName="T_LANDSTING"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-55">
+    <changeSet author="richjo (generated)" id="002-56">
+        <addForeignKeyConstraint baseColumnNames="HOSPERSONAL_ID" baseTableName="R_LANDSTING_HOSPERSONAL" constraintName="FK_2ohrfaibbpmo9yions55a62cn" deferrable="false" initiallyDeferred="false" referencedColumnNames="HOSPERSONAL_ID" referencedTableName="T_HOSPERSONAL"/>
+    </changeSet>
+    <changeSet author="richjo (generated)" id="002-57">
         <addForeignKeyConstraint baseColumnNames="PERSON_ID" baseTableName="T_DOCUMENT" constraintName="FK_3okeh4ye5kvevyx0aiynuwtds" deferrable="false" initiallyDeferred="false" referencedColumnNames="PERSON_ID" referencedTableName="T_PERSON"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-56">
+    <changeSet author="richjo (generated)" id="002-58">
         <addForeignKeyConstraint baseColumnNames="LANDSTING_ID" baseTableName="T_HOSPERSONAL" constraintName="FK_42k32eogcqknil7jwflfhmh5p" deferrable="false" initiallyDeferred="false" referencedColumnNames="LANDSTING_ID" referencedTableName="T_LANDSTING"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-57">
+    <changeSet author="richjo (generated)" id="002-59">
         <addForeignKeyConstraint baseColumnNames="VARDGIVARENHET_ID" baseTableName="R_LANDSTING_VARDGIVARENHET" constraintName="FK_4b0g6xys6sh2rvl4ol4x7vcag" deferrable="false" initiallyDeferred="false" referencedColumnNames="VARDGIVARENHET_ID" referencedTableName="T_VARDGIVARENHET"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-58">
+    <changeSet author="richjo (generated)" id="002-60">
         <addForeignKeyConstraint baseColumnNames="landsting_LANDSTING_ID" baseTableName="T_VARDGIVARENHET_T_LANDSTING" constraintName="FK_4j667ur71t8npvf9ftflu6bt4" deferrable="false" initiallyDeferred="false" referencedColumnNames="LANDSTING_ID" referencedTableName="T_LANDSTING"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-59">
+    <changeSet author="richjo (generated)" id="002-61">
         <addForeignKeyConstraint baseColumnNames="EAVROP_APPROVAL_ID" baseTableName="T_EAVROP" constraintName="FK_4y4mdcxpurc8iktntl1ejd3gw" deferrable="false" initiallyDeferred="false" referencedColumnNames="EAVROP_APPROVAL_ID" referencedTableName="T_EAVROP_APPROVAL"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-60">
+    <changeSet author="richjo (generated)" id="002-62">
         <addForeignKeyConstraint baseColumnNames="PERSON_ID" baseTableName="T_EAVROP_COMP_APPROVAL" constraintName="FK_51a2onb3rr8fsks79bxfxcw8t" deferrable="false" initiallyDeferred="false" referencedColumnNames="PERSON_ID" referencedTableName="T_PERSON"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-61">
+    <changeSet author="richjo (generated)" id="002-63">
         <addForeignKeyConstraint baseColumnNames="PRIOR_EXAMINATION_ID" baseTableName="T_EAVROP" constraintName="FK_69gjogx65b05d4p3id2jd0olr" deferrable="false" initiallyDeferred="false" referencedColumnNames="PRIOR_MEDICAL_EXAM_ID" referencedTableName="T_PRIOR_MEDICAL_EXAMINATION"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-62">
+    <changeSet author="richjo (generated)" id="002-64">
         <addForeignKeyConstraint baseColumnNames="RESPONSE_NOTE_ID" baseTableName="T_BOOKING" constraintName="FK_6k9yy9awp6txlp0pqdyhkwfmp" deferrable="false" initiallyDeferred="false" referencedColumnNames="NOTE_ID" referencedTableName="T_NOTE"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-63">
+    <changeSet author="richjo (generated)" id="002-65">
         <addForeignKeyConstraint baseColumnNames="NOTE_ID" baseTableName="T_EAVROP_COMP_APPROVAL" constraintName="FK_8622t6optt9x1pki8gfcxb861" deferrable="false" initiallyDeferred="false" referencedColumnNames="NOTE_ID" referencedTableName="T_NOTE"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-64">
+    <changeSet author="richjo (generated)" id="002-66">
+        <addForeignKeyConstraint baseColumnNames="LANDSTING_ID" baseTableName="R_LANDSTING_HOSPERSONAL" constraintName="FK_9kbsj41adkbphejk3otxlxg8s" deferrable="false" initiallyDeferred="false" referencedColumnNames="LANDSTING_ID" referencedTableName="T_LANDSTING"/>
+    </changeSet>
+    <changeSet author="richjo (generated)" id="002-67">
         <addForeignKeyConstraint baseColumnNames="INTYG_INFORMATION_ID" baseTableName="R_EAVROP_INTYG" constraintName="FK_ame5om6rheap5habhte6qj0d5" deferrable="false" initiallyDeferred="false" referencedColumnNames="INTYG_INFORMATION_ID" referencedTableName="T_INTYG_INFORMATION"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-65">
+    <changeSet author="richjo (generated)" id="002-68">
         <addForeignKeyConstraint baseColumnNames="vardgivarenhet_VARDGIVARENHET_ID" baseTableName="T_ASSIGNMENT" constraintName="FK_auxtkecqjnecofin35oac9hiw" deferrable="false" initiallyDeferred="false" referencedColumnNames="VARDGIVARENHET_ID" referencedTableName="T_VARDGIVARENHET"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-66">
+    <changeSet author="richjo (generated)" id="002-69">
         <addForeignKeyConstraint baseColumnNames="NOTE_ID" baseTableName="T_EAVROP_APPROVAL" constraintName="FK_b2yj8b1x5qduxpfnntqb151ob" deferrable="false" initiallyDeferred="false" referencedColumnNames="NOTE_ID" referencedTableName="T_NOTE"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-67">
+    <changeSet author="richjo (generated)" id="002-70">
         <addForeignKeyConstraint baseColumnNames="BESTALLAR_PERSON_ID" baseTableName="T_EAVROP" constraintName="FK_b9boqe2hekaghw1asi1g3k4nc" deferrable="false" initiallyDeferred="false" referencedColumnNames="PERSON_ID" referencedTableName="T_PERSON"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-68">
+    <changeSet author="richjo (generated)" id="002-71">
         <addForeignKeyConstraint baseColumnNames="VARDGIVARE_ID" baseTableName="R_VARDGIVARE_VARDGIVARENHET" constraintName="FK_beu018a6b22jj0keeqgemxsqa" deferrable="false" initiallyDeferred="false" referencedColumnNames="VARDGIVARE_ID" referencedTableName="T_VARDGIVARE"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-69">
+    <changeSet author="richjo (generated)" id="002-72">
         <addForeignKeyConstraint baseColumnNames="EAVROP_ID" baseTableName="R_EAVROP_ASSIGNMENT" constraintName="FK_bj3wof191ivurffk8ysdy9ecg" deferrable="false" initiallyDeferred="false" referencedColumnNames="EAVROP_ID" referencedTableName="T_EAVROP"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-70">
+    <changeSet author="richjo (generated)" id="002-73">
         <addForeignKeyConstraint baseColumnNames="INVANARE_ID" baseTableName="T_EAVROP" constraintName="FK_boi23yvs7ltvn0qweft03rfdk" deferrable="false" initiallyDeferred="false" referencedColumnNames="INVANARE_ID" referencedTableName="T_INVANARE"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-71">
+    <changeSet author="richjo (generated)" id="002-74">
         <addForeignKeyConstraint baseColumnNames="EAVROP_ID" baseTableName="R_EAVROP_NOTE" constraintName="FK_cglf4xugl0ktjhgtk1641inir" deferrable="false" initiallyDeferred="false" referencedColumnNames="EAVROP_ID" referencedTableName="T_EAVROP"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-72">
+    <changeSet author="richjo (generated)" id="002-75">
         <addForeignKeyConstraint baseColumnNames="T_VARDGIVARENHET_VARDGIVARENHET_ID" baseTableName="T_VARDGIVARENHET_T_LANDSTING" constraintName="FK_cn5lxgrreeip9atsr86t5be9s" deferrable="false" initiallyDeferred="false" referencedColumnNames="VARDGIVARENHET_ID" referencedTableName="T_VARDGIVARENHET"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-73">
+    <changeSet author="richjo (generated)" id="002-76">
         <addForeignKeyConstraint baseColumnNames="VARDGIVARENHET_ID" baseTableName="T_HOSPERSONAL" constraintName="FK_d8fi86diekuvyskt0o2pkuoeq" deferrable="false" initiallyDeferred="false" referencedColumnNames="VARDGIVARENHET_ID" referencedTableName="T_VARDGIVARENHET"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-74">
+    <changeSet author="richjo (generated)" id="002-77">
         <addForeignKeyConstraint baseColumnNames="VARDGIVARENHET_ID" baseTableName="R_VARDGIVARE_VARDGIVARENHET" constraintName="FK_dmipwlm6m0ifn8ntfgla7ha1v" deferrable="false" initiallyDeferred="false" referencedColumnNames="VARDGIVARENHET_ID" referencedTableName="T_VARDGIVARENHET"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-75">
+    <changeSet author="richjo (generated)" id="002-78">
         <addForeignKeyConstraint baseColumnNames="VARDGIVARE_ID" baseTableName="T_VARDGIVARENHET" constraintName="FK_einl3vwavts3ukv5i3c96wl2f" deferrable="false" initiallyDeferred="false" referencedColumnNames="VARDGIVARE_ID" referencedTableName="T_VARDGIVARE"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-76">
+    <changeSet author="richjo (generated)" id="002-79">
         <addForeignKeyConstraint baseColumnNames="DOCUMENT_ID" baseTableName="R_EAVROP_DOCUMENT" constraintName="FK_eoupi8lod6rf4ok3owdfbieh" deferrable="false" initiallyDeferred="false" referencedColumnNames="DOCUMENT_ID" referencedTableName="T_DOCUMENT"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-77">
+    <changeSet author="richjo (generated)" id="002-80">
         <addForeignKeyConstraint baseColumnNames="PERSON_ID" baseTableName="T_BOOKING" constraintName="FK_forub9cfrb6g4ohpuqbaos77g" deferrable="false" initiallyDeferred="false" referencedColumnNames="PERSON_ID" referencedTableName="T_PERSON"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-78">
-        <addForeignKeyConstraint baseColumnNames="T_LANDSTING_LANDSTING_ID" baseTableName="T_LANDSTING_T_HOSPERSONAL" constraintName="FK_gb863sg60r0k23m4ylx6kjed" deferrable="false" initiallyDeferred="false" referencedColumnNames="LANDSTING_ID" referencedTableName="T_LANDSTING"/>
-    </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-79">
+    <changeSet author="richjo (generated)" id="002-81">
         <addForeignKeyConstraint baseColumnNames="ASSIGNMENT_ID" baseTableName="R_EAVROP_ASSIGNMENT" constraintName="FK_iqhsrpsfw1396pqdm8hlkjh1a" deferrable="false" initiallyDeferred="false" referencedColumnNames="ASSIGNMENT_ID" referencedTableName="T_ASSIGNMENT"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-80">
+    <changeSet author="richjo (generated)" id="002-82">
         <addForeignKeyConstraint baseColumnNames="PERSON_ID" baseTableName="R_BOOKING_PERSON" constraintName="FK_j644rubebcweawy2x4jd2siau" deferrable="false" initiallyDeferred="false" referencedColumnNames="PERSON_ID" referencedTableName="T_PERSON"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-81">
-        <addForeignKeyConstraint baseColumnNames="landstingssamordnare_HOSPERSONAL_ID" baseTableName="T_LANDSTING_T_HOSPERSONAL" constraintName="FK_k9g714iw6dwnwkr8euiqywxfe" deferrable="false" initiallyDeferred="false" referencedColumnNames="HOSPERSONAL_ID" referencedTableName="T_HOSPERSONAL"/>
-    </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-82">
+    <changeSet author="richjo (generated)" id="002-83">
         <addForeignKeyConstraint baseColumnNames="EAVROP_ID" baseTableName="R_EAVROP_INTYG" constraintName="FK_kn26g1gkc9w6i65gfvrdbxsxt" deferrable="false" initiallyDeferred="false" referencedColumnNames="EAVROP_ID" referencedTableName="T_EAVROP"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-83">
+    <changeSet author="richjo (generated)" id="002-84">
         <addForeignKeyConstraint baseColumnNames="LANDSTING_ID" baseTableName="T_EAVROP" constraintName="FK_kn929vbrq0rhi9ujg3i1lxt3r" deferrable="false" initiallyDeferred="false" referencedColumnNames="LANDSTING_ID" referencedTableName="T_LANDSTING"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-84">
+    <changeSet author="richjo (generated)" id="002-85">
         <addForeignKeyConstraint baseColumnNames="PERSON_ID" baseTableName="T_PRIOR_MEDICAL_EXAMINATION" constraintName="FK_l2w34gpqvf2s4ddo9j4ar0wft" deferrable="false" initiallyDeferred="false" referencedColumnNames="PERSON_ID" referencedTableName="T_PERSON"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-85">
+    <changeSet author="richjo (generated)" id="002-86">
         <addForeignKeyConstraint baseColumnNames="BOOKING_ID" baseTableName="R_EAVROP_BOOKING" constraintName="FK_ljcjq3pds0m2qq3ghvqy3qjca" deferrable="false" initiallyDeferred="false" referencedColumnNames="BOOKING_ID" referencedTableName="T_BOOKING"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-86">
+    <changeSet author="richjo (generated)" id="002-87">
         <addForeignKeyConstraint baseColumnNames="CURRENT_ASSIGNMENT_ID" baseTableName="T_EAVROP" constraintName="FK_loo53hnaad9k46vfdd04d1yh0" deferrable="false" initiallyDeferred="false" referencedColumnNames="ASSIGNMENT_ID" referencedTableName="T_ASSIGNMENT"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-87">
+    <changeSet author="richjo (generated)" id="002-88">
         <addForeignKeyConstraint baseColumnNames="BOOKING_ID" baseTableName="R_BOOKING_PERSON" constraintName="FK_owmoleakcnki2do1v1ck5kboc" deferrable="false" initiallyDeferred="false" referencedColumnNames="BOOKING_ID" referencedTableName="T_BOOKING"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-88">
+    <changeSet author="richjo (generated)" id="002-89">
         <addForeignKeyConstraint baseColumnNames="PERSON_ID" baseTableName="T_EAVROP_APPROVAL" constraintName="FK_p2p9y89hr84disokhgii2peo9" deferrable="false" initiallyDeferred="false" referencedColumnNames="PERSON_ID" referencedTableName="T_PERSON"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-89">
+    <changeSet author="richjo (generated)" id="002-90">
         <addForeignKeyConstraint baseColumnNames="EAVROP_ID" baseTableName="R_EAVROP_DOCUMENT" constraintName="FK_qd07ciu5ybioh64fwia79aho5" deferrable="false" initiallyDeferred="false" referencedColumnNames="EAVROP_ID" referencedTableName="T_EAVROP"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-90">
+    <changeSet author="richjo (generated)" id="002-91">
         <addForeignKeyConstraint baseColumnNames="EAVROP_ID" baseTableName="R_EAVROP_BOOKING" constraintName="FK_qgu8xxijjypnhtn6f6d9rmcdr" deferrable="false" initiallyDeferred="false" referencedColumnNames="EAVROP_ID" referencedTableName="T_EAVROP"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-91">
+    <changeSet author="richjo (generated)" id="002-92">
         <addForeignKeyConstraint baseColumnNames="DEVIATION_NOTE_ID" baseTableName="T_BOOKING" constraintName="FK_r1s7m9qr4soerp2eqn56opcua" deferrable="false" initiallyDeferred="false" referencedColumnNames="NOTE_ID" referencedTableName="T_NOTE"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-92">
+    <changeSet author="richjo (generated)" id="002-93">
         <addForeignKeyConstraint baseColumnNames="EAVROP_COMP_APPROVAL_ID" baseTableName="T_EAVROP" constraintName="FK_r76inwxr19cn9tlagiqfdkf87" deferrable="false" initiallyDeferred="false" referencedColumnNames="ID" referencedTableName="T_EAVROP_COMP_APPROVAL"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-93">
+    <changeSet author="richjo (generated)" id="002-94">
         <addForeignKeyConstraint baseColumnNames="NOTE_ID" baseTableName="R_EAVROP_NOTE" constraintName="FK_s5bgxwdujk80rj6c1453cp225" deferrable="false" initiallyDeferred="false" referencedColumnNames="NOTE_ID" referencedTableName="T_NOTE"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-94">
+    <changeSet author="richjo (generated)" id="002-95">
         <addForeignKeyConstraint baseColumnNames="PERSON_ID" baseTableName="T_INTYG_INFORMATION" constraintName="FK_s6w7m7nm7mt1dmdcrr4ko48gl" deferrable="false" initiallyDeferred="false" referencedColumnNames="PERSON_ID" referencedTableName="T_PERSON"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-142">
+    <changeSet author="richjo (generated)" id="002-143">
         <dropDefaultValue columnDataType="boolean" columnName="activated" tableName="T_USER"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-143">
+    <changeSet author="richjo (generated)" id="002-144">
         <dropNotNullConstraint columnDataType="varchar(255)" columnName="created_by" tableName="T_USER"/>
         <dropDefaultValue columnDataType="varchar(255)" columnName="created_by" tableName="T_USER"/>
     </changeSet>
-    <changeSet author="richjo (generated)" id="1413292419494-144">
+    <changeSet author="richjo (generated)" id="002-145">
         <dropNotNullConstraint columnDataType="datetime" columnName="created_date" tableName="T_USER"/>
         <dropDefaultValue columnDataType="datetime" columnName="created_date" tableName="T_USER"/>
     </changeSet>

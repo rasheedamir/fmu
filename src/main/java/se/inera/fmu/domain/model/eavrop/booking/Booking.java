@@ -22,7 +22,8 @@ import lombok.ToString;
 import org.apache.commons.lang.Validate;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
+import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
@@ -47,13 +48,13 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
 
 	@NotNull
     @Column(name = "START_DATETIME", nullable = false, updatable = false)
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
- 	private LocalDateTime startDateTime;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+ 	private DateTime startDateTime;
 
 	@NotNull
     @Column(name = "END_DATETIME", nullable = false, updatable = false)
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
- 	private LocalDateTime endDateTime;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+ 	private DateTime endDateTime;
     
 	@OneToMany(cascade = CascadeType.ALL) //TODO: maybe many to many if we kan reuse the person entity
 	@JoinTable(name = "R_BOOKING_PERSON", joinColumns = @JoinColumn(name = "BOOKING_ID"), inverseJoinColumns = @JoinColumn(name = "PERSON_ID"))
@@ -69,7 +70,7 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
 		//Needed by Hibernate
 	}
 	
-	public Booking(BookingType type,  LocalDateTime startDateTime, LocalDateTime endDateTime, Person person){
+	public Booking(BookingType type,  DateTime startDateTime, DateTime endDateTime, Person person){
     	this.setBookingId(new BookingId(UUID.randomUUID().toString()));
     	Validate.notNull(type);
     	Validate.notNull(startDateTime);
@@ -99,19 +100,19 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking>{
 			this.bookingType = bookingType;
 		}
 
-		public LocalDateTime getStartDateTime() {
+		public DateTime getStartDateTime() {
 			return startDateTime;
 		}
 
-		private void setStartDateTime(LocalDateTime startDateTime) {
+		private void setStartDateTime(DateTime startDateTime) {
 			this.startDateTime = startDateTime;
 		}
 
-		public LocalDateTime getEndDateTime() {
+		public DateTime getEndDateTime() {
 			return endDateTime;
 		}
 
-		private void setEndDateTime(LocalDateTime endDateTime) {
+		private void setEndDateTime(DateTime endDateTime) {
 			this.endDateTime = endDateTime;
 		}
 

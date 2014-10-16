@@ -37,7 +37,7 @@ public class OnHoldEavropState extends AbstractNoteableEavropState{
 		
 		if(BookingDeviationResponseType.RESTART.equals(responseType)){
 			//TODO: SET new base date, use some kind of domain service
-			eavrop.setCurrentStartDate(bookingDeviationResponse.getResponseTimestamp().toLocalDate());
+			eavrop.setStartDate(bookingDeviationResponse.getResponseTimestamp().toLocalDate());
 			eavrop.setEavropState(new AcceptedEavropState());
 			eavrop.handleEavropRestarted();
 		

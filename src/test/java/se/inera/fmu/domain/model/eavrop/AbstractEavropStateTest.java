@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
 
@@ -14,7 +15,6 @@ import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
-import se.inera.fmu.domain.model.eavrop.document.DocumentOriginType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
@@ -106,6 +106,14 @@ public abstract class AbstractEavropStateTest {
 	}
 
 	@Test(expected=IllegalStateException.class)
+	public void testRemoveNoteToEavrop() {
+		Eavrop eavrop = getEavrop();
+		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
+		eavrop.removeNote(createNote());
+	}
+
+	
+	@Test(expected=IllegalStateException.class)
 	public void testApproveEavrop() {
 		Eavrop eavrop = getEavrop();
 		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
@@ -145,7 +153,7 @@ public abstract class AbstractEavropStateTest {
 	public void testSetDocumentsSentFromBestallare() {
 		Eavrop eavrop = getEavrop();
 		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.setDateTimeDocumentsSentFromBestallare(new LocalDateTime());
+		eavrop.setDateTimeDocumentsSentFromBestallare(new DateTime());
 	}
 	
 	protected Eavrop createUnassignedEavrop(){
@@ -209,11 +217,11 @@ public abstract class AbstractEavropStateTest {
 	protected Booking createBooking(){
 		//Set<Person> persons = new HashSet<Person>();
 		//persons.add(createPerson());
-		return new Booking(BookingType.EXAMINATION, new LocalDateTime(), new LocalDateTime(),createPerson());
+		return new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(),createPerson());
 	}
 	
 	protected ReceivedDocument createReceivedDocument(){
-		return new ReceivedDocument(DocumentOriginType.RECEIVED_EXTERNAL, "RECEIVED_DOCUMENT", createPerson());
+		return new ReceivedDocument( "RECEIVED_DOCUMENT", createPerson(), true);
 	}
 
 	protected RequestedDocument createRequestedDocument(){
@@ -225,15 +233,15 @@ public abstract class AbstractEavropStateTest {
 	}
 	
 	protected IntygSignedInformation createIntygSignedInformation(){
-		return new IntygSignedInformation(new LocalDateTime(), createPerson());
+		return new IntygSignedInformation(new DateTime(), createPerson());
 	}
 
 	protected IntygComplementRequestInformation createIntygComplementRequestInformation(){
-		return new IntygComplementRequestInformation(new LocalDateTime(), createPerson());
+		return new IntygComplementRequestInformation(new DateTime(), createPerson());
 	}
 
 	protected IntygApprovedInformation createIntygApprovedInformation(){
-		return new IntygApprovedInformation(new LocalDateTime(), createPerson());
+		return new IntygApprovedInformation(new DateTime(), createPerson());
 	}
 
 	protected Note createNote(){
@@ -241,11 +249,11 @@ public abstract class AbstractEavropStateTest {
 	}
 
 	protected EavropApproval createEavropApproval(){
-		return new EavropApproval(new LocalDateTime(), createPerson());
+		return new EavropApproval(new DateTime(), createPerson());
 	}
 
 	protected EavropCompensationApproval createEavropCompensationApproval(){
-		return new EavropCompensationApproval(Boolean.TRUE, new LocalDateTime(), createPerson());
+		return new EavropCompensationApproval(Boolean.TRUE, new DateTime(), createPerson());
 	}
 
 	protected BookingDeviation createBookingDevation(){
@@ -253,7 +261,7 @@ public abstract class AbstractEavropStateTest {
 	}
 
 	protected BookingDeviationResponse createBookingDevationResponse(){
-		BookingDeviationResponse response = new BookingDeviationResponse(BookingDeviationResponseType.RESTART, new LocalDateTime(), createPerson()); 
+		BookingDeviationResponse response = new BookingDeviationResponse(BookingDeviationResponseType.RESTART, new DateTime(), createPerson()); 
 		
 		response.setDeviationResponseNote(createNote());
 		

@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
 import org.hibernate.annotations.Type;
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
@@ -27,9 +27,9 @@ public class BookingDeviationResponse {
     private BookingDeviationResponseType responseType;
     
     @NotNull
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "RESPONSE_DATE_TIME")
-	private LocalDateTime responseTimestamp;
+	private DateTime responseTimestamp;
 
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="PERSON_ID")
@@ -44,7 +44,7 @@ public class BookingDeviationResponse {
     	//Needed by Hibernate
     }
 
-	public BookingDeviationResponse(BookingDeviationResponseType responseType, LocalDateTime responseTimestamp, Person person) {
+	public BookingDeviationResponse(BookingDeviationResponseType responseType, DateTime responseTimestamp, Person person) {
 		super();
 		Validate.notNull(responseType);
 		Validate.notNull(responseTimestamp);
@@ -63,12 +63,12 @@ public class BookingDeviationResponse {
 	}
 
 
-	public LocalDateTime getResponseTimestamp() {
+	public DateTime getResponseTimestamp() {
 		return responseTimestamp;
 	}
 
 
-	private void setResponseTimestamp(LocalDateTime responseTimestamp) {
+	private void setResponseTimestamp(DateTime responseTimestamp) {
 		this.responseTimestamp = responseTimestamp;
 	}
 

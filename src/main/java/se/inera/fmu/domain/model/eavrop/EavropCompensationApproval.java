@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import lombok.ToString;
 
 import org.hibernate.annotations.Type;
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
@@ -36,9 +36,9 @@ public class EavropCompensationApproval implements ValueObject<EavropCompensatio
 	private boolean approved;
 
 	@NotNull
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	@Column(name = "COMPENSATION_DATE_TIME")
-	private LocalDateTime compensationTimestamp;
+	private DateTime compensationDateTime;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "PERSON_ID")
@@ -54,15 +54,15 @@ public class EavropCompensationApproval implements ValueObject<EavropCompensatio
 		//needed by Hibernate
 	}
 	
-	public EavropCompensationApproval(boolean approved, LocalDateTime compensationTimestamp, Person person) {
+	public EavropCompensationApproval(boolean approved, DateTime compensationDateTime, Person person) {
 		super();
 		this.setApproved(approved);
-		this.setCompensationTimestamp(compensationTimestamp);
+		this.setCompensationDateTime(compensationDateTime);
 		this.setPerson(person);
 	}
 
-	public EavropCompensationApproval(boolean approved, LocalDateTime responseTimestamp, Person person, Note note) {
-		this(approved, responseTimestamp, person);
+	public EavropCompensationApproval(boolean approved, DateTime compensationDateTime, Person person, Note note) {
+		this(approved, compensationDateTime, person);
 		this.setNote(note);
 	}
 
@@ -76,12 +76,12 @@ public class EavropCompensationApproval implements ValueObject<EavropCompensatio
 		this.approved = approved;
 	}
 
-	public LocalDateTime getCompensationTimestamp() {
-		return compensationTimestamp;
+	public DateTime getCompensationDateTime() {
+		return compensationDateTime;
 	}
 
-	private void setCompensationTimestamp(LocalDateTime compensationTimestamp) {
-		this.compensationTimestamp = compensationTimestamp;
+	private void setCompensationDateTime(DateTime compensationDateTime) {
+		this.compensationDateTime = compensationDateTime;
 	}
 
 	public Person getPerson() {
@@ -112,12 +112,12 @@ public class EavropCompensationApproval implements ValueObject<EavropCompensatio
 
 	@Override
     public boolean sameValueAs(EavropCompensationApproval other) {
-        return other != null && this.approved == other.approved && compensationTimestamp.equals(other.compensationTimestamp);
+        return other != null && this.approved == other.approved && compensationDateTime.equals(other.compensationDateTime);
     }
 
     @Override
     public int hashCode() {
-        return this.compensationTimestamp.hashCode();
+        return this.compensationDateTime.hashCode();
     }
 	
 	//TODO: embed in eavrop?

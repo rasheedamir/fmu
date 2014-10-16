@@ -2,6 +2,7 @@ package se.inera.fmu.domain.model.eavrop;
 
 import java.util.HashSet;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 
 import se.inera.fmu.domain.model.eavrop.ApprovedEavropState;
@@ -28,22 +29,23 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 		return EavropStateType.ACCEPTED;
 	}
 	
-	@Override
-	public void setDocumentsSentFromBestallareDateTime(Eavrop eavrop, LocalDateTime documentsSentFromBestallareDateTime){
-		
-		//TODO:Use adding of documents, if type is exteral, then check if start should be set
-		//TODO:Remove timestamp and amd only store documents? 
-		//TODO:Can this be sent multiple times and does it have any effect on start date
-		eavrop.setDocumentsSentFromBestallare(documentsSentFromBestallareDateTime);
-		
-		//TODO: SET new base date, use some kind of domain service
-		eavrop.setCurrentStartDate(documentsSentFromBestallareDateTime.toLocalDate().plusDays(3));
-		eavrop.handleDocumentsSent();
-		
-		//No state transition
-		//TODO: what should happen if multiple calls to this method is made?
-		// Just set the latest date and let that be the base for the start date
-	}
+//	@Override
+//	public void setDocumentsSentFromBestallareDateTime(Eavrop eavrop, DateTime documentsSentFromBestallareDateTime){
+//		
+//		//TODO:Use adding of documents, if type is exteral, then check if start should be set
+//		//TODO:Remove timestamp and amd only store documents? 
+//		//TODO:Can this be sent multiple times and does it have any effect on start date
+//		eavrop.setDocumentsSentFromBestallare(documentsSentFromBestallareDateTime);
+//		
+//		//TODO: SET new base date, use some kind of domain service
+//		eavrop.setStartDate(documentsSentFromBestallareDateTime.plusDays(3).toLocalDate());
+//		
+//		eavrop.handleDocumentsSent();
+//		
+//		//No state transition
+//		//TODO: what should happen if multiple calls to this method is made?
+//		// Just set the latest date and let that be the base for the start date
+//	}
 			
 	@Override
 	public void addBooking(Eavrop eavrop, Booking booking){
@@ -66,6 +68,7 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 		
 		//TODO: BookingDeviationTypeUtil functionality should be moved to domain object
 		if(BookingDeviationTypeUtil.isDeviationTypeReasonForOnHold(deviation.getDeviationType(), eavrop.getUtredningType())){
+			
 			//State transition ACCEPTED -> ON_HOLD
 			eavrop.setEavropState(new OnHoldEavropState());
 		}
@@ -83,27 +86,33 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 	
 	@Override
 	public void addIntygSignedInformation(Eavrop eavrop, IntygSignedInformation intygSignedInformation){
-		eavrop.addIntygInformation(intygSignedInformation);
+		eavrop.addToIntygSignedInformation(intygSignedInformation);
+		//No state transition
 	}
 	
 	@Override
 	public void addIntygComplementRequestInformation(Eavrop eavrop, IntygComplementRequestInformation intygComplementRequestInformation){
-		eavrop.addIntygInformation(intygComplementRequestInformation);
+		eavrop.addToIntygComplementRequestInformation(intygComplementRequestInformation);
+		//No state transition
 	}
 	
 	//TODO: Is valid entity?
 	@Override
 	public void addIntygApprovedInformation(Eavrop eavrop, IntygApprovedInformation intygApprovedInformation){
-		eavrop.addIntygInformation(intygApprovedInformation);
+		eavrop.addToIntygApprovedInformation(intygApprovedInformation);
+		//No state transition
 	}
 	
 	@Override
 	public void addReceivedDocument(Eavrop eavrop, ReceivedDocument receivedDocument) {
 		eavrop.addToReceivedDocuments(receivedDocument);
+		
 	}
 	
 	@Override
 	public void addRequestedDocument(Eavrop eavrop, RequestedDocument requestedDocument) {
 		eavrop.addToRequestedDocuments(requestedDocument);
+		//No state transition
+		
 	}
 }
