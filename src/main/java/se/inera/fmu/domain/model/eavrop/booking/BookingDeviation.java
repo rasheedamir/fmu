@@ -26,11 +26,15 @@ public class BookingDeviation  {
     @JoinColumn(name="DEVIATION_NOTE_ID", nullable = true)
 	private Note deviationNote;
     
-    //TODO, should we have a party which defines who set the deviation?
+    //TODO, should we have a person which defines who set the deviation?
     
     @Embedded
     private BookingDeviationResponse bookingDeviationResponse; 
 
+    public BookingDeviation() {
+        // Needed by Hibernate
+    }
+    
 	public BookingDeviation(BookingDeviationType deviationType, Note deviationNote) {
 		super();
 		this.setDeviationType(deviationType);

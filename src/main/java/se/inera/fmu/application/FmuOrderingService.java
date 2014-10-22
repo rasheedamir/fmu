@@ -1,5 +1,8 @@
 package se.inera.fmu.application;
 
+import java.util.List;
+
+import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
@@ -13,6 +16,14 @@ import se.inera.fmu.domain.model.shared.Name;
  */
 public interface FmuOrderingService {
 
+	
+	/**
+	 * Retrives all Eavrops that belongs to a landsting 
+	 * 
+	 * * @param landsting
+	 * */
+	public List<Eavrop> findAllUnassignedEavropByLandsting(Landsting landsting);
+	
     /**
      * Registers a new Eavrop in the tracking system.
      *

@@ -1,4 +1,4 @@
-package se.inera.fmu.domain.party;
+package se.inera.fmu.domain.model.person;
 
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
@@ -8,13 +8,13 @@ import lombok.ToString;
 
 @Entity
 @ToString
-public class TolkParty extends Party {
+public class TolkPerson extends Person {
 	
-	TolkParty() {
+	TolkPerson() {
         //Needed by hibernate
     }
     
-    public TolkParty( final String name, final String organisation){
+    public TolkPerson( final String name, final String organisation){
     	super(name, "Tolk", organisation);
     	
     }

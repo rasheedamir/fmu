@@ -7,7 +7,7 @@ import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
-import se.inera.fmu.domain.party.Bestallaradministrator;
+import se.inera.fmu.domain.model.person.Bestallaradministrator;
 
 /**
  * Created by Rasheed on 7/8/14.

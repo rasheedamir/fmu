@@ -51,12 +51,16 @@ public class Landsting extends AbstractBaseEntity implements IEntity<Landsting>{
 	    private String name;
 	    
 	    @ManyToMany
-	    @JoinTable(name="R_LANDSTING_VARDGIVARENHET",
-	    	      joinColumns={ @JoinColumn (name="LANDSTING_ID", referencedColumnName="LANDSTING_ID")},
+	    @JoinTable(
+	    	      name="R_LANDSTING_VARDGIVARENHET",
+	    	      joinColumns={@JoinColumn(name="LANDSTING_ID", referencedColumnName="LANDSTING_ID")},
 	    	      inverseJoinColumns={@JoinColumn(name="VARDGIVARENHET_ID", referencedColumnName="VARDGIVARENHET_ID")})
 	    private Set<Vardgivarenhet> vardgivarenheter;
 	    
 	    @ManyToMany
+	    @JoinTable(name="R_LANDSTING_HOSPERSONAL",
+	      joinColumns={ @JoinColumn (name="LANDSTING_ID", referencedColumnName="LANDSTING_ID")},
+	      inverseJoinColumns={@JoinColumn(name="HOSPERSONAL_ID", referencedColumnName="HOSPERSONAL_ID")})
 	    private Set<Landstingssamordnare> landstingssamordnare;
 	    
 	    //~ Constructors ===================================================================================================

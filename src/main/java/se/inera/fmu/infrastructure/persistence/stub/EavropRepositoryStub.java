@@ -3,6 +3,8 @@ package se.inera.fmu.infrastructure.persistence.stub;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -12,15 +14,18 @@ import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropBuilder;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
+import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
+import se.inera.fmu.domain.model.eavrop.EavropState;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
+import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
+import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
-import se.inera.fmu.domain.party.Bestallaradministrator;
 
 @Repository
 public class EavropRepositoryStub implements EavropRepository {
@@ -175,6 +180,60 @@ public class EavropRepositoryStub implements EavropRepository {
 
 	@Override
 	public List<Eavrop> findAllByLandsting(Landsting landsting) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Eavrop> findByLandstingAndEavropStateIn(Landsting landsting, List<EavropState> eavropState) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Eavrop> findByLandstingAndCreateDateAndEavropStateIn(
+			Landsting landsting, DateTime fromDate, DateTime toDate,
+			List<EavropState> eavropStates) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Eavrop> findByLandstingAndStartDateAndEavropStateIn(
+			Landsting landsting, LocalDate fromDate, LocalDate toDate,
+			List<EavropState> eavropStates) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Eavrop> findByLandstingAndIntygSignedDateAndEavropStateIn(
+			Landsting landsting, DateTime fromDate, DateTime toDate,
+			List<EavropState> eavropStates) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Eavrop> findByVardgivarenhetAndCreateDateAndEavropStateIn(
+			Vardgivarenhet vardgivarenhet, DateTime fromDate, DateTime toDate,
+			List<EavropState> eavropStates) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Eavrop> findByVardgivarenhetAndStartDateAndEavropStateIn(
+			Vardgivarenhet vardgivarenhet, LocalDate fromDate, LocalDate toDate,
+			List<EavropState> eavropStates) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Eavrop> findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(
+			Vardgivarenhet vardgivarenhet, DateTime fromDate, DateTime toDate,
+			List<EavropState> eavropStates) {
 		// TODO Auto-generated method stub
 		return null;
 	}

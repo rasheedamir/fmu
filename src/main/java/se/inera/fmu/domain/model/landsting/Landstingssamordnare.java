@@ -14,7 +14,6 @@ import se.inera.fmu.domain.model.hos.personal.HoSPersonal;
 import se.inera.fmu.domain.model.shared.Name;
 
 @Entity
-@ToString
 public class Landstingssamordnare extends HoSPersonal {
 
 	@ManyToOne

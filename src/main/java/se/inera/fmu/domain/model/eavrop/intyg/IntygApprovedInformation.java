@@ -3,18 +3,18 @@ package se.inera.fmu.domain.model.eavrop.intyg;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 
-import se.inera.fmu.domain.party.Party;
+import se.inera.fmu.domain.model.person.Person;
 import lombok.ToString;
 
 @Entity
-@DiscriminatorValue("COMPLEMENT")
+@DiscriminatorValue("APPROVED")
 @ToString
 public class IntygApprovedInformation extends IntygInformation{
 
-	public IntygApprovedInformation(LocalDateTime informationTimestamp, Party party) {
-		super(informationTimestamp, party);
+	public IntygApprovedInformation(DateTime informationTimestamp, Person person) {
+		super(informationTimestamp, person);
 	}
 
 }

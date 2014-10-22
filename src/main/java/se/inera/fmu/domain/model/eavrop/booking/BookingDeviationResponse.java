@@ -3,22 +3,18 @@ package se.inera.fmu.domain.model.eavrop.booking;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.Validate;
 import org.hibernate.annotations.Type;
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.note.Note;
-import se.inera.fmu.domain.party.Party;
+import se.inera.fmu.domain.model.person.Person;
 import lombok.ToString;
 
 @Embeddable
@@ -31,24 +27,30 @@ public class BookingDeviationResponse {
     private BookingDeviationResponseType responseType;
     
     @NotNull
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "RESPONSE_DATE_TIME")
-	private LocalDateTime responseTimestamp;
+	private DateTime responseTimestamp;
 
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="PARTY_ID")
-	private Party party;
+    @JoinColumn(name="PERSON_ID")
+	private Person person;
 	
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="RESPONSE_NOTE_ID", nullable = true)
 	private Note deviationResponseNote;
 
+    
+    public BookingDeviationResponse(){
+    	//Needed by Hibernate
+    }
 
-	public BookingDeviationResponse(BookingDeviationResponseType responseType, LocalDateTime responseTimestamp, Party party) {
+	public BookingDeviationResponse(BookingDeviationResponseType responseType, DateTime responseTimestamp, Person person) {
 		super();
+		Validate.notNull(responseType);
+		Validate.notNull(responseTimestamp);
 		this.responseType = responseType;
 		this.responseTimestamp = responseTimestamp;
-		this.party = party;
+		this.person = person;
 	}
 	
 	public BookingDeviationResponseType getResponseType() {
@@ -61,21 +63,21 @@ public class BookingDeviationResponse {
 	}
 
 
-	public LocalDateTime getResponseTimestamp() {
+	public DateTime getResponseTimestamp() {
 		return responseTimestamp;
 	}
 
 
-	private void setResponseTimestamp(LocalDateTime responseTimestamp) {
+	private void setResponseTimestamp(DateTime responseTimestamp) {
 		this.responseTimestamp = responseTimestamp;
 	}
 
-	public Party getParty() {
-		return party;
+	public Person getPerson() {
+		return person;
 	}
 
-	private void setParty(Party party) {
-		this.party = party;
+	private void setPerson(Person person) {
+		this.person = person;
 	}
 
 	public Note getDeviationResponseNote() {

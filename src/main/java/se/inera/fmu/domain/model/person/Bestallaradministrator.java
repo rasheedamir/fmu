@@ -1,4 +1,4 @@
-package se.inera.fmu.domain.party;
+package se.inera.fmu.domain.model.person;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,9 +10,9 @@ import lombok.ToString;
 
 @Entity
 @ToString
-public class Bestallaradministrator extends Party {
+public class Bestallaradministrator extends Person {
     
-//	//TODO:Same as bestallare i.e organisation or unit? move to Party!
+//	//TODO:Same as bestallare i.e organisation or unit? move to Person!
 //	@Column(name = "LFC", nullable = false)
 //    private String lfc;
 

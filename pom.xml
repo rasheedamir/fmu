@@ -29,10 +29,10 @@
 		<activiti.version>5.15</activiti.version>
 		<mysql.version>5.1.31</mysql.version>
 		<lombok.version>1.14.4</lombok.version>
-		<liquibase-core.version>3.2.2</liquibase-core.version>
-		<liquibase_hibernate_version>3.3</liquibase_hibernate_version>
-		<!-- <liquibase-core.version>3.2.2-SNAPSHOT</liquibase-core.version> -->
-		<!-- <liquibase_hibernate_version>3.4</liquibase_hibernate_version> -->
+		<!-- <liquibase-core.version>3.2.2</liquibase-core.version> -->
+		<!-- <liquibase_hibernate_version>3.3</liquibase_hibernate_version> -->
+		<liquibase-core.version>3.2.2-SNAPSHOT</liquibase-core.version>
+		<liquibase_hibernate_version>3.4</liquibase_hibernate_version>
 		<liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
 		<assertj-core.version>1.6.0</assertj-core.version>
 		<awaitility.version>1.4.0</awaitility.version>
@@ -173,8 +173,8 @@
 					<plugin>
 						<groupId>org.liquibase</groupId>
 						<artifactId>liquibase-maven-plugin</artifactId>
-						<version>${liquibase-core.version}</version>
-						<!--<version>3.3.0-SNAPSHOT</version> -->
+						<!--<version>${liquibase-core.version}</version> -->
+						<version>3.3.0-SNAPSHOT</version>
 						<configuration>
 							<propertyFile>target/classes/liquibase.properties</propertyFile>
 						</configuration>
@@ -576,6 +576,19 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>18.0</version>
+        </dependency>
+        <dependency>
+        	<groupId>net.wimpi</groupId>
+        	<artifactId>telnetd-x</artifactId>
+        	<version>2.1.1</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.springframework.security</groupId>
+        	<artifactId>spring-security-ldap</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>org.apache.activemq</groupId>
+        	<artifactId>activemq-client</artifactId>
         </dependency>
 	</dependencies>
 	<build>

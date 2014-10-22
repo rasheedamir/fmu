@@ -19,8 +19,8 @@ public class Interpreter implements ValueObject<Interpreter>{
 	//~ Instance fields ================================================================================================
 
 	// Defines the needed language skills of the interpreter.
-	@Column(name = "INTERPRETER_LANG")
-	private String interpreterLanguage;
+	@Column(name = "INTERPRETER_DESC")
+	private String interpreterDescription;
 
     //~ Constructors ===================================================================================================
 
@@ -28,19 +28,19 @@ public class Interpreter implements ValueObject<Interpreter>{
 		//Needed by hibernate
 	}
 	
-	public Interpreter(final String interpreterLanguage) {
+	public Interpreter(final String interpreterDescription) {
 		super();
-		this.setInterpreterLanguage(interpreterLanguage);
+		this.setInterpreterDescription(interpreterDescription);
 	}
 
 	//~ Property Methods ===============================================================================================
 	
-    public String getInterpreterLanguage() {
-		return interpreterLanguage;
+    public String getInterpreterDescription() {
+		return interpreterDescription;
 	}
 
-	private void setInterpreterLanguage(String interpreterLanguage) {
-		this.interpreterLanguage = interpreterLanguage;
+	private void setInterpreterDescription(String interpreterDescription) {
+		this.interpreterDescription = interpreterDescription;
 	}
 	
     //~ Other Methods ==================================================================================================
@@ -55,12 +55,11 @@ public class Interpreter implements ValueObject<Interpreter>{
 
 	@Override
     public boolean sameValueAs(Interpreter other) {
-        return other != null && this.interpreterLanguage.equals(other.interpreterLanguage);
+        return other != null && this.interpreterDescription.equals(other.interpreterDescription);
     }
 
     @Override
     public int hashCode() {
-        return this.interpreterLanguage.hashCode();
+        return this.interpreterDescription.hashCode();
     }
-
 }

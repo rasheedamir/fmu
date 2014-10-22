@@ -136,5 +136,13 @@ public class BusinessDaysUtilTest {
 	public void testNumberOfBusinessDaysNullValues() {
 		BusinessDaysUtil.numberOfBusinessDays(null, null);
 	}
+	
+	
+	@Test
+	public void testSameDay(){
+		
+		assertEquals(0, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2014,10,16), new LocalDate(2014,10,16)));
+	}
+	
 
 }

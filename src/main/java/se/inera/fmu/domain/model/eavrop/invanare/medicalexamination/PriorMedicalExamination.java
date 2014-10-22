@@ -1,4 +1,4 @@
-package se.inera.fmu.domain.model.invanare.medicalexamination;
+package se.inera.fmu.domain.model.eavrop.invanare.medicalexamination;
 
 import java.io.Serializable;
 
@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import lombok.ToString;
-import se.inera.fmu.domain.party.Party;
+import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.ValueObject;
 
 @Entity
@@ -39,8 +39,8 @@ public class PriorMedicalExamination implements ValueObject<PriorMedicalExaminat
 //	    private String medicalLeaveIssuedBy;
 		@NotNull
 	    @OneToOne(cascade = CascadeType.ALL)
-	    @JoinColumn(name="PARTY_ID")
-		private Party medicalLeaveIssuedBy;
+	    @JoinColumn(name="PERSON_ID")
+		private Person medicalLeaveIssuedBy;
 
    
 	    //~ Constructors ===================================================================================================
@@ -55,7 +55,7 @@ public class PriorMedicalExamination implements ValueObject<PriorMedicalExaminat
 	     * @param medicalLeaveIssuedAt, 
 	     * @param medicalLeaveIssuedBy,  
 	     */
-	    public PriorMedicalExamination(String examinedAt, String medicalLeaveIssuedAt, Party medicalLeaveIssuedBy ) {
+	    public PriorMedicalExamination(String examinedAt, String medicalLeaveIssuedAt, Person medicalLeaveIssuedBy ) {
 	    	this.setExaminedAt(examinedAt);
 	    	this.setMedicalLeaveIssuedAt(medicalLeaveIssuedAt);
 	    	this.setMedicalLeaveIssuedBy(medicalLeaveIssuedBy);
@@ -79,11 +79,11 @@ public class PriorMedicalExamination implements ValueObject<PriorMedicalExaminat
 			this.medicalLeaveIssuedAt = medicalLeaveIssuedAt;
 		}
 
-		public Party getMedicalLeaveIssuedBy() {
+		public Person getMedicalLeaveIssuedBy() {
 			return medicalLeaveIssuedBy;
 		}
 
-		private void setMedicalLeaveIssuedBy(Party medicalLeaveIssuedBy) {
+		private void setMedicalLeaveIssuedBy(Person medicalLeaveIssuedBy) {
 			this.medicalLeaveIssuedBy = medicalLeaveIssuedBy;
 		}
 

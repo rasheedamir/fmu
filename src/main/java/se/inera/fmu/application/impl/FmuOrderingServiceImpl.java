@@ -15,14 +15,15 @@ import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.landsting.Landsting;
+import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
-import se.inera.fmu.domain.party.Bestallaradministrator;
 
 import javax.inject.Inject;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Rasheed on 7/7/14.
@@ -54,13 +55,42 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
         this.invanareRepository = invanareRepository;
         this.asyncEventBus = asyncEventBus;
     }
+    
+    @Override
+    public List<Eavrop> findAllUnassignedEavropByLandsting(Landsting landsting){
+    	return this.eavropRepository.findAllByLandsting(landsting);
+    }
+    
+//    private findAllEavropByLandstingAndStatus(){
+//    	
+//    	return this.eavropRepository.findAllByLandsting(landsting);
+//    }
 
+    /**
+     *
+     * @param arendeId
+     * @param utredningType
+     * @param interpreterLanguages
+     * @param personalNumber
+     * @param invanareName
+     * @param invanareGender
+     * @param invanareHomeAddress
+     * @param invanareEmail
+     * @param invanareSpecialNeeds
+     * @param landsting
+     * @param administratorName
+     * @param administratorBefattning
+     * @param administratorOrganisation
+     * @param administratorPhone
+     * @param administratorEmail
+     * @return
+     */
     @Override
     public ArendeId createNewEavrop(ArendeId arendeId,  UtredningType utredningType, String interpreterLanguages, PersonalNumber personalNumber,
                                     Name invanareName, Gender invanareGender, Address invanareHomeAddress,
                                     String invanareEmail, String invanareSpecialNeeds, Landsting landsting, String administratorName, 
                                     String administratorBefattning, String administratorOrganisation, String administratorPhone, 
-                                    String administratorEmail  ) {
+                                    String administratorEmail) {
         
         Invanare invanare = createInvanare(personalNumber, invanareName, invanareGender, invanareHomeAddress, invanareEmail, invanareSpecialNeeds);
     	
@@ -102,7 +132,6 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
     }
     
     private Bestallaradministrator createBestallaradministrator(String name, String befattning, String organisation, String phone, String email){
-    	
     	Bestallaradministrator bestallaradministrator = new Bestallaradministrator(name, befattning, organisation, phone, email);
     	//TODO: Set up repository, for this subclass or abstract superclass; 
 //    	bestallaradministrator = bestallaradministrator.save(invanare);
