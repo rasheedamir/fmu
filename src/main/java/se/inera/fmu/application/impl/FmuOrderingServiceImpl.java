@@ -62,7 +62,6 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
     }
     
 //    private findAllEavropByLandstingAndStatus(){
-//    	
 //    	return this.eavropRepository.findAllByLandsting(landsting);
 //    }
 
@@ -124,13 +123,32 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
 
         return eavrop.getArendeId();
     }
-    
+
+    /**
+     *
+     * @param personalNumber
+     * @param invanareName
+     * @param invanareGender
+     * @param invanareHomeAddress
+     * @param invanareEmail
+     * @param specialNeeds
+     * @return
+     */
     private Invanare createInvanare(PersonalNumber personalNumber, Name invanareName, Gender invanareGender, Address invanareHomeAddress, String invanareEmail, String specialNeeds ){
     	Invanare invanare = new Invanare(personalNumber, invanareName, invanareGender, invanareHomeAddress, invanareEmail, specialNeeds);
     	invanare = invanareRepository.save(invanare);
         return invanare;
     }
-    
+
+    /**
+     *
+     * @param name
+     * @param befattning
+     * @param organisation
+     * @param phone
+     * @param email
+     * @return
+     */
     private Bestallaradministrator createBestallaradministrator(String name, String befattning, String organisation, String phone, String email){
     	Bestallaradministrator bestallaradministrator = new Bestallaradministrator(name, befattning, organisation, phone, email);
     	//TODO: Set up repository, for this subclass or abstract superclass; 

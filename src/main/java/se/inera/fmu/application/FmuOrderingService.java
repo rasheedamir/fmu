@@ -16,14 +16,13 @@ import se.inera.fmu.domain.model.shared.Name;
  */
 public interface FmuOrderingService {
 
-	
 	/**
 	 * Retrives all Eavrops that belongs to a landsting 
 	 * 
 	 * * @param landsting
 	 * */
 	public List<Eavrop> findAllUnassignedEavropByLandsting(Landsting landsting);
-	
+
     /**
      * Registers a new Eavrop in the tracking system.
      *
@@ -31,10 +30,17 @@ public interface FmuOrderingService {
      * @param utredningType
      * @param tolk
      * @param personalNumber
-     * @param patientName
-     * @param patientGender
-     * @param patientHomeAddress
-     * @param patientEmail
+     * @param invanareName
+     * @param invanareGender
+     * @param invanareHomeAddress
+     * @param invanareEmail
+     * @param invanareSpecialNeeds
+     * @param landsting
+     * @param administratorName
+     * @param administratorBefattning
+     * @param administratorOrganisation
+     * @param administratorPhone
+     * @param administratorEmail
      * @return
      */
     ArendeId createNewEavrop(ArendeId arendeId,  UtredningType utredningType, String tolk, PersonalNumber personalNumber,
