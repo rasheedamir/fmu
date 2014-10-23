@@ -3,11 +3,11 @@ package se.inera.fmu.application.domain;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import se.inera.fmu.Application;
+import se.inera.fmu.domain.model.eavrop.AcceptedEavropState;
+import se.inera.fmu.domain.model.eavrop.ApprovedEavropState;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.AssignedEavropState;
 import se.inera.fmu.domain.model.eavrop.ClosedEavropState;
@@ -19,7 +19,6 @@ import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.EavropState;
 import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.eavrop.OnHoldEavropState;
-import se.inera.fmu.domain.model.eavrop.OnHoldEavropStateTest;
 import se.inera.fmu.domain.model.eavrop.UnassignedEavropState;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
@@ -28,11 +27,13 @@ import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
+import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
+import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedInformation;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.note.Note;
-import se.inera.fmu.domain.model.hos.hsa.HsaBefattning;
+import se.inera.fmu.domain.model.eavrop.note.NoteType;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
 import se.inera.fmu.domain.model.hos.vardgivare.VardgivareRepository;
@@ -41,7 +42,6 @@ import se.inera.fmu.domain.model.hos.vardgivare.VardgivarenhetRepository;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.domain.model.landsting.LandstingRepository;
-import se.inera.fmu.domain.model.landsting.Landstingssamordnare;
 import se.inera.fmu.domain.model.landsting.LandstingssamordnareRepository;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.HoSPerson;
@@ -51,8 +51,8 @@ import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
 
-import org.apache.activemq.filter.function.splitFunction;
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -80,8 +80,8 @@ public class ITRepositoryTest {
 	@Inject
 	private LandstingRepository landstingRepository;
 
-	@Inject
-	private LandstingssamordnareRepository landstingssamordnareRepository;
+//	@Inject
+//	private LandstingssamordnareRepository landstingssamordnareRepository;
 	
 	@Inject
 	private VardgivareRepository vardgivareRepository;
@@ -102,17 +102,24 @@ public class ITRepositoryTest {
     
     private HsaId vardgivarenhetId;
     
-    private HsaId landstingssamordnarId;
+//    private HsaId landstingssamordnarId;
     
     private ArendeId arendeId;
+    
+	private static EavropState[] NOT_ACCEPTED_STATES = {new  UnassignedEavropState(), new AssignedEavropState() };
+
+	private static EavropState[] ACCEPTED_STATES = {new  AcceptedEavropState(), new OnHoldEavropState() };
+
+	private static EavropState[] COMPLETED_STATES = {new  ApprovedEavropState(), new ClosedEavropState() };
+
 
     @Before
 	public void setUp() throws Exception {
 		this.landstingCode = new LandstingCode(99);
 		Landsting landsting = createLandsting(this.landstingCode, "Stockholms Läns Landsting");
 
-		this.landstingssamordnarId = new HsaId("SE160000000000-00000000A");
-		Landstingssamordnare landstingssamordnare = createLandstingssamordnare(this.landstingssamordnarId, new Name("Sam", null, "Ordnarsson"), new HsaBefattning("S3", "Samordnare"), landsting);
+//		this.landstingssamordnarId = new HsaId("SE160000000000-00000000A");
+//		Landstingssamordnare landstingssamordnare = createLandstingssamordnare(this.landstingssamordnarId, new Name("Sam", null, "Ordnarsson"), new HsaBefattning("S3", "Samordnare"), landsting);
 
 		this.vardgivareId = new HsaId("SE160000000000-00000000B");
 		Vardgivare vardgivare = createVardgivare(this.vardgivareId, "Personal Care AB");
@@ -124,44 +131,6 @@ public class ITRepositoryTest {
 		Eavrop eavrop = createEavrop(this.arendeId, landsting);
 	}
     
-    @Test
-    public void testLandsting(){
-    	Landsting landsting = landstingRepository.findByLandstingCode(this.landstingCode);
-    	assertNotNull(landsting);
-    	System.out.print(landsting);
-    }
-    
-    @Test
-    public void testLandstingsamordnare(){
-    	Landstingssamordnare landstingssamordnare = landstingssamordnareRepository.findByHsaId(this.landstingssamordnarId);
-    	assertNotNull(landstingssamordnare);
-    	System.out.print(landstingssamordnare);
-    }
-    
-    @Test
-    public void testVardgivare(){
-    	Vardgivare vardgivare = vardgivareRepository.findByHsaId(this.vardgivareId);
-    	assertNotNull(vardgivare);
-    	System.out.print(vardgivare);
-    }
-
-    @Test
-    public void testVardgivarenhet(){
-    	Vardgivarenhet vardgivarenhet = vardgivarenhetRepository.findByHsaId(this.vardgivarenhetId);
-    	assertNotNull(vardgivarenhet);
-    	System.out.print(vardgivarenhet);
-    }
-    
-    @Test
-    public void testGetLandstingsamordnareFromLandsting(){
-    	Landsting landsting = landstingRepository.findByLandstingCode(this.landstingCode);
-    	assertNotNull(landsting);
-    	Set<Landstingssamordnare> samordnare = landsting.getLandstingssamordnare();
-    	assertNotNull(samordnare);
-    	assertEquals(1, samordnare.size());
-    	Landstingssamordnare landstingssamordnare = samordnare.iterator().next();
-    	assertEquals(landstingssamordnarId, landstingssamordnare.getHsaId());
-    }
 
     @Test
     public void testGetEavrop(){
@@ -216,7 +185,6 @@ public class ITRepositoryTest {
     	Landsting landsting = landstingRepository.findByLandstingCode(this.landstingCode);
     	assertNotNull(landsting);
     	
-    	Vardgivarenhet vardgivarenhet = vardgivarenhetRepository.findByHsaId(this.vardgivarenhetId);
     	createEavrop(arendeId, landsting);
     	
     	Eavrop eavrop = eavropRepository.findByArendeId(arendeId);
@@ -310,7 +278,7 @@ public class ITRepositoryTest {
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("6")));
     	assertEquals(EavropStateType.ON_HOLD, eavropRepository.findByArendeId(new ArendeId("6")).getEavropState().getEavropStateType());
 
-    	//APPROVED
+    	//ACCEPTED
     	eavrop = createEavrop(new ArendeId("7"), landsting);
     	eavrop = assignEavrop(eavrop, vardgivarenhet);
     	eavrop = acceptEavrop(eavrop);
@@ -318,7 +286,7 @@ public class ITRepositoryTest {
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("7")));
     	assertEquals(EavropStateType.APPROVED, eavropRepository.findByArendeId(new ArendeId("7")).getEavropState().getEavropStateType());
 
-    	//APPROVED
+    	//ACCEPTED
     	eavrop = createEavrop(new ArendeId("8"), landsting);
     	eavrop = assignEavrop(eavrop, vardgivarenhet);
     	eavrop = acceptEavrop(eavrop);
@@ -377,29 +345,312 @@ public class ITRepositoryTest {
 		}
     }
     
+
     @Test
-    public void testGetVardgivarenhetFromLandsting(){
+    public void testFindByLandstingAndCreateDateAndStates(){
     	Landsting landsting = landstingRepository.findByLandstingCode(this.landstingCode);
     	assertNotNull(landsting);
-    	Set<Vardgivarenhet> vardgivarenheter = landsting.getVardgivarenheter();
-    	assertNotNull(vardgivarenheter);
-    	assertEquals(1, vardgivarenheter.size());
-    	Vardgivarenhet vardgivarenhet = vardgivarenheter.iterator().next();
-    	assertEquals(vardgivarenhetId, vardgivarenhet.getHsaId());
-    	Vardgivare vardgivare = vardgivarenhet.getVardgivare();
-    	assertNotNull(vardgivare);
-    }
+    	DateTime today = new DateTime().withTimeAtStartOfDay(); 
+   
+    	List<Eavrop> eavrops = eavropRepository.findByLandstingAndCreateDateAndEavropStateIn(landsting, today.minusDays(1), today.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
 
+    	eavrops = eavropRepository.findByLandstingAndCreateDateAndEavropStateIn(landsting, null, today.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
 
-    private Landstingssamordnare createLandstingssamordnare(HsaId hsaId, Name name, HsaBefattning hsaBefattning, Landsting landsting){
-    	Landstingssamordnare landstingssamordnare = new Landstingssamordnare(hsaId, name, hsaBefattning, landsting);
-    	if(landsting != null ){
-    		landsting.addLandstingssamordnare(landstingssamordnare);
-    	}
-    	landstingssamordnareRepository.saveAndFlush(landstingssamordnare);
+    	eavrops = eavropRepository.findByLandstingAndCreateDateAndEavropStateIn(landsting, today.minusDays(1), null, Arrays.asList(NOT_ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
     	
-    	return landstingssamordnare; 
+    	eavrops = eavropRepository.findByLandstingAndCreateDateAndEavropStateIn(landsting, today.minusDays(2), today.minusDays(1), Arrays.asList(NOT_ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+
+    	eavrops = eavropRepository.findByLandstingAndCreateDateAndEavropStateIn(landsting, today.plusDays(1), today.plusDays(2), Arrays.asList(NOT_ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+    	
+       	eavrops = eavropRepository.findByLandstingAndCreateDateAndEavropStateIn(landsting, today.minusDays(1), today.plusDays(1), Arrays.asList(ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+    	
+       	eavrops = eavropRepository.findByLandstingAndCreateDateAndEavropStateIn(landsting, today.minusDays(1), today.plusDays(1), Arrays.asList(COMPLETED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
     }
+    
+    @Test
+    public void testFindByLandstingAndStartDateAndStates(){
+    	Landsting landsting = landstingRepository.findByLandstingCode(this.landstingCode);
+    	assertNotNull(landsting);
+
+      	Vardgivarenhet vardgivarenhet = vardgivarenhetRepository.findByHsaId(this.vardgivarenhetId);
+      	assertNotNull(vardgivarenhet);
+      	
+    	Eavrop eavrop = createEavrop(new ArendeId("StartDate"), landsting);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet);
+    	eavrop = acceptEavrop(eavrop);
+    	eavrop = startEavropToday(eavrop);
+    	eavrop = eavropRepository.findByArendeId(new ArendeId("StartDate"));
+    	
+    	assertNotNull(eavrop);
+    	assertEquals(EavropStateType.ACCEPTED, eavrop.getEavropState().getEavropStateType());
+
+    	assertNotNull(eavrop.getStartDate());
+    	
+    	LocalDate today = new LocalDate(); 
+   
+    	List<Eavrop> eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, today.minusDays(1), today.plusDays(1), Arrays.asList(ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
+
+    	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, null, today.plusDays(1), Arrays.asList(ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
+
+    	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, today.minusDays(1), null, Arrays.asList(ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
+    	
+    	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, today.minusDays(2), today.minusDays(1), Arrays.asList(ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+
+    	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, today.plusDays(1), today.plusDays(2), Arrays.asList(ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+    	
+       	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, today.minusDays(1), today.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+    	
+       	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, today.minusDays(1), today.plusDays(1), Arrays.asList(COMPLETED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+    }
+
+
+    @Test
+    public void testFindByLandstingAndIntygSignedDateAndStates(){
+    	Landsting landsting = landstingRepository.findByLandstingCode(this.landstingCode);
+    	assertNotNull(landsting);
+
+      	Vardgivarenhet vardgivarenhet = vardgivarenhetRepository.findByHsaId(this.vardgivarenhetId);
+      	assertNotNull(vardgivarenhet);
+      	
+      	ArendeId arendeId = new ArendeId("SignedDate");
+      	
+    	Eavrop eavrop = createEavrop(arendeId, landsting);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet);
+    	eavrop = acceptEavrop(eavrop);
+    	eavrop = startEavropToday(eavrop);
+    	eavrop = signIntygToday(eavrop);
+    	eavrop = approveEavrop(eavrop);
+    	eavrop = eavropRepository.findByArendeId(arendeId);
+    	assertNotNull(eavrop);
+    	
+    	assertEquals(EavropStateType.APPROVED, eavrop.getEavropState().getEavropStateType());
+ 
+    	assertNotNull(eavrop.getIntygSignedDateTime());
+    	
+    	DateTime today = new DateTime().withTime(0, 0, 0, 0); 
+   
+    	List<Eavrop> eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, today.minusDays(1), today.plusDays(1), Arrays.asList(COMPLETED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
+
+    	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, null, today.plusDays(1), Arrays.asList(COMPLETED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
+
+    	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, today.minusDays(1), null, Arrays.asList(COMPLETED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
+    	
+    	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, today.minusDays(2), today.minusDays(1), Arrays.asList(COMPLETED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+
+    	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, today.plusDays(1), today.plusDays(2), Arrays.asList(COMPLETED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+    	
+       	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, today.minusDays(1), today.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+    	
+       	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, today.minusDays(1), today.plusDays(1), Arrays.asList(ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+    }
+
+    @Test
+    public void testFindByVardgivarenhetAndCreateDateAndStates(){
+    	ArendeId arendeId = new ArendeId("CreatetDate");
+    	
+    	Landsting landsting = landstingRepository.findByLandstingCode(this.landstingCode);
+    	assertNotNull(landsting);
+
+    	Vardgivarenhet vardgivarenhet = vardgivarenhetRepository.findByHsaId(this.vardgivarenhetId);
+    	assertNotNull(vardgivarenhet);
+
+    	DateTime today = new DateTime().withTimeAtStartOfDay(); 
+   
+    	Eavrop eavrop = createEavrop(arendeId, landsting);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet);
+    	
+    	eavrop = eavropRepository.findByArendeId(arendeId);
+    	
+    	assertNotNull(eavrop);
+    	assertNotNull(eavrop.getCreatedDate());
+
+    	assertEquals(EavropStateType.ASSIGNED, eavrop.getEavropState().getEavropStateType());
+    	
+    	List<Eavrop> eavrops = eavropRepository.findByVardgivarenhetAndCreateDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), today.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
+
+    	eavrops = eavropRepository.findByVardgivarenhetAndCreateDateAndEavropStateIn(vardgivarenhet, null, today.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
+
+    	eavrops = eavropRepository.findByVardgivarenhetAndCreateDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), null, Arrays.asList(NOT_ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
+    	
+    	eavrops = eavropRepository.findByVardgivarenhetAndCreateDateAndEavropStateIn(vardgivarenhet, today.minusDays(2), today.minusDays(1), Arrays.asList(NOT_ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+
+    	eavrops = eavropRepository.findByVardgivarenhetAndCreateDateAndEavropStateIn(vardgivarenhet, today.plusDays(1), today.plusDays(2), Arrays.asList(NOT_ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+    	
+       	eavrops = eavropRepository.findByVardgivarenhetAndCreateDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), today.plusDays(1), Arrays.asList(ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+    	
+       	eavrops = eavropRepository.findByVardgivarenhetAndCreateDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), today.plusDays(1), Arrays.asList(COMPLETED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+    }
+    
+    @Test
+    public void testFindByVardgivarenhetAndStartDateAndStates(){
+    	Landsting landsting = landstingRepository.findByLandstingCode(this.landstingCode);
+    	assertNotNull(landsting);
+
+      	Vardgivarenhet vardgivarenhet = vardgivarenhetRepository.findByHsaId(this.vardgivarenhetId);
+      	assertNotNull(vardgivarenhet);
+      	
+    	Eavrop eavrop = createEavrop(new ArendeId("StartDate"), landsting);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet);
+    	eavrop = acceptEavrop(eavrop);
+    	eavrop = startEavropToday(eavrop);
+    	assertNotNull(eavropRepository.findByArendeId(new ArendeId("StartDate")));
+    	assertEquals(EavropStateType.ACCEPTED, eavropRepository.findByArendeId(new ArendeId("StartDate")).getEavropState().getEavropStateType());
+
+    	
+    	LocalDate today = new LocalDate(); 
+   
+    	List<Eavrop> eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), today.plusDays(1), Arrays.asList(ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
+
+    	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, null, today.plusDays(1), Arrays.asList(ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
+
+    	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), null, Arrays.asList(ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
+    	
+    	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, today.minusDays(2), today.minusDays(1), Arrays.asList(ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+
+    	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, today.plusDays(1), today.plusDays(2), Arrays.asList(ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+    	
+       	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), today.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+    	
+       	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), today.plusDays(1), Arrays.asList(COMPLETED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+
+ 
+    }
+
+
+    @Test
+    public void testFindByVardgivarenhetAndIntygSignedDateAndStates(){
+    	Landsting landsting = landstingRepository.findByLandstingCode(this.landstingCode);
+    	assertNotNull(landsting);
+
+      	Vardgivarenhet vardgivarenhet = vardgivarenhetRepository.findByHsaId(this.vardgivarenhetId);
+      	assertNotNull(vardgivarenhet);
+      	
+      	ArendeId arendeId = new ArendeId("SignedDate");
+      	
+    	Eavrop eavrop = createEavrop(arendeId, landsting);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet);
+    	eavrop = acceptEavrop(eavrop);
+    	eavrop = startEavropToday(eavrop);
+    	eavrop = signIntygToday(eavrop);
+    	eavrop = approveEavrop(eavrop);
+    	eavrop = eavropRepository.findByArendeId(arendeId);
+    	assertNotNull(eavrop);
+    	
+    	assertEquals(EavropStateType.APPROVED, eavrop.getEavropState().getEavropStateType());
+ 
+    	assertNotNull(eavrop.getIntygSignedDateTime());
+    	
+    	DateTime today = new DateTime().withTime(0, 0, 0, 0); 
+   
+    	List<Eavrop> eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), today.plusDays(1), Arrays.asList(COMPLETED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
+
+    	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, null, today.plusDays(1), Arrays.asList(COMPLETED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
+
+    	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), null, Arrays.asList(COMPLETED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(1, eavrops.size());
+    	
+    	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, today.minusDays(2), today.minusDays(1), Arrays.asList(COMPLETED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+
+    	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, today.plusDays(1), today.plusDays(2), Arrays.asList(COMPLETED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+    	
+       	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), today.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+    	
+       	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), today.plusDays(1), Arrays.asList(ACCEPTED_STATES));
+    	assertNotNull(eavrops);
+    	assertEquals(0, eavrops.size());
+    }
+
+    
+//    private Landstingssamordnare createLandstingssamordnare(HsaId hsaId, Name name, HsaBefattning hsaBefattning, Landsting landsting){
+//    	Landstingssamordnare landstingssamordnare = new Landstingssamordnare(hsaId, name, hsaBefattning, landsting);
+//    	if(landsting != null ){
+//    		landsting.addLandstingssamordnare(landstingssamordnare);
+//    	}
+//    	landstingssamordnareRepository.saveAndFlush(landstingssamordnare);
+//    	
+//    	return landstingssamordnare; 
+//    }
     
     private Vardgivarenhet createVardgivarenhet(HsaId hsaId, String name, Address address, Vardgivare vardgivare, Landsting landsting){
     	Vardgivarenhet vardgivarenhet = new Vardgivarenhet(vardgivare, hsaId, name, address );
@@ -490,7 +741,7 @@ public class ITRepositoryTest {
     	//Booking booking =  createBooking();
     	Person person = new TolkPerson("","");
     	
-    	Booking booking = new Booking(BookingType.EXAMINATION,new LocalDateTime(), new LocalDateTime(), person);
+    	Booking booking = new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(), person);
     	assertNotNull(booking.getPersons());
     	
     	eavrop.addBooking(booking);
@@ -505,6 +756,37 @@ public class ITRepositoryTest {
     	return eavropRepository.save(eavrop);
     }
 
+    private Eavrop startEavropToday(Eavrop eavrop){
+    	
+    	DateTime today = new DateTime();
+
+    	eavrop.setCreatedDate(today.minusDays(3));
+    	
+    	
+    	//TODO: GO through documenst sent property vs add received document
+    	//eavrop.setDateTimeDocumentsSentFromBestallare(date);
+       	ReceivedDocument receivedDocument = new ReceivedDocument(today.minusDays(3), "Journal", new Bestallaradministrator("Ordny Ordnarsson", "Handläggare", "LFC Stockholm", "555-12345", "ordny@fk.se"), Boolean.TRUE);
+    	eavrop.addReceivedDocument(receivedDocument);
+   	
+    	
+    	return eavropRepository.save(eavrop);
+    }
+
+    
+    private Eavrop signIntygToday(Eavrop eavrop){
+    	
+    	DateTime today = new DateTime();
+    	eavrop.setCreatedDate(today.minusDays(6));
+
+    	ReceivedDocument receivedDocument = new ReceivedDocument(today.minusDays(6), "Journal", new Bestallaradministrator("Ordny Ordnarsson", "Handläggare", "LFC Stockholm", "555-12345", "ordny@fk.se"), Boolean.TRUE);
+    	eavrop.addReceivedDocument(receivedDocument);
+
+    	IntygSignedInformation  intygSignedInformation = new IntygSignedInformation(today, new HoSPerson("Dr Hudson", "Surgeon", "Danderyds sjukhus")); 
+    	eavrop.addIntygSignedInformation(intygSignedInformation);
+    	
+    	return eavropRepository.save(eavrop);
+    }
+
     
     private Eavrop deviateRespondEavrop(Eavrop eavrop){
     	
@@ -515,15 +797,14 @@ public class ITRepositoryTest {
 
     
     private Eavrop approveEavrop(Eavrop eavrop){
-    	eavrop.approveEavrop(new EavropApproval(new LocalDateTime(), createBestallaradministrator()));
+    	eavrop.approveEavrop(new EavropApproval(new DateTime(), createBestallaradministrator()));
     	return eavropRepository.saveAndFlush(eavrop);
     }
 
     private Eavrop approveEavropCompensation(Eavrop eavrop){
-    	eavrop.approveEavropCompensation(new EavropCompensationApproval(new LocalDateTime(), new Bestallaradministrator("1","2","3","4","5@eve.com")));
+    	eavrop.approveEavropCompensation(new EavropCompensationApproval(Boolean.TRUE, new DateTime(), new Bestallaradministrator("1","2","3","4","5@eve.com")));
     	return eavropRepository.saveAndFlush(eavrop);
     }
-
     
     private Invanare createInvanare(){
     	PersonalNumber pnr = new PersonalNumber("700101-0101");
@@ -543,8 +824,8 @@ public class ITRepositoryTest {
 
     private Booking createBooking(){
     	
-    	LocalDateTime start = new LocalDateTime();
-    	LocalDateTime end = start.plusHours(1);
+    	DateTime start = new DateTime();
+    	DateTime end = start.plusHours(1);
     	Person person = new HoSPerson("Dr Hudson", "Surgeon", "Danderyds sjukhus");
     	//Set<Person> persons = new HashSet<Person>();
     	//persons.add(person);
@@ -555,7 +836,7 @@ public class ITRepositoryTest {
     
     private BookingDeviation createBookingDeviation(){
     	
-    	BookingDeviation deviation = new BookingDeviation(BookingDeviationType.INVANARE_CANCELLED_LT_48, new Note("No Show", new HoSPerson("Lasse Kongo", "Läkare", "Danderydssjukhus")));
+    	BookingDeviation deviation = new BookingDeviation(BookingDeviationType.INVANARE_CANCELLED_LT_48, new Note(NoteType.DEVIATION, "No Show", new HoSPerson("Lasse Kongo", "Läkare", "Danderydssjukhus")));
     	return deviation;
     }
 
@@ -564,15 +845,15 @@ public class ITRepositoryTest {
     	
     	Bestallaradministrator adm = new Bestallaradministrator("Törn Valdegård", "Driver", "STCC", "555-123456", "rattmuff@saab.se");
     	
-    	BookingDeviationResponse deviation = new BookingDeviationResponse( BookingDeviationResponseType.RESTART, new LocalDateTime(), adm );
+    	BookingDeviationResponse deviation = new BookingDeviationResponse( BookingDeviationResponseType.RESTART, new DateTime(), adm );
     	
-    	deviation.setDeviationResponseNote(new Note("Kör på", adm));
+    	deviation.setDeviationResponseNote(new Note(NoteType.DEVIATION_RESPONSE, "Kör på", adm));
     	return deviation;
     }
     
     private Note createNote(){
     	
-    	Note note = new Note("Test note", new HoSPerson("Test Testsson", "Testare", "AVD Testning"));
+    	Note note = new Note(NoteType.EAVROP, "Test note", new HoSPerson("Test Testsson", "Testare", "AVD Testning"));
     	return note;
     }
     

@@ -1,18 +1,18 @@
 package se.inera.fmu.domain.model.eavrop.intyg;
 
 import org.apache.commons.lang.Validate;
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropEvent;
 
 public class IntygApprovedByBestallareEvent extends EavropEvent{
 	
-	private final LocalDateTime requestDateTime; 
+	private final DateTime requestDateTime; 
 	
 	//~ Constructors ===================================================================================================
     
-	public IntygApprovedByBestallareEvent(final ArendeId arendeId, final LocalDateTime requestDateTime) {
+	public IntygApprovedByBestallareEvent(final ArendeId arendeId, final DateTime requestDateTime) {
 		super(arendeId);
 		Validate.notNull(requestDateTime);
 		this.requestDateTime= requestDateTime;
@@ -20,7 +20,7 @@ public class IntygApprovedByBestallareEvent extends EavropEvent{
 
 	//~ Property Methods ===============================================================================================
 
-	public LocalDateTime getRequestDateTime() {
+	public DateTime getRequestDateTime() {
 		return this.requestDateTime;
 	}
 

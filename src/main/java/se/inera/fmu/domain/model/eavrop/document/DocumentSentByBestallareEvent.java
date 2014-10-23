@@ -1,18 +1,18 @@
 package se.inera.fmu.domain.model.eavrop.document;
 
 import org.apache.commons.lang.Validate;
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropEvent;
 
 public class DocumentSentByBestallareEvent extends EavropEvent{
 	
-	private final LocalDateTime documentsSentDateTime; 
+	private final DateTime documentsSentDateTime; 
 	
 	//~ Constructors ===================================================================================================
     
-	public DocumentSentByBestallareEvent(final ArendeId arendeId, final LocalDateTime documentsSentDateTime) {
+	public DocumentSentByBestallareEvent(final ArendeId arendeId, final DateTime documentsSentDateTime) {
 		super(arendeId);
 		Validate.notNull(documentsSentDateTime);
 		this.documentsSentDateTime= documentsSentDateTime;
@@ -20,7 +20,7 @@ public class DocumentSentByBestallareEvent extends EavropEvent{
 
 	//~ Property Methods ===============================================================================================
 
-	public LocalDateTime getDocumentsSentDateTime() {
+	public DateTime getDocumentsSentDateTime() {
 		return this.documentsSentDateTime;
 	}
 

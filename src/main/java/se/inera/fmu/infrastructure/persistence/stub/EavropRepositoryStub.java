@@ -3,6 +3,8 @@ package se.inera.fmu.infrastructure.persistence.stub;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,6 +19,7 @@ import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.EavropState;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
+import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
@@ -187,11 +190,52 @@ public class EavropRepositoryStub implements EavropRepository {
 		return null;
 	}
 
-//	@Override
-//	public List<Eavrop> findByLandstingAndEavropStateTypeIn(
-//			Landsting landsting, List<EavropStateType> eavropStateTypes) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	@Override
+	public List<Eavrop> findByLandstingAndCreateDateAndEavropStateIn(
+			Landsting landsting, DateTime fromDate, DateTime toDate,
+			List<EavropState> eavropStates) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Eavrop> findByLandstingAndStartDateAndEavropStateIn(
+			Landsting landsting, LocalDate fromDate, LocalDate toDate,
+			List<EavropState> eavropStates) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Eavrop> findByLandstingAndIntygSignedDateAndEavropStateIn(
+			Landsting landsting, DateTime fromDate, DateTime toDate,
+			List<EavropState> eavropStates) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Eavrop> findByVardgivarenhetAndCreateDateAndEavropStateIn(
+			Vardgivarenhet vardgivarenhet, DateTime fromDate, DateTime toDate,
+			List<EavropState> eavropStates) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Eavrop> findByVardgivarenhetAndStartDateAndEavropStateIn(
+			Vardgivarenhet vardgivarenhet, LocalDate fromDate, LocalDate toDate,
+			List<EavropState> eavropStates) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Eavrop> findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(
+			Vardgivarenhet vardgivarenhet, DateTime fromDate, DateTime toDate,
+			List<EavropState> eavropStates) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

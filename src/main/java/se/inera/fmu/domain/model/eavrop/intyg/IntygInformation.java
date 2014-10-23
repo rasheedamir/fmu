@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.person.Person;
 import lombok.ToString;
@@ -34,25 +34,29 @@ public abstract class IntygInformation{
 
 	@NotNull
     @Column(name = "INFO_DATETIME", nullable = false, updatable = false)
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-	private LocalDateTime informationTimestamp;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime informationTimestamp;
 	
 	@NotNull
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="PERSON_ID")
 	private Person person;
 	
-	public IntygInformation(LocalDateTime informationTimestamp, Person person) {
+	public IntygInformation(){
+        //Needed by hibernate
+    }
+
+	public IntygInformation(DateTime informationTimestamp, Person person) {
 		super();
 		this.informationTimestamp = informationTimestamp;
 		this.person = person;
 	}
 
-	public LocalDateTime getIntformationTimestamp() {
+	public DateTime getIntformationTimestamp() {
 		return informationTimestamp;
 	}
 
-	private void setIntformationTimestamp(LocalDateTime intformationTimestamp) {
+	private void setIntformationTimestamp(DateTime intformationTimestamp) {
 		this.informationTimestamp = intformationTimestamp;
 	}
 

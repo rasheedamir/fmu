@@ -1,12 +1,12 @@
 package se.inera.fmu.domain.model.eavrop;
 
 import org.apache.commons.lang.Validate;
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.shared.DomainEvent;
 
 public abstract class EavropEvent implements DomainEvent<EavropEvent>{
-	private final LocalDateTime eventDateTime = LocalDateTime.now();
+	private final DateTime eventDateTime = DateTime.now();
 	private final ArendeId arendeId;
 	
 	//~ Constructors ===================================================================================================
@@ -21,7 +21,7 @@ public abstract class EavropEvent implements DomainEvent<EavropEvent>{
 		return this.arendeId;
 	}
 	
-	public LocalDateTime getEventDateTime() {
+	public DateTime getEventDateTime() {
 		return eventDateTime;
 	}
 

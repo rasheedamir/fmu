@@ -3,7 +3,7 @@ package se.inera.fmu.domain.model.eavrop.intyg;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.person.Person;
 import lombok.ToString;
@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class IntygApprovedInformation extends IntygInformation{
 
-	public IntygApprovedInformation(LocalDateTime informationTimestamp, Person person) {
+	public IntygApprovedInformation(DateTime informationTimestamp, Person person) {
 		super(informationTimestamp, person);
 	}
 
