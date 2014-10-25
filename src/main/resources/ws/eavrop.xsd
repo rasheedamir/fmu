@@ -31,4 +31,52 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="handlingarSentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="arendeId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="handlingarKompletteringSentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="arendeId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="utredningSentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="arendeId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="utredningKompletteringRequiredRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="arendeId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="utredningKompletteringSentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="arendeId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="utredningAcceptedRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="arendeId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
 </xs:schema>

@@ -28,4 +28,13 @@ public class EavropEndpoint {
 
         return null;
     }
+
+    //handlingarSkickade or initialDocumentsSent
+    //kompletteringSkickade or complimentedDocumentsSent
+    //beslutFortsättning
+    //notifieraUtredningSkickad
+    //notifieraOmBegärdKomplettering
+    //notifieraKompletteringSkickad
+    //utredningAccepterad
+    //ersättning godkänns rad för rad, en i taget or flera åt gången
 }
