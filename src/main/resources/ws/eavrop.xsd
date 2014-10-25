@@ -1,0 +1,34 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://inera.ws/fmu/admin/eavrop"
+           targetNamespace="http://inera.ws/fmu/admin/eavrop" elementFormDefault="qualified">
+
+    <xs:element name="createEavropRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="arendeId" type="xs:string"/>
+                <xs:element name="utredningType" type="xs:string"/>
+                <xs:element name="tolk" type="xs:boolean"/>
+                <xs:element name="personalNumber" type="xs:string"/>
+                <xs:element name="invanareName" type="xs:string"/>
+                <xs:element name="invanareGender" type="xs:string"/>
+                <xs:element name="invanareHomeAddress" type="xs:string"/>
+                <xs:element name="invanareEmail" type="xs:string"/>
+                <xs:element name="invanareSpecialNeeds" type="xs:string"/>
+                <xs:element name="landstingId" type="xs:int"/>
+                <xs:element name="administratorName" type="xs:string"/>
+                <xs:element name="administratorBefattning" type="xs:string"/>
+                <xs:element name="administratorOrganisation" type="xs:string"/>
+                <xs:element name="administratorPhone" type="xs:string"/>
+                <xs:element name="administratorEmail" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createEavropResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="eavropId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
