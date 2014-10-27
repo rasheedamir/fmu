@@ -34,6 +34,7 @@ public class BusinessDaysUtil {
 	
 	//Set up floating day holidays when first needed. i.e. when the floting holidays or a specific year is needed a set is created and added to the map for further use.
 	private static final Map<Integer,Set<Holiday>> floatingDayHolidaysPerYearMap = new HashMap<Integer,Set<Holiday>>();
+	
 	private static Set<Holiday> createFloatingHolidaysForYear(Integer year) {
 		Set<Holiday> floatingHolidaysForYear = new HashSet<Holiday>(); 
 		
@@ -77,6 +78,18 @@ public class BusinessDaysUtil {
 		//Allhelgonaafton - Friday preceding all 19/6 - 25/6, No holiday but less workinghours during day. TODO: investigate if it should be included
 		//floatingHolidaysForYear.add(new Holiday(allSaintsDay.minusDays(DateTimeConstants.SATURDAY - DateTimeConstants.FRIDAY)));
 
+		//Adding summer vacation as "industrisemester" during week 28, 29 and 30
+		LocalDate mondayWeek28 = new LocalDate().withWeekyear(year).withWeekOfWeekyear(28).withDayOfWeek(DateTimeConstants.MONDAY);
+		LocalDate mondayWeek31 = new LocalDate().withWeekyear(year).withWeekOfWeekyear(31).withDayOfWeek(DateTimeConstants.MONDAY);
+
+		LocalDate day = mondayWeek28;
+		while (day.isBefore(mondayWeek31)) {
+			if(day.getDayOfWeek() != DateTimeConstants.SATURDAY && day.getDayOfWeek() != DateTimeConstants.SUNDAY){
+				floatingHolidaysForYear.add(new Holiday(day));
+			}
+			day = day.plusDays(1);
+		}
+		
 		floatingDayHolidaysPerYearMap.put(year, Collections.unmodifiableSet(floatingHolidaysForYear));
 		
 		return floatingDayHolidaysPerYearMap.get(year);
@@ -88,13 +101,13 @@ public class BusinessDaysUtil {
 	 * The method uses the Carl Friedrich Gauss algorithm http://en.wikipedia.org/wiki/Computus#Gauss_algorithm
 	 * 
 	 */
-	private static LocalDate getEasterSunday(int year) {
+	public static LocalDate getEasterSunday(int year) {
 
         int initialYear = year;
 
-        if (year < 1900) {
-            year += 1900;
-        }
+//        if (year < 1900) {
+//            year += 1900;
+//        }
 
         int a = year % 19;
         int b = year / 100;
@@ -149,6 +162,32 @@ public class BusinessDaysUtil {
 		return numberOfBusinessDays; 
 	}
 	
+
+	/**
+	 * 
+	 */
+	
+	//TODO: Clean this up, should from and to dates be inclusinve or not, or should we handle the it like joda, plusDays(...
+	public static LocalDate calculateBusinessDayDate(LocalDate from, int businessDaysOffset){
+		
+		if(from == null ){
+			throw new IllegalArgumentException("need to be a valid date");
+		}
+		
+		LocalDate result = null;;
+		
+		int day = businessDaysOffset;
+		
+		for (LocalDate date = from; day > 0 ; date = date.plusDays(1))	{
+			if(isBusinessDay(date)){
+		    	day--;
+		    	result = date;
+		    }
+		}
+		
+		return result; 
+	}
+
 	
 	/**
 	 * Utility method for checking if a specific date is considered a business day considering weekends and swedish holidays

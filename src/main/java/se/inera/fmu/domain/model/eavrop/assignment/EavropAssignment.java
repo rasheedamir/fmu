@@ -102,6 +102,10 @@ public class EavropAssignment extends AbstractBaseEntity implements
 			//TODO: throw something
 		}
 	}
+	
+	public boolean isAccepted(){
+		return EavropAssignmentStatusType.ACCEPTED.equals(this.getAssignmentStatus());
+	}
 
 	// ~ Other Methods ==================================================================================================
 

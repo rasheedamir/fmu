@@ -10,6 +10,8 @@ import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationType;
+import se.inera.fmu.domain.model.eavrop.booking.BookingId;
+import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
@@ -20,6 +22,7 @@ import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.note.NoteType;
+import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
@@ -127,7 +130,9 @@ public abstract class AbstractEavropStateTest {
 	public void testCancelBooking() {
 		Eavrop eavrop = getEavrop();
 		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.cancelBooking(createBooking().getBookingId(), createBookingDevation());
+		//eavrop.cancelBooking(createBooking().getBookingId(), createBookingDevation());
+		//eavrop.cancelBooking(createBooking().getBookingId(), BookingStatusType.CANCELLED_NOT_PRESENT, createNote());
+		eavrop.setBookingStatus(createBooking().getBookingId(), BookingStatusType.CANCELLED_NOT_PRESENT, createNote());
 	}
 
 	@Test(expected=IllegalStateException.class)
@@ -159,8 +164,13 @@ public abstract class AbstractEavropStateTest {
 				.withInvanare(createInvanare())
 				.withLandsting(new Landsting(new LandstingCode(99) ,"Testlän"))
 				.withBestallaradministrator(new Bestallaradministrator("Nils Peterson", "Handläggare", "LFC Stockholm", "+46333333", "1@2"))
+				.withEavropProperties(getEavropProperties())
 				.build();
 
+	}
+	
+    private EavropProperties getEavropProperties() {
+		return new EavropProperties(3,5,25,10);
 	}
 	
 	protected Eavrop createAssignedEavrop(){
@@ -179,7 +189,7 @@ public abstract class AbstractEavropStateTest {
 		Eavrop eavrop = createAcceptedEavrop();
 		Booking booking = createBooking(); 
 		eavrop.addBooking(booking);
-		eavrop.cancelBooking(booking.getBookingId(), createBookingDevation());
+		eavrop.setBookingStatus(booking.getBookingId(), BookingStatusType.CANCELLED_NOT_PRESENT, createNote());
 		return eavrop;
 	}
 
@@ -213,7 +223,7 @@ public abstract class AbstractEavropStateTest {
 	protected Booking createBooking(){
 		//Set<Person> persons = new HashSet<Person>();
 		//persons.add(createPerson());
-		return new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(),createPerson());
+		return new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(),createPerson(), Boolean.FALSE);
 	}
 	
 	protected ReceivedDocument createReceivedDocument(){
@@ -253,7 +263,7 @@ public abstract class AbstractEavropStateTest {
 	}
 
 	protected BookingDeviation createBookingDevation(){
-		return new BookingDeviation(BookingDeviationType.INVANARE_CANCELLED_LT_48, createNote());
+		return new BookingDeviation(BookingDeviationType.INVANARE_ABSENT, createNote());
 	}
 
 	protected BookingDeviationResponse createBookingDevationResponse(){

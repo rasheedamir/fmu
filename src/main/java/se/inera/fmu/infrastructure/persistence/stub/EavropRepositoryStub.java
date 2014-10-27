@@ -19,6 +19,7 @@ import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.EavropState;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
+import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
@@ -40,6 +41,7 @@ public class EavropRepositoryStub implements EavropRepository {
 				.withInvanare(new Invanare(new PersonalNumber("8702225467"),new Name("Jacob", "william", "anderson"),Gender.MALE, new Address("blomstervägen", "58435", "Linköping", "sweden"),"jacob.william@gmail.com",null))
 				.withLandsting(new Landsting(new LandstingCode(1), "Stockholms läns landsting"))
 				.withBestallaradministrator(new Bestallaradministrator("Per Elofsson","Handläggare", "LFC Stockholm", "08123456", "per.elofsson@forsakringskassan.se" ))
+				.withEavropProperties(new EavropProperties(3,5,25,10))
 				.build());
 
 
@@ -49,6 +51,7 @@ public class EavropRepositoryStub implements EavropRepository {
 				.withInvanare(new Invanare(new PersonalNumber("7702225267"),new Name("Erik", null, "lindgren"),Gender.MALE, new Address("ugglegatan", "55435", "Göteborg", "Sweden"), "erik.lin@gmail.com", "Personen är rullstilsbunden. Taxi behöver beställas"))
 				.withLandsting(new Landsting(new LandstingCode(14), "Stockholms läns landsting"))
 				.withBestallaradministrator(new Bestallaradministrator("Jan Björklund","Handläggare", "LFC Göteborg", "031123456", "jan.bjorklund@forsakringskassan.se" ))
+				.withEavropProperties(new EavropProperties(3,5,25,10))
 				.build());
 
 		list.add( EavropBuilder.eavrop()
@@ -69,6 +72,11 @@ public class EavropRepositoryStub implements EavropRepository {
 		
 		return list;
 	}
+	
+    private EavropProperties getEavropProperties() {
+		return new EavropProperties(3,5,25,10);
+	}
+
 
 	@Override
 	public void deleteAllInBatch() {

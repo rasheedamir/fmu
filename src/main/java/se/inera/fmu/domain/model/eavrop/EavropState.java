@@ -6,6 +6,8 @@ import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
+import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
+import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
@@ -35,7 +37,12 @@ public interface EavropState{
 	
 	public void addBooking(Eavrop eavrop, Booking booking);
 	
-	public void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingDeviation deviation);
+	//public void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingDeviation deviation);
+	//public void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingStatusType cancellationType, Note cancellationNote);
+	
+	public void setBookingStatus(Eavrop eavrop, BookingId bookingId, BookingStatusType bookingStatus, Note cancellationNote);
+
+	public void setInterpreterBookingStatus(Eavrop eavrop, BookingId bookingId, InterpreterBookingStatusType interpreterStatus, Note cancellationNote);
 	
 	public void addBookingDeviationResponse(Eavrop eavrop, BookingId bookingId, BookingDeviationResponse bookingDeviationResponse);
 	

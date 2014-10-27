@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import se.inera.fmu.Application;
+import se.inera.fmu.application.util.BusinessDaysUtil;
 import se.inera.fmu.domain.model.eavrop.AcceptedEavropState;
 import se.inera.fmu.domain.model.eavrop.ApprovedEavropState;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
@@ -26,6 +27,7 @@ import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationType;
+import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedInformation;
@@ -34,6 +36,7 @@ import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.note.NoteType;
+import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
 import se.inera.fmu.domain.model.hos.vardgivare.VardgivareRepository;
@@ -204,8 +207,8 @@ public class ITRepositoryTest {
         for (Booking booking : eavrop.getBookings()) {
         	assertNotNull(booking.getPersons());
         	assertEquals(1, booking.getPersons().size());
-        	assertNotNull(booking.getBookingDeviation());
-        	assertNull(booking.getBookingDeviation().getBookingDeviationResponse());
+        	assertEquals(Boolean.TRUE, booking.getBookingStatus().isCancelled());
+        	assertNull(booking.getBookingDeviationResponse());
     	}
 
         eavrop = deviateRespondEavrop(eavrop);
@@ -217,8 +220,8 @@ public class ITRepositoryTest {
         for (Booking booking : eavrop.getBookings()) {
         	assertNotNull(booking.getPersons());
         	assertEquals(1, booking.getPersons().size());
-        	assertNotNull(booking.getBookingDeviation());
-        	assertNotNull(booking.getBookingDeviation().getBookingDeviationResponse());
+        	assertEquals(Boolean.TRUE, booking.getBookingStatus().isCancelled());
+        	assertNotNull(booking.getBookingDeviationResponse());
     	}
     }
 
@@ -402,6 +405,11 @@ public class ITRepositoryTest {
     	
     	LocalDate today = new LocalDate(); 
    
+    	
+    	
+    	assertTrue(today.minusDays(1).isBefore(eavrop.getStartDate()));
+    	assertTrue(today.plusDays(1).isAfter(eavrop.getStartDate()));
+    	
     	List<Eavrop> eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, today.minusDays(1), today.plusDays(1), Arrays.asList(ACCEPTED_STATES));
     	assertNotNull(eavrops);
     	assertEquals(1, eavrops.size());
@@ -685,6 +693,7 @@ public class ITRepositoryTest {
 		.withInvanare(invanare)
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
+		.withEavropProperties(new EavropProperties(3,5,25,10))
 		.build();
    
         return eavropRepository.save(eavrop);
@@ -701,6 +710,7 @@ public class ITRepositoryTest {
 		.withInvanare(invanare)
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
+		.withEavropProperties(new EavropProperties(3,5,25,10))
 		.build();
         
         //assign
@@ -714,7 +724,7 @@ public class ITRepositoryTest {
         //deviate
         Booking booking = createBooking();
         eavrop.addBooking(booking);
-        eavrop.cancelBooking(booking.getBookingId(), createBookingDeviation());
+        eavrop.setBookingStatus(booking.getBookingId(), BookingStatusType.CANCELLED_NOT_PRESENT, createNote());
         assertEquals(EavropStateType.ON_HOLD, eavrop.getEavropState().getEavropStateType());   
     
         return eavropRepository.saveAndFlush(eavrop);
@@ -741,7 +751,7 @@ public class ITRepositoryTest {
     	//Booking booking =  createBooking();
     	Person person = new TolkPerson("","");
     	
-    	Booking booking = new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(), person);
+    	Booking booking = new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(), person, Boolean.FALSE);
     	assertNotNull(booking.getPersons());
     	
     	eavrop.addBooking(booking);
@@ -751,7 +761,7 @@ public class ITRepositoryTest {
     		assertNotNull(b.getPersons());
 		}
     	
-    	eavrop.cancelBooking(booking.getBookingId(), createBookingDeviation());
+    	eavrop.setBookingStatus(booking.getBookingId(), BookingStatusType.CANCELLED_LT_48_H, createNote());
     	
     	return eavropRepository.save(eavrop);
     }
@@ -762,16 +772,29 @@ public class ITRepositoryTest {
 
     	eavrop.setCreatedDate(today.minusDays(3));
     	
+    	DateTime todayWithOffset = getTodayWithOffset(3);
     	
     	//TODO: GO through documenst sent property vs add received document
     	//eavrop.setDateTimeDocumentsSentFromBestallare(date);
-       	ReceivedDocument receivedDocument = new ReceivedDocument(today.minusDays(3), "Journal", new Bestallaradministrator("Ordny Ordnarsson", "Handläggare", "LFC Stockholm", "555-12345", "ordny@fk.se"), Boolean.TRUE);
+       	ReceivedDocument receivedDocument = new ReceivedDocument(todayWithOffset, "Journal", new Bestallaradministrator("Ordny Ordnarsson", "Handläggare", "LFC Stockholm", "555-12345", "ordny@fk.se"), Boolean.TRUE);
     	eavrop.addReceivedDocument(receivedDocument);
    	
     	
     	return eavropRepository.save(eavrop);
     }
 
+    
+    private DateTime getTodayWithOffset(int offset){
+    	LocalDate today = new LocalDate();
+    	LocalDate date = new LocalDate();
+    	int idx = 0;
+    	while(BusinessDaysUtil.calculateBusinessDayDate(date, offset).isAfter(today)){
+    		date = date.minusDays(1);
+    		idx++;
+    	}
+    
+    	return new DateTime().minusDays(idx);
+    }
     
     private Eavrop signIntygToday(Eavrop eavrop){
     	
@@ -829,7 +852,7 @@ public class ITRepositoryTest {
     	Person person = new HoSPerson("Dr Hudson", "Surgeon", "Danderyds sjukhus");
     	//Set<Person> persons = new HashSet<Person>();
     	//persons.add(person);
-    	Booking booking = new Booking(BookingType.EXAMINATION, start,end, person);
+    	Booking booking = new Booking(BookingType.EXAMINATION, start,end, person, Boolean.FALSE);
 
     	return booking;
     }

@@ -14,6 +14,7 @@ import se.inera.fmu.domain.model.eavrop.*;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
+import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.shared.Address;
@@ -98,7 +99,9 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
         Interpreter interpreter= new Interpreter(interpreterLanguages);
         
         log.debug(String.format("invanare created :: %s", invanare.toString()));
-
+        
+        EavropProperties props = getEavropProperties(); 
+        
         Eavrop eavrop = EavropBuilder.eavrop()
 		.withArendeId(arendeId)
 		.withUtredningType(utredningType) 
@@ -106,6 +109,7 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
 		.withInterpreter(interpreter)
+		.withEavropProperties(props)
 		.build();
 
         //TODO: fix tolk setting, should there be a boolean with a language description string or only a string?
@@ -154,5 +158,10 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
     	//TODO: Set up repository, for this subclass or abstract superclass; 
 //    	bestallaradministrator = bestallaradministrator.save(invanare);
     	return bestallaradministrator;
+    }
+    
+    //TODO add call to fetch system parmeters from db 
+    private EavropProperties getEavropProperties(){
+    	return new EavropProperties(3,5,25,10);
     }
 }

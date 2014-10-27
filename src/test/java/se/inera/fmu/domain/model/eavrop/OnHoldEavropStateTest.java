@@ -25,9 +25,9 @@ public class OnHoldEavropStateTest extends AbstractNoteableEavropStateTest{
 		
 		assertNotNull(eavrop.getBookings());
 		assertEquals(1, eavrop.getBookings().size());
-		assertNotNull(eavrop.getBookings().iterator().next().getBookingDeviation());
-		assertNotNull(eavrop.getBookings().iterator().next().getBookingDeviation().getBookingDeviationResponse());
-		assertEquals(BookingDeviationResponseType.RESTART, eavrop.getBookings().iterator().next().getBookingDeviation().getBookingDeviationResponse().getResponseType());
+		assertEquals(Boolean.TRUE, eavrop.getBookings().iterator().next().getBookingStatus().isCancelled());
+		assertNotNull(eavrop.getBookings().iterator().next().getBookingDeviationResponse());
+		assertEquals(BookingDeviationResponseType.RESTART, eavrop.getBookings().iterator().next().getBookingDeviationResponse().getResponseType());
 		
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getEavropState().getEavropStateType());
 	}

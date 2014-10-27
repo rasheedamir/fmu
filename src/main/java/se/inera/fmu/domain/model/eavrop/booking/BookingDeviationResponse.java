@@ -28,15 +28,15 @@ public class BookingDeviationResponse {
     
     @NotNull
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    @Column(name = "RESPONSE_DATE_TIME")
+    @Column(name = "DEVIATION_RESPONSE_DATE_TIME")
 	private DateTime responseTimestamp;
 
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="PERSON_ID")
+    @JoinColumn(name="DEVIATION_RESPONSE_PERSON_ID")
 	private Person person;
 	
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="RESPONSE_NOTE_ID", nullable = true)
+    @JoinColumn(name="DEVIATION_RESPONSE_NOTE_ID", nullable = true)
 	private Note deviationResponseNote;
 
     

@@ -27,11 +27,11 @@ public class OnHoldEavropState extends AbstractNoteableEavropState{
 	public void addBookingDeviationResponse(Eavrop eavrop, BookingId bookingId, BookingDeviationResponse bookingDeviationResponse){
 		Booking booking = eavrop.getBooking(bookingId);
 		
-		if(booking.getBookingDeviation() == null){
+		if( ! booking.getBookingStatus().isCancelled()){
 			//TODO: create separate state machine for bookings
 			throw new IllegalArgumentException("Booking with id:" + bookingId.getId() + " is not present on Eavrop with ArendeId: " + eavrop.getArendeId().toString());
 		}
-		booking.getBookingDeviation().setBookingDeviationResponse(bookingDeviationResponse);
+		booking.setBookingDeviationResponse(bookingDeviationResponse);
 		
 		BookingDeviationResponseType responseType = bookingDeviationResponse.getResponseType();
 		

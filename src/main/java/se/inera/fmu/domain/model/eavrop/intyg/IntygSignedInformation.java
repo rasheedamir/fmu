@@ -11,7 +11,7 @@ import lombok.ToString;
 @Entity
 @DiscriminatorValue("SIGNED")
 @ToString
-public class IntygSignedInformation extends IntygInformation{
+public class IntygSignedInformation extends IntygInformation implements Comparable<IntygSignedInformation> {
 	
 	public IntygSignedInformation(){
         //Needed by hibernate
@@ -21,4 +21,8 @@ public class IntygSignedInformation extends IntygInformation{
 		super(informationTimestamp, person);
 	}
 
+	@Override
+	public int compareTo(IntygSignedInformation  other) {
+	        return this.getInformationTimestamp().compareTo(other.getInformationTimestamp());
+	}
 }

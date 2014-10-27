@@ -11,7 +11,7 @@ import lombok.ToString;
 @Entity
 @DiscriminatorValue("REQUEST")
 @ToString
-public class IntygComplementRequestInformation extends IntygInformation{
+public class IntygComplementRequestInformation  extends IntygInformation implements Comparable<IntygComplementRequestInformation>{
 
 	public IntygComplementRequestInformation(){
         //Needed by hibernate
@@ -21,5 +21,8 @@ public class IntygComplementRequestInformation extends IntygInformation{
 			DateTime informationTimestamp, Person person) {
 		super(informationTimestamp, person);
 	}
-
+	@Override
+	public int compareTo(IntygComplementRequestInformation  other) {
+	        return this.getInformationTimestamp().compareTo(other.getInformationTimestamp());
+	}
 }

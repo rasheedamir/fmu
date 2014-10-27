@@ -4,11 +4,15 @@ import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationTypeUtil;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
+import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
+import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBooking;
+import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygComplementRequestInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedInformation;
+import se.inera.fmu.domain.model.eavrop.note.Note;
 
 /**
  * The accepted state, means that the care giver has accepted and 
@@ -49,23 +53,72 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 		//No state transition
 	}
 	
+//	@Override
+//	public void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingDeviation deviation) {
+//		Booking booking = eavrop.getBooking(bookingId);
+//		
+//		if(booking.getBookingDeviation() != null){
+//			//TODO: create separate state machine for bookings
+//			throw new IllegalArgumentException();
+//		}
+//		booking.setBookingDeviation(deviation);
+//		
+//		//TODO: BookingDeviationTypeUtil functionality should be moved to domain object
+//		if(BookingDeviationTypeUtil.isDeviationTypeReasonForOnHold(deviation.getDeviationType(), eavrop.getUtredningType())){
+//			
+//			//State transition ACCEPTED -> ON_HOLD
+//			eavrop.setEavropState(new OnHoldEavropState());
+//		}
+//		eavrop.handleBookingDeviation(booking.getBookingId());
+//	}
+	
+
 	@Override
-	public void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingDeviation deviation) {
+	public void setBookingStatus(Eavrop eavrop, BookingId bookingId, BookingStatusType bookingStatus, Note cancelNote) {
 		Booking booking = eavrop.getBooking(bookingId);
 		
-		if(booking.getBookingDeviation() != null){
+		if(bookingStatus.isCancelled()){
+			cancelBooking(eavrop, bookingId, bookingStatus, cancelNote);
+		}else{
+			booking.setBookingStatus(bookingStatus);
+		}
+	}
+
+	
+	
+	private void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingStatusType bookingStatus, Note cancelNote) {
+		Booking booking = eavrop.getBooking(bookingId);
+		
+		if(booking.getBookingStatus().isCancelled()){
 			//TODO: create separate state machine for bookings
 			throw new IllegalArgumentException();
 		}
-		booking.setBookingDeviation(deviation);
+		
+		booking.setBookingStatus(bookingStatus);
+		booking.setDeviationNote(cancelNote);
 		
 		//TODO: BookingDeviationTypeUtil functionality should be moved to domain object
-		if(BookingDeviationTypeUtil.isDeviationTypeReasonForOnHold(deviation.getDeviationType(), eavrop.getUtredningType())){
-			
+		if(BookingDeviationTypeUtil.isBookingStatusReasonForOnHold(booking.getBookingStatus(), eavrop.getUtredningType())){
 			//State transition ACCEPTED -> ON_HOLD
 			eavrop.setEavropState(new OnHoldEavropState());
 		}
 		eavrop.handleBookingDeviation(booking.getBookingId());
+	}
+	
+	@Override
+	public void setInterpreterBookingStatus(Eavrop eavrop, BookingId bookingId, InterpreterBookingStatusType interpreterStatus, Note cancelNote) {
+		Booking booking = eavrop.getBooking(bookingId);
+		if(booking.getInterpreterBooking() == null){
+			//TODO: create separate state machine for bookings
+			throw new IllegalArgumentException();
+		}
+		
+		InterpreterBooking interpreter = booking.getInterpreterBooking();
+		interpreter.setInterpreterBookingStatus(interpreterStatus);
+		interpreter.setDeviationNote(cancelNote);
+		if(interpreter.getInterpreterBookingStatus().isDeviant()){
+			eavrop.handleInterpreterBookingDeviation(booking.getBookingId());
+		}
 	}
 	
 	@Override

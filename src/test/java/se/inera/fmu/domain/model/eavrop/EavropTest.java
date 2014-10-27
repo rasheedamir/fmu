@@ -4,11 +4,13 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 
 import junit.framework.TestCase;
+import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationType;
+import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
@@ -19,6 +21,7 @@ import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.note.NoteType;
+import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
@@ -143,6 +146,7 @@ public class EavropTest extends TestCase {
 		.withInvanare(invanare)
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
+		.withEavropProperties(new EavropProperties(3,5,25,10))
 		.build();
 		
 		assertEquals(invanare, eavrop.getInvanare());
@@ -161,6 +165,7 @@ public class EavropTest extends TestCase {
 		.withInvanare(invanare)
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
+		.withEavropProperties(new EavropProperties(3,5,25,10))
 		.build();
 		
 		assertEquals(invanare, eavrop.getInvanare());
@@ -202,7 +207,7 @@ public class EavropTest extends TestCase {
 		
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 		
-		eavrop.cancelBooking(booking.getBookingId(), createBookingDeviation());
+		eavrop.setBookingStatus(booking.getBookingId(), BookingStatusType.CANCELLED_NOT_PRESENT, null);
 
 		assertEquals(EavropStateType.ON_HOLD, eavrop.getStatus());
 
@@ -243,10 +248,175 @@ public class EavropTest extends TestCase {
 		assertEquals(EavropStateType.CLOSED, eavrop.getStatus());
 	}
 
+	
+	@Test
+	public void  testEavropAccept() {
+		
+		eavrop = EavropBuilder.eavrop()
+		.withArendeId(arendeId)
+		.withUtredningType(utredningType) 
+		.withInvanare(invanare)
+		.withLandsting(landsting)
+		.withBestallaradministrator(bestallaradministrator)
+		.withEavropProperties(new EavropProperties(3,5,25,10))
+		.build();
+		
+		eavrop.setCreatedDate(new DateTime(2014,10,1,10,30));
+
+		// Today is more than 5 business days since createDateTime 
+		assertEquals(true, eavrop.isEavropAcceptDaysDeviated());
+
+		
+		eavrop.assignEavropToVardgivarenhet(vardgivarenhet);
+		eavrop.acceptEavropAssignment();
+		assertEquals(true, eavrop.isEavropAcceptDaysDeviated());
+		
+		
+		eavrop.getCurrentAssignment().setLastModifiedDate(new DateTime(2014,10,8,23,59));
+		assertEquals(false, eavrop.isEavropAcceptDaysDeviated());
+
+		eavrop.getCurrentAssignment().setLastModifiedDate(new DateTime(2014,10,9,0,0));
+		assertEquals(true, eavrop.isEavropAcceptDaysDeviated());
+		
+	}
+		
+	@Test
+	public void  testEavropAssessment() {
+		
+		eavrop = EavropBuilder.eavrop()
+		.withArendeId(arendeId)
+		.withUtredningType(utredningType) 
+		.withInvanare(invanare)
+		.withLandsting(landsting)
+		.withBestallaradministrator(bestallaradministrator)
+		.withEavropProperties(new EavropProperties(3,5,25,10))
+		.build();
+		
+		eavrop.setCreatedDate(new DateTime(2014,10,1,10,30));
+
+		eavrop.assignEavropToVardgivarenhet(vardgivarenhet);
+		
+		eavrop.acceptEavropAssignment();
+		
+		assertNull(eavrop.getStartDate());
+		
+		ReceivedDocument document = new ReceivedDocument(new DateTime(2014,10,7,10,30), "DOC", new Bestallaradministrator("A","B","C","D","E"),Boolean.TRUE);
+		eavrop.addReceivedDocument(document);
+		
+		assertNotNull(eavrop.getStartDate());
+		
+		eavrop.addIntygSignedInformation(new IntygSignedInformation(new DateTime(2014,11,14,23,59),new HoSPerson("F", "G","H")));
+		
+		assertEquals(false, eavrop.isEavropAssesmentDaysDeviated());
+		
+	}
+
+	
+	
+	
+	
+//	@Test
+//	public void  testEavropStartDate() {
+//		
+//		eavrop = EavropBuilder.eavrop()
+//		.withArendeId(arendeId)
+//		.withUtredningType(utredningType) 
+//		.withInvanare(invanare)
+//		.withLandsting(landsting)
+//		.withBestallaradministrator(bestallaradministrator)
+//		.withEavropProperties(new EavropProperties(3,5,25,10))
+//		.build();
+//		
+//		eavrop.setCreatedDate(new DateTime(2014,10,1,10,30));
+//		
+//		ReceivedDocument doc = new ReceivedDocument(new DateTime(2014,10,1,10,30), "TEST", new Bestallaradministrator("","","","",""),true );
+//		eavrop.addReceivedDocument(doc);
+//		
+//		assertEquals(invanare, eavrop.getInvanare());
+//		assertEquals(utredningType, eavrop.getUtredningType());
+//		assertEquals(arendeId, eavrop.getArendeId());
+//		
+//		assertEquals(EavropStateType.UNASSIGNED, eavrop.getStatus());
+//	
+//		eavrop.assignEavropToVardgivarenhet(vardgivarenhet);
+//		
+//		assertEquals(EavropStateType.ASSIGNED, eavrop.getStatus());
+//
+//		eavrop.rejectEavropAssignment();;
+//
+//		assertEquals(EavropStateType.UNASSIGNED, eavrop.getStatus());
+//
+//		eavrop.assignEavropToVardgivarenhet(vardgivarenhet);
+//		
+//		assertEquals(EavropStateType.ASSIGNED, eavrop.getStatus());
+//
+//		eavrop.acceptEavropAssignment();;
+//
+//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+//		
+//		eavrop.addReceivedDocument(new ReceivedDocument("Internal", bestallaradministrator,Boolean.FALSE));
+//		
+//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+//		
+//		eavrop.addReceivedDocument(new ReceivedDocument("External", bestallaradministrator,Boolean.TRUE));
+//
+//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+//		
+//		eavrop.addRequestedDocument(new RequestedDocument("REQ", new HoSPerson("Dr Hudson", "Surgeon", "Danderyds sjukhus")));
+//
+//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+//
+//		Booking booking = createBooking();
+//		eavrop.addBooking(booking);
+//		
+//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+//		
+//		eavrop.cancelBooking(booking.getBookingId(), createBookingDeviation());
+//
+//		assertEquals(EavropStateType.ON_HOLD, eavrop.getStatus());
+//
+//		eavrop.addBookingDeviationResponse(booking.getBookingId(), createBookingDeviationResponse());
+//		
+//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+//		
+//		eavrop.addIntygSignedInformation(createIntygSignedInformation());
+//		
+//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+//		
+//		eavrop.addIntygComplementRequestInformation(createIntygComplementRequestInformation());
+//		
+//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+//
+//		eavrop.addIntygApprovedInformation(createIntygApprovedInformation());;
+//		
+//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+//		
+//		Note note = new Note(NoteType.EAVROP,"",null);
+//		
+//		eavrop.addNote(new Note(NoteType.EAVROP,"",null));
+//
+//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+//
+//		note = eavrop.getNote(note.getNoteId());
+//		
+//		eavrop.removeNote(note);
+//
+//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+//
+//		eavrop.approveEavrop(createEavropApproval());
+//		
+//		assertEquals(EavropStateType.APPROVED, eavrop.getStatus());
+//
+//		eavrop.approveEavropCompensation(createEavropCompensationApproval());
+//
+//		assertEquals(EavropStateType.CLOSED, eavrop.getStatus());
+//	}
+//
+	
 	private Booking createBooking(){
     	DateTime start = new DateTime();
     	Person person = new HoSPerson("Dr Hudson", "Surgeon", "Danderyds sjukhus");
-    	return new Booking(BookingType.EXAMINATION, start,start.plusHours(1), person);
+    	return new Booking(BookingType.EXAMINATION, start,start.plusHours(1), person, Boolean.FALSE);
 	}
 	
     private BookingDeviation createBookingDeviation(){

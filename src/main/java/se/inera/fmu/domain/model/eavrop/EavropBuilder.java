@@ -2,6 +2,7 @@ package se.inera.fmu.domain.model.eavrop;
 
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.medicalexamination.PriorMedicalExamination;
+import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 
@@ -12,6 +13,7 @@ public class EavropBuilder {
     Invanare invanare;
 	Bestallaradministrator bestallaradministrator;
 	Landsting landsting;
+	EavropProperties eavropProperties;
 	
 	//Optional
 	String description;
@@ -57,6 +59,12 @@ public class EavropBuilder {
 		this.description = description;
 		return this;
 	}
+
+	public EavropBuilder withEavropProperties(EavropProperties eavropProperties){
+		this.eavropProperties = eavropProperties;
+		return this;
+	}
+
 	
 	public EavropBuilder withInterpreter(Interpreter interpreter){
 		this.interpreter = interpreter;

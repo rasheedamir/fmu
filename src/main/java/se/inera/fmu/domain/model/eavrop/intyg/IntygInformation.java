@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
 import lombok.ToString;
 
@@ -25,7 +26,7 @@ import lombok.ToString;
 @DiscriminatorColumn(name="INFO_TYPE")
 @Table(name = "T_INTYG_INFORMATION")
 @ToString
-public abstract class IntygInformation{
+public abstract class IntygInformation {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,7 +53,7 @@ public abstract class IntygInformation{
 		this.person = person;
 	}
 
-	public DateTime getIntformationTimestamp() {
+	public DateTime getInformationTimestamp() {
 		return informationTimestamp;
 	}
 

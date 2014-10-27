@@ -5,6 +5,7 @@ import se.inera.fmu.domain.model.eavrop.EavropBuilder;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
+import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
@@ -19,7 +20,7 @@ public final class EavropUtil {
     public static final String TOLK = "ENGLISH";
     public static final Landsting LANDSTING = new Landsting(new LandstingCode(1), "Stockholms läns landsting"); 
     public static final Bestallaradministrator HANDLAGGARE = new Bestallaradministrator("Per Handläggarson","Handläggare","Nordväst, Sundbyberg", "08-123456", "per.hanlaggarsson@fk.se"); 
-    
+    public static final EavropProperties EAVROP_PROPERTIES = new EavropProperties(3,5,25,10);
     
     public static Eavrop createEavrop() {
     	
@@ -29,6 +30,7 @@ public final class EavropUtil {
 		.withInvanare(InvanareUtil.createInvanare())
 		.withLandsting(LANDSTING)
 		.withBestallaradministrator(HANDLAGGARE)
+		.withEavropProperties(EAVROP_PROPERTIES)
 		.build();
     }
 }

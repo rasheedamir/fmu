@@ -8,6 +8,8 @@ import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
+import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
+import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
@@ -73,13 +75,31 @@ public abstract class AbstractEavropState implements EavropState, Serializable {
 						+ getEavropStateType().name());
 	}
 
+//	@Override
+//	//public void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingDeviation deviation) {
+//	public void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingStatusType cancellationType, Note cancellationNote){
+//		throw new IllegalStateException(
+//				"Method cancelBooking is not available in state "
+//						+ getEavropStateType().name());
+//	}
+
 	@Override
-	public void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingDeviation deviation) {
+	//public void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingDeviation deviation) {
+	public void setBookingStatus(Eavrop eavrop, BookingId bookingId, BookingStatusType bookingStatusType, Note cancellationNote){
 		throw new IllegalStateException(
-				"Method cancelBooking is not available in state "
+				"Method setBookingStatus is not available in state "
 						+ getEavropStateType().name());
 	}
 
+	
+	@Override
+	public void setInterpreterBookingStatus(Eavrop eavrop, BookingId bookingId, InterpreterBookingStatusType interpreterStatus, Note cancellationNote){
+		throw new IllegalStateException(
+				"Method setBookingStatus is not available in state "
+						+ getEavropStateType().name());
+	}
+
+	
 	@Override
 	public void addBookingDeviationResponse(Eavrop eavrop, BookingId bookingId,
 			BookingDeviationResponse bookingDeviationResponse) {

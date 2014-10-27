@@ -9,6 +9,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
+import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 
 
 public class AcceptedEavropStateTest extends AbstractNoteableEavropStateTest{
@@ -35,13 +36,13 @@ public class AcceptedEavropStateTest extends AbstractNoteableEavropStateTest{
 		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
 		Booking booking = createBooking(); 
 		eavrop.addBooking(booking);
-		eavrop.cancelBooking(booking.getBookingId(), createBookingDevation());
+		eavrop.setBookingStatus(booking.getBookingId(), BookingStatusType.CANCELLED_NOT_PRESENT, createNote());
 
 		Set<Booking> bookings = eavrop.getBookings();
 		assertNotNull(bookings);
 		assertEquals(1, bookings.size()); 
 		assertEquals(booking, eavrop.getBooking(booking.getBookingId()));
-		assertNotNull(eavrop.getBooking(booking.getBookingId()).getBookingDeviation());		
+		assertEquals(Boolean.TRUE, eavrop.getBooking(booking.getBookingId()).getBookingStatus().isCancelled());		
 		assertEquals(EavropStateType.ON_HOLD, eavrop.getEavropState().getEavropStateType());
 	}
 	
