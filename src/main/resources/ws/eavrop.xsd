@@ -4,7 +4,7 @@
     <xs:element name="createEavropRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="arendeId" type="xs:string"/>
+                <xs:element name="arendeId" type="tns:arendeId"/>
                 <xs:element name="landstingId" type="xs:int"/>
                 <xs:element name="utredningType" type="xs:string"/>
                 <xs:element name="beskrivning" type="xs:string"  minOccurs="0"/>
@@ -30,7 +30,7 @@
     <xs:element name="handlingarSentRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="arendeId" type="xs:int"/>
+                <xs:element name="arendeId" type="tns:arendeId"/>
                 <xs:element name="handlingarSentDateTime" type="xs:dateTime"/>
                 <xs:element name="handlingarSentBy" type="tns:person"/>
                 <xs:element name="handling" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
@@ -41,7 +41,7 @@
     <xs:element name="handlingarKompletteringSentRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="arendeId" type="xs:int"/>
+                <xs:element name="arendeId" type="tns:arendeId"/>
                 <xs:element name="handlingarSentDateTime" type="xs:dateTime"/>
                 <xs:element name="handlingarSentBy" type="tns:person"/>
                 <xs:element name="handling" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
@@ -52,7 +52,7 @@
     <xs:element name="intygSentRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="arendeId" type="xs:int"/>
+                <xs:element name="arendeId" type="tns:arendeId"/>
                 <xs:element name="intygSentDateTime" type="xs:dateTime"/>
                 <xs:element name="intygSentBy" type="tns:person"/>
            </xs:sequence>
@@ -62,7 +62,7 @@
     <xs:element name="intygKompletteringRequiredRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="arendeId" type="xs:int"/>
+                <xs:element name="arendeId" type="tns:arendeId"/>
                 <xs:element name="intygKompletteringRequestedDateTime" type="xs:dateTime"/>
                 <xs:element name="intygKompletteringRequestedBy" type="tns:person"/>
             </xs:sequence>
@@ -72,7 +72,7 @@
     <xs:element name="intygKompletteringSentRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="arendeId" type="xs:int"/>
+                <xs:element name="arendeId" type="tns:arendeId"/>
                 <xs:element name="intygSentDateTime" type="xs:dateTime"/>
                 <xs:element name="intygSentBy" type="tns:person"/>
            </xs:sequence>
@@ -82,7 +82,7 @@
     <xs:element name="intygApprovedRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="arendeId" type="xs:int"/>
+                <xs:element name="arendeId" type="tns:arendeId"/>
                 <xs:element name="intygApprovedDateTime" type="xs:dateTime"/>
                 <xs:element name="intygApprovedBy" type="tns:person"/>
             </xs:sequence>
@@ -92,7 +92,7 @@
     <xs:element name="utredningAcceptedRequest">
         <xs:complexType>
             <xs:sequence>
-				<xs:element name="arendeId" type="xs:int"/>
+				<xs:element name="arendeId" type="tns:arendeId"/>
                 <xs:element name="utredningAcceptedDateTime" type="xs:dateTime"/>
                 <xs:element name="utredningAcceptedBy" type="tns:person"/>
             </xs:sequence>
@@ -102,7 +102,7 @@
      <xs:element name="utredningApprovedCompensationRequest">
         <xs:complexType>
             <xs:sequence>
-				<xs:element name="arendeId" type="xs:int"/>
+				<xs:element name="arendeId" type="tns:arendeId"/>
                 <xs:element name="approvedCompensationDateTime" type="xs:dateTime"/>
                 <xs:element name="compensationApprovedBy" type="tns:person"/>
             </xs:sequence>
@@ -143,7 +143,7 @@
    <xs:complexType name="tidigareUtredning">
       <xs:sequence>
       	<xs:element name="utreddVid" type="xs:string"/>
-        <xs:element name="sjukskrivenVid" type="xs:string"/>
+        <xs:element name="sjukskrivandeenhet" type="xs:string"/>
         <xs:element name="sjukskrivenAv" type="tns:person"/>
       </xs:sequence>
    </xs:complexType>
@@ -160,6 +160,10 @@
   		<xs:restriction base="xs:string">
 			<xs:pattern value="[^@]+@[^\.]+\..+"/> 
   		</xs:restriction>
+	</xs:simpleType>
+
+  	<xs:simpleType name="arendeId">
+  		<xs:restriction base="xs:string" />
 	</xs:simpleType>
 
 </xs:schema>
