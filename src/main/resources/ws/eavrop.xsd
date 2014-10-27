@@ -5,20 +5,16 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="arendeId" type="xs:string"/>
-                <xs:element name="utredningType" type="xs:string"/>
-                <xs:element name="tolk" type="xs:boolean"/>
-                <xs:element name="personalNumber" type="xs:string"/>
-                <xs:element name="invanareName" type="xs:string"/>
-                <xs:element name="invanareGender" type="xs:string"/>
-                <xs:element name="invanareHomeAddress" type="xs:string"/>
-                <xs:element name="invanareEmail" type="xs:string"/>
-                <xs:element name="invanareSpecialNeeds" type="xs:string"/>
                 <xs:element name="landstingId" type="xs:int"/>
-                <xs:element name="administratorName" type="xs:string"/>
-                <xs:element name="administratorBefattning" type="xs:string"/>
-                <xs:element name="administratorOrganisation" type="xs:string"/>
-                <xs:element name="administratorPhone" type="xs:string"/>
-                <xs:element name="administratorEmail" type="xs:string"/>
+                <xs:element name="utredningType" type="xs:string"/>
+                <xs:element name="beskrivning" type="xs:string"  minOccurs="0"/>
+                <xs:element name="invanare" type="tns:citizen"/>
+                <xs:element name="administrator" type="tns:person"/>
+                <xs:element name="tolk" type="xs:boolean" minOccurs="0"/>
+                <xs:element name="tolkSprak" type="xs:string" minOccurs="0"/>
+                <xs:element name="utredningFokus" type="xs:string"  minOccurs="0"/>
+                <xs:element name="ytterligareInformation" type="xs:string"  minOccurs="0"/>
+                <xs:element name="tidigareUtredning" type="tns:tidigareUtredning"  minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -35,6 +31,9 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="arendeId" type="xs:int"/>
+                <xs:element name="handlingarSentDateTime" type="xs:dateTime"/>
+                <xs:element name="handlingarSentBy" type="tns:person"/>
+                <xs:element name="handling" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -43,30 +42,49 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="arendeId" type="xs:int"/>
+                <xs:element name="handlingarSentDateTime" type="xs:dateTime"/>
+                <xs:element name="handlingarSentBy" type="tns:person"/>
+                <xs:element name="handling" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="utredningSentRequest">
+    <xs:element name="intygSentRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="arendeId" type="xs:int"/>
+                <xs:element name="intygSentDateTime" type="xs:dateTime"/>
+                <xs:element name="intygSentBy" type="tns:person"/>
+           </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="intygKompletteringRequiredRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="arendeId" type="xs:int"/>
+                <xs:element name="intygKompletteringRequestedDateTime" type="xs:dateTime"/>
+                <xs:element name="intygKompletteringRequestedBy" type="tns:person"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="utredningKompletteringRequiredRequest">
+    <xs:element name="intygKompletteringSentRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="arendeId" type="xs:int"/>
-            </xs:sequence>
+                <xs:element name="intygSentDateTime" type="xs:dateTime"/>
+                <xs:element name="intygSentBy" type="tns:person"/>
+           </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="utredningKompletteringSentRequest">
+    <xs:element name="intygApprovedRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="arendeId" type="xs:int"/>
+                <xs:element name="intygApprovedDateTime" type="xs:dateTime"/>
+                <xs:element name="intygApprovedBy" type="tns:person"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -74,9 +92,74 @@
     <xs:element name="utredningAcceptedRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="arendeId" type="xs:int"/>
+				<xs:element name="arendeId" type="xs:int"/>
+                <xs:element name="utredningAcceptedDateTime" type="xs:dateTime"/>
+                <xs:element name="utredningAcceptedBy" type="tns:person"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+     <xs:element name="utredningApprovedCompensationRequest">
+        <xs:complexType>
+            <xs:sequence>
+				<xs:element name="arendeId" type="xs:int"/>
+                <xs:element name="approvedCompensationDateTime" type="xs:dateTime"/>
+                <xs:element name="compensationApprovedBy" type="tns:person"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    
+     <xs:complexType name="address">
+      <xs:sequence>
+         <xs:element name="postaddress" type="xs:string"/>
+         <xs:element name="zipcode" type="xs:string"/>
+         <xs:element name="city" type="xs:string"/>
+         <xs:element name="country" type="xs:string"/>
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="citizen">
+      <xs:sequence>
+		<xs:element name="personalNumber" type="xs:string"/>
+        <xs:element name="name" type="xs:string"/>
+        <xs:element name="gender" type="xs:string"/>
+        <xs:element name="homeAddress" type="tns:address"/>
+        <xs:element name="email" type="tns:emailAddress"/>
+        <xs:element name="specialNeeds" type="xs:string"/>
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="person">
+      <xs:sequence>
+      	<xs:element name="name" type="xs:string"/>
+        <xs:element name="befattning" type="xs:string"/>
+        <xs:element name="organisation" type="xs:string"/>
+        <xs:element name="phone" type="xs:string" minOccurs="0"/>
+        <xs:element name="email" type="tns:emailAddress" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="tidigareUtredning">
+      <xs:sequence>
+      	<xs:element name="utreddVid" type="xs:string"/>
+        <xs:element name="sjukskrivenVid" type="xs:string"/>
+        <xs:element name="sjukskrivenAv" type="tns:person"/>
+      </xs:sequence>
+   </xs:complexType>
+   
+  	<xs:simpleType name="gender">
+  		<xs:restriction base="xs:string">
+    		<xs:enumeration value="MALE" />
+    		<xs:enumeration value="FEMALE" />
+    		<xs:enumeration value="OTHER" />
+  		</xs:restriction>
+	</xs:simpleType>
+
+  	<xs:simpleType name="emailAddress">
+  		<xs:restriction base="xs:string">
+			<xs:pattern value="[^@]+@[^\.]+\..+"/> 
+  		</xs:restriction>
+	</xs:simpleType>
 
 </xs:schema>
