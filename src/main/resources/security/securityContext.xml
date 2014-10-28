@@ -11,12 +11,23 @@
   <context:component-scan base-package="org.springframework.security.saml"/>
 
   <!-- Unsecured pages -->
-  <security:http  security="none" pattern="/api/modules/map"/>
+  <security:http security="none" pattern="/webjars/**"/>
+  <security:http security="none" pattern="/web/webjars/**"/>
+  <security:http security="none" pattern="/api/modules/map"/>
   <security:http security="none" pattern="/css/**"/>
   <security:http security="none" pattern="/js/**"/>
   <security:http security="none" pattern="/img/**"/>
+  <security:http security="none" pattern="/welcome.jsp"/>
+  <security:http security="none" pattern="/welcome.html"/>
+  <security:http security="none" pattern="/version.jsp"/>
   <security:http security="none" pattern="/index.jsp"/>
   <security:http security="none" pattern="/"/>
+  <security:http security="none" pattern="/error.jsp"/>
+  <security:http security="none" pattern="/health-check/health-check-overview.jsp"/>
+  <security:http security="none" pattern="/health-check/health-check.jsp"/>
+  <security:http security="none" pattern="/health-check/health-check-hsa.jsp"/>
+  <security:http security="none" pattern="/health-check/health-check-db.jsp"/>
+  <security:http security="none" pattern="/health-check/health-check-signatur-queue-size.jsp"/>
   <security:http security="none" pattern="/saml/web/**"/>
   <security:http security="none" pattern="/services/**"/>
   <security:http security="none" pattern="/favicon.ico"/>
@@ -41,8 +52,6 @@
         class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
     <property name="exceptionMappings">
       <props>
-        <prop key="se.inera.auth.exceptions.MissingMedarbetaruppdragException">/error.jsp?reason=medarbetaruppdrag
-        </prop>
         <prop key="org.springframework.security.authentication.BadCredentialsException">
           /error.jsp?reason=badcredentials
         </prop>
