@@ -17,6 +17,7 @@ import org.w3c.dom.Document;
 
 
 /**
+ * A POJO carrying an assertions attributes
  * @author andreaskaltenbach
  */
 public class SakerhetstjanstAssertionTest {

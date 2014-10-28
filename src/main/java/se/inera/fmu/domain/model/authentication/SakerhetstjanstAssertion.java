@@ -44,6 +44,7 @@ public class SakerhetstjanstAssertion {
     public static final String MEDARBETARUPPDRAG_TYPE = "urn:sambi:names:attribute:commissionPurpose";
     // HSA-identitet för valt uppdrag
     public static final String MEDARBETARUPPDRAG_ID = "urn:sambi:names:attribute:assignmentHsaId";
+    public static final String VARD_OCH_BEHANDLING = "Vård och behandling";
 
     private String titelKod;
     private String titel;
