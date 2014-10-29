@@ -61,7 +61,7 @@ public class WebConfigurer implements ServletContextInitializer {
         log.debug("Registering GZip Filter");
 
         FilterRegistration.Dynamic compressingFilter = servletContext.addFilter("gzipFilter", new GZipServletFilter());
-        Map<String, String> parameters = new HashMap<>();
+        Map<String, String> parameters = new HashMap<String, String>();
 
         compressingFilter.setInitParameters(parameters);
 

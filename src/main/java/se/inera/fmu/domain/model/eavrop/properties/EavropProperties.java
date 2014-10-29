@@ -1,12 +1,15 @@
 package se.inera.fmu.domain.model.eavrop.properties;
 
 import org.apache.commons.lang3.Validate;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import lombok.ToString;
 import se.inera.fmu.domain.shared.ValueObject;
 
 @Embeddable
+@ToString
 public class EavropProperties implements ValueObject<EavropProperties> {
 	
 	@Column(name = "START_DATE_OFFSET", updatable = false, nullable = false )
@@ -98,6 +101,4 @@ public class EavropProperties implements ValueObject<EavropProperties> {
 	public int hashCode() {
 		 return startDateOffset * 31 * assessmentValidLength;
 	}
-	
-	
 }

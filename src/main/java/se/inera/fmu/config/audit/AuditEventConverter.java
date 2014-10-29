@@ -20,7 +20,7 @@ public class AuditEventConverter {
             return Collections.emptyList();
         }
 
-        List<AuditEvent> auditEvents = new ArrayList<>();
+        List<AuditEvent> auditEvents = new ArrayList<AuditEvent>();
 
         for (PersistentAuditEvent persistentAuditEvent : persistentAuditEvents) {
             AuditEvent auditEvent = new AuditEvent(persistentAuditEvent.getAuditEventDate().toDate(), persistentAuditEvent.getPrincipal(),
@@ -38,7 +38,7 @@ public class AuditEventConverter {
      * @return a map of String, Object
      */
     public Map<String, Object> convertDataToObjects(Map<String, String> data) {
-        Map<String, Object> results = new HashMap<>();
+        Map<String, Object> results = new HashMap<String, Object>();
 
         if (data != null) {
             for (String key : data.keySet()) {
@@ -57,7 +57,7 @@ public class AuditEventConverter {
      * @return a map of String, String
      */
     public Map<String, String> convertDataToStrings(Map<String, Object> data) {
-        Map<String, String> results = new HashMap<>();
+        Map<String, String> results = new HashMap<String, String>();
 
         if (data != null) {
             for (String key : data.keySet()) {

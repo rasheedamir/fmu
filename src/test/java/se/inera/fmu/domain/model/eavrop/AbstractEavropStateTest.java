@@ -2,8 +2,12 @@ package se.inera.fmu.domain.model.eavrop;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.concurrent.Executors;
+
 import org.joda.time.DateTime;
 import org.junit.Test;
+
+import com.google.common.eventbus.AsyncEventBus;
 
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
@@ -165,6 +169,7 @@ public abstract class AbstractEavropStateTest {
 				.withLandsting(new Landsting(new LandstingCode(99) ,"Testlän"))
 				.withBestallaradministrator(new Bestallaradministrator("Nils Peterson", "Handläggare", "LFC Stockholm", "+46333333", "1@2"))
 				.withEavropProperties(getEavropProperties())
+				.withAsyncEventBus(new AsyncEventBus(Executors.newCachedThreadPool()))
 				.build();
 
 	}

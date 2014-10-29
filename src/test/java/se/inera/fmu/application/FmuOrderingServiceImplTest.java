@@ -28,6 +28,7 @@ import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
+import se.inera.fmu.domain.model.systemparameter.Configuration;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -48,6 +49,10 @@ public class FmuOrderingServiceImplTest {
     @Mock
     private AsyncEventBus asyncEventBus;
 
+    @Mock
+    private Configuration configuration;
+
+    
     @Rule
     public ActivitiRule activitiRule = new ActivitiRule();
 
@@ -55,7 +60,7 @@ public class FmuOrderingServiceImplTest {
 
     @Before
     public void setUp() {
-        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, asyncEventBus);
+        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, asyncEventBus, configuration);
         fmuOrderingService.setRuntimeService(activitiRule.getRuntimeService());
         fmuOrderingService.setTaskService(activitiRule.getTaskService());
     }

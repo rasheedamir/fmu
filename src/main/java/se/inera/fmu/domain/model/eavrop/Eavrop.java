@@ -43,10 +43,8 @@ import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignedToVardgivarenhe
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingCreatedEvent;
-import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationEvent;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
-import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationTypeUtil;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingDeviationEvent;
@@ -59,7 +57,6 @@ import se.inera.fmu.domain.model.eavrop.intyg.IntygComplementRequestInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedInformation;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
-import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.medicalexamination.PriorMedicalExamination;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.note.NoteId;
@@ -76,7 +73,7 @@ import se.inera.fmu.domain.shared.IEntity;
  * 
  * Aggregate Root - 
  */
-@Configurable(preConstruction = true)
+@Configurable
 @Entity
 @Table(name = "T_EAVROP", uniqueConstraints = @UniqueConstraint(columnNames = "ARENDE_ID"))
 @ToString
@@ -228,6 +225,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		// Needed by hibernate
 	}
 
+	
 	Eavrop(EavropBuilder builder){
 		//Required properties
 		Validate.notNull(builder.arendeId);
@@ -250,6 +248,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
     	this.setAdditionalInformation(builder.additionalInformation);
     	this.setPriorMedicalExamination(builder.priorMedicalExamination);
     	
+    	this.asyncEventBus = builder.asyncEventBus;
     	//Set initial state
     	this.setEavropState(new UnassignedEavropState());
 	}
@@ -1291,59 +1290,56 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 //		null;
 //	}
 
+	public AsyncEventBus getEventBus() {
+		return asyncEventBus;
+	}
 	
 	// ~ handlers
 	
 	protected void handleEavropAssignedToVardgivarenhet(){
 		EavropAssignedToVardgivarenhetEvent event = new EavropAssignedToVardgivarenhetEvent(this.getArendeId(),getCurrentAssignment().getVardgivarenhet().getHsaId());
-		
-		//TODO: Post event on bus
+		getEventBus().post(event);
 	}
 
 	protected void handleEavropAccept(){
 		EavropAcceptedByVardgivarenhetEvent event = new EavropAcceptedByVardgivarenhetEvent(this.getArendeId(),getCurrentAssignment().getVardgivarenhet().getHsaId());
-		
-		//TODO: Post event on bus
+		getEventBus().post(event);
 	}
 
 	protected void handleEavropReject(EavropAssignment eavropAssignment){
 		EavropAcceptedByVardgivarenhetEvent event = new EavropAcceptedByVardgivarenhetEvent(this.getArendeId(), eavropAssignment.getVardgivarenhet().getHsaId());
-		
-		//TODO: Post event on bus
+		getEventBus().post(event);	
 	}
 
 	protected void handleDocumentsSent(){
 		//TODO: dont know if this event should be created... 
 		DocumentSentByBestallareEvent event = new DocumentSentByBestallareEvent(this.getArendeId(), getDateTimeDocumentsSentFromBestallare());
-
-		//TODO: Post event on bus
+		getEventBus().post(event);
 	}
 
 	protected void handleBookingAdded(BookingId bookingId){
 		BookingCreatedEvent event = new BookingCreatedEvent(this.getArendeId(), bookingId);
-		
-		//TODO: Post event on bus
+		getEventBus().post(event);
 	}
 
 	protected void handleBookingDeviation(BookingId bookingId){
 		BookingDeviationEvent event = new BookingDeviationEvent(this.getArendeId(), bookingId);
-		
-		//TODO: Post event on bus
+		getEventBus().post(event);
 	}
 
 	protected void handleInterpreterBookingDeviation(BookingId bookingId){
 		InterpreterBookingDeviationEvent event = new InterpreterBookingDeviationEvent(this.getArendeId(), bookingId);
-		//TODO: Post event on bus
+		getEventBus().post(event);
 	}
 	
 	protected void handleEavropRestarted(){
 		EavropRestartedByBestallareEvent event = new EavropRestartedByBestallareEvent(this.getArendeId());
-		//TODO: Post event on bus
+		getEventBus().post(event);
 	}
 
 	protected void handleEavropStoppedByBestallare(){
 		EavropClosedByBestallareEvent event = new EavropClosedByBestallareEvent(this.getArendeId());
-		//TODO: Post event on bus
+		getEventBus().post(event);
 	}
 
 	protected void handleEavropApproval(){

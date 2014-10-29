@@ -1,7 +1,11 @@
 package se.inera.fmu.domain.model.eavrop;
 
+import java.util.concurrent.Executors;
+
 import org.joda.time.DateTime;
 import org.junit.Test;
+
+import com.google.common.eventbus.AsyncEventBus;
 
 import junit.framework.TestCase;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
@@ -71,6 +75,8 @@ public class EavropTest extends TestCase {
 	private Vardgivarenhet vardgivarenhet;
 	
 	private Vardgivare vardgivare;
+	
+	private AsyncEventBus eventBus = new AsyncEventBus(Executors.newCachedThreadPool());
 
 	@Override
 	protected void setUp() throws Exception {
@@ -147,6 +153,7 @@ public class EavropTest extends TestCase {
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
 		.withEavropProperties(new EavropProperties(3,5,25,10))
+		 .withAsyncEventBus(eventBus)
 		.build();
 		
 		assertEquals(invanare, eavrop.getInvanare());
@@ -166,6 +173,7 @@ public class EavropTest extends TestCase {
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
 		.withEavropProperties(new EavropProperties(3,5,25,10))
+		.withAsyncEventBus(eventBus)
 		.build();
 		
 		assertEquals(invanare, eavrop.getInvanare());
@@ -259,6 +267,7 @@ public class EavropTest extends TestCase {
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
 		.withEavropProperties(new EavropProperties(3,5,25,10))
+		.withAsyncEventBus(eventBus)
 		.build();
 		
 		eavrop.setCreatedDate(new DateTime(2014,10,1,10,30));
@@ -290,6 +299,7 @@ public class EavropTest extends TestCase {
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
 		.withEavropProperties(new EavropProperties(3,5,25,10))
+		.withAsyncEventBus(eventBus)
 		.build();
 		
 		eavrop.setCreatedDate(new DateTime(2014,10,1,10,30));

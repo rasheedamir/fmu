@@ -64,7 +64,7 @@ public class DatabaseConfiguration implements EnvironmentAware {
 
     @Bean(name = {"org.springframework.boot.autoconfigure.AutoConfigurationUtils.basePackages"})
     public List<String> getBasePackages() {
-        List<String> basePackages = new ArrayList<>();
+        List<String> basePackages = new ArrayList<String>();
         basePackages.add("se.inera.fmu.domain");
         return basePackages;
     }

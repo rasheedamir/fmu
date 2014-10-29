@@ -3,6 +3,7 @@ package se.inera.fmu.application.impl;
 import com.google.common.eventbus.AsyncEventBus;
 
 import org.activiti.engine.runtime.ProcessInstance;
+import org.hibernate.validator.internal.util.privilegedactions.GetConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,16 +16,21 @@ import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
+import se.inera.fmu.domain.model.hos.hsa.HsaId;
+import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
+import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
+import se.inera.fmu.domain.model.systemparameter.Configuration;
 
 import javax.inject.Inject;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 /**
  * Created by Rasheed on 7/7/14.
@@ -42,6 +48,7 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
     private final EavropRepository eavropRepository;
     private final InvanareRepository invanareRepository;
     private final AsyncEventBus asyncEventBus;
+    private final Configuration configuration;
 
     /**
      *
@@ -51,10 +58,11 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
      */
     @Inject
     public FmuOrderingServiceImpl(final EavropRepository eavropRepository, final InvanareRepository invanareRepository,
-                                  final AsyncEventBus asyncEventBus) {
+                                  final AsyncEventBus asyncEventBus, final Configuration configuration) {
         this.eavropRepository = eavropRepository;
         this.invanareRepository = invanareRepository;
         this.asyncEventBus = asyncEventBus;
+        this.configuration = configuration;
     }
     
     @Override
@@ -110,6 +118,7 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
 		.withBestallaradministrator(bestallaradministrator)
 		.withInterpreter(interpreter)
 		.withEavropProperties(props)
+		.withAsyncEventBus(asyncEventBus)
 		.build();
 
         //TODO: fix tolk setting, should there be a boolean with a language description string or only a string?
@@ -160,8 +169,17 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
     	return bestallaradministrator;
     }
     
-    //TODO add call to fetch system parmeters from db 
+     
     private EavropProperties getEavropProperties(){
-    	return new EavropProperties(3,5,25,10);
+    	int startDateOffset = getConfiguration().getInteger(Configuration.KEY_EAVROP_START_DATE_OFFSET, 3);    	
+    	int acceptanceValidLength = getConfiguration().getInteger(Configuration.KEY_EAVROP_ACCEPTANCE_VALID_LENGTH, 5);
+    	int assessmentValidLength = getConfiguration().getInteger(Configuration.KEY_EAVROP_ASSESSMENT_VALID_LENGTH, 25);
+    	int completionValidLength = getConfiguration().getInteger(Configuration.KEY_EAVROP_COMPLETION_VALID_LENGTH, 10);
+    	
+    	return new EavropProperties(startDateOffset, acceptanceValidLength, assessmentValidLength, completionValidLength);
+    }
+    
+    private Configuration getConfiguration(){
+    	return this.configuration;
     }
 }

@@ -1,5 +1,7 @@
 package se.inera.fmu.domain.model.eavrop;
 
+import com.google.common.eventbus.AsyncEventBus;
+
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.medicalexamination.PriorMedicalExamination;
 import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
@@ -21,6 +23,9 @@ public class EavropBuilder {
     String utredningFocus;
     String additionalInformation;
 	PriorMedicalExamination priorMedicalExamination;
+	
+	//Test
+	AsyncEventBus asyncEventBus;
 
 
 	private EavropBuilder(){
@@ -83,6 +88,12 @@ public class EavropBuilder {
 		this.priorMedicalExamination = priorMedicalExamination;
 		return this;
 	}
+	
+	public EavropBuilder withAsyncEventBus(AsyncEventBus asyncEventBus){
+		this.asyncEventBus = asyncEventBus;
+		return this;
+	}
+
 	
 	public Eavrop build(){
 		return new Eavrop(this);

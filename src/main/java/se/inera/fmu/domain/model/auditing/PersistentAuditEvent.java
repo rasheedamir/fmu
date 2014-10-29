@@ -38,7 +38,7 @@ public class PersistentAuditEvent  {
     @MapKeyColumn(name="name")
     @Column(name="value")
     @CollectionTable(name="T_PERSISTENT_AUDIT_EVENT_DATA", joinColumns=@JoinColumn(name="event_id"))
-    private Map<String, String> data = new HashMap<>();
+    private Map<String, String> data = new HashMap<String, String>();
 
     public long getId() {
         return id;

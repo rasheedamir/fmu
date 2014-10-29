@@ -2,6 +2,7 @@ package se.inera.fmu.infrastructure.persistence.stub;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+
+import com.google.common.eventbus.AsyncEventBus;
 
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
@@ -30,7 +33,7 @@ import se.inera.fmu.domain.model.shared.Name;
 
 @Repository
 public class EavropRepositoryStub implements EavropRepository {
-
+	AsyncEventBus eventBus = new AsyncEventBus(Executors.newCachedThreadPool());
 	@Override
 	public List<Eavrop> findAll() {
 		ArrayList<Eavrop> list = new ArrayList<Eavrop>();
@@ -42,6 +45,7 @@ public class EavropRepositoryStub implements EavropRepository {
 				.withLandsting(new Landsting(new LandstingCode(1), "Stockholms läns landsting"))
 				.withBestallaradministrator(new Bestallaradministrator("Per Elofsson","Handläggare", "LFC Stockholm", "08123456", "per.elofsson@forsakringskassan.se" ))
 				.withEavropProperties(new EavropProperties(3,5,25,10))
+				.withAsyncEventBus(eventBus)
 				.build());
 
 
@@ -52,6 +56,7 @@ public class EavropRepositoryStub implements EavropRepository {
 				.withLandsting(new Landsting(new LandstingCode(14), "Stockholms läns landsting"))
 				.withBestallaradministrator(new Bestallaradministrator("Jan Björklund","Handläggare", "LFC Göteborg", "031123456", "jan.bjorklund@forsakringskassan.se" ))
 				.withEavropProperties(new EavropProperties(3,5,25,10))
+				.withAsyncEventBus(eventBus)
 				.build());
 
 		list.add( EavropBuilder.eavrop()
@@ -60,6 +65,7 @@ public class EavropRepositoryStub implements EavropRepository {
 				.withInvanare(new Invanare(new PersonalNumber("7702225467"),new Name("Anna", null, "Hård"),Gender.MALE, new Address("stenvägen", "58435", "Uppsala","Sweden"), "anna.hård@gmail.com",null))
 				.withLandsting(new Landsting(new LandstingCode(3), "Uppsala läns landsting"))
 				.withBestallaradministrator(new Bestallaradministrator("Jakob Hård","Handläggare", "LFC Uppsala", "013123456", "jakob.hard@forsakringskassan.se" ))
+				.withAsyncEventBus(eventBus)
 				.build());
 
 		list.add( EavropBuilder.eavrop()
@@ -68,6 +74,7 @@ public class EavropRepositoryStub implements EavropRepository {
 				.withInvanare(new Invanare(new PersonalNumber("8705225460"),new Name("Jansa", "William", "Falk"),Gender.FEMALE, new Address("Kungsgatan", "34435", "oskarshamn", "sweden"), "anna.hård@gmail.com",null))
 				.withLandsting(new Landsting(new LandstingCode(8), "Kalmar läns landsting"))
 				.withBestallaradministrator(new Bestallaradministrator("Tintin","Andersson", "LFC Kalmar", "0771524524", "tintin.andersson@forsakringskassan.se" ))
+				.withAsyncEventBus(eventBus)
 				.build());
 		
 		return list;
