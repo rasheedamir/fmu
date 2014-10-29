@@ -92,7 +92,7 @@ exports.config = {
     // https://code.google.com/p/selenium/wiki/DesiredCapabilities
     //
     // In addition, you may specify count, shardTestFiles, and maxInstances.
-    capabilities: {
+    /*capabilities: {
         browserName: 'chrome',
 
         // Number of times to run this set of capabilities (in parallel, unless
@@ -111,6 +111,23 @@ exports.config = {
 
         // Additional spec files to be run on this capability only.
         //specs: ['spec/chromeOnlySpec.js']
+    },*/
+
+    capabilities: {
+        'browserName': 'phantomjs',
+
+        /*
+         * Can be used to specify the phantomjs binary path.
+         * This can generally be ommitted if you installed phantomjs globally.
+         */
+        'phantomjs.binary.path':'../../../node_modules/phantomjs/bin/phantomjs',
+
+        /*
+         * Command line arugments to pass to phantomjs.
+         * Can be ommitted if no arguments need to be passed.
+         * Acceptable cli arugments: https://github.com/ariya/phantomjs/wiki/API-    Reference#wiki-command-line-options
+         */
+        'phantomjs.ghostdriver.cli.args':['--logfile=PATH', '--loglevel=DEBUG']
     },
 
     // If you would like to run more than one instance of WebDriver on the same
@@ -129,7 +146,7 @@ exports.config = {
     //
     // A base URL for your application under test. Calls to protractor.get()
     // with relative paths will be prepended with this.
-    baseUrl: 'http://localhost:8080',
+    baseUrl: 'http://localhost:9000',
 
     // Selector for the element housing the angular app - this defaults to
     // body, but is necessary if ng-app is on a descendant of <body>.

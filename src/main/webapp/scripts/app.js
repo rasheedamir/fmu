@@ -58,7 +58,7 @@ angular.module('fmuClientApp', [
             }
         },
         controller: 'EavropCtrl',
-        templateUrl: 'views/eavrop/eavrop.html',
+        templateUrl: 'views/eavrop/eavrop.html'
     })
     .state('eavrop.order', {
         url: '/order',
@@ -67,7 +67,7 @@ angular.module('fmuClientApp', [
     })
     .state('eavrop.order.contents', {
         url: '/contents',
-        templateUrl: 'views/eavrop/order/contents.html',
+        templateUrl: 'views/eavrop/order/contents.html'
     })
     .state('eavrop.order.documents', {
         url: '/documents',
