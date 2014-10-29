@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.saml.SAMLCredential;
 import org.springframework.security.saml.userdetails.SAMLUserDetailsService;
 
+import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.authentication.SakerhetstjanstAssertion;
 import se.inera.fmu.domain.model.authentication.User;
 
@@ -27,7 +28,10 @@ public class FmuUserDetailsService implements SAMLUserDetailsService {
 				credential.getAuthenticationAssertion());
 
 		User user = createFmuUser(assertion);
-		return user;
+		user.getRoles().add(Role.UTREDARE);
+		user.setActiveRole(Role.LANDSTINGSSAMORDNARE);
+		
+		return new FmuUserDetails(user); 
 
 	}
 
