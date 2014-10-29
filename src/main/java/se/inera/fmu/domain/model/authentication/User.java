@@ -1,21 +1,8 @@
 package se.inera.fmu.domain.model.authentication;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.Email;
-
-import se.inera.fmu.domain.shared.AbstractAuditingEntity;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * A user.
@@ -92,8 +79,11 @@ public class User implements Serializable {
 		this.activeRole = activeRole;
 	}
 
+
 	@Override
-    public String toString() {
-        return hsaId;
-    }
+	public String toString() {
+		return hsaId;
+	}
+	
+	
 }

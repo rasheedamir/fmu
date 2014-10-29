@@ -4,7 +4,12 @@ import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 import static se.inera.fmu.domain.model.authentication.SakerhetstjanstAssertion.ENHET_HSA_ID_ATTRIBUTE;
 import static se.inera.fmu.domain.model.authentication.SakerhetstjanstAssertion.FORNAMN_ATTRIBUTE;
@@ -15,7 +20,7 @@ import static se.inera.fmu.domain.model.authentication.SakerhetstjanstAssertion.
 import static se.inera.fmu.domain.model.authentication.SakerhetstjanstAssertion.TITEL_ATTRIBUTE;
 import static se.inera.fmu.domain.model.authentication.SakerhetstjanstAssertion.VARD_OCH_BEHANDLING;
 
-
+import org.joda.time.DateTime;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
@@ -32,11 +37,14 @@ import org.opensaml.saml2.core.impl.AuthnStatementBuilder;
 import org.opensaml.saml2.core.impl.NameIDBuilder;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.impl.XSStringBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.providers.ExpiringUsernameAuthenticationToken;
+import org.springframework.security.saml.SAMLAuthenticationProvider;
 import org.springframework.security.saml.SAMLCredential;
 import org.springframework.security.saml.userdetails.SAMLUserDetailsService;
 import org.w3c.dom.Document;
@@ -45,12 +53,11 @@ import org.w3c.dom.Element;
 /**
  * @author andreaskaltenbach
  */
-public class FakeAuthenticationProvider implements AuthenticationProvider {
-
-    public static final String FAKE_AUTHENTICATION_CONTEXT_REF = "urn:inera:webcert:fake";
+public class FakeAuthenticationProvider  implements AuthenticationProvider {
 
     private static DocumentBuilder documentBuilder;
-
+    private boolean forcePrincipalAsString = false;
+    
     private SAMLUserDetailsService userDetails;
 
     static {
@@ -67,13 +74,57 @@ public class FakeAuthenticationProvider implements AuthenticationProvider {
         FakeAuthenticationToken token = (FakeAuthenticationToken) authentication;
 
         SAMLCredential credential = createSamlCredential(token);
-        Object details = userDetails.loadUserBySAML(credential);
 
-        ExpiringUsernameAuthenticationToken result = new ExpiringUsernameAuthenticationToken(null, details, credential,
-                new ArrayList<GrantedAuthority>());
-        result.setDetails(details);
+        Object user = userDetails.loadUserBySAML(credential);
+        Object principal = getPrincipal(credential, user);
+        Collection<? extends GrantedAuthority> entitlements = getEntitlements(credential, user);
+
+        Date expiration = getExpirationDate(credential);
+        
+        ExpiringUsernameAuthenticationToken result = new ExpiringUsernameAuthenticationToken(expiration, principal,
+                credential, entitlements);
+        result.setDetails(user);
 
         return result;
+    }
+    
+    protected Collection<? extends GrantedAuthority> getEntitlements(SAMLCredential credential, Object userDetail) {
+        if (userDetail instanceof UserDetails) {
+            List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+            authorities.addAll(((UserDetails) userDetail).getAuthorities());
+            return authorities;
+        } else {
+            return Collections.emptyList();
+        }
+    }
+    
+    protected Date getExpirationDate(SAMLCredential credential) {
+        List<AuthnStatement> statementList = credential.getAuthenticationAssertion().getAuthnStatements();
+        DateTime expiration = null;
+        for (AuthnStatement statement : statementList) {
+            DateTime newExpiration = statement.getSessionNotOnOrAfter();
+            if (newExpiration != null) {
+                if (expiration == null || expiration.isAfter(newExpiration)) {
+                    expiration = newExpiration;
+                }
+            }
+        }
+        return expiration != null ? expiration.toDate() : null;
+    }
+
+    
+    protected Object getPrincipal(SAMLCredential credential, Object userDetail) {
+        if (isForcePrincipalAsString()) {
+            return credential.getNameID().getValue();
+        } else if (userDetail != null) {
+            return userDetail;
+        } else {
+            return credential.getNameID();
+        }
+    }
+    
+    public boolean isForcePrincipalAsString() {
+        return forcePrincipalAsString;
     }
 
     @Override
@@ -85,19 +136,12 @@ public class FakeAuthenticationProvider implements AuthenticationProvider {
         FakeCredentials fakeCredentials = (FakeCredentials) token.getCredentials();
 
         Assertion assertion = new AssertionBuilder().buildObject();
-
-        attachAuthenticationContext(assertion);
-
         AttributeStatement attributeStatement = new AttributeStatementBuilder().buildObject();
         assertion.getAttributeStatements().add(attributeStatement);
 
         attributeStatement.getAttributes().add(createAttribute(HSA_ID_ATTRIBUTE, fakeCredentials.getHsaId()));
         attributeStatement.getAttributes().add(createAttribute(FORNAMN_ATTRIBUTE, fakeCredentials.getFornamn()));
-        attributeStatement.getAttributes().add(
-                createAttribute(MELLAN_OCH_EFTERNAMN_ATTRIBUTE, fakeCredentials.getEfternamn()));
-        attributeStatement.getAttributes().add(createAttribute(ENHET_HSA_ID_ATTRIBUTE, fakeCredentials.getEnhetId()));
-        attributeStatement.getAttributes().add(createAttribute(MEDARBETARUPPDRAG_TYPE, VARD_OCH_BEHANDLING));
-        attributeStatement.getAttributes().add(createAttribute(MEDARBETARUPPDRAG_ID, fakeCredentials.getEnhetId()));
+        attributeStatement.getAttributes().add(createAttribute(MELLAN_OCH_EFTERNAMN_ATTRIBUTE, fakeCredentials.getEfternamn()));
 
         if (fakeCredentials.isLakare()) {
             attributeStatement.getAttributes().add(createAttribute(TITEL_ATTRIBUTE, "Läkare"));
@@ -106,17 +150,6 @@ public class FakeAuthenticationProvider implements AuthenticationProvider {
         NameID nameId = new NameIDBuilder().buildObject();
         nameId.setValue(token.getCredentials().toString());
         return new SAMLCredential(nameId, assertion, "fake-idp", "webcert");
-    }
-
-    private void attachAuthenticationContext(Assertion assertion) {
-        AuthnStatement authnStatement = new AuthnStatementBuilder().buildObject();
-        AuthnContext authnContext = new AuthnContextBuilder().buildObject();
-        AuthnContextClassRef authnContextClassRef = new AuthnContextClassRefBuilder().buildObject();
-
-        authnContextClassRef.setAuthnContextClassRef(FAKE_AUTHENTICATION_CONTEXT_REF);
-        authnContext.setAuthnContextClassRef(authnContextClassRef);
-        authnStatement.setAuthnContext(authnContext);
-        assertion.getAuthnStatements().add(authnStatement);
     }
 
     private Attribute createAttribute(String name, String value) {
@@ -134,7 +167,6 @@ public class FakeAuthenticationProvider implements AuthenticationProvider {
 
         return attribute;
     }
-
     public void setUserDetails(SAMLUserDetailsService userDetails) {
         this.userDetails = userDetails;
     }
