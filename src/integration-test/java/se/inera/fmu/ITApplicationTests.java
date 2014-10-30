@@ -32,6 +32,7 @@ public class ITApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		System.out.println("passed");
 	}
 
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <changeSet id="003-1" author="quang vu">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/person.csv"
+                  separator=";"
+                  tableName="T_PERSON">
+        </loadData>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/invanare.csv"
+                  separator=";"
+                  tableName="T_INVANARE">
+        </loadData>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/eavrop.csv"
+                  separator=";"
+                  tableName="T_EAVROP">
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
