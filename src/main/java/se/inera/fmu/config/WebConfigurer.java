@@ -3,18 +3,22 @@ package se.inera.fmu.config;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.servlet.InstrumentedFilter;
 import com.codahale.metrics.servlets.MetricsServlet;
+
 import se.inera.fmu.config.filter.CachingHttpHeadersFilter;
 import se.inera.fmu.config.filter.StaticResourcesProductionFilter;
 import se.inera.fmu.config.filter.gzip.GZipServletFilter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.env.Environment;
 
 import javax.inject.Inject;
 import javax.servlet.*;
+
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -26,6 +30,7 @@ import java.util.Map;
 @SuppressWarnings("ALL")
 @Configuration
 @AutoConfigureAfter(CacheConfiguration.class)
+@ImportResource("classpath:/security/securityContext.xml")
 public class WebConfigurer implements ServletContextInitializer {
 
     private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);
