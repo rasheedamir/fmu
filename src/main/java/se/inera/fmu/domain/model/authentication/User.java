@@ -76,7 +76,11 @@ public class User implements Serializable {
 
 
 	public void setActiveRole(Role activeRole) {
-		this.activeRole = activeRole;
+		if(roles.contains(activeRole)){
+			this.activeRole = activeRole;
+		} else {
+			throw new IllegalArgumentException("User does not have selected role");
+		}
 	}
 
 

@@ -27,9 +27,11 @@ public class FmuUserDetailsService implements SAMLUserDetailsService {
 		SakerhetstjanstAssertion assertion = new SakerhetstjanstAssertion(
 				credential.getAuthenticationAssertion());
 
+		//TODO: Assign available roles correctly
 		User user = createFmuUser(assertion);
 		user.getRoles().add(Role.UTREDARE);
-		user.setActiveRole(Role.LANDSTINGSSAMORDNARE);
+		user.getRoles().add(Role.LANDSTINGSSAMORDNARE);
+		user.setActiveRole(Role.UTREDARE);
 		
 		return new FmuUserDetails(user); 
 
