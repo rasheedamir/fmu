@@ -1,9 +1,7 @@
 package se.inera.fmu.interfaces.managing.rest.dto;
 
 import lombok.ToString;
-
-import org.joda.time.DateTime;
-
+import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
 
 /**
@@ -18,19 +16,15 @@ public class EavropDTO {
     
     private String bestallareOrganisation;
     
-    private String enhet;
-    
-    private DateTime creationTime;
+    private long creationTime;
 
     private String patientCity;
 
     private String mottagarenOrganisation;
     
-    private String utredare;
+    private EavropStateType status;
     
-    private String status;
-    
-    private int antalDagarEfterForfragan;
+    private Integer antalDagarEfterForfragan;
 
 	private String color;
 
@@ -55,12 +49,12 @@ public class EavropDTO {
 		return this;
     }
 
-    public DateTime getCreationTime() {
+    public long getCreationTime() {
         return creationTime;
     }
 
-    public EavropDTO setCreationTime(DateTime creationTime) {
-        this.creationTime = creationTime;
+    public EavropDTO setCreationTime(long l) {
+        this.creationTime = l;
 		return this;
     }
 
@@ -96,15 +90,6 @@ public class EavropDTO {
 		return this;
 	}
 
-	public String getEnhet() {
-		return enhet;
-	}
-
-	public EavropDTO setEnhet(String enhet) {
-		this.enhet = enhet;
-		return this;
-	}
-
 	public String getMottagarenOrganisation() {
 		return mottagarenOrganisation;
 	}
@@ -114,29 +99,20 @@ public class EavropDTO {
 		return this;
 	}
 
-	public String getUtredare() {
-		return utredare;
-	}
-
-	public EavropDTO setUtredare(String utredare) {
-		this.utredare = utredare;
-		return this;
-	}
-
-	public String getStatus() {
+	public EavropStateType getStatus() {
 		return status;
 	}
 
-	public EavropDTO setStatus(String status) {
-		this.status = status;
+	public EavropDTO setStatus(EavropStateType eavropStateType) {
+		this.status = eavropStateType;
 		return this;
 	}
 
-	public int getAntalDagarEfterForfragan() {
+	public Integer getAntalDagarEfterForfragan() {
 		return antalDagarEfterForfragan;
 	}
 
-	public EavropDTO setAntalDagarEfterForfragan(int antalDagarEfterForfragan) {
+	public EavropDTO setAntalDagarEfterForfragan(Integer antalDagarEfterForfragan) {
 		this.antalDagarEfterForfragan = antalDagarEfterForfragan;
 		return this;
 	}

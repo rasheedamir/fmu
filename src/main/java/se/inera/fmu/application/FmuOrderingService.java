@@ -49,4 +49,6 @@ public interface FmuOrderingService {
             String administratorBefattning, String administratorOrganisation, String administratorPhone, 
             String administratorEmail);
 
+	public List<Eavrop> getOverviewEavrops();
+
 }

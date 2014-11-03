@@ -1,6 +1,11 @@
 package se.inera.fmu.application;
 
-import com.google.common.eventbus.AsyncEventBus;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.ActivitiRule;
@@ -17,21 +22,13 @@ import se.inera.fmu.application.util.BestallaradministratorUtil;
 import se.inera.fmu.application.util.EavropUtil;
 import se.inera.fmu.application.util.InvanareUtil;
 import se.inera.fmu.application.util.LandstingUtil;
+import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
-import se.inera.fmu.domain.model.eavrop.ArendeId;
-import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
-import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
-import se.inera.fmu.domain.model.landsting.Landsting;
-import se.inera.fmu.domain.model.shared.Address;
-import se.inera.fmu.domain.model.shared.Gender;
-import se.inera.fmu.domain.model.shared.Name;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
+
+import com.google.common.eventbus.AsyncEventBus;
 
 /**
  * Created by Rasheed on 7/7/14.
@@ -55,7 +52,7 @@ public class FmuOrderingServiceImplTest {
 
     @Before
     public void setUp() {
-        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, asyncEventBus);
+        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, asyncEventBus, null, null);
         fmuOrderingService.setRuntimeService(activitiRule.getRuntimeService());
         fmuOrderingService.setTaskService(activitiRule.getTaskService());
     }
