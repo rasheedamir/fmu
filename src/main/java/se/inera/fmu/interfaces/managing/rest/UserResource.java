@@ -14,10 +14,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.FmuOrderingService;
+import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
@@ -56,4 +58,10 @@ public class UserResource {
 		BeanUtils.copyProperties(currentUser, dto);
 		return dto;
 	}
+	
+	@RequestMapping(value = "/rest/user/changerole", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public void changeRole(@RequestParam(required=true) Role role) {
+		userService.changeRole(role);
+	}	
 }
