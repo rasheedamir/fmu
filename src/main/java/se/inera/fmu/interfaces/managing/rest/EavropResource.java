@@ -33,7 +33,9 @@ import com.codahale.metrics.annotation.Timed;
 @RequestMapping("/app")
 public class EavropResource {
 
+	@Inject
 	private FmuOrderingService fmuOrderingService;
+	
 	private EavropDTOMapper eavropMapper = new EavropDTOMapper();
 
     /**
@@ -45,21 +47,13 @@ public class EavropResource {
      */
 	@RequestMapping(value = "/rest/eavrop", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-	public List<EavropDTO> getEavrops() {
-		List<EavropDTO> retval = new ArrayList<EavropDTO>();
+	public ResponseEntity<List<EavropDTO>> getEavrops() {
 		List<Eavrop> eavrops = this.fmuOrderingService.getOverviewEavrops();
-		for (Eavrop eavrop : eavrops) {
-			retval.add(this.eavropMapper.mappToDTO(eavrop));
-		}
 		
-		return retval;
-	}
-	
-	public FmuOrderingService getFmuOrderingService() {
-		return fmuOrderingService;
-	}
-	
-	public void setFmuOrderingService(FmuOrderingService fmuOrderingService) {
-		this.fmuOrderingService = fmuOrderingService;
+		ResponseEntity<List<EavropDTO>> response = new ResponseEntity<List<EavropDTO>>(HttpStatus.OK);
+//		for (Eavrop eavrop : eavrops) {
+//			response.getBody().add(this.eavropMapper.mappToDTO(eavrop));
+//		}
+		return response;
 	}
 }

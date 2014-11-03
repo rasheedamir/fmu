@@ -169,7 +169,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 			return this.eavropRepository.findAll();
 		default:
 			System.out.println("Unauthorized user");
-			return new ArrayList<Eavrop>();
+			return null;
 		}
 	}
 }
