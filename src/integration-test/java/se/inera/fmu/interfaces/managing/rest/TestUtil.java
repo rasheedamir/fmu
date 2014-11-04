@@ -43,6 +43,9 @@ public class TestUtil {
         return mapper.writeValueAsBytes(object);
     }
     
+    /**
+     * Log in with a fake user with predefined credentials
+     */
     public static void loginWithNoActiveRole() {
 		User landstingSamordnare = new User();
         landstingSamordnare.setFirstName("Åsa");

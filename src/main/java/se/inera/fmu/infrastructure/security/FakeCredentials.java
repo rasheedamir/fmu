@@ -12,6 +12,7 @@ public class FakeCredentials implements Serializable {
     private String efternamn;
     private boolean lakare;
     private String enhetId;
+    private Integer landstingCode;
 
     public FakeCredentials() {
     }
@@ -63,6 +64,14 @@ public class FakeCredentials implements Serializable {
     public void setEnhetId(String enhetId) {
         this.enhetId = enhetId;
     }
+    
+    public Integer getLandstingCode() {
+		return landstingCode;
+	}
+    
+    public void setLandstingCode(Integer landstingCode) {
+		this.landstingCode = landstingCode;
+	}
 
     @Override
     public String toString() {
@@ -70,7 +79,9 @@ public class FakeCredentials implements Serializable {
                 + "hsaId='" + hsaId + '\''
                 + ", fornamn='" + fornamn + '\''
                 + ", efternamn='" + efternamn + '\''
-                + ", lakare=" + lakare
+                + ", lakare='" + lakare + '\''
+                + ", enhetId='" + enhetId + '\''
+                + ", landstingId='" + landstingCode + '\''
                 + '}';
     }
 }

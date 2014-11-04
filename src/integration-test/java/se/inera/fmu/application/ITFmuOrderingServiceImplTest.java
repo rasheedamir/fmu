@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +16,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import se.inera.fmu.Application;
 import se.inera.fmu.domain.model.authentication.Role;
+import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
+import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.interfaces.managing.rest.TestUtil;
 import static org.junit.Assert.*;
 
@@ -44,11 +47,17 @@ public class ITFmuOrderingServiceImplTest {
 
     @Test
     public void serviceShouldReturnAllEavropsForUserLandstingSamordnare() {
-    	this.currentUserService.getCurrentUser().setActiveRole(Role.LANDSTINGSSAMORDNARE);
-		List<Eavrop> eavrops = fmuOrderingService.getOverviewEavrops();
-		assertEquals(eavrops.size(), 1);
+    	User currentUser = this.currentUserService.getCurrentUser();
+    	currentUser.setActiveRole(Role.LANDSTINGSSAMORDNARE);
+    	EavropStateType state = EavropStateType.UNASSIGNED;
+		DateTime fromDate = new DateTime(1990, 1, 1, 0, 0);
+		DateTime toDate = new DateTime(2012,12,1, 0, 0);
+		currentUser.setLandstingCode(1);
+		
+		List<Eavrop> eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(), state, null);
+		assertNotEquals(eavrops, null);
 		for (Eavrop eavrop : eavrops) {
-			
+			assertEquals(eavrop.getLandsting().getLandstingCode(), currentUser.getLandstingCode());
 		}
     }
 }

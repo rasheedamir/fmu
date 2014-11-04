@@ -1,2 +1,4 @@
-DTYPE;PERSON_ID;NAME;ORGANISATION;UNIT;ROLE;EMAIL;PHONE
-Bestallaradministrator;1;Åsa;Försäkringskassan;Stockholm Söder;Handläggare;asa@test.se;07620333333
+DTYPE;PERSON_ID;NAME;ORGANISATION;ROLE;EMAIL;PHONE
+Bestallaradministrator;1;Håsa;Stockholm Söder;Handläggare;asa@test.se;076223433
+Bestallaradministrator;2;Usa;Stockholm Norra;Utredare;asa@test.se;0762033233
+Bestallaradministrator;3;Båsa;Stockholm Västra;Beställare;asa@test.se;07620543333

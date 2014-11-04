@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,18 +27,24 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.Application;
 import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.authentication.Role;
+import se.inera.fmu.interfaces.managing.rest.validation.LandstingCodeValidation;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @ActiveProfiles("dev")
 @IntegrationTest("server.port:0")
+@Validated
 public class ITEavropRestControllerTest {
+	@Inject
+	private ApplicationContext appContext;
+	
 	@Inject
 	private FmuOrderingService fmuOrderingService;
 	private MockMvc restMock;
@@ -56,18 +63,23 @@ public class ITEavropRestControllerTest {
 	@Test
 	public void loggedInasLandstingSamordnare() throws Exception{
 		this.currentUserService.getCurrentUser().setActiveRole(Role.LANDSTINGSSAMORDNARE);
-		MvcResult result = restMock.perform(get("/app/rest/eavrop")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
+		MvcResult result = restMock.perform(get(
+				"/app/rest/eavrop/landstingcode/12/fromdate/1/todate/2/status/ASSIGNED"
+				+ "/page/1/pagesize/10/sortkey/arendeId/sortorder/ASC"))
+				.andReturn();
+		System.out.println(result.getResponse().getContentAsString());
+//		MvcResult result = restMock.perform(get("/app/rest/eavrop")
+//                .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andReturn();
 	}
 	
 	@Test
 	public void loggedInAsUtredare() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(Role.UTREDARE);
-		MvcResult result = restMock.perform(get("/app/rest/eavrop")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
+//		MvcResult result = restMock.perform(get("/app/rest/eavrop")
+//                .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andReturn();
 	}
 }
