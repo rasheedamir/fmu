@@ -31,4 +31,6 @@ public interface FmuOrderingService {
      */
     public ArendeId createEavrop(CreateEavropCommand aCommand);
 
+	public List<Eavrop> getOverviewEavrops();
+
 }

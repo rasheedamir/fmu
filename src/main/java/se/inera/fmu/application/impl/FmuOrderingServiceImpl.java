@@ -8,13 +8,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.FmuOrderingService;
+import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.*;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.landsting.Landsting;
+import se.inera.fmu.domain.model.landsting.LandstingRepository;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
@@ -22,6 +25,7 @@ import se.inera.fmu.domain.model.shared.Name;
 
 import javax.inject.Inject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,7 +34,7 @@ import java.util.List;
  *
  * Application Service for managing FMU process
  */
-@SuppressWarnings("ALL")
+@SuppressWarnings("all")
 @Service
 @Validated
 @Transactional
@@ -40,6 +44,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
     private final EavropRepository eavropRepository;
     private final InvanareRepository invanareRepository;
     private final AsyncEventBus asyncEventBus;
+    private final LandstingRepository landstingRepository;
+    private final CurrentUserService currentUserService;
 
     /**
      *
@@ -49,10 +55,12 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
      */
     @Inject
     public FmuOrderingServiceImpl(final EavropRepository eavropRepository, final InvanareRepository invanareRepository,
-                                  final AsyncEventBus asyncEventBus) {
+                                  final AsyncEventBus asyncEventBus, final LandstingRepository landstingRepository, final CurrentUserService currentUser) {
         this.eavropRepository = eavropRepository;
         this.invanareRepository = invanareRepository;
         this.asyncEventBus = asyncEventBus;
+        this.landstingRepository = landstingRepository;
+        this.currentUserService = currentUser;
     }
     
     @Override
@@ -143,4 +151,20 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
     private EavropProperties getEavropProperties(){
     	return new EavropProperties(3,5,25,10);
     }
+
+	@Override
+	public List<Eavrop> getOverviewEavrops() {
+		User currentUSer = this.currentUserService.getCurrentUser();
+		switch (currentUSer.getActiveRole()) {
+		case LANDSTINGSSAMORDNARE:
+			System.out.println("landstingSamordnare user");
+			return this.eavropRepository.findAll();
+		case UTREDARE:
+			System.out.println("Utredare user");
+			return this.eavropRepository.findAll();
+		default:
+			System.out.println("Unauthorized user");
+			return new ArrayList<Eavrop>();
+		}
+	}
 }

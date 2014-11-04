@@ -6,24 +6,16 @@ describe("End to end tests", function() {
         this.authenticated = element(by.id("authenticated"));
 
         this.get = function(){
-            browser.get("http://localhost:8080/");
+            browser.get("http://localhost:9000/");
         };
     };
 
-    describe("Home page tests", function(){
-        beforeEach(function(){
-            testPage = new homePage();
-        });
-
-        it("should only show not logged in message", function(){
-            testPage.get();
-            expect(protractorInstance.isElementPresent(testPage.notLoggedInMessageElement)).toBe(true);
-            expect(protractorInstance.isElementPresent(testPage.authenticated)).toBe(false);
-        });
-
-        it("should show logged in message after authentication", function(){
-            testPage.get();
-
-        });
+    beforeEach(function(){
+        testPage = new homePage();
     });
+
+    it("should only show not logged in message", function() {
+        testPage.get();
+    });
+
 });

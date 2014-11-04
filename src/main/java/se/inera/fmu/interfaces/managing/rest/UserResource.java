@@ -1,48 +1,67 @@
 package se.inera.fmu.interfaces.managing.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import se.inera.fmu.domain.model.authentication.User;
-import se.inera.fmu.domain.model.authentication.UserRepository;
-import se.inera.fmu.infrastructure.security.AuthoritiesConstants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
+
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import se.inera.fmu.application.CurrentUserService;
+import se.inera.fmu.application.FmuOrderingService;
+import se.inera.fmu.domain.model.authentication.Role;
+import se.inera.fmu.domain.model.authentication.User;
+import se.inera.fmu.domain.model.eavrop.Eavrop;
+import se.inera.fmu.domain.model.eavrop.EavropRepository;
+import se.inera.fmu.interfaces.managing.dtomapper.EavropDTOMapper;
+import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.UserDTO;
+
+import com.codahale.metrics.annotation.Timed;
 
 /**
- * REST controller for managing users.
+ * Created by Rasheed on 8/25/14.
+ *
+ * REST controller for tracking eavrops
  */
-@SuppressWarnings("ALL")
+@SuppressWarnings("all")
 @RestController
 @RequestMapping("/app")
 public class UserResource {
 
-    private final Logger log = LoggerFactory.getLogger(UserResource.class);
-
-    @Inject
-    private UserRepository userRepository;
+	@Inject
+	private CurrentUserService userService;
 
     /**
-     * GET  /rest/users/:login -> get the "login" user.
+     *
+     * TODO#1: Add parameter date range.
+     * TODO#2: Add parameter status of utredning (new, in-process or finished)
+     *
+     * @return
      */
-    @RequestMapping(value = "/rest/users/{login}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public User getUser(@PathVariable String login, HttpServletResponse response) {
-        log.debug("REST request to get User : {}", login);
-        User user = userRepository.findOne(login);
-        if (user == null) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        }
-        return user;
-    }
+	@RequestMapping(value = "/rest/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public UserDTO getCurrentUser() {
+		User currentUser = userService.getCurrentUser();
+		UserDTO dto = new UserDTO();
+		
+		BeanUtils.copyProperties(currentUser, dto);
+		return dto;
+	}
+	
+	@RequestMapping(value = "/rest/user/changerole", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public void changeRole(@RequestParam(required=true) Role role) {
+		userService.changeRole(role);
+	}	
 }
