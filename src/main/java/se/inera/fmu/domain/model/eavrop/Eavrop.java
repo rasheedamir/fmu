@@ -12,6 +12,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -90,6 +91,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 //	@GeneratedValue(strategy = GenerationType.AUTO)
 //	@Column(name = "EAVROP_ID", updatable = false, nullable = false)
 //	private Long eavropId;
+	@EmbeddedId
 	private EavropId eavropId;
 	
 	// business key! Received from client in create request
