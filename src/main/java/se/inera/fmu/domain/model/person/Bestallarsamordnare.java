@@ -12,7 +12,7 @@ public class Bestallarsamordnare extends Person {
         //Needed by hibernate
     }
     
-    public Bestallarsamordnare( final String name, String role, String organisation){
-    	super(name, role, organisation);
+    public Bestallarsamordnare( final String name, String role, String organisation, String unit){
+    	super(name, role, organisation, unit);
     }
 }

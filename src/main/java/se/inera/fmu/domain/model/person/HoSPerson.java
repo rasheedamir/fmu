@@ -11,9 +11,12 @@ public class HoSPerson extends Person {
 	HoSPerson() {
         //Needed by hibernate
     }
-    
-    public HoSPerson( final String name, String role, String organisation){
-    	super(name, role, organisation);
+	public HoSPerson( final String name, String role, String organisation){
+		this(name, role, organisation, null);
+	}
+	
+    public HoSPerson( final String name, String role, String organisation, String unit){
+    	super(name, role, organisation, unit);
     }
 
 }

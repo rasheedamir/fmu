@@ -7,8 +7,8 @@ import se.inera.fmu.domain.model.eavrop.EavropEvent;
 public class BookingDeviationResponseEvent extends EavropEvent{
 	
 	//~ Constructors ===================================================================================================
-	public BookingDeviationResponseEvent(final ArendeId arendeId) {
-		super(arendeId);
+	public BookingDeviationResponseEvent(final Long eavropId) {
+		super(eavropId);
 	}
 
 	//~ Property Methods ===============================================================================================

@@ -24,9 +24,6 @@ public class EavropBuilder {
     String additionalInformation;
 	PriorMedicalExamination priorMedicalExamination;
 	
-	//Test
-	AsyncEventBus asyncEventBus;
-
 
 	private EavropBuilder(){
 		super();
@@ -69,7 +66,6 @@ public class EavropBuilder {
 		this.eavropProperties = eavropProperties;
 		return this;
 	}
-
 	
 	public EavropBuilder withInterpreter(Interpreter interpreter){
 		this.interpreter = interpreter;
@@ -88,12 +84,6 @@ public class EavropBuilder {
 		this.priorMedicalExamination = priorMedicalExamination;
 		return this;
 	}
-	
-	public EavropBuilder withAsyncEventBus(AsyncEventBus asyncEventBus){
-		this.asyncEventBus = asyncEventBus;
-		return this;
-	}
-
 	
 	public Eavrop build(){
 		return new Eavrop(this);

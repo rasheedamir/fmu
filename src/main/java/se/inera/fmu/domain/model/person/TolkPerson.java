@@ -14,8 +14,12 @@ public class TolkPerson extends Person {
         //Needed by hibernate
     }
     
-    public TolkPerson( final String name, final String organisation){
-    	super(name, "Tolk", organisation);
+	public TolkPerson( final String name, final String organisation){
+		this(name, organisation, null);
+	}
+	    
+    public TolkPerson( final String name, final String organisation, final String unit){
+    	super(name, "Tolk", organisation, unit);
     	
     }
 }

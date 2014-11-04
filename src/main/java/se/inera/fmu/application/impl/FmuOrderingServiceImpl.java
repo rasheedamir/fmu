@@ -12,6 +12,8 @@ import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.eavrop.*;
+import se.inera.fmu.domain.model.eavrop.booking.BookingCreatedEvent;
+import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
@@ -65,14 +67,11 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
         this.configuration = configuration;
     }
     
-    @Override
-    public List<Eavrop> findAllUnassignedEavropByLandsting(Landsting landsting){
-    	return this.eavropRepository.findAllByLandsting(landsting);
-    }
+	private AsyncEventBus getEventBus(){
+		return this.asyncEventBus;
+	}
+
     
-//    private findAllEavropByLandstingAndStatus(){
-//    	return this.eavropRepository.findAllByLandsting(landsting);
-//    }
 
     /**
      *
@@ -97,12 +96,12 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
     public ArendeId createNewEavrop(ArendeId arendeId,  UtredningType utredningType, String interpreterLanguages, PersonalNumber personalNumber,
                                     Name invanareName, Gender invanareGender, Address invanareHomeAddress,
                                     String invanareEmail, String invanareSpecialNeeds, Landsting landsting, String administratorName, 
-                                    String administratorBefattning, String administratorOrganisation, String administratorPhone, 
+                                    String administratorBefattning, String administratorOrganisation, String administratorEnhet, String administratorPhone, 
                                     String administratorEmail) {
         
         Invanare invanare = createInvanare(personalNumber, invanareName, invanareGender, invanareHomeAddress, invanareEmail, invanareSpecialNeeds);
     	
-        Bestallaradministrator bestallaradministrator = createBestallaradministrator(administratorName, administratorBefattning, administratorOrganisation, administratorPhone, administratorEmail);
+        Bestallaradministrator bestallaradministrator = createBestallaradministrator(administratorName, administratorBefattning, administratorOrganisation, administratorEnhet, administratorPhone, administratorEmail);
         
         Interpreter interpreter= new Interpreter(interpreterLanguages);
         
@@ -118,7 +117,6 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
 		.withBestallaradministrator(bestallaradministrator)
 		.withInterpreter(interpreter)
 		.withEavropProperties(props)
-		.withAsyncEventBus(asyncEventBus)
 		.build();
 
         //TODO: fix tolk setting, should there be a boolean with a language description string or only a string?
@@ -134,6 +132,8 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("fmuProcess", businessKey, variables);
         log.debug(String.format("business process started :: %s", processInstance.getId()));
 
+        handleEavropCreated(eavrop.getEavropId());
+        
         return eavrop.getArendeId();
     }
 
@@ -162,13 +162,19 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
      * @param email
      * @return
      */
-    private Bestallaradministrator createBestallaradministrator(String name, String befattning, String organisation, String phone, String email){
-    	Bestallaradministrator bestallaradministrator = new Bestallaradministrator(name, befattning, organisation, phone, email);
+    private Bestallaradministrator createBestallaradministrator(String name, String befattning, String organisation, String enhet, String phone, String email){
+    	Bestallaradministrator bestallaradministrator = new Bestallaradministrator(name, befattning, organisation, enhet, phone, email);
     	//TODO: Set up repository, for this subclass or abstract superclass; 
 //    	bestallaradministrator = bestallaradministrator.save(invanare);
     	return bestallaradministrator;
     }
     
+    
+	//Event handling methods
+	private void handleEavropCreated(Long eavropId){
+		EavropCreatedEvent event = new EavropCreatedEvent(eavropId);
+		getEventBus().post(event);
+	}
      
     private EavropProperties getEavropProperties(){
     	int startDateOffset = getConfiguration().getInteger(Configuration.KEY_EAVROP_START_DATE_OFFSET, 3);    	

@@ -26,10 +26,11 @@ public abstract class Person implements Serializable  {
     @Column(name = "ROLE", nullable = true)
     private String role;
     
-    //TODO: maybe also unit information?
-    
     @Column(name = "ORGANISATION", nullable = true)
     private String organisation;
+
+    @Column(name = "UNIT", nullable = true)
+    private String unit;
 
     
     //~ Constructors ===================================================================================================
@@ -38,11 +39,12 @@ public abstract class Person implements Serializable  {
 		//Needed by Hibernate
 	}
 
-	public Person(String name, String role, String organisation) {
+	public Person(String name, String role, String organisation, String unit) {
 		super();
 		this.name = name;
 		this.role = role;
 		this.organisation = organisation;
+		this.unit = unit;
 	}
 
 
@@ -70,5 +72,13 @@ public abstract class Person implements Serializable  {
 
 	private void setOrganisation(String organisation) {
 		this.organisation = organisation;
+	}
+	
+	public String getUnit() {
+		return unit;
+	}
+
+	private void setUnit(String unit) {
+		this.unit = unit;
 	}
 }

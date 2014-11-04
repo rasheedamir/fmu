@@ -10,8 +10,8 @@ public class InterpreterBookingDeviationEvent extends EavropEvent{
 	private final BookingId bookingId;
 	
 	//~ Constructors ===================================================================================================
-	public InterpreterBookingDeviationEvent(final ArendeId arendeId, final BookingId bookingId) {
-		super(arendeId);
+	public InterpreterBookingDeviationEvent(final Long eavropId, final BookingId bookingId) {
+		super(eavropId);
 		this.bookingId = bookingId;
 	}
 

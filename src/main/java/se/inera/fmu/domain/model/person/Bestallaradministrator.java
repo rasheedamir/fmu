@@ -29,8 +29,8 @@ public class Bestallaradministrator extends Person {
         //Needed by hibernate
     }
 
-    public Bestallaradministrator(final String name, String befattning, String organisation, String phone, String email){
-    	super(name,  befattning, organisation);
+    public Bestallaradministrator(final String name, String befattning, String organisation, String unit, String phone, String email){
+    	super(name,  befattning, organisation, unit);
     	Validate.notEmpty(organisation);
     	setPhone(phone);
     	setEmail(email);

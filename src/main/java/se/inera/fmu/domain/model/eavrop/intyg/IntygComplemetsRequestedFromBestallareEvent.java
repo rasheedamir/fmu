@@ -12,8 +12,8 @@ public class IntygComplemetsRequestedFromBestallareEvent extends EavropEvent{
 	
 	//~ Constructors ===================================================================================================
     
-	public IntygComplemetsRequestedFromBestallareEvent(final ArendeId arendeId, final DateTime requestDateTime) {
-		super(arendeId);
+	public IntygComplemetsRequestedFromBestallareEvent(final Long eavropId, final DateTime requestDateTime) {
+		super(eavropId);
 		Validate.notNull(requestDateTime);
 		this.requestDateTime= requestDateTime;
 	}

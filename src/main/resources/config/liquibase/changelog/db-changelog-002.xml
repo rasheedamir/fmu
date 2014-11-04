@@ -357,6 +357,7 @@
             </column>
             <column name="ORGANISATION" type="VARCHAR(255)"/>
             <column name="ROLE" type="VARCHAR(255)"/>
+            <column name="UNIT" type="VARCHAR(255)"/>
             <column name="EMAIL" type="VARCHAR(255)"/>
             <column name="PHONE" type="VARCHAR(255)"/>
         </createTable>

@@ -12,8 +12,8 @@ public class IntygApprovedByBestallareEvent extends EavropEvent{
 	
 	//~ Constructors ===================================================================================================
     
-	public IntygApprovedByBestallareEvent(final ArendeId arendeId, final DateTime requestDateTime) {
-		super(arendeId);
+	public IntygApprovedByBestallareEvent(final Long eavropId, final DateTime requestDateTime) {
+		super(eavropId);
 		Validate.notNull(requestDateTime);
 		this.requestDateTime= requestDateTime;
 	}

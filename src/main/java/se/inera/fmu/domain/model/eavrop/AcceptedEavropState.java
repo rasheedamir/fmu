@@ -48,7 +48,6 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 	public void addBooking(Eavrop eavrop, Booking booking){
 		
 		eavrop.addToBookings(booking);
-		eavrop.handleBookingAdded(booking.getBookingId());
 		
 		//No state transition
 	}

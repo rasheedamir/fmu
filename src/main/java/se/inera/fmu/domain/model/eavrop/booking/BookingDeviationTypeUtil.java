@@ -54,7 +54,4 @@ public class BookingDeviationTypeUtil {
 			return Arrays.asList(DEFAULT_ON_HOLD_STATUSES).contains(bookingDeviationType);
 		}
 	}
-
-	
-	
 }

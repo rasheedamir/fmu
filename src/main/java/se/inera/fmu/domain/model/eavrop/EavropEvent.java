@@ -1,24 +1,27 @@
 package se.inera.fmu.domain.model.eavrop;
 
+import lombok.ToString;
+
 import org.apache.commons.lang.Validate;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.shared.DomainEvent;
 
+@ToString
 public abstract class EavropEvent implements DomainEvent<EavropEvent>{
 	private final DateTime eventDateTime = DateTime.now();
-	private final ArendeId arendeId;
+	private final Long eavropId;
 	
 	//~ Constructors ===================================================================================================
-	public EavropEvent(final ArendeId arendeId) {
-		Validate.notNull(arendeId);
-    	this.arendeId = arendeId;
+	public EavropEvent(final Long eavropId) {
+		Validate.notNull(eavropId);
+    	this.eavropId= eavropId;
 	}
 	
 	//~ Property Methods ===============================================================================================
 
-	public ArendeId getArendeId() {
-		return this.arendeId;
+	public Long getEavropId() {
+		return this.eavropId;
 	}
 	
 	public DateTime getEventDateTime() {
@@ -30,7 +33,7 @@ public abstract class EavropEvent implements DomainEvent<EavropEvent>{
 	@Override
 	public boolean sameEventAs(final EavropEvent other) {
 		return other != null 
-				&& this.getArendeId().equals(other.getArendeId())
+				&& this.getEavropId().equals(other.getEavropId())
 				&& this.getEventDateTime().equals(other.getEventDateTime());
 	}
 
@@ -55,8 +58,8 @@ public abstract class EavropEvent implements DomainEvent<EavropEvent>{
 	 */
 	@Override
 	public int hashCode() {
-		int result = getArendeId().hashCode();
+		int result = getEavropId().hashCode();
 		result = 31 * result + getEventDateTime().hashCode();
-		return getArendeId().hashCode() + getEventDateTime().hashCode();
+		return getEavropId().hashCode() + getEventDateTime().hashCode();
 	}
 }

@@ -14,8 +14,8 @@ public class DocumentRequestedEvent extends EavropEvent {
 	private final String documentId;
 	//~ Constructors ===================================================================================================
     
-	public DocumentRequestedEvent(final ArendeId arendeId, final String documentId) {
-		super(arendeId);
+	public DocumentRequestedEvent(final Long eavropId, final String documentId) {
+		super(eavropId);
 		this.documentId = documentId;
 	}
 

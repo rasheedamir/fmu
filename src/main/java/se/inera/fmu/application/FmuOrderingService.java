@@ -16,13 +16,6 @@ import se.inera.fmu.domain.model.shared.Name;
  */
 public interface FmuOrderingService {
 
-	/**
-	 * Retrives all Eavrops that belongs to a landsting 
-	 * 
-	 * * @param landsting
-	 * */
-	public List<Eavrop> findAllUnassignedEavropByLandsting(Landsting landsting);
-
     /**
      * Registers a new Eavrop in the tracking system.
      *
@@ -46,7 +39,7 @@ public interface FmuOrderingService {
     ArendeId createNewEavrop(ArendeId arendeId,  UtredningType utredningType, String tolk, PersonalNumber personalNumber,
             Name invanareName, Gender invanareGender, Address invanareHomeAddress,
             String invanareEmail, String invanareSpecialNeeds, Landsting landsting, String administratorName, 
-            String administratorBefattning, String administratorOrganisation, String administratorPhone, 
+            String administratorBefattning, String administratorOrganisation, String administratorEnhet, String administratorPhone, 
             String administratorEmail);
 
 }

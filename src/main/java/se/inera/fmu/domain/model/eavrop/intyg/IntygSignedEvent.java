@@ -12,8 +12,8 @@ public class IntygSignedEvent extends EavropEvent{
 	
 	//~ Constructors ===================================================================================================
     
-	public IntygSignedEvent(final ArendeId arendeId, final DateTime signedDateTime) {
-		super(arendeId);
+	public IntygSignedEvent(final Long eavropId, final DateTime signedDateTime) {
+		super(eavropId);
 		Validate.notNull(signedDateTime);
 		this.signedDateTime= signedDateTime;
 	}

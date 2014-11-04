@@ -167,9 +167,8 @@ public abstract class AbstractEavropStateTest {
 				.withUtredningType(UtredningType.AFU) 
 				.withInvanare(createInvanare())
 				.withLandsting(new Landsting(new LandstingCode(99) ,"Testlän"))
-				.withBestallaradministrator(new Bestallaradministrator("Nils Peterson", "Handläggare", "LFC Stockholm", "+46333333", "1@2"))
+				.withBestallaradministrator(new Bestallaradministrator("Nils Peterson", "Handläggare", "Försäkringskassan", "LFC Stockholm", "+46333333", "1@2"))
 				.withEavropProperties(getEavropProperties())
-				.withAsyncEventBus(new AsyncEventBus(Executors.newCachedThreadPool()))
 				.build();
 
 	}

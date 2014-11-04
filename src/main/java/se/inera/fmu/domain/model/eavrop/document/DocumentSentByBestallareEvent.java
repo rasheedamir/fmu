@@ -12,8 +12,8 @@ public class DocumentSentByBestallareEvent extends EavropEvent{
 	
 	//~ Constructors ===================================================================================================
     
-	public DocumentSentByBestallareEvent(final ArendeId arendeId, final DateTime documentsSentDateTime) {
-		super(arendeId);
+	public DocumentSentByBestallareEvent(final Long eavropId, final DateTime documentsSentDateTime) {
+		super(eavropId);
 		Validate.notNull(documentsSentDateTime);
 		this.documentsSentDateTime= documentsSentDateTime;
 	}

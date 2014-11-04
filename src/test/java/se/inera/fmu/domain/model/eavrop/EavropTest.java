@@ -97,7 +97,7 @@ public class EavropTest extends TestCase {
 		utredningType = UtredningType.SLU;
 		tolk = "Swedish";
 		landsting = new Landsting (new LandstingCode(1), "Stockholms läns landsting");
-		bestallaradministrator = new Bestallaradministrator("Per Elofsson","Handläggare", "LFC Stockholm", "08123456", "per.elofsson@forsakringskassan.se");
+		bestallaradministrator = new Bestallaradministrator("Per Elofsson","Handläggare", "Försäkringskassan", "LFC Stockholm", "08123456", "per.elofsson@forsakringskassan.se");
 		vardgivare = new Vardgivare(new HsaId("SE160000000000-HAHAHHSAA"), "Cary Care");
 		vardgivarenhet = new Vardgivarenhet(vardgivare, new HsaId("SE160000000000-HAHAHHSAB"), "CareIt", new Address("","","",""));
 
@@ -153,7 +153,6 @@ public class EavropTest extends TestCase {
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
 		.withEavropProperties(new EavropProperties(3,5,25,10))
-		 .withAsyncEventBus(eventBus)
 		.build();
 		
 		assertEquals(invanare, eavrop.getInvanare());
@@ -173,7 +172,6 @@ public class EavropTest extends TestCase {
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
 		.withEavropProperties(new EavropProperties(3,5,25,10))
-		.withAsyncEventBus(eventBus)
 		.build();
 		
 		assertEquals(invanare, eavrop.getInvanare());
@@ -267,7 +265,6 @@ public class EavropTest extends TestCase {
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
 		.withEavropProperties(new EavropProperties(3,5,25,10))
-		.withAsyncEventBus(eventBus)
 		.build();
 		
 		eavrop.setCreatedDate(new DateTime(2014,10,1,10,30));
@@ -299,7 +296,6 @@ public class EavropTest extends TestCase {
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
 		.withEavropProperties(new EavropProperties(3,5,25,10))
-		.withAsyncEventBus(eventBus)
 		.build();
 		
 		eavrop.setCreatedDate(new DateTime(2014,10,1,10,30));
@@ -310,12 +306,12 @@ public class EavropTest extends TestCase {
 		
 		assertNull(eavrop.getStartDate());
 		
-		ReceivedDocument document = new ReceivedDocument(new DateTime(2014,10,7,10,30), "DOC", new Bestallaradministrator("A","B","C","D","E"),Boolean.TRUE);
+		ReceivedDocument document = new ReceivedDocument(new DateTime(2014,10,7,10,30), "DOC", new Bestallaradministrator("A","B","C","D","E","F"),Boolean.TRUE);
 		eavrop.addReceivedDocument(document);
 		
 		assertNotNull(eavrop.getStartDate());
 		
-		eavrop.addIntygSignedInformation(new IntygSignedInformation(new DateTime(2014,11,14,23,59),new HoSPerson("F", "G","H")));
+		eavrop.addIntygSignedInformation(new IntygSignedInformation(new DateTime(2014,11,14,23,59),new HoSPerson("G", "H","I")));
 		
 		assertEquals(false, eavrop.isEavropAssesmentDaysDeviated());
 		
@@ -435,8 +431,8 @@ public class EavropTest extends TestCase {
     
     private BookingDeviationResponse createBookingDeviationResponse(){
     	
-    	Bestallaradministrator adm = new Bestallaradministrator("Törn Valdegård", "Driver", "STCC", "555-123456", "rattmuff@saab.se");
-    	BookingDeviationResponse deviationResponse = new BookingDeviationResponse( BookingDeviationResponseType.RESTART, new DateTime(), adm );
+    	Bestallaradministrator adm = new Bestallaradministrator("Törn Valdegård", "Driver", "Försäkringskassan", "STCC", "555-123456", "rattmuff@saab.se");
+    	BookingDeviationResponse deviationResponse = new BookingDeviationResponse( BookingDeviationResponseType.RESTART, new DateTime(), adm, null );
     	
     	deviationResponse.setDeviationResponseNote(new Note(NoteType.DEVIATION_RESPONSE, "Kör på", adm));
     	return deviationResponse;

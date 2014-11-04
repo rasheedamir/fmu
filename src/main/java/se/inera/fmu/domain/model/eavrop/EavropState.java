@@ -21,6 +21,10 @@ import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
  */
 public interface EavropState{
 	
+	public static final EavropState[] NOT_ACCEPTED_STATES = {new  UnassignedEavropState(), new AssignedEavropState() };
+	public static final EavropState[] ACCEPTED_STATES = {new  AcceptedEavropState(), new OnHoldEavropState() };
+	public static final EavropState[] COMPLETED_STATES = {new  ApprovedEavropState(), new ClosedEavropState() };
+	
 	public EavropStateType getEavropStateType();
 	
 	public void assignEavropToVardgivarenhet(Eavrop eavrop, Vardgivarenhet vardgivarenhet);

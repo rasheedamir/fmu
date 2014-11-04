@@ -33,7 +33,7 @@ import se.inera.fmu.domain.model.shared.Name;
 
 @Repository
 public class EavropRepositoryStub implements EavropRepository {
-	AsyncEventBus eventBus = new AsyncEventBus(Executors.newCachedThreadPool());
+	
 	@Override
 	public List<Eavrop> findAll() {
 		ArrayList<Eavrop> list = new ArrayList<Eavrop>();
@@ -43,9 +43,8 @@ public class EavropRepositoryStub implements EavropRepository {
 				.withUtredningType(UtredningType.AFU) 
 				.withInvanare(new Invanare(new PersonalNumber("8702225467"),new Name("Jacob", "william", "anderson"),Gender.MALE, new Address("blomstervägen", "58435", "Linköping", "sweden"),"jacob.william@gmail.com",null))
 				.withLandsting(new Landsting(new LandstingCode(1), "Stockholms läns landsting"))
-				.withBestallaradministrator(new Bestallaradministrator("Per Elofsson","Handläggare", "LFC Stockholm", "08123456", "per.elofsson@forsakringskassan.se" ))
-				.withEavropProperties(new EavropProperties(3,5,25,10))
-				.withAsyncEventBus(eventBus)
+				.withBestallaradministrator(new Bestallaradministrator("Per Elofsson","Handläggare", "Försäkringskassan", "LFC Stockholm", "08123456", "per.elofsson@forsakringskassan.se" ))
+				.withEavropProperties(getEavropProperties())
 				.build());
 
 
@@ -54,9 +53,8 @@ public class EavropRepositoryStub implements EavropRepository {
 				.withUtredningType(UtredningType.SLU) 
 				.withInvanare(new Invanare(new PersonalNumber("7702225267"),new Name("Erik", null, "lindgren"),Gender.MALE, new Address("ugglegatan", "55435", "Göteborg", "Sweden"), "erik.lin@gmail.com", "Personen är rullstilsbunden. Taxi behöver beställas"))
 				.withLandsting(new Landsting(new LandstingCode(14), "Stockholms läns landsting"))
-				.withBestallaradministrator(new Bestallaradministrator("Jan Björklund","Handläggare", "LFC Göteborg", "031123456", "jan.bjorklund@forsakringskassan.se" ))
-				.withEavropProperties(new EavropProperties(3,5,25,10))
-				.withAsyncEventBus(eventBus)
+				.withBestallaradministrator(new Bestallaradministrator("Jan Björklund","Handläggare", "Försäkringskassan", "LFC Göteborg", "031123456", "jan.bjorklund@forsakringskassan.se" ))
+				.withEavropProperties(getEavropProperties())
 				.build());
 
 		list.add( EavropBuilder.eavrop()
@@ -64,8 +62,8 @@ public class EavropRepositoryStub implements EavropRepository {
 				.withUtredningType(UtredningType.AFU) 
 				.withInvanare(new Invanare(new PersonalNumber("7702225467"),new Name("Anna", null, "Hård"),Gender.MALE, new Address("stenvägen", "58435", "Uppsala","Sweden"), "anna.hård@gmail.com",null))
 				.withLandsting(new Landsting(new LandstingCode(3), "Uppsala läns landsting"))
-				.withBestallaradministrator(new Bestallaradministrator("Jakob Hård","Handläggare", "LFC Uppsala", "013123456", "jakob.hard@forsakringskassan.se" ))
-				.withAsyncEventBus(eventBus)
+				.withBestallaradministrator(new Bestallaradministrator("Jakob Hård","Handläggare", "Försäkringskassan", "LFC Uppsala", "013123456", "jakob.hard@forsakringskassan.se" ))
+				.withEavropProperties(getEavropProperties())
 				.build());
 
 		list.add( EavropBuilder.eavrop()
@@ -73,8 +71,8 @@ public class EavropRepositoryStub implements EavropRepository {
 				.withUtredningType(UtredningType.TMU) 
 				.withInvanare(new Invanare(new PersonalNumber("8705225460"),new Name("Jansa", "William", "Falk"),Gender.FEMALE, new Address("Kungsgatan", "34435", "oskarshamn", "sweden"), "anna.hård@gmail.com",null))
 				.withLandsting(new Landsting(new LandstingCode(8), "Kalmar läns landsting"))
-				.withBestallaradministrator(new Bestallaradministrator("Tintin","Andersson", "LFC Kalmar", "0771524524", "tintin.andersson@forsakringskassan.se" ))
-				.withAsyncEventBus(eventBus)
+				.withBestallaradministrator(new Bestallaradministrator("Tintin","Andersson", "Försäkringskassan", "LFC Kalmar", "0771524524", "tintin.andersson@forsakringskassan.se" ))
+				.withEavropProperties(getEavropProperties())
 				.build());
 		
 		return list;
@@ -194,6 +192,13 @@ public class EavropRepositoryStub implements EavropRepository {
 	}
 
 	@Override
+	public Eavrop findByEavropId(Long arendeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	@Override
 	public List<Eavrop> findAllByLandsting(Landsting landsting) {
 		// TODO Auto-generated method stub
 		return null;
@@ -206,49 +211,62 @@ public class EavropRepositoryStub implements EavropRepository {
 	}
 
 	@Override
-	public List<Eavrop> findByLandstingAndCreateDateAndEavropStateIn(
+	public Page<Eavrop> findByLandstingAndCreateDateAndEavropStateIn(
 			Landsting landsting, DateTime fromDate, DateTime toDate,
-			List<EavropState> eavropStates) {
+			List<EavropState> eavropStates, Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Eavrop> findByLandstingAndStartDateAndEavropStateIn(
+	public Page<Eavrop> findByLandstingAndStartDateAndEavropStateIn(
 			Landsting landsting, LocalDate fromDate, LocalDate toDate,
-			List<EavropState> eavropStates) {
+			List<EavropState> eavropStates, Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Eavrop> findByLandstingAndIntygSignedDateAndEavropStateIn(
+	public Page<Eavrop> findByLandstingAndIntygSignedDateAndEavropStateIn(
 			Landsting landsting, DateTime fromDate, DateTime toDate,
-			List<EavropState> eavropStates) {
+			List<EavropState> eavropStates, Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Eavrop> findByVardgivarenhetAndCreateDateAndEavropStateIn(
+	public Page<Eavrop> findByVardgivarenhetAndCreateDateAndEavropStateIn(
 			Vardgivarenhet vardgivarenhet, DateTime fromDate, DateTime toDate,
-			List<EavropState> eavropStates) {
+			List<EavropState> eavropStates, Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Eavrop> findByVardgivarenhetAndStartDateAndEavropStateIn(
+	public Page<Eavrop> findByVardgivarenhetAndStartDateAndEavropStateIn(
 			Vardgivarenhet vardgivarenhet, LocalDate fromDate, LocalDate toDate,
-			List<EavropState> eavropStates) {
+			List<EavropState> eavropStates, Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Eavrop> findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(
+	public Page<Eavrop> findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(
 			Vardgivarenhet vardgivarenhet, DateTime fromDate, DateTime toDate,
-			List<EavropState> eavropStates) {
+			List<EavropState> eavropStates, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Eavrop findByEavropIdAndLandsting(Long eavropId, Landsting landsting) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Eavrop findByEavropIdAndVardgivare(Long eavropId,
+			Vardgivarenhet vardgivarenhet) {
 		// TODO Auto-generated method stub
 		return null;
 	}

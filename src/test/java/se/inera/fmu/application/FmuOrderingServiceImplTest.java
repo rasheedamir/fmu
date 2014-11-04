@@ -73,9 +73,10 @@ public class FmuOrderingServiceImplTest {
         final ArendeId arendeId = fmuOrderingService.createNewEavrop(EavropUtil.ARENDE_ID, EavropUtil.UTREDNING_TYPE,
                                                                          EavropUtil.TOLK, InvanareUtil.PERSONAL_NUMBER,
                                                                          InvanareUtil.NAME, InvanareUtil.GENDER,
-                                                                         InvanareUtil.HOME_ADDRESS, InvanareUtil.EMAIL, InvanareUtil.SPECIAL_NEED,
-                                                                         LandstingUtil.createLandsting(), BestallaradministratorUtil.NAME, 
-                                                                         BestallaradministratorUtil.BEFATTNING, BestallaradministratorUtil.ORGANISATION, 
+                                                                         InvanareUtil.HOME_ADDRESS, InvanareUtil.EMAIL, 
+                                                                         InvanareUtil.SPECIAL_NEED,LandstingUtil.createLandsting(), 
+                                                                         BestallaradministratorUtil.NAME,BestallaradministratorUtil.BEFATTNING, 
+                                                                         BestallaradministratorUtil.ORGANISATION, BestallaradministratorUtil.UNIT,
                                                                          BestallaradministratorUtil.PHONE, BestallaradministratorUtil.EMAIL);
         
         // verify repository's were called

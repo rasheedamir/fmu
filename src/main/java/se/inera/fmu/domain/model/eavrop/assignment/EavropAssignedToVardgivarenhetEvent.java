@@ -8,8 +8,8 @@ public class EavropAssignedToVardgivarenhetEvent extends EavropEvent{
 	private final HsaId hsaId;
 	
 	//~ Constructors ===================================================================================================
-	public EavropAssignedToVardgivarenhetEvent(final ArendeId arendeId, final HsaId vardgivarenhetHsaId) {
-		super(arendeId);
+	public EavropAssignedToVardgivarenhetEvent(final Long eavropId, final HsaId vardgivarenhetHsaId) {
+		super(eavropId);
 		this.hsaId = vardgivarenhetHsaId;
 	}
 

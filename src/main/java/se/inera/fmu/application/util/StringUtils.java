@@ -36,8 +36,5 @@ public final class StringUtils {
 		return (str != null) ? str.trim() : null;
 	}
 
-	private StringUtils() {
-	}
-
 }
 

@@ -73,7 +73,6 @@ import se.inera.fmu.domain.shared.IEntity;
  * 
  * Aggregate Root - 
  */
-@Configurable
 @Entity
 @Table(name = "T_EAVROP", uniqueConstraints = @UniqueConstraint(columnNames = "ARENDE_ID"))
 @ToString
@@ -84,7 +83,6 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
 	@Transient
 	private AsyncEventBus asyncEventBus;
 	
@@ -248,7 +246,6 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
     	this.setAdditionalInformation(builder.additionalInformation);
     	this.setPriorMedicalExamination(builder.priorMedicalExamination);
     	
-    	this.asyncEventBus = builder.asyncEventBus;
     	//Set initial state
     	this.setEavropState(new UnassignedEavropState());
 	}
@@ -267,7 +264,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.additionalInformation = additionalInformation;
 	}
 
-	private void setEavropProperties(EavropProperties eavropProperties){
+	public void setEavropProperties(EavropProperties eavropProperties){
 		this.eavropProperties =  eavropProperties;
 	}
 	
@@ -586,15 +583,6 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	}
 
 
-//	/**
-//	 * Cancel the specified booking with deviation
-//	 *
-//	 */
-//	public void cancelBooking(BookingId bookingId, BookingDeviation deviation) {
-//		getEavropState().cancelBooking(this, bookingId, deviation);
-//	}
-
-
 	public void setBookingStatus(BookingId bookingId, BookingStatusType bookingStatus){
 		setBookingStatus(bookingId, bookingStatus, null);
 	}
@@ -603,15 +591,6 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	public void setBookingStatus(BookingId bookingId, BookingStatusType bookingStatus, Note cancellationNote){
 		getEavropState().setBookingStatus(this, bookingId, bookingStatus, cancellationNote);
 	}
-	
-//	/**
-//	 * Cancel the specified booking with deviation
-//	 *
-//	 */
-//	public void cancelBooking(BookingId bookingId, BookingStatusType cancellationType, Note cancellationNote) {
-//		getEavropState().cancelBooking(this, bookingId, cancellationType, cancellationNote);
-//	}
-
 	
 	public void setInterpreterBookingStatus(BookingId bookingId, InterpreterBookingStatusType interpreterStatus, Note cancellationNote){
 		getEavropState().setInterpreterBookingStatus(this, bookingId, interpreterStatus, cancellationNote);
@@ -1297,49 +1276,49 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	// ~ handlers
 	
 	protected void handleEavropAssignedToVardgivarenhet(){
-		EavropAssignedToVardgivarenhetEvent event = new EavropAssignedToVardgivarenhetEvent(this.getArendeId(),getCurrentAssignment().getVardgivarenhet().getHsaId());
-		getEventBus().post(event);
+		EavropAssignedToVardgivarenhetEvent event = new EavropAssignedToVardgivarenhetEvent(this.getEavropId(), getCurrentAssignment().getVardgivarenhet().getHsaId());
+		//getEventBus().post(event);
 	}
 
 	protected void handleEavropAccept(){
-		EavropAcceptedByVardgivarenhetEvent event = new EavropAcceptedByVardgivarenhetEvent(this.getArendeId(),getCurrentAssignment().getVardgivarenhet().getHsaId());
-		getEventBus().post(event);
+		EavropAcceptedByVardgivarenhetEvent event = new EavropAcceptedByVardgivarenhetEvent(this.getEavropId(),getCurrentAssignment().getVardgivarenhet().getHsaId());
+		//getEventBus().post(event);
 	}
 
 	protected void handleEavropReject(EavropAssignment eavropAssignment){
-		EavropAcceptedByVardgivarenhetEvent event = new EavropAcceptedByVardgivarenhetEvent(this.getArendeId(), eavropAssignment.getVardgivarenhet().getHsaId());
-		getEventBus().post(event);	
+		EavropAcceptedByVardgivarenhetEvent event = new EavropAcceptedByVardgivarenhetEvent(this.getEavropId(), eavropAssignment.getVardgivarenhet().getHsaId());
+		//getEventBus().post(event);	
 	}
 
 	protected void handleDocumentsSent(){
 		//TODO: dont know if this event should be created... 
-		DocumentSentByBestallareEvent event = new DocumentSentByBestallareEvent(this.getArendeId(), getDateTimeDocumentsSentFromBestallare());
-		getEventBus().post(event);
+		DocumentSentByBestallareEvent event = new DocumentSentByBestallareEvent(this.getEavropId(), getDateTimeDocumentsSentFromBestallare());
+		//getEventBus().post(event);
 	}
 
-	protected void handleBookingAdded(BookingId bookingId){
-		BookingCreatedEvent event = new BookingCreatedEvent(this.getArendeId(), bookingId);
-		getEventBus().post(event);
-	}
+//	protected void handleBookingAdded(BookingId bookingId){
+//		BookingCreatedEvent event = new BookingCreatedEvent(this.getArendeId(), bookingId);
+//		getEventBus().post(event);
+//	}
 
 	protected void handleBookingDeviation(BookingId bookingId){
-		BookingDeviationEvent event = new BookingDeviationEvent(this.getArendeId(), bookingId);
-		getEventBus().post(event);
+		BookingDeviationEvent event = new BookingDeviationEvent(this.getEavropId(), bookingId);
+		//getEventBus().post(event);
 	}
 
 	protected void handleInterpreterBookingDeviation(BookingId bookingId){
-		InterpreterBookingDeviationEvent event = new InterpreterBookingDeviationEvent(this.getArendeId(), bookingId);
-		getEventBus().post(event);
+		InterpreterBookingDeviationEvent event = new InterpreterBookingDeviationEvent(this.getEavropId(), bookingId);
+		//getEventBus().post(event);
 	}
 	
 	protected void handleEavropRestarted(){
-		EavropRestartedByBestallareEvent event = new EavropRestartedByBestallareEvent(this.getArendeId());
-		getEventBus().post(event);
+		EavropRestartedByBestallareEvent event = new EavropRestartedByBestallareEvent(this.getEavropId());
+		//getEventBus().post(event);
 	}
 
 	protected void handleEavropStoppedByBestallare(){
-		EavropClosedByBestallareEvent event = new EavropClosedByBestallareEvent(this.getArendeId());
-		getEventBus().post(event);
+		EavropClosedByBestallareEvent event = new EavropClosedByBestallareEvent(this.getEavropId());
+		//getEventBus().post(event);
 	}
 
 	protected void handleEavropApproval(){

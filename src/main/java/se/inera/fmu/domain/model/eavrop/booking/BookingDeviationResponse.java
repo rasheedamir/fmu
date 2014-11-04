@@ -43,14 +43,19 @@ public class BookingDeviationResponse {
     public BookingDeviationResponse(){
     	//Needed by Hibernate
     }
-
-	public BookingDeviationResponse(BookingDeviationResponseType responseType, DateTime responseTimestamp, Person person) {
+    
+    public BookingDeviationResponse(BookingDeviationResponseType responseType, DateTime responseTimestamp, Person person) {
+    	this(responseType, responseTimestamp, person, null);
+    }
+    
+	public BookingDeviationResponse(BookingDeviationResponseType responseType, DateTime responseTimestamp, Person person, Note note) {
 		super();
 		Validate.notNull(responseType);
 		Validate.notNull(responseTimestamp);
 		this.responseType = responseType;
 		this.responseTimestamp = responseTimestamp;
 		this.person = person;
+		this.deviationResponseNote = note;
 	}
 	
 	public BookingDeviationResponseType getResponseType() {
