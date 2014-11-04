@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.common.eventbus.AsyncEventBus;
 import se.inera.fmu.Application;
 import se.inera.fmu.application.util.BusinessDaysUtil;
 import se.inera.fmu.domain.model.eavrop.AcceptedEavropState;
@@ -79,7 +80,7 @@ import javax.inject.Inject;
 @ActiveProfiles("dev")
 @Transactional
 public class ITRepositoryTest {
-	
+
 	@Inject
 	private LandstingRepository landstingRepository;
 
@@ -97,7 +98,6 @@ public class ITRepositoryTest {
 
 	@Inject
 	private EavropRepository eavropRepository;
-	
 
 	private LandstingCode landstingCode;
     
@@ -114,7 +114,6 @@ public class ITRepositoryTest {
 	private static EavropState[] ACCEPTED_STATES = {new  AcceptedEavropState(), new OnHoldEavropState() };
 
 	private static EavropState[] COMPLETED_STATES = {new  ApprovedEavropState(), new ClosedEavropState() };
-
 
     @Before
 	public void setUp() throws Exception {

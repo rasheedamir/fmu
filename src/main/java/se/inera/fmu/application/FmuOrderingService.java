@@ -2,6 +2,7 @@ package se.inera.fmu.application;
 
 import java.util.List;
 
+import se.inera.fmu.application.impl.CreateEavropCommand;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
@@ -17,7 +18,7 @@ import se.inera.fmu.domain.model.shared.Name;
 public interface FmuOrderingService {
 
 	/**
-	 * Retrives all Eavrops that belongs to a landsting 
+	 * Retrieves all Eavrops that belongs to a landsting
 	 * 
 	 * * @param landsting
 	 * */
@@ -25,28 +26,9 @@ public interface FmuOrderingService {
 
     /**
      * Registers a new Eavrop in the tracking system.
-     *
-     * @param arendeId
-     * @param utredningType
-     * @param tolk
-     * @param personalNumber
-     * @param invanareName
-     * @param invanareGender
-     * @param invanareHomeAddress
-     * @param invanareEmail
-     * @param invanareSpecialNeeds
-     * @param landsting
-     * @param administratorName
-     * @param administratorBefattning
-     * @param administratorOrganisation
-     * @param administratorPhone
-     * @param administratorEmail
+     * @param aCommand
      * @return
      */
-    ArendeId createNewEavrop(ArendeId arendeId,  UtredningType utredningType, String tolk, PersonalNumber personalNumber,
-            Name invanareName, Gender invanareGender, Address invanareHomeAddress,
-            String invanareEmail, String invanareSpecialNeeds, Landsting landsting, String administratorName, 
-            String administratorBefattning, String administratorOrganisation, String administratorPhone, 
-            String administratorEmail);
+    public ArendeId createEavrop(CreateEavropCommand aCommand);
 
 }

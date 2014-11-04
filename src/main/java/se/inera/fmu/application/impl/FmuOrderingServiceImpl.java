@@ -2,9 +2,8 @@ package se.inera.fmu.application.impl;
 
 import com.google.common.eventbus.AsyncEventBus;
 
+import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.runtime.ProcessInstance;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -35,9 +34,8 @@ import java.util.List;
 @Service
 @Validated
 @Transactional
-public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOrderingService {
-
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+@Slf4j
+public class FmuOrderingServiceImpl implements FmuOrderingService {
 
     private final EavropRepository eavropRepository;
     private final InvanareRepository invanareRepository;
@@ -67,46 +65,30 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
 //    }
 
     /**
+     * Creates a an eavrop.
      *
-     * @param arendeId
-     * @param utredningType
-     * @param interpreterLanguages
-     * @param personalNumber
-     * @param invanareName
-     * @param invanareGender
-     * @param invanareHomeAddress
-     * @param invanareEmail
-     * @param invanareSpecialNeeds
-     * @param landsting
-     * @param administratorName
-     * @param administratorBefattning
-     * @param administratorOrganisation
-     * @param administratorPhone
-     * @param administratorEmail
-     * @return
+     * @param aCommand : CreateEavropCommand
+     * @return arendeId
      */
     @Override
-    public ArendeId createNewEavrop(ArendeId arendeId,  UtredningType utredningType, String interpreterLanguages, PersonalNumber personalNumber,
-                                    Name invanareName, Gender invanareGender, Address invanareHomeAddress,
-                                    String invanareEmail, String invanareSpecialNeeds, Landsting landsting, String administratorName, 
-                                    String administratorBefattning, String administratorOrganisation, String administratorPhone, 
-                                    String administratorEmail) {
+    public ArendeId createEavrop(CreateEavropCommand aCommand) {
         
-        Invanare invanare = createInvanare(personalNumber, invanareName, invanareGender, invanareHomeAddress, invanareEmail, invanareSpecialNeeds);
+        Invanare invanare = createInvanare(aCommand.getPersonalNumber(), aCommand.getInvanareName(), aCommand.getInvanareGender(),
+                aCommand.getInvanareHomeAddress(), aCommand.getInvanareEmail(), aCommand.getInvanareSpecialNeeds());
     	
-        Bestallaradministrator bestallaradministrator = createBestallaradministrator(administratorName, administratorBefattning, administratorOrganisation, administratorPhone, administratorEmail);
+        Bestallaradministrator bestallaradministrator = createBestallaradministrator(aCommand.getAdministratorName(),
+                aCommand.getAdministratorBefattning(), aCommand.getAdministratorOrganisation(),
+                aCommand.getAdministratorPhone(), aCommand.getAdministratorEmail());
         
-        Interpreter interpreter= new Interpreter(interpreterLanguages);
+        Interpreter interpreter= new Interpreter(aCommand.getInterpreterLanguages());
         
-        log.debug(String.format("invanare created :: %s", invanare.toString()));
-        
-        EavropProperties props = getEavropProperties(); 
+        EavropProperties props = getEavropProperties();
         
         Eavrop eavrop = EavropBuilder.eavrop()
-		.withArendeId(arendeId)
-		.withUtredningType(utredningType) 
+		.withArendeId(aCommand.getArendeId())
+		.withUtredningType(aCommand.getUtredningType())
 		.withInvanare(invanare)
-		.withLandsting(landsting)
+		.withLandsting(aCommand.getLandsting())
 		.withBestallaradministrator(bestallaradministrator)
 		.withInterpreter(interpreter)
 		.withEavropProperties(props)
@@ -114,16 +96,13 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
 
         //TODO: fix tolk setting, should there be a boolean with a language description string or only a string?
         eavrop = eavropRepository.save(eavrop);
+
+        log.debug(String.format("invanare created :: %s", invanare));
+        log.debug(String.format("bestallaradministrator created :: %s", bestallaradministrator));
         log.debug(String.format("eavrop created :: %s", eavrop));
 
-        String businessKey = eavrop.getArendeId().toString();
-
-        // Also set the eavrop as process-variable
-        HashMap<String, Object> variables = new HashMap<String, Object>();
-        variables.put("eavrop", eavrop);
-
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("fmuProcess", businessKey, variables);
-        log.debug(String.format("business process started :: %s", processInstance.getId()));
+        //Publish an event to notify the interested listeners/subscribers that an eavrop has been created.
+        asyncEventBus.post(new EavropCreatedEvent(eavrop.getArendeId()));
 
         return eavrop.getArendeId();
     }
@@ -138,7 +117,8 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
      * @param specialNeeds
      * @return
      */
-    private Invanare createInvanare(PersonalNumber personalNumber, Name invanareName, Gender invanareGender, Address invanareHomeAddress, String invanareEmail, String specialNeeds ){
+    private Invanare createInvanare(PersonalNumber personalNumber, Name invanareName, Gender invanareGender, Address invanareHomeAddress,
+                                    String invanareEmail, String specialNeeds ){
     	Invanare invanare = new Invanare(personalNumber, invanareName, invanareGender, invanareHomeAddress, invanareEmail, specialNeeds);
     	invanare = invanareRepository.save(invanare);
         return invanare;
@@ -159,8 +139,7 @@ public class FmuOrderingServiceImpl extends AbstractServiceImpl implements FmuOr
 //    	bestallaradministrator = bestallaradministrator.save(invanare);
     	return bestallaradministrator;
     }
-    
-    //TODO add call to fetch system parmeters from db 
+
     private EavropProperties getEavropProperties(){
     	return new EavropProperties(3,5,25,10);
     }

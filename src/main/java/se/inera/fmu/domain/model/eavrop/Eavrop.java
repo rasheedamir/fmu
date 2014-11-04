@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -87,7 +88,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
+	@Inject
 	@Transient
 	private AsyncEventBus asyncEventBus;
 	
