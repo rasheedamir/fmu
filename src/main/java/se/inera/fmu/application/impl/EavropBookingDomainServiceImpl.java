@@ -18,6 +18,7 @@ import se.inera.fmu.domain.model.eavrop.ApprovedEavropState;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropClosedByBestallareEvent;
+import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.EavropRestartedByBestallareEvent;
 import se.inera.fmu.domain.model.eavrop.OnHoldEavropState;
@@ -42,7 +43,7 @@ import se.inera.fmu.domain.model.person.Person;
 @Service
 @Validated
 @Transactional
-public class EavropBookingDomainServiceImpl extends AbstractServiceImpl implements EavropBookingDomainService {
+public class EavropBookingDomainServiceImpl implements EavropBookingDomainService {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -69,8 +70,8 @@ public class EavropBookingDomainServiceImpl extends AbstractServiceImpl implemen
 	/**
 	 * 
 	 */
-	public void createBooking(ArendeId arendeId, BookingType bookingType, DateTime startDateTime, DateTime endDateTime, Person person, boolean useInterpreter ){
-		Eavrop eavrop = getEavropByArendeId(arendeId);
+	public void createBooking(EavropId eavropId, BookingType bookingType, DateTime startDateTime, DateTime endDateTime, Person person, boolean useInterpreter ){
+		Eavrop eavrop = getEavropByEavropId(eavropId);
 		
 		
 		//Create booking
@@ -88,21 +89,21 @@ public class EavropBookingDomainServiceImpl extends AbstractServiceImpl implemen
 	/**
 	 * 
 	 */
-	public void changeBookingStatus(ArendeId arendeId, BookingId bookingId, BookingStatusType bookingStatus){
-		this.changeBookingStatus(arendeId, bookingId, bookingStatus, null);
+	public void changeBookingStatus(EavropId eavropId, BookingId bookingId, BookingStatusType bookingStatus){
+		this.changeBookingStatus(eavropId, bookingId, bookingStatus, null);
 	}
 	
 	/**
 	 * 
 	 */
-	public void changeBookingStatus(ArendeId arendeId, BookingId bookingId, BookingStatusType bookingStatus, Note cancellationNote){
-		Eavrop eavrop = getEavropByArendeId(arendeId);
+	public void changeBookingStatus(EavropId eavropId, BookingId bookingId, BookingStatusType bookingStatus, Note cancellationNote){
+		Eavrop eavrop = getEavropByEavropId(eavropId);
 		Booking booking =  getBookingById(eavrop, bookingId);
 		
 		booking.setBookingStatus(bookingStatus);
 		booking.setDeviationNote(cancellationNote);
 		
-		//
+		//s
 		if(bookingStatus.isCancelled()){
 			if(BookingDeviationTypeUtil.isBookingStatusReasonForOnHold(booking.getBookingStatus(), eavrop.getUtredningType())){
 				//State transition ACCEPTED -> ON_HOLD
@@ -117,12 +118,12 @@ public class EavropBookingDomainServiceImpl extends AbstractServiceImpl implemen
 	/**
 	 * 
 	 */
-	public void changeInterpreterBookingStatus(ArendeId arendeId, BookingId bookingId, InterpreterBookingStatusType interpreterStatus){
-		this.changeInterpreterBookingStatus(arendeId, bookingId, interpreterStatus, null);
+	public void changeInterpreterBookingStatus(EavropId eavropId, BookingId bookingId, InterpreterBookingStatusType interpreterStatus){
+		this.changeInterpreterBookingStatus(eavropId, bookingId, interpreterStatus, null);
 	}
 		
-	public void changeInterpreterBookingStatus(ArendeId arendeId, BookingId bookingId, InterpreterBookingStatusType interpreterStatus, Note cancellationNote){
-		Eavrop eavrop = getEavropByArendeId(arendeId);
+	public void changeInterpreterBookingStatus(EavropId eavropId, BookingId bookingId, InterpreterBookingStatusType interpreterStatus, Note cancellationNote){
+		Eavrop eavrop = getEavropByEavropId(eavropId);
 		Booking booking =  getBookingById(eavrop, bookingId);
 		
 		InterpreterBooking interpreterBooking =  booking.getInterpreterBooking();
@@ -230,16 +231,24 @@ public class EavropBookingDomainServiceImpl extends AbstractServiceImpl implemen
 		return eavrop;
 	}
 
+	private Eavrop getEavropByEavropId(EavropId eavropId){
+		Eavrop eavrop = eavropRepository.findByEavropId(eavropId);
+		if(eavrop==null){
+			throw new IllegalArgumentException("Eavrop with EavropId:" + eavropId.toString() + " does not exist");
+		}
+		return eavrop;
+	}
+	
 	private Booking getBookingById(Eavrop eavrop, BookingId bookingId){
 		Booking booking = eavrop.getBooking(bookingId);
 		if(booking==null){
-			throw new IllegalArgumentException("Booking with id:" + bookingId.getId() + " is not present on Eavrop with ArendeId: " + eavrop.getArendeId().toString());
+			throw new IllegalArgumentException("Booking with id:" + bookingId.getId() + " is not present on Eavrop with EavropId: " + eavrop.getEavropId().toString());
 		}
 		return booking;
 	}
 
 	//Event handling methods
-	private void handleBookingAdded(Long eavropId, BookingId bookingId){
+	private void handleBookingAdded(EavropId eavropId, BookingId bookingId){
 		BookingCreatedEvent event = new BookingCreatedEvent(eavropId, bookingId);
         if(log.isDebugEnabled()){
         	log.debug(String.format("BookingCreatedEvent created :: %s", event.toString()));
@@ -248,7 +257,7 @@ public class EavropBookingDomainServiceImpl extends AbstractServiceImpl implemen
 		getEventBus().post(event);
 	}
 
-	private void handleBookingDeviation(Long eavropId, BookingId bookingId){
+	private void handleBookingDeviation(EavropId eavropId, BookingId bookingId){
 		BookingDeviationEvent event = new BookingDeviationEvent(eavropId, bookingId);
         if(log.isDebugEnabled()){
         	log.debug(String.format("BookingDeviationEvent created :: %s", event.toString()));
@@ -256,7 +265,7 @@ public class EavropBookingDomainServiceImpl extends AbstractServiceImpl implemen
 		getEventBus().post(event);
 	}
 
-	private void handleInterpreterBookingDeviation(Long eavropId, BookingId bookingId){
+	private void handleInterpreterBookingDeviation(EavropId eavropId, BookingId bookingId){
 		InterpreterBookingDeviationEvent event = new InterpreterBookingDeviationEvent(eavropId, bookingId);
         if(log.isDebugEnabled()){
         	log.debug(String.format("InterpreterBookingDeviationEvent created :: %s", event.toString()));
@@ -264,7 +273,7 @@ public class EavropBookingDomainServiceImpl extends AbstractServiceImpl implemen
 		getEventBus().post(event);
 	}
 
-	private void handleEavropRestarted(Long eavropId){
+	private void handleEavropRestarted(EavropId eavropId){
 		EavropRestartedByBestallareEvent event = new EavropRestartedByBestallareEvent(eavropId);
         if(log.isDebugEnabled()){
         	log.debug(String.format("EavropRestartedByBestallareEvent created :: %s", event.toString()));
@@ -272,7 +281,7 @@ public class EavropBookingDomainServiceImpl extends AbstractServiceImpl implemen
 		getEventBus().post(event);
 	}
 
-	private void handleEavropClosedByBestallare(Long eavropId){
+	private void handleEavropClosedByBestallare(EavropId eavropId){
 		EavropClosedByBestallareEvent event = new EavropClosedByBestallareEvent(eavropId);
         if(log.isDebugEnabled()){
         	log.debug(String.format("EavropClosedByBestallareEvent created :: %s", event.toString()));

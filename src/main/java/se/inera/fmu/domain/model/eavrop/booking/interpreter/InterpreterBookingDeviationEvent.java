@@ -3,6 +3,7 @@ package se.inera.fmu.domain.model.eavrop.booking.interpreter;
 
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropEvent;
+import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 
 public class InterpreterBookingDeviationEvent extends EavropEvent{
@@ -10,7 +11,7 @@ public class InterpreterBookingDeviationEvent extends EavropEvent{
 	private final BookingId bookingId;
 	
 	//~ Constructors ===================================================================================================
-	public InterpreterBookingDeviationEvent(final Long eavropId, final BookingId bookingId) {
+	public InterpreterBookingDeviationEvent(final EavropId eavropId, final BookingId bookingId) {
 		super(eavropId);
 		this.bookingId = bookingId;
 	}

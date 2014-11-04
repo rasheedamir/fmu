@@ -29,10 +29,10 @@
 		<activiti.version>5.15</activiti.version>
 		<mysql.version>5.1.31</mysql.version>
 		<lombok.version>1.14.4</lombok.version>
-		<!-- <liquibase-core.version>3.2.2</liquibase-core.version> -->
-		<!-- <liquibase_hibernate_version>3.3</liquibase_hibernate_version> -->
-		<liquibase-core.version>3.3.0-SNAPSHOT</liquibase-core.version>
-		<liquibase_hibernate_version>3.4</liquibase_hibernate_version>
+		<liquibase-core.version>3.2.2</liquibase-core.version>
+		<liquibase_hibernate_version>3.3</liquibase_hibernate_version>
+		<!-- <liquibase-core.version>3.3.0-SNAPSHOT</liquibase-core.version> -->
+		<!-- <liquibase_hibernate_version>3.4</liquibase_hibernate_version> -->
 		<liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
 		<assertj-core.version>1.6.0</assertj-core.version>
 		<awaitility.version>1.4.0</awaitility.version>
@@ -477,9 +477,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
-            <!-- To build a war file that is both executable and deployable into an external container you need to mark
-                 the embedded container dependencies as “provided” -->
-            <scope>provided</scope>
+			<!-- To build a war file that is both executable and deployable into an 
+				external container you need to mark the embedded container dependencies as 
+				“provided” -->
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -571,24 +572,24 @@
 			<artifactId>neo4j-cypher-compiler-2.1</artifactId>
 			<version>2.1.2</version>
 		</dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>18.0</version>
-        </dependency>
-        <dependency>
-        	<groupId>net.wimpi</groupId>
-        	<artifactId>telnetd-x</artifactId>
-        	<version>2.1.1</version>
-        </dependency>
-        <dependency>
-        	<groupId>org.springframework.security</groupId>
-        	<artifactId>spring-security-ldap</artifactId>
-        </dependency>
-        <dependency>
-        	<groupId>org.apache.activemq</groupId>
-        	<artifactId>activemq-client</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>18.0</version>
+		</dependency>
+		<dependency>
+			<groupId>net.wimpi</groupId>
+			<artifactId>telnetd-x</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-ldap</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-client</artifactId>
+		</dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -600,6 +601,16 @@
             <artifactId>wsdl4j</artifactId>
             <version>1.6.1</version>
         </dependency>
+		<dependency>
+			<groupId>org.springframework.security.extensions</groupId>
+			<artifactId>spring-security-saml2-core</artifactId>
+			<version>1.0.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-api</artifactId>
+			<version>2.7.4</version>
+		</dependency>
 
 	</dependencies>
 	<build>

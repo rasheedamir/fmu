@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropEvent;
+import se.inera.fmu.domain.model.eavrop.EavropId;
 
 public class DocumentSentByBestallareEvent extends EavropEvent{
 	
@@ -12,7 +13,7 @@ public class DocumentSentByBestallareEvent extends EavropEvent{
 	
 	//~ Constructors ===================================================================================================
     
-	public DocumentSentByBestallareEvent(final Long eavropId, final DateTime documentsSentDateTime) {
+	public DocumentSentByBestallareEvent(final EavropId eavropId, final DateTime documentsSentDateTime) {
 		super(eavropId);
 		Validate.notNull(documentsSentDateTime);
 		this.documentsSentDateTime= documentsSentDateTime;

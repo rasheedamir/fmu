@@ -5,7 +5,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
+import javax.inject.Inject;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -30,19 +32,15 @@ import lombok.ToString;
 
 import org.apache.commons.lang3.Validate;
 import org.hibernate.annotations.Type;
-import org.joda.time.LocalDate;
 import org.joda.time.DateTime;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-
-import com.google.common.eventbus.AsyncEventBus;
+import org.joda.time.LocalDate;
 
 import se.inera.fmu.application.util.BusinessDaysUtil;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAcceptedByVardgivarenhetEvent;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignedToVardgivarenhetEvent;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
+import se.inera.fmu.domain.model.eavrop.assignment.EavropRejectedByVardgivarenhetEvent;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
-import se.inera.fmu.domain.model.eavrop.booking.BookingCreatedEvent;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationEvent;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
@@ -68,6 +66,8 @@ import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
 
+import com.google.common.eventbus.AsyncEventBus;
+
 /**
  * Created by Rasheed on 7/7/14.
  * 
@@ -86,10 +86,11 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	@Transient
 	private AsyncEventBus asyncEventBus;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "EAVROP_ID", updatable = false, nullable = false)
-	private Long eavropId;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@Column(name = "EAVROP_ID", updatable = false, nullable = false)
+//	private Long eavropId;
+	private EavropId eavropId;
 	
 	// business key! Received from client in create request
 	@NotNull
@@ -232,7 +233,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		Validate.notNull(builder.landsting);
 		Validate.notNull(builder.bestallaradministrator);
 		Validate.notNull(builder.eavropProperties);
-		//this.setEavropId(new EavropId());
+		this.setEavropId(new EavropId(UUID.randomUUID().toString()));
 		this.setArendeId(builder.arendeId);
         this.setUtredningType(builder.utredningType);
         this.setInvanare(builder.invanare);
@@ -731,29 +732,29 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	}
 
 	
-//	/**
-//	 * The internal id of the Eavrop
-//	 * @return  EavropId
-//	 */
-//	public EavropId getEavropId() {
-//		return this.eavropId;
-//	}
-//	
-//	private void setEavropId(EavropId eavropId) {
-//		this.eavropId = eavropId;
-//	}
-
 	/**
 	 * The internal id of the Eavrop
 	 * @return  EavropId
 	 */
-	public Long getEavropId() {
+	public EavropId getEavropId() {
 		return this.eavropId;
 	}
 	
-	private void setEavropId(Long eavropId) {
+	private void setEavropId(EavropId eavropId) {
 		this.eavropId = eavropId;
 	}
+
+//	/**
+//	 * The internal id of the Eavrop
+//	 * @return  EavropId
+//	 */
+//	public Long getEavropId() {
+//		return this.eavropId;
+//	}
+//	
+//	private void setEavropId(Long eavropId) {
+//		this.eavropId = eavropId;
+//	}
 
 	
 	/**
@@ -1286,7 +1287,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	}
 
 	protected void handleEavropReject(EavropAssignment eavropAssignment){
-		EavropAcceptedByVardgivarenhetEvent event = new EavropAcceptedByVardgivarenhetEvent(this.getEavropId(), eavropAssignment.getVardgivarenhet().getHsaId());
+		EavropRejectedByVardgivarenhetEvent event = new EavropRejectedByVardgivarenhetEvent(this.getEavropId(), eavropAssignment.getVardgivarenhet().getHsaId());
 		//getEventBus().post(event);	
 	}
 

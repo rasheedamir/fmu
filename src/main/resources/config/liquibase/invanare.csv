@@ -1,0 +1,2 @@
+INVANARE_ID;created_by;created_date;last_modified_by;last_modified_date;version;EMAIL;GENDER;address_1;address_2;city;country;postal_code;state;FIRST_NAME;LAST_NAME;MIDDLE_NAME;PERSONAL_NUMBER;SPECIAL_NEEDS
+1;system;1999-12-12;system;1999-12-12;0;email@gmail.com;MALE;Systemgatan 1;systemgatan 2;Stockholm;Sweden;12345;Stockholmslän;Tolv;Tolvansson;tolvan;191212121212;rullstol

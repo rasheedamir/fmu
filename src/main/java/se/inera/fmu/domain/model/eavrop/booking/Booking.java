@@ -39,7 +39,6 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 
 	// database primary key, using UUID and not a Hibernate sequence
 	@EmbeddedId
-	@Column(name = "BOOKING_ID", updatable = false, nullable = false)
 	private BookingId bookingId;
 
 	@Column(name = "BOOKING_TYPE", nullable = false, updatable = false)

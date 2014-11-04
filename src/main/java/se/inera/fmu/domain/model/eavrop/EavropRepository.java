@@ -19,16 +19,16 @@ import se.inera.fmu.domain.model.landsting.Landsting;
  */
 public interface EavropRepository extends JpaRepository<Eavrop, Long> {
 
-	Eavrop findByEavropId(Long EavropId);
+	Eavrop findByEavropId(EavropId eavropId);
 
 	Eavrop findByArendeId(ArendeId arendeId);
 
-	Eavrop findByEavropIdAndLandsting(Long eavropId, Landsting landsting);
+	Eavrop findByEavropIdAndLandsting(EavropId eavropId, Landsting landsting);
 	
 	@Query("SELECT e FROM Eavrop e "
 		+ " WHERE e.eavropId = :eavropId "
 		+ " AND e.currentAssignment.vardgivarenhet = :vardgivarenhet ")
-	Eavrop findByEavropIdAndVardgivare(@Param("eavropId") Long eavropId, 
+	Eavrop findByEavropIdAndVardgivare(@Param("eavropId") EavropId eavropId, 
 									   @Param("vardgivarenhet") Vardgivarenhet vardgivarenhet);
 	
 	 	

@@ -16,6 +16,7 @@ import com.google.common.eventbus.AsyncEventBus;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropBuilder;
+import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
@@ -192,7 +193,7 @@ public class EavropRepositoryStub implements EavropRepository {
 	}
 
 	@Override
-	public Eavrop findByEavropId(Long arendeId) {
+	public Eavrop findByEavropId(EavropId eavropId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -259,13 +260,13 @@ public class EavropRepositoryStub implements EavropRepository {
 	}
 
 	@Override
-	public Eavrop findByEavropIdAndLandsting(Long eavropId, Landsting landsting) {
+	public Eavrop findByEavropIdAndLandsting(EavropId eavropId, Landsting landsting) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Eavrop findByEavropIdAndVardgivare(Long eavropId,
+	public Eavrop findByEavropIdAndVardgivare(EavropId eavropId,
 			Vardgivarenhet vardgivarenhet) {
 		// TODO Auto-generated method stub
 		return null;

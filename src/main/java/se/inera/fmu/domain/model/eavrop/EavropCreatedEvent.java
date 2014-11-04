@@ -5,7 +5,7 @@ public class EavropCreatedEvent extends EavropEvent {
 	
 	//~ Constructors ===================================================================================================
     
-	public EavropCreatedEvent(final Long eavropId) {
+	public EavropCreatedEvent(final EavropId eavropId) {
 		super(eavropId);
 	}
 

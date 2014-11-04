@@ -10,17 +10,17 @@ import se.inera.fmu.domain.shared.DomainEvent;
 @ToString
 public abstract class EavropEvent implements DomainEvent<EavropEvent>{
 	private final DateTime eventDateTime = DateTime.now();
-	private final Long eavropId;
+	private final EavropId eavropId;
 	
 	//~ Constructors ===================================================================================================
-	public EavropEvent(final Long eavropId) {
+	public EavropEvent(final EavropId eavropId) {
 		Validate.notNull(eavropId);
     	this.eavropId= eavropId;
 	}
 	
 	//~ Property Methods ===============================================================================================
 
-	public Long getEavropId() {
+	public EavropId getEavropId() {
 		return this.eavropId;
 	}
 	

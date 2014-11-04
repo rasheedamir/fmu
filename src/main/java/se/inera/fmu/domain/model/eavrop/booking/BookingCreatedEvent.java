@@ -4,6 +4,7 @@ package se.inera.fmu.domain.model.eavrop.booking;
 import lombok.ToString;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropEvent;
+import se.inera.fmu.domain.model.eavrop.EavropId;
 
 @ToString
 public class BookingCreatedEvent extends EavropEvent{
@@ -11,7 +12,7 @@ public class BookingCreatedEvent extends EavropEvent{
 	private final BookingId bookingId;
 	
 	//~ Constructors ===================================================================================================
-	public BookingCreatedEvent(final Long eavropId, final BookingId bookingId) {
+	public BookingCreatedEvent(final EavropId eavropId, final BookingId bookingId) {
 		super(eavropId);
 		this.bookingId = bookingId;
 	}

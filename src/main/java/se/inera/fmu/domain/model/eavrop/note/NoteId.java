@@ -24,7 +24,7 @@ public class NoteId  implements ValueObject<NoteId>, Serializable {
     //~ Constructors ===================================================================================================
 
 	NoteId() {
-		this.id = UUID.randomUUID().toString();
+
 	}
 
 	public NoteId(final String noteId){
@@ -34,7 +34,7 @@ public class NoteId  implements ValueObject<NoteId>, Serializable {
 	
     //~ Property Methods ===============================================================================================
 
-	public String getBestallarId(){
+	public String getNoteId(){
 		return this.id;
 	}
 

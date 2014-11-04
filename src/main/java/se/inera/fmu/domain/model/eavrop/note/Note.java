@@ -48,7 +48,7 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>, Compa
 	}
 
 	public Note(NoteType noteType, String text, Person person) {
-		this.setNoteId(new NoteId());
+		this.setNoteId(new NoteId(UUID.randomUUID().toString()));
 		this.setNoteType(noteType);
 		setText(text);
 		setPerson(person);
