@@ -26,9 +26,6 @@ spring:
     messageSource:
         cacheSeconds: 1
 
-    activiti:
-        checkProcessDefinitions: true
-
 swagger:
     title: FMU API
     description: Inera FMU...
