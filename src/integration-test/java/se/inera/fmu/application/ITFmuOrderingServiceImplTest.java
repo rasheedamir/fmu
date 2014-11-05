@@ -1,33 +1,25 @@
 package se.inera.fmu.application;
 
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import se.inera.fmu.Application;
-import se.inera.fmu.application.impl.FmuOrderingServiceImpl;
 import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
-import se.inera.fmu.domain.model.eavrop.EavropRepository;
-import se.inera.fmu.domain.model.landsting.LandstingRepository;
-
+import se.inera.fmu.domain.model.eavrop.EavropStateType;
+import se.inera.fmu.interfaces.managing.rest.TestUtil;
 import static org.junit.Assert.*;
 
 /**
@@ -40,36 +32,32 @@ import static org.junit.Assert.*;
 @ActiveProfiles("dev")
 @IntegrationTest("server.port:0")
 public class ITFmuOrderingServiceImplTest {
-	@Mock
+	
+	@Inject
 	private CurrentUserService currentUserService;
 	
 	@Inject
-	private LandstingRepository landstingRepository;
-	
-	@Inject 
-	private EavropRepository eavropRepository;
-	
-	@InjectMocks
-	private FmuOrderingServiceImpl fmuOrderingService;
+	private FmuOrderingService fmuOrderingService;
 	
 	
 	@Before
 	public void setUp(){
-		MockitoAnnotations.initMocks(this);
-		ReflectionTestUtils.setField(fmuOrderingService, "eavropRepository", eavropRepository);
-		ReflectionTestUtils.setField(fmuOrderingService, "landstingRepository", landstingRepository);
+		TestUtil.loginWithNoActiveRole();
 	}
 
     @Test
     public void serviceShouldReturnAllEavropsForUserLandstingSamordnare() {
-    	User landstingSamordnare = new User();
-    	ArrayList<Role> roles = new ArrayList<Role>();
-    	roles.add(Role.LANDSTINGSSAMORDNARE);
-    	landstingSamordnare.setRoles(roles);
-    	landstingSamordnare.setActiveRole(Role.LANDSTINGSSAMORDNARE);
-		when(currentUserService.getCurrentUser()).thenReturn(landstingSamordnare);
-        
-		List<Eavrop> eavrops = fmuOrderingService.getOverviewEavrops();
-		assertEquals(eavrops.size(), 1);
+    	User currentUser = this.currentUserService.getCurrentUser();
+    	currentUser.setActiveRole(Role.LANDSTINGSSAMORDNARE);
+    	EavropStateType state = EavropStateType.UNASSIGNED;
+		DateTime fromDate = new DateTime(1990, 1, 1, 0, 0);
+		DateTime toDate = new DateTime(2012,12,1, 0, 0);
+		currentUser.setLandstingCode(1);
+		
+		List<Eavrop> eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(), state, null);
+		assertNotEquals(eavrops, null);
+		for (Eavrop eavrop : eavrops) {
+			assertEquals(eavrop.getLandsting().getLandstingCode(), currentUser.getLandstingCode());
+		}
     }
 }

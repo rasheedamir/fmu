@@ -5,6 +5,14 @@ import com.google.common.eventbus.AsyncEventBus;
 import lombok.extern.slf4j.Slf4j;
 
 import org.activiti.engine.runtime.ProcessInstance;
+import org.joda.time.LocalDate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.jaxb.PageAdapter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -17,7 +25,12 @@ import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
+import se.inera.fmu.domain.model.hos.hsa.HsaId;
+import se.inera.fmu.domain.model.hos.vardgivare.VardgivareRepository;
+import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
+import se.inera.fmu.domain.model.hos.vardgivare.VardgivarenhetRepository;
 import se.inera.fmu.domain.model.landsting.Landsting;
+import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.domain.model.landsting.LandstingRepository;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.shared.Address;
@@ -49,6 +62,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
     private final Configuration configuration;
     private final LandstingRepository landstingRepository;
     private final CurrentUserService currentUserService;
+    private final VardgivarenhetRepository vardgivarEnhetRepository;
 
     
 
@@ -59,14 +73,17 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
      * @param asyncEventBus
      */
     @Inject
-    public FmuOrderingServiceImpl(final EavropRepository eavropRepository, final InvanareRepository invanareRepository,final Configuration configuration,
-                                  final AsyncEventBus asyncEventBus, final LandstingRepository landstingRepository, final CurrentUserService currentUser) {
+    public FmuOrderingServiceImpl(final EavropRepository eavropRepository, final InvanareRepository invanareRepository,
+    							  final Configuration configuration, final AsyncEventBus asyncEventBus, 
+    							  final LandstingRepository landstingRepository, final CurrentUserService currentUser, 
+    							  final VardgivarenhetRepository vardgivarEnhetRepository) {
         this.eavropRepository = eavropRepository;
         this.invanareRepository = invanareRepository;
         this.configuration = configuration;
         this.asyncEventBus = asyncEventBus;
         this.landstingRepository = landstingRepository;
         this.currentUserService = currentUser;
+        this.vardgivarEnhetRepository = vardgivarEnhetRepository;
     }
     
       /**
@@ -158,18 +175,25 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
     }
 
 	@Override
-	public List<Eavrop> getOverviewEavrops() {
+	public Page<Eavrop> getOverviewEavrops(long fromDate, long toDate, EavropStateType state, Pageable paginationSpecs) {
 		User currentUSer = this.currentUserService.getCurrentUser();
+		List<EavropState> states = new ArrayList<EavropState>();
+		
 		switch (currentUSer.getActiveRole()) {
 		case LANDSTINGSSAMORDNARE:
-			System.out.println("landstingSamordnare user");
-			return this.eavropRepository.findAll();
+			if(currentUSer.getLandstingCode() == null)
+				return null;
+			LocalDate startDate = new LocalDate(fromDate);
+			LocalDate endDate = new LocalDate(toDate);
+			
+			Landsting landsting = this.landstingRepository.findByLandstingCode(new LandstingCode(currentUSer.getLandstingCode()));
+			return this.eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, startDate, endDate, null, paginationSpecs);
 		case UTREDARE:
-			System.out.println("Utredare user");
-			return this.eavropRepository.findAll();
+			if(currentUSer.getVardenhetHsaId() == null) {
+				return null;
+			}
 		default:
-			System.out.println("Unauthorized user");
-			return new ArrayList<Eavrop>();
+			return null;
 		}
 	}
 }

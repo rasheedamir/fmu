@@ -3,7 +3,6 @@ package se.inera.fmu.application.impl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.providers.ExpiringUsernameAuthenticationToken;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,6 @@ public class CurrentUserServiceImpl implements CurrentUserService {
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
 		FmuUserDetails details = (FmuUserDetails) authentication.getPrincipal();
-		
 		return details.getUser();
 	}
 

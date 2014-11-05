@@ -57,7 +57,13 @@ public class FmuOrderingServiceImplTest {
 
     @Before
     public void setUp() {
+<<<<<<< HEAD
         fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, configuration, asyncEventBus, null, null);
+=======
+        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, asyncEventBus, null, null, null);
+        fmuOrderingService.setRuntimeService(activitiRule.getRuntimeService());
+        fmuOrderingService.setTaskService(activitiRule.getTaskService());
+>>>>>>> added parameter validation for landstingCode and started implementing restErrorHandler
     }
 
     @Test

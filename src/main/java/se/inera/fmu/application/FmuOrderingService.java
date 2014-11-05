@@ -1,10 +1,12 @@
 package se.inera.fmu.application;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import se.inera.fmu.application.impl.CreateEavropCommand;
-import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
+import se.inera.fmu.domain.model.eavrop.Eavrop;
+import se.inera.fmu.domain.model.eavrop.EavropStateType;
 
 /**
  * Created by Rasheed on 7/7/14.
@@ -18,6 +20,6 @@ public interface FmuOrderingService {
      */
     public ArendeId createEavrop(CreateEavropCommand aCommand);
 
-	public List<Eavrop> getOverviewEavrops();
+	Page<Eavrop> getOverviewEavrops(long fromDateMillis, long toDateMillis, EavropStateType state, Pageable paginationSpecs);
 
 }

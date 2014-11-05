@@ -1,78 +1,85 @@
 package se.inera.fmu.interfaces.managing.rest;
-import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.Application;
+import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.FmuOrderingService;
-import se.inera.fmu.domain.model.eavrop.Eavrop;
-import se.inera.fmu.domain.model.eavrop.EavropRepository;
-import se.inera.fmu.domain.model.landsting.Landsting;
-import se.inera.fmu.domain.model.landsting.LandstingCode;
-import se.inera.fmu.domain.model.landsting.LandstingRepository;
+import se.inera.fmu.domain.model.authentication.Role;
+import se.inera.fmu.interfaces.managing.rest.validation.LandstingCodeValidation;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @ActiveProfiles("dev")
 @IntegrationTest("server.port:0")
+@Validated
 public class ITEavropRestControllerTest {
+	@Inject
+	private ApplicationContext appContext;
 	
 	@Inject
-	private EavropRepository eavropRepository;
-	
-	@Inject LandstingRepository landstingRepository;
-	
-	@Mock
 	private FmuOrderingService fmuOrderingService;
-	
-	@InjectMocks 
-	private EavropResource eavropResource;
-	
 	private MockMvc restMock;
+	
+	@Inject
+	private CurrentUserService currentUserService;
 	
 	@Before
 	public void SetUp(){
-		MockitoAnnotations.initMocks(this);
+        EavropResource eavropResource = new EavropResource();
+        ReflectionTestUtils.setField(eavropResource, "fmuOrderingService", fmuOrderingService);
         this.restMock = MockMvcBuilders.standaloneSetup(eavropResource).build();
+        TestUtil.loginWithNoActiveRole();
 	}
 	
 	@Test
-	public void dummyTest() throws Exception{
-		when(fmuOrderingService.getOverviewEavrops()).thenReturn(getAllEavropsForLandsting1());
-		
-		MvcResult result = restMock.perform(get("/app/rest/eavrop")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andReturn();
+	public void loggedInasLandstingSamordnare() throws Exception{
+		this.currentUserService.getCurrentUser().setActiveRole(Role.LANDSTINGSSAMORDNARE);
+		MvcResult result = restMock.perform(get(
+				"/app/rest/eavrop/landstingcode/12/fromdate/1/todate/2/status/ASSIGNED"
+				+ "/page/1/pagesize/10/sortkey/arendeId/sortorder/ASC"))
+				.andReturn();
+		System.out.println(result.getResponse().getContentAsString());
+//		MvcResult result = restMock.perform(get("/app/rest/eavrop")
+//                .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andReturn();
 	}
 	
-	private List<Eavrop> getAllEavropsForLandsting1(){
-		Landsting landsting = this.landstingRepository.findByLandstingCode(new LandstingCode(1));
-		List<Eavrop> eavrops = this.eavropRepository.findAllByLandsting(landsting);
-		return eavrops;
+	@Test
+	public void loggedInAsUtredare() throws Exception {
+		this.currentUserService.getCurrentUser().setActiveRole(Role.UTREDARE);
+//		MvcResult result = restMock.perform(get("/app/rest/eavrop")
+//                .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andReturn();
 	}
 }

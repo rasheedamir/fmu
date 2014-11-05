@@ -17,6 +17,7 @@ public class User implements Serializable {
 	private String vardenhetHsaId;
 	private String firstName;
 	private String middleAndLastName;
+	private Integer landstingCode;
 	private List<Role> roles = new ArrayList<>();
 	private Role activeRole;
 
@@ -58,6 +59,14 @@ public class User implements Serializable {
 
 	public void setMiddleAndLastName(String middleAndLastName) {
 		this.middleAndLastName = middleAndLastName;
+	}
+	
+	public Integer getLandstingCode() {
+		return landstingCode;
+	}
+	
+	public void setLandstingCode(Integer landstingCode) {
+		this.landstingCode = landstingCode;
 	}
 
 
