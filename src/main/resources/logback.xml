@@ -26,7 +26,8 @@
     <logger name="liquibase" level="warn"/>
     <logger name="org.activiti" level="warn"/>
     <logger name="sun.rmi.transport." level="info"/>
-    <logger name="org.springframework.security" level="DEBUG"/>
+    <logger name="org.opensaml.DefaultBootstrap" level="warn"/>
+    <logger name="org.opensaml.xml" level="warn"/>
 
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
         <resetJUL>true</resetJUL>
