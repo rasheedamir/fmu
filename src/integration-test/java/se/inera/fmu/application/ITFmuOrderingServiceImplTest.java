@@ -1,7 +1,5 @@
 package se.inera.fmu.application;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.joda.time.DateTime;
@@ -10,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -54,7 +53,7 @@ public class ITFmuOrderingServiceImplTest {
 		DateTime toDate = new DateTime(2012,12,1, 0, 0);
 		currentUser.setLandstingCode(1);
 		
-		List<Eavrop> eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(), state, null);
+		Page<Eavrop> eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(), state, null);
 		assertNotEquals(eavrops, null);
 		for (Eavrop eavrop : eavrops) {
 			assertEquals(eavrop.getLandsting().getLandstingCode(), currentUser.getLandstingCode());

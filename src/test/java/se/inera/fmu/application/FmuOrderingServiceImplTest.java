@@ -1,17 +1,12 @@
 package se.inera.fmu.application;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.test.ActivitiRule;
-import org.activiti.engine.test.Deployment;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -57,13 +52,7 @@ public class FmuOrderingServiceImplTest {
 
     @Before
     public void setUp() {
-<<<<<<< HEAD
-        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, configuration, asyncEventBus, null, null);
-=======
-        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, asyncEventBus, null, null, null);
-        fmuOrderingService.setRuntimeService(activitiRule.getRuntimeService());
-        fmuOrderingService.setTaskService(activitiRule.getTaskService());
->>>>>>> added parameter validation for landstingCode and started implementing restErrorHandler
+        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, configuration, asyncEventBus, null, null, null);
     }
 
     @Test

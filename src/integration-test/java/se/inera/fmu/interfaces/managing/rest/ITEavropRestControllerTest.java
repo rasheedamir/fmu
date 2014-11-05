@@ -3,9 +3,6 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import static org.junit.Assert.*;
@@ -17,9 +14,6 @@ import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -33,13 +27,12 @@ import se.inera.fmu.Application;
 import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.authentication.Role;
-import se.inera.fmu.interfaces.managing.rest.validation.LandstingCodeValidation;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @ActiveProfiles("dev")
-@IntegrationTest("server.port:0")
+@IntegrationTest("server.port:0") //Randomize ports
 @Validated
 public class ITEavropRestControllerTest {
 	@Inject
@@ -65,13 +58,10 @@ public class ITEavropRestControllerTest {
 		this.currentUserService.getCurrentUser().setActiveRole(Role.LANDSTINGSSAMORDNARE);
 		MvcResult result = restMock.perform(get(
 				"/app/rest/eavrop/landstingcode/12/fromdate/1/todate/2/status/ASSIGNED"
-				+ "/page/1/pagesize/10/sortkey/arendeId/sortorder/ASC"))
-				.andReturn();
-		System.out.println(result.getResponse().getContentAsString());
-//		MvcResult result = restMock.perform(get("/app/rest/eavrop")
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andReturn();
+				+ "/page/1/pagesize/10/sortkey/arendeId/sortorder/ASC")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
 	}
 	
 	@Test
