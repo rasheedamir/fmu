@@ -8,18 +8,21 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.ReportAsSingleViolation;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
-@NotNull
-@Digits(integer = 2, fraction = 0)
+import org.hibernate.validator.constraints.NotBlank;
+
+@NotBlank
+@Size(min=1, max=25)
+@Pattern(regexp = "^[a-zA-Z_][a-zA-Z0-9_]*$")
 @Target({ ElementType.FIELD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE, ElementType.LOCAL_VARIABLE }) // specifies where this validation can be used (Field, Method, Parameter etc)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Constraint(validatedBy = {})
 @ReportAsSingleViolation
 // specifies if any of the validation fails, it will be reported as single validation
-public @interface ValidateLandstingCode {
+public @interface ValidateSortKey {
  
     /**
      * This is the key to message will that will be looked in validation.properties for validation

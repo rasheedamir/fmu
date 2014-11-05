@@ -8,18 +8,18 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.ReportAsSingleViolation;
-import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @NotNull
-@Digits(integer = 2, fraction = 0)
+@Min(0)
 @Target({ ElementType.FIELD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE, ElementType.LOCAL_VARIABLE }) // specifies where this validation can be used (Field, Method, Parameter etc)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Constraint(validatedBy = {})
 @ReportAsSingleViolation
 // specifies if any of the validation fails, it will be reported as single validation
-public @interface ValidateLandstingCode {
+public @interface ValidatePageNumber {
  
     /**
      * This is the key to message will that will be looked in validation.properties for validation
