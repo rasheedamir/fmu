@@ -27,10 +27,10 @@ import java.util.Map;
 /**
  * Configuration of web application with Servlet 3.0 APIs.
  */
-@SuppressWarnings("ALL")
+@SuppressWarnings("all")
 @Configuration
 @AutoConfigureAfter(CacheConfiguration.class)
-@ImportResource("classpath:/security/securityContext.xml")
+@ImportResource({"classpath:/security/securityContext.xml", "classpath:/restErrorHandler/errorHandlingContext.xml"})
 public class WebConfigurer implements ServletContextInitializer {
 
     private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);
