@@ -65,6 +65,16 @@ public class ITEavropRestControllerTest {
 	}
 	
 	@Test
+	public void landstingParameterAsStringWillNotPass() throws Exception {
+		this.currentUserService.getCurrentUser().setActiveRole(Role.LANDSTINGSSAMORDNARE);
+		restMock.perform(get(
+				"/app/rest/eavrop/landstingcode/abc/fromdate/1/todate/2/status/ASSIGNED"
+				+ "/page/1/pagesize/10/sortkey/arendeId/sortorder/ASC")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
+	}
+	
+	@Test
 	public void loggedInAsUtredare() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(Role.UTREDARE);
 //		MvcResult result = restMock.perform(get("/app/rest/eavrop")

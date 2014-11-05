@@ -321,6 +321,12 @@
 
 		<!-- Jackson -->
 		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-json-org</artifactId>
 			<version>${jackson.version}</version>

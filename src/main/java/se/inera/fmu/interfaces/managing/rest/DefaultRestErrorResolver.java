@@ -15,12 +15,15 @@
  */
 package se.inera.fmu.interfaces.managing.rest;
 
+import org.hibernate.ObjectNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.expression.spel.SpelEvaluationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.util.CollectionUtils;
@@ -34,6 +37,8 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
 import java.util.*;
+
+import javax.validation.ValidationException;
 
 /**
  * Default {@code RestErrorResolver} implementation that converts discovered Exceptions to
@@ -110,12 +115,11 @@ public class DefaultRestErrorResolver implements RestErrorResolver, MessageSourc
         applyDef(m, HttpMessageNotReadableException.class, HttpStatus.BAD_REQUEST);
         applyDef(m, MissingServletRequestParameterException.class, HttpStatus.BAD_REQUEST);
         applyDef(m, TypeMismatchException.class, HttpStatus.BAD_REQUEST);
-        applyDef(m, "javax.validation.ValidationException", HttpStatus.BAD_REQUEST);
-        applyDef(m, "javax.validation.ConstraintViolationException", HttpStatus.BAD_REQUEST);
-
+        applyDef(m, ValidationException.class, HttpStatus.BAD_REQUEST);
+        
         // 404
         applyDef(m, NoSuchRequestHandlingMethodException.class, HttpStatus.NOT_FOUND);
-        applyDef(m, "org.hibernate.ObjectNotFoundException", HttpStatus.NOT_FOUND);
+        applyDef(m, ObjectNotFoundException.class, HttpStatus.NOT_FOUND);
 
         // 405
         applyDef(m, HttpRequestMethodNotSupportedException.class, HttpStatus.METHOD_NOT_ALLOWED);
@@ -124,8 +128,7 @@ public class DefaultRestErrorResolver implements RestErrorResolver, MessageSourc
         applyDef(m, HttpMediaTypeNotAcceptableException.class, HttpStatus.NOT_ACCEPTABLE);
 
         // 409
-        //can't use the class directly here as it may not be an available dependency:
-        applyDef(m, "org.springframework.dao.DataIntegrityViolationException", HttpStatus.CONFLICT);
+        applyDef(m, DataIntegrityViolationException.class, HttpStatus.CONFLICT);
 
         // 415
         applyDef(m, HttpMediaTypeNotSupportedException.class, HttpStatus.UNSUPPORTED_MEDIA_TYPE);
@@ -144,7 +147,7 @@ public class DefaultRestErrorResolver implements RestErrorResolver, MessageSourc
     private String definitionFor(HttpStatus status) {
         return status.value() + ", " + DEFAULT_EXCEPTION_MESSAGE_VALUE;
     }
-
+    
     @Override
     public RestError resolveError(ServletWebRequest request, Object handler, Exception ex) {
 

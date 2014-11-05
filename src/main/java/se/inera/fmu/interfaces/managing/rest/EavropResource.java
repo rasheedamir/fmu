@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.joda.time.format.DateTimeFormat;
@@ -28,7 +29,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import scala.util.control.Exception;
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
@@ -36,7 +36,7 @@ import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.interfaces.managing.dtomapper.EavropDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
-import se.inera.fmu.interfaces.managing.rest.validation.LandstingCodeValidation;
+import se.inera.fmu.interfaces.managing.rest.validation.ValidateLandstingCode;
 
 import com.codahale.metrics.annotation.Timed;
 
@@ -69,7 +69,7 @@ public class EavropResource {
 			, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	public Integer getEavrops(
-			@LandstingCodeValidation @PathVariable Integer landstingCode,
+			@ValidateLandstingCode @PathVariable Integer landstingCode,
 			@PathVariable Integer startDate, @PathVariable Integer endDate, 
 			@PathVariable EavropStateType status, @PathVariable int currentPage, @PathVariable int pageSize,
 			@PathVariable String sortKey, @PathVariable Direction sortOrder) {
@@ -77,4 +77,5 @@ public class EavropResource {
 		ResponseEntity<List<EavropDTO>> response = new ResponseEntity<List<EavropDTO>>(HttpStatus.OK);
 		return landstingCode;
 	}
+
 }
