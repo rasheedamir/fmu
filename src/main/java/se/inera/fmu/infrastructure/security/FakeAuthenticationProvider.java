@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import static se.inera.fmu.domain.model.authentication.SakerhetstjanstAssertion.ENHET_HSA_ID_ATTRIBUTE;
+import static se.inera.fmu.domain.model.authentication.SakerhetstjanstAssertion.ENHET_HSA_ID_ATTRIBUTE;
 import static se.inera.fmu.domain.model.authentication.SakerhetstjanstAssertion.FORNAMN_ATTRIBUTE;
 import static se.inera.fmu.domain.model.authentication.SakerhetstjanstAssertion.HSA_ID_ATTRIBUTE;
 import static se.inera.fmu.domain.model.authentication.SakerhetstjanstAssertion.MEDARBETARUPPDRAG_TYPE;
@@ -142,6 +143,7 @@ public class FakeAuthenticationProvider  implements AuthenticationProvider {
         attributeStatement.getAttributes().add(createAttribute(HSA_ID_ATTRIBUTE, fakeCredentials.getHsaId()));
         attributeStatement.getAttributes().add(createAttribute(FORNAMN_ATTRIBUTE, fakeCredentials.getFornamn()));
         attributeStatement.getAttributes().add(createAttribute(MELLAN_OCH_EFTERNAMN_ATTRIBUTE, fakeCredentials.getEfternamn()));
+        attributeStatement.getAttributes().add(createAttribute(ENHET_HSA_ID_ATTRIBUTE, fakeCredentials.getEnhetId()));
 
         if (fakeCredentials.isLakare()) {
             attributeStatement.getAttributes().add(createAttribute(TITEL_ATTRIBUTE, "Läkare"));
