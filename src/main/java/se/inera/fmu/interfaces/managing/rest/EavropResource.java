@@ -13,6 +13,9 @@ import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
@@ -32,6 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
+import se.inera.fmu.domain.model.eavrop.EavropState;
 import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.interfaces.managing.dtomapper.EavropDTOMapper;
@@ -60,30 +64,34 @@ public class EavropResource {
 	
 	private EavropDTOMapper eavropMapper = new EavropDTOMapper();
 	
-    /**
-     *
-     * TODO#1: Add parameter date range.
-     * TODO#2: Add parameter status of utredning (new, in-process or finished)
-     *
-     * @return
-     */
+	public static enum OVERVIEW_EAVROPS_STATES {
+		NOT_ACCEPTED,
+		ACCEPTED,
+		COMPLETED
+	}
+
 	@RequestMapping(
 			value = "/rest/eavrop/landstingcode/{landstingCode}/fromdate/{startDate}/todate/{endDate}/status/{status}"
 					+ "/page/{currentPage}/pagesize/{pageSize}/sortkey/{sortKey}/sortorder/{sortOrder}"
 			, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-	public Integer getEavrops(
+	public ResponseEntity<List<EavropDTO>> getEavrops(
 			@ValidateLandstingCode @PathVariable Integer landstingCode,
 			@ValidateDate @PathVariable Integer startDate, 
 			@ValidateDate @PathVariable Integer endDate, 
-			@PathVariable EavropStateType status, 
+			@PathVariable OVERVIEW_EAVROPS_STATES status, 
 			@ValidatePageNumber @PathVariable int currentPage, 
 			@ValidPageSize @PathVariable int pageSize,
 			@ValidateSortKey @PathVariable String sortKey, 
 			@PathVariable Direction sortOrder) {
-		
+		Pageable pageSpecs = new PageRequest(currentPage, pageSize, new Sort(sortOrder, sortKey));
 		ResponseEntity<List<EavropDTO>> response = new ResponseEntity<List<EavropDTO>>(HttpStatus.OK);
-		return landstingCode;
+		Page<Eavrop> pageEavrops = this.fmuOrderingService.getOverviewEavrops(startDate, endDate, status, pageSpecs);
+		if (pageEavrops != null)
+			for (Eavrop eavrop : pageEavrops.getContent()) {
+				response.getBody().add(this.eavropMapper.mappToDTO(eavrop));
+			}
+		return response;
 	}
 
 }

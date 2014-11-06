@@ -47,16 +47,16 @@ public class TestUtil {
      * Log in with a fake user with predefined credentials
      */
     public static void loginWithNoActiveRole() {
-		User landstingSamordnare = new User();
-        landstingSamordnare.setFirstName("Åsa");
+		User user = new User();
+        user.setFirstName("Åsa");
         List<Role> roles = new ArrayList<Role>();
         roles.add(Role.LANDSTINGSSAMORDNARE);
         roles.add(Role.UTREDARE);
-		landstingSamordnare.setRoles(roles);
-		landstingSamordnare.setMiddleAndLastName("Andersson");
-		landstingSamordnare.setVardenhetHsaId("IFV1239877878-1049");
-		landstingSamordnare.setHsaId("IFV1239877878-1042");
-		FmuUserDetails details = new FmuUserDetails(landstingSamordnare);
+		user.setRoles(roles);
+		user.setMiddleAndLastName("Andersson");
+		user.setVardenhetHsaId("IFV1239877878-1049");
+		user.setHsaId("IFV1239877878-1042");
+		FmuUserDetails details = new FmuUserDetails(user);
 		FakeCredentials credencial = new FakeCredentials("IFV1239877878-1042", "Åsa", "Andersson", true, "IFV1239877878-1049");
 		Authentication authentication = new UsernamePasswordAuthenticationToken(details, credencial);
 		SecurityContextHolder.getContext().setAuthentication(authentication);

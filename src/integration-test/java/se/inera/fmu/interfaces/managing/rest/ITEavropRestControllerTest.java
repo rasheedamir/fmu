@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import javax.inject.Inject;
 
+import lombok.extern.slf4j.Slf4j;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -34,6 +35,7 @@ import se.inera.fmu.domain.model.authentication.Role;
 @ActiveProfiles("dev")
 @IntegrationTest("server.port:0") //Randomize ports
 @Validated
+@Slf4j
 public class ITEavropRestControllerTest {
 	@Inject
 	private ApplicationContext appContext;
@@ -57,11 +59,13 @@ public class ITEavropRestControllerTest {
 	public void loggedInasLandstingSamordnare() throws Exception{
 		this.currentUserService.getCurrentUser().setActiveRole(Role.LANDSTINGSSAMORDNARE);
 		MvcResult result = restMock.perform(get(
-				"/app/rest/eavrop/landstingcode/12/fromdate/1/todate/2/status/ASSIGNED"
+				"/app/rest/eavrop/landstingcode/12/fromdate/1/todate/2"
 				+ "/page/1/pagesize/10/sortkey/arendeId/sortorder/ASC")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
+		
+		log.debug(result.getResponse().getContentAsString());
 	}
 	
 	@Test

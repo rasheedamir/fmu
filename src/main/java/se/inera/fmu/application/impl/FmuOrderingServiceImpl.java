@@ -4,6 +4,7 @@ import com.google.common.eventbus.AsyncEventBus;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.application.CurrentUserService;
+import se.inera.fmu.application.FmuListService;
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.*;
@@ -36,10 +38,13 @@ import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
 import se.inera.fmu.domain.model.systemparameter.Configuration;
+import se.inera.fmu.interfaces.managing.rest.EavropResource.OVERVIEW_EAVROPS_STATES;
 
 import javax.inject.Inject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -61,7 +66,10 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
     private final LandstingRepository landstingRepository;
     private final CurrentUserService currentUserService;
     private final VardgivarenhetRepository vardgivarEnhetRepository;
-
+    
+    @Inject
+    private FmuListService fmuListService;
+    
     /**
      *
      * @param eavropRepository
@@ -171,25 +179,46 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
     }
 
 	@Override
-	public Page<Eavrop> getOverviewEavrops(long fromDate, long toDate, EavropStateType state, Pageable paginationSpecs) {
+	public Page<Eavrop> getOverviewEavrops(long fromDate, long toDate,OVERVIEW_EAVROPS_STATES state, Pageable paginationSpecs) {
 		User currentUSer = this.currentUserService.getCurrentUser();
-		List<EavropState> states = new ArrayList<EavropState>();
+		DateTime startDate = new DateTime(fromDate);
+		DateTime endDate = new DateTime(toDate);
 		
 		switch (currentUSer.getActiveRole()) {
 		case LANDSTINGSSAMORDNARE:
 			if(currentUSer.getLandstingCode() == null)
 				return null;
-			LocalDate startDate = new LocalDate(fromDate);
-			LocalDate endDate = new LocalDate(toDate);
-			
 			Landsting landsting = this.landstingRepository.findByLandstingCode(new LandstingCode(currentUSer.getLandstingCode()));
-			return this.eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, startDate, endDate, null, paginationSpecs);
+			
+			switch (state) {
+			case NOT_ACCEPTED:
+				return this.fmuListService.findAllNotAcceptedEavropByLandstingAndDateTimeOrdered(landsting, startDate, endDate, paginationSpecs);
+			case ACCEPTED:
+				return this.fmuListService.findAllOngoingEavropByLandstingAndDateTimeStarted(landsting, startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs);
+			case COMPLETED:
+				return this.fmuListService.findAllCompletedEavropByLandstingAndDateTimeSigned(landsting, startDate, endDate, paginationSpecs);
+			default:
+				return null;
+			}
 		case UTREDARE:
 			if(currentUSer.getVardenhetHsaId() == null) {
+				return null;
+			}
+			Vardgivarenhet vardgivarenhet = this.fmuListService.findVardgivarenhetByHsaId(new HsaId(currentUSer.getVardenhetHsaId()));
+			
+			switch (state) {
+			case NOT_ACCEPTED:
+				return this.fmuListService.findAllNotAcceptedEavropByVardgivarenhetAndDateTimeOrdered(vardgivarenhet, startDate, endDate, paginationSpecs);
+			case ACCEPTED:
+				return this.fmuListService.findAllOngoingEavropByVardgivarenhetAndDateTimeStarted(vardgivarenhet, startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs);
+			case COMPLETED:
+				return this.fmuListService.findAllCompletedEavropByVardgivarenhetAndDateTimeSigned(vardgivarenhet, startDate, endDate, paginationSpecs);
+			default:
 				return null;
 			}
 		default:
 			return null;
 		}
 	}
+	
 }
