@@ -14,6 +14,8 @@ public class EavropDTO {
 
     private String utredningType;
     
+    private String bestallareEnhet;
+    
     private String bestallareOrganisation;
     
     private long creationTime;
@@ -94,7 +96,7 @@ public class EavropDTO {
 		return mottagarenOrganisation;
 	}
 
-	public EavropDTO setMottagarenOrganisation(String mottagarenOrganisation) {
+	public EavropDTO setLeverantorOrganisation(String mottagarenOrganisation) {
 		this.mottagarenOrganisation = mottagarenOrganisation;
 		return this;
 	}
@@ -115,5 +117,14 @@ public class EavropDTO {
 	public EavropDTO setAntalDagarEfterForfragan(Integer antalDagarEfterForfragan) {
 		this.antalDagarEfterForfragan = antalDagarEfterForfragan;
 		return this;
+	}
+	
+	public EavropDTO setBestallareEnhet(String bestallareEnhet) {
+		this.bestallareEnhet = bestallareEnhet;
+		return this;
+	}
+	
+	public String getBestallareEnhet() {
+		return bestallareEnhet;
 	}
 }

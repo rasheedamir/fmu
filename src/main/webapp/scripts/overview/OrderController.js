@@ -37,7 +37,7 @@ angular.module('fmuClientApp')
                     value: 'Organisation',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                 }, {
-                    key: 'enhet',
+                    key: 'unit',
                     value: 'Enhet/Avdelning',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                 }, {
@@ -75,12 +75,6 @@ angular.module('fmuClientApp')
             $scope.footerHints = [{
                 description: 'Antal dagar har överträtts och/eller annan avvikelse finns',
                 colorClass: 'bg-danger'
-            }, {
-                description: 'Utredning accepterad',
-                colorClass: 'bg-warning'
-            }, {
-                description: 'Godkänd för ersättning',
-                colorClass: 'bg-success'
             }];
 
             $scope.dateDescription = 'Datumen utgår från det datum då beställningen inkommit';
