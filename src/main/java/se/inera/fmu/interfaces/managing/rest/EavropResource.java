@@ -36,7 +36,11 @@ import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.interfaces.managing.dtomapper.EavropDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
+import se.inera.fmu.interfaces.managing.rest.validation.ValidPageSize;
+import se.inera.fmu.interfaces.managing.rest.validation.ValidateDate;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidateLandstingCode;
+import se.inera.fmu.interfaces.managing.rest.validation.ValidatePageNumber;
+import se.inera.fmu.interfaces.managing.rest.validation.ValidateSortKey;
 
 import com.codahale.metrics.annotation.Timed;
 
@@ -70,9 +74,13 @@ public class EavropResource {
 	@Timed
 	public Integer getEavrops(
 			@ValidateLandstingCode @PathVariable Integer landstingCode,
-			@PathVariable Integer startDate, @PathVariable Integer endDate, 
-			@PathVariable EavropStateType status, @PathVariable int currentPage, @PathVariable int pageSize,
-			@PathVariable String sortKey, @PathVariable Direction sortOrder) {
+			@ValidateDate @PathVariable Integer startDate, 
+			@ValidateDate @PathVariable Integer endDate, 
+			@PathVariable EavropStateType status, 
+			@ValidatePageNumber @PathVariable int currentPage, 
+			@ValidPageSize @PathVariable int pageSize,
+			@ValidateSortKey @PathVariable String sortKey, 
+			@PathVariable Direction sortOrder) {
 		
 		ResponseEntity<List<EavropDTO>> response = new ResponseEntity<List<EavropDTO>>(HttpStatus.OK);
 		return landstingCode;
