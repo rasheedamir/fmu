@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
@@ -57,12 +59,11 @@ import com.codahale.metrics.annotation.Timed;
 @RestController
 @RequestMapping("/app")
 @Validated
+@Slf4j
 public class EavropResource {
 
 	@Inject
 	private FmuOrderingService fmuOrderingService;
-	
-	private EavropDTOMapper eavropMapper = new EavropDTOMapper();
 	
 	public static enum OVERVIEW_EAVROPS_STATES {
 		NOT_ACCEPTED,
@@ -71,27 +72,22 @@ public class EavropResource {
 	}
 
 	@RequestMapping(
-			value = "/rest/eavrop/landstingcode/{landstingCode}/fromdate/{startDate}/todate/{endDate}/status/{status}"
+			value = "/rest/eavrop/fromdate/{startDate}/todate/{endDate}/status/{status}"
 					+ "/page/{currentPage}/pagesize/{pageSize}/sortkey/{sortKey}/sortorder/{sortOrder}"
 			, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	public ResponseEntity<List<EavropDTO>> getEavrops(
-			@ValidateLandstingCode @PathVariable Integer landstingCode,
-			@ValidateDate @PathVariable Integer startDate, 
-			@ValidateDate @PathVariable Integer endDate, 
+			@ValidateDate @PathVariable Long startDate, 
+			@ValidateDate @PathVariable Long endDate, 
 			@PathVariable OVERVIEW_EAVROPS_STATES status, 
 			@ValidatePageNumber @PathVariable int currentPage, 
 			@ValidPageSize @PathVariable int pageSize,
 			@ValidateSortKey @PathVariable String sortKey, 
 			@PathVariable Direction sortOrder) {
 		Pageable pageSpecs = new PageRequest(currentPage, pageSize, new Sort(sortOrder, sortKey));
-		ResponseEntity<List<EavropDTO>> response = new ResponseEntity<List<EavropDTO>>(HttpStatus.OK);
-		Page<Eavrop> pageEavrops = this.fmuOrderingService.getOverviewEavrops(startDate, endDate, status, pageSpecs);
-		if (pageEavrops != null)
-			for (Eavrop eavrop : pageEavrops.getContent()) {
-				response.getBody().add(this.eavropMapper.mappToDTO(eavrop));
-			}
-		return response;
+		List<EavropDTO> pageEavrops = this.fmuOrderingService.getOverviewEavrops(startDate, endDate, status, pageSpecs);
+		log.debug(pageEavrops.toString());
+		return new ResponseEntity<List<EavropDTO>>(pageEavrops, HttpStatus.OK);
 	}
 
 }

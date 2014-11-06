@@ -1,6 +1,10 @@
 package se.inera.fmu.application;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -12,7 +16,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -23,14 +26,11 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import se.inera.fmu.Application;
 import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.authentication.User;
-import se.inera.fmu.domain.model.eavrop.Eavrop;
-import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.EavropStateType;
-import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
-import se.inera.fmu.domain.model.landsting.LandstingRepository;
-import se.inera.fmu.interfaces.managing.rest.TestUtil;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OVERVIEW_EAVROPS_STATES;
+import se.inera.fmu.interfaces.managing.rest.TestUtil;
+import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 
 /**
  * Created by Rasheed on 8/8/14.
@@ -50,6 +50,9 @@ public class ITFmuOrderingServiceImplTest {
 	@Inject
 	private FmuOrderingService fmuOrderingService;
 	
+	@Inject
+	private FmuListService fmuListService;
+	
 	@Before
 	public void setUp(){
 		TestUtil.loginWithNoActiveRole();
@@ -66,18 +69,18 @@ public class ITFmuOrderingServiceImplTest {
 		Pageable pageSpecs = new PageRequest(0, 10, new Sort(Sort.Direction.ASC, "eavropId"));
 		
 		// NOT ACCEPTED
-		Page<Eavrop> eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OVERVIEW_EAVROPS_STATES.NOT_ACCEPTED, pageSpecs);
+		List<EavropDTO> eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OVERVIEW_EAVROPS_STATES.NOT_ACCEPTED, pageSpecs);
 		assertNotEquals(eavrops, null);
 //		log.debug("NOT ACCEPTED: " + Long.toString(eavrops.getTotalElements()));
-		assertTrue(eavrops.getTotalElements() > 0);
+		assertTrue(eavrops.size() > 0);
 		
 		DateTime previous = null;
-		for (Eavrop eavrop : eavrops) {
-			assertTrue(eavrop.getLandsting().getLandstingCode().getCode() == currentUser.getLandstingCode());
+		for (EavropDTO eavrop : eavrops) {
+			assertEquals(eavrop.getMottagarenOrganisation(),this.fmuListService.findLandstingByLandstingCode(new LandstingCode(currentUser.getLandstingCode())).getName());
 			assertTrue(eavrop.getStatus() == EavropStateType.UNASSIGNED
 					|| eavrop.getStatus() == EavropStateType.ASSIGNED);
 			if(previous != null){
-				assertTrue(eavrop.getCreatedDate().getMillis() > previous.getMillis());
+				assertTrue(eavrop.getCreationTime() > previous.getMillis());
 			}
 		}
 		
@@ -85,15 +88,15 @@ public class ITFmuOrderingServiceImplTest {
 		eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OVERVIEW_EAVROPS_STATES.ACCEPTED, pageSpecs);
 		assertNotEquals(eavrops, null);
 //		log.debug("ACCEPTED: " + Long.toString(eavrops.getTotalElements()));
-		assertTrue(eavrops.getTotalElements() > 0);
+		assertTrue(eavrops.size() > 0);
 		
 		previous = null;
-		for (Eavrop eavrop : eavrops) {
-			assertTrue(eavrop.getLandsting().getLandstingCode().getCode() == currentUser.getLandstingCode());
+		for (EavropDTO eavrop : eavrops) {
+			assertEquals(eavrop.getMottagarenOrganisation(),this.fmuListService.findLandstingByLandstingCode(new LandstingCode(currentUser.getLandstingCode())).getName());
 			assertTrue(eavrop.getStatus() == EavropStateType.ACCEPTED
 					|| eavrop.getStatus() == EavropStateType.ON_HOLD);
 			if(previous != null){
-				assertTrue(eavrop.getCreatedDate().getMillis() > previous.getMillis());
+				assertTrue(eavrop.getCreationTime() > previous.getMillis());
 			}
 		}
 		
@@ -101,15 +104,15 @@ public class ITFmuOrderingServiceImplTest {
 		eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OVERVIEW_EAVROPS_STATES.COMPLETED, pageSpecs);
 		assertNotEquals(eavrops, null);
 //		log.debug("COMPLETED: "+ Long.toString(eavrops.getTotalElements()));
-		assertTrue(eavrops.getTotalElements() > 0);
+		assertTrue(eavrops.size() > 0);
 		
 		previous = null;
-		for (Eavrop eavrop : eavrops) {
-			assertTrue(eavrop.getLandsting().getLandstingCode().getCode() == currentUser.getLandstingCode());
+		for (EavropDTO eavrop : eavrops) {
+			assertEquals(eavrop.getMottagarenOrganisation(),this.fmuListService.findLandstingByLandstingCode(new LandstingCode(currentUser.getLandstingCode())).getName());
 			assertTrue(eavrop.getStatus() == EavropStateType.CLOSED
 					|| eavrop.getStatus() == EavropStateType.APPROVED);
 			if(previous != null){
-				assertTrue(eavrop.getCreatedDate().getMillis() > previous.getMillis());
+				assertTrue(eavrop.getCreationTime() > previous.getMillis());
 			}
 		}
     }
@@ -123,50 +126,50 @@ public class ITFmuOrderingServiceImplTest {
 		Pageable pageSpecs = new PageRequest(0, 10, new Sort(Sort.Direction.ASC, "eavropId"));
 		
 		// NOT ACCEPTED
-		Page<Eavrop> eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OVERVIEW_EAVROPS_STATES.NOT_ACCEPTED, pageSpecs);
+		List<EavropDTO> eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OVERVIEW_EAVROPS_STATES.NOT_ACCEPTED, pageSpecs);
 		assertNotEquals(eavrops, null);
-		log.debug("NOT ACCEPTED: " + Long.toString(eavrops.getTotalElements()));
-		assertTrue(eavrops.getTotalElements() > 0);
+		log.debug("NOT ACCEPTED: " + Long.toString(eavrops.size()));
+		assertTrue(eavrops.size() > 0);
 		
 		DateTime previous = null;
-		for (Eavrop eavrop : eavrops) {
+		for (EavropDTO eavrop : eavrops) {
 //			assertTrue(eavrop.get);
 			assertTrue(eavrop.getStatus() == EavropStateType.UNASSIGNED
 					|| eavrop.getStatus() == EavropStateType.ASSIGNED);
 			if(previous != null){
-				assertTrue(eavrop.getCreatedDate().getMillis() > previous.getMillis());
+				assertTrue(eavrop.getCreationTime() > previous.getMillis());
 			}
 		}
 		
 		// ACCEPTED
 		eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OVERVIEW_EAVROPS_STATES.ACCEPTED, pageSpecs);
 		assertNotEquals(eavrops, null);
-		log.debug("ACCEPTED: " + Long.toString(eavrops.getTotalElements()));
-		assertTrue(eavrops.getTotalElements() > 0);
+		log.debug("ACCEPTED: " + Long.toString(eavrops.size()));
+		assertTrue(eavrops.size() > 0);
 		
 		previous = null;
-		for (Eavrop eavrop : eavrops) {
+		for (EavropDTO eavrop : eavrops) {
 //			assertTrue(eavrop.getLandsting().getLandstingCode().getCode() == currentUser.getLandstingCode());
 			assertTrue(eavrop.getStatus() == EavropStateType.ACCEPTED
 					|| eavrop.getStatus() == EavropStateType.ON_HOLD);
 			if(previous != null){
-				assertTrue(eavrop.getCreatedDate().getMillis() > previous.getMillis());
+				assertTrue(eavrop.getCreationTime() > previous.getMillis());
 			}
 		}
 		
 		// COMPLETED
 		eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OVERVIEW_EAVROPS_STATES.COMPLETED, pageSpecs);
 		assertNotEquals(eavrops, null);
-		log.debug("COMPLETED: "+ Long.toString(eavrops.getTotalElements()));
-		assertTrue(eavrops.getTotalElements() > 0);
+		log.debug("COMPLETED: "+ Long.toString(eavrops.size()));
+		assertTrue(eavrops.size() > 0);
 		
 		previous = null;
-		for (Eavrop eavrop : eavrops) {
+		for (EavropDTO eavrop : eavrops) {
 //			assertTrue(eavrop.getLandsting().getLandstingCode().getCode() == currentUser.getLandstingCode());
 			assertTrue(eavrop.getStatus() == EavropStateType.CLOSED
 					|| eavrop.getStatus() == EavropStateType.APPROVED);
 			if(previous != null){
-				assertTrue(eavrop.getCreatedDate().getMillis() > previous.getMillis());
+				assertTrue(eavrop.getCreationTime() > previous.getMillis());
 			}
 		}
     }

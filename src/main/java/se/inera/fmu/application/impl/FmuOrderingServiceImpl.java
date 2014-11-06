@@ -38,7 +38,9 @@ import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
 import se.inera.fmu.domain.model.systemparameter.Configuration;
+import se.inera.fmu.interfaces.managing.dtomapper.EavropDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OVERVIEW_EAVROPS_STATES;
+import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 
 import javax.inject.Inject;
 
@@ -66,6 +68,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
     private final LandstingRepository landstingRepository;
     private final CurrentUserService currentUserService;
     private final VardgivarenhetRepository vardgivarEnhetRepository;
+	private EavropDTOMapper eavropMapper;
     
     @Inject
     private FmuListService fmuListService;
@@ -88,6 +91,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
         this.landstingRepository = landstingRepository;
         this.currentUserService = currentUser;
         this.vardgivarEnhetRepository = vardgivarEnhetRepository;
+        this.eavropMapper= new EavropDTOMapper();
     }
     
       /**
@@ -179,7 +183,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
     }
 
 	@Override
-	public Page<Eavrop> getOverviewEavrops(long fromDate, long toDate,OVERVIEW_EAVROPS_STATES state, Pageable paginationSpecs) {
+	public List<EavropDTO> getOverviewEavrops(long fromDate, long toDate,OVERVIEW_EAVROPS_STATES state, Pageable paginationSpecs) {
 		User currentUSer = this.currentUserService.getCurrentUser();
 		DateTime startDate = new DateTime(fromDate);
 		DateTime endDate = new DateTime(toDate);
@@ -192,11 +196,11 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 			
 			switch (state) {
 			case NOT_ACCEPTED:
-				return this.fmuListService.findAllNotAcceptedEavropByLandstingAndDateTimeOrdered(landsting, startDate, endDate, paginationSpecs);
+				return constructDTO(this.fmuListService.findAllNotAcceptedEavropByLandstingAndDateTimeOrdered(landsting, startDate, endDate, paginationSpecs));
 			case ACCEPTED:
-				return this.fmuListService.findAllOngoingEavropByLandstingAndDateTimeStarted(landsting, startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs);
+				return constructDTO(this.fmuListService.findAllOngoingEavropByLandstingAndDateTimeStarted(landsting, startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs));
 			case COMPLETED:
-				return this.fmuListService.findAllCompletedEavropByLandstingAndDateTimeSigned(landsting, startDate, endDate, paginationSpecs);
+				return constructDTO(this.fmuListService.findAllCompletedEavropByLandstingAndDateTimeSigned(landsting, startDate, endDate, paginationSpecs));
 			default:
 				return null;
 			}
@@ -208,17 +212,25 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 			
 			switch (state) {
 			case NOT_ACCEPTED:
-				return this.fmuListService.findAllNotAcceptedEavropByVardgivarenhetAndDateTimeOrdered(vardgivarenhet, startDate, endDate, paginationSpecs);
+				return constructDTO(this.fmuListService.findAllNotAcceptedEavropByVardgivarenhetAndDateTimeOrdered(vardgivarenhet, startDate, endDate, paginationSpecs));
 			case ACCEPTED:
-				return this.fmuListService.findAllOngoingEavropByVardgivarenhetAndDateTimeStarted(vardgivarenhet, startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs);
+				return constructDTO(this.fmuListService.findAllOngoingEavropByVardgivarenhetAndDateTimeStarted(vardgivarenhet, startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs));
 			case COMPLETED:
-				return this.fmuListService.findAllCompletedEavropByVardgivarenhetAndDateTimeSigned(vardgivarenhet, startDate, endDate, paginationSpecs);
+				return constructDTO(this.fmuListService.findAllCompletedEavropByVardgivarenhetAndDateTimeSigned(vardgivarenhet, startDate, endDate, paginationSpecs));
 			default:
 				return null;
 			}
 		default:
 			return null;
 		}
+	}
+
+	private List<EavropDTO> constructDTO(Page<Eavrop> eavrops) {
+		List<EavropDTO> retval = new ArrayList<EavropDTO>();
+		for (Eavrop eavrop : eavrops.getContent()) {
+			retval.add(this.eavropMapper.mappToDTO(eavrop));
+		}
+		return retval;
 	}
 	
 }

@@ -2,6 +2,6 @@ EAVROP_ID;created_by;created_date;last_modified_by;last_modified_date;version;AD
 1;Quang;2014-10-31;Quang;2014-10-31;1;test info;12345;test description;2014-10-30;25;15;10;0;UNASSIGNED;tolk description;NULL;NULL;NULL;SLU;1;NULL;NULL;NULL;1;1;NULL
 2;system;2014-11-03;system;2014-11-03;0;test info;12453;test description;2014-11-03 12:20:20;25;10;5;0;ASSIGNED;NULL;NULL;2014-11-03;no fokus;TMU;3;1;NULL;NULL;1;1;NULL
 3;system;2014-11-04;system;2014-11-05;0;test info;12463453;test description;2014-11-06 12:20:20;25;10;5;0;ACCEPTED;NULL;NULL;2014-11-06;no fokus;TMU;3;2;NULL;NULL;1;1;NULL
+6;system;2014-11-08;system;2014-11-06;0;test info;12416734353;test description;2014-11-08 12:20:20;25;10;5;0;ON_HOLD;NULL;NULL;2014-11-08;no fokus;TMU;3;2;NULL;NULL;1;1;NULL
 4;system;2014-11-06;system;2014-11-06;0;test info;1343453;test description;2014-11-06 12:20:20;25;10;5;0;CLOSED;NULL;2014-11-06;2014-11-06;no fokus;TMU;3;2;NULL;NULL;1;1;NULL
 5;system;2014-11-07;system;2014-11-07;0;test info;12313453;test description;2014-11-07 12:20:20;25;10;5;0;APPROVED;NULL;2014-11-07;2014-11-07;no fokus;TMU;3;2;NULL;NULL;1;1;NULL
-6;system;2014-11-08;system;2014-11-06;0;test info;12416734353;test description;2014-11-08 12:20:20;25;10;5;0;ON_HOLD;NULL;NULL;2014-11-08;no fokus;TMU;3;2;NULL;NULL;1;1;NULL
