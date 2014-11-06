@@ -4,7 +4,6 @@ import com.google.common.eventbus.AsyncEventBus;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.activiti.engine.runtime.ProcessInstance;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +40,6 @@ import se.inera.fmu.domain.model.systemparameter.Configuration;
 import javax.inject.Inject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -63,8 +61,6 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
     private final LandstingRepository landstingRepository;
     private final CurrentUserService currentUserService;
     private final VardgivarenhetRepository vardgivarEnhetRepository;
-
-    
 
     /**
      *
