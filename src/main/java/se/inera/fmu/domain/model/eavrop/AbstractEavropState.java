@@ -5,7 +5,6 @@ import java.io.Serializable;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
-import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;

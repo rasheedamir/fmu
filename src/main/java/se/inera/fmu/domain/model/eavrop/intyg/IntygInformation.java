@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
 import lombok.ToString;
@@ -68,5 +69,7 @@ public abstract class IntygInformation {
 	private void setPerson(Person person) {
 		this.person = person;
 	}
+	
+	public abstract EavropEventDTO getAsEavropEvent();
 	
 }

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.inject.Inject;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -16,9 +15,6 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
@@ -410,6 +406,44 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		return false;	
 	}
 
+	public int getAssinmentNumberOFResponsDaysFromOrderDate(EavropAssignment assignment){
+		LocalDate fromDate = new LocalDate(this.getCreatedDate()).plusDays(1);
+		LocalDate toDate = new LocalDate();
+		
+		if(assignment.isAccepted()|| assignment.isRejected()){
+			toDate = new LocalDate(assignment.getLastModifiedDate());
+		}
+
+		int noOfBusinessDays = BusinessDaysUtil.numberOfBusinessDays(fromDate, toDate);
+		
+		return noOfBusinessDays;
+	}
+
+	public boolean isAssinmentNumberOFResponsDaysFromOrderDateDeviated(EavropAssignment assignment){
+		
+		//from date is the day after the Eavrop was received from orderer.
+		LocalDate fromDate = new LocalDate(this.getCreatedDate()).plusDays(1);
+		int maxNumberOfDaysUntilAccept = this.getEavropProperties().getAcceptanceValidLength();
+		
+		//The last day that it is okay to accept;
+		LocalDate lastValidDay = BusinessDaysUtil.calculateBusinessDayDate(fromDate, maxNumberOfDaysUntilAccept);
+		
+		LocalDate toDate = new LocalDate();
+		
+		//if assigenment is accepted, get the acceptDate as end date otherwisé stick with today
+		if(assignment.isAccepted()){
+			toDate = new LocalDate(getCurrentAssignment().getLastModifiedDate());
+		}
+		
+		//if to date is after the last valid day the assignment has been accepted to late
+		if(toDate.isAfter(lastValidDay)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	
 	/**
 	 * The currently assigned vardgivarenhet, rejects the assigned Eavrop
 	 *
@@ -448,6 +482,14 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.assignments.add(assignment);
 	}
 
+	public Vardgivarenhet getCurrentAssignedVardgivarenhet(){
+		Vardgivarenhet vardgivarenhet = null;
+		if(getCurrentAssignment()!=null){
+			vardgivarenhet = getCurrentAssignment().getVardgivarenhet();
+		}
+		return vardgivarenhet;
+	}
+	
 	/**
 	 * Returns the bestallaradministrator created at the eavrop order
 	 *
@@ -1112,6 +1154,10 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		
 		//from date is the day after the Eavrop was received from orderer.
 		LocalDate fromDate = getStartDate();
+		if(fromDate==null){
+			return false;
+		}
+		
 		int maxNumberOfDaysUntilIntygSigned = this.getEavropProperties().getAssessmentValidLength();
 		
 		//The last day that it is okay to send;
@@ -1130,6 +1176,33 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		}else{
 			return false;
 		}
+	}
+	
+	
+	/**
+	 * Method for calculating the number of business days used during assessment;
+	 * Will return null if the assessment has not started
+	 * 
+	 * @return
+	 */
+	public Integer getNoOfAssesmentDays(){
+
+		//get the start date, if no start date can be found return null
+		LocalDate fromDate = getStartDate();
+		if(fromDate==null){
+			return null;
+		}
+		
+		//To date is either when the assessment finished, indicated by first intyg signed, or its still ongoing, then we use today
+		LocalDate toDate = new LocalDate();
+		//if assigenment is accepted, get the acceptDate as end date otherwisé stick with today
+		if(isintygSigned()){
+			toDate = new LocalDate(getIntygSignedDateTime());
+		}
+		
+		Integer days = new Integer(BusinessDaysUtil.numberOfBusinessDays(fromDate, toDate));
+		return days;
+		
 	}
 
 	public boolean isIntygComplementDaysDeviated(){
@@ -1184,7 +1257,9 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		
 	}
 
-	
+	public int getNoOfIntygComplementRequests(){
+		return this.getAllIntygComplementRequestInformation().size();
+	}	
 	
 	public EavropState getEavropState() {
 		return this.eavropState;
@@ -1364,4 +1439,44 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	public int hashCode() {
 		return arendeId.hashCode();
 	}
+
+
+	
+	/**
+	 * Creates a list of DTO objects from entities in the eavrop
+	 * Bookings
+	 * InterpreterBookings
+	 * BookingDeviationResponses
+	 * IntygInformations
+	 * EavropApproval
+	 * EavropCompensationApproval
+	 * 
+	 * @return
+	 */
+	public List<EavropEventDTO> getEavropEvents() {
+		
+		List<EavropEventDTO> events = new ArrayList<EavropEventDTO>();
+		
+		for (Booking booking : this.getBookings()) {
+			List<EavropEventDTO> eavropBookingEvents = booking.getAsEavropEvents();
+			events.addAll(eavropBookingEvents);
+		}
+		
+		for (IntygInformation intygInformation : getIntygInformations()) {
+			events.add(intygInformation.getAsEavropEvent());
+		}
+		
+		if(getEavropApproval()!=null){
+			events.add(getEavropApproval().getAsEavropEvent());
+		}
+
+		if(getEavropCompensationApproval()!=null){
+			events.add(getEavropCompensationApproval().getAsEavropEvent());
+		}
+
+		Collections.sort(events);
+		return events;
+	}
+	
+	
 }

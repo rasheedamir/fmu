@@ -6,7 +6,7 @@ import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 
-/*
+/**
  * The On hold state means that a serious deviation on a booking has 
  * occured, the deviation has been published to the bestallare/orderer 
  * and the and published deviation has a flag that says that they need

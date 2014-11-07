@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.google.common.eventbus.AsyncEventBus;
+
 import se.inera.fmu.Application;
 import se.inera.fmu.application.util.BusinessDaysUtil;
 import se.inera.fmu.domain.model.eavrop.AcceptedEavropState;
@@ -55,7 +56,9 @@ import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -213,8 +216,7 @@ public class ITRepositoryTest {
         assertEquals(1, eavrop.getBookings().size());
 
         for (Booking booking : eavrop.getBookings()) {
-        	assertNotNull(booking.getPersons());
-        	assertEquals(1, booking.getPersons().size());
+        	assertNotNull(booking.getPerson());
         	assertEquals(Boolean.TRUE, booking.getBookingStatus().isCancelled());
         	assertNull(booking.getBookingDeviationResponse());
     	}
@@ -226,8 +228,7 @@ public class ITRepositoryTest {
         assertEquals(EavropStateType.ACCEPTED, eavrop.getEavropState().getEavropStateType());
 
         for (Booking booking : eavrop.getBookings()) {
-        	assertNotNull(booking.getPersons());
-        	assertEquals(1, booking.getPersons().size());
+        	assertNotNull(booking.getPerson());
         	assertEquals(Boolean.TRUE, booking.getBookingStatus().isCancelled());
         	assertNotNull(booking.getBookingDeviationResponse());
     	}
@@ -350,12 +351,9 @@ public class ITRepositoryTest {
         	assertEquals(1, e.getBookings().size());
 
         	for (Booking booking : e.getBookings()) {
-        		assertNotNull(booking.getPersons());
-        		assertEquals(1, booking.getPersons().size());
+        		assertNotNull(booking.getPerson());
     		}
 		}
-    	
-    	
     }
     
 
@@ -405,46 +403,43 @@ public class ITRepositoryTest {
     	Eavrop eavrop = createEavrop(new ArendeId("StartDate"), landsting);
     	eavrop = assignEavrop(eavrop, vardgivarenhet);
     	eavrop = acceptEavrop(eavrop);
-    	eavrop = startEavropToday(eavrop);
+    	eavrop = startEavrop(eavrop);
     	eavrop = eavropRepository.findByArendeId(new ArendeId("StartDate"));
     	
     	assertNotNull(eavrop);
     	assertEquals(EavropStateType.ACCEPTED, eavrop.getEavropState().getEavropStateType());
 
     	assertNotNull(eavrop.getStartDate());
+    	LocalDate startDate = eavrop.getStartDate(); 
     	
-    	LocalDate today = new LocalDate(); 
-   
+    	assertTrue(startDate.minusDays(1).isBefore(eavrop.getStartDate()));
+    	assertTrue(startDate.plusDays(1).isAfter(eavrop.getStartDate()));
     	
-    	
-    	assertTrue(today.minusDays(1).isBefore(eavrop.getStartDate()));
-    	assertTrue(today.plusDays(1).isAfter(eavrop.getStartDate()));
-    	
-    	Page<Eavrop> eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, today.minusDays(1), today.plusDays(1), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
+    	Page<Eavrop> eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, startDate.minusDays(1), startDate.plusDays(1), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(1, eavrops.getNumberOfElements());
 
-    	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, null, today.plusDays(1), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
+    	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, null, startDate.plusDays(1), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(1, eavrops.getNumberOfElements());
 
-    	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, today.minusDays(1), null, Arrays.asList(ACCEPTED_STATES), PAGEABLE);
+    	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, startDate.minusDays(1), null, Arrays.asList(ACCEPTED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(1, eavrops.getNumberOfElements());
     	
-    	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, today.minusDays(2), today.minusDays(1), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
+    	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, startDate.minusDays(2), startDate.minusDays(1), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
 
-    	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, today.plusDays(1), today.plusDays(2), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
+    	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, startDate.plusDays(1), startDate.plusDays(2), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
     	
-       	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, today.minusDays(1), today.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES), PAGEABLE);
+       	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, startDate.minusDays(1), startDate.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
     	
-       	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, today.minusDays(1), today.plusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
+       	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, startDate.minusDays(1), startDate.plusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
     }
@@ -463,7 +458,7 @@ public class ITRepositoryTest {
     	Eavrop eavrop = createEavrop(arendeId, landsting);
     	eavrop = assignEavrop(eavrop, vardgivarenhet);
     	eavrop = acceptEavrop(eavrop);
-    	eavrop = startEavropToday(eavrop);
+    	eavrop = startEavrop(eavrop);
     	eavrop = signIntygToday(eavrop);
     	eavrop = approveEavrop(eavrop);
     	eavrop = eavropRepository.findByArendeId(arendeId);
@@ -473,33 +468,33 @@ public class ITRepositoryTest {
  
     	assertNotNull(eavrop.getIntygSignedDateTime());
     	
-    	DateTime today = new DateTime().withTime(0, 0, 0, 0); 
+    	DateTime signDate = eavrop.getIntygSignedDateTime(); 
    
-    	Page<Eavrop> eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, today.minusDays(1), today.plusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
+    	Page<Eavrop> eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, signDate.minusDays(1), signDate.plusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(1, eavrops.getNumberOfElements());
 
-    	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, null, today.plusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
+    	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, null, signDate.plusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(1, eavrops.getNumberOfElements());
 
-    	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, today.minusDays(1), null, Arrays.asList(COMPLETED_STATES), PAGEABLE);
+    	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, signDate.minusDays(1), null, Arrays.asList(COMPLETED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(1, eavrops.getNumberOfElements());
     	
-    	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, today.minusDays(2), today.minusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
+    	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, signDate.minusDays(2), signDate.minusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
 
-    	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, today.plusDays(1), today.plusDays(2), Arrays.asList(COMPLETED_STATES), PAGEABLE);
+    	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, signDate.plusDays(1), signDate.plusDays(2), Arrays.asList(COMPLETED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
     	
-       	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, today.minusDays(1), today.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES), PAGEABLE);
+       	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, signDate.minusDays(1), signDate.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
     	
-       	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, today.minusDays(1), today.plusDays(1), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
+       	eavrops = eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, signDate.minusDays(1), signDate.plusDays(1), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
     }
@@ -566,38 +561,38 @@ public class ITRepositoryTest {
     	Eavrop eavrop = createEavrop(new ArendeId("StartDate"), landsting);
     	eavrop = assignEavrop(eavrop, vardgivarenhet);
     	eavrop = acceptEavrop(eavrop);
-    	eavrop = startEavropToday(eavrop);
+    	eavrop = startEavrop(eavrop);
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("StartDate")));
     	assertEquals(EavropStateType.ACCEPTED, eavropRepository.findByArendeId(new ArendeId("StartDate")).getEavropState().getEavropStateType());
-
     	
-    	LocalDate today = new LocalDate(); 
-   
-    	Page<Eavrop> eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), today.plusDays(1), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
+    	LocalDate startDate = eavrop.getStartDate();
+    	assertNotNull(startDate);
+    	
+    	Page<Eavrop> eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, startDate.minusDays(1), startDate.plusDays(1), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(1, eavrops.getNumberOfElements());
 
-    	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, null, today.plusDays(1), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
+    	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, null, startDate.plusDays(1), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(1, eavrops.getNumberOfElements());
 
-    	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), null, Arrays.asList(ACCEPTED_STATES), PAGEABLE);
+    	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, startDate.minusDays(1), null, Arrays.asList(ACCEPTED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(1, eavrops.getNumberOfElements());
     	
-    	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, today.minusDays(2), today.minusDays(1), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
+    	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, startDate.minusDays(2), startDate.minusDays(1), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
 
-    	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, today.plusDays(1), today.plusDays(2), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
+    	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, startDate.plusDays(1), startDate.plusDays(2), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
     	
-       	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), today.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES), PAGEABLE);
+       	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, startDate.minusDays(1), startDate.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
     	
-       	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), today.plusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
+       	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, startDate.minusDays(1), startDate.plusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
 
@@ -618,7 +613,7 @@ public class ITRepositoryTest {
     	Eavrop eavrop = createEavrop(arendeId, landsting);
     	eavrop = assignEavrop(eavrop, vardgivarenhet);
     	eavrop = acceptEavrop(eavrop);
-    	eavrop = startEavropToday(eavrop);
+    	eavrop = startEavrop(eavrop);
     	eavrop = signIntygToday(eavrop);
     	eavrop = approveEavrop(eavrop);
     	eavrop = eavropRepository.findByArendeId(arendeId);
@@ -628,33 +623,33 @@ public class ITRepositoryTest {
  
     	assertNotNull(eavrop.getIntygSignedDateTime());
     	
-    	DateTime today = new DateTime().withTime(0, 0, 0, 0); 
+    	DateTime signDate = eavrop.getIntygSignedDateTime(); 
    
-    	Page<Eavrop> eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), today.plusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
+    	Page<Eavrop> eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, signDate.minusDays(1), signDate.plusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(1, eavrops.getNumberOfElements());
 
-    	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, null, today.plusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
+    	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, null, signDate.plusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(1, eavrops.getNumberOfElements());
 
-    	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), null, Arrays.asList(COMPLETED_STATES), PAGEABLE);
+    	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, signDate.minusDays(1), null, Arrays.asList(COMPLETED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(1, eavrops.getNumberOfElements());
     	
-    	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, today.minusDays(2), today.minusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
+    	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, signDate.minusDays(2), signDate.minusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
 
-    	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, today.plusDays(1), today.plusDays(2), Arrays.asList(COMPLETED_STATES), PAGEABLE);
+    	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, signDate.plusDays(1), signDate.plusDays(2), Arrays.asList(COMPLETED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
     	
-       	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), today.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES), PAGEABLE);
+       	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, signDate.minusDays(1), signDate.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
     	
-       	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, today.minusDays(1), today.plusDays(1), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
+       	eavrops = eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, signDate.minusDays(1), signDate.plusDays(1), Arrays.asList(ACCEPTED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
     }
@@ -879,13 +874,12 @@ public class ITRepositoryTest {
     	Person person = new TolkPerson("","");
     	
     	Booking booking = new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(), person, Boolean.FALSE);
-    	assertNotNull(booking.getPersons());
+    	assertNotNull(booking.getPerson());
     	
     	eavrop.addBooking(booking);
     	
-    	
     	for (Booking b : eavrop.getBookings()) {
-    		assertNotNull(b.getPersons());
+    		assertNotNull(b.getPerson());
 		}
     	
     	eavrop.setBookingStatus(booking.getBookingId(), BookingStatusType.CANCELLED_LT_48_H, createNote());
@@ -893,17 +887,16 @@ public class ITRepositoryTest {
     	return eavropRepository.save(eavrop);
     }
 
-    private Eavrop startEavropToday(Eavrop eavrop){
+    private Eavrop startEavrop(Eavrop eavrop){
     	
-    	DateTime today = new DateTime();
+    	
+    	DateTime monday = new DateTime().withDayOfWeek(DateTimeConstants.MONDAY);
 
-    	eavrop.setCreatedDate(today.minusDays(3));
-    	
-    	DateTime todayWithOffset = getTodayWithOffset(3);
+    	eavrop.setCreatedDate(monday.minusDays(3));
     	
     	//TODO: GO through documenst sent property vs add received document
     	//eavrop.setDateTimeDocumentsSentFromBestallare(date);
-       	ReceivedDocument receivedDocument = new ReceivedDocument(todayWithOffset, "Journal", new Bestallaradministrator("Ordny Ordnarsson", "Handläggare", "Försäkringskassan", "LFC Stockholm", "555-12345", "ordny@fk.se"), Boolean.TRUE);
+       	ReceivedDocument receivedDocument = new ReceivedDocument(monday, "Journal", new Bestallaradministrator("Ordny Ordnarsson", "Handläggare", "Försäkringskassan", "LFC Stockholm", "555-12345", "ordny@fk.se"), Boolean.TRUE);
     	eavrop.addReceivedDocument(receivedDocument);
    	
     	

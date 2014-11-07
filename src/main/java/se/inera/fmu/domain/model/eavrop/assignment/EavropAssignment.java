@@ -14,7 +14,9 @@ import javax.validation.constraints.NotNull;
 import lombok.ToString;
 
 import org.apache.commons.lang.Validate;
+import org.joda.time.DateTime;
 
+import se.inera.fmu.application.util.BusinessDaysUtil;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
@@ -77,7 +79,7 @@ public class EavropAssignment extends AbstractBaseEntity implements
 		return this.vardgivarenhet;
 	}
 	
-	private EavropAssignmentStatusType getAssignmentStatus() {
+	public EavropAssignmentStatusType getAssignmentStatus() {
 		return assignmentStatus;
 	}
 
@@ -107,6 +109,25 @@ public class EavropAssignment extends AbstractBaseEntity implements
 		return EavropAssignmentStatusType.ACCEPTED.equals(this.getAssignmentStatus());
 	}
 
+	public boolean isRejected(){
+		return EavropAssignmentStatusType.REJECTED.equals(this.getAssignmentStatus());
+	}
+
+	public DateTime getAssignmentResponseDateTime(){
+		if( EavropAssignmentStatusType.ASSIGNED.equals(this.getAssignmentStatus())){
+			return null;
+		}
+		return this.getLastModifiedDate();
+	}
+
+	public Integer getNoOfAssignmentResponseDays(){
+		if( EavropAssignmentStatusType.ASSIGNED.equals(this.getAssignmentStatus())){
+			return null;
+		}
+		return BusinessDaysUtil.numberOfBusinessDays(getCreatedDate().toLocalDate(), getAssignmentResponseDateTime().toLocalDate());
+		
+	}
+	
 	// ~ Other Methods ==================================================================================================
 
 	@Override
