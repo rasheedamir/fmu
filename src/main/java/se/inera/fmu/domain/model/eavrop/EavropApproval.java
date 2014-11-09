@@ -61,6 +61,12 @@ public class EavropApproval implements ValueObject<EavropApproval>{
 		this(approvalTimestamp, person);
 		this.setNote(note);
 	}
+	
+	public EavropEventDTO getAsEavropEvent() {
+		return (this.getPerson()!=null)?
+			new EavropEventDTO(EavropEventDTOType.EAVROP_APPROVED,this.getApprovalTimestamp(),null, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
+			new EavropEventDTO(EavropEventDTOType.EAVROP_APPROVED,this.getApprovalTimestamp(),null, null, null, null, null);
+	}
 
 	//~ Property Methods ===============================================================================================
 	
