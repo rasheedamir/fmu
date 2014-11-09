@@ -42,6 +42,7 @@ import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.interfaces.managing.dtomapper.EavropDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidPageSize;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidateDate;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidateLandstingCode;
@@ -76,7 +77,7 @@ public class EavropResource {
 					+ "/page/{currentPage}/pagesize/{pageSize}/sortkey/{sortKey}/sortorder/{sortOrder}"
 			, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-	public ResponseEntity<List<EavropDTO>> getEavrops(
+	public ResponseEntity<EavropPageDTO> getEavrops(
 			@ValidateDate @PathVariable Long startDate, 
 			@ValidateDate @PathVariable Long endDate, 
 			@PathVariable OVERVIEW_EAVROPS_STATES status, 
@@ -85,9 +86,8 @@ public class EavropResource {
 			@ValidateSortKey @PathVariable String sortKey, 
 			@PathVariable Direction sortOrder) {
 		Pageable pageSpecs = new PageRequest(currentPage, pageSize, new Sort(sortOrder, sortKey));
-		List<EavropDTO> pageEavrops = this.fmuOrderingService.getOverviewEavrops(startDate, endDate, status, pageSpecs);
-		log.debug(pageEavrops.toString());
-		return new ResponseEntity<List<EavropDTO>>(pageEavrops, HttpStatus.OK);
+		EavropPageDTO pageEavrops = this.fmuOrderingService.getOverviewEavrops(startDate, endDate, status, pageSpecs);
+		return new ResponseEntity<EavropPageDTO>(pageEavrops, HttpStatus.OK);
 	}
 
 }

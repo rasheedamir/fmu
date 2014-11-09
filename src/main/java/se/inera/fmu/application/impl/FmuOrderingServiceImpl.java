@@ -41,6 +41,7 @@ import se.inera.fmu.domain.model.systemparameter.Configuration;
 import se.inera.fmu.interfaces.managing.dtomapper.EavropDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OVERVIEW_EAVROPS_STATES;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 
 import javax.inject.Inject;
 
@@ -183,7 +184,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
     }
 
 	@Override
-	public List<EavropDTO> getOverviewEavrops(long fromDate, long toDate,OVERVIEW_EAVROPS_STATES state, Pageable paginationSpecs) {
+	public EavropPageDTO getOverviewEavrops(long fromDate, long toDate,OVERVIEW_EAVROPS_STATES state, Pageable paginationSpecs) {
 		User currentUSer = this.currentUserService.getCurrentUser();
 		DateTime startDate = new DateTime(fromDate);
 		DateTime endDate = new DateTime(toDate);
@@ -225,11 +226,15 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		}
 	}
 
-	private List<EavropDTO> constructDTO(Page<Eavrop> eavrops) {
-		List<EavropDTO> retval = new ArrayList<EavropDTO>();
+	private EavropPageDTO constructDTO(Page<Eavrop> eavrops) {
+		List<EavropDTO> data = new ArrayList<EavropDTO>();
 		for (Eavrop eavrop : eavrops.getContent()) {
-			retval.add(this.eavropMapper.mappToDTO(eavrop));
+			data.add(this.eavropMapper.mappToDTO(eavrop));
 		}
+		
+		EavropPageDTO retval = new EavropPageDTO();
+		retval.setEavrops(data).setTotalElements(eavrops.getTotalElements());
+		
 		return retval;
 	}
 	

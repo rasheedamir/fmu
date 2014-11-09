@@ -29,6 +29,8 @@ public class EavropDTO {
     private Integer antalDagarEfterForfragan;
 
 	private String color;
+	
+	private int totalElements;
 
     public EavropDTO() {
     }
@@ -126,5 +128,14 @@ public class EavropDTO {
 	
 	public String getBestallareEnhet() {
 		return bestallareEnhet;
+	}
+	
+	public int getTotalElements() {
+		return totalElements;
+	}
+	
+	public EavropDTO setTotalElements(int totalElements) {
+		this.totalElements = totalElements;
+		return this;
 	}
 }
