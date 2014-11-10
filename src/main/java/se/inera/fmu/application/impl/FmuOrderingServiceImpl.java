@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.application.CurrentUserService;
+import se.inera.fmu.application.DomainEventPublisher;
 import se.inera.fmu.application.FmuListService;
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.authentication.User;
@@ -26,7 +27,6 @@ import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.domain.model.landsting.LandstingRepository;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.shared.Address;
-import se.inera.fmu.domain.model.shared.DomainEventPublisher;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
 import se.inera.fmu.domain.model.systemparameter.Configuration;
