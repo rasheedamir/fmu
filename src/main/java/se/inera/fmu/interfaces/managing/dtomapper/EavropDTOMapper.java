@@ -12,12 +12,13 @@ public class EavropDTOMapper {
 		
 		dto.setArendeId(eavrop.getArendeId().toString())
 		.setBestallareOrganisation(eavrop.getBestallaradministrator().getOrganisation())
-		.setMottagarenOrganisation(eavrop.getLandsting().getName())
+		.setLeverantorOrganisation(eavrop.getLandsting().getName())
 		.setAntalDagarEfterForfragan(eavrop.getNumberOfDaysUsedDuringAssessment())
 		.setCreationTime(eavrop.getCreatedDate().getMillis())
 		.setPatientCity(eavrop.getInvanare().getHomeAddress().getCity())
 		.setUtredningType(eavrop.getUtredningType())
 		.setStatus(eavrop.getStatus())
+		.setBestallareEnhet(eavrop.getBestallaradministrator().getUnit())
 		.setRowColor(getRandomHexString(4));
 		
 		return dto;

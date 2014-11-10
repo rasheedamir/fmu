@@ -54,10 +54,10 @@ public class TestUtil {
         roles.add(Role.UTREDARE);
 		user.setRoles(roles);
 		user.setMiddleAndLastName("Andersson");
-		user.setVardenhetHsaId("IFV1239877878-1049");
+		user.setVardenhetHsaId("IFV1239877878-1045");
 		user.setHsaId("IFV1239877878-1042");
 		FmuUserDetails details = new FmuUserDetails(user);
-		FakeCredentials credencial = new FakeCredentials("IFV1239877878-1042", "Åsa", "Andersson", true, "IFV1239877878-1049");
+		FakeCredentials credencial = new FakeCredentials("IFV1239877878-1042", "Åsa", "Andersson", true, "IFV1239877878-1045");
 		Authentication authentication = new UsernamePasswordAuthenticationToken(details, credencial);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}

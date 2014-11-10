@@ -1,46 +1,21 @@
 'use strict';
 
 describe('Services Tests ', function () {
+    var eavropservice, urlBuilder, eavropStatus, $httpBackend,
+        response = [{'testId': 'test'}];
 
     beforeEach(module('fmuClientApp'));
+    beforeEach(inject(function (EavropService, RestUrlBuilderService, EAVROP_STATUS, _$httpBackend_) {
+        eavropservice = EavropService;
+        urlBuilder = RestUrlBuilderService;
+        eavropStatus = EAVROP_STATUS;
+        $httpBackend = _$httpBackend_;
+    }));
 
-    describe('OrderService', function(){
-        var eavropservice, httpBackend;
-
-        beforeEach(inject(function(_OrderService_, $httpBackend, _RESTURL_){
-            eavropservice = _OrderService_;
-            httpBackend = $httpBackend;
-            // Mock http response
-            httpBackend.whenGET(_RESTURL_.eavrop).respond([
-                {'id':'12345', 'typ':'TMU', 'datum':'2014/11/12'},
-                {'id':'678910', 'typ':'SLU', 'datum':'2014/12/12'},
-                {'id':'11221213', 'typ':'TMU', 'datum':'2014/10/12'}
-            ]);
-        }));
-
-        it('should return all eavrops', function(){
-            eavropservice.getEavrops().then(function(result){
-                expect(result).toEqual(
-                    [{'id':'12345', 'typ':'TMU', 'datum':'2014/11/12'},
-                        {'id':'678910', 'typ':'SLU', 'datum':'2014/12/12'},
-                        {'id':'11221213', 'typ':'TMU', 'datum':'2014/10/12'}]);
-            });
-        });
-
-        it('should return correct number of rows', function(){
-            eavropservice.getEavrops().then(function(result){
-                expect(result.length).toEqual(3);
-            });
-        });
-
-        it('should have non-null fields on each row', function(){
-            eavropservice.getEavrops().then(function(result){
-                angular.forEach(result, function(value){
-                    expect(value.datum).toBeTruthy();
-                    expect(value.id).toBeTruthy();
-                    expect(value.typ).toBeTruthy();
-                });
-            });
-        });
+    it('should initialize the service', function () {
+        expect(eavropservice).toBeDefined();
+        expect(urlBuilder).toBeDefined();
+        expect(eavropStatus).toBeDefined();
+        expect($httpBackend).toBeDefined();
     });
 });
