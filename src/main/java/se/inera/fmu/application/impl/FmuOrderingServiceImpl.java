@@ -1,9 +1,11 @@
 package se.inera.fmu.application.impl;
 
 import com.google.common.eventbus.AsyncEventBus;
+import com.google.common.eventbus.EventBus;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.velocity.runtime.parser.node.GetExecutor;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
@@ -22,6 +24,7 @@ import se.inera.fmu.application.FmuListService;
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.*;
+import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignedToVardgivarenhetEvent;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
@@ -131,8 +134,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
         log.debug(String.format("eavrop created :: %s", eavrop));
 
         //Publish an event to notify the interested listeners/subscribers that an eavrop has been created.
-        asyncEventBus.post(new EavropCreatedEvent(eavrop.getEavropId()));
-
+        handleEavropCreated(eavrop);
+        
         return eavrop.getArendeId();
     }
 
@@ -232,5 +235,19 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		}
 		return retval;
 	}
+	
+	/**/
+	private void handleEavropCreated(Eavrop eavrop){
+		EavropCreatedEvent event = new EavropCreatedEvent(eavrop.getEavropId());
+		getEventBus().post(event);
+		log.debug(String.format("eavrop created event published :: %s", event));
+	}
+
+	private EventBus getEventBus() {
+		return this.asyncEventBus;
+	}
+	
+	
+
 	
 }
