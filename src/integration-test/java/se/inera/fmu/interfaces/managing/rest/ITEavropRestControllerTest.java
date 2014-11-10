@@ -1,18 +1,17 @@
 package se.inera.fmu.interfaces.managing.rest;
-import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import javax.inject.Inject;
 
-import static org.junit.Assert.*;
+import lombok.extern.slf4j.Slf4j;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -34,9 +33,8 @@ import se.inera.fmu.domain.model.authentication.Role;
 @ActiveProfiles("dev")
 @IntegrationTest("server.port:0") //Randomize ports
 @Validated
+@Slf4j
 public class ITEavropRestControllerTest {
-	@Inject
-	private ApplicationContext appContext;
 	
 	@Inject
 	private FmuOrderingService fmuOrderingService;
@@ -56,30 +54,23 @@ public class ITEavropRestControllerTest {
 	@Test
 	public void loggedInasLandstingSamordnare() throws Exception{
 		this.currentUserService.getCurrentUser().setActiveRole(Role.LANDSTINGSSAMORDNARE);
+		this.currentUserService.getCurrentUser().setLandstingCode(1);
+		
+		DateTime startDate = new DateTime(1990,1,1,0,0,0);
+		DateTime endDate = new DateTime(2990,1,1,0,0,0);
 		MvcResult result = restMock.perform(get(
-				"/app/rest/eavrop/landstingcode/12/fromdate/1/todate/2/status/ASSIGNED"
-				+ "/page/1/pagesize/10/sortkey/arendeId/sortorder/ASC")
+				"/app/rest/eavrop"
+				+ "/fromdate/" + startDate.getMillis()
+				+ "/todate/" + endDate.getMillis()
+				+"/status/NOT_ACCEPTED"
+				+ "/page/0"
+				+ "/pagesize/10"
+				+ "/sortkey/arendeId"
+				+ "/sortorder/ASC")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
-	}
-	
-	@Test
-	public void landstingParameterAsStringWillNotPass() throws Exception {
-		this.currentUserService.getCurrentUser().setActiveRole(Role.LANDSTINGSSAMORDNARE);
-		restMock.perform(get(
-				"/app/rest/eavrop/landstingcode/abc/fromdate/1/todate/2/status/ASSIGNED"
-				+ "/page/1/pagesize/10/sortkey/arendeId/sortorder/ASC")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().is4xxClientError());
-	}
-	
-	@Test
-	public void loggedInAsUtredare() throws Exception {
-		this.currentUserService.getCurrentUser().setActiveRole(Role.UTREDARE);
-//		MvcResult result = restMock.perform(get("/app/rest/eavrop")
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andReturn();
+		result.getResponse().setCharacterEncoding("UTF-8");
+		log.debug(result.getResponse().getContentAsString());
 	}
 }

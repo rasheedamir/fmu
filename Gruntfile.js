@@ -6,7 +6,7 @@
 // 'test/spec/{,*/}*.js'
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
-
+var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically
@@ -64,6 +64,22 @@ module.exports = function (grunt) {
 
     // The actual grunt server settings
     connect: {
+      proxies: [
+          {
+              context: '/app',
+              host: 'localhost',
+              port: 8080,
+              https: false,
+              changeOrigin: false
+          },
+          {
+              context: '/fake',
+              host: 'localhost',
+              port: 8080,
+              https: false,
+              changeOrigin: false
+          }
+      ],
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
@@ -71,19 +87,19 @@ module.exports = function (grunt) {
         livereload: 35729
       },
       livereload: {
-        options: {
-          open: true,
-          middleware: function (connect) {
-            return [
-              connect.static('.tmp'),
-              connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
-              ),
-              connect.static(appConfig.app)
-            ];
-          }
-        }
+            options: {
+                open: true,
+                base: [
+                    '.tmp',
+                    'src/main/webapp'
+                ],
+                middleware: function (connect) {
+                    return [
+                        proxySnippet,
+                        connect.static(require('path').resolve('src/main/webapp'))
+                    ];
+                }
+            }
       },
       test: {
         options: {
@@ -354,6 +370,7 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'autoprefixer',
+      'configureProxies',
       'connect:livereload',
       'watch'
     ]);

@@ -1,95 +1,94 @@
 'use strict';
 
 angular.module('fmuClientApp')
-    .controller('OngoingController', ['$scope', '$filter', 'OnGoingService', 'TableService', 'ngTableParams', 'DatePickerService', 'AuthService',
-        function($scope, $filter, OnGoingService, TableService, ngTableParams, DatePickerService, AuthService) {
+    .controller('OngoingController', ['$scope', 'AuthService', 'EAVROP_STATUS',
+        function ($scope, AuthService, EAVROP_STATUS) {
             $scope.authService = AuthService;
-            $scope.dateService = DatePickerService;
-            $scope.dateService.setScope($scope);
-
-            $scope.tableService = TableService;
-            $scope.tableService.setScope($scope);
-
+            $scope.startDate = new Date();
+            $scope.endDate = new Date();
+            $scope.endDate.setMonth($scope.startDate.getMonth() + 1);
             $scope.dateKey = 'startDate';
 
+            $scope.ongoingStatus = EAVROP_STATUS.accepted;
 
-            $scope.headerGroups = [{
-                name: null,
-                colorClass: null,
-                children: [{
+            $scope.headerFields = [
+                {
                     key: 'arendeId',
-                    value: 'Ärende-ID',
+                    name: 'Ärende-ID',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }, {
+                },
+                {
                     key: 'utredningType',
-                    value: 'Typ',
+                    name: 'Typ',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }]
-            }, {
-                name: 'beställare',
-                colorClass: 'bg-head-danger',
-                children: [{
+                },
+                {
                     key: 'bestallareOrganisation',
-                    value: 'Organisation',
+                    name: 'Organisation',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }, {
+                },
+                {
                     key: 'enhet',
-                    value: 'Enhet/Avdelning',
+                    name: 'Enhet/Avdelning',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }]
-            }, {
-                name: 'leverantör',
-                colorClass: 'bg-head-warning',
-                children: [{
+                },
+                {
                     key: 'mottagarenOrganisation',
-                    value: 'Organisation',
+                    name: 'Organisation',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }]
-            }, {
-                name: null,
-                colorClass: null,
-                children: [{
+                },
+                {
                     key: 'status',
-                    value: 'Status',
+                    name: 'Status',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }, {
+                },
+                {
                     key: 'startDate',
-                    value: 'Utredning start',
+                    name: 'Utredning start',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }, {
+                },
+                {
                     key: 'daysPassed',
-                    value: 'Antal dagar från start',
+                    name: 'Antal dagar från start',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }, {
+                },
+                {
                     key: 'avikelser',
-                    value: 'Avikelser',
+                    name: 'Avikelser',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }]
-            }];
-
-            $scope.footerHints = [{
-                description: 'Antal dagar har överträtts och/eller annan avvikelse finns',
-                colorClass: 'bg-danger'
-            }];
-
-            $scope.dateDescription = 'Datumen utgår från det datum då utredningen startat';
-
-            $scope.getDataValue = function(key, eavrop){
-                switch(key){
-                    case $scope.dateKey:
-                        return $scope.dateService.getFormattedDate(eavrop[key]);
-                    default:
-                        return eavrop[key];
                 }
-            };
+            ];
 
+            $scope.headerGroups = [
+                {
+                    name: null,
+                    colorClass: null,
+                    colspan: 2
+                },
+                {
+                    name: 'beställare',
+                    colorClass: 'bg-head-danger',
+                    colspan: 2
+                },
+                {
+                    name: 'leverantör',
+                    colorClass: 'bg-head-warning',
+                    colspan: 1
+                },
+                {
+                    name: null,
+                    colorClass: null,
+                    colspan: 4
+                }
+            ];
 
-            OnGoingService.getEavrops().then(function(result) {
-                $scope.tableData = result;
+            $scope.footerHints = [
+                {
+                    description: 'Antal dagar har överträtts och/eller annan avvikelse finns',
+                    colorClass: 'bg-danger'
+                }
+            ];
 
-                // Setup Datetime and Table services
-                $scope.dateService.calculateInitialDateRange();
-                $scope.tableService.initTableParameters();
-            });
+            $scope.datePickerDescription = 'Datumen utgår från det datum då utredningen startat';
         }
     ]);

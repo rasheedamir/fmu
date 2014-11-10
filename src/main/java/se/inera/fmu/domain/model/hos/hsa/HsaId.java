@@ -30,9 +30,9 @@ public class HsaId implements ValueObject<HsaId>, Serializable {
 	}
 
 	public HsaId(final String hsaId) throws IllegalArgumentException {
-		if (!isValid(hsaId)) {
-			throw new IllegalArgumentException("Invalid hsaId");
-		}
+//		if (!isValid(hsaId)) {
+//			throw new IllegalArgumentException("Invalid hsaId");
+//		}
 		this.hsaId = hsaId;
 	}
 

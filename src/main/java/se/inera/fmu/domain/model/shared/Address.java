@@ -45,6 +45,16 @@ public final class Address implements ValueObject<Address> {
     }
 
     /**
+    *
+    * @param address1
+    * @param postalCode
+    * @param city
+    */
+    public Address(final String address1, final String postalCode, final String city) {
+        this(address1, null, postalCode, null, city, null);
+    }
+
+    /**
      *
      * @param address1
      * @param postalCode

@@ -19,8 +19,26 @@
                   separator=";"
                   tableName="T_INVANARE">
         </loadData>
-
+        
         <loadData encoding="UTF-8"
+                  file="config/liquibase/vardgivare.csv"
+                  separator=";"
+                  tableName="T_VARDGIVARE">
+        </loadData>
+        
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/vardgivarEnhet.csv"
+                  separator=";"
+                  tableName="T_VARDGIVARENHET">
+        </loadData>
+        
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/assignment.csv"
+                  separator=";"
+                  tableName="T_ASSIGNMENT">
+        </loadData>
+        
+                <loadData encoding="UTF-8"
                   file="config/liquibase/eavrop.csv"
                   separator=";"
                   tableName="T_EAVROP">

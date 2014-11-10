@@ -13,6 +13,8 @@ import org.apache.commons.lang3.Validate;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
+import se.inera.fmu.domain.model.eavrop.EavropEventDTOType;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
 import lombok.ToString;
@@ -91,6 +93,14 @@ public class BookingDeviationResponse {
 
 	public void setDeviationResponseNote(Note deviationResponseNote) {
 		this.deviationResponseNote = deviationResponseNote;
+	}
+
+	public EavropEventDTO getAsEavropEvent() {
+		EavropEventDTOType type = (BookingDeviationResponseType.STOP.equals(getResponseType()))?EavropEventDTOType.BOOKING_DEVIATION_RESPONSE_STOP:EavropEventDTOType.BOOKING_DEVIATION_RESPONSE_RESTART;
+		
+		return (this.getPerson()!=null)?
+				new EavropEventDTO(type, this.responseTimestamp, null, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
+				new EavropEventDTO(type, this.responseTimestamp, null, null, null, null, null);
 	}
 	
 }

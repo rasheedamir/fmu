@@ -194,13 +194,6 @@ ul#strength {
     box-shadow: 1px 3px 3px 2px #999;
 }
 
-.dateBtn {
-    float: right;
-    margin-right: 15px;
-    margin-top: 20px;
-    margin-left: 15px;
-}
-
 .dateDescription {
     margin-top: 10px;
 }
@@ -464,4 +457,9 @@ h2{
     color: #4c4c4c;
     text-transform: uppercase;
     font-size: 75%;
+}
+
+.fmu-dateButton {
+    padding-top: 1.5em;
+    float: right;
 }

@@ -53,10 +53,10 @@
 
     .content-container {
         background-color: #fff;
-        -ms-box-shadow: 0 -5px 25px #323232;
+/*        -ms-box-shadow: 0 -5px 25px #323232;
         -webkit-box-shadow: 0 -5px 25px #323232;
         -moz-box-shadow: 0 -5px 25px #323232;
-        box-shadow: 0 -5px 25px #323232;
+        box-shadow: 0 -5px 25px #323232;*/
         margin-left: -15px;
         margin-right: -15px;
         padding: 50px 100px;
@@ -744,7 +744,7 @@
         padding: 0 15px 30px 30px;
     }
 
-    @media (min-width: 768px) {
+/*    @media (min-width: 768px) {
         .webcert-multicol-background {
             background-color: #f2f2f2;
             left: 50%;
@@ -757,7 +757,7 @@
             background: none;
             left: -50%;
         }
-    }
+    }*/
 
     .webcert-col-single {
         padding: 30px;

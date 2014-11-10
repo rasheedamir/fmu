@@ -2,104 +2,106 @@
 
 /* Controllers */
 angular.module('fmuClientApp')
-    .controller('OrderController', ['$scope','$state', '$filter', 'OrderService', 'TableService', 'ngTableParams', 'DatePickerService', 'AuthService',
-        function($scope, $state, $filter, OrderService, TableService, ngTableParams, DatePickerService, AuthService) {
+    .controller('OrderController', ['$scope', '$state', '$filter', 'AuthService', 'EAVROP_STATUS',
+        function ($scope, $state, $filter, AuthService, EAVROP_STATUS) {
             $scope.authService = AuthService;
-            $scope.dateService = DatePickerService;
-            $scope.dateService.setScope($scope);
-
-            $scope.tableService = TableService;
-            $scope.tableService.setScope($scope);
-
             $scope.dateKey = 'creationTime';
+            $scope.startDate = new Date();
+            $scope.endDate = new Date();
+            $scope.endDate.setMonth($scope.startDate.getMonth() + 1);
 
-            $scope.click = function(id){
+            $scope.click = function (id) {
                 $state.go('eavrop.order', {eavropId: id});
             };
 
-            $scope.headerGroups = [{
-                name: null,
-                colorClass: null,
-                children: [{
-                    key: 'arendeId',
-                    value: 'Ärende-ID',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }, {
-                    key: 'utredningType',
-                    value: 'Typ',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }]
-            }, {
-                name: 'beställare',
-                colorClass: 'bg-head-danger',
-                children: [{
-                    key: 'bestallareOrganisation',
-                    value: 'Organisation',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }, {
-                    key: 'enhet',
-                    value: 'Enhet/Avdelning',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }, {
-                    key: 'creationTime',
-                    value: 'Förfrågan skickad datum',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }, {
-                    key: 'patientCity',
-                    value: 'Den försäkrades bostadsort',
-                    restricted: ['ROLE_SAMORDNARE']
-                }]
-            }, {
-                name: 'leverantör',
-                colorClass: 'bg-head-warning',
-                children: [{
-                    key: 'mottagarenOrganisation',
-                    value: 'Organisation',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }]
-            }, {
-                name: null,
-                colorClass: null,
-                children: [{
-                    key: 'status',
-                    value: 'Status',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }, {
-                    key: 'antalDagarEfterForfragan',
-                    value: 'Antal dagar efter förfrågan om utredning',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                }]
-            }];
-
-
-            $scope.footerHints = [{
-                description: 'Antal dagar har överträtts och/eller annan avvikelse finns',
-                colorClass: 'bg-danger'
-            }, {
-                description: 'Utredning accepterad',
-                colorClass: 'bg-warning'
-            }, {
-                description: 'Godkänd för ersättning',
-                colorClass: 'bg-success'
-            }];
-
-            $scope.dateDescription = 'Datumen utgår från det datum då beställningen inkommit';
-
-            $scope.getDataValue = function(key, eavrop){
-                switch(key){
-                    case $scope.dateKey:
-                        return $scope.dateService.getFormattedDate(eavrop[key]);
-                    default:
-                        return eavrop[key];
-                }
+            $scope.visa = function () {
+              if($scope.tableParameters){
+                  $scope.tableParameters.reload();
+              }
             };
 
-            OrderService.getEavrops().then(function(result) {
-                $scope.tableData = result;
+            $scope.bestallningarStatus = EAVROP_STATUS.notAccepted;
 
-                // Setup Datetime and Table services
-                $scope.dateService.calculateInitialDateRange();
-                $scope.tableService.initTableParameters();
-            });
+            $scope.headerFields = [
+                {
+                    key: 'arendeId',
+                    name: 'Ärende-ID',
+                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                },
+                {
+                    key: 'utredningType',
+                    name: 'Typ',
+                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                },
+                {
+                    key: 'bestallareOrganisation',
+                    name: 'Organisation',
+                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                },
+                {
+                    key: 'bestallareEnhet',
+                    name: 'Enhet/Avdelning',
+                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                },
+                {
+                    key: 'creationTime',
+                    name: 'Förfrågan skickad datum',
+                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                },
+                {
+                    key: 'patientCity',
+                    name: 'Den försäkrades bostadsort',
+                    restricted: ['ROLE_SAMORDNARE']
+                },
+                {
+                    key: 'mottagarenOrganisation',
+                    name: 'Organisation',
+                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                },
+                {
+                    key: 'status',
+                    name: 'Status',
+                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                },
+                {
+                    key: 'antalDagarEfterForfragan',
+                    name: 'Antal dagar efter förfrågan om utredning',
+                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                }
+
+            ];
+
+            $scope.headerGroups = [
+                {
+                    name: null,
+                    colorClass: null,
+                    colspan: 2
+                },
+                {
+                    name: 'beställare',
+                    colorClass: 'bg-head-danger',
+                    colspan: 4
+                },
+                {
+                    name: 'leverantör',
+                    colorClass: 'bg-head-warning',
+                    colspan: 1
+                },
+                {
+                    name: null,
+                    colorClass: null,
+                    colspan: 2
+                }
+            ];
+
+
+            $scope.footerHints = [
+                {
+                    description: 'Antal dagar har överträtts och/eller annan avvikelse finns',
+                    colorClass: 'bg-danger'
+                }
+            ];
+
+            $scope.datePickerDescription = 'Datumen utgår från det datum då beställningen inkommit';
         }
     ]);

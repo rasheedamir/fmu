@@ -8,11 +8,16 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
@@ -32,10 +37,12 @@ import org.springframework.web.servlet.ModelAndView;
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
+import se.inera.fmu.domain.model.eavrop.EavropState;
 import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.interfaces.managing.dtomapper.EavropDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidPageSize;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidateDate;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidateLandstingCode;
@@ -53,37 +60,34 @@ import com.codahale.metrics.annotation.Timed;
 @RestController
 @RequestMapping("/app")
 @Validated
+@Slf4j
 public class EavropResource {
 
 	@Inject
 	private FmuOrderingService fmuOrderingService;
 	
-	private EavropDTOMapper eavropMapper = new EavropDTOMapper();
-	
-    /**
-     *
-     * TODO#1: Add parameter date range.
-     * TODO#2: Add parameter status of utredning (new, in-process or finished)
-     *
-     * @return
-     */
+	public static enum OVERVIEW_EAVROPS_STATES {
+		NOT_ACCEPTED,
+		ACCEPTED,
+		COMPLETED
+	}
+
 	@RequestMapping(
-			value = "/rest/eavrop/landstingcode/{landstingCode}/fromdate/{startDate}/todate/{endDate}/status/{status}"
+			value = "/rest/eavrop/fromdate/{startDate}/todate/{endDate}/status/{status}"
 					+ "/page/{currentPage}/pagesize/{pageSize}/sortkey/{sortKey}/sortorder/{sortOrder}"
 			, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-	public Integer getEavrops(
-			@ValidateLandstingCode @PathVariable Integer landstingCode,
-			@ValidateDate @PathVariable Integer startDate, 
-			@ValidateDate @PathVariable Integer endDate, 
-			@PathVariable EavropStateType status, 
+	public ResponseEntity<EavropPageDTO> getEavrops(
+			@ValidateDate @PathVariable Long startDate, 
+			@ValidateDate @PathVariable Long endDate, 
+			@PathVariable OVERVIEW_EAVROPS_STATES status, 
 			@ValidatePageNumber @PathVariable int currentPage, 
 			@ValidPageSize @PathVariable int pageSize,
 			@ValidateSortKey @PathVariable String sortKey, 
 			@PathVariable Direction sortOrder) {
-		
-		ResponseEntity<List<EavropDTO>> response = new ResponseEntity<List<EavropDTO>>(HttpStatus.OK);
-		return landstingCode;
+		Pageable pageSpecs = new PageRequest(currentPage, pageSize, new Sort(sortOrder, sortKey));
+		EavropPageDTO pageEavrops = this.fmuOrderingService.getOverviewEavrops(startDate, endDate, status, pageSpecs);
+		return new ResponseEntity<EavropPageDTO>(pageEavrops, HttpStatus.OK);
 	}
 
 }

@@ -93,7 +93,7 @@ public abstract class Document  implements IEntity<Document>{
 		this.id = id;
 	}
 
-	public String getDocumentNamn() {
+	public String getDocumentName() {
 		return name;
 	}
 

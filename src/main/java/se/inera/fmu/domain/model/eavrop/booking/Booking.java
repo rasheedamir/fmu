@@ -1,7 +1,7 @@
 package se.inera.fmu.domain.model.eavrop.booking;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -24,6 +22,8 @@ import org.apache.commons.lang.Validate;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
+import se.inera.fmu.domain.model.eavrop.EavropEventDTOType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBooking;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
@@ -56,10 +56,15 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime endDateTime;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	// TODO: maybe many to many if we kan reuse the person entity
-	@JoinTable(name = "R_BOOKING_PERSON", joinColumns = @JoinColumn(name = "BOOKING_ID"), inverseJoinColumns = @JoinColumn(name = "PERSON_ID"))
-	private Set<Person> persons; // value object
+//	@OneToMany(cascade = CascadeType.ALL)
+//	// TODO: maybe many to many if we kan reuse the person entity
+//	@JoinTable(name = "R_BOOKING_PERSON", joinColumns = @JoinColumn(name = "BOOKING_ID"), inverseJoinColumns = @JoinColumn(name = "PERSON_ID"))
+//	private Set<Person> persons; // value object
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="BOOKING_PERSON_ID")
+	private Person person;
+
 
 	@Column(name = "BOOKING_STATUS_TYPE", nullable = false, updatable = true)
 	@Enumerated(EnumType.STRING)
@@ -100,7 +105,7 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 		this.setBookingType(type);
 		this.setStartDateTime(startDateTime);
 		this.setEndDateTime(endDateTime);
-		this.addPerson(person);
+		this.setPerson(person);
 		if (useInterpreter) {
 			this.interpreterBooking = new InterpreterBooking();
 		}
@@ -158,20 +163,14 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 		this.endDateTime = endDateTime;
 	}
 
-	public Set<Person> getPersons() {
-		return this.persons;
+	public Person getPerson() {
+		return this.person;
 	}
 
-	private void setPersons(Set<Person> persons) {
-		this.persons = persons;
+	private void setPerson(Person person) {
+		this.person = person;
 	}
 
-	public void addPerson(Person person) {
-		if (this.persons == null) {
-			this.persons = new HashSet<Person>();
-		}
-		this.persons.add(person);
-	}
 
 //	public BookingDeviation getBookingDeviation() {
 //		return this.bookingDeviation;
@@ -205,7 +204,44 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	public boolean hasInterpreterDeviation(){
 		return (getInterpreterBooking()!=null)?getInterpreterBooking().hasDeviation():Boolean.FALSE;
 	}
-
+	
+	public List<EavropEventDTO> getAsEavropEvents(){
+		List<EavropEventDTO> events= new ArrayList<EavropEventDTO>();
+		
+		events.add(getAsEavropEvent());
+		
+		if(getInterpreterBooking()!=null){
+			events.add(getInterpreterBooking().getAsEavropEvent(this));
+		}
+		
+		if(getBookingDeviationResponse()!=null){
+			events.add(getBookingDeviationResponse().getAsEavropEvent());
+		}
+		
+		return events;
+	}
+	
+	private EavropEventDTO getAsEavropEvent() {
+		return (this.getPerson()!=null)?
+			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType.toString(), getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
+			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType.toString(), null, null, null, null);
+	}
+	
+	private EavropEventDTOType getEavropEventDTOType(){
+		BookingType type = getBookingType();
+		
+		switch(type) {
+		case EXAMINATION:
+            return EavropEventDTOType.BOOKING_EXAMINATION; 
+        case BREIFING_WITH_CITIZEN:
+        	return EavropEventDTOType.BOOKING_BREIFING_WITH_CITIZEN;
+        case INTERNAL_WORK:
+        	return EavropEventDTOType.BOOKING_INTERNAL_WORK;
+        default:
+        	return EavropEventDTOType.UNKNOWN;
+		}
+	}
+	
 	// ~ Other Methods
 	// ==================================================================================================
 

@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import se.inera.fmu.application.CurrentUserService;
+import se.inera.fmu.application.DomainEventPublisher;
 import se.inera.fmu.application.impl.CreateEavropCommand;
 import se.inera.fmu.application.impl.FmuOrderingServiceImpl;
 import se.inera.fmu.application.util.BestallaradministratorUtil;
@@ -64,13 +65,16 @@ public class FmuOrderingServiceImplTest {
     
     @Mock
     private VardgivarenhetRepository vgRepository;
+    
+    @Mock
+    private DomainEventPublisher eventPublisher;
 
 
     private FmuOrderingServiceImpl fmuOrderingService;
 
     @Before
     public void setUp() {
-        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, configuration, asyncEventBus, landstingRepository, currentUserService, vgRepository);
+        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, configuration, eventPublisher, landstingRepository, currentUserService, vgRepository, null);
     }
 
     @Test
