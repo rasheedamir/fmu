@@ -1,0 +1,78 @@
+<div class="ngdialog-message" ng-controller="UtredningController">
+    <!--Typ-->
+    <h1 style="text-align: center">Lägg till Händelse</h1>
+
+    <div>
+        <h3>Typ av händelse</h3>
+        <select class="form-control" ng-model="choosenHandelseType"
+                ng-options="handelse.type for handelse in handelseTypes">
+            <option value="">-- Välj en händelse --</option>
+        </select>
+    </div>
+
+    <!--Datum-->
+    <div class="row">
+        <div class="col-md-4" style="margin-left: 1em; padding-top: 0.5em">
+            <fmu-datepicker title="Datum" date-model="handelseDate"></fmu-datepicker>
+        </div>
+
+        <div class="col-md-7">
+            <div class="col-md-6">
+                <label class="col-md-4" style="padding-top: 3em">Från: </label>
+
+                <div class="col-md-8">
+                    <timepicker ng-model="startTime" hour-step="1" minute-step="10" show-meridian="true"></timepicker>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="col-md-4" style="padding-top: 3em">Till: </label>
+
+                <div class="col-md-8">
+                    <timepicker ng-model="endTime" hour-step="1" minute-step="10" show-meridian="true"></timepicker>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Person/Roll-->
+
+    <div class="row">
+        <div class="col-md-5">
+            <h3>Person</h3>
+            <input class="form-control" ng-model="personNAme">
+        </div>
+
+        <div class="col-md-6">
+            <h3>Roll</h3>
+            <select class="form-control" ng-model="choosenRole"
+                    ng-options="role.name for role in roles">
+                <option value="">-- Välj en roll --</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 1em">
+        <h3 class="col-md-6">Tolk ?</h3>
+    </div>
+    <div class="row radio">
+        <div class="col-md-6">
+            <label>
+                <input ng-model="tolkRadio" type="radio" value="false"> Ja
+            </label>
+
+            <label>
+                <input ng-model="tolkRadio" type="radio" value="true"> Nej
+            </label>
+        </div>
+    </div>
+
+    <div class="row" style="margin-right: 1em">
+        <div class="col-md-2 col-md-offset-8">
+            <button class="btn btn-success" style="width: 100%">Spara</button>
+        </div>
+
+        <div class="col-md-2">
+            <button class="btn btn-warning" style="width: 100%">Avbryt</button>
+        </div>
+    </div>
+</div>

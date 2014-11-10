@@ -40,12 +40,12 @@ angular.module('fmuClientApp')
 
                 {
                     key: 'UtredareOrganisation',
-                    name: 'Utförare, organisation',
+                    name: 'Utredare, organisation',
                     restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']
                 },
                 {
                     key: 'utredareAnsvarig',
-                    name: 'Utförare, ansvarig',
+                    name: 'Utredare, ansvarig',
                     restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']
                 },
                 {

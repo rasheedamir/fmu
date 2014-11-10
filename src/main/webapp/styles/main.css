@@ -463,3 +463,8 @@ h2{
     padding-top: 1.5em;
     float: right;
 }
+
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+    max-width: 100%;
+    width: 50%
+}

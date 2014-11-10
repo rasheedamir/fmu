@@ -16,7 +16,7 @@
     "ng-table": "0.3.3",
     "underscore": "^1.7.0",
     "angular-bootstrap": "latest",
-    "Hover": "latest"
+    "ngDialog": "latest"
   },
   "devDependencies": {
     "angular-scenario": "~1.2.0"

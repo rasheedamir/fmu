@@ -25,7 +25,7 @@ angular.module('fmuClientApp')
             },
             template:
                 '<div class="row"> ' +
-                    '<b>{{title}}</b> ' +
+                    '<label>{{title}}</label> ' +
                     '<div class="input-group">' +
                         '<input type="text" ' +
                             'class="form-control" ' +

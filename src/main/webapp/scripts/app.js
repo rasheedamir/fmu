@@ -16,7 +16,8 @@ angular.module('fmuClientApp', [
     'ngTouch',
     'ui.router',
     'ngTable',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngDialog'
 ])
 .run(['$rootScope', '$state', function($rootScope, $state){
     $rootScope.$state = $state;
@@ -63,7 +64,7 @@ angular.module('fmuClientApp', [
     .state('eavrop.order', {
         url: '/order',
         templateUrl: 'views/eavrop/order/order.html',
-        abstract: true,
+        abstract: true
     })
     .state('eavrop.order.contents', {
         url: '/contents',
@@ -121,7 +122,7 @@ angular.module('fmuClientApp', [
                 var mod = $modal.open({
                     templateUrl: 'views/eavrop/order/req-amendment-modal.html',
                     size: 'md',
-                    controller: reqAmendmentModalCtrl,
+                    controller: reqAmendmentModalCtrl
                 });
 
                 mod.result.then(function(result){
@@ -134,7 +135,7 @@ angular.module('fmuClientApp', [
                 var mod = $modal.open({
                     templateUrl: 'views/eavrop/order/add-doc-modal.html',
                     size: 'md',
-                    controller: addDocModalCtrl,
+                    controller: addDocModalCtrl
                 });
 
                 mod.result.then(function(result){
@@ -147,7 +148,7 @@ angular.module('fmuClientApp', [
     })
     .state('eavrop.order.citizen', {
         url: '/citizen',
-        templateUrl: 'views/eavrop/order/citizen.html',
+        templateUrl: 'views/eavrop/order/citizen.html'
     })
     .state('eavrop.allevents', {
         url: '/all-events',
@@ -161,7 +162,7 @@ angular.module('fmuClientApp', [
             $scope.notes = notes;
             $scope.requestedDocuments = requestedDocuments;
         },
-        templateUrl: 'views/eavrop/all-events.html',
+        templateUrl: 'views/eavrop/all-events.html'
     })
     .state('eavrop.compensation', {
         url: '/compensation',
@@ -169,7 +170,8 @@ angular.module('fmuClientApp', [
     })
     .state('eavrop.investigation', {
         url: '/investigation',
-        templateUrl: 'views/eavrop/investigation.html'
+        templateUrl: 'views/eavrop/investigation.html',
+        controller: 'UtredningController'
     })
     .state('eavrop.notes', {
         url: '/notes',
@@ -210,6 +212,6 @@ angular.module('fmuClientApp', [
                     });
                 });
             }
-        },
+        }
     });
 });
