@@ -18,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.FmuOrderingService;
+import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.*;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
@@ -192,4 +193,23 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 			return null;
 		}
 	}
+	
+	protected Eavrop getEavropForUser(EavropId id){
+		User currentUser = this.currentUserService.getCurrentUser();
+		Eavrop result = null;
+		
+		if(currentUser.getActiveRole() == Role.LANDSTINGSSAMORDNARE){
+			Landsting landsting = this.landstingRepository.findByLandstingCode(new LandstingCode(currentUser.getLandstingCode()));
+			result = this.eavropRepository.findByEavropIdAndLandsting(id, landsting);
+		} else if(currentUser.getActiveRole() == Role.UTREDARE){
+			Vardgivarenhet ve = this.vardgivarEnhetRepository.findByHsaId(new HsaId(currentUser.getVardenhetHsaId()));
+			result = this.eavropRepository.findByEavropIdAndVardgivare(id, ve);
+		} else {
+			throw new IllegalStateException("User has no active role");
+		}
+		
+		return result;
+	}
+	
+	
 }

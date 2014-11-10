@@ -1,10 +1,8 @@
-package se.inera.fmu.application;
+package se.inera.fmu.application.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,17 +10,28 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.impl.CreateEavropCommand;
 import se.inera.fmu.application.impl.FmuOrderingServiceImpl;
 import se.inera.fmu.application.util.BestallaradministratorUtil;
 import se.inera.fmu.application.util.EavropUtil;
 import se.inera.fmu.application.util.InvanareUtil;
 import se.inera.fmu.application.util.LandstingUtil;
+import se.inera.fmu.domain.model.authentication.Role;
+import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
+import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
+import se.inera.fmu.domain.model.hos.hsa.HsaId;
+import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
+import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
+import se.inera.fmu.domain.model.hos.vardgivare.VardgivarenhetRepository;
+import se.inera.fmu.domain.model.landsting.Landsting;
+import se.inera.fmu.domain.model.landsting.LandstingCode;
+import se.inera.fmu.domain.model.landsting.LandstingRepository;
 import se.inera.fmu.domain.model.systemparameter.Configuration;
 
 import com.google.common.eventbus.AsyncEventBus;
@@ -35,7 +44,7 @@ import com.google.common.eventbus.AsyncEventBus;
 @RunWith(MockitoJUnitRunner.class)
 public class FmuOrderingServiceImplTest {
 
-    @Mock
+	@Mock
     private EavropRepository eavropRepository;
 
     @Mock
@@ -46,13 +55,22 @@ public class FmuOrderingServiceImplTest {
     
     @Mock
     private Configuration configuration;
+    
+    @Mock
+    private CurrentUserService currentUserService;
+    
+    @Mock
+    private LandstingRepository landstingRepository;
+    
+    @Mock
+    private VardgivarenhetRepository vgRepository;
 
 
     private FmuOrderingServiceImpl fmuOrderingService;
 
     @Before
     public void setUp() {
-        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, configuration, asyncEventBus, null, null, null);
+        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, configuration, asyncEventBus, landstingRepository, currentUserService, vgRepository);
     }
 
     @Test
@@ -83,5 +101,45 @@ public class FmuOrderingServiceImplTest {
         Invanare patient = InvanareUtil.createInvanare();
         when(patientRepository.save(any(Invanare.class))).thenReturn(patient);
         return patient;
+    }
+    
+    @Test
+    public void getEavropForSamordnare(){
+    	User currentUser = new User();
+    	final int landstingCode = 100;
+		currentUser.setLandstingCode(landstingCode);
+    	currentUser.getRoles().add(Role.LANDSTINGSSAMORDNARE);
+    	currentUser.setActiveRole(Role.LANDSTINGSSAMORDNARE);
+    	
+    	Landsting lt = new Landsting(new LandstingCode(landstingCode), "Test landsting");
+    	
+    	when(landstingRepository.findByLandstingCode(new LandstingCode(landstingCode))).thenReturn(lt);
+    	when(currentUserService.getCurrentUser()).thenReturn(currentUser);
+    	final String id = "ABC";
+		fmuOrderingService.getEavropForUser(new EavropId(id));
+		
+		verify(currentUserService).getCurrentUser();
+		verify(landstingRepository).findByLandstingCode(new LandstingCode(landstingCode));
+		verify(eavropRepository).findByEavropIdAndLandsting(new EavropId(id), lt);
+    }
+    
+    @Test
+    public void getEavropForUtredare(){
+    	User currentUser = new User();
+		final String vardenhetHsaId = "SE1111112222-AAAA";
+		currentUser.setVardenhetHsaId(vardenhetHsaId);
+    	currentUser.getRoles().add(Role.UTREDARE);
+    	currentUser.setActiveRole(Role.UTREDARE);
+    	
+    	Vardgivarenhet ve = new Vardgivarenhet(new Vardgivare(new HsaId("SE2222223333-BBBB"), "test vg"), new HsaId(vardenhetHsaId), "Test unit", null);
+    	
+    	when(vgRepository.findByHsaId(new HsaId(vardenhetHsaId))).thenReturn(ve);
+    	when(currentUserService.getCurrentUser()).thenReturn(currentUser);
+    	final String id = "ABC";
+		fmuOrderingService.getEavropForUser(new EavropId(id));
+		
+		verify(currentUserService).getCurrentUser();
+		verify(vgRepository).findByHsaId(new HsaId(vardenhetHsaId));
+		verify(eavropRepository).findByEavropIdAndVardgivare(new EavropId(id), ve);
     }
 }
