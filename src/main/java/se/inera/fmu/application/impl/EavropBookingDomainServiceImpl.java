@@ -40,6 +40,7 @@ import se.inera.fmu.domain.model.eavrop.note.NoteType;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.Person;
 
+@SuppressWarnings("ALL")
 @Service
 @Validated
 @Transactional
