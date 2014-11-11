@@ -2,19 +2,14 @@ package se.inera.fmu.domain.model.eavrop;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.concurrent.Executors;
-
 import org.joda.time.DateTime;
 import org.junit.Test;
-
-import com.google.common.eventbus.AsyncEventBus;
 
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationType;
-import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;

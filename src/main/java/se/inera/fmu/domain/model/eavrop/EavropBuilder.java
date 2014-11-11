@@ -1,7 +1,5 @@
 package se.inera.fmu.domain.model.eavrop;
 
-import com.google.common.eventbus.AsyncEventBus;
-
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.medicalexamination.PriorMedicalExamination;
 import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
@@ -57,13 +55,14 @@ public class EavropBuilder {
 		this.landsting = landsting;
 		return this;
 	}
-	public EavropBuilder withInvanare(String description){
-		this.description = description;
-		return this;
-	}
 
 	public EavropBuilder withEavropProperties(EavropProperties eavropProperties){
 		this.eavropProperties = eavropProperties;
+		return this;
+	}
+
+	public EavropBuilder withDescription(String description){
+		this.description = description;
 		return this;
 	}
 	

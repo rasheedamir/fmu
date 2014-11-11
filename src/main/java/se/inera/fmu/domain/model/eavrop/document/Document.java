@@ -70,7 +70,7 @@ public abstract class Document  implements IEntity<Document>{
 
 	public Document(final DateTime documentDateTime, final String documentName, final Person person){
     	this(documentName, person);
-    	if(documentDateTime!=null){
+    	if(this.documentDateTime!=null){
     		this.setDocumentDateTime(documentDateTime);
     	}
    }

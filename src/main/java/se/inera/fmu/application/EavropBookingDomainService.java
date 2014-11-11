@@ -2,6 +2,10 @@ package se.inera.fmu.application;
 
 import org.joda.time.DateTime;
 
+import se.inera.fmu.application.impl.AddBookingDeviationResponseCommand;
+import se.inera.fmu.application.impl.ChangeBookingStatusCommand;
+import se.inera.fmu.application.impl.ChangeInterpreterBookingStatusCommand;
+import se.inera.fmu.application.impl.CreateBookingCommand;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
@@ -15,15 +19,13 @@ import se.inera.fmu.domain.model.person.Person;
  */
 public interface EavropBookingDomainService {
 
-	public void createBooking(EavropId eavropId, BookingType bookingType, DateTime startDateTime, DateTime endDateTime, Person person, boolean useInterpreter );
+	public void createBooking(CreateBookingCommand bookingCommand);
 	
-	public void changeBookingStatus(EavropId eavropId, BookingId bookingId, BookingStatusType bookingStatus);
+	public void changeBookingStatus(ChangeBookingStatusCommand bookingCommand);
 	
-	public void changeBookingStatus(EavropId eavropId, BookingId bookingId, BookingStatusType bookingStatus, Note cancellationNote);
+	public void changeInterpreterBookingStatus(ChangeInterpreterBookingStatusCommand bookingCommand);
 	
-	public void changeInterpreterBookingStatus(EavropId eavropId, BookingId bookingId, InterpreterBookingStatusType interpreterStatus);
-
-	public void changeInterpreterBookingStatus(EavropId eavropId, BookingId bookingId, InterpreterBookingStatusType interpreterStatus, Note cancellationNote);
+	public void addBookingDeviationResponse(AddBookingDeviationResponseCommand responseCommand );
 
 	
 }

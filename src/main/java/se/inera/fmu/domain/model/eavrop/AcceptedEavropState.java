@@ -75,6 +75,9 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 	@Override
 	public void setBookingStatus(Eavrop eavrop, BookingId bookingId, BookingStatusType bookingStatus, Note cancelNote) {
 		Booking booking = eavrop.getBooking(bookingId);
+		if(booking==null){
+			throw new IllegalArgumentException(String.format("booking %s does not exist on eavrop: %s", bookingId.toString(), eavrop.getEavropId().toString()));
+		}
 		
 		if(bookingStatus.isCancelled()){
 			cancelBooking(eavrop, bookingId, bookingStatus, cancelNote);
@@ -90,7 +93,7 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 		
 		if(booking.getBookingStatus().isCancelled()){
 			//TODO: create separate state machine for bookings
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(String.format("Booking %s on eavrop %s is already cancelled", bookingId.toString(), eavrop.getEavropId().toString()));
 		}
 		
 		booking.setBookingStatus(bookingStatus);
@@ -101,7 +104,6 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 			//State transition ACCEPTED -> ON_HOLD
 			eavrop.setEavropState(new OnHoldEavropState());
 		}
-		eavrop.handleBookingDeviation(booking.getBookingId());
 	}
 	
 	@Override
@@ -109,15 +111,12 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 		Booking booking = eavrop.getBooking(bookingId);
 		if(booking.getInterpreterBooking() == null){
 			//TODO: create separate state machine for bookings
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(String.format("Booking %s on eavrop %s has no interpreter booked", bookingId.toString(), eavrop.getEavropId().toString()));
 		}
 		
 		InterpreterBooking interpreter = booking.getInterpreterBooking();
 		interpreter.setInterpreterBookingStatus(interpreterStatus);
 		interpreter.setDeviationNote(cancelNote);
-		if(interpreter.getInterpreterBookingStatus().isDeviant()){
-			eavrop.handleInterpreterBookingDeviation(booking.getBookingId());
-		}
 	}
 	
 	@Override

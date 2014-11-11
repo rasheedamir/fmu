@@ -31,7 +31,7 @@ public class IntygSignedInformation extends IntygInformation implements Comparab
 	@Override
 	public EavropEventDTO getAsEavropEvent() {
 		return (this.getPerson()!=null)?
-			new EavropEventDTO(EavropEventDTOType.INTYG_SIGNED,this.getInformationTimestamp(),null, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
-			new EavropEventDTO(EavropEventDTOType.INTYG_SIGNED,this.getInformationTimestamp(),null, null, null, null, null);
+			new EavropEventDTO(EavropEventDTOType.INTYG_SIGNED,this.getInformationTimestamp(),null, null, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
+			new EavropEventDTO(EavropEventDTOType.INTYG_SIGNED,this.getInformationTimestamp(),null, null, null, null, null, null);
 	}
 }

@@ -67,9 +67,11 @@ public class EavropCompensationApproval implements ValueObject<EavropCompensatio
 	}
 	
 	public EavropEventDTO getAsEavropEvent() {
+		String comment = (this.note!=null)?this.note.getText():null;
+		
 		return (this.getPerson()!=null)?
-			new EavropEventDTO(EavropEventDTOType.EAVROP_COMPENSATION_APPROVED,this.getCompensationDateTime(),null, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
-			new EavropEventDTO(EavropEventDTOType.EAVROP_COMPENSATION_APPROVED,this.getCompensationDateTime(),null, null, null, null, null);
+			new EavropEventDTO(EavropEventDTOType.EAVROP_COMPENSATION_APPROVED,this.getCompensationDateTime(),null, comment, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
+			new EavropEventDTO(EavropEventDTOType.EAVROP_COMPENSATION_APPROVED,this.getCompensationDateTime(),null, comment, null, null, null, null);
 	}
 
 

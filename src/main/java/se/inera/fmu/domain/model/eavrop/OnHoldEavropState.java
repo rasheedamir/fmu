@@ -27,9 +27,13 @@ public class OnHoldEavropState extends AbstractNoteableEavropState{
 	public void addBookingDeviationResponse(Eavrop eavrop, BookingId bookingId, BookingDeviationResponse bookingDeviationResponse){
 		Booking booking = eavrop.getBooking(bookingId);
 		
+		if(booking==null){
+			throw new IllegalArgumentException("Booking with id:" + bookingId.getId() + " is not present on Eavrop with ArendeId: " + eavrop.getArendeId().toString());
+		}
+		
 		if( ! booking.getBookingStatus().isCancelled()){
 			//TODO: create separate state machine for bookings
-			throw new IllegalArgumentException("Booking with id:" + bookingId.getId() + " is not present on Eavrop with ArendeId: " + eavrop.getArendeId().toString());
+			throw new IllegalArgumentException("Booking with id:" + bookingId.getId() + " on eavrop with arendeId: " + eavrop.getArendeId().toString()+" does not have a cancelled status: " + booking.getBookingStatus());
 		}
 		booking.setBookingDeviationResponse(bookingDeviationResponse);
 		
@@ -39,11 +43,9 @@ public class OnHoldEavropState extends AbstractNoteableEavropState{
 			//TODO: SET new base date, use some kind of domain service
 			eavrop.setStartDate(bookingDeviationResponse.getResponseTimestamp().toLocalDate());
 			eavrop.setEavropState(new AcceptedEavropState());
-			eavrop.handleEavropRestarted();
 		
 		}else if(BookingDeviationResponseType.STOP.equals(responseType)) {
 			eavrop.setEavropState(new ApprovedEavropState());
-			eavrop.handleEavropStoppedByBestallare();	
 		}
 	}
 }
