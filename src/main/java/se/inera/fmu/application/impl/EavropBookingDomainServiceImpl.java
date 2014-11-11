@@ -61,20 +61,15 @@ public class EavropBookingDomainServiceImpl implements EavropBookingDomainServic
 		this.domainEventPublisher = domainEventPublisher;
 	}
 	
-	private DomainEventPublisher getDomainEventPublisher(){
-		return this.domainEventPublisher;
-	}
-	
-	
 	/**
 	 * 
 	 */
+	@Override
 	public void createBooking(CreateBookingCommand aCommand){
 		validateCreateBookingCommand(aCommand);
 		
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
-		
-		Person hosPerson = createHosPerson(aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
+		Person hosPerson = new HoSPerson(aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
 		
 		//Create booking
 		Booking booking = new Booking(aCommand.getBookingType(), aCommand.getBookingStartDateTime(), aCommand.getBookingEndDateTime(), hosPerson, aCommand.isUseInterpreter());
@@ -86,36 +81,12 @@ public class EavropBookingDomainServiceImpl implements EavropBookingDomainServic
         }
 		//handle the booking
 		handleBookingAdded(eavrop.getEavropId(), booking.getBookingId());
-		
 	}
-	
-	private void validateCreateBookingCommand(CreateBookingCommand command){
-		Validate.notNull(command.getEavropId());
-		Validate.notNull(command.getBookingType());
-		Validate.notNull(command.getBookingStartDateTime());
-		Validate.notNull(command.getBookingEndDateTime());
-	}
-	
-	private HoSPerson createHosPerson(String name, String role, String organisation, String unit){
-		if(name == null){
-			return null;
-		}
-		return new HoSPerson(name, role, organisation, unit);	
-	}
-
-	private Note createDeviationNote(String text, String name, String role, String organisation, String unit){
-		if(text == null){
-			return null;
-		}
-		HoSPerson person = createHosPerson(name, role, organisation, unit);
-		
-		return new Note(NoteType.BOOKING_DEVIATION, text, person);	
-	}
-
 	
 	/**
 	 * 
 	 */
+	@Override
 	public void changeBookingStatus(ChangeBookingStatusCommand aCommand){
 		validateChangeBookingStatusCommand(aCommand);
 		
@@ -134,27 +105,8 @@ public class EavropBookingDomainServiceImpl implements EavropBookingDomainServic
 			handleBookingDeviation(eavrop.getEavropId(), aCommand.getBookingId());
 		}
 	}
-	
-	private void validateChangeBookingStatusCommand(ChangeBookingStatusCommand command){
-		Validate.notNull(command.getEavropId());
-		Validate.notNull(command.getBookingId());
-		Validate.notNull(command.getBookingStatus());
-	}
-	
-	private void validateChangeInterpreterBookingStatusCommand(ChangeInterpreterBookingStatusCommand command) {
-		Validate.notNull(command.getEavropId());
-		Validate.notNull(command.getBookingId());
-		Validate.notNull(command.getInterpreterbookingStatus());
-	}
-	
-	private void validateAddBookingDeviationResponseCommand(AddBookingDeviationResponseCommand command) {
-		Validate.notNull(command.getArendeId());
-		Validate.notNull(command.getBookingId());
-		Validate.notNull(command.getResponse());
-		Validate.notNull(command.getResponseTimestamp());
-	}
 
-	
+	@Override
 	public void changeInterpreterBookingStatus(ChangeInterpreterBookingStatusCommand aCommand){
 		validateChangeInterpreterBookingStatusCommand(aCommand);
 		
@@ -180,10 +132,11 @@ public class EavropBookingDomainServiceImpl implements EavropBookingDomainServic
 	 * @param bookingId
 	 * @param bookingDeviationResponse
 	 */
+	@Override
 	public void addBookingDeviationResponse(AddBookingDeviationResponseCommand aCommand ){
 		validateAddBookingDeviationResponseCommand(aCommand);
 		
-		//Look up eavrop and booking
+		//Look up eavrop 
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 	
 		BookingDeviationResponse bookingDeviationResponse = createBookingDeviationResponse(aCommand.getResponse(), aCommand.getResponseTimestamp(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit(), aCommand.getPersonPhone(), aCommand.getPersonEmail(), aCommand.getResponseComment());
@@ -202,28 +155,65 @@ public class EavropBookingDomainServiceImpl implements EavropBookingDomainServic
 		}else if(BookingDeviationResponseType.STOP.equals(responseType)) {
 			handleEavropClosedByBestallare(eavrop.getEavropId());	
 		}
+	}
+	
+	private void validateCreateBookingCommand(CreateBookingCommand command){
+		Validate.notNull(command.getEavropId());
+		Validate.notNull(command.getBookingType());
+		Validate.notNull(command.getBookingStartDateTime());
+		Validate.notNull(command.getBookingEndDateTime());
+	}
 
+	private void validateChangeBookingStatusCommand(ChangeBookingStatusCommand command){
+		Validate.notNull(command.getEavropId());
+		Validate.notNull(command.getBookingId());
+		Validate.notNull(command.getBookingStatus());
+	}
+	
+	private void validateChangeInterpreterBookingStatusCommand(ChangeInterpreterBookingStatusCommand command) {
+		Validate.notNull(command.getEavropId());
+		Validate.notNull(command.getBookingId());
+		Validate.notNull(command.getInterpreterbookingStatus());
+	}
+	
+	private void validateAddBookingDeviationResponseCommand(AddBookingDeviationResponseCommand command) {
+		Validate.notNull(command.getArendeId());
+		Validate.notNull(command.getBookingId());
+		Validate.notNull(command.getResponse());
+		Validate.notNull(command.getResponseTimestamp());
+	}
+	
+	private Note createDeviationNote(String text, String name, String role, String organisation, String unit){
+		if(!StringUtils.isBlankOrNull(text)){
+			return null;
+		}
+		HoSPerson person = null;
+		if(!StringUtils.isBlankOrNull(name)){
+			person  = new HoSPerson(name, role, organisation, unit);
+		}
+
+		return new Note(NoteType.BOOKING_DEVIATION, text, person);	
 	}
 
 	private BookingDeviationResponse  createBookingDeviationResponse(String responseType, DateTime responseTimestamp, String personName, String personRole, String personOrganistation, String personUnit, String personPhone, String personEmail, String comment) {
 		
 		BookingDeviationResponseType bookingDeviationResponseType = BookingDeviationResponseType.valueOf(responseType);
 		
-		Person person = createPerson(personName, personRole, personOrganistation, personUnit, personPhone, personEmail);
+		Person person = createBestallaradministrator(personName, personRole, personOrganistation, personUnit, personPhone, personEmail);
 		
-		Note note = createNote(comment, person);
+		Note note = createResponseNote(comment, person);
 
 		return new BookingDeviationResponse(bookingDeviationResponseType, responseTimestamp, person, note);
 
 	}
 	
-	private Person createPerson(String personName, String personRole, String personOrganistation, String personUnit, String personPhone, String personEmail){
+	private Bestallaradministrator createBestallaradministrator(String personName, String personRole, String personOrganistation, String personUnit, String personPhone, String personEmail){
 		
 		return new Bestallaradministrator(personName,  personRole, personOrganistation, personUnit, personPhone, personEmail);
 		
 	}
-	
-	private Note createNote(String comment, Person person) {
+
+	private Note createResponseNote(String comment, Person person) {
 		Note note = null;
 		
 		if(!StringUtils.isBlankOrNull(comment)){
@@ -236,7 +226,7 @@ public class EavropBookingDomainServiceImpl implements EavropBookingDomainServic
 	private Eavrop getEavropByArendeId(ArendeId arendeId){
 		Eavrop eavrop = eavropRepository.findByArendeId(arendeId);
 		if(eavrop==null){
-			throw new IllegalArgumentException("Eavrop with arendeid:" + arendeId.toString() + " does not exist");
+			throw new EntityNotFoundException(String.format("Eavrop with ArendeId %s not found", arendeId.toString()));
 		}
 		return eavrop;
 	}
@@ -248,15 +238,11 @@ public class EavropBookingDomainServiceImpl implements EavropBookingDomainServic
 		}
 		return eavrop;
 	}
-	
-	private Booking getBookingById(Eavrop eavrop, BookingId bookingId){
-		Booking booking = eavrop.getBooking(bookingId);
-		if(booking==null){
-			throw new IllegalArgumentException("Booking with id:" + bookingId.getId() + " is not present on Eavrop with EavropId: " + eavrop.getEavropId().toString());
-		}
-		return booking;
-	}
 
+	private DomainEventPublisher getDomainEventPublisher(){
+		return this.domainEventPublisher;
+	}
+	
 	//Event handling methods
 	private void handleBookingAdded(EavropId eavropId, BookingId bookingId){
 		BookingCreatedEvent event = new BookingCreatedEvent(eavropId, bookingId);

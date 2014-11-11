@@ -21,7 +21,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
@@ -38,11 +37,9 @@ import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignedToVardgivarenhe
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropRejectedByVardgivarenhetEvent;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
-import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationEvent;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
-import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingDeviationEvent;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 import se.inera.fmu.domain.model.eavrop.document.DocumentSentByBestallareEvent;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
@@ -127,7 +124,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	// A log of all assignments to vardgivarenheter and there replies
 	@OneToMany
 	@JoinTable(name = "R_EAVROP_ASSIGNMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "ASSIGNMENT_ID"))
-	private Set<EavropAssignment> assignments;
+	private List<EavropAssignment> assignments;
 
 	// Maps the current assignment of the eavrop
 	@OneToOne(cascade = CascadeType.ALL)
@@ -393,8 +390,16 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		return noOfBusinessDays;
 	}
 
+	public DateTime getEavropAssignmentAcceptanceDateTime(){
+		if(isAssignmentAccepted()){
+			return getCurrentAssignment().getAssignmentResponseDateTime();
+		}
+		return null; 
+	}
+
 	
-	private boolean isAssignmentAccepted() {
+	
+	public boolean isAssignmentAccepted() {
 		if(this.getCurrentAssignment()!=null){
 			return this.getCurrentAssignment().isAccepted();
 		}
@@ -443,7 +448,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	 * Get number of business days between the the time that the order was registered and the time for acceptence 
 	 * or if not yet accepted current time  
 	 */
-	public int getNumberOFAcceptanceDaysFromOrderDate(){
+	public int getNumberOfAcceptanceDaysFromOrderDate(){
 		LocalDate fromDate = new LocalDate(this.getCreatedDate()).plusDays(1);
 		LocalDate toDate = new LocalDate();
 		
@@ -458,10 +463,10 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 
 	
 	/**
-	 * Get number of business days between the the time that the order was registered and the time for acceptence 
+	 * Get number of business days between the the time that the order was registered and the time for acceptance 
 	 * or if not yet accepted current time  
 	 */
-	public boolean isNumberOFAcceptanceDaysFromOrderDateDeviated(){
+	public boolean isNumberOfAcceptanceDaysFromOrderDateDeviated(){
 		LocalDate fromDate = new LocalDate(this.getCreatedDate()).plusDays(1);
 		LocalDate toDate = new LocalDate();
 		int maxNumberOfDaysUntilAccept = this.getEavropProperties().getAcceptanceValidLength();
@@ -504,22 +509,26 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 
 	/**
 	 * Returns a Set<EavropAssignment> with all the assignments made to this
-	 * evarop
+	 * eavrop
 	 *
 	 * @return a set with all EavropAssignments related to the eavrop
 	 * @see EavropAssignment
 	 */
-	public Set<EavropAssignment> getAssignments() {
+	public List<EavropAssignment> getAssignments() {
+		if(assignments != null){
+			Collections.sort(assignments);
+		}
+		
 		return assignments;
 	}
 
-	private void setAssignments(Set<EavropAssignment> assignments) {
+	private void setAssignments(List<EavropAssignment> assignments) {
 		this.assignments = assignments;
 	}
 
 	protected void addAssignment(EavropAssignment assignment) {
 		if (this.assignments == null) {
-			this.assignments = new HashSet<EavropAssignment>();
+			this.assignments = new ArrayList<EavropAssignment>();
 		}
 		this.assignments.add(assignment);
 	}
@@ -915,9 +924,10 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	protected void addToIntygSignedInformation(IntygSignedInformation intygSignedInformation) {
 		addToIntygInformation(intygSignedInformation);
 		
-		//TODO: set startdate here or in state
-		if(intygSignedInformation != null && intygSignedInformation.getInformationTimestamp() != null)
-		this.intygSignedDate = intygSignedInformation.getInformationTimestamp();
+		// set the intyg signed date once for assessment days calcuation
+		if(intygSignedInformation != null && intygSignedInformation.getInformationTimestamp() != null && getIntygSignedDateTime() == null){
+			this.intygSignedDate = intygSignedInformation.getInformationTimestamp();
+		}
 	}
 	
 	public DateTime getIntygSignedDateTime(){

@@ -26,18 +26,21 @@ public interface EavropState{
 	
 	public EavropStateType getEavropStateType();
 	
+	//Assignment
 	public void assignEavropToVardgivarenhet(Eavrop eavrop, Vardgivarenhet vardgivarenhet);
 	
 	public void acceptEavropAssignment(Eavrop eavrop);
 	
 	public void rejectEavropAssignment(Eavrop eavrop);
 	
+	//Documents
 	public void setDocumentsSentFromBestallareDateTime(Eavrop eavrop, DateTime documentsSentFromBestallareDateTime);
 	
 	public void addReceivedDocument(Eavrop eavrop, ReceivedDocument receivedDocument);
 	
 	public void addRequestedDocument(Eavrop eavrop, RequestedDocument requestedDocument);
 	
+	//Bookings
 	public void addBooking(Eavrop eavrop, Booking booking);
 	
 	public void setBookingStatus(Eavrop eavrop, BookingId bookingId, BookingStatusType bookingStatus, Note cancellationNote);
@@ -46,16 +49,19 @@ public interface EavropState{
 	
 	public void addBookingDeviationResponse(Eavrop eavrop, BookingId bookingId, BookingDeviationResponse bookingDeviationResponse);
 	
+	//Notes
 	public void addNote(Eavrop eavrop, Note note);
 	
 	public void removeNote(Eavrop eavrop, Note note);
 	
+	//Intyg
 	public void addIntygSignedInformation(Eavrop eavrop, IntygSignedInformation intygSignedInformation);
 
 	public void addIntygComplementRequestInformation(Eavrop eavrop, IntygComplementRequestInformation intygComplementRequestInformation);
 	
 	public void addIntygApprovedInformation(Eavrop eavrop, IntygApprovedInformation intygApprovedInformation);
 	
+	//Approval
 	public void approveEavrop(Eavrop eavrop, EavropApproval eavropApproval);
 
 	public void approveEavropCompensation(Eavrop eavrop, EavropCompensationApproval eavropCompensationApproval);

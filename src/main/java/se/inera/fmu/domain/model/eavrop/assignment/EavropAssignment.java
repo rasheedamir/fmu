@@ -17,6 +17,7 @@ import org.apache.commons.lang.Validate;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.application.util.BusinessDaysUtil;
+import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
@@ -30,7 +31,7 @@ import se.inera.fmu.domain.shared.IEntity;
 @Table(name = "T_ASSIGNMENT")
 @ToString
 public class EavropAssignment extends AbstractBaseEntity implements
-		IEntity<EavropAssignment> {
+		IEntity<EavropAssignment>, Comparable<EavropAssignment> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -56,6 +57,7 @@ public class EavropAssignment extends AbstractBaseEntity implements
 
 	public EavropAssignment(Vardgivarenhet vardivareenhet) {
 		this.setId(UUID.randomUUID().toString());
+		this.setCreatedDate(new DateTime());
 		setAssignmentStatus(this.assignmentStatus = EavropAssignmentStatusType.ASSIGNED);
 		Validate.notNull(vardivareenhet);
 		setVardgivarenhet(vardivareenhet);
@@ -157,5 +159,10 @@ public class EavropAssignment extends AbstractBaseEntity implements
 	@Override
 	public int hashCode() {
 		return id.hashCode();
+	}
+	
+	@Override
+	public int compareTo(EavropAssignment other) {
+		return getCreatedDate().compareTo(other.getCreatedDate());
 	}
 }

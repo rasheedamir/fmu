@@ -3,6 +3,7 @@ package se.inera.fmu.application.impl;
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
+import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -52,48 +53,69 @@ public class EavropAssignmentDomainServiceImpl implements EavropAssignmentDomain
 	}
 	
 	@Override
-	public void assignEavropToVardgivarenhet(EavropId eavropId, HsaId hsaIdVardgivarenhet) throws EntityNotFoundException, IllegalArgumentException{
-		Eavrop eavrop = getEavrop(eavropId);
-		Vardgivarenhet vardgivarenhet = getVardgivarenhet(hsaIdVardgivarenhet);
+	public void assignEavropToVardgivarenhet(AssignEavropCommand aCommand) throws EntityNotFoundException, IllegalArgumentException{
+		validateAssignEavropCommand(aCommand);
+		
+		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
+		Vardgivarenhet vardgivarenhet = getVardgivarenhetByHsaId(aCommand.getHsaId());
 
 		if(eavrop.getCurrentAssignedVardgivarenhet()!=null){
-			throw new IllegalArgumentException(String.format("Eavrop %s already assigned to vardgivarenhet %s", eavropId.toString(), eavrop.getCurrentAssignedVardgivarenhet().getHsaId().toString() ));
+			throw new IllegalArgumentException(String.format("Eavrop %s already assigned to vardgivarenhet %s", aCommand.getEavropId().toString(), eavrop.getCurrentAssignedVardgivarenhet().getHsaId().toString() ));
 		}
 		eavrop.assignEavropToVardgivarenhet(vardgivarenhet);;
-		log.debug(String.format("Eavrop %s assigned by :: %s", eavropId.toString(), hsaIdVardgivarenhet.toString()));
+		log.debug(String.format("Eavrop %s assigned to :: %s", aCommand.getEavropId().toString(), aCommand.getHsaId().toString()));
 		
-		handleEavropAssigned(eavropId, hsaIdVardgivarenhet);
+		handleEavropAssigned(aCommand.getEavropId(), aCommand.getHsaId());
 	}
 
 	@Override
-	public void acceptEavropAssignment(EavropId eavropId, HsaId hsaIdVardgivarenhet) throws EntityNotFoundException, IllegalArgumentException{
-		Eavrop eavrop = getEavrop(eavropId);
-		Vardgivarenhet vardgivarenhet = getVardgivarenhet(hsaIdVardgivarenhet);
+	public void acceptEavropAssignment(AcceptEavropAssignmentCommand aCommand) throws EntityNotFoundException, IllegalArgumentException{
+		validateAcceptEavropAssignmentCommand(aCommand);
 		
+		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
+		Vardgivarenhet vardgivarenhet = getVardgivarenhetByHsaId(aCommand.getHsaId());
+
 		if(!vardgivarenhet.equals(eavrop.getCurrentAssignedVardgivarenhet())){
-			throw new IllegalArgumentException(String.format("Eavrop %s not assigned to vardgivarenhet %s", eavropId.toString(), hsaIdVardgivarenhet.toString() ));
+			throw new IllegalArgumentException(String.format("Eavrop %s not assigned to vardgivarenhet %s", aCommand.getEavropId().toString(), aCommand.getHsaId().toString() ));
 		}
 		eavrop.acceptEavropAssignment();
-		log.debug(String.format("Eavrop %s accepted  by :: %s", eavropId.toString(), hsaIdVardgivarenhet.toString()));
+		log.debug(String.format("Eavrop %s accepted  by :: %s", aCommand.getEavropId().toString(), aCommand.getHsaId().toString()));
 		
-		handleEavropAccepted(eavropId, hsaIdVardgivarenhet);
+		handleEavropAccepted(aCommand.getEavropId(), aCommand.getHsaId());
 	}
 
 	@Override
-	public void rejectEavropAssignment(EavropId eavropId, HsaId hsaIdVardgivarenhet)  throws EntityNotFoundException, IllegalArgumentException{
-		Eavrop eavrop = getEavrop(eavropId);
-		Vardgivarenhet vardgivarenhet = getVardgivarenhet(hsaIdVardgivarenhet);
+	public void rejectEavropAssignment(RejectEavropAssignmentCommand aCommand)  throws EntityNotFoundException, IllegalArgumentException{
+		validateRejectEavropAssignmentCommand(aCommand);
 		
+		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
+		Vardgivarenhet vardgivarenhet = getVardgivarenhetByHsaId(aCommand.getHsaId());
+
 		if(!vardgivarenhet.equals(eavrop.getCurrentAssignedVardgivarenhet())){
-			throw new IllegalArgumentException(String.format("Eavrop %s not assigned to vardgivarenhet %s", eavropId.toString(), hsaIdVardgivarenhet.toString() ));
+			throw new IllegalArgumentException(String.format("Eavrop %s not assigned to vardgivarenhet %s", aCommand.getEavropId().toString(), aCommand.getHsaId().toString()));
 		}
 		eavrop.rejectEavropAssignment();
-		log.debug(String.format("Eavrop %s rejected  by :: %s", eavropId.toString(), hsaIdVardgivarenhet.toString()));
+		log.debug(String.format("Eavrop %s rejected  by :: %s", aCommand.getEavropId().toString(), aCommand.getHsaId().toString()));
 		
-		handleEavropRejected(eavropId, hsaIdVardgivarenhet);
+		handleEavropRejected(aCommand.getEavropId(), aCommand.getHsaId());
+	}
+	
+	private void validateAssignEavropCommand(AssignEavropCommand command){
+		Validate.notNull(command.getEavropId());
+		Validate.notNull(command.getHsaId());
 	}
 
-	private Eavrop getEavrop(EavropId eavropId) throws EntityNotFoundException{
+	private void validateAcceptEavropAssignmentCommand(AcceptEavropAssignmentCommand command){
+		Validate.notNull(command.getEavropId());
+		Validate.notNull(command.getHsaId());
+	}
+
+	private void validateRejectEavropAssignmentCommand(RejectEavropAssignmentCommand command){
+		Validate.notNull(command.getEavropId());
+		Validate.notNull(command.getHsaId());
+	}
+
+	private Eavrop getEavropByEavropId(EavropId eavropId) throws EntityNotFoundException{
 		Eavrop eavrop = this.eavropRepository.findByEavropId(eavropId);
 		if(eavrop==null){
 			throw new EntityNotFoundException(String.format("Eavrop %s not found", eavropId.toString()));
@@ -101,7 +123,7 @@ public class EavropAssignmentDomainServiceImpl implements EavropAssignmentDomain
 		return eavrop;
 	}
 	
-	private Vardgivarenhet getVardgivarenhet(HsaId hsaIdVardgivarenhet) throws EntityNotFoundException{
+	private Vardgivarenhet getVardgivarenhetByHsaId(HsaId hsaIdVardgivarenhet) throws EntityNotFoundException{
 		Vardgivarenhet vardgivarenhet = this.vardgivarenhetRepository.findByHsaId(hsaIdVardgivarenhet);
 		if(vardgivarenhet==null){
 			throw new EntityNotFoundException(String.format("Vardgivarenhet %s not found", hsaIdVardgivarenhet.toString()));
