@@ -21,6 +21,7 @@ import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignedToVardgivarenhe
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
+import se.inera.fmu.domain.model.eavrop.invanare.medicalexamination.PriorMedicalExamination;
 import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
@@ -29,6 +30,7 @@ import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.domain.model.landsting.LandstingRepository;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
+import se.inera.fmu.domain.model.person.HoSPerson;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
@@ -106,6 +108,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
         
         EavropProperties props = getEavropProperties();
         
+        PriorMedicalExamination priorMedicalExamination = createPriorMedicalExamination(aCommand);
+        
         Eavrop eavrop = EavropBuilder.eavrop()
 		.withArendeId(aCommand.getArendeId())
 		.withUtredningType(aCommand.getUtredningType())
@@ -114,6 +118,10 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		.withBestallaradministrator(bestallaradministrator)
 		.withInterpreter(interpreter)
 		.withEavropProperties(props)
+		.withDescription(aCommand.getDescription())
+		.withUtredningFocus(aCommand.getUtredningFocus())
+		.withAdditionalInformation(aCommand.getAdditionalInformation())
+		.withPriorMedicalExamination(priorMedicalExamination)
 		.build();
         
         eavrop = eavropRepository.save(eavrop);
@@ -129,7 +137,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
         return eavrop.getArendeId();
     }
 
-    /**
+	/**
      *
      * @param personalNumber
      * @param invanareName
@@ -162,6 +170,21 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
     	return bestallaradministrator;
     }
 
+    private PriorMedicalExamination createPriorMedicalExamination(String examinedAt, String medicalLeaveIssuedAt, String issuerName, String issuerRole, String issuerOrganisation, String issuerUnit ){
+    	HoSPerson issuer = new HoSPerson(issuerName, issuerRole, issuerOrganisation, issuerUnit);
+    	return new PriorMedicalExamination(examinedAt, medicalLeaveIssuedAt, issuer);
+    }
+
+    private PriorMedicalExamination createPriorMedicalExamination(CreateEavropCommand aCommand) {
+    	HoSPerson issuer = new HoSPerson(aCommand.getPriorMedicalLeaveIssuedByName(), 
+    									 aCommand.getPriorMedicalLeaveIssuedByBefattning(),
+    									 aCommand.getPriorMedicalLeaveIssuedByOrganisation(),
+    									 aCommand.getPriorMedicalLeaveIssuedByEnhet());
+    	return new PriorMedicalExamination(aCommand.getPriorExaminedAt(), aCommand.getPriorMedicalLeaveIssuedAt(), issuer);
+	}
+
+
+    
     private EavropProperties getEavropProperties(){
     	int startDateOffset = getConfiguration().getInteger(Configuration.KEY_EAVROP_START_DATE_OFFSET, 3);    	
     	int acceptanceValidLength = getConfiguration().getInteger(Configuration.KEY_EAVROP_ACCEPTANCE_VALID_LENGTH, 5);

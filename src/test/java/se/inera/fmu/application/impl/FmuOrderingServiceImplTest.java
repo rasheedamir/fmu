@@ -18,6 +18,7 @@ import se.inera.fmu.application.util.BestallaradministratorUtil;
 import se.inera.fmu.application.util.EavropUtil;
 import se.inera.fmu.application.util.InvanareUtil;
 import se.inera.fmu.application.util.LandstingUtil;
+import se.inera.fmu.application.util.PriorMedicalExaminationUtil;
 import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
@@ -26,6 +27,7 @@ import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
+import se.inera.fmu.domain.model.eavrop.invanare.medicalexamination.PriorMedicalExamination;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
@@ -81,13 +83,15 @@ public class FmuOrderingServiceImplTest {
     public void shouldCreateNewEavrop() {
         final Eavrop savedEavrop = stubRepositoryToReturnEavropOnSave();
         final Invanare savedPatient = stubRepositoryToReturnPatientOnSave();
-        final ArendeId arendeId = fmuOrderingService.createEavrop(new CreateEavropCommand(EavropUtil.ARENDE_ID, EavropUtil.UTREDNING_TYPE,
-                                                                        EavropUtil.TOLK, InvanareUtil.PERSONAL_NUMBER,
-                                                                        InvanareUtil.NAME, InvanareUtil.GENDER,
-                                                                        InvanareUtil.HOME_ADDRESS, InvanareUtil.EMAIL, InvanareUtil.SPECIAL_NEED,
-                                                                        LandstingUtil.createLandsting(), BestallaradministratorUtil.NAME,
-                                                                        BestallaradministratorUtil.BEFATTNING, BestallaradministratorUtil.ORGANISATION,
-                                                                        BestallaradministratorUtil.UNIT, BestallaradministratorUtil.PHONE, BestallaradministratorUtil.EMAIL));
+        final ArendeId arendeId = fmuOrderingService.createEavrop(new CreateEavropCommand(
+        		EavropUtil.ARENDE_ID, EavropUtil.UTREDNING_TYPE,  EavropUtil.TOLK, InvanareUtil.PERSONAL_NUMBER, InvanareUtil.NAME, 
+        		InvanareUtil.GENDER, InvanareUtil.HOME_ADDRESS, InvanareUtil.EMAIL, InvanareUtil.SPECIAL_NEED, LandstingUtil.createLandsting(), 
+                BestallaradministratorUtil.NAME, BestallaradministratorUtil.BEFATTNING, BestallaradministratorUtil.ORGANISATION, 
+                BestallaradministratorUtil.UNIT, BestallaradministratorUtil.PHONE, BestallaradministratorUtil.EMAIL, EavropUtil.DESCRIPTION, 
+                EavropUtil.UTREDNING_FOCUS, EavropUtil.ADDITIONAL_INFORMATION, PriorMedicalExaminationUtil.EXAMINED_AT, 
+                PriorMedicalExaminationUtil.MEDICAL_LEAVE_ISSUED_AT, PriorMedicalExaminationUtil.NAME, PriorMedicalExaminationUtil.ROLE, 
+                PriorMedicalExaminationUtil.ORGANISATION, PriorMedicalExaminationUtil.UNIT, PriorMedicalExaminationUtil.PHONE, 
+                PriorMedicalExaminationUtil.EMAIL));
         
         // verify repository's were called
         verify(patientRepository, times(1)).save(savedPatient);

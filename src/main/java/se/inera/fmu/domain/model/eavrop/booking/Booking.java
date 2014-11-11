@@ -24,7 +24,10 @@ import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
 import se.inera.fmu.domain.model.eavrop.EavropEventDTOType;
+import se.inera.fmu.domain.model.eavrop.InterpreterBookingEventDTO;
+import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBooking;
+import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
@@ -56,24 +59,14 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime endDateTime;
 
-//	@OneToMany(cascade = CascadeType.ALL)
-//	// TODO: maybe many to many if we kan reuse the person entity
-//	@JoinTable(name = "R_BOOKING_PERSON", joinColumns = @JoinColumn(name = "BOOKING_ID"), inverseJoinColumns = @JoinColumn(name = "PERSON_ID"))
-//	private Set<Person> persons; // value object
-	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="BOOKING_PERSON_ID")
 	private Person person;
-
 
 	@Column(name = "BOOKING_STATUS_TYPE", nullable = false, updatable = true)
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private BookingStatusType bookingStatusType;
-
-//	@Embedded
-//	private BookingDeviation bookingDeviation;
-
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="DEVIATION_NOTE_ID", nullable = true)
@@ -171,16 +164,6 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 		this.person = person;
 	}
 
-
-//	public BookingDeviation getBookingDeviation() {
-//		return this.bookingDeviation;
-//	}
-//
-//	public void setBookingDeviation(BookingDeviation bookingDeviation) {
-//		this.bookingDeviation = bookingDeviation;
-//	}
-
-	
 	public InterpreterBooking getInterpreterBooking() {
 		return interpreterBooking;
 	}
@@ -205,14 +188,10 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 		return (getInterpreterBooking()!=null)?getInterpreterBooking().hasDeviation():Boolean.FALSE;
 	}
 	
-	public List<EavropEventDTO> getAsEavropEvents(){
+	public List<EavropEventDTO> getAsEavropEvents(UtredningType utredningType){
 		List<EavropEventDTO> events= new ArrayList<EavropEventDTO>();
 		
-		events.add(getAsEavropEvent());
-		
-		if(getInterpreterBooking()!=null){
-			events.add(getInterpreterBooking().getAsEavropEvent(this));
-		}
+		events.add(getAsEavropEvent(utredningType));
 		
 		if(getBookingDeviationResponse()!=null){
 			events.add(getBookingDeviationResponse().getAsEavropEvent());
@@ -221,10 +200,14 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 		return events;
 	}
 	
-	private EavropEventDTO getAsEavropEvent() {
+	private EavropEventDTO getAsEavropEvent(UtredningType utredningType) {
+		String comment = (this.deviationNote!=null)?this.deviationNote.getText():null;
+		List<BookingStatusType> validBookingStatuses =  BookingStatusType.getValidBookingStatuses(utredningType, getBookingType());
+		InterpreterBookingEventDTO interpreterBookingEventDTO = (getInterpreterBooking()!=null)?getInterpreterBooking().getAsInterpreterBookingEventDTO():null; 
+		
 		return (this.getPerson()!=null)?
-			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType.toString(), getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
-			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType.toString(), null, null, null, null);
+			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType.toString(), comment, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
+			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType.toString(), comment, null, null, null, null);
 	}
 	
 	private EavropEventDTOType getEavropEventDTOType(){

@@ -13,6 +13,7 @@ import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
 import se.inera.fmu.domain.model.eavrop.EavropEventDTOType;
+import se.inera.fmu.domain.model.eavrop.InterpreterBookingEventDTO;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
@@ -54,14 +55,10 @@ public class InterpreterBooking {
 		return InterpreterBookingStatusType.NOT_PRESENT.equals(this.getInterpreterBookingStatus());
 	}
 
-	public EavropEventDTO getAsEavropEvent(Booking booking ) {
-		if(booking != null){
-			return (booking.getPerson()!=null)?
-					new EavropEventDTO(EavropEventDTOType.INTERPRETER, booking.getStartDateTime(), this.interpreterBookingStatus.toString(), booking.getPerson().getName(), booking.getPerson().getRole(), booking.getPerson().getOrganisation(), booking.getPerson().getUnit()):
-					new EavropEventDTO(EavropEventDTOType.INTERPRETER, booking.getStartDateTime(), this.interpreterBookingStatus.toString(), null, null, null, null);
-			
-		}
-		return null;
+	public InterpreterBookingEventDTO getAsInterpreterBookingEventDTO() {
+		String comment = (this.deviationNote!=null)?this.deviationNote.getText():null;
+		InterpreterBookingEventDTO interpreterBookingEventDTO = new InterpreterBookingEventDTO(getInterpreterBookingStatus(), comment);
+		return interpreterBookingEventDTO;
 	}	
 
 

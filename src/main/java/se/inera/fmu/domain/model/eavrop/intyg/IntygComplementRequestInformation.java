@@ -31,7 +31,7 @@ public class IntygComplementRequestInformation  extends IntygInformation impleme
 	@Override
 	public EavropEventDTO getAsEavropEvent() {
 		return (this.getPerson()!=null)?
-			new EavropEventDTO(EavropEventDTOType.INTYG_COMPLEMENT_REQUEST,this.getInformationTimestamp(),null, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
-			new EavropEventDTO(EavropEventDTOType.INTYG_COMPLEMENT_REQUEST,this.getInformationTimestamp(),null, null, null, null, null);
+			new EavropEventDTO(EavropEventDTOType.INTYG_COMPLEMENT_REQUEST,this.getInformationTimestamp(),null, null, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
+			new EavropEventDTO(EavropEventDTOType.INTYG_COMPLEMENT_REQUEST,this.getInformationTimestamp(),null, null, null, null, null, null);
 	}
 }

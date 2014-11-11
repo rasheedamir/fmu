@@ -21,6 +21,9 @@ public final class EavropUtil {
     public static final Landsting LANDSTING = new Landsting(new LandstingCode(1), "Stockholms läns landsting"); 
     public static final Bestallaradministrator HANDLAGGARE = new Bestallaradministrator("Per Handläggarson","Handläggare","Försäkringskassan", "Nordväst, Sundbyberg", "08-123456", "per.hanlaggarsson@fk.se"); 
     public static final EavropProperties EAVROP_PROPERTIES = new EavropProperties(3,5,25,10);
+    public static final String DESCRIPTION = "Utredning gällande arbetsförmåga"; 
+    public static final String UTREDNING_FOCUS = "Psykologi";
+    public static final String ADDITIONAL_INFORMATION = "";
     
     public static Eavrop createEavrop() {
     	
@@ -31,6 +34,9 @@ public final class EavropUtil {
 		.withLandsting(LANDSTING)
 		.withBestallaradministrator(HANDLAGGARE)
 		.withEavropProperties(EAVROP_PROPERTIES)
+		.withDescription(DESCRIPTION)
+		.withUtredningFocus(UTREDNING_FOCUS)
+		.withAdditionalInformation(ADDITIONAL_INFORMATION)
 		.build();
     }
 }

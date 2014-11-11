@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import se.inera.fmu.application.DomainEventPublisher;
 import se.inera.fmu.application.EavropAssignmentDomainService;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropId;
@@ -20,8 +21,12 @@ import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.hos.vardgivare.VardgivarenhetRepository;
 
-import com.google.common.eventbus.AsyncEventBus;
-
+/**
+ * Service for handling eavrop assignments
+ * 
+ * @author 
+ *
+ */
 @Service
 @Validated
 @Transactional
@@ -31,27 +36,21 @@ public class EavropAssignmentDomainServiceImpl implements EavropAssignmentDomain
 
     private final EavropRepository eavropRepository;
     private final VardgivarenhetRepository vardgivarenhetRepository;
-    private final AsyncEventBus eventBus;
+    private final DomainEventPublisher domainEventPublisher;
     
 
     /**
      * Constructor
      * @param eavropRepository
-     * @param eventBus
+     * @param domainEventPublisher
      */
 	@Inject
-	public EavropAssignmentDomainServiceImpl(EavropRepository eavropRepository, VardgivarenhetRepository vardgivarenhetRepository, AsyncEventBus eventBus) {
+	public EavropAssignmentDomainServiceImpl(EavropRepository eavropRepository, VardgivarenhetRepository vardgivarenhetRepository, DomainEventPublisher domainEventPublisher) {
 		this.eavropRepository = eavropRepository;
 		this.vardgivarenhetRepository = vardgivarenhetRepository;
-		this.eventBus = eventBus;
+		this.domainEventPublisher = domainEventPublisher;
 	}
 	
-	private AsyncEventBus getEventBus(){
-		return this.eventBus;
-	}
-	
-	
-
 	@Override
 	public void assignEavropToVardgivarenhet(EavropId eavropId, HsaId hsaIdVardgivarenhet) throws EntityNotFoundException, IllegalArgumentException{
 		Eavrop eavrop = getEavrop(eavropId);
@@ -110,12 +109,16 @@ public class EavropAssignmentDomainServiceImpl implements EavropAssignmentDomain
 		return vardgivarenhet;
 	}
 
+	private DomainEventPublisher getDomainEventPublisher(){
+		return this.domainEventPublisher;
+	}
+	
 	private void handleEavropAssigned(EavropId eavropId, HsaId vardgivarenhetId){
 		EavropAssignedToVardgivarenhetEvent event = new EavropAssignedToVardgivarenhetEvent(eavropId, vardgivarenhetId);
         if(log.isDebugEnabled()){
         	log.debug(String.format("EavropAssignedToVardgivarenhetEvent created :: %s", event.toString()));
         }
-		getEventBus().post(event);
+		getDomainEventPublisher().post(event);
 	}
 
 	private void handleEavropAccepted(EavropId eavropId, HsaId vardgivarenhetId){
@@ -123,7 +126,7 @@ public class EavropAssignmentDomainServiceImpl implements EavropAssignmentDomain
         if(log.isDebugEnabled()){
         	log.debug(String.format("EavropAcceptedByVardgivarenhetEvent created :: %s", event.toString()));
         }
-		getEventBus().post(event);
+		getDomainEventPublisher().post(event);
 	}
 
 	private void handleEavropRejected(EavropId eavropId, HsaId vardgivarenhetId){
@@ -131,6 +134,8 @@ public class EavropAssignmentDomainServiceImpl implements EavropAssignmentDomain
         if(log.isDebugEnabled()){
         	log.debug(String.format("EavropRejectedByVardgivarenhetEvent created :: %s", event.toString()));
         }
-		getEventBus().post(event);
+		getDomainEventPublisher().post(event);
 	}
+	
+	
 }

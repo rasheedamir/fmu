@@ -40,9 +40,6 @@ public interface EavropState{
 	
 	public void addBooking(Eavrop eavrop, Booking booking);
 	
-	//public void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingDeviation deviation);
-	//public void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingStatusType cancellationType, Note cancellationNote);
-	
 	public void setBookingStatus(Eavrop eavrop, BookingId bookingId, BookingStatusType bookingStatus, Note cancellationNote);
 
 	public void setInterpreterBookingStatus(Eavrop eavrop, BookingId bookingId, InterpreterBookingStatusType interpreterStatus, Note cancellationNote);
