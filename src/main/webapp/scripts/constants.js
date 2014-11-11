@@ -23,7 +23,8 @@ angular.module('fmuClientApp')
             mottagarenOrganisation : 'currentAssignment',
             status : 'eavropState',
             antalDagarEfterForfragan : null,
-            color : null
+            color : null,
+            avikelser: null
         }
     })
     .constant('EAVROP_STATUS', {

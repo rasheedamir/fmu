@@ -1,4 +1,4 @@
-<div class="content-container">
+<div>
     <div class="row">
         <div class="col-md-6">
             <h1>
@@ -21,11 +21,11 @@
             </div>
 
             <div class="row">
-                    <p>
-                        <i>
-                            {{dateDescription}}
-                        </i>
-                    </p>
+                <p>
+                    <i>
+                        {{dateDescription}}
+                    </i>
+                </p>
             </div>
         </div>
 
@@ -36,7 +36,8 @@
 
     <div class="row">
         <fmu-utredning-table header-fields="headerFields"
-                             table-parameters="tableParameters"
-                ></fmu-utredning-table>
+                             date-key="{{dateKey}}"
+                             table-parameters="tableParameters">
+                             </fmu-utredning-table>
     </div>
 </div>

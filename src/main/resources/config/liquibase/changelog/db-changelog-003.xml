@@ -38,10 +38,22 @@
                   tableName="T_ASSIGNMENT">
         </loadData>
         
-                <loadData encoding="UTF-8"
+        <loadData encoding="UTF-8"
                   file="config/liquibase/eavrop.csv"
                   separator=";"
                   tableName="T_EAVROP">
+        </loadData>
+        
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/bookings.csv"
+                  separator=";"
+                  tableName="T_BOOKING">
+        </loadData>
+        
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/eavropBooking.csv"
+                  separator=";"
+                  tableName="R_EAVROP_BOOKING">
         </loadData>
     </changeSet>
 </databaseChangeLog>

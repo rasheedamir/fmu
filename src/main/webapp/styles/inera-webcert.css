@@ -262,16 +262,6 @@
         background-color: #f6f6f6;
     }
 
-    .btn-success {
-        /*	border: none;*/
-        padding: 7px 15px;
-        font-weight: bold;
-        background: none;
-        background-color: #42a341;
-        cursor: pointer;
-        white-space: nowrap;
-    }
-
     .btn-info, .btn-info[disabled]{
         font-weight: bold;
         background: none;

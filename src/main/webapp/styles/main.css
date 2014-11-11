@@ -126,10 +126,6 @@ ul#strength {
     vertical-align: 2px;
 }
 
-.point:last {
-    margin: 0 !important;
-}
-
 .point {
     background: #DDD;
     border-radius: 2px;
@@ -467,4 +463,86 @@ h2{
 .ngdialog.ngdialog-theme-default .ngdialog-content {
     max-width: 100%;
     width: 50%
+}
+
+.fmu-utredning-animation > tbody > tr:hover{
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.utredning-edit-row {
+    margin-left: 5em;
+    margin-right: 5em;
+}
+
+/* Tabs panel */
+.tabbable-panel {
+    border:1px solid #eee;
+    padding: 10px;
+}
+
+/* Default mode */
+.tabbable-line > .nav-tabs {
+    border: none;
+    margin: 0px;
+}
+.tabbable-line > .nav-tabs > li {
+    margin-right: 2px;
+}
+.tabbable-line > .nav-tabs > li > a {
+    border: 0;
+    margin-right: 0;
+    color: #737373;
+}
+.tabbable-line > .nav-tabs > li > a > i {
+    color: #a6a6a6;
+}
+.tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
+    border-bottom: 4px solid #fbcdcf;
+}
+.tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
+    border: 0;
+    background: none !important;
+    color: #333333;
+}
+.tabbable-line > .nav-tabs > li.open > a > i, .tabbable-line > .nav-tabs > li:hover > a > i {
+    color: #a6a6a6;
+}
+.tabbable-line > .nav-tabs > li.open .dropdown-menu, .tabbable-line > .nav-tabs > li:hover .dropdown-menu {
+    margin-top: 0px;
+}
+.tabbable-line > .nav-tabs > li.active {
+    border-bottom: 4px solid #f3565d;
+    position: relative;
+}
+.tabbable-line > .nav-tabs > li.active > a {
+    border: 0;
+    color: #333333;
+}
+.tabbable-line > .nav-tabs > li.active > a > i {
+    color: #404040;
+}
+.tabbable-line > .tab-content {
+    margin-top: -3px;
+    background-color: #fff;
+    border: 0;
+    border-top: 1px solid #eee;
+    padding: 15px 0;
+}
+.portlet .tabbable-line > .tab-content {
+    padding-bottom: 0;
+}
+
+.fmu-error-field {
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border: 1px solid rgba(255, 75, 73, 0.5);
+    background-color: rgba(255, 75, 73, 0.5);
+    padding: 0.5em;
+}
+
+.fmu-error-field p i {
+    color: #000000;
 }

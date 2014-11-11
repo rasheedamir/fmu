@@ -11,6 +11,8 @@ import se.inera.fmu.domain.model.eavrop.UtredningType;
 public class EavropDTO {
 
     private String arendeId;
+    
+    private String eavropId;
 
     private String utredningType;
     
@@ -27,11 +29,11 @@ public class EavropDTO {
     private EavropStateType status;
     
     private Integer antalDagarEfterForfragan;
+    
+    private Integer avikelser;
 
 	private String color;
 	
-	private int totalElements;
-
     public EavropDTO() {
     }
 
@@ -129,13 +131,27 @@ public class EavropDTO {
 	public String getBestallareEnhet() {
 		return bestallareEnhet;
 	}
-	
-	public int getTotalElements() {
-		return totalElements;
+
+	public EavropDTO setAvikelser(Integer numberOfDeviationsOnEavrop) {
+		this.avikelser = numberOfDeviationsOnEavrop;
+		return this;
 	}
 	
-	public EavropDTO setTotalElements(int totalElements) {
-		this.totalElements = totalElements;
+	public Integer getAvikelser() {
+		return this.avikelser;
+	}
+	
+	public EavropDTO setMottagarenOrganisation(String mottagarenOrganisation) {
+		this.mottagarenOrganisation = mottagarenOrganisation;
 		return this;
+	}
+	
+	public EavropDTO setEavropId(String eavropId) {
+		this.eavropId = eavropId;
+		return this;
+	}
+	
+	public String getEavropId() {
+		return eavropId;
 	}
 }

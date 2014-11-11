@@ -28,7 +28,7 @@ angular.module('fmuClientApp')
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                 },
                 {
-                    key: 'enhet',
+                    key: 'bestallareEnhet',
                     name: 'Enhet/Avdelning',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                 },

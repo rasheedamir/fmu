@@ -23,7 +23,7 @@ import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
-import se.inera.fmu.interfaces.managing.dtomapper.EavropDTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.DTOMapper;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.UserDTO;
 

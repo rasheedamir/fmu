@@ -30,8 +30,8 @@ import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
 import se.inera.fmu.domain.model.systemparameter.Configuration;
-import se.inera.fmu.interfaces.managing.dtomapper.EavropDTOMapper;
-import se.inera.fmu.interfaces.managing.rest.EavropResource.OVERVIEW_EAVROPS_STATES;
+import se.inera.fmu.interfaces.managing.dtomapper.DTOMapper;
+import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 
@@ -52,160 +52,204 @@ import java.util.List;
 @Slf4j
 public class FmuOrderingServiceImpl implements FmuOrderingService {
 
-    private final EavropRepository eavropRepository;
-    private final InvanareRepository invanareRepository;
-    private final DomainEventPublisher domainEventPublisher;
-    private final Configuration configuration;
-    private final LandstingRepository landstingRepository;
-    private final CurrentUserService currentUserService;
-    private final VardgivarenhetRepository vardgivarEnhetRepository;
-    private final FmuListService fmuListService;
+	private final EavropRepository eavropRepository;
+	private final InvanareRepository invanareRepository;
+	private final DomainEventPublisher domainEventPublisher;
+	private final Configuration configuration;
+	private final LandstingRepository landstingRepository;
+	private final CurrentUserService currentUserService;
+	private final VardgivarenhetRepository vardgivarEnhetRepository;
+	private final FmuListService fmuListService;
 
-    /**
-     *
-     * @param eavropRepository
-     * @param invanareRepository
-     * @param asyncEventBus
-     */
-    @Inject
-    public FmuOrderingServiceImpl(final EavropRepository eavropRepository, final InvanareRepository invanareRepository,
-    							  final Configuration configuration, final DomainEventPublisher domainEventPublisher,
-    							  final LandstingRepository landstingRepository, final CurrentUserService currentUser, 
-    							  final VardgivarenhetRepository vardgivarEnhetRepository,
-                                  final FmuListService fmuListService) {
-        this.eavropRepository = eavropRepository;
-        this.invanareRepository = invanareRepository;
-        this.configuration = configuration;
-        this.domainEventPublisher = domainEventPublisher;
-        this.landstingRepository = landstingRepository;
-        this.currentUserService = currentUser;
-        this.vardgivarEnhetRepository = vardgivarEnhetRepository;
-        this.fmuListService = fmuListService;
-    }
-    
-      /**
-     * Creates a an eavrop.
-     *
-     * @param aCommand : CreateEavropCommand
-     * @return arendeId
-     */
-    @Override
-    public ArendeId createEavrop(CreateEavropCommand aCommand) {
-        
-        Invanare invanare = createInvanare(aCommand.getPersonalNumber(), aCommand.getInvanareName(), aCommand.getInvanareGender(),
-                aCommand.getInvanareHomeAddress(), aCommand.getInvanareEmail(), aCommand.getInvanareSpecialNeeds());
-    	
-        Bestallaradministrator bestallaradministrator = createBestallaradministrator(aCommand.getAdministratorName(),
-                aCommand.getAdministratorBefattning(), aCommand.getAdministratorOrganisation(), aCommand.getAdministratorEnhet(),
-                aCommand.getAdministratorPhone(), aCommand.getAdministratorEmail());
-        
-        Interpreter interpreter= new Interpreter(aCommand.getInterpreterLanguages());
-        
-        EavropProperties props = getEavropProperties();
-        
-        Eavrop eavrop = EavropBuilder.eavrop()
-		.withArendeId(aCommand.getArendeId())
-		.withUtredningType(aCommand.getUtredningType())
-		.withInvanare(invanare)
-		.withLandsting(aCommand.getLandsting())
-		.withBestallaradministrator(bestallaradministrator)
-		.withInterpreter(interpreter)
-		.withEavropProperties(props)
-		.build();
-        
-        eavrop = eavropRepository.save(eavrop);
-        
-        log.debug(String.format("invanare created :: %s", invanare));
-        log.debug(String.format("bestallaradministrator created :: %s", bestallaradministrator));
-        log.debug(String.format("eavrop created :: %s", eavrop));
+	/**
+	 *
+	 * @param eavropRepository
+	 * @param invanareRepository
+	 * @param asyncEventBus
+	 */
+	@Inject
+	public FmuOrderingServiceImpl(final EavropRepository eavropRepository,
+			final InvanareRepository invanareRepository,
+			final Configuration configuration,
+			final DomainEventPublisher domainEventPublisher,
+			final LandstingRepository landstingRepository,
+			final CurrentUserService currentUser,
+			final VardgivarenhetRepository vardgivarEnhetRepository,
+			final FmuListService fmuListService) {
+		this.eavropRepository = eavropRepository;
+		this.invanareRepository = invanareRepository;
+		this.configuration = configuration;
+		this.domainEventPublisher = domainEventPublisher;
+		this.landstingRepository = landstingRepository;
+		this.currentUserService = currentUser;
+		this.vardgivarEnhetRepository = vardgivarEnhetRepository;
+		this.fmuListService = fmuListService;
+	}
 
-        //Publish an event to notify the interested listeners/subscribers that an eavrop has been created.
-        domainEventPublisher.post(new EavropCreatedEvent(eavrop.getEavropId()));
+	/**
+	 * Creates a an eavrop.
+	 *
+	 * @param aCommand
+	 *            : CreateEavropCommand
+	 * @return arendeId
+	 */
+	@Override
+	public ArendeId createEavrop(CreateEavropCommand aCommand) {
 
-        return eavrop.getArendeId();
-    }
+		Invanare invanare = createInvanare(aCommand.getPersonalNumber(),
+				aCommand.getInvanareName(), aCommand.getInvanareGender(),
+				aCommand.getInvanareHomeAddress(), aCommand.getInvanareEmail(),
+				aCommand.getInvanareSpecialNeeds());
 
-    /**
-     *
-     * @param personalNumber
-     * @param invanareName
-     * @param invanareGender
-     * @param invanareHomeAddress
-     * @param invanareEmail
-     * @param specialNeeds
-     * @return
-     */
-    private Invanare createInvanare(PersonalNumber personalNumber, Name invanareName, Gender invanareGender, Address invanareHomeAddress,
-                                    String invanareEmail, String specialNeeds ){
-    	Invanare invanare = new Invanare(personalNumber, invanareName, invanareGender, invanareHomeAddress, invanareEmail, specialNeeds);
-    	invanare = invanareRepository.save(invanare);
-        return invanare;
-    }
+		Bestallaradministrator bestallaradministrator = createBestallaradministrator(
+				aCommand.getAdministratorName(),
+				aCommand.getAdministratorBefattning(),
+				aCommand.getAdministratorOrganisation(),
+				aCommand.getAdministratorEnhet(),
+				aCommand.getAdministratorPhone(),
+				aCommand.getAdministratorEmail());
 
-    /**
-     *
-     * @param name
-     * @param befattning
-     * @param organisation
-     * @param phone
-     * @param email
-     * @return
-     */
-    private Bestallaradministrator createBestallaradministrator(String name, String befattning, String organisation, String unit, String phone, String email){
-    	Bestallaradministrator bestallaradministrator = new Bestallaradministrator(name, befattning, organisation, unit, phone, email);
-    	//TODO: Set up repository, for this subclass or abstract superclass; 
-//    	bestallaradministrator = bestallaradministrator.save(invanare);
-    	return bestallaradministrator;
-    }
+		Interpreter interpreter = new Interpreter(
+				aCommand.getInterpreterLanguages());
 
-    private EavropProperties getEavropProperties(){
-    	int startDateOffset = getConfiguration().getInteger(Configuration.KEY_EAVROP_START_DATE_OFFSET, 3);    	
-    	int acceptanceValidLength = getConfiguration().getInteger(Configuration.KEY_EAVROP_ACCEPTANCE_VALID_LENGTH, 5);
-    	int assessmentValidLength = getConfiguration().getInteger(Configuration.KEY_EAVROP_ASSESSMENT_VALID_LENGTH, 25);
-    	int completionValidLength = getConfiguration().getInteger(Configuration.KEY_EAVROP_COMPLETION_VALID_LENGTH, 10);
-    	
-    	return new EavropProperties(startDateOffset, acceptanceValidLength, assessmentValidLength, completionValidLength);
-    }
-    
-    private Configuration getConfiguration(){
-    	return this.configuration;
-    }
+		EavropProperties props = getEavropProperties();
+
+		Eavrop eavrop = EavropBuilder.eavrop()
+				.withArendeId(aCommand.getArendeId())
+				.withUtredningType(aCommand.getUtredningType())
+				.withInvanare(invanare).withLandsting(aCommand.getLandsting())
+				.withBestallaradministrator(bestallaradministrator)
+				.withInterpreter(interpreter).withEavropProperties(props)
+				.build();
+
+		eavrop = eavropRepository.save(eavrop);
+
+		log.debug(String.format("invanare created :: %s", invanare));
+		log.debug(String.format("bestallaradministrator created :: %s",
+				bestallaradministrator));
+		log.debug(String.format("eavrop created :: %s", eavrop));
+
+		// Publish an event to notify the interested listeners/subscribers that
+		// an eavrop has been created.
+		domainEventPublisher.post(new EavropCreatedEvent(eavrop.getEavropId()));
+
+		return eavrop.getArendeId();
+	}
+
+	/**
+	 *
+	 * @param personalNumber
+	 * @param invanareName
+	 * @param invanareGender
+	 * @param invanareHomeAddress
+	 * @param invanareEmail
+	 * @param specialNeeds
+	 * @return
+	 */
+	private Invanare createInvanare(PersonalNumber personalNumber,
+			Name invanareName, Gender invanareGender,
+			Address invanareHomeAddress, String invanareEmail,
+			String specialNeeds) {
+		Invanare invanare = new Invanare(personalNumber, invanareName,
+				invanareGender, invanareHomeAddress, invanareEmail,
+				specialNeeds);
+		invanare = invanareRepository.save(invanare);
+		return invanare;
+	}
+
+	/**
+	 *
+	 * @param name
+	 * @param befattning
+	 * @param organisation
+	 * @param phone
+	 * @param email
+	 * @return
+	 */
+	private Bestallaradministrator createBestallaradministrator(String name,
+			String befattning, String organisation, String unit, String phone,
+			String email) {
+		Bestallaradministrator bestallaradministrator = new Bestallaradministrator(
+				name, befattning, organisation, unit, phone, email);
+		// TODO: Set up repository, for this subclass or abstract superclass;
+		// bestallaradministrator = bestallaradministrator.save(invanare);
+		return bestallaradministrator;
+	}
+
+	private EavropProperties getEavropProperties() {
+		int startDateOffset = getConfiguration().getInteger(
+				Configuration.KEY_EAVROP_START_DATE_OFFSET, 3);
+		int acceptanceValidLength = getConfiguration().getInteger(
+				Configuration.KEY_EAVROP_ACCEPTANCE_VALID_LENGTH, 5);
+		int assessmentValidLength = getConfiguration().getInteger(
+				Configuration.KEY_EAVROP_ASSESSMENT_VALID_LENGTH, 25);
+		int completionValidLength = getConfiguration().getInteger(
+				Configuration.KEY_EAVROP_COMPLETION_VALID_LENGTH, 10);
+
+		return new EavropProperties(startDateOffset, acceptanceValidLength,
+				assessmentValidLength, completionValidLength);
+	}
+
+	private Configuration getConfiguration() {
+		return this.configuration;
+	}
 
 	@Override
-	public EavropPageDTO getOverviewEavrops(long fromDate, long toDate,OVERVIEW_EAVROPS_STATES state, Pageable paginationSpecs) {
+	public EavropPageDTO getOverviewEavrops(long fromDate, long toDate,
+			OverviewEavropStates state, Pageable paginationSpecs) {
 		User currentUSer = this.currentUserService.getCurrentUser();
 		DateTime startDate = new DateTime(fromDate);
 		DateTime endDate = new DateTime(toDate);
-		
+
 		switch (currentUSer.getActiveRole()) {
 		case LANDSTINGSSAMORDNARE:
-			if(currentUSer.getLandstingCode() == null)
+			if (currentUSer.getLandstingCode() == null)
 				return null;
-			Landsting landsting = this.landstingRepository.findByLandstingCode(new LandstingCode(currentUSer.getLandstingCode()));
-			
+			Landsting landsting = this.landstingRepository
+					.findByLandstingCode(new LandstingCode(currentUSer
+							.getLandstingCode()));
+
 			switch (state) {
 			case NOT_ACCEPTED:
-				return constructDTO(this.fmuListService.findAllNotAcceptedEavropByLandstingAndDateTimeOrdered(landsting, startDate, endDate, paginationSpecs));
+				return constructDTO(this.fmuListService
+						.findAllNotAcceptedEavropByLandstingAndDateTimeOrdered(
+								landsting, startDate, endDate, paginationSpecs));
 			case ACCEPTED:
-				return constructDTO(this.fmuListService.findAllOngoingEavropByLandstingAndDateTimeStarted(landsting, startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs));
+				return constructDTO(this.fmuListService
+						.findAllOngoingEavropByLandstingAndDateTimeStarted(
+								landsting, startDate.toLocalDate(),
+								endDate.toLocalDate(), paginationSpecs));
 			case COMPLETED:
-				return constructDTO(this.fmuListService.findAllCompletedEavropByLandstingAndDateTimeSigned(landsting, startDate, endDate, paginationSpecs));
+				return constructDTO(this.fmuListService
+						.findAllCompletedEavropByLandstingAndDateTimeSigned(
+								landsting, startDate, endDate, paginationSpecs));
 			default:
 				return null;
 			}
 		case UTREDARE:
-			if(currentUSer.getVardenhetHsaId() == null) {
+			if (currentUSer.getVardenhetHsaId() == null) {
 				return null;
 			}
-			Vardgivarenhet vardgivarenhet = this.fmuListService.findVardgivarenhetByHsaId(new HsaId(currentUSer.getVardenhetHsaId()));
-			
+			Vardgivarenhet vardgivarenhet = this.fmuListService
+					.findVardgivarenhetByHsaId(new HsaId(currentUSer
+							.getVardenhetHsaId()));
+
 			switch (state) {
 			case NOT_ACCEPTED:
-				return constructDTO(this.fmuListService.findAllNotAcceptedEavropByVardgivarenhetAndDateTimeOrdered(vardgivarenhet, startDate, endDate, paginationSpecs));
+				return constructDTO(this.fmuListService
+						.findAllNotAcceptedEavropByVardgivarenhetAndDateTimeOrdered(
+								vardgivarenhet, startDate, endDate,
+								paginationSpecs));
 			case ACCEPTED:
-				return constructDTO(this.fmuListService.findAllOngoingEavropByVardgivarenhetAndDateTimeStarted(vardgivarenhet, startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs));
+				return constructDTO(this.fmuListService
+						.findAllOngoingEavropByVardgivarenhetAndDateTimeStarted(
+								vardgivarenhet, startDate.toLocalDate(),
+								endDate.toLocalDate(), paginationSpecs));
 			case COMPLETED:
-				return constructDTO(this.fmuListService.findAllCompletedEavropByVardgivarenhetAndDateTimeSigned(vardgivarenhet, startDate, endDate, paginationSpecs));
+				return constructDTO(this.fmuListService
+						.findAllCompletedEavropByVardgivarenhetAndDateTimeSigned(
+								vardgivarenhet, startDate, endDate,
+								paginationSpecs));
 			default:
 				return null;
 			}
@@ -216,16 +260,26 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 	private EavropPageDTO constructDTO(Page<Eavrop> eavrops) {
 		List<EavropDTO> data = new ArrayList<EavropDTO>();
-        EavropDTOMapper eavropMapper = new EavropDTOMapper();
+		DTOMapper eavropMapper = new DTOMapper();
 
 		for (Eavrop eavrop : eavrops.getContent()) {
-			data.add(eavropMapper.mappToDTO(eavrop));
+			data.add(eavropMapper.mapToOverviewDTO(eavrop));
 		}
-		
+
 		EavropPageDTO retval = new EavropPageDTO();
 		retval.setEavrops(data).setTotalElements(eavrops.getTotalElements());
-		
+
 		return retval;
 	}
-	
+
+	@Override
+	public List<EavropEventDTO> getEavropEvents(String eavropId) {
+		Eavrop eavrop = this.eavropRepository.findByEavropId(new EavropId(
+				eavropId));
+		if (eavrop != null)
+			return eavrop.getEavropEvents();
+		
+		return null;
+	}
+
 }

@@ -18,6 +18,7 @@ angular.module('fmuClientApp').factory('EavropService', ['$q', '$http', 'RestUrl
                     return data.data;
                 }, function(err) {
                     // Failed to retrieve data
+                    console.log('error loading data');
                     return $q.reject(err.data);
                 });
             }
