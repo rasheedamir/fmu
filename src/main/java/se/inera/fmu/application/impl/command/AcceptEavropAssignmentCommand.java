@@ -15,14 +15,14 @@ public class AcceptEavropAssignmentCommand {
 	
 	public AcceptEavropAssignmentCommand(EavropId eavropId, HsaId hsaId) {
 		super();
-		validate(eavropId, hsaId);
 		this.eavropId = eavropId;
 		this.hsaId = hsaId;
+		validate();
 	}
 	
-	private void validate(EavropId eavropId, HsaId hsaId){
-		Validate.notNull(eavropId);
-		Validate.notNull(hsaId);
+	private void validate(){
+		Validate.notNull(this.eavropId);
+		Validate.notNull(this.hsaId);
 	}
 
 }

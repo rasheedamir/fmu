@@ -138,8 +138,6 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 	 */
 	@Override
 	public void addBookingDeviationResponse(AddBookingDeviationResponseCommand aCommand ){
-		validateAddBookingDeviationResponseCommand(aCommand);
-		
 		//Look up eavrop 
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 	
@@ -178,13 +176,6 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 		Validate.notNull(command.getEavropId());
 		Validate.notNull(command.getBookingId());
 		Validate.notNull(command.getInterpreterbookingStatus());
-	}
-	
-	private void validateAddBookingDeviationResponseCommand(AddBookingDeviationResponseCommand command) {
-		Validate.notNull(command.getArendeId());
-		Validate.notNull(command.getBookingId());
-		Validate.notNull(command.getResponse());
-		Validate.notNull(command.getResponseTimestamp());
 	}
 	
 	private Note createDeviationNote(String text, String name, String role, String organisation, String unit){

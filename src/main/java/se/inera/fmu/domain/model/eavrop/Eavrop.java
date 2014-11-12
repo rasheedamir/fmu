@@ -57,6 +57,7 @@ import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
+import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
 
@@ -276,6 +277,18 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		return eavropApproval;
 	}
 
+	/**
+	 * Method that returns when the eavrop was approved by the bestallare.
+	 * Returns null if the eavrop has not yet been aproved
+	 * @return
+	 */
+	public DateTime getEavropApprovalDateTime() {
+		if(getEavropApproval()!=null){
+			return getEavropApproval().getApprovalTimestamp();
+		}
+		return null;
+	}
+	
 	protected void setEavropApproval(EavropApproval eavropApproval) {
 		this.eavropApproval = eavropApproval;
 	}
@@ -938,6 +951,16 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		return (getIntygSignedDateTime() != null)?Boolean.TRUE:Boolean.FALSE;
 	}
 
+	/**
+	 * Method for retrieving responsible physician, if intyg is not signed we return null
+	 * @return
+	 */
+	public Person getIntygSigningPerson(){
+		if(isintygSigned() && getAllIntygSignedInformation() != null && getAllIntygSignedInformation().get(0) !=null){
+			return getAllIntygSignedInformation().get(0).getPerson();
+		}
+		return null;
+	}
 	
 	/**
 	 * 
@@ -955,7 +978,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		addToIntygInformation(intygComplementRequestInformation);
 		
 		//TODO: Remove intyg signed timestamp?
-		this.intygSignedDate = null;
+		//this.intygSignedDate = null;
 		
 	}
 
@@ -1294,6 +1317,45 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		
 	}
 
+	/**
+	 * Return the number of days used for the last complementRequest
+	 * @return
+	 */
+	public Integer getNoOfDaysUsedForLastComplementRequest(){
+		
+		IntygComplementRequestInformation lastComplementRequest = null;
+		IntygSignedInformation lastIntygSigned = null;
+		
+		List<IntygComplementRequestInformation> complementRequests = this.getAllIntygComplementRequestInformation();
+		Collections.sort(complementRequests);
+		if (complementRequests != null && !complementRequests.isEmpty()) {
+			lastComplementRequest = complementRequests.get(complementRequests.size()-1);
+		}
+		
+		if(lastComplementRequest == null){
+			return null;
+		}
+		
+		List<IntygSignedInformation> intygSignings = this.getAllIntygSignedInformation();
+		Collections.sort(intygSignings);
+		if (intygSignings != null && !intygSignings.isEmpty()) {
+			lastIntygSigned = intygSignings.get(intygSignings.size()-1);
+		}
+		
+		DateTime fromDateTime = lastComplementRequest.getInformationTimestamp();
+		DateTime toDateTime  = new DateTime();
+		if(lastIntygSigned!=null && lastIntygSigned.getInformationTimestamp().isAfter(fromDateTime)){
+			toDateTime = lastIntygSigned.getInformationTimestamp();
+		}
+		
+		LocalDate fromDate = new LocalDate(fromDateTime);
+		LocalDate toDate = new LocalDate(toDateTime);
+		
+		return BusinessDaysUtil.numberOfBusinessDays(fromDate, toDate);
+		
+	}
+
+	
 	public int getNoOfIntygComplementRequests(){
 		return this.getAllIntygComplementRequestInformation().size();
 	}	
