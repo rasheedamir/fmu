@@ -2,8 +2,8 @@
 
 /* Controllers */
 angular.module('fmuClientApp')
-    .controller('OrderController', ['$scope', '$state', '$filter', 'AuthService', 'EAVROP_STATUS',
-        function ($scope, $state, $filter, AuthService, EAVROP_STATUS) {
+    .controller('OrderController', ['$scope', '$state', '$filter', 'AuthService', 'EAVROP_STATUS', 'EAVROP_TABLE',
+        function ($scope, $state, $filter, AuthService, EAVROP_STATUS, EAVROP_TABLE) {
             $scope.authService = AuthService;
             $scope.dateKey = 'creationTime';
             $scope.startDate = new Date();
@@ -103,5 +103,16 @@ angular.module('fmuClientApp')
             ];
 
             $scope.datePickerDescription = 'Datumen utgår från det datum då beställningen inkommit';
+
+            $scope.getTableCellValue = function (key, rowData) {
+                switch (key) {
+                    case 'creationTime':
+                        return $filter('date')(rowData[key], EAVROP_TABLE.dateFormat);
+                    case 'status':
+                        return EAVROP_TABLE.statusMapping[rowData[key]];
+                    default:
+                        return rowData[key];
+                }
+            };
         }
     ]);

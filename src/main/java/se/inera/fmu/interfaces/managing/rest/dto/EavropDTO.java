@@ -48,6 +48,12 @@ public class EavropDTO {
 
 	private Boolean isEavropApprovedForPayment;
 
+	private Integer totalCompletionDays;
+
+	private String ansvarigUtredare;
+
+	private Boolean isCompleted;
+
 	public EavropDTO() {
 	}
 
@@ -233,5 +239,37 @@ public class EavropDTO {
 	public EavropDTO setEavropApprovalDatetime(Long eavropApprovalDatetime) {
 		this.eavropApprovalDatetime = eavropApprovalDatetime;
 		return this;
+	}
+
+	public EavropDTO setAntalDagarFromKompleteringBegarToBestallaren(
+			Integer noOfDaysUsedForLastComplementRequest) {
+		this.totalCompletionDays = noOfDaysUsedForLastComplementRequest;
+		return this;
+	}
+	
+	public Integer getTotalCompletionDays() {
+		return totalCompletionDays;
+	}
+	
+	public Boolean getIsEavropApprovedForPayment() {
+		return isEavropApprovedForPayment;
+	}
+
+	public EavropDTO setUtredareAnsvarigNamn(String name) {
+		this.ansvarigUtredare = name;
+		return this;
+	}
+	
+	public String getAnsvarigUtredare() {
+		return ansvarigUtredare;
+	}
+
+	public EavropDTO setIsIntygComplete(Boolean approved) {
+		this.isCompleted = approved;
+		return this;
+	}
+	
+	public Boolean getIsCompleted() {
+		return isCompleted;
 	}
 }

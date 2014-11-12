@@ -52,7 +52,7 @@ public class ITEavropRestControllerTest {
 	}
 	
 	@Test
-	public void loggedInasLandstingSamordnare() throws Exception{
+	public void loggedInasLandstingSamordnareNotAccepted() throws Exception{
 		this.currentUserService.getCurrentUser().setActiveRole(Role.LANDSTINGSSAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 		
@@ -75,16 +75,133 @@ public class ITEavropRestControllerTest {
 	}
 	
 	@Test
-	public void getEavropEvents() throws Exception{
+	public void loggedInasLandstingSamordnareAccepted() throws Exception{
 		this.currentUserService.getCurrentUser().setActiveRole(Role.LANDSTINGSSAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 		
+		DateTime startDate = new DateTime(1990,1,1,0,0,0);
+		DateTime endDate = new DateTime(2990,1,1,0,0,0);
 		MvcResult result = restMock.perform(get(
-				"/app/rest/eavrop/1/events")
+				"/app/rest/eavrop"
+				+ "/fromdate/" + startDate.getMillis()
+				+ "/todate/" + endDate.getMillis()
+				+"/status/ACCEPTED"
+				+ "/page/0"
+				+ "/pagesize/10"
+				+ "/sortkey/arendeId"
+				+ "/sortorder/ASC")
                 .accept(MediaType.APPLICATION_JSON)) 
                 .andExpect(status().isOk())
                 .andReturn();
 		result.getResponse().setCharacterEncoding("UTF-8");
 		log.debug(result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void loggedInasLandstingSamordnareCompleted() throws Exception{
+		this.currentUserService.getCurrentUser().setActiveRole(Role.LANDSTINGSSAMORDNARE);
+		this.currentUserService.getCurrentUser().setLandstingCode(1);
+		
+		DateTime startDate = new DateTime(1990,1,1,0,0,0);
+		DateTime endDate = new DateTime(2990,1,1,0,0,0);
+		MvcResult result = restMock.perform(get(
+				"/app/rest/eavrop"
+				+ "/fromdate/" + startDate.getMillis()
+				+ "/todate/" + endDate.getMillis()
+				+"/status/COMPLETED"
+				+ "/page/0"
+				+ "/pagesize/10"
+				+ "/sortkey/arendeId"
+				+ "/sortorder/ASC")
+                .accept(MediaType.APPLICATION_JSON)) 
+                .andExpect(status().isOk())
+                .andReturn();
+		result.getResponse().setCharacterEncoding("UTF-8");
+		log.debug(result.getResponse().getContentAsString());
+	}
+	
+	
+	@Test
+	public void loggedInasUtredareNotAccepted() throws Exception{
+		this.currentUserService.getCurrentUser().setActiveRole(Role.UTREDARE);
+		this.currentUserService.getCurrentUser().setLandstingCode(1);
+		
+		DateTime startDate = new DateTime(1990,1,1,0,0,0);
+		DateTime endDate = new DateTime(2990,1,1,0,0,0);
+		MvcResult result = restMock.perform(get(
+				"/app/rest/eavrop"
+				+ "/fromdate/" + startDate.getMillis()
+				+ "/todate/" + endDate.getMillis()
+				+"/status/NOT_ACCEPTED"
+				+ "/page/0"
+				+ "/pagesize/10"
+				+ "/sortkey/arendeId"
+				+ "/sortorder/ASC")
+                .accept(MediaType.APPLICATION_JSON)) 
+                .andExpect(status().isOk())
+                .andReturn();
+		result.getResponse().setCharacterEncoding("UTF-8");
+		log.debug(result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void loggedInasUtredareAccepted() throws Exception{
+		this.currentUserService.getCurrentUser().setActiveRole(Role.UTREDARE);
+		this.currentUserService.getCurrentUser().setLandstingCode(1);
+		
+		DateTime startDate = new DateTime(1990,1,1,0,0,0);
+		DateTime endDate = new DateTime(2990,1,1,0,0,0);
+		MvcResult result = restMock.perform(get(
+				"/app/rest/eavrop"
+				+ "/fromdate/" + startDate.getMillis()
+				+ "/todate/" + endDate.getMillis()
+				+"/status/ACCEPTED"
+				+ "/page/0"
+				+ "/pagesize/10"
+				+ "/sortkey/arendeId"
+				+ "/sortorder/ASC")
+                .accept(MediaType.APPLICATION_JSON)) 
+                .andExpect(status().isOk())
+                .andReturn();
+		result.getResponse().setCharacterEncoding("UTF-8");
+		log.debug(result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void loggedInasUtredareCompleted() throws Exception{
+		this.currentUserService.getCurrentUser().setActiveRole(Role.UTREDARE);
+		this.currentUserService.getCurrentUser().setLandstingCode(1);
+		
+		DateTime startDate = new DateTime(1990,1,1,0,0,0);
+		DateTime endDate = new DateTime(2990,1,1,0,0,0);
+		MvcResult result = restMock.perform(get(
+				"/app/rest/eavrop"
+				+ "/fromdate/" + startDate.getMillis()
+				+ "/todate/" + endDate.getMillis()
+				+"/status/COMPLETED"
+				+ "/page/0"
+				+ "/pagesize/10"
+				+ "/sortkey/arendeId"
+				+ "/sortorder/ASC")
+                .accept(MediaType.APPLICATION_JSON)) 
+                .andExpect(status().isOk())
+                .andReturn();
+		result.getResponse().setCharacterEncoding("UTF-8");
+		log.debug(result.getResponse().getContentAsString());
+	}
+	
+	
+	@Test
+	public void getEavropEvents() throws Exception{
+//		this.currentUserService.getCurrentUser().setActiveRole(Role.LANDSTINGSSAMORDNARE);
+//		this.currentUserService.getCurrentUser().setLandstingCode(1);
+//		
+//		MvcResult result = restMock.perform(get(
+//				"/app/rest/eavrop/1/events")
+//                .accept(MediaType.APPLICATION_JSON)) 
+//                .andExpect(status().isOk())
+//                .andReturn();
+//		result.getResponse().setCharacterEncoding("UTF-8");
+//		log.debug(result.getResponse().getContentAsString());
 	}
 }

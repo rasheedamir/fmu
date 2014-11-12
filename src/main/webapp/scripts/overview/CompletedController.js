@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('fmuClientApp')
-    .controller('CompletedController', ['$scope', 'AuthService', 'EAVROP_STATUS',
-        function ($scope, AuthService, EAVROP_STATUS) {
+    .controller('CompletedController', ['$scope', '$filter', 'AuthService', 'EAVROP_STATUS', 'EAVROP_TABLE',
+        function ($scope, $filter, AuthService, EAVROP_STATUS, EAVROP_TABLE) {
             $scope.authService = AuthService;
             $scope.dateKey = 'creationTime';
             $scope.startDate = new Date();
@@ -44,7 +44,7 @@ angular.module('fmuClientApp')
                     restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']
                 },
                 {
-                    key: 'utredareAnsvarig',
+                    key: 'ansvarigUtredare',
                     name: 'Utredare, ansvarig',
                     restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']
                 },
@@ -88,5 +88,16 @@ angular.module('fmuClientApp')
             ];
 
             $scope.dateDescription = 'Datumen utgår från det datum då intyg levererats';
+
+            $scope.getTableCellValue = function (key, rowData) {
+                switch (key) {
+                    case 'dateIntygDelivered':
+                        return $filter('date')(rowData[key], EAVROP_TABLE.dateFormat);
+                    case 'isCompleted':
+                        return EAVROP_TABLE.isCompletedMapping[rowData[key]];
+                    default:
+                        return rowData[key];
+                }
+            }
         }
     ]);

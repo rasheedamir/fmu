@@ -34,13 +34,14 @@ public class DTOMapper {
 		.setNrOfDaysAfterStart(eavrop.getNumberOfDaysUsedDuringAssessment())
 		
 		.setAntalDagarFromStartToAccepted(eavrop.getNoOfAssesmentDays())
-//		.setAntalDagarFromKompleteringBegarToBestallaren()
+		.setAntalDagarFromKompleteringBegarToBestallaren(eavrop.getNoOfDaysUsedForLastComplementRequest())
 		.setUtredareOrganisation(eavrop.getCurrentAssignedVardgivarenhet() != null ?
 				eavrop.getCurrentAssignedVardgivarenhet().getVardgivare().getName() : null)
-//		.setUtredareAnsvarigNamn(eavrop.get)
+//		.setUtredareAnsvarigNamn(eavrop.getIntygSigningPerson() != null ?
+//				eavrop.getIntygSigningPerson().getName() :  null)
 		.setIntygDeliveredDate(eavrop.getIntygSignedDateTime() != null ?
 				eavrop.getIntygSignedDateTime().getMillis() : null)
-//		.setIsIntygComplete()
+		.setIsIntygComplete(eavrop.isApproved())
 		.setEavropApprovedForPayment(eavrop.getEavropCompensationApproval() != null ?
 				eavrop.getEavropCompensationApproval().isApproved() : null)
 		.setEavropApprovalDatetime(eavrop.getEavropCompensationApproval() != null 

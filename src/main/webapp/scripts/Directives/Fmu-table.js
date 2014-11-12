@@ -1,7 +1,7 @@
 'use strict';
 angular.module('fmuClientApp')
-    .directive('fmuTable', ['ngTableParams', '$filter', 'EavropService', 'EAVROP_TABLE',
-        function (ngTableParams, $filter, EavropService, EAVROP_TABLE) {
+    .directive('fmuTable', ['ngTableParams', '$filter', 'EavropService',
+        function (ngTableParams, $filter, EavropService) {
             return {
                 restrict: 'E',
                 scope: {
@@ -12,7 +12,8 @@ angular.module('fmuClientApp')
                     footerHints: '=?',
                     startDate: '=?',
                     endDate: '=?',
-                    eavropStatus: '=?'
+                    eavropStatus: '=?',
+                    getDataCallback: '&'
                 },
                 controller: function ($scope) {
                     $scope.sort = function (key) {
@@ -20,15 +21,6 @@ angular.module('fmuClientApp')
                         params[key] = $scope.tableParams.isSortBy(key, 'asc') ? 'desc' : 'asc';
                         $scope.tableParams.sorting(params);
                         $scope.currentSortKey = key;
-                    };
-
-                    $scope.getValue = function (key, eavrop) {
-                        switch (key) {
-                            case $scope.dateKey:
-                                return $filter('date')(eavrop[key], EAVROP_TABLE.dateFormat);
-                            default:
-                                return eavrop[key];
-                        }
                     };
 
                     $scope.initTableParameters = function () {
@@ -45,9 +37,9 @@ angular.module('fmuClientApp')
                                             $scope.startDate ? $scope.startDate : null,
                                             $scope.endDate ? $scope.endDate : null,
                                             $scope.eavropStatus ? $scope.eavropStatus : null,
-                                            params.page() - 1,
+                                                params.page() - 1,
                                             params.count(),
-                                            $scope.currentSortKey ? EAVROP_TABLE.sortKeyMap [$scope.currentSortKey]: 'arendeId',
+                                            $scope.currentSortKey ? EAVROP_TABLE.sortKeyMap [$scope.currentSortKey] : 'arendeId',
                                             params.sorting()[$scope.currentSortKey] ? params.sorting()[$scope.currentSortKey].toUpperCase() : 'ASC'
                                         );
 
@@ -64,6 +56,10 @@ angular.module('fmuClientApp')
                     };
                 },
                 link: function (scope) {
+                    scope.getValue = function (key, row) {
+                        return scope.getDataCallback() ? scope.getDataCallback()(key, row) : row[key];
+                    };
+
                     scope.rowClicked = function (row) {
 
                     };

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('fmuClientApp')
-    .controller('OngoingController', ['$scope', 'AuthService', 'EAVROP_STATUS',
-        function ($scope, AuthService, EAVROP_STATUS) {
+    .controller('OngoingController', ['$scope', '$filter', 'AuthService', 'EAVROP_STATUS', 'EAVROP_TABLE',
+        function ($scope, $filter, AuthService, EAVROP_STATUS, EAVROP_TABLE) {
             $scope.authService = AuthService;
             $scope.startDate = new Date();
             $scope.endDate = new Date();
@@ -90,5 +90,17 @@ angular.module('fmuClientApp')
             ];
 
             $scope.datePickerDescription = 'Datumen utgår från det datum då utredningen startat';
+
+            $scope.getTableCellValue = function (key, rowData) {
+                switch (key) {
+                    case 'startDate':
+                        return $filter('date')(rowData[key], EAVROP_TABLE.dateFormat);
+                    case 'status':
+                        return EAVROP_TABLE.statusMapping[rowData[key]];
+                    default:
+                        return rowData[key];
+                }
+            }
+            
         }
     ]);

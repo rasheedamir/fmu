@@ -26,10 +26,23 @@ angular.module('fmuClientApp')
             antalDagarEfterForfragan : null,
             color : null,
             avikelser: null
+        },
+        statusMapping: {
+            UNASSIGNED: 'Förfrågan om utredning har inkommit',
+            ASSIGNED: 'Förfrågan tilldelas, inväntar acceptans',
+            ACCEPTED: 'Förfrågan accepterade',
+            ON_HOLD: 'Utredningen väntar',
+            SENT: 'Sent ???',
+            APPROVED: 'Utredningen godkänts av beställare',
+            CLOSED: 'Utredningen är avslutad'
+        },
+        isCompletedMapping: {
+            true: 'Ja',
+            false: 'Nej'
         }
     })
     .constant('EAVROP_STATUS', {
         notAccepted: 'NOT_ACCEPTED',
         accepted: 'ACCEPTED',
-        completed: 'COMPLETED'
+        completed: 'COMPLETED',
     });
