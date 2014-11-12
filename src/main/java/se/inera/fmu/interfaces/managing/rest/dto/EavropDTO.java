@@ -34,6 +34,8 @@ public class EavropDTO {
 
 	private String color;
 	
+	private String startDate;
+	
     public EavropDTO() {
     }
 
@@ -153,5 +155,14 @@ public class EavropDTO {
 	
 	public String getEavropId() {
 		return eavropId;
+	}
+	
+	public String getStartDate() {
+		return startDate;
+	}
+	
+	public EavropDTO setStartDate(String startDate) {
+		this.startDate = startDate;
+		return this;
 	}
 }
