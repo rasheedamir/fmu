@@ -512,7 +512,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.getEavropState().rejectEavropAssignment(this);
 	}
 
-	protected EavropAssignment getCurrentAssignment() {
+	public EavropAssignment getCurrentAssignment() {
 		return currentAssignment;
 	}
 
