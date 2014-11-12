@@ -10,8 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
-import se.inera.fmu.domain.model.eavrop.note.Note;
 import lombok.ToString;
+import se.inera.fmu.domain.model.eavrop.note.Note;
 
 @Embeddable
 @ToString

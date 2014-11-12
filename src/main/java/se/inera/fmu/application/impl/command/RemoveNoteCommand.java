@@ -2,26 +2,19 @@ package se.inera.fmu.application.impl.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NonNull;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
-import se.inera.fmu.domain.model.eavrop.EavropId;
+import se.inera.fmu.domain.model.eavrop.note.NoteId;
 
 
 /**
- * Created by Rasheed on 11/4/14.
+ * Created by Rickard on 11/12/14.
  *
- * Command to create a new eavrop.
+ * Command remove a note from an eavrop.
  */
 @Getter
-@Setter
 @AllArgsConstructor
 public class RemoveNoteCommand {
-	private ArendeId arendeId;
-	private String documentName;
-	private String personName;
-    private String personRole;
-    private String personOrganisation;
-    private String personUnit;
-    private String personPhone;
-    private String personEmail;
+	@NonNull private ArendeId arendeId;
+	@NonNull private NoteId noteId;
 }

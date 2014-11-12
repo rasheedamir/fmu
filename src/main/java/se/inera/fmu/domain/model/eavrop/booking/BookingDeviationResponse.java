@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
+import lombok.ToString;
+
 import org.apache.commons.lang3.Validate;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -17,7 +19,6 @@ import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
 import se.inera.fmu.domain.model.eavrop.EavropEventDTOType;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
-import lombok.ToString;
 
 @Embeddable
 @ToString

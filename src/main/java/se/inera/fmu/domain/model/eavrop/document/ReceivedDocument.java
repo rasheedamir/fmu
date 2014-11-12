@@ -3,13 +3,12 @@ package se.inera.fmu.domain.model.eavrop.document;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+
+import lombok.ToString;
 
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.person.Person;
-import lombok.ToString;
 
 @Entity
 @DiscriminatorValue("RECEIVED")

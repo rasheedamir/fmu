@@ -1,5 +1,16 @@
 package se.inera.fmu.domain.model.eavrop.invanare;
 
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import lombok.ToString;
 
 import org.hibernate.validator.constraints.Email;
@@ -9,9 +20,6 @@ import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 /**
  * Created by Rasheed on 7/23/14.

@@ -3,7 +3,6 @@ package se.inera.fmu.application.impl;
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
-import org.apache.commons.lang.Validate;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
@@ -57,8 +56,6 @@ public class EavropDocumentServiceImpl implements EavropDocumentService {
 
 	@Override
 	public void addReceivedExternalDocument(AddReceivedExternalDocumentCommand aCommand) {
-		validateAddReceivedExternalDocumentCommand(aCommand);
-		
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		LocalDate startDate = eavrop.getStartDate();
 		
@@ -75,7 +72,6 @@ public class EavropDocumentServiceImpl implements EavropDocumentService {
 
 	@Override
 	public void addReceivedInternalDocument(AddReceivedInternalDocumentCommand aCommand) {
-		validateAddReceivedInternalDocumentCommand(aCommand);
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		HoSPerson person = new HoSPerson(aCommand.getPersonName(),  aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
 		ReceivedDocument document = new ReceivedDocument(aCommand.getDocumentName(), person, Boolean.FALSE);
@@ -84,26 +80,9 @@ public class EavropDocumentServiceImpl implements EavropDocumentService {
 	
 	@Override
 	public void addRequestedDocument(AddRequestedDocumentCommand aCommand) {
-		validateAddRequestedDocumentCommand(aCommand);
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		HoSPerson person = new HoSPerson(aCommand.getPersonName(),  aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
 		RequestedDocument document = new RequestedDocument(aCommand.getDocumentName(), person);
-	}
-
-
-	private void validateAddReceivedExternalDocumentCommand(AddReceivedExternalDocumentCommand command){
-		Validate.notNull(command.getArendeId());
-		Validate.notNull(command.getDocumentName());
-	}
-
-	private void validateAddReceivedInternalDocumentCommand(AddReceivedInternalDocumentCommand command){
-		Validate.notNull(command.getEavropId());
-		Validate.notNull(command.getDocumentName());
-	}
-	
-	private void validateAddRequestedDocumentCommand(AddRequestedDocumentCommand command) {
-		Validate.notNull(command.getEavropId());
-		Validate.notNull(command.getDocumentName());
 	}
 
 	private Eavrop getEavropByEavropId(EavropId eavropId) throws EntityNotFoundException{
@@ -134,6 +113,4 @@ public class EavropDocumentServiceImpl implements EavropDocumentService {
         }
 		getDomainEventPublisher().post(event);
 	}
-
-	
 }

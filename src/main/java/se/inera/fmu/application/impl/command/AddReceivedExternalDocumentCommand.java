@@ -2,22 +2,20 @@ package se.inera.fmu.application.impl.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NonNull;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
-import se.inera.fmu.domain.model.eavrop.EavropId;
 
 
 /**
- * Created by Rasheed on 11/4/14.
+ * Created by Rickard on 11/12/14.
  *
- * Command to create a new eavrop.
+ * Command to add externally received information about documentation.
  */
 @Getter
-@Setter
 @AllArgsConstructor
 public class AddReceivedExternalDocumentCommand {
-	private ArendeId arendeId;
-	private String documentName;
+	@NonNull private ArendeId arendeId;
+	@NonNull private String documentName;
 	private String personName;
     private String personRole;
     private String personOrganisation;

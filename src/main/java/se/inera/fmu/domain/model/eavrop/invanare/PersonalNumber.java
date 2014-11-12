@@ -1,11 +1,12 @@
 package se.inera.fmu.domain.model.eavrop.invanare;
 
-import lombok.ToString;
-import se.inera.fmu.domain.shared.ValueObject;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import java.io.Serializable;
+
+import lombok.ToString;
+import se.inera.fmu.domain.shared.ValueObject;
 
 /**
  * Created by Rasheed on 7/26/14.

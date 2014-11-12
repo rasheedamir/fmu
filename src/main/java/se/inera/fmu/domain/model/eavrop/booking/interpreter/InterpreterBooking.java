@@ -9,14 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
-import org.joda.time.DateTime;
-
-import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
-import se.inera.fmu.domain.model.eavrop.EavropEventDTOType;
 import se.inera.fmu.domain.model.eavrop.InterpreterBookingEventDTO;
-import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.note.Note;
-import se.inera.fmu.domain.model.person.Person;
 
 @Embeddable
 public class InterpreterBooking {

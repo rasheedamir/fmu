@@ -1,14 +1,13 @@
 package se.inera.fmu.domain.model.systemparameter;
 
+import static se.inera.fmu.application.util.StringUtils.isBlankOrNull;
+import static se.inera.fmu.application.util.StringUtils.safeTrimToNullIfBlank;
+
 import java.io.File;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Component;
-
-import static se.inera.fmu.application.util.StringUtils.isBlankOrNull;
-import static se.inera.fmu.application.util.StringUtils.safeTrim;
-import static se.inera.fmu.application.util.StringUtils.safeTrimToNullIfBlank;
 
 
 /**

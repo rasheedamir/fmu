@@ -1,25 +1,24 @@
 package se.inera.fmu.application.impl.command;
 
-import org.joda.time.DateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NonNull;
+
+import org.joda.time.DateTime;
+
 import se.inera.fmu.domain.model.eavrop.ArendeId;
-import se.inera.fmu.domain.model.eavrop.EavropId;
 
 
 /**
- * Created by Rasheed on 11/4/14.
+ * Created by Rickard on 11/12/14.
  *
- * Command to create a new eavrop.
+ * Command to add information complement request on an intyg connected to a eavrop.
  */
 @Getter
-@Setter
-@AllArgsConstructor
+@AllArgsConstructor()
 public class AddIntygComplementRequestCommand {
-	private ArendeId arendeId;
-	private DateTime intygComplementRequestDateTime;
+	@NonNull private ArendeId arendeId;
+	@NonNull private DateTime intygComplementRequestDateTime;
 	private String personName;
     private String personRole;
     private String personOrganisation;

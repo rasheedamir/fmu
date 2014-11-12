@@ -1,15 +1,18 @@
 package se.inera.fmu.application.impl.command;
 
-import se.inera.fmu.domain.model.eavrop.EavropId;
-import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
-
+import lombok.NonNull;
+import se.inera.fmu.domain.model.eavrop.EavropId;
+import se.inera.fmu.domain.model.hos.hsa.HsaId;
+/**
+ * Created by Rickard on 11/12/14.
+ *
+ * Command to assign an eavrop to a vardgivarenhet.
+ */
 @Getter
-@Setter
 @AllArgsConstructor
 public class AssignEavropCommand {
-	private EavropId eavropId;
-	private HsaId hsaId;
+	@NonNull private EavropId eavropId;
+	@NonNull private HsaId hsaId;
 }

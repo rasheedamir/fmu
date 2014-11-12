@@ -11,6 +11,4 @@ public interface EavropApprovalService {
 	public void approveEavrop(ApproveEavropCommand approveCommand);
 
 	public void approveEavropCompensation(ApproveEavropCompensationCommand approveCommand);
-
-	
 }

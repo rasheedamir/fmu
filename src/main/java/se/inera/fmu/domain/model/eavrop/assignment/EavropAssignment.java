@@ -17,7 +17,6 @@ import org.apache.commons.lang.Validate;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.application.util.BusinessDaysUtil;
-import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;

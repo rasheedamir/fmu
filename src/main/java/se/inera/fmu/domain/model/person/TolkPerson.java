@@ -1,8 +1,6 @@
 package se.inera.fmu.domain.model.person;
 
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 
 import lombok.ToString;
 

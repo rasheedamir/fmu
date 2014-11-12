@@ -1,11 +1,12 @@
 package se.inera.fmu.domain.model.eavrop.properties;
 
-import org.apache.commons.lang3.Validate;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import lombok.ToString;
+
+import org.apache.commons.lang3.Validate;
+
 import se.inera.fmu.domain.shared.ValueObject;
 
 @Embeddable

@@ -1,6 +1,5 @@
 package se.inera.fmu.domain.model.eavrop;
 
-import se.inera.fmu.domain.model.eavrop.AcceptedEavropState;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
 
 /*

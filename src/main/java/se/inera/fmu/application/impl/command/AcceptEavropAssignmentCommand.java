@@ -1,28 +1,19 @@
 package se.inera.fmu.application.impl.command;
 
-import org.apache.commons.lang.Validate;
-
-import se.inera.fmu.domain.model.eavrop.EavropId;
-import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
-
+import lombok.NonNull;
+import se.inera.fmu.domain.model.eavrop.EavropId;
+import se.inera.fmu.domain.model.hos.hsa.HsaId;
+/**
+ * Created by Rickard on 11/12/14.
+ *
+ * Command to accept the assignment of an eavrop.
+ */
 @Getter
+@AllArgsConstructor
 public class AcceptEavropAssignmentCommand {
-	private EavropId eavropId;
-	private HsaId hsaId;
+	@NonNull private EavropId eavropId;
+	@NonNull private HsaId hsaId;
 	
-	public AcceptEavropAssignmentCommand(EavropId eavropId, HsaId hsaId) {
-		super();
-		this.eavropId = eavropId;
-		this.hsaId = hsaId;
-		validate();
-	}
-	
-	private void validate(){
-		Validate.notNull(this.eavropId);
-		Validate.notNull(this.hsaId);
-	}
-
 }

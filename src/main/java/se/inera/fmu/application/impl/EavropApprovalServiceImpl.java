@@ -3,7 +3,6 @@ package se.inera.fmu.application.impl;
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
-import org.apache.commons.lang.Validate;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,7 +90,7 @@ public class EavropApprovalServiceImpl implements EavropApprovalService {
 			note = new Note(NoteType.APPROVAL,aCommand.getComment(), person);
 		}
 		
-		 EavropCompensationApproval eavropCompensationApproval = new EavropCompensationApproval(aCommand.isApproved(), aCommand.getApproveDateTime(), person, note);
+		 EavropCompensationApproval eavropCompensationApproval = new EavropCompensationApproval(aCommand.getApproved(), aCommand.getApproveDateTime(), person, note);
 		
 		 eavrop.approveEavropCompensation(eavropCompensationApproval);
 
@@ -101,16 +100,6 @@ public class EavropApprovalServiceImpl implements EavropApprovalService {
 		
 		handleEavropCompensationApproval(eavrop.getEavropId(), aCommand.getApproveDateTime());
 		
-	}
-
-	private void validateApproveEavropCommand(ApproveEavropCommand command){
-		Validate.notNull(command.getArendeId());
-		Validate.notNull(command.getApproveDateTime());
-	}
-
-	private void validateApproveEavropCompensationCommand(ApproveEavropCompensationCommand command){
-		Validate.notNull(command.getArendeId());
-		Validate.notNull(command.getApproveDateTime());
 	}
 
 	private Eavrop getEavropByArendeId(ArendeId arendeId){

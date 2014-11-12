@@ -1,10 +1,12 @@
 package se.inera.fmu.application.impl;
 
-import com.google.common.eventbus.AsyncEventBus;
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Component;
+
 import se.inera.fmu.application.DomainEventPublisher;
 
-import javax.inject.Inject;
+import com.google.common.eventbus.AsyncEventBus;
 
 /**
  * Created by Rasheed on 11/5/14.

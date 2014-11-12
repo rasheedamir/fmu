@@ -3,7 +3,6 @@ package se.inera.fmu.application.impl;
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
-import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -41,7 +40,6 @@ public class EavropAssignmentServiceImpl implements EavropAssignmentService {
     private final EavropRepository eavropRepository;
     private final VardgivarenhetRepository vardgivarenhetRepository;
     private final DomainEventPublisher domainEventPublisher;
-    
 
     /**
      * Constructor
@@ -57,8 +55,6 @@ public class EavropAssignmentServiceImpl implements EavropAssignmentService {
 	
 	@Override
 	public void assignEavropToVardgivarenhet(AssignEavropCommand aCommand) throws EntityNotFoundException, IllegalArgumentException{
-		validateAssignEavropCommand(aCommand);
-		
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		Vardgivarenhet vardgivarenhet = getVardgivarenhetByHsaId(aCommand.getHsaId());
 
@@ -87,8 +83,6 @@ public class EavropAssignmentServiceImpl implements EavropAssignmentService {
 
 	@Override
 	public void rejectEavropAssignment(RejectEavropAssignmentCommand aCommand)  throws EntityNotFoundException, IllegalArgumentException{
-		validateRejectEavropAssignmentCommand(aCommand);
-		
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		Vardgivarenhet vardgivarenhet = getVardgivarenhetByHsaId(aCommand.getHsaId());
 
@@ -99,16 +93,6 @@ public class EavropAssignmentServiceImpl implements EavropAssignmentService {
 		log.debug(String.format("Eavrop %s rejected  by :: %s", aCommand.getEavropId().toString(), aCommand.getHsaId().toString()));
 		
 		handleEavropRejected(aCommand.getEavropId(), aCommand.getHsaId());
-	}
-	
-	private void validateAssignEavropCommand(AssignEavropCommand command){
-		Validate.notNull(command.getEavropId());
-		Validate.notNull(command.getHsaId());
-	}
-
-	private void validateRejectEavropAssignmentCommand(RejectEavropAssignmentCommand command){
-		Validate.notNull(command.getEavropId());
-		Validate.notNull(command.getHsaId());
 	}
 
 	private Eavrop getEavropByEavropId(EavropId eavropId) throws EntityNotFoundException{

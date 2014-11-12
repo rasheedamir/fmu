@@ -2,18 +2,21 @@ package se.inera.fmu.application.impl.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NonNull;
 
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.ArendeId;
-
+/**
+ * Created by Rickard on 11/12/14.
+ *
+ * Command to approve an eavrop.
+ */
 @Getter
-@Setter
 @AllArgsConstructor
 public class ApproveEavropCommand {
-	private ArendeId arendeId;
-	private DateTime approveDateTime;
+	@NonNull private ArendeId arendeId;
+	@NonNull private DateTime approveDateTime;
 	private String comment;
 	private String personName;
     private String personRole;

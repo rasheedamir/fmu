@@ -2,14 +2,6 @@ package se.inera.fmu.domain.model.eavrop;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-
-import se.inera.fmu.domain.model.eavrop.AcceptedEavropState;
-import se.inera.fmu.domain.model.eavrop.ApprovedEavropState;
-import se.inera.fmu.domain.model.eavrop.AssignedEavropState;
-import se.inera.fmu.domain.model.eavrop.ClosedEavropState;
-import se.inera.fmu.domain.model.eavrop.EavropState;
-import se.inera.fmu.domain.model.eavrop.OnHoldEavropState;
-import se.inera.fmu.domain.model.eavrop.UnassignedEavropState;
 @Converter
 public class EavropStateConverter implements AttributeConverter<EavropState, String> {
 

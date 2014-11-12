@@ -3,9 +3,10 @@ package se.inera.fmu.domain.model.eavrop.document;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import lombok.ToString;
+
 import org.joda.time.DateTime;
 
-import lombok.ToString;
 import se.inera.fmu.domain.model.person.Person;
 
 @Entity

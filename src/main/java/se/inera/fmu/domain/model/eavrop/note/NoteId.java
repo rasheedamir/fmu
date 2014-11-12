@@ -1,13 +1,9 @@
 package se.inera.fmu.domain.model.eavrop.note;
 
 import java.io.Serializable;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
 
 import se.inera.fmu.domain.shared.ValueObject;
 

@@ -3,7 +3,6 @@ package se.inera.fmu.domain.model.eavrop.document;
 import org.apache.commons.lang.Validate;
 import org.joda.time.DateTime;
 
-import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropEvent;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 

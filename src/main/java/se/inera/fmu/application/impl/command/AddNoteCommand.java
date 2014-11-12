@@ -2,22 +2,20 @@ package se.inera.fmu.application.impl.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
-import se.inera.fmu.domain.model.eavrop.ArendeId;
+import lombok.NonNull;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 
 
 /**
- * Created by Rasheed on 11/4/14.
+ * Created by Rickard on 11/12/14.
  *
- * Command to create a new eavrop.
+ * Command to add a note to an eavrop.
  */
 @Getter
-@Setter
 @AllArgsConstructor
 public class AddNoteCommand {
-	private EavropId eavropId;
-	private String text;
+	@NonNull private EavropId eavropId;
+	@NonNull private String text;
 	private String personName;
     private String personRole;
     private String personOrganisation;

@@ -1,25 +1,24 @@
 package se.inera.fmu.application.impl.command;
 
-import org.joda.time.DateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NonNull;
+
+import org.joda.time.DateTime;
+
 import se.inera.fmu.domain.model.eavrop.ArendeId;
-import se.inera.fmu.domain.model.eavrop.EavropId;
 
 
 /**
- * Created by Rasheed on 11/4/14.
+ * Created by Rickard on 11/12/14.
  *
- * Command to create a new eavrop.
+ * Command to add information about signed intyg to eavrop.
  */
 @Getter
-@Setter
 @AllArgsConstructor
 public class AddIntygSignedCommand {
-	private ArendeId arendeId;
-	private DateTime intygSignedDateTime;
+	@NonNull private ArendeId arendeId;
+	@NonNull private DateTime intygSignedDateTime;
 	private String personName;
     private String personRole;
     private String personOrganisation;

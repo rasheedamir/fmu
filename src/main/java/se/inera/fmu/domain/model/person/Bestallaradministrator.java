@@ -3,10 +3,10 @@ package se.inera.fmu.domain.model.person;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import lombok.ToString;
+
 import org.apache.commons.lang.Validate;
 import org.hibernate.validator.constraints.Email;
-
-import lombok.ToString;
 
 @Entity
 @ToString

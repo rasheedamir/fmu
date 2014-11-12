@@ -1,12 +1,12 @@
 package se.inera.fmu.domain.model.shared;
 
-import lombok.ToString;
-import se.inera.fmu.domain.shared.ValueObject;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import lombok.ToString;
+import se.inera.fmu.domain.shared.ValueObject;
 
 /**
  * Created by Rasheed on 7/26/14.

@@ -1,29 +1,28 @@
 package se.inera.fmu.application.impl.command;
 
-import org.joda.time.DateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NonNull;
+
+import org.joda.time.DateTime;
+
 import se.inera.fmu.domain.model.eavrop.ArendeId;
-import se.inera.fmu.domain.model.eavrop.EavropId;
 
 
 /**
- * Created by Rasheed on 11/4/14.
+ * Created by Rickard on 11/12/14.
  *
- * Command to create a new eavrop.
+ * Command to add information about an intyg connected to an eavrop have been approved.
  */
 @Getter
-@Setter
 @AllArgsConstructor
 public class AddIntygApprovedCommand {
-	private ArendeId arendeId;
-	private DateTime intygApprovedDateTime;
+	@NonNull private ArendeId arendeId;
+	@NonNull private DateTime intygApprovedDateTime;
 	private String personName;
     private String personRole;
     private String personOrganisation;
     private String personUnit;
     private String personPhone;
-    private String personEmail;
+	private String personEmail;
 }

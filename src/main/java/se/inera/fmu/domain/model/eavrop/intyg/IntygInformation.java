@@ -14,13 +14,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.ToString;
+
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
-import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
-import lombok.ToString;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)

@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import lombok.ToString;
-
 import org.apache.commons.lang3.Validate;
 
 import se.inera.fmu.domain.model.hos.hsa.HsaBefattning;

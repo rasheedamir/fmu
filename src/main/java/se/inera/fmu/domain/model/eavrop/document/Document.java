@@ -6,10 +6,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -22,11 +18,10 @@ import lombok.ToString;
 
 import org.apache.commons.lang.Validate;
 import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.URL;
 import org.joda.time.DateTime;
 
+import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.person.Person;
-import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
 
 @Entity

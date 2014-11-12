@@ -1,15 +1,15 @@
 package se.inera.fmu.domain.model.eavrop;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import lombok.ToString;
 
 import org.apache.commons.lang3.Validate;
 
 import se.inera.fmu.domain.shared.ValueObject;
-
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  * Created by Rasheed on 7/7/14.

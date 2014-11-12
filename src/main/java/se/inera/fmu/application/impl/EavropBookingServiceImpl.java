@@ -3,7 +3,6 @@ package se.inera.fmu.application.impl;
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
-import org.apache.commons.lang.Validate;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,11 +28,8 @@ import se.inera.fmu.domain.model.eavrop.booking.BookingCreatedEvent;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationEvent;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
-import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationTypeUtil;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
-import se.inera.fmu.domain.model.eavrop.booking.BookingType;
-import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBooking;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingDeviationEvent;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 import se.inera.fmu.domain.model.eavrop.note.Note;
@@ -52,8 +48,7 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 
     private final EavropRepository eavropRepository;
     private final DomainEventPublisher domainEventPublisher;
-    
-
+ 
     /**
      * Constructor
      * @param eavropRepository
@@ -70,8 +65,6 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 	 */
 	@Override
 	public void createBooking(CreateBookingCommand aCommand){
-		validateCreateBookingCommand(aCommand);
-		
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		Person hosPerson = new HoSPerson(aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
 		
@@ -92,8 +85,6 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 	 */
 	@Override
 	public void changeBookingStatus(ChangeBookingStatusCommand aCommand){
-		validateChangeBookingStatusCommand(aCommand);
-		
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		BookingStatusType bookingStatus =aCommand.getBookingStatus();
 		
@@ -110,10 +101,11 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public void changeInterpreterBookingStatus(ChangeInterpreterBookingStatusCommand aCommand){
-		validateChangeInterpreterBookingStatusCommand(aCommand);
-		
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		InterpreterBookingStatusType interpreterBookingStatus = aCommand.getInterpreterbookingStatus();
 		
@@ -132,9 +124,6 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 
 	/**
 	 * 
-	 * @param arendeId
-	 * @param bookingId
-	 * @param bookingDeviationResponse
 	 */
 	@Override
 	public void addBookingDeviationResponse(AddBookingDeviationResponseCommand aCommand ){
@@ -159,25 +148,6 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 		}
 	}
 	
-	private void validateCreateBookingCommand(CreateBookingCommand command){
-		Validate.notNull(command.getEavropId());
-		Validate.notNull(command.getBookingType());
-		Validate.notNull(command.getBookingStartDateTime());
-		Validate.notNull(command.getBookingEndDateTime());
-	}
-
-	private void validateChangeBookingStatusCommand(ChangeBookingStatusCommand command){
-		Validate.notNull(command.getEavropId());
-		Validate.notNull(command.getBookingId());
-		Validate.notNull(command.getBookingStatus());
-	}
-	
-	private void validateChangeInterpreterBookingStatusCommand(ChangeInterpreterBookingStatusCommand command) {
-		Validate.notNull(command.getEavropId());
-		Validate.notNull(command.getBookingId());
-		Validate.notNull(command.getInterpreterbookingStatus());
-	}
-	
 	private Note createDeviationNote(String text, String name, String role, String organisation, String unit){
 		if(!StringUtils.isBlankOrNull(text)){
 			return null;
@@ -195,7 +165,6 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 		BookingDeviationResponseType bookingDeviationResponseType = BookingDeviationResponseType.valueOf(responseType);
 		
 		Person person = createBestallaradministrator(personName, personRole, personOrganistation, personUnit, personPhone, personEmail);
-		
 		Note note = createResponseNote(comment, person);
 
 		return new BookingDeviationResponse(bookingDeviationResponseType, responseTimestamp, person, note);
@@ -203,9 +172,7 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 	}
 	
 	private Bestallaradministrator createBestallaradministrator(String personName, String personRole, String personOrganistation, String personUnit, String personPhone, String personEmail){
-		
 		return new Bestallaradministrator(personName,  personRole, personOrganistation, personUnit, personPhone, personEmail);
-		
 	}
 
 	private Note createResponseNote(String comment, Person person) {

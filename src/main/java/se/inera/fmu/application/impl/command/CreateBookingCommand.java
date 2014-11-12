@@ -2,7 +2,7 @@ package se.inera.fmu.application.impl.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NonNull;
 
 import org.joda.time.DateTime;
 
@@ -10,21 +10,20 @@ import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 
 /**
- * Created by Rasheed on 11/4/14.
+ * Created by Rickard on 11/12/14.
  *
- * Command to create a new booking.
+ * Command create a booking on an eavrop.
  */
 @Getter
-@Setter
 @AllArgsConstructor
 public class CreateBookingCommand {
 
-    private EavropId eavropId;
-    private BookingType bookingType; 
-    private DateTime bookingStartDateTime; 
-    private DateTime bookingEndDateTime; 
-    private String personName;
-    private String personRole;
+    @NonNull private EavropId eavropId;
+    @NonNull private BookingType bookingType; 
+    @NonNull private DateTime bookingStartDateTime; 
+    @NonNull private DateTime bookingEndDateTime; 
+    @NonNull private String personName;
+    @NonNull private String personRole;
     private String personOrganisation;
     private String personUnit;
     private boolean useInterpreter; 

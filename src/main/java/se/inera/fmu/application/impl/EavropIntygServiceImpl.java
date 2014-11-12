@@ -3,7 +3,6 @@ package se.inera.fmu.application.impl;
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
-import org.apache.commons.lang.Validate;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +58,6 @@ public class EavropIntygServiceImpl implements EavropIntygService {
 
 	@Override
 	public void addIntygSignedInformation(AddIntygSignedCommand aCommand) {
-		validateAddIntygSignedCommand(aCommand);
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		
 		Bestallaradministrator person = null;
@@ -80,7 +78,6 @@ public class EavropIntygServiceImpl implements EavropIntygService {
 
 	@Override
 	public void addIntygComplementRequestInformation(AddIntygComplementRequestCommand aCommand) {
-		validateAddIntygComplementRequestCommand(aCommand);
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		
 		Bestallaradministrator person = null;
@@ -101,7 +98,6 @@ public class EavropIntygServiceImpl implements EavropIntygService {
 
 	@Override
 	public void addIntygApprovedInformation(AddIntygApprovedCommand aCommand) {
-		validateAddIntygApprovedCommand(aCommand);
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		
 		Bestallaradministrator person = null;
@@ -121,21 +117,6 @@ public class EavropIntygServiceImpl implements EavropIntygService {
 		
 	}
 
-	private void validateAddIntygSignedCommand(AddIntygSignedCommand command){
-		Validate.notNull(command.getArendeId());
-		Validate.notNull(command.getIntygSignedDateTime());
-	}
-
-	private void validateAddIntygComplementRequestCommand(AddIntygComplementRequestCommand command){
-		Validate.notNull(command.getArendeId());
-		Validate.notNull(command.getIntygComplementRequestDateTime());
-	}
-
-	private void validateAddIntygApprovedCommand(AddIntygApprovedCommand command){
-		Validate.notNull(command.getArendeId());
-		Validate.notNull(command.getIntygApprovedDateTime());
-	}
-	
 	private Eavrop getEavropByArendeId(ArendeId arendeId){
 		Eavrop eavrop = eavropRepository.findByArendeId(arendeId);
 		if(eavrop==null){

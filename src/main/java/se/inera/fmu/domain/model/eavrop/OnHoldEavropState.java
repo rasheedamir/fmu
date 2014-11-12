@@ -1,6 +1,5 @@
 package se.inera.fmu.domain.model.eavrop;
 
-import se.inera.fmu.domain.model.eavrop.ApprovedEavropState;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
