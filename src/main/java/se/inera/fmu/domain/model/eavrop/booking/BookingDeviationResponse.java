@@ -100,7 +100,6 @@ public class BookingDeviationResponse {
 		EavropEventDTOType type = (BookingDeviationResponseType.STOP.equals(getResponseType()))?EavropEventDTOType.BOOKING_DEVIATION_RESPONSE_STOP:EavropEventDTOType.BOOKING_DEVIATION_RESPONSE_RESTART;
 		String comment = (getDeviationResponseNote()!=null)?getDeviationResponseNote().getText():null;
 		
-		EavropEventDTO dto = new EavropEventDTO(type, this.responseTimestamp,null, comment, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit());
 		return (this.getPerson()!=null)?
 			new EavropEventDTO(type, this.responseTimestamp, null, comment, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
 			new EavropEventDTO(type, this.responseTimestamp, null, comment, null, null, null, null);

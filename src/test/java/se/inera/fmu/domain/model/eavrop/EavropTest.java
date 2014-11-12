@@ -13,6 +13,7 @@ import com.google.common.eventbus.AsyncEventBus;
 import junit.framework.TestCase;
 import se.inera.fmu.application.DomainEventPublisher;
 import se.inera.fmu.application.impl.DomainEventPublisherImpl;
+import se.inera.fmu.application.impl.command.AcceptEavropAssignmentCommand;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
@@ -294,6 +295,12 @@ public class EavropTest extends TestCase {
 		assertEquals(true, eavrop.isEavropAcceptDaysDeviated());
 		
 	}
+	
+	@Test
+	public void testCommand(){
+		AcceptEavropAssignmentCommand ac = new AcceptEavropAssignmentCommand(new EavropId("1234"), null);
+	}
+	
 		
 	@Test
 	public void  testEavropAssessment() {

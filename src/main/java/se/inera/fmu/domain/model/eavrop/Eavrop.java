@@ -956,8 +956,8 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	 * @return
 	 */
 	public Person getIntygSigningPerson(){
-		if(isintygSigned() && getAllIntygSignedInformation() != null && getAllIntygSignedInformation().get(0) !=null){
-			return getAllIntygSignedInformation().get(0).getPerson();
+		if(isintygSigned() && getAllIntygSignedInformation() != null && !getAllIntygSignedInformation().isEmpty()){
+			return getAllIntygSignedInformation().iterator().next().getPerson();
 		}
 		return null;
 	}
