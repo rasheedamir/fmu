@@ -4,6 +4,8 @@ import lombok.ToString;
 
 import org.joda.time.LocalDate;
 
+import se.inera.fmu.domain.model.eavrop.EavropApproval;
+import se.inera.fmu.domain.model.eavrop.EavropCompensationApproval;
 import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
 
@@ -40,6 +42,16 @@ public class EavropDTO {
 	private long startDate;
 
 	private Integer nrOfDaysSinceStart;
+
+	private Integer dagarFromStartToAccepted;
+
+	private String utredareOrganisation;
+
+	private long dateIntygDelivered;
+
+	private long eavropApprovalDatetime;
+
+	private boolean isEavropApprovedForPayment;
 	
     public EavropDTO() {
     }
@@ -178,5 +190,50 @@ public class EavropDTO {
 	
 	public Integer getNrOfDaysSinceStart() {
 		return nrOfDaysSinceStart;
+	}
+
+	public EavropDTO setAntalDagarFromStartToAccepted(Integer noOfAssesmentDays) {
+		this.dagarFromStartToAccepted = noOfAssesmentDays;
+		return this;
+	}
+	
+	public Integer getDagarFromStartToAccepted() {
+		return dagarFromStartToAccepted;
+	}
+
+	public EavropDTO setUtredareOrganisation(String name) {
+		this.utredareOrganisation = name;
+		return this;
+	}
+	
+	public String getUtredareOrganisation() {
+		return utredareOrganisation;
+	}
+
+	public EavropDTO setIntygDeliveredDate(long deliveredDate) {
+		this.dateIntygDelivered = deliveredDate;
+		return this;
+	}
+	
+	public long getDateIntygDelivered() {
+		return dateIntygDelivered;
+	}
+
+	public boolean isEavropApprovedForPayment() {
+		return isEavropApprovedForPayment;
+	}
+
+	public EavropDTO setEavropApprovedForPayment(boolean isEavropApprovedForPayment) {
+		this.isEavropApprovedForPayment = isEavropApprovedForPayment;
+		return this;
+	}
+
+	public long getEavropApprovalDatetime() {
+		return eavropApprovalDatetime;
+	}
+
+	public EavropDTO setEavropApprovalDatetime(long eavropApprovalDatetime) {
+		this.eavropApprovalDatetime = eavropApprovalDatetime;
+		return this;
 	}
 }

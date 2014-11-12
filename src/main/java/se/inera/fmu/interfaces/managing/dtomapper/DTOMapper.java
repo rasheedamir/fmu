@@ -24,6 +24,14 @@ public class DTOMapper {
 		.setStartDate(eavrop.getStartDate())
 		.setNrOfDaysAfterStart(eavrop.getNumberOfDaysUsedDuringAssessment())
 		
+		.setAntalDagarFromStartToAccepted(eavrop.getNoOfAssesmentDays())
+//		.setAntalDagarFromKompleteringBegarToBestallaren()
+		.setUtredareOrganisation(eavrop.getCurrentAssignedVardgivarenhet().getVardgivare().getName())
+//		.setUtredareAnsvarigNamn(eavrop.get)
+		.setIntygDeliveredDate(eavrop.getIntygSignedDateTime().getMillis())
+//		.setIsIntygComplete()
+		.setEavropApprovedForPayment(eavrop.getEavropCompensationApproval().isApproved())
+		.setEavropApprovalDatetime(eavrop.getEavropCompensationApproval().getCompensationDateTime().getMillis())
 		;
 		
 		return dto;

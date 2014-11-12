@@ -23,7 +23,7 @@ angular.module('fmuClientApp')
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                 },
                 {
-                    key: 'totalDaysPassed',
+                    key: 'dagarFromStartToAccepted',
                     name: 'Antal dgr klar',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                 },
@@ -39,7 +39,7 @@ angular.module('fmuClientApp')
                 },
 
                 {
-                    key: 'UtredareOrganisation',
+                    key: 'utredareOrganisation',
                     name: 'Utredare, organisation',
                     restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']
                 },
@@ -49,7 +49,7 @@ angular.module('fmuClientApp')
                     restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']
                 },
                 {
-                    key: 'dateDelivered',
+                    key: 'dateIntygDelivered',
                     name: 'Intyg levererades, datum',
                     restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']
                 },
@@ -59,7 +59,7 @@ angular.module('fmuClientApp')
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                 },
                 {
-                    key: 'approvedDate',
+                    key: 'compensationApprovedStatusAndDate',
                     name: 'Godkänd för ersättning',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                 }
