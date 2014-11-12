@@ -7,25 +7,25 @@
             <div class="col-md-3">
                 <div class="panel panel-default text-center summary-badge">
                     <div class="panel-heading"><strong>Förfrågan om utredning</strong></div>
-                    <div class="panel-body"><span class="summary-badge-text">{{currentEavrop.inquiryDate}}</span></div>
+                    <div class="panel-body"><span class="summary-badge-text">{{allevents.dateInquiry | date:'yyyy-MM-dd'}}</span></div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="panel panel-default text-center summary-badge">
                     <div class="panel-heading"><strong>Handlingar översändes</strong></div>
-                    <div class="panel-body"><span class="summary-badge-text">{{currentEavrop.documentsDeliveryDate}}</span></div>
+                    <div class="panel-body"><span class="summary-badge-text">{{allevents.documentsSent | date:'yyyy-MM-dd'}}</span></div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="panel panel-default text-center summary-badge">
                     <div class="panel-heading"><strong>Utredning antal dagar</strong></div>
-                    <div class="panel-body"><span class="summary-badge-text">{{currentEavrop.investigationNoDays}}</span></div>
+                    <div class="panel-body"><span class="summary-badge-text">{{allevents.investigationNoDays}}</span></div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="panel panel-default text-center summary-badge">
                     <div class="panel-heading"><strong>Begärda tillägg, handlingar</strong></div>
-                    <div class="panel-body"><span class="summary-badge-text">{{documents.length}}</span></div>
+                    <div class="panel-body"><span class="summary-badge-text">{{allevents.reqAmendmentsDocuments}}</span></div>
                 </div>
             </div>
         </div>
@@ -34,25 +34,25 @@
             <div class="col-md-3">
                 <div class="panel panel-default text-center summary-badge">
                     <div class="panel-heading"><strong>Acceptans av utredningen</strong></div>
-                    <div class="panel-body"><span class="summary-badge-text">{{currentEavrop.investigationAcceptedDate}}</span></div>
+                    <div class="panel-body"><span class="summary-badge-text">{{allevents.acceptanceDate | date:'yyyy-MM-dd'}}</span></div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="panel panel-default text-center summary-badge">
                     <div class="panel-heading"><strong>Intyg skickat till beställaren</strong></div>
-                    <div class="panel-body"><span class="summary-badge-text">{{currentEavrop.certificateSentDate}}</span></div>
+                    <div class="panel-body"><span class="summary-badge-text">{{allevents.certSentToOrdererDate |  date:'yyyy-MM-dd'}}</span></div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="panel panel-default text-center summary-badge">
                     <div class="panel-heading"><strong>Antal avvikelser</strong></div>
-                    <div class="panel-body"><span class="summary-badge-text">{{currentEavrop.noDeviations}}</span></div>
+                    <div class="panel-body"><span class="summary-badge-text">{{allevents.noDeviations}}</span></div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="panel panel-default text-center summary-badge">
                     <div class="panel-heading"><strong>Begärda kompletteringar till utredning</strong></div>
-                    <div class="panel-body"><span class="summary-badge-text">{{requestedDocuments.length}}</span></div>
+                    <div class="panel-body"><span class="summary-badge-text">{{allevents.reqAmendmentsInvestigation}}</span></div>
                 </div>
             </div>
         </div>

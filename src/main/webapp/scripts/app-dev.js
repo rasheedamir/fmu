@@ -71,9 +71,10 @@ angular.module('fmuClientAppDev').run(function($httpBackend){
         }
     }
     var EAVROP_PATTERN = /\/eavrop\/(\d+)/;
+    var EAVROP_PATTERN_ABS = /^\/eavrop\/(\d+)$/;
     var EAVROP_DOCUMENTS_PATTERN = /^\/eavrop\/(\d+)\/documents$/;
     var EAVROP_REQ_DOCUMENTS_PATTERN = /^\/eavrop\/(\d+)\/requested-documents$/;
-    var EAVROP_NOTES_PATTERN = /^\/eavrop\/(\d+)\/notes/;
+    var EAVROP_NOTES_PATTERN = /^\/eavrop\/(\d+)\/notes$/;
 
 
     $httpBackend.whenPOST(EAVROP_REQ_DOCUMENTS_PATTERN).respond(function(method, url, data){
@@ -104,11 +105,11 @@ angular.module('fmuClientAppDev').run(function($httpBackend){
         return [200, {}, {}];
     });
 
-    $httpBackend.whenGET(EAVROP_PATTERN).respond(function(method, url){
+    $httpBackend.whenGET(EAVROP_PATTERN_ABS).respond(function(method, url){
         var id = EAVROP_PATTERN.exec(url)[1];
         return [200, getEavropById(parseInt(id)), {}];
     });
-    $httpBackend.whenGET('/eavrop').respond(eavrops);
+    $httpBackend.whenGET(/^\/eavrop$/).respond(eavrops);
 });
 
 //Everything else should pass through to server

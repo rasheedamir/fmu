@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
+import se.inera.fmu.domain.model.eavrop.EavropId;
+import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidPageSize;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidateDate;
@@ -77,5 +79,10 @@ public class EavropResource {
 		
 		List<EavropEventDTO> retval = this.fmuOrderingService.getEavropEvents(eavropId);
 		return new ResponseEntity<List<EavropEventDTO>>(retval, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/rest/eavrop/{id}/all-events", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public AllEventsDTO getAllEvents(@PathVariable("id") String id){
+		return this.fmuOrderingService.getAllEvents(new EavropId(id));
 	}
 }
