@@ -48,7 +48,7 @@ angular.module('fmuClientApp')
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                 },
                 {
-                    key: 'daysPassed',
+                    key: 'nrOfDaysSinceStart',
                     name: 'Antal dagar från start',
                     restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
                 },
