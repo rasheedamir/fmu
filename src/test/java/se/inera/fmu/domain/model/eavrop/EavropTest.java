@@ -297,12 +297,6 @@ public class EavropTest extends TestCase {
 	}
 	
 	@Test
-	public void testCommand(){
-		AcceptEavropAssignmentCommand ac = new AcceptEavropAssignmentCommand(new EavropId("1234"), null);
-	}
-	
-		
-	@Test
 	public void  testEavropAssessment() {
 		
 		eavrop = EavropBuilder.eavrop()
