@@ -1,6 +1,9 @@
 package se.inera.fmu.interfaces.managing.rest.dto;
 
 import lombok.ToString;
+
+import org.joda.time.LocalDate;
+
 import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
 
@@ -34,7 +37,9 @@ public class EavropDTO {
 
 	private String color;
 	
-	private String startDate;
+	private long startDate;
+
+	private Integer nrOfDaysSinceStart;
 	
     public EavropDTO() {
     }
@@ -157,12 +162,21 @@ public class EavropDTO {
 		return eavropId;
 	}
 	
-	public String getStartDate() {
+	public long getStartDate() {
 		return startDate;
 	}
 	
-	public EavropDTO setStartDate(String startDate) {
-		this.startDate = startDate;
+	public EavropDTO setStartDate(LocalDate localDate) {
+		this.startDate = localDate.toDateTimeAtCurrentTime().getMillis();
 		return this;
+	}
+
+	public EavropDTO setNrOfDaysAfterStart(Integer numberOfDaysUsedDuringAssessment) {
+		this.nrOfDaysSinceStart = numberOfDaysUsedDuringAssessment;
+		return this;
+	}
+	
+	public Integer getNrOfDaysSinceStart() {
+		return nrOfDaysSinceStart;
 	}
 }
