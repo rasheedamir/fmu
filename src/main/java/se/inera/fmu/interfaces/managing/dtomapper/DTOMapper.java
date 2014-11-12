@@ -14,20 +14,20 @@ public class DTOMapper {
 		.setEavropId(eavrop.getEavropId().getId())
 		.setBestallareOrganisation(eavrop.getBestallaradministrator().getOrganisation())
 		.setLeverantorOrganisation(eavrop.getLandsting().getName())
-		.setAntalDagarEfterForfragan(eavrop.getNumberOfDaysUsedDuringAssessment())
+		.setAntalDagarEfterForfragan(eavrop.getNumberOFAcceptanceDaysFromOrderDate())
 		.setCreationTime(eavrop.getCreatedDate().getMillis())
 		.setPatientCity(eavrop.getInvanare().getHomeAddress().getCity())
 		.setUtredningType(eavrop.getUtredningType())
 		.setStatus(eavrop.getStatus())
 		.setBestallareEnhet(eavrop.getBestallaradministrator().getUnit())
 		.setAvikelser(eavrop.getNumberOfDeviationsOnEavrop())
-		.setRowColor(getRandomHexString(4));
+		.setRowColor(eavrop.isEavropAcceptDaysDeviated() ? "bg-danger": null);
 		
 		return dto;
 	}
 
 	// Random color string
-	private String getRandomHexString(int numchars){
+	private String getRandomHexString(int numchars) {
         Random r = new Random();
         StringBuffer sb = new StringBuffer();
         while(sb.length() < numchars){
@@ -36,4 +36,5 @@ public class DTOMapper {
 
         return "#10" + sb.toString().substring(0, numchars);
     }
+	
 }

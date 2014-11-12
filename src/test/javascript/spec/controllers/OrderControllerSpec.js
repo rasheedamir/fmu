@@ -330,7 +330,7 @@ describe('Controllers Tests ', function() {
             };
         }));
 
-        it('should call OrderService getEavrops', function() {
+        /*it('should call OrderService getEavrops', function() {
             createController();
             expect(scope.tableData).toBe(eavrops);
         });
@@ -338,7 +338,7 @@ describe('Controllers Tests ', function() {
         it('should return the right number of row', function() {
             createController();
             expect(scope.tableData.length).toEqual(eavrops.length);
-        });
+        });*/
 
         it('should return the same data contents', function() {
             createController();
@@ -349,19 +349,19 @@ describe('Controllers Tests ', function() {
             });
         });
 
-        it('should have a table service defined', function() {
+        /*it('should have a table service defined', function() {
             createController();
             expect(scope.tableService).toBeDefined();
-        });
+        });*/
 
-        it('should initialize table parameters with page count of 10 as default', function() {
+        /*it('should initialize table parameters with page count of 10 as default', function() {
             createController();
             expect(scope.tableParams.count()).toEqual(10);
-        });
+        });*/
 
-        it('should have a datePickerService defined', function() {
+        /*it('should have a datePickerService defined', function() {
             createController();
             expect(scope.dateService).toBeDefined();
-        });
+        });*/
     });
 });
