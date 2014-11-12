@@ -13,7 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.application.DomainEventPublisher;
-import se.inera.fmu.application.EavropDocumentDomainService;
+import se.inera.fmu.application.EavropDocumentService;
+import se.inera.fmu.application.impl.command.AddReceivedExternalDocumentCommand;
+import se.inera.fmu.application.impl.command.AddReceivedInternalDocumentCommand;
+import se.inera.fmu.application.impl.command.AddRequestedDocumentCommand;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropId;
@@ -33,7 +36,7 @@ import se.inera.fmu.domain.model.person.HoSPerson;
 @Service
 @Validated
 @Transactional
-public class EavropDocumentDomainServiceImpl implements EavropDocumentDomainService {
+public class EavropDocumentServiceImpl implements EavropDocumentService {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -47,7 +50,7 @@ public class EavropDocumentDomainServiceImpl implements EavropDocumentDomainServ
      * @param domainEventPublisher
      */
 	@Inject
-	public EavropDocumentDomainServiceImpl(EavropRepository eavropRepository, DomainEventPublisher domainEventPublisher) {
+	public EavropDocumentServiceImpl(EavropRepository eavropRepository, DomainEventPublisher domainEventPublisher) {
 		this.eavropRepository = eavropRepository;
 		this.domainEventPublisher = domainEventPublisher;
 	}

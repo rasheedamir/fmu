@@ -11,7 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.application.DomainEventPublisher;
-import se.inera.fmu.application.EavropAssignmentDomainService;
+import se.inera.fmu.application.EavropAssignmentService;
+import se.inera.fmu.application.impl.command.AcceptEavropAssignmentCommand;
+import se.inera.fmu.application.impl.command.AssignEavropCommand;
+import se.inera.fmu.application.impl.command.RejectEavropAssignmentCommand;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
@@ -31,7 +34,7 @@ import se.inera.fmu.domain.model.hos.vardgivare.VardgivarenhetRepository;
 @Service
 @Validated
 @Transactional
-public class EavropAssignmentDomainServiceImpl implements EavropAssignmentDomainService {
+public class EavropAssignmentServiceImpl implements EavropAssignmentService {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -46,7 +49,7 @@ public class EavropAssignmentDomainServiceImpl implements EavropAssignmentDomain
      * @param domainEventPublisher
      */
 	@Inject
-	public EavropAssignmentDomainServiceImpl(EavropRepository eavropRepository, VardgivarenhetRepository vardgivarenhetRepository, DomainEventPublisher domainEventPublisher) {
+	public EavropAssignmentServiceImpl(EavropRepository eavropRepository, VardgivarenhetRepository vardgivarenhetRepository, DomainEventPublisher domainEventPublisher) {
 		this.eavropRepository = eavropRepository;
 		this.vardgivarenhetRepository = vardgivarenhetRepository;
 		this.domainEventPublisher = domainEventPublisher;
@@ -70,8 +73,6 @@ public class EavropAssignmentDomainServiceImpl implements EavropAssignmentDomain
 
 	@Override
 	public void acceptEavropAssignment(AcceptEavropAssignmentCommand aCommand) throws EntityNotFoundException, IllegalArgumentException{
-		validateAcceptEavropAssignmentCommand(aCommand);
-		
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		Vardgivarenhet vardgivarenhet = getVardgivarenhetByHsaId(aCommand.getHsaId());
 
@@ -101,11 +102,6 @@ public class EavropAssignmentDomainServiceImpl implements EavropAssignmentDomain
 	}
 	
 	private void validateAssignEavropCommand(AssignEavropCommand command){
-		Validate.notNull(command.getEavropId());
-		Validate.notNull(command.getHsaId());
-	}
-
-	private void validateAcceptEavropAssignmentCommand(AcceptEavropAssignmentCommand command){
 		Validate.notNull(command.getEavropId());
 		Validate.notNull(command.getHsaId());
 	}

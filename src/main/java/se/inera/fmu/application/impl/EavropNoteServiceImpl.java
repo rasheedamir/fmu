@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.application.DomainEventPublisher;
-import se.inera.fmu.application.EavropDocumentDomainService;
-import se.inera.fmu.application.EavropNoteDomainService;
+import se.inera.fmu.application.EavropDocumentService;
+import se.inera.fmu.application.EavropNoteService;
+import se.inera.fmu.application.impl.command.AddNoteCommand;
+import se.inera.fmu.application.impl.command.RemoveNoteCommand;
 import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
@@ -37,7 +39,7 @@ import se.inera.fmu.domain.model.person.HoSPerson;
 @Service
 @Validated
 @Transactional
-public class EavropNoteDomainServiceImpl implements EavropNoteDomainService {
+public class EavropNoteServiceImpl implements EavropNoteService {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -50,7 +52,7 @@ public class EavropNoteDomainServiceImpl implements EavropNoteDomainService {
      * @param domainEventPublisher
      */
 	@Inject
-	public EavropNoteDomainServiceImpl(EavropRepository eavropRepository) {
+	public EavropNoteServiceImpl(EavropRepository eavropRepository) {
 		this.eavropRepository = eavropRepository;
 	}
 

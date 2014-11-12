@@ -12,7 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.application.DomainEventPublisher;
-import se.inera.fmu.application.EavropBookingDomainService;
+import se.inera.fmu.application.EavropBookingService;
+import se.inera.fmu.application.impl.command.AddBookingDeviationResponseCommand;
+import se.inera.fmu.application.impl.command.ChangeBookingStatusCommand;
+import se.inera.fmu.application.impl.command.ChangeInterpreterBookingStatusCommand;
+import se.inera.fmu.application.impl.command.CreateBookingCommand;
 import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
@@ -42,7 +46,7 @@ import se.inera.fmu.domain.model.person.Person;
 @Service
 @Validated
 @Transactional
-public class EavropBookingDomainServiceImpl implements EavropBookingDomainService {
+public class EavropBookingServiceImpl implements EavropBookingService {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -56,7 +60,7 @@ public class EavropBookingDomainServiceImpl implements EavropBookingDomainServic
      * @param domainEventPublisher
      */
 	@Inject
-	public EavropBookingDomainServiceImpl(EavropRepository eavropRepository, DomainEventPublisher domainEventPublisher) {
+	public EavropBookingServiceImpl(EavropRepository eavropRepository, DomainEventPublisher domainEventPublisher) {
 		this.eavropRepository = eavropRepository;
 		this.domainEventPublisher = domainEventPublisher;
 	}

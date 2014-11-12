@@ -1,4 +1,4 @@
-package se.inera.fmu.application.impl;
+package se.inera.fmu.application.impl.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

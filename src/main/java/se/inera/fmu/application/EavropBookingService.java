@@ -1,14 +1,14 @@
 package se.inera.fmu.application;
 
-import se.inera.fmu.application.impl.AddBookingDeviationResponseCommand;
-import se.inera.fmu.application.impl.ChangeBookingStatusCommand;
-import se.inera.fmu.application.impl.ChangeInterpreterBookingStatusCommand;
-import se.inera.fmu.application.impl.CreateBookingCommand;
+import se.inera.fmu.application.impl.command.AddBookingDeviationResponseCommand;
+import se.inera.fmu.application.impl.command.ChangeBookingStatusCommand;
+import se.inera.fmu.application.impl.command.ChangeInterpreterBookingStatusCommand;
+import se.inera.fmu.application.impl.command.CreateBookingCommand;
 
 /**
  * Created by Rickard on 01/11/14.
  */
-public interface EavropBookingDomainService {
+public interface EavropBookingService {
 
 	public void createBooking(CreateBookingCommand bookingCommand);
 	

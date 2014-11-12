@@ -1,4 +1,4 @@
-package se.inera.fmu.application.impl;
+package se.inera.fmu.application.impl.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,6 +6,7 @@ import lombok.Setter;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
+import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 import se.inera.fmu.domain.model.eavrop.note.NoteType;
 import se.inera.fmu.domain.model.person.Person;
 
@@ -17,11 +18,11 @@ import se.inera.fmu.domain.model.person.Person;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ChangeBookingStatusCommand {
+public class ChangeInterpreterBookingStatusCommand {
 
     private EavropId eavropId;
     private BookingId bookingId; 
-    private BookingStatusType bookingStatus; 
+    private InterpreterBookingStatusType interpreterbookingStatus; 
 	private String text;
 	private String personName;
     private String personRole;

@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.application.DomainEventPublisher;
-import se.inera.fmu.application.EavropApprovalDomainService;
+import se.inera.fmu.application.EavropApprovalService;
+import se.inera.fmu.application.impl.command.ApproveEavropCommand;
+import se.inera.fmu.application.impl.command.ApproveEavropCompensationCommand;
 import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
@@ -33,7 +35,7 @@ import se.inera.fmu.domain.model.person.Bestallaradministrator;
 @Service
 @Validated
 @Transactional
-public class EavropApprovalDomainServiceImpl implements EavropApprovalDomainService {
+public class EavropApprovalServiceImpl implements EavropApprovalService {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -47,7 +49,7 @@ public class EavropApprovalDomainServiceImpl implements EavropApprovalDomainServ
      * @param domainEventPublisher
      */
 	@Inject
-	public EavropApprovalDomainServiceImpl(EavropRepository eavropRepository, DomainEventPublisher domainEventPublisher) {
+	public EavropApprovalServiceImpl(EavropRepository eavropRepository, DomainEventPublisher domainEventPublisher) {
 		this.eavropRepository = eavropRepository;
 		this.domainEventPublisher = domainEventPublisher;
 	}

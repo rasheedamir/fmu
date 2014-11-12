@@ -1,4 +1,4 @@
-package se.inera.fmu.application.impl;
+package se.inera.fmu.application.impl.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,9 +15,9 @@ import se.inera.fmu.domain.model.eavrop.EavropId;
 @Getter
 @Setter
 @AllArgsConstructor
-public class AddReceivedInternalDocumentCommand {
+public class AddNoteCommand {
 	private EavropId eavropId;
-	private String documentName;
+	private String text;
 	private String personName;
     private String personRole;
     private String personOrganisation;

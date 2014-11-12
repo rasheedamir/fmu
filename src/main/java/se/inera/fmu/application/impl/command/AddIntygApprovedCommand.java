@@ -1,4 +1,6 @@
-package se.inera.fmu.application.impl;
+package se.inera.fmu.application.impl.command;
+
+import org.joda.time.DateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,9 +17,9 @@ import se.inera.fmu.domain.model.eavrop.EavropId;
 @Getter
 @Setter
 @AllArgsConstructor
-public class RemoveNoteCommand {
+public class AddIntygApprovedCommand {
 	private ArendeId arendeId;
-	private String documentName;
+	private DateTime intygApprovedDateTime;
 	private String personName;
     private String personRole;
     private String personOrganisation;

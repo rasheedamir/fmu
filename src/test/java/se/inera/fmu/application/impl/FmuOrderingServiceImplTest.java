@@ -12,8 +12,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.DomainEventPublisher;
-import se.inera.fmu.application.impl.CreateEavropCommand;
 import se.inera.fmu.application.impl.FmuOrderingServiceImpl;
+import se.inera.fmu.application.impl.command.CreateEavropCommand;
 import se.inera.fmu.application.util.BestallaradministratorUtil;
 import se.inera.fmu.application.util.EavropUtil;
 import se.inera.fmu.application.util.InvanareUtil;

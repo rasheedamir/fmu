@@ -1,4 +1,4 @@
-package se.inera.fmu.application.impl;
+package se.inera.fmu.application.impl.command;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

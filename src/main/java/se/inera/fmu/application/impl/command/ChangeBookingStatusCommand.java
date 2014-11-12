@@ -1,11 +1,8 @@
-package se.inera.fmu.application.impl;
-
-import org.joda.time.DateTime;
+package se.inera.fmu.application.impl.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
@@ -20,17 +17,15 @@ import se.inera.fmu.domain.model.person.Person;
 @Getter
 @Setter
 @AllArgsConstructor
-public class AddBookingDeviationResponseCommand {
+public class ChangeBookingStatusCommand {
 
-    private ArendeId arendeId;
+    private EavropId eavropId;
     private BookingId bookingId; 
-    private String response;
-    private DateTime responseTimestamp;
-    private String responseComment;
-    private String personName;
+    private BookingStatusType bookingStatus; 
+	private String text;
+	private String personName;
     private String personRole;
     private String personOrganisation;
     private String personUnit;
-    private String personPhone; 
-    private String personEmail; 
+
 }

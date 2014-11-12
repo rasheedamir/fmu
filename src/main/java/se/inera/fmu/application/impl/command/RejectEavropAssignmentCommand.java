@@ -1,4 +1,4 @@
-package se.inera.fmu.application.impl;
+package se.inera.fmu.application.impl.command;
 
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class AssignEavropCommand {
+public class RejectEavropAssignmentCommand {
 	private EavropId eavropId;
 	private HsaId hsaId;
 }

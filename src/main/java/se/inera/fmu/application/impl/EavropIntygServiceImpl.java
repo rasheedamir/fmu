@@ -12,7 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.application.DomainEventPublisher;
-import se.inera.fmu.application.EavropIntygDomainService;
+import se.inera.fmu.application.EavropIntygService;
+import se.inera.fmu.application.impl.command.AddIntygApprovedCommand;
+import se.inera.fmu.application.impl.command.AddIntygComplementRequestCommand;
+import se.inera.fmu.application.impl.command.AddIntygSignedCommand;
 import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
@@ -35,7 +38,7 @@ import se.inera.fmu.domain.model.person.Bestallaradministrator;
 @Service
 @Validated
 @Transactional
-public class EavropIntygDomainServiceImpl implements EavropIntygDomainService {
+public class EavropIntygServiceImpl implements EavropIntygService {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -49,7 +52,7 @@ public class EavropIntygDomainServiceImpl implements EavropIntygDomainService {
      * @param domainEventPublisher
      */
 	@Inject
-	public EavropIntygDomainServiceImpl(EavropRepository eavropRepository, DomainEventPublisher domainEventPublisher) {
+	public EavropIntygServiceImpl(EavropRepository eavropRepository, DomainEventPublisher domainEventPublisher) {
 		this.eavropRepository = eavropRepository;
 		this.domainEventPublisher = domainEventPublisher;
 	}

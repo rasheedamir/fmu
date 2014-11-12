@@ -1,13 +1,13 @@
 package se.inera.fmu.application;
 
-import se.inera.fmu.application.impl.AcceptEavropAssignmentCommand;
-import se.inera.fmu.application.impl.AssignEavropCommand;
-import se.inera.fmu.application.impl.RejectEavropAssignmentCommand;
+import se.inera.fmu.application.impl.command.AcceptEavropAssignmentCommand;
+import se.inera.fmu.application.impl.command.AssignEavropCommand;
+import se.inera.fmu.application.impl.command.RejectEavropAssignmentCommand;
 
 /**
  * Created by Rickard on 01/11/14.
  */
-public interface EavropAssignmentDomainService {
+public interface EavropAssignmentService {
 	
 	public void assignEavropToVardgivarenhet(AssignEavropCommand assignCommand);
 	
