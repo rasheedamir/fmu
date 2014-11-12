@@ -8,12 +8,14 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.ReportAsSingleViolation;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 @NotBlank
+@NotNull
 @Size(min=1, max=25)
 @Pattern(regexp = "^[a-zA-Z_][a-zA-Z0-9_]*$")
 @Target({ ElementType.FIELD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE, ElementType.LOCAL_VARIABLE }) // specifies where this validation can be used (Field, Method, Parameter etc)

@@ -70,6 +70,8 @@ public class ITEavropRestControllerTest {
                 .accept(MediaType.APPLICATION_JSON)) 
                 .andExpect(status().isOk())
                 .andReturn();
+		result.getResponse().setCharacterEncoding("UTF-8");
+		log.debug(result.getResponse().getContentAsString());
 	}
 	
 	@Test
@@ -84,26 +86,5 @@ public class ITEavropRestControllerTest {
                 .andReturn();
 		result.getResponse().setCharacterEncoding("UTF-8");
 		log.debug(result.getResponse().getContentAsString());
-	}
-	
-	@Test
-	public void nullSortKeyTest() throws Exception{
-		this.currentUserService.getCurrentUser().setActiveRole(Role.LANDSTINGSSAMORDNARE);
-		this.currentUserService.getCurrentUser().setLandstingCode(1);
-		
-//		DateTime startDate = new DateTime(1990,1,1,0,0,0);
-//		DateTime endDate = new DateTime(2990,1,1,0,0,0);
-//		MvcResult result = restMock.perform(get(
-//				"/app/rest/eavrop"
-//				+ "/fromdate/" + startDate.getMillis()
-//				+ "/todate/" + endDate.getMillis()
-//				+"/status/NOT_ACCEPTED"
-//				+ "/page/0"
-//				+ "/pagesize/10"
-//				+ "/sortkey/null"
-//				+ "/sortorder/ASC")
-//                .accept(MediaType.APPLICATION_JSON)) 
-//                .andExpect(status().isOk())
-//                .andReturn();
 	}
 }

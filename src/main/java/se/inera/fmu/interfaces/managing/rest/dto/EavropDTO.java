@@ -1,11 +1,6 @@
 package se.inera.fmu.interfaces.managing.rest.dto;
 
 import lombok.ToString;
-
-import org.joda.time.LocalDate;
-
-import se.inera.fmu.domain.model.eavrop.EavropApproval;
-import se.inera.fmu.domain.model.eavrop.EavropCompensationApproval;
 import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
 
@@ -15,31 +10,31 @@ import se.inera.fmu.domain.model.eavrop.UtredningType;
 @ToString
 public class EavropDTO {
 
-    private String arendeId;
-    
-    private String eavropId;
+	private String arendeId;
 
-    private String utredningType;
-    
-    private String bestallareEnhet;
-    
-    private String bestallareOrganisation;
-    
-    private long creationTime;
+	private String eavropId;
 
-    private String patientCity;
+	private String utredningType;
 
-    private String mottagarenOrganisation;
-    
-    private EavropStateType status;
-    
-    private Integer antalDagarEfterForfragan;
-    
-    private Integer avikelser;
+	private String bestallareEnhet;
+
+	private String bestallareOrganisation;
+
+	private Long creationTime;
+
+	private String patientCity;
+
+	private String mottagarenOrganisation;
+
+	private EavropStateType status;
+
+	private Integer antalDagarEfterForfragan;
+
+	private Integer avikelser;
 
 	private String color;
-	
-	private long startDate;
+
+	private Long startDate;
 
 	private Integer nrOfDaysSinceStart;
 
@@ -47,41 +42,41 @@ public class EavropDTO {
 
 	private String utredareOrganisation;
 
-	private long dateIntygDelivered;
+	private Long dateIntygDelivered;
 
-	private long eavropApprovalDatetime;
+	private Long eavropApprovalDatetime;
 
-	private boolean isEavropApprovedForPayment;
-	
-    public EavropDTO() {
-    }
+	private Boolean isEavropApprovedForPayment;
 
-    public String getArendeId() {
-        return arendeId;
-    }
+	public EavropDTO() {
+	}
 
-    public EavropDTO setArendeId(String arendeId) {
-        this.arendeId = arendeId;
+	public String getArendeId() {
+		return arendeId;
+	}
+
+	public EavropDTO setArendeId(String arendeId) {
+		this.arendeId = arendeId;
 		return this;
-    }
+	}
 
-    public String getUtredningType() {
-        return utredningType;
-    }
+	public String getUtredningType() {
+		return utredningType;
+	}
 
-    public EavropDTO setUtredningType(UtredningType utredningType) {
-        this.utredningType = utredningType.toString();
+	public EavropDTO setUtredningType(UtredningType utredningType) {
+		this.utredningType = utredningType.toString();
 		return this;
-    }
+	}
 
-    public long getCreationTime() {
-        return creationTime;
-    }
+	public Long getCreationTime() {
+		return creationTime;
+	}
 
-    public EavropDTO setCreationTime(long l) {
-        this.creationTime = l;
+	public EavropDTO setCreationTime(Long l) {
+		this.creationTime = l;
 		return this;
-    }
+	}
 
 	public String getPatientCity() {
 		return patientCity;
@@ -137,16 +132,17 @@ public class EavropDTO {
 		return antalDagarEfterForfragan;
 	}
 
-	public EavropDTO setAntalDagarEfterForfragan(Integer antalDagarEfterForfragan) {
+	public EavropDTO setAntalDagarEfterForfragan(
+			Integer antalDagarEfterForfragan) {
 		this.antalDagarEfterForfragan = antalDagarEfterForfragan;
 		return this;
 	}
-	
+
 	public EavropDTO setBestallareEnhet(String bestallareEnhet) {
 		this.bestallareEnhet = bestallareEnhet;
 		return this;
 	}
-	
+
 	public String getBestallareEnhet() {
 		return bestallareEnhet;
 	}
@@ -155,39 +151,40 @@ public class EavropDTO {
 		this.avikelser = numberOfDeviationsOnEavrop;
 		return this;
 	}
-	
+
 	public Integer getAvikelser() {
 		return this.avikelser;
 	}
-	
+
 	public EavropDTO setMottagarenOrganisation(String mottagarenOrganisation) {
 		this.mottagarenOrganisation = mottagarenOrganisation;
 		return this;
 	}
-	
+
 	public EavropDTO setEavropId(String eavropId) {
 		this.eavropId = eavropId;
 		return this;
 	}
-	
+
 	public String getEavropId() {
 		return eavropId;
 	}
-	
-	public long getStartDate() {
+
+	public Long getStartDate() {
 		return startDate;
 	}
-	
-	public EavropDTO setStartDate(LocalDate localDate) {
-		this.startDate = localDate.toDateTimeAtCurrentTime().getMillis();
+
+	public EavropDTO setStartDate(Long date) {
+		this.startDate = date;
 		return this;
 	}
 
-	public EavropDTO setNrOfDaysAfterStart(Integer numberOfDaysUsedDuringAssessment) {
+	public EavropDTO setNrOfDaysAfterStart(
+			Integer numberOfDaysUsedDuringAssessment) {
 		this.nrOfDaysSinceStart = numberOfDaysUsedDuringAssessment;
 		return this;
 	}
-	
+
 	public Integer getNrOfDaysSinceStart() {
 		return nrOfDaysSinceStart;
 	}
@@ -196,7 +193,7 @@ public class EavropDTO {
 		this.dagarFromStartToAccepted = noOfAssesmentDays;
 		return this;
 	}
-	
+
 	public Integer getDagarFromStartToAccepted() {
 		return dagarFromStartToAccepted;
 	}
@@ -205,34 +202,35 @@ public class EavropDTO {
 		this.utredareOrganisation = name;
 		return this;
 	}
-	
+
 	public String getUtredareOrganisation() {
 		return utredareOrganisation;
 	}
 
-	public EavropDTO setIntygDeliveredDate(long deliveredDate) {
+	public EavropDTO setIntygDeliveredDate(Long deliveredDate) {
 		this.dateIntygDelivered = deliveredDate;
 		return this;
 	}
-	
-	public long getDateIntygDelivered() {
+
+	public Long getDateIntygDelivered() {
 		return dateIntygDelivered;
 	}
 
-	public boolean isEavropApprovedForPayment() {
+	public Boolean isEavropApprovedForPayment() {
 		return isEavropApprovedForPayment;
 	}
 
-	public EavropDTO setEavropApprovedForPayment(boolean isEavropApprovedForPayment) {
+	public EavropDTO setEavropApprovedForPayment(
+			Boolean isEavropApprovedForPayment) {
 		this.isEavropApprovedForPayment = isEavropApprovedForPayment;
 		return this;
 	}
 
-	public long getEavropApprovalDatetime() {
+	public Long getEavropApprovalDatetime() {
 		return eavropApprovalDatetime;
 	}
 
-	public EavropDTO setEavropApprovalDatetime(long eavropApprovalDatetime) {
+	public EavropDTO setEavropApprovalDatetime(Long eavropApprovalDatetime) {
 		this.eavropApprovalDatetime = eavropApprovalDatetime;
 		return this;
 	}

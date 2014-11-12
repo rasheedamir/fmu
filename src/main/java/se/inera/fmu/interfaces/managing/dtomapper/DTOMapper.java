@@ -7,31 +7,45 @@ public class DTOMapper {
 
 	public EavropDTO mapToOverviewDTO(Eavrop eavrop) {
 		EavropDTO dto = new EavropDTO();
+		if(eavrop == null)
+			return dto;
 		
 		dto.setArendeId(eavrop.getArendeId().toString())
 		.setEavropId(eavrop.getEavropId().getId())
-		.setBestallareOrganisation(eavrop.getBestallaradministrator().getOrganisation())
-		.setLeverantorOrganisation(eavrop.getLandsting().getName())
+		.setBestallareOrganisation(eavrop.getBestallaradministrator() != null ? 
+				eavrop.getBestallaradministrator().getOrganisation() : null)
+		.setLeverantorOrganisation(eavrop.getLandsting() != null ?
+				eavrop.getLandsting().getName() : null)
 		.setAntalDagarEfterForfragan(eavrop.getNumberOfAcceptanceDaysFromOrderDate())
-		.setCreationTime(eavrop.getCreatedDate().getMillis())
-		.setPatientCity(eavrop.getInvanare().getHomeAddress().getCity())
+		.setCreationTime(eavrop.getCreatedDate() != null ? eavrop.getCreatedDate().getMillis() : null)
+		.setPatientCity(eavrop.getInvanare() != null && eavrop.getInvanare().getHomeAddress() != null ?
+				eavrop.getInvanare().getHomeAddress().getCity() : null)
 		.setUtredningType(eavrop.getUtredningType())
 		.setStatus(eavrop.getStatus())
-		.setBestallareEnhet(eavrop.getBestallaradministrator().getUnit())
+		.setBestallareEnhet(eavrop.getBestallaradministrator() != null ? 
+				eavrop.getBestallaradministrator().getUnit() : null)
 		.setAvikelser(eavrop.getNumberOfDeviationsOnEavrop())
 		.setRowColor(eavrop.isEavropAcceptDaysDeviated() ? "bg-danger": null)
 		
-		.setStartDate(eavrop.getStartDate())
+		.setStartDate(eavrop.getStartDate() != null ? 
+				eavrop.getStartDate().toDateTimeAtCurrentTime().getMillis()
+				: null)
+				
 		.setNrOfDaysAfterStart(eavrop.getNumberOfDaysUsedDuringAssessment())
 		
 		.setAntalDagarFromStartToAccepted(eavrop.getNoOfAssesmentDays())
 //		.setAntalDagarFromKompleteringBegarToBestallaren()
-		.setUtredareOrganisation(eavrop.getCurrentAssignedVardgivarenhet().getVardgivare().getName())
+		.setUtredareOrganisation(eavrop.getCurrentAssignedVardgivarenhet() != null ?
+				eavrop.getCurrentAssignedVardgivarenhet().getVardgivare().getName() : null)
 //		.setUtredareAnsvarigNamn(eavrop.get)
-		.setIntygDeliveredDate(eavrop.getIntygSignedDateTime().getMillis())
+		.setIntygDeliveredDate(eavrop.getIntygSignedDateTime() != null ?
+				eavrop.getIntygSignedDateTime().getMillis() : null)
 //		.setIsIntygComplete()
-		.setEavropApprovedForPayment(eavrop.getEavropCompensationApproval().isApproved())
-		.setEavropApprovalDatetime(eavrop.getEavropCompensationApproval().getCompensationDateTime().getMillis())
+		.setEavropApprovedForPayment(eavrop.getEavropCompensationApproval() != null ?
+				eavrop.getEavropCompensationApproval().isApproved() : null)
+		.setEavropApprovalDatetime(eavrop.getEavropCompensationApproval() != null 
+		&& eavrop.getEavropCompensationApproval().getCompensationDateTime() != null ?
+				eavrop.getEavropCompensationApproval().getCompensationDateTime().getMillis() : null)
 		;
 		
 		return dto;

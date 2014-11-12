@@ -63,9 +63,6 @@ public class EavropResource {
 			@ValidPageSize @PathVariable int pageSize,
 			@ValidateSortKey @PathVariable String sortKey, 
 			@PathVariable Direction sortOrder) {
-		if(sortKey.toLowerCase().equals("null")){
-			sortKey = null;
-		}
 		
 		Pageable pageSpecs = new PageRequest(currentPage, pageSize, new Sort(sortOrder, sortKey));
 		EavropPageDTO pageEavrops = this.fmuOrderingService.getOverviewEavrops(startDate, endDate, status, pageSpecs);
