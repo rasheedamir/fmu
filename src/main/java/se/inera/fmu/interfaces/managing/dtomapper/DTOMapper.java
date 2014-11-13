@@ -5,7 +5,7 @@ import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 
 public class DTOMapper {
 
-	public EavropDTO mapToOverviewDTO(Eavrop eavrop) {
+	public EavropDTO map(Eavrop eavrop) {
 		EavropDTO dto = new EavropDTO();
 		if(eavrop == null)
 			return dto;

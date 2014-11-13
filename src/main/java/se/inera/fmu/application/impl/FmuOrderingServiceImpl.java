@@ -39,10 +39,12 @@ import se.inera.fmu.domain.model.systemparameter.Configuration;
 import se.inera.fmu.interfaces.managing.dtomapper.AllEventsDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.DTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.OrderDTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.UtredningDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
 
 import javax.inject.Inject;
@@ -272,7 +274,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		DTOMapper eavropMapper = new DTOMapper();
 
 		for (Eavrop eavrop : eavrops.getContent()) {
-			data.add(eavropMapper.mapToOverviewDTO(eavrop));
+			data.add(eavropMapper.map(eavrop));
 		}
 
 		EavropPageDTO retval = new EavropPageDTO();
@@ -282,12 +284,13 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	}
 
 	@Override
-	public List<EavropEventDTO> getEavropEvents(String eavropId) {
+	public List<HandelseDTO> getEavropEvents(String eavropId) {
+		UtredningDTOMapper mapper = new UtredningDTOMapper();
 		Eavrop eavrop = this.eavropRepository.findByEavropId(new EavropId(
 				eavropId));
 		if (eavrop != null)
-			return eavrop.getEavropEvents();
-		
+			return mapper.map(eavrop);
+
 		return null;
 	}
 

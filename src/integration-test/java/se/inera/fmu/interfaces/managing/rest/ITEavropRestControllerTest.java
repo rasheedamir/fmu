@@ -197,7 +197,7 @@ public class ITEavropRestControllerTest {
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 		
 		MvcResult result = restMock.perform(get(
-				"/app/rest/eavrop/1/utredning")
+				"/app/rest/eavrop/16/utredning")
                 .accept(MediaType.APPLICATION_JSON)) 
                 .andExpect(status().isOk())
                 .andReturn();

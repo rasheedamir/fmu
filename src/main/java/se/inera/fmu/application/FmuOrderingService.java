@@ -6,11 +6,11 @@ import org.springframework.data.domain.Pageable;
 
 import se.inera.fmu.application.impl.command.CreateEavropCommand;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
-import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
 
 /**
@@ -27,7 +27,7 @@ public interface FmuOrderingService {
 
 	EavropPageDTO getOverviewEavrops(long fromDateMillis, long toDateMillis, OverviewEavropStates status, Pageable paginationSpecs);
 
-	public List<EavropEventDTO> getEavropEvents(String eavropId);
+	public List<HandelseDTO> getEavropEvents(String eavropId);
 
 	public AllEventsDTO getAllEvents(EavropId eavropId);
 
