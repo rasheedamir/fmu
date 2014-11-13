@@ -8,6 +8,7 @@ angular.module('fmuClientApp')
             $scope.startDate = new Date();
             $scope.endDate = new Date();
             $scope.endDate.setMonth($scope.startDate.getMonth() + 1);
+            $scope.startDate.setMonth($scope.startDate.getMonth() - 1);
             $scope.dateKey = 'dateDelivered';
 
             $scope.completedStatus = EAVROP_STATUS.completed;
@@ -87,7 +88,13 @@ angular.module('fmuClientApp')
                 }
             ];
 
-            $scope.dateDescription = 'Datumen utgår från det datum då intyg levererats';
+            $scope.datePickerDescription = 'Datumen utgår från det datum då intyg levererats';
+
+            $scope.visa = function () {
+                if($scope.tableParameters){
+                    $scope.tableParameters.reload();
+                }
+            };
 
             $scope.getTableCellValue = function (key, rowData) {
                 switch (key) {

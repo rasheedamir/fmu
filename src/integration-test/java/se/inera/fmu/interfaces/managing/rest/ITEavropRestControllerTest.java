@@ -191,8 +191,8 @@ public class ITEavropRestControllerTest {
 	}
 	
 	
-	@Test
-	public void getEavropEvents() throws Exception{
+//	@Test
+//	public void getEavropEvents() throws Exception{
 //		this.currentUserService.getCurrentUser().setActiveRole(Role.LANDSTINGSSAMORDNARE);
 //		this.currentUserService.getCurrentUser().setLandstingCode(1);
 //		
@@ -203,5 +203,5 @@ public class ITEavropRestControllerTest {
 //                .andReturn();
 //		result.getResponse().setCharacterEncoding("UTF-8");
 //		log.debug(result.getResponse().getContentAsString());
-	}
+//	}
 }

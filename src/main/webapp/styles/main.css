@@ -546,3 +546,46 @@ h2{
 .fmu-error-field p i {
     color: #000000;
 }
+
+.fmu-form-container {
+    display: block;
+    position: relative;
+    border-collapse: separate;
+}
+
+.fmu-form-header {
+    display: block;
+    position: relative;
+    text-align: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-bottom: 1px solid #ddd;
+}
+
+.fmu-form-body {
+    display: block;
+    text-align: left;
+    border-top: thin #000000;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.fmu-form-footer {
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 1em;
+    border-top: 1px solid #ddd;
+}
+
+.fmu-form-footer > div {
+    float: right;
+}
+
+.fmu-form-body > div {
+    margin-top: 1em;
+}

@@ -7,6 +7,7 @@ angular.module('fmuClientApp')
             $scope.startDate = new Date();
             $scope.endDate = new Date();
             $scope.endDate.setMonth($scope.startDate.getMonth() + 1);
+            $scope.startDate.setMonth($scope.startDate.getMonth() - 1);
             $scope.dateKey = 'startDate';
 
             $scope.ongoingStatus = EAVROP_STATUS.accepted;
@@ -90,6 +91,12 @@ angular.module('fmuClientApp')
             ];
 
             $scope.datePickerDescription = 'Datumen utgår från det datum då utredningen startat';
+
+            $scope.visa = function () {
+                if($scope.tableParameters){
+                    $scope.tableParameters.reload();
+                }
+            };
 
             $scope.getTableCellValue = function (key, rowData) {
                 switch (key) {
