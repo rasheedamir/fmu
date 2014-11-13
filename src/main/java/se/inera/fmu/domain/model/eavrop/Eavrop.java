@@ -167,12 +167,12 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 
 	// Documents received received this FMU
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "R_EAVROP_DOCUMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "DOCUMENT_ID"))
+	@JoinTable(name = "R_EAVROP_REC_DOCUMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "DOCUMENT_ID"))
 	private Set<ReceivedDocument> receivedDocuments;
 
 	// Documents requested to this FMU
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "R_EAVROP_DOCUMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "DOCUMENT_ID"))
+	@JoinTable(name = "R_EAVROP_REQ_DOCUMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "DOCUMENT_ID"))
 	private Set<RequestedDocument> requestedDocuments;
 	
 	//TODO: as list

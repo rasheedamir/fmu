@@ -35,7 +35,6 @@
 			separator=";" tableName="T_NOTE">
 		</loadData>
 
-
 		<loadData encoding="UTF-8" file="config/liquibase/approval.csv"
 			separator=";" tableName="T_EAVROP_APPROVAL">
 		</loadData>
@@ -60,7 +59,20 @@
 			separator=";" tableName="R_EAVROP_ASSIGNMENT">
 		</loadData>
 
+		<loadData encoding="UTF-8" file="config/liquibase/received_document.csv"
+ 			separator=";" tableName="T_REC_DOCUMENT">
+		</loadData>
+		
+		<loadData encoding="UTF-8" file="config/liquibase/requested_document.csv"
+ 			separator=";" tableName="T_REQ_DOCUMENT">
+		</loadData>
 
+		<loadData encoding="UTF-8" file="config/liquibase/eavrop_received_document.csv"
+ 			separator=";" tableName="R_EAVROP_REC_DOCUMENT">
+		</loadData>
 
+		<loadData encoding="UTF-8" file="config/liquibase/eavrop_requested_document.csv"
+ 			separator=";" tableName="R_EAVROP_REQ_DOCUMENT">
+		</loadData>
 	</changeSet>
 </databaseChangeLog>
