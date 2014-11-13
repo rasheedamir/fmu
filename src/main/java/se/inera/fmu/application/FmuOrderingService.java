@@ -11,6 +11,7 @@ import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
 
 /**
  * Created by Rasheed on 7/7/14.
@@ -29,5 +30,7 @@ public interface FmuOrderingService {
 	public List<EavropEventDTO> getEavropEvents(String eavropId);
 
 	public AllEventsDTO getAllEvents(EavropId eavropId);
+
+	public OrderDTO getOrderInfo(EavropId eavropId);
 
 }

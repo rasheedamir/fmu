@@ -89,15 +89,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>{{currentEavrop.arendeId}}</td>
-                    <td>{{currentEavrop.type}}</td>
-                    <td>{{currentEavrop.orderer.org}}</td>
-                    <td>{{currentEavrop.orderer.lfc}}</td>
-                    <td>{{currentEavrop.inquiryDate}}</td>
-                    <td>{{currentEavrop.patient.residence}}</td>
-                    <td>{{currentEavrop.investigator.org}}</td>
-                    <td>{{currentEavrop.investigator.unit}}</td>
-                    <td>{{currentEavrop.investigationAcceptedDate}}</td>
+                    <td>{{order.arendeId}}</td>
+                    <td>{{order.type}}</td>
+                    <td>{{order.ordererOrganization}}</td>
+                    <td>{{order.ordererUnit}}</td>
+                    <td>{{order.inquiryDate  | date:'yyyy-MM-dd'}}</td>
+                    <td>{{order.patientResidence}}</td>
+                    <td>{{order.investigatorOrganization}}</td>
+                    <td>{{order.investigatorUnit}}</td>
+                    <td>{{order.acceptanceDate  | date:'yyyy-MM-dd'}}</td>
                 </tr>
 
             </table>

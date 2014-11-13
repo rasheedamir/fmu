@@ -20,3 +20,7 @@ angular.module('fmuClientApp').factory('EavropNotes', ['$resource', 'RESTURL', f
 angular.module('fmuClientApp').factory('EavropAllEvents', ['$resource', 'RESTURL', function($resource, RESTURL){
     return $resource(RESTURL.eavropAllEvents, {eavropId: '@eavropId'});
 }]);
+
+angular.module('fmuClientApp').factory('EavropOrder', ['$resource', 'RESTURL', function($resource, RESTURL){
+    return $resource(RESTURL.eavropOrder, {eavropId: '@eavropId'});
+}]);

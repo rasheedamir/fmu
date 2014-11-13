@@ -24,6 +24,7 @@ import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidPageSize;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidateDate;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidatePageNumber;
@@ -85,4 +86,9 @@ public class EavropResource {
 	public AllEventsDTO getAllEvents(@PathVariable("id") String id){
 		return this.fmuOrderingService.getAllEvents(new EavropId(id));
 	}
+	
+	@RequestMapping(value="/rest/eavrop/{id}/order", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public OrderDTO getOrderInfo(@PathVariable("id") String id){
+		return this.fmuOrderingService.getOrderInfo(new EavropId(id));
+	}	
 }

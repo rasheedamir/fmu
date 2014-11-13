@@ -156,13 +156,15 @@ angular.module('fmuClientApp', [
             documents: function(EavropDocuments, $stateParams){return EavropDocuments.query({eavropId: $stateParams.eavropId});},
             requestedDocuments: function(EavropRequestedDocuments, $stateParams){return EavropRequestedDocuments.query({eavropId: $stateParams.eavropId});},
             notes: function(EavropNotes, $stateParams){return EavropNotes.query({eavropId: $stateParams.eavropId});},
-            allevents: function(EavropAllEvents, $stateParams){return EavropAllEvents.get({eavropId: $stateParams.eavropId});}
+            allevents: function(EavropAllEvents, $stateParams){return EavropAllEvents.get({eavropId: $stateParams.eavropId});},
+            order: function(EavropOrder, $stateParams){return EavropOrder.get({eavropId: $stateParams.eavropId});}
         },
-        controller: function($scope, documents, requestedDocuments, notes, allevents){
+        controller: function($scope, documents, requestedDocuments, notes, allevents, order){
             $scope.documents = documents;
             $scope.notes = notes;
             $scope.requestedDocuments = requestedDocuments;
             $scope.allevents = allevents;
+            $scope.order = order;
         },
         templateUrl: 'views/eavrop/all-events.html'
     })

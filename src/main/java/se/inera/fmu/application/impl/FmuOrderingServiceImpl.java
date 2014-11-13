@@ -38,10 +38,12 @@ import se.inera.fmu.domain.model.shared.Name;
 import se.inera.fmu.domain.model.systemparameter.Configuration;
 import se.inera.fmu.interfaces.managing.dtomapper.AllEventsDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.DTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.OrderDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
 
 import javax.inject.Inject;
 
@@ -312,6 +314,12 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		
 		return new AllEventsDTOMapper().map(eavropForUser);
+	}
+
+	@Override
+	public OrderDTO getOrderInfo(EavropId eavropId) {
+		Eavrop eavropForUser = getEavropForUser(eavropId);
+		return new OrderDTOMapper().map(eavropForUser);
 	}
 	
 }
