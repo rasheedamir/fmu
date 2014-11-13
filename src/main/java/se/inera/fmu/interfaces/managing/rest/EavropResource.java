@@ -73,7 +73,7 @@ public class EavropResource {
 	}
 	
 	@RequestMapping(
-			value = "/rest/eavrop/{eavropId}/events"
+			value = "/rest/eavrop/{eavropId}/utredning"
 			, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	public ResponseEntity<List<EavropEventDTO>> getAllEavropEvents(@PathVariable String eavropId) {
@@ -82,9 +82,9 @@ public class EavropResource {
 		return new ResponseEntity<List<EavropEventDTO>>(retval, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/rest/eavrop/{eavrop_id}/all-events", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public AllEventsDTO getAllEvents(@PathVariable("eavrop_id") String eavrop_id){
-		return this.fmuOrderingService.getAllEvents(new EavropId(eavrop_id));
+	@RequestMapping(value="/rest/eavrop/{id}/all-events", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public AllEventsDTO getAllEvents(@PathVariable("id") String id){
+		return this.fmuOrderingService.getAllEvents(new EavropId(id));
 	}
 	
 	@RequestMapping(value="/rest/eavrop/{id}/order", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

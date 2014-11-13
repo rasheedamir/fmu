@@ -589,3 +589,7 @@ h2{
 .fmu-form-body > div {
     margin-top: 1em;
 }
+
+.dropdown-menu {
+    z-index: 1000;
+}

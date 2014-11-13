@@ -1,14 +1,16 @@
 'use strict';
 
 angular.module('fmuClientApp')
-    .controller('UtredningController', ['$scope', 'AuthService', 'ngDialog', 'EAVROP_STATUS',
-        function ($scope, AuthService, ngDialog, EAVROP_STATUS) {
+    .controller('UtredningController', ['$scope', '$stateParams', 'AuthService', 'ngDialog', 'EAVROP_STATUS',
+        function ($scope, $stateParams, AuthService, ngDialog, EAVROP_STATUS) {
             $scope.authService = AuthService;
             $scope.dateKey = 'creationTime';
             $scope.startDate = new Date();
             $scope.endDate = new Date();
             $scope.endDate.setMonth($scope.startDate.getMonth() + 1);
             $scope.dateKey = 'dateOfEvent';
+
+            $scope.currentEavropId = $stateParams.eavropId;
 
             $scope.headerFields = [
                 {

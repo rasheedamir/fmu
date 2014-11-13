@@ -31,7 +31,7 @@
                 </td>
             </tr>-->
 
-            <tr ng-repeat-start="row in testdata" ng-class="row.colorClass" ng-click="rowClicked(row)">
+            <tr ng-repeat-start="row in tableParams.data" ng-class="row.colorClass" ng-click="rowClicked(row)">
                 <td ng-repeat-start="column in headerFields"
                     ng-if="!isEditColumn(column.key)"
                     sortable="{{column.key}}" class="text-capitalize text-center">

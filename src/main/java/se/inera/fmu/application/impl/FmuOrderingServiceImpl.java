@@ -220,16 +220,16 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 			switch (state) {
 			case NOT_ACCEPTED:
-				return constructDTO(this.fmuListService
+				return constructOverviewDTO(this.fmuListService
 						.findAllNotAcceptedEavropByLandstingAndDateTimeOrdered(
 								landsting, startDate, endDate, paginationSpecs));
 			case ACCEPTED:
-				return constructDTO(this.fmuListService
+				return constructOverviewDTO(this.fmuListService
 						.findAllOngoingEavropByLandstingAndDateTimeStarted(
 								landsting, startDate.toLocalDate(),
 								endDate.toLocalDate(), paginationSpecs));
 			case COMPLETED:
-				return constructDTO(this.fmuListService
+				return constructOverviewDTO(this.fmuListService
 						.findAllCompletedEavropByLandstingAndDateTimeSigned(
 								landsting, startDate, endDate, paginationSpecs));
 			default:
@@ -245,17 +245,17 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 			switch (state) {
 			case NOT_ACCEPTED:
-				return constructDTO(this.fmuListService
+				return constructOverviewDTO(this.fmuListService
 						.findAllNotAcceptedEavropByVardgivarenhetAndDateTimeOrdered(
 								vardgivarenhet, startDate, endDate,
 								paginationSpecs));
 			case ACCEPTED:
-				return constructDTO(this.fmuListService
+				return constructOverviewDTO(this.fmuListService
 						.findAllOngoingEavropByVardgivarenhetAndDateTimeStarted(
 								vardgivarenhet, startDate.toLocalDate(),
 								endDate.toLocalDate(), paginationSpecs));
 			case COMPLETED:
-				return constructDTO(this.fmuListService
+				return constructOverviewDTO(this.fmuListService
 						.findAllCompletedEavropByVardgivarenhetAndDateTimeSigned(
 								vardgivarenhet, startDate, endDate,
 								paginationSpecs));
@@ -267,7 +267,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		}
 	}
 
-	private EavropPageDTO constructDTO(Page<Eavrop> eavrops) {
+	private EavropPageDTO constructOverviewDTO(Page<Eavrop> eavrops) {
 		List<EavropDTO> data = new ArrayList<EavropDTO>();
 		DTOMapper eavropMapper = new DTOMapper();
 
