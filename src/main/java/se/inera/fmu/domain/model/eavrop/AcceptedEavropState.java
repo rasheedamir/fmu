@@ -78,7 +78,7 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 			throw new IllegalArgumentException(String.format("booking %s does not exist on eavrop: %s", bookingId.toString(), eavrop.getEavropId().toString()));
 		}
 		
-		if(bookingStatus.isCancelled()){
+		if(bookingStatus.isDeviant()){
 			cancelBooking(eavrop, bookingId, bookingStatus, cancelNote);
 		}else{
 			booking.setBookingStatus(bookingStatus);
@@ -90,7 +90,7 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 	private void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingStatusType bookingStatus, Note cancelNote) {
 		Booking booking = eavrop.getBooking(bookingId);
 		
-		if(booking.getBookingStatus().isCancelled()){
+		if(booking.getBookingStatus().isDeviant()){
 			//TODO: create separate state machine for bookings
 			throw new IllegalArgumentException(String.format("Booking %s on eavrop %s is already cancelled", bookingId.toString(), eavrop.getEavropId().toString()));
 		}

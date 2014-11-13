@@ -30,7 +30,7 @@ public class OnHoldEavropState extends AbstractNoteableEavropState{
 			throw new IllegalArgumentException("Booking with id:" + bookingId.getId() + " is not present on Eavrop with ArendeId: " + eavrop.getArendeId().toString());
 		}
 		
-		if( ! booking.getBookingStatus().isCancelled()){
+		if( ! booking.getBookingStatus().isDeviant()){
 			//TODO: create separate state machine for bookings
 			throw new IllegalArgumentException("Booking with id:" + bookingId.getId() + " on eavrop with arendeId: " + eavrop.getArendeId().toString()+" does not have a cancelled status: " + booking.getBookingStatus());
 		}

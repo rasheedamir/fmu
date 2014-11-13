@@ -1,13 +1,13 @@
 package se.inera.fmu.domain.model.eavrop.booking.interpreter;
 
 public enum InterpreterBookingStatusType {
-	BOOKED,
-	PERFORMED,
-	CANCELED,
-	NOT_PRESENT,
-	PRESENT_BUT_NOT_USED;
+	INTERPPRETER_BOOKED,
+	INTERPRETATION_PERFORMED,
+	INTERPPRETER_CANCELED,
+	INTERPPRETER_NOT_PRESENT,
+	INTERPPRETER_PRESENT_BUT_NOT_USED;
 	
 	public boolean isDeviant(){
-		return NOT_PRESENT.equals(this);	
+		return INTERPPRETER_NOT_PRESENT.equals(this);	
 	}
 }

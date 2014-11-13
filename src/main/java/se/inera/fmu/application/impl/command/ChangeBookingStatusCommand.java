@@ -19,7 +19,7 @@ public class ChangeBookingStatusCommand {
     @NonNull private EavropId eavropId;
     @NonNull private BookingId bookingId; 
     @NonNull private BookingStatusType bookingStatus; 
-	private String text;
+	private String comment;
 	private String personName;
     private String personRole;
     private String personOrganisation;

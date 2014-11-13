@@ -16,7 +16,7 @@ public enum BookingStatusType {
 	CANCELLED_GT_96_H;
 	
 	
-	private static final BookingStatusType[] CANCELLED = {
+	private static final BookingStatusType[] DEVIANT = {
 		CANCELLED_NOT_PRESENT,
 		CANCELLED_BY_CARE_GIVER,
 		CANCELLED_LT_48_H,
@@ -68,8 +68,8 @@ public enum BookingStatusType {
 		return false;
 	}
 	
-	public boolean isCancelled(){
-		if(Arrays.asList(CANCELLED).contains(this)){
+	public boolean isDeviant(){
+		if(Arrays.asList(DEVIANT).contains(this)){
 			return true;
 		}
 		return false;

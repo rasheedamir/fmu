@@ -42,7 +42,7 @@ public class AcceptedEavropStateTest extends AbstractNoteableEavropStateTest{
 		assertNotNull(bookings);
 		assertEquals(1, bookings.size()); 
 		assertEquals(booking, eavrop.getBooking(booking.getBookingId()));
-		assertEquals(Boolean.TRUE, eavrop.getBooking(booking.getBookingId()).getBookingStatus().isCancelled());		
+		assertEquals(Boolean.TRUE, eavrop.getBooking(booking.getBookingId()).getBookingStatus().isDeviant());		
 		assertEquals(EavropStateType.ON_HOLD, eavrop.getEavropState().getEavropStateType());
 	}
 	

@@ -88,7 +88,7 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		BookingStatusType bookingStatus =aCommand.getBookingStatus();
 		
-		Note deviationNote = createDeviationNote(aCommand.getText(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
+		Note deviationNote = createDeviationNote(aCommand.getComment(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
 		
 		eavrop.setBookingStatus(aCommand.getBookingId(), aCommand.getBookingStatus(),deviationNote);
 
@@ -96,7 +96,7 @@ public class EavropBookingServiceImpl implements EavropBookingService {
         	log.debug(String.format("Status changed for booking:: %s", aCommand.getBookingId().toString()));
         }
 		
-		if(bookingStatus.isCancelled()){
+		if(bookingStatus.isDeviant()){
 			handleBookingDeviation(eavrop.getEavropId(), aCommand.getBookingId());
 		}
 	}
@@ -109,7 +109,7 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		InterpreterBookingStatusType interpreterBookingStatus = aCommand.getInterpreterbookingStatus();
 		
-		Note deviationNote = createDeviationNote(aCommand.getText(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
+		Note deviationNote = createDeviationNote(aCommand.getComment(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
 		
 		eavrop.setInterpreterBookingStatus(aCommand.getBookingId(), interpreterBookingStatus, deviationNote);
 

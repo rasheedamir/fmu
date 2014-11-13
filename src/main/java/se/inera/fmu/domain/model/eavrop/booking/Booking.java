@@ -180,7 +180,7 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	}
 	
 	public boolean hasDeviation(){
-		return getBookingStatus().isCancelled();
+		return getBookingStatus().isDeviant();
 	}
 
 	public boolean hasInterpreterDeviation(){
@@ -205,8 +205,8 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 		InterpreterBookingEventDTO interpreterBookingEventDTO = (getInterpreterBooking()!=null)?getInterpreterBooking().getAsInterpreterBookingEventDTO():null; 
 		
 		return (this.getPerson()!=null)?
-			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType.toString(), comment, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
-			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType.toString(), comment, null, null, null, null);
+			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType, comment, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
+			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType, comment, null, null, null, null);
 	}
 	
 	private EavropEventDTOType getEavropEventDTOType(){

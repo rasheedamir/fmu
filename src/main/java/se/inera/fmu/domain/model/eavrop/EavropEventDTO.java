@@ -11,7 +11,7 @@ public class EavropEventDTO implements Comparable<EavropEventDTO>{
 	
 	private final EavropEventDTOType eventType;
     private final DateTime eventTime;
-    private final String eventStatus;
+    private final BookingStatusType eventStatus;
     private final String comment;
     private final String personName;
     private final String personRole;
@@ -21,7 +21,7 @@ public class EavropEventDTO implements Comparable<EavropEventDTO>{
     private InterpreterBookingEventDTO interpreterBookingEventDTO;
     
     
-	public EavropEventDTO(EavropEventDTOType eventType, DateTime eventTime, String eventStatus, String comment, String personName,
+	public EavropEventDTO(EavropEventDTOType eventType, DateTime eventTime, BookingStatusType eventStatus, String comment, String personName,
 			String personRole, String personOrganistation, String personUnit) {
 		super();
 		this.eventType = eventType;
@@ -34,14 +34,14 @@ public class EavropEventDTO implements Comparable<EavropEventDTO>{
 		this.personUnit = personUnit;
 	}
 
-	public EavropEventDTO(EavropEventDTOType eventType, DateTime eventTime, String eventStatus, String comment, String personName,
+	public EavropEventDTO(EavropEventDTOType eventType, DateTime eventTime, BookingStatusType eventStatus, String comment, String personName,
 			String personRole, String personOrganistation, String personUnit, List<BookingStatusType> validBookingStatuses) {
 		this(eventType, eventTime, eventStatus, comment, personName, personRole, personOrganistation, personUnit);
 		this.validBookingStatuses = validBookingStatuses;
 	}
 
 	
-	public EavropEventDTO(EavropEventDTOType eventType, DateTime eventTime, String eventStatus, String comment, String personName,
+	public EavropEventDTO(EavropEventDTOType eventType, DateTime eventTime, BookingStatusType eventStatus, String comment, String personName,
 			String personRole, String personOrganistation, String personUnit, List<BookingStatusType> validBookingStatuses, 
 			InterpreterBookingEventDTO interpreterBookingEventDTO) {
 		this(eventType, eventTime, eventStatus, comment, personName, personRole, personOrganistation, personUnit, validBookingStatuses);
@@ -56,7 +56,7 @@ public class EavropEventDTO implements Comparable<EavropEventDTO>{
 		return eventTime;
 	}
 
-	public String getEventStatus() {
+	public BookingStatusType getEventStatus() {
 		return eventStatus;
 	}
 

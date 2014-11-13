@@ -217,7 +217,7 @@ public class ITRepositoryTest {
 
         for (Booking booking : eavrop.getBookings()) {
         	assertNotNull(booking.getPerson());
-        	assertEquals(Boolean.TRUE, booking.getBookingStatus().isCancelled());
+        	assertEquals(Boolean.TRUE, booking.getBookingStatus().isDeviant());
         	assertNull(booking.getBookingDeviationResponse());
     	}
 
@@ -229,7 +229,7 @@ public class ITRepositoryTest {
 
         for (Booking booking : eavrop.getBookings()) {
         	assertNotNull(booking.getPerson());
-        	assertEquals(Boolean.TRUE, booking.getBookingStatus().isCancelled());
+        	assertEquals(Boolean.TRUE, booking.getBookingStatus().isDeviant());
         	assertNotNull(booking.getBookingDeviationResponse());
     	}
     }
