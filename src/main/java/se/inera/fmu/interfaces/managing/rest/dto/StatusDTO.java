@@ -48,7 +48,7 @@ public class StatusDTO {
 				if (status instanceof BookingStatusType) {
 					BookingStatusType bt = (BookingStatusType) status;
 					s.setName(bt)
-					.setRequireComment(bt.isCancelled());
+					.setRequireComment(bt.isDeviant());
 				} else {
 					InterpreterBookingStatusType it = (InterpreterBookingStatusType) status;
 					s.setName(it)
