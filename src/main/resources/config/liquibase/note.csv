@@ -1,3 +1,5 @@
 NOTE_ID;created_by;created_date;last_modified_by;last_modified_date;version;TYPE;TEXT;PERSON_ID
 1;system;2014-11-04;system;2014-11-04;0;APPROVAL;Godkänd;3
 2;system;2014-11-07;system;2014-11-07;0;COMPENSATION_APPROVAL;Utbetalning godkänd;3
+3;system;2014-11-07;system;2014-10-14;0;BOOKING_DEVIATION_RESPONSE;Patinenten uteblev;4
+4;system;2014-11-07;system;2014-10-15;0;BOOKING_DEVIATION_RESPONSE;Missade bussen, boka ny tid;3
