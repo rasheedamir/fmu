@@ -12,6 +12,7 @@ import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
 
 /**
  * Created by Rasheed on 7/7/14.
@@ -32,5 +33,7 @@ public interface FmuOrderingService {
 	public AllEventsDTO getAllEvents(EavropId eavropId);
 
 	public OrderDTO getOrderInfo(EavropId eavropId);
+
+	public List<ReceivedDocumentDTO> getReceivedDocuments(EavropId eavropId);
 
 }
