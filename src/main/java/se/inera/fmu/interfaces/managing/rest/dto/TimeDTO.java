@@ -6,7 +6,6 @@ import lombok.Getter;
 public class TimeDTO {
 	private Integer hour;
 	private Integer minute;
-	private Integer seconds;
 	
 	public TimeDTO setHour(Integer hour) {
 		this.hour = hour;
@@ -15,11 +14,6 @@ public class TimeDTO {
 	
 	public TimeDTO setMinute(Integer minute) {
 		this.minute = minute;
-		return this;
-	}
-	
-	public TimeDTO setSeconds(Integer seconds) {
-		this.seconds = seconds;
 		return this;
 	}
 }

@@ -1,7 +1,7 @@
 'use strict';
 angular.module('fmuClientApp')
-    .directive('fmuUtredningTable', ['ngTableParams', '$filter', 'UtredningService', 'ngDialog',
-        function (ngTableParams, $filter, UtredningService, ngDialog) {
+    .directive('fmuUtredningTable', ['ngTableParams', '$filter', 'UtredningService', 'ngDialog', 'UTREDNING_TABLE',
+        function (ngTableParams, $filter, UtredningService, ngDialog, UTREDNING_TABLE) {
             return {
                 restrict: 'E',
                 scope: {
@@ -12,9 +12,11 @@ angular.module('fmuClientApp')
                     footerHints: '=?',
                     startDate: '=?',
                     endDate: '=?',
-                    eavropid: '='
+                    eavropid: '=',
+                    getDataCallback: '&'
                 },
                 controller: function ($scope) {
+                    $scope.tableConstants = UTREDNING_TABLE;
                     $scope.isEditColumn = function (key) {
                         return key == 'edit';
                     };
@@ -30,52 +32,6 @@ angular.module('fmuClientApp')
                         $scope.currentSortKey = key;
                     };
 
-                    $scope.getValue = function (key, eavrop) {
-                        switch (key) {
-                            case $scope.dateKey:
-                                return $filter('date')(eavrop[key], EAVROP_TABLE.dateFormat);
-                            case 'timeOfEvent':
-                                return eavrop[key].start + ' - ' + eavrop[key].end;
-                            case 'tolkStatus':
-                            case 'handelseStatus':
-                                return eavrop[key].currentStatus;
-                            default:
-                                return eavrop[key];
-                        }
-                    };
-
-
-                    $scope.testData = {
-                        handelse: 'Besök',
-                        dateOfEvent: 1241235195,
-                        timeOfEvent: {start: '12:00', end: '13:00'},
-                        utredaPerson: 'Anna Karlson',
-                        role: 'Sjukgymnast',
-                        tolkStatus: {
-                            currentStatus: 'Bokad',
-                            statuses: [
-                                {name: 'Bokat', requireComment: false},
-                                {name: 'Tolkning genomförd', requireComment: false},
-                                {name: 'Tolk avbokad', requireComment: true},
-                                {name: 'Tolk uteblev', requireComment: true},
-                                {name: 'Tolk anlänt, men tolkning inte använd', requireComment: true}
-                            ],
-                            comment: null
-                        },
-                        handelseStatus: {
-                            currentStatus: 'Bokad',
-                            statuses: [
-                                {name: 'Bokat', requireComment: false},
-                                {name: 'Genomfört', requireComment: false},
-                                {name: 'Patient uteblev', requireComment: true},
-                                {name: 'Besök avbokat av utförare', requireComment: true},
-                                {name: 'Besök avbokat <96h', requireComment: true},
-                                {name: 'Besök avbokat >96h', requireComment: true}
-                            ],
-                            comment: null
-                        }
-                    };
-
                     $scope.initTableParameters = function () {
                         if (!$scope.tableParams) {
 
@@ -88,10 +44,10 @@ angular.module('fmuClientApp')
                                     getData: function ($defer, params) {
                                         var promise = UtredningService.getAllEvents($scope.eavropid);
 
-                                         promise.then(function (serverResponse) {
-                                         params.total(serverResponse.totalElements);
-                                         $defer.resolve(serverResponse.eavrops);
-                                         })
+                                        promise.then(function (serverResponse) {
+                                            params.total(serverResponse.length);
+                                            $defer.resolve(serverResponse);
+                                        })
                                     },
                                     $scope: $scope
                                 });
@@ -100,6 +56,9 @@ angular.module('fmuClientApp')
                     };
                 },
                 link: function (scope) {
+                    scope.getValue = function (key, row) {
+                        return scope.getDataCallback() ? scope.getDataCallback()(key, row) : row[key];
+                    };
                     scope.rowClicked = function (row) {
 
                     };

@@ -19,13 +19,13 @@ angular.module('fmuClientApp')
             arendeId: 'arendeId',
             utredningType: 'utredningType',
             bestallareEnhet: 'bestallaradministrator',
-            bestallareOrganisation : 'bestallaradministrator',
-            creationTime : 'documentsSentFromBestallareDateTime',
-            patientCity : 'invanare',
-            mottagarenOrganisation : 'currentAssignment',
-            status : 'eavropState',
-            antalDagarEfterForfragan : null,
-            color : null,
+            bestallareOrganisation: 'bestallaradministrator',
+            creationTime: 'documentsSentFromBestallareDateTime',
+            patientCity: 'invanare',
+            mottagarenOrganisation: 'currentAssignment',
+            status: 'eavropState',
+            antalDagarEfterForfragan: null,
+            color: null,
             avikelser: null
         },
         statusMapping: {
@@ -42,8 +42,47 @@ angular.module('fmuClientApp')
             false: 'Nej'
         }
     })
+    .constant('UTREDNING_TABLE', {
+        dateFormat: 'yyyy-MM-dd',
+        statusMapping: {
+            INTYG_APPROVED: 'Intyg godkänt',
+            INTYG_COMPLEMENT_REQUEST: 'Intyg kompleteras',
+            INTYG_SIGNED : 'Intyg signeras',
+            EAVROP_APPROVED : 'Utredningen godkänts',
+            EAVROP_COMPENSATION_APPROVED : 'Utredningens godkänts för utbetalning',
+            UNKNOWN: 'Okänt handelse',
+            EXAMINATION: 'Examination',
+            BREIFING_WITH_CITIZEN : 'Möte med patient',
+            INTERNAL_WORK: 'Internt arbete'
+        },
+
+        handelseMapping: {
+            BOOKED: 'Bokat',
+            PERFORMED: 'Genomfört',
+            CANCELLED_NOT_PRESENT: 'Patient uteblev',
+            CANCELLED_BY_CARE_GIVER: 'Besök avbokat av utförare',
+            CANCELLED_LT_48_H: 'Besök avbokat <48h',
+            CANCELLED_GT_48_H: 'Besök avbokat >48h',
+            CANCELLED_LT_96_H: 'Besök avbokat <96h',
+            CANCELLED_GT_96_H: 'Besök avbokat >96h'
+        },
+
+        tolkMapping: {
+            BOOKED: 'Bokat',
+            PERFORMED: 'Tolkning genomförd',
+            CANCELED: 'Tolk avbokad',
+            NOT_PRESENT: 'Tolk uteblev',
+            PRESENT_BUT_NOT_USED: 'Tolk anlänt, men tolkning inte använd'
+        },
+
+        editableEvents: [
+            'EXAMINATION',
+            'BREIFING_WITH_CITIZEN',
+            'INTERNAL_WORK'
+        ]
+    })
     .constant('EAVROP_STATUS', {
         notAccepted: 'NOT_ACCEPTED',
         accepted: 'ACCEPTED',
-        completed: 'COMPLETED',
+        completed: 'COMPLETED'
     });

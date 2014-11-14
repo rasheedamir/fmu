@@ -12,10 +12,12 @@ import se.inera.fmu.domain.model.eavrop.EavropCompensationApproval;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBooking;
+import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygComplementRequestInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedInformation;
+import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.StatusDTO;
 
@@ -29,7 +31,8 @@ public class UtredningDTOMapper {
 		retval.addAll(mapBookings(eavrop.getBookings(), eavrop));
 		retval.addAll(mapIntygInformations(eavrop.getIntygInformations()));
 		retval.addAll(mapEavropApproval(eavrop.getEavropApproval()));
-		retval.addAll(mapCompensationApproval(eavrop.getEavropCompensationApproval()));
+		retval.addAll(mapCompensationApproval(eavrop
+				.getEavropCompensationApproval()));
 		return retval;
 	}
 
@@ -41,15 +44,16 @@ public class UtredningDTOMapper {
 			return retval;
 
 		HandelseDTO dto = new HandelseDTO();
+		DateTime timeStamp = eavropCompensationApproval
+				.getCompensationDateTime();
+		Person person = eavropCompensationApproval.getPerson();
+
 		dto.setHandelse(NoneBookingEvents.EAVROP_COMPENSATION_APPROVED)
 				.setDateOfEvent(
-						eavropCompensationApproval.getCompensationDateTime() != null ? eavropCompensationApproval
-								.getCompensationDateTime().getMillis() : null)
-				.setUtredaPerson(
-						eavropCompensationApproval.getPerson() != null ? eavropCompensationApproval
-								.getPerson().getName() : null)
-				.setRole(eavropCompensationApproval.getPerson() != null ? eavropCompensationApproval
-								.getPerson().getRole() : null);
+						timeStamp != null ? timeStamp.getMillis() : null)
+				.setTimeOfEvent(timeStamp)
+				.setUtredaPerson(person != null ? person.getName() : null)
+				.setRole(person != null ? person.getRole() : null);
 
 		retval.add(dto);
 		return retval;
@@ -61,15 +65,15 @@ public class UtredningDTOMapper {
 			return retval;
 
 		HandelseDTO dto = new HandelseDTO();
+		DateTime timeStamp = eavropApproval.getApprovalTimestamp();
+		Person person = eavropApproval.getPerson();
+
 		dto.setHandelse(NoneBookingEvents.EAVROP_APPROVED)
 				.setDateOfEvent(
-						eavropApproval.getApprovalTimestamp() != null ? eavropApproval
-								.getApprovalTimestamp().getMillis() : null)
-				.setUtredaPerson(
-						eavropApproval.getPerson() != null ? eavropApproval
-								.getPerson().getName() : null)
-				.setRole(eavropApproval.getPerson() != null ? eavropApproval
-								.getPerson().getRole() : null);
+						timeStamp != null ? timeStamp.getMillis() : null)
+				.setTimeOfEvent(timeStamp)
+				.setUtredaPerson(person != null ? person.getName() : null)
+				.setRole(person != null ? person.getRole() : null);
 
 		retval.add(dto);
 		return retval;
@@ -94,14 +98,12 @@ public class UtredningDTOMapper {
 			else
 				dto.setHandelse(NoneBookingEvents.UNKNOWN);
 
-			dto.setDateOfEvent(
-					info.getInformationTimestamp() != null ? info
-							.getInformationTimestamp().getMillis() : null)
-					.setUtredaPerson(
-							info.getPerson() != null ? info.getPerson()
-									.getName() : null)
-					.setRole(info.getPerson() != null ? info.getPerson()
-									.getRole() : null);
+			DateTime timeStamp = info.getInformationTimestamp();
+			Person person = info.getPerson();
+			dto.setDateOfEvent(timeStamp != null ? timeStamp.getMillis() : null)
+					.setTimeOfEvent(timeStamp)
+					.setUtredaPerson(person != null ? person.getName() : null)
+					.setRole(person != null ? person.getRole() : null);
 			retval.add(dto);
 
 		}
@@ -113,7 +115,15 @@ public class UtredningDTOMapper {
 		List<HandelseDTO> retval = new ArrayList<HandelseDTO>();
 		for (Booking booking : bookings) {
 			HandelseDTO dto = new HandelseDTO();
-			dto.setHandelse(booking.getBookingType());
+			DateTime duedate = booking.getStartDateTime();
+			Person person = booking.getPerson();
+			dto.setHandelse(booking.getBookingType())
+			.setDateOfEvent(
+							duedate != null ? duedate.getMillis() : null)
+					.setTimeOfEvent(
+							duedate != null ? duedate: null)
+					.setUtredaPerson(person != null ? person.getName() : null)
+					.setRole(person != null ? person.getRole() : null);;
 
 			StatusDTO tolkstatus = new StatusDTO();
 			StatusDTO handelseStatus = new StatusDTO();
@@ -124,10 +134,7 @@ public class UtredningDTOMapper {
 					.setComment(
 							tolk.getDeviationNote() != null ? tolk
 									.getDeviationNote().getText() : null)
-					.setStatuses(
-							BookingStatusType.getValidBookingStatuses(
-									eavrop.getUtredningType(),
-									booking.getBookingType()).toArray());
+					.setStatuses(InterpreterBookingStatusType.values());
 
 			handelseStatus
 					.setCurrentStatus(booking.getBookingStatus())
@@ -139,18 +146,7 @@ public class UtredningDTOMapper {
 									eavrop.getUtredningType(),
 									booking.getBookingType()).toArray());
 
-			DateTime datetime = booking.getStartDateTime();
-			dto.setTolkStatus(tolkstatus)
-					.setHandelseStatus(handelseStatus)
-					.setDateOfEvent(
-							datetime != null ? datetime.getMillis() : null)
-					.setTimeOfEvent(
-							datetime != null ? datetime.toLocalTime() : null)
-					.setUtredaPerson(
-							booking.getPerson() != null ? booking.getPerson()
-									.getName() : null)
-					.setRole(booking.getPerson() != null ? booking.getPerson()
-							.getRole() : null);
+			dto.setTolkStatus(tolkstatus).setHandelseStatus(handelseStatus);
 
 			retval.add(dto);
 		}

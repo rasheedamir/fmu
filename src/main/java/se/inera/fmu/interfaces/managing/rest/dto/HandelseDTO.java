@@ -2,7 +2,7 @@ package se.inera.fmu.interfaces.managing.rest.dto;
 
 import lombok.Getter;
 
-import org.joda.time.LocalTime;
+import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.interfaces.managing.dtomapper.UtredningDTOMapper.NoneBookingEvents;
@@ -44,16 +44,15 @@ public class HandelseDTO {
 		return this;
 	}
 	
-	public HandelseDTO setTimeOfEvent(LocalTime timeOfEvent) {
-		if(timeOfEvent == null)
+	public HandelseDTO setTimeOfEvent(DateTime dateTime) {
+		if(dateTime == null)
 			return this;
 		
 		if(this.timeOfEvent == null)
 			this.timeOfEvent = new TimeDTO();
 		
-		this.timeOfEvent.setHour(timeOfEvent.getHourOfDay())
-		.setMinute(timeOfEvent.getMinuteOfHour())
-		.setSeconds(timeOfEvent.getSecondOfMinute());
+		this.timeOfEvent.setHour(dateTime.getHourOfDay())
+		.setMinute(dateTime.getMinuteOfHour());
 		
 		return this;
 	}
