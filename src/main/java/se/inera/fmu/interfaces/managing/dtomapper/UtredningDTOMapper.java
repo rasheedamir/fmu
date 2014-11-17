@@ -118,23 +118,22 @@ public class UtredningDTOMapper {
 			DateTime duedate = booking.getStartDateTime();
 			Person person = booking.getPerson();
 			dto.setHandelse(booking.getBookingType())
-			.setDateOfEvent(
+					.setDateOfEvent(
 							duedate != null ? duedate.getMillis() : null)
-					.setTimeOfEvent(
-							duedate != null ? duedate: null)
+					.setTimeOfEvent(duedate != null ? duedate : null)
 					.setUtredaPerson(person != null ? person.getName() : null)
-					.setRole(person != null ? person.getRole() : null);;
+					.setRole(person != null ? person.getRole() : null);
+			;
 
 			StatusDTO tolkstatus = new StatusDTO();
 			StatusDTO handelseStatus = new StatusDTO();
 
 			InterpreterBooking tolk = booking.getInterpreterBooking();
-			tolkstatus
-					.setCurrentStatus(tolk.getInterpreterBookingStatus())
-					.setComment(
-							tolk.getDeviationNote() != null ? tolk
-									.getDeviationNote().getText() : null)
-					.setStatuses(InterpreterBookingStatusType.values());
+				tolkstatus
+						.setCurrentStatus(tolk != null ? tolk.getInterpreterBookingStatus(): null)
+						.setComment(tolk != null && tolk.getDeviationNote() != null ? 
+								tolk.getDeviationNote().getText() : null)
+						.setStatuses(InterpreterBookingStatusType.values());
 
 			handelseStatus
 					.setCurrentStatus(booking.getBookingStatus())

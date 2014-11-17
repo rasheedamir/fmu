@@ -14,6 +14,17 @@ angular.module('fmuClientApp').factory('UtredningService', ['$http', '$q', 'Rest
                     });
             },
 
+            createBooking: function (booking) {
+                return $http.post(RestUrlBuilderService.buildCreateBookingRestUrl(), booking)
+                    .then(function (data) {
+                        // Success
+                        return data.data;
+                    }, function (err) {
+                        // Failed to retrieve data
+                        return $q.reject(err.data);
+                    });
+            },
+
             postTolkStatusChanges: function (bookningsId, comments) {
                 return $http.post(RestUrlBuilderService.postTolkStatusRestUrl(bookningsId, comments))
                     .then(function (success) {

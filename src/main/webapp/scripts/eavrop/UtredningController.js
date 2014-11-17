@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('fmuClientApp')
-    .controller('UtredningController', ['$scope', '$filter', '$stateParams', 'AuthService', 'ngDialog', 'UTREDNING_TABLE',
-        function ($scope, $filter, $stateParams, AuthService, ngDialog, UTREDNING_TABLE) {
+    .controller('UtredningController', ['$scope', '$filter', '$stateParams', 'AuthService', 'UtredningService', 'ngDialog', 'UTREDNING',
+        function ($scope, $filter, $stateParams, AuthService, UtredningService, ngDialog, UTREDNING) {
             $scope.authService = AuthService;
             $scope.dateKey = 'creationTime';
             $scope.startDate = new Date();
@@ -10,7 +10,13 @@ angular.module('fmuClientApp')
             $scope.endDate.setMonth($scope.startDate.getMonth() + 1);
             $scope.dateKey = 'dateOfEvent';
 
+            $scope.handelseDate = new Date();
+            $scope.handelseStartTime = new Date();
+            $scope.handelseStartTime.setMinutes(0);
+            $scope.handelseEndTime = new Date();
+            $scope.handelseEndTime.setMinutes(0);
             $scope.currentEavropId = $stateParams.eavropId;
+            $scope.createBookingErrors = [];
             function getTimeHHMM(hour, minut) {
                 var hh = hour < 10 ? '0' + hour : hour;
                 var mm = minut < 10 ? '0' + minut : minut;
@@ -71,20 +77,22 @@ angular.module('fmuClientApp')
                 }
                 switch (key) {
                     case 'timeOfEvent' :
-                        return getTimeHHMM(celldata.hour,celldata.minute);
+                        return getTimeHHMM(celldata.hour, celldata.minute);
                     case 'dateOfEvent':
-                        return $filter('date')(celldata, UTREDNING_TABLE.dateFormat);
+                        return $filter('date')(celldata, UTREDNING.dateFormat);
                     case 'tolkStatus' :
+                        return UTREDNING.tolkMapping[celldata.currentStatus];
                     case 'handelseStatus' :
-                        return UTREDNING_TABLE.handelseMapping[celldata.currentStatus];
+                        return UTREDNING.handelseMapping[celldata.currentStatus];
                     case 'handelse':
-                        return UTREDNING_TABLE.statusMapping[celldata];
+                        return UTREDNING.statusMapping[celldata];
                     default :
                         return celldata;
                 }
             };
 
             $scope.visa = function () {
+                console.log($scope);
                 if ($scope.tableParameters) {
                     $scope.tableParameters.reload();
                 }
@@ -95,8 +103,9 @@ angular.module('fmuClientApp')
             };
 
             $scope.handelseTypes = [
-                {type: 'Besök'},
-                {type: 'Tolk'}
+                {type: UTREDNING.editableEvents.examination, name: 'Undersökning'},
+                {type: UTREDNING.editableEvents.briefing, name: 'Genomgång med patient'},
+                {type: UTREDNING.editableEvents.internalWork, name: 'Internt arbete'}
             ];
 
             $scope.roles = [
@@ -108,13 +117,44 @@ angular.module('fmuClientApp')
             ];
 
             $scope.saveHandelse = function () {
-                console.log('save');
-                ngDialog.close();
+                var dataPackage = constructBookingObject();
+                console.log(dataPackage);
+                var promise = UtredningService.createBooking(dataPackage);
+                promise.then(function () {
+                    ngDialog.close();
+                    $scope.tableParameters.reload();
+                }, function (error) {
+                    $scope.createBookingErrors.push(UTREDNING.errors.cannotCreateBooking);
+                });
             };
 
-            $scope.cancelHandelse = function () {
-                console.log('avbryt');
-                ngDialog.close();
+            $scope.openBookingCreationDialog = function () {
+                ngDialog.open({
+                    template: 'views/templates/laggTillHandelseDialog.html',
+                    scope: $scope
+                });
             };
+
+            function constructBookingObject() {
+                    return {
+                        eavropId: $scope.currentEavropId,
+                        bookingType: $scope.choosenHandelseType ? $scope.choosenHandelseType.type : null,
+                        bookingDate: $scope.handelseDate.getTime(),
+                        bookingStartTime: {
+                            hour: $scope.handelseStartTime.getHours(),
+                            minute: $scope.handelseStartTime.getMinutes()
+                        },
+                        bookingEndTime: {
+                            hour: $scope.handelseEndTime.getHours(),
+                            minute: $scope.handelseEndTime.getMinutes()
+                        },
+                        personName: $scope.personName,
+                        personRole: $scope.choosenRole ? $scope.choosenRole.name : null,
+                        personOrganisation: 'Implement this',
+                        personUnit: 'Implement this',
+                        useInterpreter: $scope.tolkRadio
+                    }
+            }
         }
-    ]);
+    ])
+;

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
+import se.inera.fmu.application.impl.command.CreateBookingCommand;
 import se.inera.fmu.application.impl.command.CreateEavropCommand;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropId;
@@ -41,5 +42,5 @@ public interface FmuOrderingService {
 	public List<RequestedDocumentDTO> getRequestedDocuments(EavropId eavropId);
 
 	public List<NoteDTO> getNotes(EavropId eavropId);
-
+	public void addBooking(CreateBookingCommand cbc);
 }

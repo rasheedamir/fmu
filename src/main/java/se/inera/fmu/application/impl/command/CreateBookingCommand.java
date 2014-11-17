@@ -28,4 +28,11 @@ public class CreateBookingCommand {
     private String personOrganisation;
     private String personUnit;
     private boolean useInterpreter; 
+    
+    @Override
+    public String toString() {
+    	return "EavropID: " + eavropId + " bookingType: " + bookingType + " StartDateTime: " + bookingStartDateTime +
+    			"EndDateTime: " + bookingEndDateTime + " Person Name: " + personName + " Role: " + personRole +
+    			"Organisation: " + personOrganisation + " Unit: " + personUnit + " Tolk: " + useInterpreter;
+    }
 }

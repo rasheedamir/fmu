@@ -31,11 +31,21 @@
     </div>
 
     <div class="row">
-        <fmu-utredning-table header-fields="headerFields"
-                             date-key="{{dateKey}}"
-                             eavropid="currentEavropId"
-                             get-data-callback="getTableCellValue"
-                             table-parameters="tableParameters">
-        </fmu-utredning-table>
+        <div class="table-wrapper">
+            <fmu-utredning-table
+                    table-parameters="tableParameters"
+                    header-fields="headerFields"
+                    date-key="{{dateKey}}"
+                    eavropid="currentEavropId"
+                    get-data-callback="getTableCellValue">
+            </fmu-utredning-table>
+
+            <div class="row fmu-form-footer">
+                <button class="btn btn-success utredning-laggtill-btn"
+                        ng-click="openBookingCreationDialog()">
+                    Lägg till händelse
+                </button>
+            </div>
+        </div>
     </div>
 </div>

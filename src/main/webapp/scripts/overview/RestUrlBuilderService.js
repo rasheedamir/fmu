@@ -17,6 +17,10 @@ angular.module('fmuClientApp').factory('RestUrlBuilderService',
 
             buildEventsRestUrl: function (eavropId) {
                 return '/app/rest/eavrop/'+ eavropId + '/utredning';
+            },
+
+            buildCreateBookingRestUrl: function () {
+                return '/app/rest/eavrop/utredning/create/booking';
             }
         }
     });

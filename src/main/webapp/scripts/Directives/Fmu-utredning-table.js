@@ -1,7 +1,7 @@
 'use strict';
 angular.module('fmuClientApp')
-    .directive('fmuUtredningTable', ['ngTableParams', '$filter', 'UtredningService', 'ngDialog', 'UTREDNING_TABLE',
-        function (ngTableParams, $filter, UtredningService, ngDialog, UTREDNING_TABLE) {
+    .directive('fmuUtredningTable', ['ngTableParams', '$filter', 'UtredningService', 'ngDialog', 'UTREDNING',
+        function (ngTableParams, $filter, UtredningService, ngDialog, UTREDNING) {
             return {
                 restrict: 'E',
                 scope: {
@@ -16,7 +16,7 @@ angular.module('fmuClientApp')
                     getDataCallback: '&'
                 },
                 controller: function ($scope) {
-                    $scope.tableConstants = UTREDNING_TABLE;
+                    $scope.tableConstants = UTREDNING;
                     $scope.isEditColumn = function (key) {
                         return key == 'edit';
                     };

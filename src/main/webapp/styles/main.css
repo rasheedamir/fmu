@@ -545,6 +545,7 @@ h2{
 
 .fmu-error-field p i {
     color: #000000;
+    font-size: 9pt;
 }
 
 .fmu-form-container {
@@ -592,4 +593,9 @@ h2{
 
 .dropdown-menu {
     z-index: 1000;
+}
+
+.utredning-laggtill-btn {
+    display: inline-block;
+    float: right;
 }

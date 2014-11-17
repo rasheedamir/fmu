@@ -5,10 +5,11 @@
     </div>
 
     <div class="fmu-form-body">
+        <fmu-error-field errors="createBookingErrors"></fmu-error-field>
         <div>
             <h3>Typ av händelse</h3>
             <select class="form-control" ng-model="choosenHandelseType"
-                    ng-options="handelse.type for handelse in handelseTypes">
+                    ng-options="handelse.name for handelse in handelseTypes">
                 <option value="">-- Välj en händelse --</option>
             </select>
         </div>
@@ -21,11 +22,11 @@
 
             <div class="col-md-6">
                 <div class="col-md-6">
-                    <timepicker ng-model="startTime" hour-step="1" minute-step="10"
-                                show-meridian="true"></timepicker>
+                    <timepicker ng-model="handelseStartTime" hour-step="1" minute-step="10"
+                                show-meridian="false"></timepicker>
                 </div>
                 <div class="col-md-6">
-                    <timepicker ng-model="endTime" hour-step="1" minute-step="10" show-meridian="true"></timepicker>
+                    <timepicker ng-model="handelseEndTime" hour-step="1" minute-step="10" show-meridian="false"></timepicker>
                 </div>
             </div>
         </div>
@@ -35,7 +36,7 @@
         <div class="row">
             <div class="col-md-5">
                 <h3>Person</h3>
-                <input class="form-control" ng-model="personNAme">
+                <input class="form-control" ng-model="personName">
             </div>
 
             <div class="col-md-6">
@@ -51,11 +52,11 @@
             <label>Tolk ?</label>
             <div class="radio">
                 <label>
-                    <input ng-model="tolkRadio" type="radio" value="false"> Ja
+                    <input ng-model="tolkRadio" type="radio" value="true"> Ja
                 </label>
 
                 <label>
-                    <input ng-model="tolkRadio" type="radio" value="true"> Nej
+                    <input ng-model="tolkRadio" type="radio" value="false"> Nej
                 </label>
             </div>
         </div>
@@ -67,7 +68,7 @@
                     ng-click="saveHandelse()">Spara
             </button>
             <button class="btn btn-warning"
-                    ng-click="cancelHandelse()">Avbryt
+                    ng-click="closeThisDialog()">Avbryt
             </button>
         </div>
     </div>
