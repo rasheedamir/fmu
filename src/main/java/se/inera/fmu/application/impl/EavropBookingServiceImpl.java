@@ -69,7 +69,7 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 		Person hosPerson = new HoSPerson(aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
 		
 		//Create booking
-		Booking booking = new Booking(aCommand.getBookingType(), aCommand.getBookingStartDateTime(), aCommand.getBookingEndDateTime(), aCommand.isAdditionalService(), hosPerson, aCommand.isUseInterpreter());
+		Booking booking = new Booking(aCommand.getBookingType(), aCommand.getBookingStartDateTime(), aCommand.getBookingEndDateTime(), aCommand.getAdditionalService(), hosPerson, aCommand.getUseInterpreter());
 		//Add booking to eavrop
 		eavrop.addBooking(booking);
 

@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import javax.validation.constraints.NotNull;
 
 import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
@@ -18,7 +17,7 @@ public class BusinessDaysUtil {
 	//Set up fixed day holidays
 	private static final Set<Holiday> fixedDayHolidays;
 	static {
-        Set<Holiday> aSet = new HashSet();
+        Set<Holiday> aSet = new HashSet<Holiday>();
         aSet.add(new Holiday(1, 1)); //Nyårsdagen
         //aSet.add(new Holiday(1, 5)); //Trettondagsafton, not a public holiday but many workplaces have shortened workday, -4 hours. TODO: investigate if it should be included 
         aSet.add(new Holiday(1, 6)); //Trettondagen
@@ -78,14 +77,35 @@ public class BusinessDaysUtil {
 		//Allhelgonaafton - Friday preceding all 19/6 - 25/6, No holiday but less workinghours during day. TODO: investigate if it should be included
 		//floatingHolidaysForYear.add(new Holiday(allSaintsDay.minusDays(DateTimeConstants.SATURDAY - DateTimeConstants.FRIDAY)));
 
-		
-		//TODO: Pending decision from stakeholders	
-		//Adding summer vacation as "industrisemester" during week 28, 29 and 30
-		LocalDate mondayWeek28 = new LocalDate().withWeekyear(year).withWeekOfWeekyear(28).withDayOfWeek(DateTimeConstants.MONDAY);
-		LocalDate mondayWeek31 = new LocalDate().withWeekyear(year).withWeekOfWeekyear(31).withDayOfWeek(DateTimeConstants.MONDAY);
+		//Some week should not be considered as business weeks.
+		//Skippable weeks: 1, 29, 30 and 52.
 
-		LocalDate day = mondayWeek28;
+		//From beginning of year to Monday of week 2. 
+		LocalDate secondOfJanuary = new LocalDate(year,1,2);
+		LocalDate mondayWeek2 = new LocalDate().withWeekyear(year).withWeekOfWeekyear(2).withDayOfWeek(DateTimeConstants.MONDAY);
+		LocalDate day = secondOfJanuary;
+		while (day.isBefore(mondayWeek2)) {
+			if(day.getDayOfWeek() != DateTimeConstants.SATURDAY && day.getDayOfWeek() != DateTimeConstants.SUNDAY){
+				floatingHolidaysForYear.add(new Holiday(day));
+			}
+			day = day.plusDays(1);
+		}
+		
+		//Summer vacation, industrial vacation period
+		LocalDate mondayWeek29 = new LocalDate().withWeekyear(year).withWeekOfWeekyear(29).withDayOfWeek(DateTimeConstants.MONDAY);
+		LocalDate mondayWeek31 = new LocalDate().withWeekyear(year).withWeekOfWeekyear(31).withDayOfWeek(DateTimeConstants.MONDAY);
+		day = mondayWeek29;
 		while (day.isBefore(mondayWeek31)) {
+			if(day.getDayOfWeek() != DateTimeConstants.SATURDAY && day.getDayOfWeek() != DateTimeConstants.SUNDAY){
+				floatingHolidaysForYear.add(new Holiday(day));
+			}
+			day = day.plusDays(1);
+		}
+		
+		LocalDate mondayWeek52 = new LocalDate().withWeekyear(year).withWeekOfWeekyear(52).withDayOfWeek(DateTimeConstants.MONDAY);
+		LocalDate lastOfDecember = new LocalDate(year,1,2); //last of December is already added as a fixed holiday
+		day = mondayWeek52;
+		while (day.isBefore(lastOfDecember)) {
 			if(day.getDayOfWeek() != DateTimeConstants.SATURDAY && day.getDayOfWeek() != DateTimeConstants.SUNDAY){
 				floatingHolidaysForYear.add(new Holiday(day));
 			}
@@ -106,11 +126,6 @@ public class BusinessDaysUtil {
 	public static LocalDate getEasterSunday(int year) {
 
         int initialYear = year;
-
-//        if (year < 1900) {
-//            year += 1900;
-//        }
-
         int a = year % 19;
         int b = year / 100;
         int c = year % 100;

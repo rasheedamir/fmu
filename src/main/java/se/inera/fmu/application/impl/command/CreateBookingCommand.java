@@ -23,9 +23,9 @@ public class CreateBookingCommand {
     @NonNull private DateTime bookingStartDateTime; 
     @NonNull private DateTime bookingEndDateTime; 
     @NonNull private String personName;
-    private boolean additionalService;
     @NonNull private String personRole;
     private String personOrganisation;
     private String personUnit;
-    private boolean useInterpreter; 
+    @NonNull private Boolean additionalService;
+    @NonNull private Boolean useInterpreter; 
 }

@@ -74,16 +74,7 @@ public abstract class AbstractEavropState implements EavropState, Serializable {
 						+ getEavropStateType().name());
 	}
 
-//	@Override
-//	//public void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingDeviation deviation) {
-//	public void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingStatusType cancellationType, Note cancellationNote){
-//		throw new IllegalStateException(
-//				"Method cancelBooking is not available in state "
-//						+ getEavropStateType().name());
-//	}
-
 	@Override
-	//public void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingDeviation deviation) {
 	public void setBookingStatus(Eavrop eavrop, BookingId bookingId, BookingStatusType bookingStatusType, Note cancellationNote){
 		throw new IllegalStateException(
 				"Method setBookingStatus is not available in state "

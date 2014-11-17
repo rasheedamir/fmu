@@ -16,9 +16,8 @@ public class AssignedEavropState extends AbstractEavropState {
 	
 	@Override
 	public void acceptEavropAssignment(Eavrop eavrop){
-	eavrop.getCurrentAssignment().acceptAssignment();
+		eavrop.getCurrentAssignment().acceptAssignment();
 	
-		eavrop.handleEavropAccept();
 		//State transition ASSIGNED -> ACCEPTED
 		eavrop.setEavropState(new AcceptedEavropState());
 	}
@@ -31,7 +30,6 @@ public class AssignedEavropState extends AbstractEavropState {
 		
 		eavrop.setCurrentAssignment(null);
 		
-		eavrop.handleEavropReject(eavropAssignment);
 		//State transition ASSIGNED -> UNASSIGNED
 		eavrop.setEavropState(new UnassignedEavropState());
 	}

@@ -17,10 +17,11 @@ public final class InvanareUtil {
     public static final Name NAME = new Name("FRODO", "", "BAGINS");
     public static final Gender GENDER = Gender.MALE;
     public static final Address HOME_ADDRESS = new Address("HOME # 1", "STREET # 2", "8899", "CHADONE", "VEVEY", "SWITZERLAND");
+    public static final String PHONE = "555-12345";
     public static final String EMAIL = "frodo@bagins.com";
     public static final String SPECIAL_NEED = null;
 
     public static Invanare createInvanare() {
-        return new Invanare(PERSONAL_NUMBER, NAME, GENDER, HOME_ADDRESS, EMAIL, SPECIAL_NEED);
+        return new Invanare(PERSONAL_NUMBER, NAME, GENDER, HOME_ADDRESS, PHONE, EMAIL, SPECIAL_NEED);
     }
 }

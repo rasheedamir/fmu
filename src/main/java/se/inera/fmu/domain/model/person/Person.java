@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.Email;
 	
 @Entity
 @Table(name = "T_PERSON")
@@ -26,12 +28,18 @@ public abstract class Person implements Serializable  {
     @Column(name = "ROLE", nullable = true)
     private String role;
     
+    @Column(name = "UNIT", nullable = true)
+    private String unit;
+    
     @Column(name = "ORGANISATION", nullable = true)
     private String organisation;
 
-    @Column(name = "UNIT", nullable = true)
-    private String unit;
-
+	@Column(name = "PHONE", nullable = true)
+    private String phone;
+       
+    @Email
+    @Column(name = "EMAIL", nullable = true)
+    private String email;
     
     //~ Constructors ===================================================================================================
 
@@ -39,12 +47,16 @@ public abstract class Person implements Serializable  {
 		//Needed by Hibernate
 	}
 
-	public Person(String name, String role, String organisation, String unit) {
+	public Person(String name, String role, String organisation, String unit, String phone, String email) {
 		super();
-		this.name = name;
-		this.role = role;
-		this.organisation = organisation;
-		this.unit = unit;
+		this.setNamn(name);;
+		this.setRole(role);;
+		this.setUnit(unit);
+		this.setOrganisation(organisation);
+		this.setPhone(phone);
+		this.setEmail(email);
+
+
 	}
 
 
@@ -64,6 +76,22 @@ public abstract class Person implements Serializable  {
 
 	private void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getPhone() {
+		return this.phone;
+	}
+
+	private void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	private void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getOrganisation() {

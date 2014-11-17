@@ -114,7 +114,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
     public ArendeId createEavrop(CreateEavropCommand aCommand) {
         
         Invanare invanare = createInvanare(aCommand.getPersonalNumber(), aCommand.getInvanareName(), aCommand.getInvanareGender(),
-                aCommand.getInvanareHomeAddress(), aCommand.getInvanareEmail(), aCommand.getInvanareSpecialNeeds());
+                aCommand.getInvanareHomeAddress(), aCommand.getInvanarePhone(), aCommand.getInvanareEmail(), aCommand.getInvanareSpecialNeeds());
     	
         Bestallaradministrator bestallaradministrator = createBestallaradministrator(aCommand.getAdministratorName(),
                 aCommand.getAdministratorBefattning(), aCommand.getAdministratorOrganisation(), aCommand.getAdministratorEnhet(),
@@ -164,8 +164,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
      * @return
      */
     private Invanare createInvanare(PersonalNumber personalNumber, Name invanareName, Gender invanareGender, Address invanareHomeAddress,
-                                    String invanareEmail, String specialNeeds ){
-    	Invanare invanare = new Invanare(personalNumber, invanareName, invanareGender, invanareHomeAddress, invanareEmail, specialNeeds);
+                                    String phone, String invanareEmail, String specialNeeds ){
+    	Invanare invanare = new Invanare(personalNumber, invanareName, invanareGender, invanareHomeAddress, phone, invanareEmail, specialNeeds);
     	invanare = invanareRepository.save(invanare);
         return invanare;
     }

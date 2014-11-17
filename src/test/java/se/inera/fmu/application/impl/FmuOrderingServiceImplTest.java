@@ -85,7 +85,7 @@ public class FmuOrderingServiceImplTest {
         final Invanare savedPatient = stubRepositoryToReturnPatientOnSave();
         final ArendeId arendeId = fmuOrderingService.createEavrop(new CreateEavropCommand(
         		EavropUtil.ARENDE_ID, EavropUtil.UTREDNING_TYPE,  EavropUtil.TOLK, InvanareUtil.PERSONAL_NUMBER, InvanareUtil.NAME, 
-        		InvanareUtil.GENDER, InvanareUtil.HOME_ADDRESS, InvanareUtil.EMAIL, InvanareUtil.SPECIAL_NEED, LandstingUtil.createLandsting(), 
+        		InvanareUtil.GENDER, InvanareUtil.HOME_ADDRESS, InvanareUtil.PHONE, InvanareUtil.EMAIL, InvanareUtil.SPECIAL_NEED, LandstingUtil.createLandsting(), 
                 BestallaradministratorUtil.NAME, BestallaradministratorUtil.BEFATTNING, BestallaradministratorUtil.ORGANISATION, 
                 BestallaradministratorUtil.UNIT, BestallaradministratorUtil.PHONE, BestallaradministratorUtil.EMAIL, EavropUtil.DESCRIPTION, 
                 EavropUtil.UTREDNING_FOCUS, EavropUtil.ADDITIONAL_INFORMATION, PriorMedicalExaminationUtil.EXAMINED_AT, 
