@@ -5,7 +5,7 @@ angular.module('fmuClientApp')
     .constant('RESTURL', {
         eavrop: '/eavrop/:eavropId',
         eavropDocuments: 'app/rest/eavrop/:eavropId/received-documents',
-        eavropRequestedDocuments: '/eavrop/:eavropId/requested-documents',
+        eavropRequestedDocuments: 'app/rest/eavrop/:eavropId/requested-documents',
         eavropNotes: '/eavrop/:eavropId/notes',
         eavropAllEvents: 'app/rest/eavrop/:eavropId/all-events',
         eavropOrder: 'app/rest/eavrop/:eavropId/order'

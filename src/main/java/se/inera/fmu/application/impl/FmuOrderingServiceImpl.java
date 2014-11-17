@@ -20,6 +20,7 @@ import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.*;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignedToVardgivarenhetEvent;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
+import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
@@ -40,6 +41,7 @@ import se.inera.fmu.domain.model.systemparameter.Configuration;
 import se.inera.fmu.interfaces.managing.dtomapper.AllEventsDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.DTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.OrderDTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.RequestedDocumentDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.UtredningDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.ReceivedDocumentDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
@@ -49,6 +51,7 @@ import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
 
 import javax.inject.Inject;
 
@@ -336,6 +339,19 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		
 		for(ReceivedDocument doc : eavropForUser.getReceivedDocuments()){
 			result.add(mapper.map(doc));
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<RequestedDocumentDTO> getRequestedDocuments(EavropId eavropId) {
+		Eavrop eavropForUser = getEavropForUser(eavropId);
+		List<RequestedDocumentDTO> result = new ArrayList<>();
+		RequestedDocumentDTOMapper mapper = new RequestedDocumentDTOMapper();
+		
+		for(RequestedDocument doc : eavropForUser.getRequestedDocuments()){
+			result.add(mapper.map(doc, eavropForUser));
 		}
 		
 		return result;

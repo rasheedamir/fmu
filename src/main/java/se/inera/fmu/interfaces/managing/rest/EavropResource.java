@@ -27,6 +27,7 @@ import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidPageSize;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidateDate;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidatePageNumber;
@@ -97,5 +98,10 @@ public class EavropResource {
 	@RequestMapping(value="/rest/eavrop/{id}/received-documents", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ReceivedDocumentDTO> getReceivedDocuments(@PathVariable("id") String id){
 		return this.fmuOrderingService.getReceivedDocuments(new EavropId(id));
+	}		
+	
+	@RequestMapping(value="/rest/eavrop/{id}/requested-documents", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<RequestedDocumentDTO> getRequestedDocuments(@PathVariable("id") String id){
+		return this.fmuOrderingService.getRequestedDocuments(new EavropId(id));
 	}		
 }

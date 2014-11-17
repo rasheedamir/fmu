@@ -49,10 +49,10 @@ angular.module('fmuClientApp')
             </tr>\
             <tr ng-repeat="am in tillagg">\
                 <td>{{am.name}}</td>\
-                <td>{{am.reqBy.name}}, {{am.reqBy.unit}}</td>\
-                <td>{{am.reqDate}}</td>\
+                <td>{{am.sentBy}}</td>\
+                <td>{{am.sentDate | date: \'yyyy-MM-dd\'}}</td>\
                 <td>{{am.comment}}</td>\
-                <td>{{am.reqTo.name}}, {{am.reqBy.unit}}</td>\
+                <td>{{am.sentTo}}</td>\
             </tr>\
         </table>\
         </div>'
