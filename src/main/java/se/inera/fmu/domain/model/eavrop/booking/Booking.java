@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -22,6 +23,7 @@ import org.apache.commons.lang.Validate;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import se.inera.fmu.domain.converter.BooleanToStringConverter;
 import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
 import se.inera.fmu.domain.model.eavrop.EavropEventDTOType;
 import se.inera.fmu.domain.model.eavrop.InterpreterBookingEventDTO;
@@ -58,6 +60,10 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime endDateTime;
 
+	@Column(name = "ADDITIONAL_SERVICE", nullable = false, updatable = false)
+	@Convert(converter=BooleanToStringConverter.class)
+	private Boolean additionalService;
+	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="BOOKING_PERSON_ID")
 	private Person person;
@@ -70,8 +76,6 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="DEVIATION_NOTE_ID", nullable = true)
 	private Note deviationNote;
-    
-    //TODO, should we have a person which defines who set the deviation?
     
     @Embedded
     private BookingDeviationResponse bookingDeviationResponse; 
@@ -87,16 +91,18 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	}
 
 	public Booking(BookingType type, DateTime startDateTime,
-			DateTime endDateTime, Person person, boolean useInterpreter) {
+			DateTime endDateTime, Boolean additionalService, Person person, boolean useInterpreter) {
 		this.setBookingId(new BookingId(UUID.randomUUID().toString()));
 		this.bookingStatusType = BookingStatusType.BOOKED;
 		Validate.notNull(type);
 		Validate.notNull(startDateTime);
 		Validate.notNull(endDateTime);
+		Validate.notNull(additionalService);
 		Validate.notNull(person);
 		this.setBookingType(type);
 		this.setStartDateTime(startDateTime);
 		this.setEndDateTime(endDateTime);
+		this.setAdditionalService(additionalService);
 		this.setPerson(person);
 		if (useInterpreter) {
 			this.interpreterBooking = new InterpreterBooking();
@@ -130,6 +136,14 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 		this.bookingStatusType = bookingStatusType;
 	}
 
+	public Boolean isAdditionalService() {
+		return additionalService;
+	}
+
+	private void setAdditionalService(Boolean additionalService) {
+		this.additionalService = additionalService;
+	}
+	
 	public Note getDeviationNote() {
 		return deviationNote;
 	}
@@ -256,4 +270,5 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	public int hashCode() {
 		return bookingId.hashCode();
 	}
+
 }

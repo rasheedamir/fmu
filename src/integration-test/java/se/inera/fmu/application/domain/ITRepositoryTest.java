@@ -900,7 +900,7 @@ public class ITRepositoryTest {
     	//Booking booking =  createBooking();
     	Person person = new TolkPerson("","");
     	
-    	Booking booking = new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(), person, Boolean.FALSE);
+    	Booking booking = new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(), Boolean.FALSE, person, Boolean.FALSE);
     	assertNotNull(booking.getPerson());
     	
     	eavrop.addBooking(booking);
@@ -999,7 +999,7 @@ public class ITRepositoryTest {
     	Person person = new HoSPerson("Dr Hudson", "Surgeon", "Danderyds sjukhus");
     	//Set<Person> persons = new HashSet<Person>();
     	//persons.add(person);
-    	Booking booking = new Booking(BookingType.EXAMINATION, start,end, person, Boolean.FALSE);
+    	Booking booking = new Booking(BookingType.EXAMINATION, start,end, Boolean.FALSE, person, Boolean.FALSE);
 
     	return booking;
     }

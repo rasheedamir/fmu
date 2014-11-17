@@ -2,6 +2,7 @@ package se.inera.fmu.domain.model.eavrop;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ import lombok.ToString;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import se.inera.fmu.domain.converter.BooleanToStringConverter;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.ValueObject;
@@ -33,8 +35,9 @@ public class EavropCompensationApproval implements ValueObject<EavropCompensatio
 	
 	@NotNull
 	@Column(name = "APPROVED")
-	private boolean approved;
-
+	@Convert(converter=BooleanToStringConverter.class)
+	private Boolean approved;
+	
 	@NotNull
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	@Column(name = "COMPENSATION_DATE_TIME")
@@ -54,14 +57,14 @@ public class EavropCompensationApproval implements ValueObject<EavropCompensatio
 		//needed by Hibernate
 	}
 	
-	public EavropCompensationApproval(boolean approved, DateTime compensationDateTime, Person person) {
+	public EavropCompensationApproval(Boolean approved, DateTime compensationDateTime, Person person) {
 		super();
 		this.setApproved(approved);
 		this.setCompensationDateTime(compensationDateTime);
 		this.setPerson(person);
 	}
 
-	public EavropCompensationApproval(boolean approved, DateTime compensationDateTime, Person person, Note note) {
+	public EavropCompensationApproval(Boolean approved, DateTime compensationDateTime, Person person, Note note) {
 		this(approved, compensationDateTime, person);
 		this.setNote(note);
 	}
@@ -77,11 +80,11 @@ public class EavropCompensationApproval implements ValueObject<EavropCompensatio
 
 	//~ Property Methods ===============================================================================================
 
-    public boolean isApproved() {
+    public Boolean isApproved() {
 		return approved;
 	}
 
-	private void setApproved(boolean approved) {
+	private void setApproved(Boolean approved) {
 		this.approved = approved;
 	}
 

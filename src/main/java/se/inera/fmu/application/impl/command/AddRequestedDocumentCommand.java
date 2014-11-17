@@ -20,4 +20,5 @@ public class AddRequestedDocumentCommand {
     private String personRole;
     private String personOrganisation;
     private String personUnit;
+    private String requestNote;
 }

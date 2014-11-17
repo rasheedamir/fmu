@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -17,6 +18,7 @@ import org.apache.commons.lang.Validate;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import se.inera.fmu.domain.converter.BooleanToStringConverter;
 import se.inera.fmu.domain.model.person.Person;
 
 @Entity
@@ -43,6 +45,7 @@ public class ReceivedDocument{
 	private Person person;
 	
 	@Column(name = "EXTERNAL")
+	@Convert(converter=BooleanToStringConverter.class)
 	private Boolean originExternal;
 	
     //~ Constructors ===================================================================================================

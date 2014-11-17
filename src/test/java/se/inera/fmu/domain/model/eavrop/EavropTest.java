@@ -215,7 +215,7 @@ public class EavropTest extends TestCase {
 
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 		
-		eavrop.addRequestedDocument(new RequestedDocument("Journal", doctorPerson));
+		eavrop.addRequestedDocument(new RequestedDocument("Journal", doctorPerson,new Note(NoteType.DOCUMENT_REQUEST, "Glömt journalen", doctorPerson)));
 
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 
@@ -497,13 +497,13 @@ public class EavropTest extends TestCase {
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 		
 		//doctor adds another document
-		eavrop.addRequestedDocument(new RequestedDocument(new DateTime(2014,10,17,10,30),"Journal", doctorPerson));
+		eavrop.addRequestedDocument(new RequestedDocument(new DateTime(2014,10,17,10,30),"Journal", doctorPerson, new Note(NoteType.DOCUMENT_REQUEST, "Ge hit!!", doctorPerson)));
 
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 		
 		//a booking is made
 		DateTime start = new DateTime(2014,10,20,8,0);
-		Booking booking = new Booking(BookingType.EXAMINATION, start,start.plusHours(1), doctorPerson, Boolean.TRUE);
+		Booking booking = new Booking(BookingType.EXAMINATION, start,start.plusHours(1), false, doctorPerson, Boolean.TRUE);
 		eavrop.addBooking(booking);
 		
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
@@ -523,7 +523,7 @@ public class EavropTest extends TestCase {
 		
 		//New booking is made
 		start = new DateTime(2014,10,24,8,0);
-		booking = new Booking(BookingType.EXAMINATION, start,start.plusHours(1), doctorPerson, Boolean.TRUE);
+		booking = new Booking(BookingType.EXAMINATION, start,start.plusHours(1),Boolean.FALSE, doctorPerson, Boolean.TRUE);
 		eavrop.addBooking(booking);
 
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
@@ -837,7 +837,7 @@ private void rejectEavropAssignment(Eavrop eavrop, DateTime dateTime) {
 
 	private Booking createBooking(){
     	DateTime start = new DateTime();
-    	return new Booking(BookingType.EXAMINATION, start,start.plusHours(1), doctorPerson, Boolean.FALSE);
+    	return new Booking(BookingType.EXAMINATION, start,start.plusHours(1), false, doctorPerson, Boolean.FALSE);
 	}
 	
     private BookingDeviation createBookingDeviation(){

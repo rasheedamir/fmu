@@ -22,6 +22,7 @@ import org.hibernate.annotations.DiscriminatorOptions;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.IEntity;
 
@@ -49,6 +50,10 @@ public class RequestedDocument {
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="PERSON_ID")
 	private Person person;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="REQUEST_NOTE_ID", nullable = true)
+	private Note requestNote;
 	
     //~ Constructors ===================================================================================================
     
@@ -57,16 +62,17 @@ public class RequestedDocument {
 	}
 	
 	
-	public RequestedDocument(final String documentName, final Person person){
+	public RequestedDocument(final String documentName, final Person person, final Note requestNote){
     	this.setId(UUID.randomUUID().toString());
     	Validate.notNull(documentName);
     	this.setDocumentDateTime(new DateTime());
     	this.setDocumentName(documentName);
     	this.setPerson(person);
+    	this.setRequestNote(requestNote);
 	}
 
-	public RequestedDocument(final DateTime documentDateTime, final String documentName, final Person person){
-    	this(documentName, person);
+	public RequestedDocument(final DateTime documentDateTime, final String documentName, final Person person, final Note requestNote){
+    	this(documentName, person, requestNote);
     	if(this.documentDateTime!=null){
     		this.setDocumentDateTime(documentDateTime);
     	}
@@ -103,6 +109,7 @@ public class RequestedDocument {
 	}
 
 
+	
 	public Person getPerson() {
 		return person;
 	}
@@ -112,6 +119,15 @@ public class RequestedDocument {
 		this.person = person;
 	}
 
+	public Note getRequestNote() {
+		return requestNote;
+	}
+
+
+	private void setRequestNote(Note requestNote) {
+		this.requestNote = requestNote;
+	}
+	
     //~ Property Methods ===============================================================================================
 	
 	//~ Other Methods ==================================================================================================

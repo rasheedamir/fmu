@@ -222,7 +222,7 @@ public abstract class AbstractEavropStateTest {
 	protected Booking createBooking(){
 		//Set<Person> persons = new HashSet<Person>();
 		//persons.add(createPerson());
-		return new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(),createPerson(), Boolean.FALSE);
+		return new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(), Boolean.FALSE, createPerson(), Boolean.FALSE);
 	}
 	
 	protected ReceivedDocument createReceivedDocument(){
@@ -230,11 +230,16 @@ public abstract class AbstractEavropStateTest {
 	}
 
 	protected RequestedDocument createRequestedDocument(){
-		return new RequestedDocument("REQUESTED_DOCUMENT", createPerson());
+		return new RequestedDocument("REQUESTED_DOCUMENT", createPerson(), createDocumentRequestNote());
 	}
+	
 	
 	protected Person createPerson(){
 		return new HoSPerson("Petter Olovsson", "Läkare", "Stafettläkarna");
+	}
+	
+	protected Note createDocumentRequestNote(){
+		return new Note(NoteType.DOCUMENT_REQUEST, "Ge hit!!", createPerson());
 	}
 	
 	protected IntygSignedInformation createIntygSignedInformation(){
