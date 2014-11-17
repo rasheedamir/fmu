@@ -25,6 +25,7 @@ import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.invanare.medicalexamination.PriorMedicalExamination;
+import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
@@ -40,6 +41,7 @@ import se.inera.fmu.domain.model.shared.Name;
 import se.inera.fmu.domain.model.systemparameter.Configuration;
 import se.inera.fmu.interfaces.managing.dtomapper.AllEventsDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.DTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.NoteDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.OrderDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.RequestedDocumentDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.UtredningDTOMapper;
@@ -49,6 +51,7 @@ import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.NoteDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
@@ -352,6 +355,19 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		
 		for(RequestedDocument doc : eavropForUser.getRequestedDocuments()){
 			result.add(mapper.map(doc, eavropForUser));
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<NoteDTO> getNotes(EavropId eavropId) {
+		Eavrop eavropForUser = getEavropForUser(eavropId);
+		NoteDTOMapper mapper = new NoteDTOMapper();
+		List<NoteDTO> result = new ArrayList<>();
+		
+		for(Note n : eavropForUser.getAllNotes()){
+			result.add(mapper.map(n));
 		}
 		
 		return result;

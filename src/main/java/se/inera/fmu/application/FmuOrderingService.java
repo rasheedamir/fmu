@@ -11,6 +11,7 @@ import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.NoteDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
@@ -38,5 +39,7 @@ public interface FmuOrderingService {
 	public List<ReceivedDocumentDTO> getReceivedDocuments(EavropId eavropId);
 
 	public List<RequestedDocumentDTO> getRequestedDocuments(EavropId eavropId);
+
+	public List<NoteDTO> getNotes(EavropId eavropId);
 
 }

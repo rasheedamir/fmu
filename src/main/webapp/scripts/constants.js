@@ -6,7 +6,7 @@ angular.module('fmuClientApp')
         eavrop: '/eavrop/:eavropId',
         eavropDocuments: 'app/rest/eavrop/:eavropId/received-documents',
         eavropRequestedDocuments: 'app/rest/eavrop/:eavropId/requested-documents',
-        eavropNotes: '/eavrop/:eavropId/notes',
+        eavropNotes: 'app/rest/eavrop/:eavropId/notes',
         eavropAllEvents: 'app/rest/eavrop/:eavropId/all-events',
         eavropOrder: 'app/rest/eavrop/:eavropId/order'
     })
