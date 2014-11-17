@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -193,15 +194,17 @@ public class ITEavropRestControllerTest {
 	
 	@Test
 	public void getEavropEvents() throws Exception{
-//		this.currentUserService.getCurrentUser().setActiveRole(Role.LANDSTINGSSAMORDNARE);
-//		this.currentUserService.getCurrentUser().setLandstingCode(1);
-//		
-//		MvcResult result = restMock.perform(get(
-//				"/app/rest/eavrop/1/events")
-//                .accept(MediaType.APPLICATION_JSON)) 
-//                .andExpect(status().isOk())
-//                .andReturn();
-//		result.getResponse().setCharacterEncoding("UTF-8");
-//		log.debug(result.getResponse().getContentAsString());
+		this.currentUserService.getCurrentUser().setActiveRole(Role.LANDSTINGSSAMORDNARE);
+		this.currentUserService.getCurrentUser().setLandstingCode(1);
+		
+		MvcResult result = restMock.perform(get(
+				"/app/rest/eavrop/1/utredning")
+                .accept(MediaType.APPLICATION_JSON)) 
+                .andExpect(status().isOk())
+                .andReturn();
+		result.getResponse().setCharacterEncoding("UTF-8");
+		log.error(result.getResponse().getContentAsString());
 	}
+	
+	//TODO Check time POST/GET consistency
 }

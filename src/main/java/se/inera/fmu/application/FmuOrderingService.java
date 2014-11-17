@@ -6,12 +6,15 @@ import org.springframework.data.domain.Pageable;
 
 import se.inera.fmu.application.impl.command.CreateEavropCommand;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
-import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.NoteDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
 
 /**
  * Created by Rasheed on 7/7/14.
@@ -27,10 +30,16 @@ public interface FmuOrderingService {
 
 	EavropPageDTO getOverviewEavrops(long fromDateMillis, long toDateMillis, OverviewEavropStates status, Pageable paginationSpecs);
 
-	public List<EavropEventDTO> getEavropEvents(String eavropId);
+	public List<HandelseDTO> getEavropEvents(String eavropId);
 
 	public AllEventsDTO getAllEvents(EavropId eavropId);
 
 	public OrderDTO getOrderInfo(EavropId eavropId);
+
+	public List<ReceivedDocumentDTO> getReceivedDocuments(EavropId eavropId);
+
+	public List<RequestedDocumentDTO> getRequestedDocuments(EavropId eavropId);
+
+	public List<NoteDTO> getNotes(EavropId eavropId);
 
 }

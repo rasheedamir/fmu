@@ -19,10 +19,13 @@ import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.*;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignedToVardgivarenhetEvent;
+import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
+import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.invanare.medicalexamination.PriorMedicalExamination;
+import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
@@ -38,12 +41,20 @@ import se.inera.fmu.domain.model.shared.Name;
 import se.inera.fmu.domain.model.systemparameter.Configuration;
 import se.inera.fmu.interfaces.managing.dtomapper.AllEventsDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.DTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.NoteDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.OrderDTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.RequestedDocumentDTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.UtredningDTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.ReceivedDocumentDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.NoteDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
 
 import javax.inject.Inject;
 
@@ -220,16 +231,16 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 			switch (state) {
 			case NOT_ACCEPTED:
-				return constructDTO(this.fmuListService
+				return constructOverviewDTO(this.fmuListService
 						.findAllNotAcceptedEavropByLandstingAndDateTimeOrdered(
 								landsting, startDate, endDate, paginationSpecs));
 			case ACCEPTED:
-				return constructDTO(this.fmuListService
+				return constructOverviewDTO(this.fmuListService
 						.findAllOngoingEavropByLandstingAndDateTimeStarted(
 								landsting, startDate.toLocalDate(),
 								endDate.toLocalDate(), paginationSpecs));
 			case COMPLETED:
-				return constructDTO(this.fmuListService
+				return constructOverviewDTO(this.fmuListService
 						.findAllCompletedEavropByLandstingAndDateTimeSigned(
 								landsting, startDate, endDate, paginationSpecs));
 			default:
@@ -245,17 +256,17 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 			switch (state) {
 			case NOT_ACCEPTED:
-				return constructDTO(this.fmuListService
+				return constructOverviewDTO(this.fmuListService
 						.findAllNotAcceptedEavropByVardgivarenhetAndDateTimeOrdered(
 								vardgivarenhet, startDate, endDate,
 								paginationSpecs));
 			case ACCEPTED:
-				return constructDTO(this.fmuListService
+				return constructOverviewDTO(this.fmuListService
 						.findAllOngoingEavropByVardgivarenhetAndDateTimeStarted(
 								vardgivarenhet, startDate.toLocalDate(),
 								endDate.toLocalDate(), paginationSpecs));
 			case COMPLETED:
-				return constructDTO(this.fmuListService
+				return constructOverviewDTO(this.fmuListService
 						.findAllCompletedEavropByVardgivarenhetAndDateTimeSigned(
 								vardgivarenhet, startDate, endDate,
 								paginationSpecs));
@@ -267,12 +278,12 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		}
 	}
 
-	private EavropPageDTO constructDTO(Page<Eavrop> eavrops) {
+	private EavropPageDTO constructOverviewDTO(Page<Eavrop> eavrops) {
 		List<EavropDTO> data = new ArrayList<EavropDTO>();
 		DTOMapper eavropMapper = new DTOMapper();
 
 		for (Eavrop eavrop : eavrops.getContent()) {
-			data.add(eavropMapper.mapToOverviewDTO(eavrop));
+			data.add(eavropMapper.map(eavrop));
 		}
 
 		EavropPageDTO retval = new EavropPageDTO();
@@ -282,12 +293,13 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	}
 
 	@Override
-	public List<EavropEventDTO> getEavropEvents(String eavropId) {
+	public List<HandelseDTO> getEavropEvents(String eavropId) {
+		UtredningDTOMapper mapper = new UtredningDTOMapper();
 		Eavrop eavrop = this.eavropRepository.findByEavropId(new EavropId(
 				eavropId));
 		if (eavrop != null)
-			return eavrop.getEavropEvents();
-		
+			return mapper.map(eavrop);
+
 		return null;
 	}
 
@@ -320,6 +332,45 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	public OrderDTO getOrderInfo(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		return new OrderDTOMapper().map(eavropForUser);
+	}
+
+	@Override
+	public List<ReceivedDocumentDTO> getReceivedDocuments(EavropId eavropId) {
+		Eavrop eavropForUser = getEavropForUser(eavropId);
+		List<ReceivedDocumentDTO> result = new ArrayList<>();
+		ReceivedDocumentDTOMapper mapper = new ReceivedDocumentDTOMapper();
+		
+		for(ReceivedDocument doc : eavropForUser.getReceivedDocuments()){
+			result.add(mapper.map(doc));
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<RequestedDocumentDTO> getRequestedDocuments(EavropId eavropId) {
+		Eavrop eavropForUser = getEavropForUser(eavropId);
+		List<RequestedDocumentDTO> result = new ArrayList<>();
+		RequestedDocumentDTOMapper mapper = new RequestedDocumentDTOMapper();
+		
+		for(RequestedDocument doc : eavropForUser.getRequestedDocuments()){
+			result.add(mapper.map(doc, eavropForUser));
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<NoteDTO> getNotes(EavropId eavropId) {
+		Eavrop eavropForUser = getEavropForUser(eavropId);
+		NoteDTOMapper mapper = new NoteDTOMapper();
+		List<NoteDTO> result = new ArrayList<>();
+		
+		for(Note n : eavropForUser.getAllNotes()){
+			result.add(mapper.map(n));
+		}
+		
+		return result;
 	}
 	
 }

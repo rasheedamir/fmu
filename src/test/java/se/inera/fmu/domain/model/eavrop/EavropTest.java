@@ -2,6 +2,7 @@ package se.inera.fmu.domain.model.eavrop;
 
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.Executors;
 
@@ -214,7 +215,7 @@ public class EavropTest extends TestCase {
 
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 		
-		eavrop.addRequestedDocument(new RequestedDocument("Journal", doctorPerson));
+		eavrop.addRequestedDocument(new RequestedDocument("Journal", doctorPerson,new Note(NoteType.DOCUMENT_REQUEST, "Glömt journalen", doctorPerson)));
 
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 
@@ -496,18 +497,18 @@ public class EavropTest extends TestCase {
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 		
 		//doctor adds another document
-		eavrop.addRequestedDocument(new RequestedDocument(new DateTime(2014,10,17,10,30),"Journal", doctorPerson));
+		eavrop.addRequestedDocument(new RequestedDocument(new DateTime(2014,10,17,10,30),"Journal", doctorPerson, new Note(NoteType.DOCUMENT_REQUEST, "Ge hit!!", doctorPerson)));
 
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 		
 		//a booking is made
 		DateTime start = new DateTime(2014,10,20,8,0);
-		Booking booking = new Booking(BookingType.EXAMINATION, start,start.plusHours(1), doctorPerson, Boolean.TRUE);
+		Booking booking = new Booking(BookingType.EXAMINATION, start,start.plusHours(1), false, doctorPerson, Boolean.TRUE);
 		eavrop.addBooking(booking);
 		
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 		
-		eavrop.setInterpreterBookingStatus(booking.getBookingId(), InterpreterBookingStatusType.NOT_PRESENT, new Note(NoteType.BOOKING_DEVIATION, "Tolk uteblev",doctorPerson));
+		eavrop.setInterpreterBookingStatus(booking.getBookingId(), InterpreterBookingStatusType.INTERPPRETER_NOT_PRESENT, new Note(NoteType.BOOKING_DEVIATION, "Tolk uteblev",doctorPerson));
 		eavrop.setBookingStatus(booking.getBookingId(), BookingStatusType.CANCELLED_NOT_PRESENT, new Note(NoteType.BOOKING_DEVIATION, "Patient uteblev",doctorPerson));
 		
 		booking.getDeviationNote().setCreatedDate(start);
@@ -522,7 +523,7 @@ public class EavropTest extends TestCase {
 		
 		//New booking is made
 		start = new DateTime(2014,10,24,8,0);
-		booking = new Booking(BookingType.EXAMINATION, start,start.plusHours(1), doctorPerson, Boolean.TRUE);
+		booking = new Booking(BookingType.EXAMINATION, start,start.plusHours(1),Boolean.FALSE, doctorPerson, Boolean.TRUE);
 		eavrop.addBooking(booking);
 
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
@@ -836,7 +837,7 @@ private void rejectEavropAssignment(Eavrop eavrop, DateTime dateTime) {
 
 	private Booking createBooking(){
     	DateTime start = new DateTime();
-    	return new Booking(BookingType.EXAMINATION, start,start.plusHours(1), doctorPerson, Boolean.FALSE);
+    	return new Booking(BookingType.EXAMINATION, start,start.plusHours(1), false, doctorPerson, Boolean.FALSE);
 	}
 	
     private BookingDeviation createBookingDeviation(){

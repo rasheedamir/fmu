@@ -78,6 +78,8 @@ public class BusinessDaysUtil {
 		//Allhelgonaafton - Friday preceding all 19/6 - 25/6, No holiday but less workinghours during day. TODO: investigate if it should be included
 		//floatingHolidaysForYear.add(new Holiday(allSaintsDay.minusDays(DateTimeConstants.SATURDAY - DateTimeConstants.FRIDAY)));
 
+		
+		//TODO: Pending decision from stakeholders	
 		//Adding summer vacation as "industrisemester" during week 28, 29 and 30
 		LocalDate mondayWeek28 = new LocalDate().withWeekyear(year).withWeekOfWeekyear(28).withDayOfWeek(DateTimeConstants.MONDAY);
 		LocalDate mondayWeek31 = new LocalDate().withWeekyear(year).withWeekOfWeekyear(31).withDayOfWeek(DateTimeConstants.MONDAY);

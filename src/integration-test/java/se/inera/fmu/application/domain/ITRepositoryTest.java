@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -39,6 +40,7 @@ import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropApproval;
 import se.inera.fmu.domain.model.eavrop.EavropBuilder;
 import se.inera.fmu.domain.model.eavrop.EavropCompensationApproval;
+import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.EavropState;
 import se.inera.fmu.domain.model.eavrop.EavropStateType;
@@ -53,6 +55,7 @@ import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
+import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedInformation;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
@@ -355,7 +358,31 @@ public class ITRepositoryTest {
     		}
 		}
     }
+
     
+    @Test
+    public void testDocumentType(){
+    	
+    	Eavrop eavrop = eavropRepository.findByEavropId(new EavropId("16"));
+    	assertNotNull(eavrop);
+    	
+    	Set<ReceivedDocument> recDocs = eavrop.getReceivedDocuments();
+
+    	assertNotNull(recDocs);
+    	
+    	for (ReceivedDocument receivedDocument : recDocs) {
+			System.out.println(receivedDocument.toString());
+		}
+    	
+    	
+    	Set<RequestedDocument> reqDocs = eavrop.getRequestedDocuments();
+      	assertNotNull(reqDocs);
+    	for (RequestedDocument requestedDocument : reqDocs) {
+    		System.out.println(requestedDocument.toString());
+		}
+    	
+    }
+
 
     @Test
     public void testFindByLandstingAndCreateDateAndStates(){
@@ -873,7 +900,7 @@ public class ITRepositoryTest {
     	//Booking booking =  createBooking();
     	Person person = new TolkPerson("","");
     	
-    	Booking booking = new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(), person, Boolean.FALSE);
+    	Booking booking = new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(), Boolean.FALSE, person, Boolean.FALSE);
     	assertNotNull(booking.getPerson());
     	
     	eavrop.addBooking(booking);
@@ -972,7 +999,7 @@ public class ITRepositoryTest {
     	Person person = new HoSPerson("Dr Hudson", "Surgeon", "Danderyds sjukhus");
     	//Set<Person> persons = new HashSet<Person>();
     	//persons.add(person);
-    	Booking booking = new Booking(BookingType.EXAMINATION, start,end, person, Boolean.FALSE);
+    	Booking booking = new Booking(BookingType.EXAMINATION, start,end, Boolean.FALSE, person, Boolean.FALSE);
 
     	return booking;
     }

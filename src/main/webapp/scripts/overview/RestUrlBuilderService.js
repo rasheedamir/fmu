@@ -13,6 +13,10 @@ angular.module('fmuClientApp').factory('RestUrlBuilderService',
                     '/pagesize/' + currentNrOfElementPerPage +
                     '/sortkey/' + sortKey +
                     '/sortorder/' + sortOrder
+            },
+
+            buildEventsRestUrl: function (eavropId) {
+                return '/app/rest/eavrop/'+ eavropId + '/utredning';
             }
         }
     });

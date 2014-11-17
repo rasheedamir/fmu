@@ -1,14 +1,22 @@
 'use strict';
 
 angular.module('fmuClientApp')
-    .controller('UtredningController', ['$scope', 'AuthService', 'ngDialog', 'EAVROP_STATUS',
-        function ($scope, AuthService, ngDialog, EAVROP_STATUS) {
+    .controller('UtredningController', ['$scope', '$filter', '$stateParams', 'AuthService', 'ngDialog', 'UTREDNING_TABLE',
+        function ($scope, $filter, $stateParams, AuthService, ngDialog, UTREDNING_TABLE) {
             $scope.authService = AuthService;
             $scope.dateKey = 'creationTime';
             $scope.startDate = new Date();
             $scope.endDate = new Date();
             $scope.endDate.setMonth($scope.startDate.getMonth() + 1);
             $scope.dateKey = 'dateOfEvent';
+
+            $scope.currentEavropId = $stateParams.eavropId;
+            function getTimeHHMM(hour, minut) {
+                var hh = hour < 10 ? '0' + hour : hour;
+                var mm = minut < 10 ? '0' + minut : minut;
+
+                return hh + ' : ' + mm;
+            };
 
             $scope.headerFields = [
                 {
@@ -56,6 +64,26 @@ angular.module('fmuClientApp')
 
             $scope.dateDescription = 'Datumen utgår från det datum då intyg levererats';
 
+            $scope.getTableCellValue = function (key, rowData) {
+                var celldata = rowData[key];
+                if (celldata == null) {
+                    return '-';
+                }
+                switch (key) {
+                    case 'timeOfEvent' :
+                        return getTimeHHMM(celldata.hour,celldata.minute);
+                    case 'dateOfEvent':
+                        return $filter('date')(celldata, UTREDNING_TABLE.dateFormat);
+                    case 'tolkStatus' :
+                    case 'handelseStatus' :
+                        return UTREDNING_TABLE.handelseMapping[celldata.currentStatus];
+                    case 'handelse':
+                        return UTREDNING_TABLE.statusMapping[celldata];
+                    default :
+                        return celldata;
+                }
+            };
+
             $scope.visa = function () {
                 if ($scope.tableParameters) {
                     $scope.tableParameters.reload();
@@ -80,7 +108,7 @@ angular.module('fmuClientApp')
             ];
 
             $scope.saveHandelse = function () {
-                 console.log('save');
+                console.log('save');
                 ngDialog.close();
             };
 

@@ -21,11 +21,7 @@
             </div>
 
             <div class="row">
-                <p>
-                    <i>
-                        {{dateDescription}}
-                    </i>
-                </p>
+                <p><i>{{dateDescription}}</i></p>
             </div>
         </div>
 
@@ -37,7 +33,9 @@
     <div class="row">
         <fmu-utredning-table header-fields="headerFields"
                              date-key="{{dateKey}}"
+                             eavropid="currentEavropId"
+                             get-data-callback="getTableCellValue"
                              table-parameters="tableParameters">
-                             </fmu-utredning-table>
+        </fmu-utredning-table>
     </div>
 </div>

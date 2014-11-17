@@ -38,6 +38,7 @@ import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropRejectedByVardgivarenhetEvent;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
+import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
@@ -167,12 +168,12 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 
 	// Documents received received this FMU
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "R_EAVROP_DOCUMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "DOCUMENT_ID"))
+	@JoinTable(name = "R_EAVROP_REC_DOCUMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "DOCUMENT_ID"))
 	private Set<ReceivedDocument> receivedDocuments;
 
 	// Documents requested to this FMU
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "R_EAVROP_DOCUMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "DOCUMENT_ID"))
+	@JoinTable(name = "R_EAVROP_REQ_DOCUMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "DOCUMENT_ID"))
 	private Set<RequestedDocument> requestedDocuments;
 	
 	//TODO: as list
@@ -257,6 +258,10 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.additionalInformation = additionalInformation;
 	}
 
+	/**
+	 * Adds eavrop calculation properties
+	 * @param eavropProperties
+	 */
 	public void setEavropProperties(EavropProperties eavropProperties){
 		this.eavropProperties =  eavropProperties;
 	}
@@ -311,9 +316,13 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	public boolean isApproved(){
 		return (getEavropApproval()!=null)?Boolean.TRUE:Boolean.FALSE;
 	}
+
+	
 	
 	
 	/**
+	 * Returns number of business days spent during assessment period.
+	 * If  
 	 * 
 	 * @return
 	 */
@@ -1209,6 +1218,35 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	protected void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
+	
+	
+	/**
+	 * Calculates the number of times the assessmentperiod/eavrop has been restarted.
+	 * As the documents have been sent from customer, the startdate is set and the assessment period is considered started
+	 * 
+	 * If deviations happens happens that put the eavrop "On hold" a respondse is required from frpm the customer if the 
+	 * Eavrop should continue, if so, the assessment period is restarted
+	 * 
+	 * @return int, the number of essessment starts.
+	 */
+	public int getNoOfEavropAssessmentsStarts(){
+		int noOfStarts = 0;
+		if(getStartDate()==null){
+			//Not yet started
+			return noOfStarts;
+		}else if(LocalDate.now().isAfter(getStartDate())){
+			//Started
+			noOfStarts++;
+		}
+		for (Booking booking : getBookings()) {
+			if(booking.getBookingDeviationResponse() !=null && BookingDeviationResponseType.RESTART.equals(booking.getBookingDeviationResponse().getResponseType())){
+				//Restarted
+				noOfStarts++;
+			}
+		}
+		return noOfStarts;
+	}
+	
 	
 	public boolean isEavropAssesmentDaysDeviated(){
 		

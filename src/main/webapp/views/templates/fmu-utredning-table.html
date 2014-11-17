@@ -14,7 +14,7 @@
 
             <tr class="header">
                 <th
-                        ng-repeat="field in headerFields" class="text-center sortable text-capitalize"
+                        ng-repeat="field in headerFields" class="sortable text-capitalize"
                         ng-class="{'sort-asc': tableParams.isSortBy(field.key, 'asc'),'sort-desc': tableParams.isSortBy(field.key, 'desc')}"
                         ng-click="sort(field.key)">
                     <div>{{field.name}}</div>
@@ -24,22 +24,16 @@
             </thead>
 
             <tbody>
-            <!--<tr ng-repeat="row in tableParams.data" ng-class="row.colorClass" ng-click="rowClicked(row)">
-                <td ng-repeat="column in headerFields"
-                    sortable="{{column.key}}" class="text-capitalize text-center">
-                    <span ng-bind="getValue(column.key, row)"></span>
-                </td>
-            </tr>-->
-
-            <tr ng-repeat-start="row in testdata" ng-class="row.colorClass" ng-click="rowClicked(row)">
+            <tr ng-repeat-start="row in tableParams.data" ng-class="row.colorClass" ng-click="rowClicked(row)">
                 <td ng-repeat-start="column in headerFields"
                     ng-if="!isEditColumn(column.key)"
                     sortable="{{column.key}}" class="text-capitalize text-center">
                     <span ng-bind="getValue(column.key, row)"></span>
                 </td>
 
-                <td align="middle" ng-repeat-end ng-if="isEditColumn(column.key)">
-                    <span class="btn btn-info btn-sm" ng-click="openEditRow(row)"><i class="glyphicon glyphicon-edit"></i></span>
+                <td align="middle" ng-repeat-end ng-if="isEditColumn(column.key) && (row.tolkStatus || row.handelseStatus)">
+                    <span class="btn btn-info btn-sm" ng-click="openEditRow(row)"><i
+                            class="glyphicon glyphicon-edit"></i></span>
                 </td>
             </tr>
 
@@ -48,56 +42,73 @@
                     <div class="utredning-edit-row">
                         <tabset justified="false">
                             <tab ng-if="row.tolkStatus" heading="Tolk">
-                                <div class="fmu-error-field webcert-bottom-padding-section" ng-if="statusModificationErrors.tolk">
-                                    <label>Error: </label>
-                                    <i>This is an error</i>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Status</label>
-                                        <select class="form-control" ng-model="selectedTolkStatus"
-                                                ng-options="opt.name for opt in row.tolkStatus.statuses">
-                                            <option value="" class="">-- Välj en status --</option>
-                                        </select>
+                                <div class="fmu-form-container">
+                                    <div class="fmu-form-header" ng-if="statusModificationErrors.tolk">
+                                        <label>Error: </label>
+                                        <i>This is an error</i>
                                     </div>
 
-                                    <div class="col-md-6" ng-if="selectedTolkStatus.requireComment">
-                                        <label>Kommentar</label>
-                                        <textarea class="form-control" placeholder="Ange anledningen till den givna statusändring"></textarea>
-                                    </div>
-                                </div>
+                                    <div class="fmu-form-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Status</label>
+                                                <select class="form-control" ng-model="selectedTolkStatus"
+                                                        ng-options="tableConstants.tolkMapping[opt.name] for opt in row.tolkStatus.statuses">
+                                                    <option value="" class="">-- Välj en status --</option>
+                                                </select>
+                                            </div>
 
-                                <div class="row">
-                                    <div class="col-md-3 col-md-offset-10 webcert-top-padding-section">
-                                        <button class="btn btn-success" ng-click="changeTolkStatus()">Spara</button>
-                                        <button class="btn btn-danger" ng-click="changeTolkStatus()">Avbryt</button>
+                                            <div class="col-md-6" ng-if="selectedTolkStatus.requireComment">
+                                                <label>Kommentar</label>
+                                                <textarea class="form-control"
+                                                          placeholder="Ange anledningen till den givna statusändring"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="fmu-form-footer">
+                                        <div>
+                                            <button class="btn btn-success" ng-click="changeTolkStatus()">Spara</button>
+                                            <button class="btn btn-danger" ng-click="changeTolkStatus()">Avbryt</button>
+                                        </div>
                                     </div>
                                 </div>
                             </tab>
+
+
                             <tab ng-if="row.handelseStatus" heading="Händelse">
-                                <div class="fmu-error-field" ng-if="statusModificationErrors.handelse">
-                                    <label>Error: </label>
-                                    <i>This is an error</i>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Status</label>
-                                        <select class="form-control" ng-model="selectedHandelseStatus"
-                                                ng-options="opt.name for opt in row.handelseStatus.statuses">
-                                            <option value="" class="">-- Välj en status --</option>
-                                        </select>
+                                <div class="fmu-form-container">
+                                    <div class="fmu-form-header" ng-if="statusModificationErrors.handelse">
+                                        <label>Error: </label>
+                                        <i>This is an error</i>
                                     </div>
 
-                                    <div class="col-md-6" ng-if="selectedHandelseStatus.requireComment">
-                                        <label>Kommentar</label>
-                                        <textarea class="form-control" placeholder="Ange anledningen till den givna statusändring"></textarea>
-                                    </div>
-                                </div>
+                                    <div class="fmu-form-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Status</label>
+                                                <select class="form-control" ng-model="selectedHandelseStatus"
+                                                        ng-options="tableConstants.handelseMapping[opt.name]
+                                                        for opt in row.handelseStatus.statuses">
+                                                    <option value="" class="">-- Välj en status --</option>
+                                                </select>
+                                            </div>
 
-                                <div class="row">
-                                    <div class="col-md-3 col-md-offset-10 webcert-top-padding-section">
-                                        <button class="btn btn-success" ng-click="changeTolkStatus()">Spara</button>
-                                        <button class="btn btn-danger" ng-click="changeTolkStatus()">Avbryt</button>
+                                            <div class="col-md-6" ng-if="selectedHandelseStatus.requireComment">
+                                                <label>Kommentar</label>
+                                                <textarea class="form-control"
+                                                          placeholder="Ange anledningen till den givna statusändring"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="fmu-form-footer">
+                                        <div>
+                                            <button class="btn btn-success" ng-click="changeHandelseStatus()">Spara
+                                            </button>
+                                            <button class="btn btn-danger" ng-click="changeHandelseStatus()">Avbryt
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </tab>

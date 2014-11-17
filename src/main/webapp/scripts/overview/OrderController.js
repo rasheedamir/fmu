@@ -9,6 +9,7 @@ angular.module('fmuClientApp')
             $scope.startDate = new Date();
             $scope.endDate = new Date();
             $scope.endDate.setMonth($scope.startDate.getMonth() + 1);
+            $scope.startDate.setMonth($scope.startDate.getMonth() - 1);
 
             $scope.click = function (id) {
                 $state.go('eavrop.order', {eavropId: id});

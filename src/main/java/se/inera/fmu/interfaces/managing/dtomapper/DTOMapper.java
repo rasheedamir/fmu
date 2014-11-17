@@ -5,7 +5,7 @@ import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 
 public class DTOMapper {
 
-	public EavropDTO mapToOverviewDTO(Eavrop eavrop) {
+	public EavropDTO map(Eavrop eavrop) {
 		EavropDTO dto = new EavropDTO();
 		if(eavrop == null)
 			return dto;
@@ -37,8 +37,8 @@ public class DTOMapper {
 		.setAntalDagarFromKompleteringBegarToBestallaren(eavrop.getNoOfDaysUsedForLastComplementRequest())
 		.setUtredareOrganisation(eavrop.getCurrentAssignedVardgivarenhet() != null ?
 				eavrop.getCurrentAssignedVardgivarenhet().getVardgivare().getName() : null)
-//		.setUtredareAnsvarigNamn(eavrop.getIntygSigningPerson() != null ?
-//				eavrop.getIntygSigningPerson().getName() :  null)
+		.setUtredareAnsvarigNamn(eavrop.getIntygSigningPerson() != null ?
+				eavrop.getIntygSigningPerson().getName() :  null)
 		.setIntygDeliveredDate(eavrop.getIntygSignedDateTime() != null ?
 				eavrop.getIntygSignedDateTime().getMillis() : null)
 		.setIsIntygComplete(eavrop.isApproved())

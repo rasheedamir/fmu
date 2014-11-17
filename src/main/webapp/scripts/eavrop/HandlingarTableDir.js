@@ -22,8 +22,8 @@ angular.module('fmuClientApp')
             </tr>\
             <tr ng-repeat="doc in handlingar">\
                 <td>{{doc.name}}</td>\
-                <td>{{doc.regBy.name}}, {{doc.regBy.unit}}</td>\
-                <td>{{doc.regDate}}</td>\
+                <td>{{doc.regBy}}</td>\
+                <td>{{doc.regDate | date:\'yyyy-MM-dd\'}}</td>\
             </tr>\
         </table>\
         </div>'
@@ -49,10 +49,10 @@ angular.module('fmuClientApp')
             </tr>\
             <tr ng-repeat="am in tillagg">\
                 <td>{{am.name}}</td>\
-                <td>{{am.reqBy.name}}, {{am.reqBy.unit}}</td>\
-                <td>{{am.reqDate}}</td>\
+                <td>{{am.sentBy}}</td>\
+                <td>{{am.sentDate | date: \'yyyy-MM-dd\'}}</td>\
                 <td>{{am.comment}}</td>\
-                <td>{{am.reqTo.name}}, {{am.reqBy.unit}}</td>\
+                <td>{{am.sentTo}}</td>\
             </tr>\
         </table>\
         </div>'

@@ -24,7 +24,11 @@ import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.NoteDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidPageSize;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidateDate;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidatePageNumber;
@@ -73,13 +77,13 @@ public class EavropResource {
 	}
 	
 	@RequestMapping(
-			value = "/rest/eavrop/{eavropId}/events"
+			value = "/rest/eavrop/{eavropId}/utredning"
 			, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-	public ResponseEntity<List<EavropEventDTO>> getAllEavropEvents(@PathVariable String eavropId) {
+	public ResponseEntity<List<HandelseDTO>> getAllEavropEvents(@PathVariable String eavropId) {
 		
-		List<EavropEventDTO> retval = this.fmuOrderingService.getEavropEvents(eavropId);
-		return new ResponseEntity<List<EavropEventDTO>>(retval, HttpStatus.OK);
+		List<HandelseDTO> retval = this.fmuOrderingService.getEavropEvents(eavropId);
+		return new ResponseEntity<List<HandelseDTO>>(retval, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/rest/eavrop/{id}/all-events", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -91,4 +95,19 @@ public class EavropResource {
 	public OrderDTO getOrderInfo(@PathVariable("id") String id){
 		return this.fmuOrderingService.getOrderInfo(new EavropId(id));
 	}	
+	
+	@RequestMapping(value="/rest/eavrop/{id}/received-documents", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ReceivedDocumentDTO> getReceivedDocuments(@PathVariable("id") String id){
+		return this.fmuOrderingService.getReceivedDocuments(new EavropId(id));
+	}		
+	
+	@RequestMapping(value="/rest/eavrop/{id}/requested-documents", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<RequestedDocumentDTO> getRequestedDocuments(@PathVariable("id") String id){
+		return this.fmuOrderingService.getRequestedDocuments(new EavropId(id));
+	}
+	
+	@RequestMapping(value="/rest/eavrop/{id}/notes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<NoteDTO> getNotes(@PathVariable("id") String id){
+		return this.fmuOrderingService.getNotes(new EavropId(id));
+	}		
 }
