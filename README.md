@@ -405,7 +405,9 @@ Spring profiles are set by Maven, so we have a consistency between the two metho
 In default mode, fmu will use the `"dev"` profile
 If you run the application without Maven, launch the "Application" class (you can probably run it easily from your IDE by right-clicking on it).
 
-If you run the application with Maven, run `mvn -Pdev spring-boot:run -Drun.jvmArguments="-XX:MaxPermSize=256M"`
+1. `npm install` to fetch all packages specified in the Package.json file
+2. `bower install` to fetch all packages specified in the bower.json file
+3. If you run the application with Maven, run `mvn -Pdev spring-boot:run -Drun.jvmArguments="-XX:MaxPermSize=256M"`
 
 ####prod
 In production, fmu has to run with the `"prod"` profile
@@ -432,12 +434,16 @@ The Failsafe Maven plugin is used to execute our integration tests. Run followin
 Front end unit tests can be run directly using command line at the project folder.
 Use `grunt karma` for unit testing 
 
-####E2E tests
+####E2E tests (JavaScript)
 Front end e2e tests can be run using `grunt protractor:singlerun` command. Make sure the rest server is active while running these tests.
 
 ####Run seperate test cases in the test specs
 Use
  `ddescribe()` or `iit()` instead of `describe()` and `it()` to single out the test cases you want to run
+
+####Skipping Tests
+
+Although its not safe but you can skip tests by appending this in the end of the command `-Dmaven.test.skip=true`
 
 ##Authentication
 
@@ -470,3 +476,6 @@ Add SSH key
 Follow this tutorial: https://help.github.com/articles/generating-ssh-keys
 If you run into issue like: ssh: connect to host github.com port 22: Connection refused
 Then follow advice here: http://stackoverflow.com/questions/7953806/github-ssh-via-public-wifi-port-22-blocked
+
+##WebServices
+
