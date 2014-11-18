@@ -4,18 +4,23 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
+import se.inera.fmu.application.impl.command.ChangeBookingStatusCommand;
+import se.inera.fmu.application.impl.command.ChangeInterpreterBookingStatusCommand;
 import se.inera.fmu.application.impl.command.CreateBookingCommand;
 import se.inera.fmu.application.impl.command.CreateEavropCommand;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.NoteDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestDTO;
 
 /**
  * Created by Rasheed on 7/7/14.
@@ -42,5 +47,9 @@ public interface FmuOrderingService {
 	public List<RequestedDocumentDTO> getRequestedDocuments(EavropId eavropId);
 
 	public List<NoteDTO> getNotes(EavropId eavropId);
-	public void addBooking(CreateBookingCommand cbc);
+	public void addBooking(BookingRequestDTO booking);
+
+	public void modifyBooking(BookingModificationRequestDTO changeRequestData);
+
+	public void modifyTolkBooking(TolkBookingModificationRequestDTO changeRequestData);
 }

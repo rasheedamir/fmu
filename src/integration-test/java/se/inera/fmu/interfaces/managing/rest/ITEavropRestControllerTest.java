@@ -3,6 +3,10 @@ package se.inera.fmu.interfaces.managing.rest;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+//import static org.hamcrest.Matchers.*;
+//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
+
 
 import java.io.IOException;
 
@@ -30,11 +34,16 @@ import se.inera.fmu.Application;
 import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.authentication.Role;
+import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
+import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
+import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TimeDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestDTO;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -228,6 +237,7 @@ public class ITEavropRestControllerTest {
 		booking.setBookingEndTime(new TimeDTO().setHour(13).setMinute(30));
 		booking.setPersonName("Åsa Andersson");
 		booking.setPersonOrganisation("Karolinska Sjukhuset");
+		booking.setAdditionalService(true);
 		booking.setPersonRole("Läkare");
 		booking.setPersonUnit("Unit 3");
 		booking.setUseInterpreter(true);
@@ -247,10 +257,84 @@ public class ITEavropRestControllerTest {
 		log.error(result.getResponse().getContentAsString());
 	}
 
-	public static byte[] convertObjectToJsonBytes(Object object)
+	@Test
+	public void changeBookingTest() throws Exception {
+		// Set login credencials
+		this.currentUserService.getCurrentUser().setActiveRole(
+				Role.LANDSTINGSSAMORDNARE);
+		this.currentUserService.getCurrentUser().setLandstingCode(1);
+
+		// Create a booking
+		BookingRequestDTO booking = new BookingRequestDTO();
+		booking.setEavropId("3");
+		booking.setBookingType(BookingType.EXAMINATION);
+		booking.setBookingDate(new DateTime().getMillis());
+		booking.setBookingStartTime(new TimeDTO().setHour(12).setMinute(30));
+		booking.setBookingEndTime(new TimeDTO().setHour(13).setMinute(30));
+		booking.setPersonName("Åsa Andersson");
+		booking.setAdditionalService(true);
+		booking.setPersonOrganisation("Karolinska Sjukhuset");
+		booking.setPersonRole("Läkare");
+		booking.setPersonUnit("Unit 3");
+		booking.setUseInterpreter(true);
+
+		restMock.perform(
+				post("/app/rest/eavrop/utredning/create/booking").contentType(
+						MediaType.APPLICATION_JSON).content(
+						convertObjectToJsonBytes(booking))).andExpect(
+				status().isOk());
+
+		// Change the newly created booking
+		MvcResult result = restMock.perform(get("/app/rest/eavrop/3/utredning")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andReturn();
+
+		log.debug("Handelse: " + result.getResponse().getContentAsString());
+		
+		BookingModificationRequestDTO modificationRequest = new BookingModificationRequestDTO();
+		String bookingId = getJsonValue(0, "bookingId", result.getResponse().getContentAsString());
+		modificationRequest.setBookingId(bookingId)
+		  .setBookingStatus(BookingStatusType.CANCELLED_NOT_PRESENT)
+		  .setEavropId("3")
+		  .setComment("This is bad");
+		
+		TolkBookingModificationRequestDTO tolkModificationRequest = new TolkBookingModificationRequestDTO();
+		tolkModificationRequest.setBookingId(bookingId)
+		  .setBookingStatus(InterpreterBookingStatusType.INTERPPRETER_NOT_PRESENT)
+		  .setEavropId("3")
+		  .setComment("This is bad");
+
+		log.debug(convertObjectToJsonBytes(tolkModificationRequest));
+		restMock.perform(post("/app/rest/eavrop/utredning/modify/tolk")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(convertObjectToJsonBytes(tolkModificationRequest)))
+						.andExpect(status().isOk());
+		
+		// Change tolk booking
+		BookingModificationRequestDTO bookingModificationRequest = new BookingModificationRequestDTO();
+		bookingModificationRequest.setBookingId(bookingId)
+		  .setBookingStatus(BookingStatusType.CANCELLED_NOT_PRESENT)
+		  .setEavropId("3")
+		  .setComment("This is bad");
+
+		log.debug(convertObjectToJsonBytes(tolkModificationRequest));
+		restMock.perform(post("/app/rest/eavrop/utredning/modify/tolk")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(convertObjectToJsonBytes(tolkModificationRequest)))
+						.andExpect(status().isOk());
+	}
+
+	public static String convertObjectToJsonBytes(Object object)
 			throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		return mapper.writeValueAsBytes(object);
+		return mapper.writeValueAsString(object);
+	}
+
+	public static String getJsonValue(int index, String fieldName, String jsonString)
+			throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode jsonobj = mapper.readTree(jsonString);
+		return jsonobj.path(index).path(fieldName).toString().replace("\"", "");
 	}
 }

@@ -77,10 +77,14 @@ angular.module('fmuClientApp')
                 }
                 switch (key) {
                     case 'timeOfEvent' :
-                        return getTimeHHMM(celldata.hour, celldata.minute);
+                        var endTime = rowData['timeOfEventEnd'];
+                        return getTimeHHMM(celldata.hour, celldata.minute) + ' - '
+                            + getTimeHHMM(endTime.hour, endTime.minute);
                     case 'dateOfEvent':
                         return $filter('date')(celldata, UTREDNING.dateFormat);
                     case 'tolkStatus' :
+                        if (celldata.currentStatus == null)
+                            return '-'
                         return UTREDNING.tolkMapping[celldata.currentStatus];
                     case 'handelseStatus' :
                         return UTREDNING.handelseMapping[celldata.currentStatus];
@@ -123,7 +127,7 @@ angular.module('fmuClientApp')
                 promise.then(function () {
                     ngDialog.close();
                     $scope.tableParameters.reload();
-                }, function (error) {
+                }, function () {
                     $scope.createBookingErrors.push(UTREDNING.errors.cannotCreateBooking);
                 });
             };
@@ -136,24 +140,25 @@ angular.module('fmuClientApp')
             };
 
             function constructBookingObject() {
-                    return {
-                        eavropId: $scope.currentEavropId,
-                        bookingType: $scope.choosenHandelseType ? $scope.choosenHandelseType.type : null,
-                        bookingDate: $scope.handelseDate.getTime(),
-                        bookingStartTime: {
-                            hour: $scope.handelseStartTime.getHours(),
-                            minute: $scope.handelseStartTime.getMinutes()
-                        },
-                        bookingEndTime: {
-                            hour: $scope.handelseEndTime.getHours(),
-                            minute: $scope.handelseEndTime.getMinutes()
-                        },
-                        personName: $scope.personName,
-                        personRole: $scope.choosenRole ? $scope.choosenRole.name : null,
-                        personOrganisation: 'Implement this',
-                        personUnit: 'Implement this',
-                        useInterpreter: $scope.tolkRadio
-                    }
+                return {
+                    eavropId: $scope.currentEavropId,
+                    bookingType: $scope.choosenHandelseType ? $scope.choosenHandelseType.type : null,
+                    bookingDate: $scope.handelseDate.getTime(),
+                    bookingStartTime: {
+                        hour: $scope.handelseStartTime.getHours(),
+                        minute: $scope.handelseStartTime.getMinutes()
+                    },
+                    additionalService: $scope.tillaggRadio,
+                    bookingEndTime: {
+                        hour: $scope.handelseEndTime.getHours(),
+                        minute: $scope.handelseEndTime.getMinutes()
+                    },
+                    personName: $scope.personName,
+                    personRole: $scope.choosenRole ? $scope.choosenRole.name : null,
+                    personOrganisation: 'Implement this',
+                    personUnit: 'Implement this',
+                    useInterpreter: $scope.tolkRadio
+                }
             }
         }
     ])

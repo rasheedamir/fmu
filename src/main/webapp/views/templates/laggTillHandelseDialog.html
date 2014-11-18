@@ -6,8 +6,9 @@
 
     <div class="fmu-form-body">
         <fmu-error-field errors="createBookingErrors"></fmu-error-field>
+
         <div>
-            <h3>Typ av händelse</h3>
+            <label>Typ av händelse</label>
             <select class="form-control" ng-model="choosenHandelseType"
                     ng-options="handelse.name for handelse in handelseTypes">
                 <option value="">-- Välj en händelse --</option>
@@ -15,7 +16,7 @@
         </div>
 
         <!--Datum-->
-        <div class="row" style="margin-left: 0">
+        <div>
             <div class="col-md-5" style="padding-top: 0.5em">
                 <fmu-datepicker title="Datum" date-model="handelseDate"></fmu-datepicker>
             </div>
@@ -35,16 +36,29 @@
 
         <div class="row">
             <div class="col-md-5">
-                <h3>Person</h3>
+                <label>Person</label>
                 <input class="form-control" ng-model="personName">
             </div>
 
             <div class="col-md-6">
-                <h3>Roll</h3>
+                <label>Roll</label>
                 <select class="form-control" ng-model="choosenRole"
                         ng-options="role.name for role in roles">
                     <option value="">-- Välj en roll --</option>
                 </select>
+            </div>
+        </div>
+
+        <div>
+            <label>Tillägg Tjänst</label>
+            <div class="radio">
+                <label>
+                    <input ng-model="tillaggRadio" type="radio" value="true"> Ja
+                </label>
+
+                <label>
+                    <input ng-model="tillaggRadio" type="radio" value="false"> Nej
+                </label>
             </div>
         </div>
 

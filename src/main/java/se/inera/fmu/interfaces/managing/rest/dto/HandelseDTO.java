@@ -10,11 +10,13 @@ import se.inera.fmu.interfaces.managing.dtomapper.UtredningDTOMapper.NoneBooking
 @Getter
 @SuppressWarnings("rawtypes")
 public class HandelseDTO {
+	private String bookingId;
 	private Enum handelse;
 	private StatusDTO tolkStatus;
 	private StatusDTO handelseStatus;
 	private Long dateOfEvent;
 	private TimeDTO timeOfEvent;
+	private TimeDTO timeOfEventEnd;
 	private String utredaPerson;
 	private String role;
 
@@ -28,42 +30,52 @@ public class HandelseDTO {
 		return bookingType instanceof BookingType
 				|| bookingType instanceof NoneBookingEvents;
 	}
-	
+
 	public HandelseDTO setTolkStatus(StatusDTO tolkStatus) {
 		this.tolkStatus = tolkStatus;
 		return this;
 	}
-	
+
 	public HandelseDTO setHandelseStatus(StatusDTO handelseStatus) {
 		this.handelseStatus = handelseStatus;
 		return this;
 	}
-	
+
 	public HandelseDTO setDateOfEvent(Long dateOfEvent) {
 		this.dateOfEvent = dateOfEvent;
 		return this;
 	}
-	
+
 	public HandelseDTO setTimeOfEvent(DateTime dateTime) {
-		if(dateTime == null)
-			return this;
-		
-		if(this.timeOfEvent == null)
+		if (this.timeOfEvent == null)
 			this.timeOfEvent = new TimeDTO();
-		
-		this.timeOfEvent.setHour(dateTime.getHourOfDay())
-		.setMinute(dateTime.getMinuteOfHour());
-		
+
+		this.timeOfEvent.setHour(dateTime.getHourOfDay()).setMinute(
+				dateTime.getMinuteOfHour());
+
 		return this;
 	}
-	
+
 	public HandelseDTO setUtredaPerson(String utredaPerson) {
 		this.utredaPerson = utredaPerson;
 		return this;
 	}
-	
+
 	public HandelseDTO setRole(String role) {
 		this.role = role;
+		return this;
+	}
+
+	public HandelseDTO setBookingId(String bookingId) {
+		this.bookingId = bookingId;
+		return this;
+	}
+
+	public HandelseDTO setTimeOfEventEnd(DateTime timeOfEventEnd) {
+		if (this.timeOfEventEnd == null)
+			this.timeOfEventEnd = new TimeDTO();
+		this.timeOfEventEnd.setHour(timeOfEventEnd.getHourOfDay()).setMinute(
+				timeOfEventEnd.getMinuteOfHour());
 		return this;
 	}
 }

@@ -30,8 +30,8 @@
                 <span ng-bind="getValue(column.key, row)"></span>
             </td>
 
-            <td align="middle" ng-repeat-end ng-if="isEditColumn(column.key) && (row.tolkStatus || row.handelseStatus)">
-                    <span class="btn btn-info btn-sm" ng-click="openEditRow(row)"><i
+            <td align="middle" ng-repeat-end ng-if="isEditColumn(column.key, row)">
+                    <span class="btn btn-info btn-sm" ng-click="toogleEditRow(row)"><i
                             class="glyphicon glyphicon-edit"></i></span>
             </td>
         </tr>
@@ -51,15 +51,17 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Status</label>
-                                            <select class="form-control" ng-model="selectedTolkStatus"
+                                            <select class="form-control"
+                                                    ng-model="row.selectedTolkStatus"
                                                     ng-options="tableConstants.tolkMapping[opt.name] for opt in row.tolkStatus.statuses">
                                                 <option value="" class="">-- Välj en status --</option>
                                             </select>
                                         </div>
 
-                                        <div class="col-md-6" ng-if="selectedTolkStatus.requireComment">
+                                        <div class="col-md-6" ng-if="row.selectedTolkStatus.requireComment">
                                             <label>Kommentar</label>
                                             <textarea class="form-control"
+                                                      ng-model="row.tolkComment"
                                                       placeholder="Ange anledningen till den givna statusändring"></textarea>
                                         </div>
                                     </div>
@@ -67,8 +69,8 @@
 
                                 <div class="fmu-form-footer">
                                     <div>
-                                        <button class="btn btn-success" ng-click="changeTolkStatus()">Spara</button>
-                                        <button class="btn btn-danger" ng-click="changeTolkStatus()">Avbryt</button>
+                                        <button class="btn btn-success" ng-click="changeTolkStatus(row)">Spara</button>
+                                        <button class="btn btn-danger" ng-click="cancelChange(row)">Avbryt</button>
                                     </div>
                                 </div>
                             </div>
@@ -86,16 +88,17 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Status</label>
-                                            <select class="form-control" ng-model="selectedHandelseStatus"
+                                            <select class="form-control" ng-model="row.selectedHandelseStatus"
                                                     ng-options="tableConstants.handelseMapping[opt.name]
                                                         for opt in row.handelseStatus.statuses">
                                                 <option value="" class="">-- Välj en status --</option>
                                             </select>
                                         </div>
 
-                                        <div class="col-md-6" ng-if="selectedHandelseStatus.requireComment">
+                                        <div class="col-md-6" ng-if="row.selectedHandelseStatus.requireComment">
                                             <label>Kommentar</label>
                                             <textarea class="form-control"
+                                                      ng-model="row.handelseComment"
                                                       placeholder="Ange anledningen till den givna statusändring"></textarea>
                                         </div>
                                     </div>
@@ -103,9 +106,9 @@
 
                                 <div class="fmu-form-footer">
                                     <div>
-                                        <button class="btn btn-success" ng-click="changeHandelseStatus()">Spara
+                                        <button class="btn btn-success" ng-click="changeHandelseStatus(row)">Spara
                                         </button>
-                                        <button class="btn btn-danger" ng-click="changeHandelseStatus()">Avbryt
+                                        <button class="btn btn-danger" ng-click="cancelChange(row)">Avbryt
                                         </button>
                                     </div>
                                 </div>

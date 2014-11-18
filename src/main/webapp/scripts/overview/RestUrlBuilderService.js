@@ -21,6 +21,14 @@ angular.module('fmuClientApp').factory('RestUrlBuilderService',
 
             buildCreateBookingRestUrl: function () {
                 return '/app/rest/eavrop/utredning/create/booking';
+            },
+
+            changeBookingRestUrl: function () {
+                return '/app/rest/eavrop/utredning/modify/booking';
+            },
+
+            changeTolkBookingRestUrl: function () {
+                return '/app/rest/eavrop/utredning/modify/tolk';
             }
         }
     });

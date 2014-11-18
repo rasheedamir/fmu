@@ -25,8 +25,8 @@ angular.module('fmuClientApp').factory('UtredningService', ['$http', '$q', 'Rest
                     });
             },
 
-            postTolkStatusChanges: function (bookningsId, comments) {
-                return $http.post(RestUrlBuilderService.postTolkStatusRestUrl(bookningsId, comments))
+            changeBooking: function (dataPackage) {
+                return $http.post(RestUrlBuilderService.changeBookingRestUrl(), dataPackage)
                     .then(function (success) {
                         // Success
                         return success.data;
@@ -36,8 +36,8 @@ angular.module('fmuClientApp').factory('UtredningService', ['$http', '$q', 'Rest
                     });
             },
 
-            postHandelseStatusChanges: function (bookningsId, comments) {
-                return $http.post(RestUrlBuilderService.postHandelseStatusRestUrl(bookningsId, comments))
+            changeTolkBooking: function (dataPackage) {
+                return $http.post(RestUrlBuilderService.changeTolkBookingRestUrl(), dataPackage)
                     .then(function (success) {
                         // Success
                         return success.data;

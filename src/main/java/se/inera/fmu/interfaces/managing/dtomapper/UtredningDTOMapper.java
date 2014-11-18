@@ -115,12 +115,15 @@ public class UtredningDTOMapper {
 		List<HandelseDTO> retval = new ArrayList<HandelseDTO>();
 		for (Booking booking : bookings) {
 			HandelseDTO dto = new HandelseDTO();
-			DateTime duedate = booking.getStartDateTime();
+			DateTime startDateTime = booking.getStartDateTime();
+			DateTime endDateTime = booking.getEndDateTime();
 			Person person = booking.getPerson();
 			dto.setHandelse(booking.getBookingType())
+					.setBookingId(booking.getBookingId().getId())
 					.setDateOfEvent(
-							duedate != null ? duedate.getMillis() : null)
-					.setTimeOfEvent(duedate != null ? duedate : null)
+							startDateTime != null ? startDateTime.getMillis() : null)
+					.setTimeOfEvent(startDateTime != null ? startDateTime : null)
+					.setTimeOfEventEnd(endDateTime != null ? endDateTime: null)
 					.setUtredaPerson(person != null ? person.getName() : null)
 					.setRole(person != null ? person.getRole() : null);
 			;
@@ -129,11 +132,14 @@ public class UtredningDTOMapper {
 			StatusDTO handelseStatus = new StatusDTO();
 
 			InterpreterBooking tolk = booking.getInterpreterBooking();
-				tolkstatus
-						.setCurrentStatus(tolk != null ? tolk.getInterpreterBookingStatus(): null)
-						.setComment(tolk != null && tolk.getDeviationNote() != null ? 
-								tolk.getDeviationNote().getText() : null)
-						.setStatuses(InterpreterBookingStatusType.values());
+			tolkstatus
+					.setCurrentStatus(
+							tolk != null ? tolk.getInterpreterBookingStatus()
+									: null)
+					.setComment(
+							tolk != null && tolk.getDeviationNote() != null ? tolk
+									.getDeviationNote().getText() : null)
+					.setStatuses(InterpreterBookingStatusType.values());
 
 			handelseStatus
 					.setCurrentStatus(booking.getBookingStatus())

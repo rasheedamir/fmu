@@ -15,12 +15,16 @@ import se.inera.fmu.application.DomainEventPublisher;
 import se.inera.fmu.application.EavropBookingService;
 import se.inera.fmu.application.FmuListService;
 import se.inera.fmu.application.FmuOrderingService;
+import se.inera.fmu.application.impl.command.ChangeBookingStatusCommand;
+import se.inera.fmu.application.impl.command.ChangeInterpreterBookingStatusCommand;
 import se.inera.fmu.application.impl.command.CreateBookingCommand;
 import se.inera.fmu.application.impl.command.CreateEavropCommand;
 import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.*;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignedToVardgivarenhetEvent;
+import se.inera.fmu.domain.model.eavrop.booking.BookingId;
+import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
@@ -50,6 +54,8 @@ import se.inera.fmu.interfaces.managing.dtomapper.UtredningDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.ReceivedDocumentDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
@@ -57,6 +63,8 @@ import se.inera.fmu.interfaces.managing.rest.dto.NoteDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.TimeDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestDTO;
 
 import javax.inject.Inject;
 
@@ -374,11 +382,11 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		List<ReceivedDocumentDTO> result = new ArrayList<>();
 		ReceivedDocumentDTOMapper mapper = new ReceivedDocumentDTOMapper();
-		
-		for(ReceivedDocument doc : eavropForUser.getReceivedDocuments()){
+
+		for (ReceivedDocument doc : eavropForUser.getReceivedDocuments()) {
 			result.add(mapper.map(doc));
 		}
-		
+
 		return result;
 	}
 
@@ -387,11 +395,11 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		List<RequestedDocumentDTO> result = new ArrayList<>();
 		RequestedDocumentDTOMapper mapper = new RequestedDocumentDTOMapper();
-		
-		for(RequestedDocument doc : eavropForUser.getRequestedDocuments()){
+
+		for (RequestedDocument doc : eavropForUser.getRequestedDocuments()) {
 			result.add(mapper.map(doc, eavropForUser));
 		}
-		
+
 		return result;
 	}
 
@@ -400,15 +408,84 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		NoteDTOMapper mapper = new NoteDTOMapper();
 		List<NoteDTO> result = new ArrayList<>();
-		
-		for(Note n : eavropForUser.getAllNotes()){
+
+		for (Note n : eavropForUser.getAllNotes()) {
 			result.add(mapper.map(n));
 		}
-		
+
 		return result;
 	}
-	
-	public void addBooking(CreateBookingCommand bookingCommand) {
-		this.bookingService.createBooking(bookingCommand);
+
+	@Override
+	public void addBooking(BookingRequestDTO changeRequestDto) {
+		BookingType type = changeRequestDto.getBookingType();
+		Long bookingDateMilis = changeRequestDto.getBookingDate();
+		TimeDTO startTime = changeRequestDto.getBookingStartTime();
+		TimeDTO endTime = changeRequestDto.getBookingEndTime();
+		DateTime sDateTime = new DateTime(bookingDateMilis).withTime(
+				startTime.getHour(), startTime.getMinute(), 0, 0);
+		DateTime eDateTime = new DateTime(bookingDateMilis).withTime(
+				endTime.getHour(), endTime.getMinute(), 0, 0);
+
+		CreateBookingCommand command = new CreateBookingCommand(new EavropId(
+				changeRequestDto.getEavropId()), type, sDateTime, eDateTime,
+				changeRequestDto.getPersonName(),
+				changeRequestDto.getAdditionalService(),
+				changeRequestDto.getPersonRole(),
+				changeRequestDto.getPersonOrganisation(), // TODO Where does this info comes from ?
+				changeRequestDto.getPersonUnit(), // TODO Where does this infocomes from ?
+				changeRequestDto.getUseInterpreter());
+
+		this.bookingService.createBooking(command);
+	}
+
+	@Override
+	public void modifyBooking(BookingModificationRequestDTO changeRequestData) {
+		User currentUser = this.currentUserService.getCurrentUser();
+		ChangeBookingStatusCommand command = new ChangeBookingStatusCommand(
+				new EavropId(changeRequestData.getEavropId()), new BookingId(
+						changeRequestData.getBookingId()),
+				changeRequestData.getBookingStatus(),
+				changeRequestData.getComment(), currentUser.getFirstName()
+						+ " " + currentUser.getMiddleAndLastName(), currentUser
+						.getActiveRole().name(),
+				getUserOrganisation(currentUser), getUserUnit(currentUser));
+		this.bookingService.changeBookingStatus(command);
+	}
+
+	@Override
+	public void modifyTolkBooking(
+			TolkBookingModificationRequestDTO changeRequestData) {
+		User currentUser = this.currentUserService.getCurrentUser();
+		ChangeInterpreterBookingStatusCommand command = new ChangeInterpreterBookingStatusCommand(
+				new EavropId(changeRequestData.getEavropId()), new BookingId(
+						changeRequestData.getBookingId()),
+				changeRequestData.getBookingStatus(),
+				changeRequestData.getComment(), currentUser.getFirstName()
+						+ " " + currentUser.getMiddleAndLastName(), currentUser
+						.getActiveRole().name(),
+				getUserOrganisation(currentUser), getUserUnit(currentUser));
+		this.bookingService.changeInterpreterBookingStatus(command);
+	}
+
+	/**
+	 * Get the name of the organisation the user belong to based on their active
+	 * role
+	 * 
+	 * @param user
+	 * @return The name of the organisation the user belong to
+	 */
+	private String getUserOrganisation(User user) {
+		return null;
+	}
+
+	/**
+	 * Get the name of the unit the user belong to based on their active role
+	 * 
+	 * @param user
+	 * @return The name of the unit the user belong to
+	 */
+	private String getUserUnit(User user) {
+		return null;
 	}
 }

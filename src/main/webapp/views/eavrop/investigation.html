@@ -1,32 +1,13 @@
 <div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-2">
             <h1>
                 Utredning
             </h1>
         </div>
 
-        <div class="col-md-5">
-            <div class="row">
-                <div class="col-md-4">
-                    <fmu-datepicker title="Start datum" date-model="startDate"></fmu-datepicker>
-                </div>
-                <div class="col-md-4 col-md-offset-1">
-                    <fmu-datepicker title="Slut datum" date-model="endDate"></fmu-datepicker>
-                </div>
-
-                <div class="col-md-3 fmu-dateButton">
-                    <button class="btn btn-info" ng-click="visa()">Visa</button>
-                </div>
-            </div>
-
-            <div class="row">
-                <p><i>{{dateDescription}}</i></p>
-            </div>
-        </div>
-
-        <div class="col-md-1">
-            <button class="btn btn-warning" ng-click="tillIntyg()">Till Intyget</button>
+        <div class="col-md-10">
+            <button style="float: right" class="btn btn-warning" ng-click="tillIntyg()">Till Intyget</button>
         </div>
     </div>
 
@@ -35,7 +16,6 @@
             <fmu-utredning-table
                     table-parameters="tableParameters"
                     header-fields="headerFields"
-                    date-key="{{dateKey}}"
                     eavropid="currentEavropId"
                     get-data-callback="getTableCellValue">
             </fmu-utredning-table>

@@ -17,4 +17,5 @@ public class BookingRequestDTO {
     private String personOrganisation;
     private String personUnit;
     private Boolean useInterpreter;
+    private Boolean additionalService;
 }
