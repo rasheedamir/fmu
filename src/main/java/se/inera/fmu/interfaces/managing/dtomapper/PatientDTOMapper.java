@@ -11,7 +11,7 @@ public class PatientDTOMapper {
 		PatientDTO dto = new PatientDTO();
 		Invanare invanare = eavrop.getInvanare();
 		
-		dto.setDobYear(invanare.getPersonalNumber().getPersonalNumber().substring(0, 3));
+		dto.setDobYear(invanare.getPersonalNumber().getPersonalNumber().substring(0, 4));
 		dto.setGender(invanare.getGender().toString());
 		dto.setInitials(invanare.getName().getInitials());
 		
