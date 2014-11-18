@@ -32,6 +32,7 @@ import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.invanare.medicalexamination.PriorMedicalExamination;
 import se.inera.fmu.domain.model.eavrop.note.Note;
+import se.inera.fmu.domain.model.eavrop.note.NoteType;
 import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
@@ -41,6 +42,7 @@ import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.domain.model.landsting.LandstingRepository;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.HoSPerson;
+import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
@@ -389,6 +391,37 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		}
 
 		return result;
+	}
+	
+	private Person createPersonObjectFromCurrentUser() {
+		User currentUser = currentUserService.getCurrentUser();
+		String name = String.format("%s %s", currentUser.getFirstName(), currentUser.getMiddleAndLastName());
+		HoSPerson p = new HoSPerson(name, currentUser.getActiveRole().toString(), currentUser.getOrganization(), currentUser.getUnit());
+		
+		return p;
+	}	
+
+	@Override
+	public void addReceivedDocuments(EavropId eavropId, ReceivedDocumentDTO doc) {
+		Eavrop eavropForUser = getEavropForUser(eavropId);
+
+		Person p = createPersonObjectFromCurrentUser();
+		
+		ReceivedDocument receivedDocument = new ReceivedDocument(doc.getName(), p, false);
+		eavropForUser.addReceivedDocument(receivedDocument);
+	}
+
+
+
+	@Override
+	public void addRequestedDocuments(EavropId eavropId,
+			RequestedDocumentDTO doc) {
+		Eavrop eavropForUser = getEavropForUser(eavropId);
+		
+		Person p = createPersonObjectFromCurrentUser();
+		Note requestNote = new Note(NoteType.DOCUMENT_REQUEST, doc.getComment(), p);
+		RequestedDocument requestedDocument = new RequestedDocument(doc.getName(), p, requestNote);
+		eavropForUser.addRequestedDocument(requestedDocument);
 	}
 
 	@Override

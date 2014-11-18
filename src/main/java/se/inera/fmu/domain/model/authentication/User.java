@@ -20,6 +20,8 @@ public class User implements Serializable {
 	private Integer landstingCode;
 	private List<Role> roles = new ArrayList<>();
 	private Role activeRole;
+	private String organization;
+	private String unit;
 
 
 	public String getHsaId() {
@@ -97,6 +99,25 @@ public class User implements Serializable {
 	public String toString() {
 		return hsaId;
 	}
-	
+
+
+	public String getOrganization() {
+		return this.organization;
+	}
+
+
+	public void setOrganization(String organization) {
+		this.organization = organization;
+	}
+
+
+	public String getUnit() {
+		return this.unit;
+	}
+
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
 	
 }

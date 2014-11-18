@@ -108,10 +108,20 @@ public class EavropResource {
 		return this.fmuOrderingService.getReceivedDocuments(new EavropId(id));
 	}
 
+	@RequestMapping(value="/rest/eavrop/{id}/received-documents", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public void addReceivedDocuments(@PathVariable("id") String id, @RequestBody ReceivedDocumentDTO doc){
+		this.fmuOrderingService.addReceivedDocuments(new EavropId(id), doc);
+	}	
+	
 	@RequestMapping(value = "/rest/eavrop/{id}/requested-documents", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<RequestedDocumentDTO> getRequestedDocuments(@PathVariable("id") String id) {
 		return this.fmuOrderingService.getRequestedDocuments(new EavropId(id));
 	}
+	
+	@RequestMapping(value="/rest/eavrop/{id}/requested-documents", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public void addReceivedDocuments(@PathVariable("id") String id, @RequestBody RequestedDocumentDTO doc){
+		this.fmuOrderingService.addRequestedDocuments(new EavropId(id), doc);
+	}		
 
 	@RequestMapping(value = "/rest/eavrop/{id}/notes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<NoteDTO> getNotes(@PathVariable("id") String id) {

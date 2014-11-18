@@ -5,23 +5,23 @@
             <table>
                 <tr>
                     <td>Ärende-ID:</th>
-                    <td>{{currentEavrop.arendeId}}</td>
+                    <td>{{order.arendeId}}</td>
                 </tr>
                 <tr>
                     <td>Förfrågan inkom:</th>
-                    <td>{{currentEavrop.inquiryDate}}</td>
+                    <td>{{order.inquiryDate | date: 'yyyy-MM-dd'}}</td>
                 </tr>
                 <tr>
                     <td>Typ av utredning:</th>
-                    <td>{{currentEavrop.type}}</td>
+                    <td>{{order.type}}</td>
                 </tr>
                 <tr>
                     <td>Tolk:</th>
-                    <td>{{currentEavrop.interpreter}}</td>
+                    <td>{{order.interpreterLang ? ('Ja, ' + order.interpreterLang) : 'Nej'}}</td>
                 </tr>
                 <tr>
                     <td>Val av inriktning:</th>
-                    <td></td>
+                    <td>{{order.valAvInriktning}}</td>
                 </tr>
             </table>
         </div>
@@ -32,20 +32,20 @@
         <div class="fmu-table-v">
             <table>
                 <tr>
-                    <td>LFC:</th>
-                    <td>{{currentEavrop.orderer.lfc}}</td>
+                    <td>Enhet:</th>
+                    <td>{{order.ordererUnit}}</td>
                 </tr>
                 <tr>
                     <td>Beställare, namn:</th>
-                    <td>{{currentEavrop.orderer.name}}</td>
+                    <td>{{order.ordererName}}</td>
                 </tr>
                 <tr>
                     <td>Beställare, tel:</th>
-                    <td>{{currentEavrop.orderer.phone}}</td>
+                    <td>{{order.ordererPhone}}</td>
                 </tr>
                 <tr>
                     <td>Beställare, e-post:</th>
-                    <td>{{currentEavrop.orderer.email}}</td>
+                    <td>{{order.ordererEmail}}</td>
                 </tr>
             </table>
         </div>

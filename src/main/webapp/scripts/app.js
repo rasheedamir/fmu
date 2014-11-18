@@ -68,7 +68,15 @@ angular.module('fmuClientApp', [
     })
     .state('eavrop.order.contents', {
         url: '/contents',
-        templateUrl: 'views/eavrop/order/contents.html'
+        resolve: {
+        	order: function($stateParams, EavropOrder){
+        		return EavropOrder.get({eavropId: $stateParams.eavropId});
+        	}
+        },
+        templateUrl: 'views/eavrop/order/contents.html',
+        controller: function($scope, order){
+        	$scope.order = order;
+        }
     })
     .state('eavrop.order.documents', {
         url: '/documents',
@@ -139,7 +147,11 @@ angular.module('fmuClientApp', [
                 });
 
                 mod.result.then(function(result){
-                    new Documents(result).$save({eavropId: $stateParams.eavropId}).then(function(){
+                	var payload = {
+                			name: result.name,
+                			regDate: result.regDate.getTime()
+                	};
+                    new Documents(payload).$save({eavropId: $stateParams.eavropId}).then(function(){
                         loadDocuments();
                     });
                 });
