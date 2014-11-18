@@ -294,6 +294,7 @@
 			<column name="PERSONAL_NUMBER" type="VARCHAR(255)">
 				<constraints nullable="false"/>
 			</column>
+			<column name="PHONE" type="VARCHAR(255)"/>
 			<column name="SPECIAL_NEEDS" type="VARCHAR(255)"/>
 		</createTable>
 	</changeSet>
@@ -359,14 +360,14 @@
 			<column autoIncrement="true" name="PERSON_ID" type="BIGINT">
 				<constraints primaryKey="true" primaryKeyName="T_PERSONPK"/>
 			</column>
+			<column name="EMAIL" type="VARCHAR(255)"/>
 			<column name="NAME" type="VARCHAR(255)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="ORGANISATION" type="VARCHAR(255)"/>
+			<column name="PHONE" type="VARCHAR(255)"/>
 			<column name="ROLE" type="VARCHAR(255)"/>
 			<column name="UNIT" type="VARCHAR(255)"/>
-			<column name="EMAIL" type="VARCHAR(255)"/>
-			<column name="PHONE" type="VARCHAR(255)"/>
 		</createTable>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-23">
@@ -708,4 +709,3 @@
 		<addForeignKeyConstraint baseColumnNames="DEVIATION_RESPONSE_PERSON_ID" baseTableName="T_BOOKING" constraintName="FK_slpdct9cyw40qec1p8se5d7kk" deferrable="false" initiallyDeferred="false" referencedColumnNames="PERSON_ID" referencedTableName="T_PERSON"/>
 	</changeSet>
 </databaseChangeLog>
-
