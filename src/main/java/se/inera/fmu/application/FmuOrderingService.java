@@ -52,4 +52,10 @@ public interface FmuOrderingService {
 	public void modifyBooking(BookingModificationRequestDTO changeRequestData);
 
 	public void modifyTolkBooking(TolkBookingModificationRequestDTO changeRequestData);
+	public void addReceivedDocuments(EavropId eavropId,
+			ReceivedDocumentDTO doc);
+
+	public void addRequestedDocuments(EavropId eavropId,
+			RequestedDocumentDTO doc);
+
 }

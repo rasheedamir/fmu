@@ -147,7 +147,11 @@ angular.module('fmuClientApp', [
                 });
 
                 mod.result.then(function(result){
-                    new Documents(result).$save({eavropId: $stateParams.eavropId}).then(function(){
+                	var payload = {
+                			name: result.name,
+                			regDate: result.regDate.getTime()
+                	};
+                    new Documents(payload).$save({eavropId: $stateParams.eavropId}).then(function(){
                         loadDocuments();
                     });
                 });
