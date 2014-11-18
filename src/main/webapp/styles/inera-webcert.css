@@ -27,6 +27,7 @@
         font-size: 14px;
         font-family: "Helvetica Neue", helvetica, arial, sans-serif;
         text-align: left;
+        padding-bottom: 1em;
         /*  overflow-x: hidden;  disable horizontal scroll to prevent user from peeking outside of intended view in case something is too long. fix such things in another way! */
     }
 

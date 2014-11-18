@@ -88,8 +88,12 @@ angular.module('fmuClientApp')
                                         var promise = UtredningService.getAllEvents($scope.eavropid);
 
                                         promise.then(function (serverResponse) {
-                                            params.total(serverResponse.length);
-                                            $defer.resolve(serverResponse);
+                                            var orderedData = params.sorting() ?
+                                                $filter('orderBy')(serverResponse, params.orderBy()) :
+                                                serverResponse;
+
+                                            params.total(orderedData.length);
+                                            $defer.resolve(orderedData);
                                         })
                                     },
                                     $scope: $scope

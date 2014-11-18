@@ -19,15 +19,7 @@ angular.module('fmuClientApp')
 
             arendeId: 'arendeId',
             utredningType: 'utredningType',
-            bestallareEnhet: 'bestallaradministrator',
-            bestallareOrganisation: 'bestallaradministrator',
-            creationTime: 'documentsSentFromBestallareDateTime',
-            patientCity: 'invanare',
-            mottagarenOrganisation: 'currentAssignment',
-            status: 'eavropState',
-            antalDagarEfterForfragan: null,
-            color: null,
-            avikelser: null
+            status: 'eavropState'
         },
         statusMapping: {
             UNASSIGNED: 'Förfrågan om utredning har inkommit',
