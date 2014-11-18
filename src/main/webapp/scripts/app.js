@@ -68,7 +68,15 @@ angular.module('fmuClientApp', [
     })
     .state('eavrop.order.contents', {
         url: '/contents',
-        templateUrl: 'views/eavrop/order/contents.html'
+        resolve: {
+        	order: function($stateParams, EavropOrder){
+        		return EavropOrder.get({eavropId: $stateParams.eavropId});
+        	}
+        },
+        templateUrl: 'views/eavrop/order/contents.html',
+        controller: function($scope, order){
+        	$scope.order = order;
+        }
     })
     .state('eavrop.order.documents', {
         url: '/documents',
