@@ -53,6 +53,7 @@ import se.inera.fmu.interfaces.managing.dtomapper.AllEventsDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.DTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.NoteDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.OrderDTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.PatientDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.RequestedDocumentDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.UtredningDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.ReceivedDocumentDTOMapper;
@@ -66,6 +67,7 @@ import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.NoteDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.PatientDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TimeDTO;
@@ -547,4 +549,14 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		return retval;
 	}
 
+	@Override
+	public PatientDTO getPatientInfo(EavropId eavropId) {
+		Eavrop eavropForUser = getEavropForUser(eavropId);
+		Invanare invanare = eavropForUser.getInvanare();
+		
+		PatientDTOMapper mapper = new PatientDTOMapper();
+		PatientDTO dto = mapper.map(eavropForUser, currentUserService.getCurrentUser().getActiveRole() == Role.UTREDARE);
+		
+		return dto;
+	}
 }

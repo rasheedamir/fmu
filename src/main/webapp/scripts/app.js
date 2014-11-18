@@ -160,7 +160,13 @@ angular.module('fmuClientApp', [
     })
     .state('eavrop.order.citizen', {
         url: '/citizen',
-        templateUrl: 'views/eavrop/order/citizen.html'
+        templateUrl: 'views/eavrop/order/citizen.html',
+        resolve:{
+        	patient: function(EavropPatient, $stateParams){return EavropPatient.get({eavropId: $stateParams.eavropId});}
+        },
+        controller: function($scope, patient){
+        	$scope.patient = patient;
+        }
     })
     .state('eavrop.allevents', {
         url: '/all-events',

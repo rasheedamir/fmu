@@ -4,9 +4,6 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
-import se.inera.fmu.application.impl.command.ChangeBookingStatusCommand;
-import se.inera.fmu.application.impl.command.ChangeInterpreterBookingStatusCommand;
-import se.inera.fmu.application.impl.command.CreateBookingCommand;
 import se.inera.fmu.application.impl.command.CreateEavropCommand;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropId;
@@ -19,6 +16,7 @@ import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.NoteDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.PatientDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestDTO;
@@ -60,5 +58,7 @@ public interface FmuOrderingService {
 			RequestedDocumentDTO doc);
 
 	public void addNote(AddNoteRequestDTO addRequest);
+	
+	public PatientDTO getPatientInfo(EavropId eavropId);
 
 }
