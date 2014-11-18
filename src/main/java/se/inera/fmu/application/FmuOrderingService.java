@@ -11,6 +11,7 @@ import se.inera.fmu.application.impl.command.CreateEavropCommand;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
+import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
@@ -57,5 +58,7 @@ public interface FmuOrderingService {
 
 	public void addRequestedDocuments(EavropId eavropId,
 			RequestedDocumentDTO doc);
+
+	public void addNote(AddNoteRequestDTO addRequest);
 
 }

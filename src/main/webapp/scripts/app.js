@@ -192,7 +192,7 @@ angular.module('fmuClientApp', [
     .state('eavrop.notes', {
         url: '/notes',
         templateUrl: 'views/eavrop/notes.html',
-        controller: function($scope, $modal, $filter, $stateParams, EavropNotes){
+        controller: function($scope, $modal, $filter, $stateParams, EavropNotes, EavropService){
             $scope.toYYMMDD = function (date) {
                 return $filter('date')(date, 'yyyy-MM-dd');
             };
@@ -205,10 +205,10 @@ angular.module('fmuClientApp', [
                 var modalInstance = $modal.open({
                     templateUrl: 'views/eavrop/add-note-modal.html',
                     size: 'md',
-                    controller: function($scope, EavropNotes){
+                    controller: function($scope, EavropNotes, EAVROP_NOTES){
                         $scope.picker = {opened: false}
                         $scope.note = new EavropNotes({
-                            content: 'asd',
+                            content: '',
                             createdDate: new Date()
                         });
                         $scope.open = function($event){
@@ -217,19 +217,28 @@ angular.module('fmuClientApp', [
                             $scope.picker.opened = true;
                         };
 
+                        function createNoteDateObject(){
+                            return {
+                                eavropId: $stateParams.eavropId,
+                                text: $scope.note.content
+                            }
+                        };
+
                         $scope.save = function(){
-                            modalInstance.close($scope.note);
+                            var promise = EavropService.addNote(createNoteDateObject());
+                            promise.then(function () {
+                                // Success
+                                modalInstance.close();
+                                loadNotes();
+                            }, function () {
+                                // Failed
+                                $scope.noteError = [EAVROP_NOTES.cannotAdd];
+                            });
                         },
                         $scope.close = function(){
                             modalInstance.dismiss();
                         }
                     }
-                });
-
-                modalInstance.result.then(function(result){
-                    result.$save({eavropId: $stateParams.eavropId}).then(function(){
-                        loadNotes();
-                    });
                 });
             }
         }

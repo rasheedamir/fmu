@@ -1,8 +1,9 @@
-<h1>
-    Anteckningar
-</h1>
-<div class="row">
-    <div class="col-md-10">
+<div class="container-fluid">
+    <h1>
+        Anteckningar
+    </h1>
+
+    <div class="row">
         <div class="fmu-table-k">
             <table>
                 <tr>
@@ -17,12 +18,17 @@
                     </td>
                 </tr>
                 <tr ng-repeat="note in notes">
-                    <td>{{note.contents}}</td>
-                    <td>{{note.createdBy}}</td>
+                    <td class="text-capitalize">{{note.contents}}</td>
+                    <td class="text-capitalize">{{note.createdBy}}</td>
                     <td>{{toYYMMDD(note.date)}}</td>
                 </tr>
             </table>
         </div>
-        <a class="btn btn-default" ng-click="openAddNoteModal()">Lägg till</a>
+    </div>
+
+    <div class="row utredning-laggtill-btn">
+        <button class="btn btn-success" ng-click="openAddNoteModal()">Lägg till anteckning</button>
     </div>
 </div>
+
+

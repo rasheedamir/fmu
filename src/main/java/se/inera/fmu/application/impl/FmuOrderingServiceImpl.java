@@ -13,8 +13,10 @@ import org.springframework.validation.annotation.Validated;
 import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.DomainEventPublisher;
 import se.inera.fmu.application.EavropBookingService;
+import se.inera.fmu.application.EavropNoteService;
 import se.inera.fmu.application.FmuListService;
 import se.inera.fmu.application.FmuOrderingService;
+import se.inera.fmu.application.impl.command.AddNoteCommand;
 import se.inera.fmu.application.impl.command.ChangeBookingStatusCommand;
 import se.inera.fmu.application.impl.command.ChangeInterpreterBookingStatusCommand;
 import se.inera.fmu.application.impl.command.CreateBookingCommand;
@@ -55,6 +57,7 @@ import se.inera.fmu.interfaces.managing.dtomapper.RequestedDocumentDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.UtredningDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.ReceivedDocumentDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
+import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
@@ -94,6 +97,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	private final VardgivarenhetRepository vardgivarEnhetRepository;
 	private final FmuListService fmuListService;
 	private final EavropBookingService bookingService;
+	private final EavropNoteService noteService;
 
 	/**
 	 *
@@ -107,7 +111,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 			final DomainEventPublisher domainEventPublisher,
 			final LandstingRepository landstingRepository, final CurrentUserService currentUser,
 			final VardgivarenhetRepository vardgivarEnhetRepository,
-			final FmuListService fmuListService, final EavropBookingService bookingService) {
+			final FmuListService fmuListService, final EavropBookingService bookingService,
+			final EavropNoteService noteService) {
 		this.eavropRepository = eavropRepository;
 		this.invanareRepository = invanareRepository;
 		this.configuration = configuration;
@@ -117,6 +122,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		this.vardgivarEnhetRepository = vardgivarEnhetRepository;
 		this.fmuListService = fmuListService;
 		this.bookingService = bookingService;
+		this.noteService = noteService;
 	}
 
 	/**
@@ -392,32 +398,31 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 		return result;
 	}
-	
+
 	private Person createPersonObjectFromCurrentUser() {
 		User currentUser = currentUserService.getCurrentUser();
-		String name = String.format("%s %s", currentUser.getFirstName(), currentUser.getMiddleAndLastName());
-		HoSPerson p = new HoSPerson(name, currentUser.getActiveRole().toString(), currentUser.getOrganization(), currentUser.getUnit());
-		
+		String name = String.format("%s %s", currentUser.getFirstName(),
+				currentUser.getMiddleAndLastName());
+		HoSPerson p = new HoSPerson(name, currentUser.getActiveRole().toString(),
+				currentUser.getOrganization(), currentUser.getUnit());
+
 		return p;
-	}	
+	}
 
 	@Override
 	public void addReceivedDocuments(EavropId eavropId, ReceivedDocumentDTO doc) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 
 		Person p = createPersonObjectFromCurrentUser();
-		
+
 		ReceivedDocument receivedDocument = new ReceivedDocument(doc.getName(), p, false);
 		eavropForUser.addReceivedDocument(receivedDocument);
 	}
 
-
-
 	@Override
-	public void addRequestedDocuments(EavropId eavropId,
-			RequestedDocumentDTO doc) {
+	public void addRequestedDocuments(EavropId eavropId, RequestedDocumentDTO doc) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
-		
+
 		Person p = createPersonObjectFromCurrentUser();
 		Note requestNote = new Note(NoteType.DOCUMENT_REQUEST, doc.getComment(), p);
 		RequestedDocument requestedDocument = new RequestedDocument(doc.getName(), p, requestNote);
@@ -466,10 +471,31 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		ChangeInterpreterBookingStatusCommand command = new ChangeInterpreterBookingStatusCommand(
 				new EavropId(changeRequestData.getEavropId()), new BookingId(
 						changeRequestData.getBookingId()), changeRequestData.getBookingStatus(),
-				changeRequestData.getComment(), currentUser.getFirstName() + " "
-						+ currentUser.getMiddleAndLastName(), currentUser.getActiveRole().name(),
-				getUserOrganisation(currentUser), getUserUnit(currentUser));
+				changeRequestData.getComment(), getUserName(currentUser), currentUser
+						.getActiveRole().name(), getUserOrganisation(currentUser),
+				getUserUnit(currentUser));
 		this.bookingService.changeInterpreterBookingStatus(command);
+	}
+
+	@Override
+	public void addNote(AddNoteRequestDTO addRequest) {
+		User currentUser = this.currentUserService.getCurrentUser();
+		AddNoteCommand command = new AddNoteCommand(new EavropId(addRequest.getEavropId()),
+				addRequest.getText(), getUserName(currentUser), 
+				currentUser.getActiveRole().name().toLowerCase(), 
+				getUserOrganisation(currentUser),
+				getUserUnit(currentUser));
+		this.noteService.addNote(command);
+	}
+
+	/**
+	 * Get the name of the user
+	 * @param currentUser The currently logged in user
+	 * @return The user's name
+	 */
+	private String getUserName(User currentUser) {
+		return currentUser.getFirstName() + " "
+				+ currentUser.getMiddleAndLastName();
 	}
 
 	/**
@@ -480,7 +506,22 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	 * @return The name of the organisation the user belong to
 	 */
 	private String getUserOrganisation(User user) {
-		return null;
+		String retval = null;
+		switch (user.getActiveRole()) {
+		case LANDSTINGSSAMORDNARE:
+			Landsting landsting = this.landstingRepository
+					.findByLandstingCode(new LandstingCode(user.getLandstingCode()));
+			retval = landsting.getName();
+			break;
+		case UTREDARE:
+			Vardgivarenhet vEnhet = this.vardgivarEnhetRepository.findByHsaId(new HsaId(user.getVardenhetHsaId()));
+			retval = vEnhet.getVardgivare().getName();
+			break;
+		default:
+			break;
+		}
+		
+		return retval;
 	}
 
 	/**
@@ -490,6 +531,20 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	 * @return The name of the unit the user belong to
 	 */
 	private String getUserUnit(User user) {
-		return null;
+		String retval = null;
+		switch (user.getActiveRole()) {
+		case LANDSTINGSSAMORDNARE:
+			retval = null;
+			break;
+		case UTREDARE:
+			Vardgivarenhet vEnhet = this.vardgivarEnhetRepository.findByHsaId(new HsaId(user.getVardenhetHsaId()));
+			retval = vEnhet.getUnitName();
+			break;
+		default:
+			break;
+		}
+		
+		return retval;
 	}
+
 }

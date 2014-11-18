@@ -89,4 +89,7 @@ angular.module('fmuClientApp')
         notAccepted: 'NOT_ACCEPTED',
         accepted: 'ACCEPTED',
         completed: 'COMPLETED'
+    })
+    .constant('EAVROP_NOTES', {
+        cannotAdd: 'Anteckningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda'
     });

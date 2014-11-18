@@ -30,6 +30,7 @@ import se.inera.fmu.application.impl.command.CreateBookingCommand;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
+import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
@@ -149,6 +150,15 @@ public class EavropResource {
 			@RequestBody final TolkBookingModificationRequestDTO changeRequestData)
 			throws Exception {
 		this.fmuOrderingService.modifyTolkBooking(changeRequestData);
+		return HttpStatus.OK;
+	}
+	
+	@RequestMapping(value = "/rest/eavrop/note/add", method = RequestMethod.POST)
+	@ResponseBody
+	public HttpStatus addNote(
+			@RequestBody final AddNoteRequestDTO addRequest)
+			throws Exception {
+		this.fmuOrderingService.addNote(addRequest);
 		return HttpStatus.OK;
 	}
 }

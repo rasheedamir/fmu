@@ -29,6 +29,10 @@ angular.module('fmuClientApp').factory('RestUrlBuilderService',
 
             changeTolkBookingRestUrl: function () {
                 return '/app/rest/eavrop/utredning/modify/tolk';
+            },
+
+            buildAddNoteRestUrl: function () {
+                return '/app/rest/eavrop/note/add';
             }
         }
     });

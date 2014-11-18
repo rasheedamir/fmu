@@ -552,6 +552,7 @@ h2{
     display: block;
     position: relative;
     border-collapse: separate;
+    margin: 1em;
 }
 
 .fmu-form-header {

@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 
+
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -37,6 +38,7 @@ import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
+import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TimeDTO;
@@ -322,6 +324,22 @@ public class ITEavropRestControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(convertObjectToJsonBytes(tolkModificationRequest)))
 						.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void addNoteTest() throws Exception {
+		this.currentUserService.getCurrentUser().setActiveRole(
+				Role.LANDSTINGSSAMORDNARE);
+		this.currentUserService.getCurrentUser().setLandstingCode(1);
+		AddNoteRequestDTO addRequest = new AddNoteRequestDTO();
+		addRequest.setEavropId("3")
+		.setText("This is the note content");
+
+		restMock.perform(
+				post("/app/rest/eavrop/note/add").contentType(
+						MediaType.APPLICATION_JSON).content(
+						convertObjectToJsonBytes(addRequest))).andExpect(
+				status().isOk());
 	}
 
 	public static String convertObjectToJsonBytes(Object object)
