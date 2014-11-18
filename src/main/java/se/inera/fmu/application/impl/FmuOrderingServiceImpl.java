@@ -382,7 +382,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		NoteDTOMapper mapper = new NoteDTOMapper();
 		List<NoteDTO> result = new ArrayList<>();
-
+		if (eavropForUser == null)
+			return result;
 		for (Note n : eavropForUser.getAllNotes()) {
 			result.add(mapper.map(n));
 		}

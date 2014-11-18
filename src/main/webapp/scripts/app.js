@@ -180,7 +180,11 @@ angular.module('fmuClientApp', [
     .state('eavrop.notes', {
         url: '/notes',
         templateUrl: 'views/eavrop/notes.html',
-        controller: function($scope, $modal, $stateParams, EavropNotes){
+        controller: function($scope, $modal, $filter, $stateParams, EavropNotes){
+            $scope.toYYMMDD = function (date) {
+                return $filter('date')(date, 'yyyy-MM-dd');
+            };
+
             function loadNotes(){
                 $scope.notes = EavropNotes.query({eavropId: $stateParams.eavropId});
             }
