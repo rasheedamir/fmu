@@ -115,6 +115,4 @@ public class EavropApproval implements ValueObject<EavropApproval>{
     public int hashCode() {
         return this.approvalTimestamp.hashCode();
     }
-
-	//TODO embedded or own entity, value object
 }

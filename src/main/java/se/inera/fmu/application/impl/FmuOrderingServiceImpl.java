@@ -101,14 +101,11 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	 */
 	@Inject
 	public FmuOrderingServiceImpl(final EavropRepository eavropRepository,
-			final InvanareRepository invanareRepository,
-			final Configuration configuration,
+			final InvanareRepository invanareRepository, final Configuration configuration,
 			final DomainEventPublisher domainEventPublisher,
-			final LandstingRepository landstingRepository,
-			final CurrentUserService currentUser,
+			final LandstingRepository landstingRepository, final CurrentUserService currentUser,
 			final VardgivarenhetRepository vardgivarEnhetRepository,
-			final FmuListService fmuListService,
-			final EavropBookingService bookingService) {
+			final FmuListService fmuListService, final EavropBookingService bookingService) {
 		this.eavropRepository = eavropRepository;
 		this.invanareRepository = invanareRepository;
 		this.configuration = configuration;
@@ -132,31 +129,25 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 		Invanare invanare = createInvanare(aCommand.getPersonalNumber(),
 				aCommand.getInvanareName(), aCommand.getInvanareGender(),
-				aCommand.getInvanareHomeAddress(), aCommand.getInvanareEmail(),
-				aCommand.getInvanareSpecialNeeds());
+				aCommand.getInvanareHomeAddress(), aCommand.getInvanarePhone(),
+				aCommand.getInvanareEmail(), aCommand.getInvanareSpecialNeeds());
 
 		Bestallaradministrator bestallaradministrator = createBestallaradministrator(
-				aCommand.getAdministratorName(),
-				aCommand.getAdministratorBefattning(),
-				aCommand.getAdministratorOrganisation(),
-				aCommand.getAdministratorEnhet(),
-				aCommand.getAdministratorPhone(),
-				aCommand.getAdministratorEmail());
+				aCommand.getAdministratorName(), aCommand.getAdministratorBefattning(),
+				aCommand.getAdministratorOrganisation(), aCommand.getAdministratorEnhet(),
+				aCommand.getAdministratorPhone(), aCommand.getAdministratorEmail());
 
-		Interpreter interpreter = new Interpreter(
-				aCommand.getInterpreterLanguages());
+		Interpreter interpreter = new Interpreter(aCommand.getInterpreterLanguages());
 
 		EavropProperties props = getEavropProperties();
 
 		PriorMedicalExamination priorMedicalExamination = createPriorMedicalExamination(aCommand);
 
-		Eavrop eavrop = EavropBuilder.eavrop()
-				.withArendeId(aCommand.getArendeId())
-				.withUtredningType(aCommand.getUtredningType())
-				.withInvanare(invanare).withLandsting(aCommand.getLandsting())
-				.withBestallaradministrator(bestallaradministrator)
-				.withInterpreter(interpreter).withEavropProperties(props)
-				.withDescription(aCommand.getDescription())
+		Eavrop eavrop = EavropBuilder.eavrop().withArendeId(aCommand.getArendeId())
+				.withUtredningType(aCommand.getUtredningType()).withInvanare(invanare)
+				.withLandsting(aCommand.getLandsting())
+				.withBestallaradministrator(bestallaradministrator).withInterpreter(interpreter)
+				.withEavropProperties(props).withDescription(aCommand.getDescription())
 				.withUtredningFocus(aCommand.getUtredningFocus())
 				.withAdditionalInformation(aCommand.getAdditionalInformation())
 				.withPriorMedicalExamination(priorMedicalExamination).build();
@@ -164,8 +155,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		eavrop = eavropRepository.save(eavrop);
 
 		log.debug(String.format("invanare created :: %s", invanare));
-		log.debug(String.format("bestallaradministrator created :: %s",
-				bestallaradministrator));
+		log.debug(String.format("bestallaradministrator created :: %s", bestallaradministrator));
 		log.debug(String.format("eavrop created :: %s", eavrop));
 
 		// Publish an event to notify the interested listeners/subscribers that
@@ -186,13 +176,11 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	 * @param specialNeeds
 	 * @return
 	 */
-	private Invanare createInvanare(PersonalNumber personalNumber,
-			Name invanareName, Gender invanareGender,
-			Address invanareHomeAddress, String invanareEmail,
+	private Invanare createInvanare(PersonalNumber personalNumber, Name invanareName,
+			Gender invanareGender, Address invanareHomeAddress, String phone, String invanareEmail,
 			String specialNeeds) {
-		Invanare invanare = new Invanare(personalNumber, invanareName,
-				invanareGender, invanareHomeAddress, invanareEmail,
-				specialNeeds);
+		Invanare invanare = new Invanare(personalNumber, invanareName, invanareGender,
+				invanareHomeAddress, phone, invanareEmail, specialNeeds);
 		invanare = invanareRepository.save(invanare);
 		return invanare;
 	}
@@ -206,29 +194,24 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	 * @param email
 	 * @return
 	 */
-	private Bestallaradministrator createBestallaradministrator(String name,
-			String befattning, String organisation, String unit, String phone,
-			String email) {
-		Bestallaradministrator bestallaradministrator = new Bestallaradministrator(
-				name, befattning, organisation, unit, phone, email);
+	private Bestallaradministrator createBestallaradministrator(String name, String befattning,
+			String organisation, String unit, String phone, String email) {
+		Bestallaradministrator bestallaradministrator = new Bestallaradministrator(name,
+				befattning, organisation, unit, phone, email);
 		// TODO: Set up repository, for this subclass or abstract superclass;
 		// bestallaradministrator = bestallaradministrator.save(invanare);
 		return bestallaradministrator;
 	}
 
-	private PriorMedicalExamination createPriorMedicalExamination(
-			String examinedAt, String medicalLeaveIssuedAt, String issuerName,
-			String issuerRole, String issuerOrganisation, String issuerUnit) {
-		HoSPerson issuer = new HoSPerson(issuerName, issuerRole,
-				issuerOrganisation, issuerUnit);
-		return new PriorMedicalExamination(examinedAt, medicalLeaveIssuedAt,
-				issuer);
+	private PriorMedicalExamination createPriorMedicalExamination(String examinedAt,
+			String medicalLeaveIssuedAt, String issuerName, String issuerRole,
+			String issuerOrganisation, String issuerUnit) {
+		HoSPerson issuer = new HoSPerson(issuerName, issuerRole, issuerOrganisation, issuerUnit);
+		return new PriorMedicalExamination(examinedAt, medicalLeaveIssuedAt, issuer);
 	}
 
-	private PriorMedicalExamination createPriorMedicalExamination(
-			CreateEavropCommand aCommand) {
-		HoSPerson issuer = new HoSPerson(
-				aCommand.getPriorMedicalLeaveIssuedByName(),
+	private PriorMedicalExamination createPriorMedicalExamination(CreateEavropCommand aCommand) {
+		HoSPerson issuer = new HoSPerson(aCommand.getPriorMedicalLeaveIssuedByName(),
 				aCommand.getPriorMedicalLeaveIssuedByBefattning(),
 				aCommand.getPriorMedicalLeaveIssuedByOrganisation(),
 				aCommand.getPriorMedicalLeaveIssuedByEnhet());
@@ -246,8 +229,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		int completionValidLength = getConfiguration().getInteger(
 				Configuration.KEY_EAVROP_COMPLETION_VALID_LENGTH, 10);
 
-		return new EavropProperties(startDateOffset, acceptanceValidLength,
-				assessmentValidLength, completionValidLength);
+		return new EavropProperties(startDateOffset, acceptanceValidLength, assessmentValidLength,
+				completionValidLength);
 	}
 
 	private Configuration getConfiguration() {
@@ -255,8 +238,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	}
 
 	@Override
-	public EavropPageDTO getOverviewEavrops(long fromDate, long toDate,
-			OverviewEavropStates state, Pageable paginationSpecs) {
+	public EavropPageDTO getOverviewEavrops(long fromDate, long toDate, OverviewEavropStates state,
+			Pageable paginationSpecs) {
 		User currentUSer = this.currentUserService.getCurrentUser();
 		DateTime startDate = new DateTime(fromDate);
 		DateTime endDate = new DateTime(toDate);
@@ -265,24 +248,22 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		case LANDSTINGSSAMORDNARE:
 			if (currentUSer.getLandstingCode() == null)
 				return null;
-			Landsting landsting = this.landstingRepository
-					.findByLandstingCode(new LandstingCode(currentUSer
-							.getLandstingCode()));
+			Landsting landsting = this.landstingRepository.findByLandstingCode(new LandstingCode(
+					currentUSer.getLandstingCode()));
 
 			switch (state) {
 			case NOT_ACCEPTED:
 				return constructOverviewDTO(this.fmuListService
-						.findAllNotAcceptedEavropByLandstingAndDateTimeOrdered(
-								landsting, startDate, endDate, paginationSpecs));
+						.findAllNotAcceptedEavropByLandstingAndDateTimeOrdered(landsting,
+								startDate, endDate, paginationSpecs));
 			case ACCEPTED:
 				return constructOverviewDTO(this.fmuListService
-						.findAllOngoingEavropByLandstingAndDateTimeStarted(
-								landsting, startDate.toLocalDate(),
-								endDate.toLocalDate(), paginationSpecs));
+						.findAllOngoingEavropByLandstingAndDateTimeStarted(landsting,
+								startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs));
 			case COMPLETED:
 				return constructOverviewDTO(this.fmuListService
-						.findAllCompletedEavropByLandstingAndDateTimeSigned(
-								landsting, startDate, endDate, paginationSpecs));
+						.findAllCompletedEavropByLandstingAndDateTimeSigned(landsting, startDate,
+								endDate, paginationSpecs));
 			default:
 				return null;
 			}
@@ -291,25 +272,21 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 				return null;
 			}
 			Vardgivarenhet vardgivarenhet = this.fmuListService
-					.findVardgivarenhetByHsaId(new HsaId(currentUSer
-							.getVardenhetHsaId()));
+					.findVardgivarenhetByHsaId(new HsaId(currentUSer.getVardenhetHsaId()));
 
 			switch (state) {
 			case NOT_ACCEPTED:
 				return constructOverviewDTO(this.fmuListService
-						.findAllNotAcceptedEavropByVardgivarenhetAndDateTimeOrdered(
-								vardgivarenhet, startDate, endDate,
-								paginationSpecs));
+						.findAllNotAcceptedEavropByVardgivarenhetAndDateTimeOrdered(vardgivarenhet,
+								startDate, endDate, paginationSpecs));
 			case ACCEPTED:
 				return constructOverviewDTO(this.fmuListService
-						.findAllOngoingEavropByVardgivarenhetAndDateTimeStarted(
-								vardgivarenhet, startDate.toLocalDate(),
-								endDate.toLocalDate(), paginationSpecs));
+						.findAllOngoingEavropByVardgivarenhetAndDateTimeStarted(vardgivarenhet,
+								startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs));
 			case COMPLETED:
 				return constructOverviewDTO(this.fmuListService
-						.findAllCompletedEavropByVardgivarenhetAndDateTimeSigned(
-								vardgivarenhet, startDate, endDate,
-								paginationSpecs));
+						.findAllCompletedEavropByVardgivarenhetAndDateTimeSigned(vardgivarenhet,
+								startDate, endDate, paginationSpecs));
 			default:
 				return null;
 			}
@@ -335,8 +312,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	@Override
 	public List<HandelseDTO> getEavropEvents(String eavropId) {
 		UtredningDTOMapper mapper = new UtredningDTOMapper();
-		Eavrop eavrop = this.eavropRepository.findByEavropId(new EavropId(
-				eavropId));
+		Eavrop eavrop = this.eavropRepository.findByEavropId(new EavropId(eavropId));
 		if (eavrop != null)
 			return mapper.map(eavrop);
 
@@ -348,14 +324,12 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		Eavrop result = null;
 
 		if (currentUser.getActiveRole() == Role.LANDSTINGSSAMORDNARE) {
-			Landsting landsting = this.landstingRepository
-					.findByLandstingCode(new LandstingCode(currentUser
-							.getLandstingCode()));
-			result = this.eavropRepository.findByEavropIdAndLandsting(id,
-					landsting);
+			Landsting landsting = this.landstingRepository.findByLandstingCode(new LandstingCode(
+					currentUser.getLandstingCode()));
+			result = this.eavropRepository.findByEavropIdAndLandsting(id, landsting);
 		} else if (currentUser.getActiveRole() == Role.UTREDARE) {
-			Vardgivarenhet ve = this.vardgivarEnhetRepository
-					.findByHsaId(new HsaId(currentUser.getVardenhetHsaId()));
+			Vardgivarenhet ve = this.vardgivarEnhetRepository.findByHsaId(new HsaId(currentUser
+					.getVardenhetHsaId()));
 			result = this.eavropRepository.findByEavropIdAndVardgivare(id, ve);
 		} else {
 			throw new IllegalStateException("User has no active role");
@@ -422,19 +396,20 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		Long bookingDateMilis = changeRequestDto.getBookingDate();
 		TimeDTO startTime = changeRequestDto.getBookingStartTime();
 		TimeDTO endTime = changeRequestDto.getBookingEndTime();
-		DateTime sDateTime = new DateTime(bookingDateMilis).withTime(
-				startTime.getHour(), startTime.getMinute(), 0, 0);
-		DateTime eDateTime = new DateTime(bookingDateMilis).withTime(
-				endTime.getHour(), endTime.getMinute(), 0, 0);
+		DateTime sDateTime = new DateTime(bookingDateMilis).withTime(startTime.getHour(),
+				startTime.getMinute(), 0, 0);
+		DateTime eDateTime = new DateTime(bookingDateMilis).withTime(endTime.getHour(),
+				endTime.getMinute(), 0, 0);
 
 		CreateBookingCommand command = new CreateBookingCommand(new EavropId(
 				changeRequestDto.getEavropId()), type, sDateTime, eDateTime,
-				changeRequestDto.getPersonName(),
-				changeRequestDto.getAdditionalService(),
-				changeRequestDto.getPersonRole(),
-				changeRequestDto.getPersonOrganisation(), // TODO Where does this info comes from ?
-				changeRequestDto.getPersonUnit(), // TODO Where does this infocomes from ?
-				changeRequestDto.getUseInterpreter());
+				changeRequestDto.getPersonName(), changeRequestDto.getPersonRole(),
+				changeRequestDto.getPersonOrganisation(), // TODO Where does
+															// this info comes
+															// from ?
+				changeRequestDto.getPersonUnit(), // TODO Where does this
+													// infocomes from ?
+				changeRequestDto.getAdditionalService(), changeRequestDto.getUseInterpreter());
 
 		this.bookingService.createBooking(command);
 	}
@@ -442,28 +417,23 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	@Override
 	public void modifyBooking(BookingModificationRequestDTO changeRequestData) {
 		User currentUser = this.currentUserService.getCurrentUser();
-		ChangeBookingStatusCommand command = new ChangeBookingStatusCommand(
-				new EavropId(changeRequestData.getEavropId()), new BookingId(
-						changeRequestData.getBookingId()),
-				changeRequestData.getBookingStatus(),
-				changeRequestData.getComment(), currentUser.getFirstName()
-						+ " " + currentUser.getMiddleAndLastName(), currentUser
-						.getActiveRole().name(),
-				getUserOrganisation(currentUser), getUserUnit(currentUser));
+		ChangeBookingStatusCommand command = new ChangeBookingStatusCommand(new EavropId(
+				changeRequestData.getEavropId()), new BookingId(changeRequestData.getBookingId()),
+				changeRequestData.getBookingStatus(), changeRequestData.getComment(),
+				currentUser.getFirstName() + " " + currentUser.getMiddleAndLastName(), currentUser
+						.getActiveRole().name(), getUserOrganisation(currentUser),
+				getUserUnit(currentUser));
 		this.bookingService.changeBookingStatus(command);
 	}
 
 	@Override
-	public void modifyTolkBooking(
-			TolkBookingModificationRequestDTO changeRequestData) {
+	public void modifyTolkBooking(TolkBookingModificationRequestDTO changeRequestData) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		ChangeInterpreterBookingStatusCommand command = new ChangeInterpreterBookingStatusCommand(
 				new EavropId(changeRequestData.getEavropId()), new BookingId(
-						changeRequestData.getBookingId()),
-				changeRequestData.getBookingStatus(),
-				changeRequestData.getComment(), currentUser.getFirstName()
-						+ " " + currentUser.getMiddleAndLastName(), currentUser
-						.getActiveRole().name(),
+						changeRequestData.getBookingId()), changeRequestData.getBookingStatus(),
+				changeRequestData.getComment(), currentUser.getFirstName() + " "
+						+ currentUser.getMiddleAndLastName(), currentUser.getActiveRole().name(),
 				getUserOrganisation(currentUser), getUserUnit(currentUser));
 		this.bookingService.changeInterpreterBookingStatus(command);
 	}

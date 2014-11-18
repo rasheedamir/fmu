@@ -56,6 +56,9 @@ public class Invanare extends AbstractBaseEntity implements IEntity<Invanare> {
     @Embedded
     private Address homeAddress;
 
+    @Column(name = "PHONE")
+    private String phone;
+    
     @Email
     @Column(name = "EMAIL")
     private String email;
@@ -69,12 +72,14 @@ public class Invanare extends AbstractBaseEntity implements IEntity<Invanare> {
         // Needed by Hibernate
     }
 
-    public Invanare(PersonalNumber personalNumber, Name name, Gender gender, Address homeAddress, String email, String specialNeeds) {
+    public Invanare(PersonalNumber personalNumber, Name name, Gender gender, Address homeAddress, String phone, String email, String specialNeeds) {
         this.setPersonalNumber(personalNumber);
         this.setName(name);
         this.setGender(gender);
         this.setHomeAddress(homeAddress);
+        this.setPhone(phone);
         this.setEmail(email);
+        this.setPhone(specialNeeds);
         this.setSpecialNeeds(specialNeeds);
     }
 
@@ -111,6 +116,14 @@ public class Invanare extends AbstractBaseEntity implements IEntity<Invanare> {
     private void setEmail(String email) {
         this.email = email;
     }
+    
+	public String getPhone() {
+		return phone;
+	}
+
+	private void setPhone(String phone) {
+		this.phone = phone;
+	}
     
     public String getSpecialNeeds() {
 		return specialNeeds;
@@ -151,4 +164,5 @@ public class Invanare extends AbstractBaseEntity implements IEntity<Invanare> {
     public int hashCode() {
         return personalNumber.hashCode();
     }
+
 }

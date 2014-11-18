@@ -27,6 +27,7 @@ public class CreateEavropCommand {
     @NonNull private Name invanareName;
     @NonNull private Gender invanareGender;
     @NonNull private Address invanareHomeAddress;
+    private String invanarePhone;
     private String invanareEmail;
     private String invanareSpecialNeeds;
     @NonNull private Landsting landsting;

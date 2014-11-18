@@ -131,6 +131,7 @@
 			<xs:element name="namn" type="tns:name"/>
 			<xs:element name="gender" type="tns:gender"/>
 			<xs:element name="homeAddress" type="tns:address"/>
+			<xs:element name="phone" type="xs:string"/>
 			<xs:element name="email" type="tns:emailAddress"/>
 			<xs:element name="specialNeeds" type="xs:string"/>
 		</xs:sequence>
@@ -139,6 +140,7 @@
 		<xs:sequence>
 			<xs:element name="namn" type="xs:string"/>
 			<xs:element name="befattning" type="xs:string"/>
+			<xs:element name="unit" type="xs:string"/>
 			<xs:element name="organisation" type="xs:string"/>
 			<xs:element name="phone" type="xs:string" minOccurs="0"/>
 			<xs:element name="email" type="tns:emailAddress" minOccurs="0"/>

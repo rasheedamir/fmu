@@ -93,7 +93,7 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	public Booking(BookingType type, DateTime startDateTime,
 			DateTime endDateTime, Boolean additionalService, Person person, boolean useInterpreter) {
 		this.setBookingId(new BookingId(UUID.randomUUID().toString()));
-		this.bookingStatusType = BookingStatusType.BOOKED;
+		this.setBookingStatus(BookingStatusType.BOOKED);
 		Validate.notNull(type);
 		Validate.notNull(startDateTime);
 		Validate.notNull(endDateTime);
@@ -105,7 +105,7 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 		this.setAdditionalService(additionalService);
 		this.setPerson(person);
 		if (useInterpreter) {
-			this.interpreterBooking = new InterpreterBooking();
+			this.setInterpreterBooking(new InterpreterBooking());
 		}
 	}
 
@@ -177,9 +177,6 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 		this.person = person;
 	}
 
-	public InterpreterBooking getInterpreterBooking() {
-		return interpreterBooking;
-	}
 
 	public BookingDeviationResponse getBookingDeviationResponse() {
 		return bookingDeviationResponse;
@@ -189,14 +186,22 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 		this.bookingDeviationResponse = bookingDeviationResponse;
 	}
 
-	private void setInterpreterBooking(InterpreterBooking interpreterBooking) {
-		this.interpreterBooking = interpreterBooking;
-	}
-	
 	public boolean hasDeviation(){
 		return getBookingStatus().isDeviant();
 	}
 
+	public InterpreterBooking getInterpreterBooking() {
+		return interpreterBooking;
+	}
+
+	private void setInterpreterBooking(InterpreterBooking interpreterBooking) {
+		this.interpreterBooking = interpreterBooking;
+	}
+
+	public boolean hasInterpreterBooking(){
+		return (getInterpreterBooking()!=null);
+	}
+	
 	public boolean hasInterpreterDeviation(){
 		return (getInterpreterBooking()!=null)?getInterpreterBooking().hasDeviation():Boolean.FALSE;
 	}
@@ -219,8 +224,8 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 		InterpreterBookingEventDTO interpreterBookingEventDTO = (getInterpreterBooking()!=null)?getInterpreterBooking().getAsInterpreterBookingEventDTO():null; 
 		
 		return (this.getPerson()!=null)?
-			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType, comment, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
-			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType, comment, null, null, null, null);
+			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType, comment, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit(),validBookingStatuses,interpreterBookingEventDTO):
+			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType, comment, null, null, null, null,validBookingStatuses,interpreterBookingEventDTO);
 	}
 	
 	private EavropEventDTOType getEavropEventDTOType(){

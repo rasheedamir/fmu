@@ -119,6 +119,30 @@ public class BusinessDaysUtilTest {
 		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2015,6,21)));
 		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2015,11,1)));
 	}
+
+	@Test
+	public void testSkippableWeeks() {
+		//Floating dates in 2015
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,1,1))); 
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,1,2)));
+		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2015,1,5)));
+		
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,13)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,14)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,15)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,16)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,17)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,20)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,21)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,22)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,23)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,24)));
+		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,27)));
+
+		
+
+	}
+
 	
 	/**
 	 * Test number of business days between two dates.
