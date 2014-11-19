@@ -15,7 +15,9 @@ import se.inera.fmu.domain.model.person.Person;
 @DiscriminatorValue("APPROVED")
 @ToString
 public class IntygApprovedInformation extends IntygInformation{
-
+	
+	public IntygApprovedInformation(){}
+	
 	public IntygApprovedInformation(DateTime informationTimestamp, Person person) {
 		super(informationTimestamp, person);
 	}
