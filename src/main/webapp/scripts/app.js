@@ -184,6 +184,7 @@ angular.module('fmuClientApp', [
             $scope.headerFields = UtredningService.getTableFields();
             $scope.getTableCellValue = UtredningService.getTableCellValue;
             $scope.currentEavropId = $stateParams.eavropId;
+
             $scope.documents = documents;
             $scope.notes = notes;
             $scope.requestedDocuments = requestedDocuments;
