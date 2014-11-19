@@ -20,16 +20,15 @@ import org.springframework.xml.xsd.XsdSchema;
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
 
-	/*
     @Bean
     public ServletRegistrationBean dispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformWsdlLocations(true);
         return new ServletRegistrationBean(servlet, "/ws/*");
-    }*/
+    }
 
-    @Bean(name = "eavropWebService")
+    @Bean(name = "eavrop-ws")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema eavropSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("EavropsPort");
