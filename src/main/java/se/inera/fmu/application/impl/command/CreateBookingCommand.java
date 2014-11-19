@@ -3,11 +3,13 @@ package se.inera.fmu.application.impl.command;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
+import se.inera.fmu.domain.model.hos.hsa.HsaId;
 
 /**
  * Created by Rickard on 11/12/14.
@@ -16,12 +18,14 @@ import se.inera.fmu.domain.model.eavrop.booking.BookingType;
  */
 @Getter
 @AllArgsConstructor
+@ToString
 public class CreateBookingCommand {
 
     @NonNull private EavropId eavropId;
     @NonNull private BookingType bookingType; 
     @NonNull private DateTime bookingStartDateTime; 
-    @NonNull private DateTime bookingEndDateTime; 
+    @NonNull private DateTime bookingEndDateTime;
+    @NonNull private HsaId personHsaId;
     @NonNull private String personName;
     @NonNull private String personRole;
     private String personOrganisation;
@@ -29,10 +33,4 @@ public class CreateBookingCommand {
     @NonNull private Boolean additionalService;
     @NonNull private Boolean useInterpreter; 
     
-    @Override
-    public String toString() {
-    	return "EavropID: " + eavropId + " bookingType: " + bookingType + " StartDateTime: " + bookingStartDateTime +
-    			"EndDateTime: " + bookingEndDateTime + " Person Name: " + personName + " Role: " + personRole +
-    			"Organisation: " + personOrganisation + " Unit: " + personUnit + " Tolk: " + useInterpreter;
-    }
 }

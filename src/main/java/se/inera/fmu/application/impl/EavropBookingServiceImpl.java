@@ -34,6 +34,7 @@ import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingDe
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.note.NoteType;
+import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.HoSPerson;
 import se.inera.fmu.domain.model.person.Person;
@@ -66,7 +67,7 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 	@Override
 	public void createBooking(CreateBookingCommand aCommand){
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
-		Person hosPerson = new HoSPerson(aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
+		Person hosPerson = new HoSPerson(aCommand.getPersonHsaId(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
 		
 		//Create booking
 		Booking booking = new Booking(aCommand.getBookingType(), aCommand.getBookingStartDateTime(), aCommand.getBookingEndDateTime(), aCommand.getAdditionalService(), hosPerson, aCommand.getUseInterpreter());
@@ -88,7 +89,7 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		BookingStatusType bookingStatus =aCommand.getBookingStatus();
 		
-		Note deviationNote = createDeviationNote(aCommand.getComment(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
+		Note deviationNote = createDeviationNote(aCommand.getComment(), aCommand.getPersonHsaId(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
 		
 		eavrop.setBookingStatus(aCommand.getBookingId(), aCommand.getBookingStatus(),deviationNote);
 
@@ -109,7 +110,7 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		InterpreterBookingStatusType interpreterBookingStatus = aCommand.getInterpreterbookingStatus();
 		
-		Note deviationNote = createDeviationNote(aCommand.getComment(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
+		Note deviationNote = createDeviationNote(aCommand.getComment(), aCommand.getPersonHsaId(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
 		
 		eavrop.setInterpreterBookingStatus(aCommand.getBookingId(), interpreterBookingStatus, deviationNote);
 
@@ -148,13 +149,13 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 		}
 	}
 	
-	private Note createDeviationNote(String text, String name, String role, String organisation, String unit){
+	private Note createDeviationNote(String text, HsaId hsaId, String name, String role, String organisation, String unit){
 		if(!StringUtils.isBlankOrNull(text)){
 			return null;
 		}
 		HoSPerson person = null;
-		if(!StringUtils.isBlankOrNull(name)){
-			person  = new HoSPerson(name, role, organisation, unit);
+		if(!StringUtils.isBlankOrNull(name) || hsaId != null){
+			person  = new HoSPerson(hsaId, name, role, organisation, unit);
 		}
 
 		return new Note(NoteType.BOOKING_DEVIATION, text, person);	

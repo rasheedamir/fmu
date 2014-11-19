@@ -18,6 +18,7 @@ import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.note.NoteType;
+import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.person.HoSPerson;
 
 /**
@@ -50,8 +51,8 @@ public class EavropNoteServiceImpl implements EavropNoteService {
 	public void addNote(AddNoteCommand aCommand) {
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		HoSPerson person = null;
-		if(!StringUtils.isBlankOrNull(aCommand.getPersonName())){
-			person  = new HoSPerson(aCommand.getPersonName(),  aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
+		if(!StringUtils.isBlankOrNull(aCommand.getPersonName()) || aCommand.getPersonHsaId()!=null){
+			person  = new HoSPerson(aCommand.getPersonHsaId(), aCommand.getPersonName(),  aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
 		}
 		
 		Note note = new Note(NoteType.EAVROP, aCommand.getText(), person);
@@ -65,8 +66,23 @@ public class EavropNoteServiceImpl implements EavropNoteService {
 	}
 
 	@Override
-	public void removeNote(RemoveNoteCommand noteCommand) {
-		throw new IllegalArgumentException("removeNote(RemoveNoteCommand noteCommand) method not yet implemented");
+	public void removeNote(RemoveNoteCommand aCommand) {
+		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
+		
+		Note note = eavrop.getNote(aCommand.getNoteId());
+		
+		if(note==null){
+			throw new EntityNotFoundException(String.format("Note with NoteId: %s not found on eavrop with eavropId: %s", aCommand.getNoteId().toString(), aCommand.getEavropId()));
+		}
+		
+		if(note.getPerson()!=null 
+				&& note.getPerson() instanceof HoSPerson 
+				&& ((HoSPerson)note.getPerson()).getHsaId() !=null 
+				&& ((HoSPerson)note.getPerson()).getHsaId().equals(aCommand.getPersonHsaId())){
+			eavrop.removeNote(note);
+		}else{
+			throw new IllegalArgumentException(String.format("Note with NoteId: %s not eligeble for remmoval by person with HsaId: %s", aCommand.getNoteId().toString(), aCommand.getPersonHsaId()));
+		}
 	}
 
 	private Eavrop getEavropByEavropId(EavropId eavropId) throws EntityNotFoundException{

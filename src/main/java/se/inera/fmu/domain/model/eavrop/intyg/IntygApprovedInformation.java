@@ -16,6 +16,10 @@ import se.inera.fmu.domain.model.person.Person;
 @ToString
 public class IntygApprovedInformation extends IntygInformation{
 
+	public IntygApprovedInformation(){
+        //Needed by hibernate
+    }
+	
 	public IntygApprovedInformation(DateTime informationTimestamp, Person person) {
 		super(informationTimestamp, person);
 	}

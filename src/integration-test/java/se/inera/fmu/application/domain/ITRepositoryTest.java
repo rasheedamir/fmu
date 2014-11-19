@@ -897,7 +897,7 @@ public class ITRepositoryTest {
     private Eavrop deviateEavrop(Eavrop eavrop){
     	
     	//Booking booking =  createBooking();
-    	Person person = new HoSPerson("","","","");
+    	Person person = new HoSPerson(null,"","","","");
     	
     	Booking booking = new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(), Boolean.FALSE, person, Boolean.FALSE);
     	assertNotNull(booking.getPerson());
@@ -950,7 +950,7 @@ public class ITRepositoryTest {
     	ReceivedDocument receivedDocument = new ReceivedDocument(today.minusDays(6), "Journal", new Bestallaradministrator("Ordny Ordnarsson", "Handläggare", "Försäkringskassan", "LFC Stockholm", "555-12345", "ordny@fk.se"), Boolean.TRUE);
     	eavrop.addReceivedDocument(receivedDocument);
 
-    	IntygSignedInformation  intygSignedInformation = new IntygSignedInformation(today, new HoSPerson("Dr Hudson", "Surgeon", "Danderyds sjukhus", "AVD fmu")); 
+    	IntygSignedInformation  intygSignedInformation = new IntygSignedInformation(today, new HoSPerson(new HsaId("SE160000000000-HAHAHHSBB"), "Dr Hudson", "Surgeon", "Danderyds sjukhus", "AVD fmu")); 
     	eavrop.addIntygSignedInformation(intygSignedInformation);
     	
     	return eavropRepository.save(eavrop);
@@ -992,9 +992,7 @@ public class ITRepositoryTest {
     	
     	DateTime start = new DateTime();
     	DateTime end = start.plusHours(1);
-    	Person person = new HoSPerson("Dr Hudson", "Surgeon", "Danderyds sjukhus", "AVD fmu");
-    	//Set<Person> persons = new HashSet<Person>();
-    	//persons.add(person);
+    	Person person = new HoSPerson(new HsaId("SE160000000000-HAHAHHSBB"), "Dr Hudson", "Surgeon", "Danderyds sjukhus", "AVD fmu");
     	Booking booking = new Booking(BookingType.EXAMINATION, start,end, Boolean.FALSE, person, Boolean.FALSE);
 
     	return booking;
@@ -1002,7 +1000,7 @@ public class ITRepositoryTest {
     
     private BookingDeviation createBookingDeviation(){
     	
-    	BookingDeviation deviation = new BookingDeviation(BookingDeviationType.INVANARE_CANCELLED_LT_48, new Note(NoteType.BOOKING_DEVIATION, "No Show", new HoSPerson("Lasse Kongo", "Läkare", "Danderydssjukhus", "AVD fmu")));
+    	BookingDeviation deviation = new BookingDeviation(BookingDeviationType.INVANARE_CANCELLED_LT_48, new Note(NoteType.BOOKING_DEVIATION, "No Show", new HoSPerson(new HsaId("SE160000000000-HAHAHHSLC"), "Lasse Kongo", "Läkare", "Danderydssjukhus", "AVD fmu")));
     	return deviation;
     }
 
@@ -1019,7 +1017,7 @@ public class ITRepositoryTest {
     
     private Note createNote(){
     	
-    	Note note = new Note(NoteType.EAVROP, "Test note", new HoSPerson("Test Testsson", "Testare", "Test AB", "AVD Testning"));
+    	Note note = new Note(NoteType.EAVROP, "Test note", new HoSPerson(new HsaId("SE160000000000-HAHAHHTST"),"Test Testsson", "Testare", "Test AB", "AVD Testning"));
     	return note;
     }
     

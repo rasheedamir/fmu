@@ -76,7 +76,7 @@ public class EavropDocumentServiceImpl implements EavropDocumentService {
 	@Override
 	public void addReceivedInternalDocument(AddReceivedInternalDocumentCommand aCommand) {
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
-		HoSPerson person = new HoSPerson(aCommand.getPersonName(),  aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
+		HoSPerson person = new HoSPerson(aCommand.getPersonHsaId(), aCommand.getPersonName(),  aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
 		ReceivedDocument document = new ReceivedDocument(aCommand.getDocumentName(), person, Boolean.FALSE);
 		eavrop.addReceivedDocument(document);
 	}
@@ -91,8 +91,8 @@ public class EavropDocumentServiceImpl implements EavropDocumentService {
 			//TODO: Throw something
 		}
 		
-		if(!StringUtils.isBlankOrNull(aCommand.getPersonName())){
-			person = new HoSPerson(aCommand.getPersonName(),  aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
+		if(!StringUtils.isBlankOrNull(aCommand.getPersonName()) || aCommand.getPersonHsaId()!=null){
+			person = new HoSPerson(aCommand.getPersonHsaId(), aCommand.getPersonName(),  aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
 		}
 		
 		if(!StringUtils.isBlankOrNull(aCommand.getRequestNote())){

@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
+import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.note.NoteId;
+import se.inera.fmu.domain.model.hos.hsa.HsaId;
 
 
 /**
@@ -15,6 +17,7 @@ import se.inera.fmu.domain.model.eavrop.note.NoteId;
 @Getter
 @AllArgsConstructor
 public class RemoveNoteCommand {
-	@NonNull private ArendeId arendeId;
+	@NonNull private EavropId eavropId;
 	@NonNull private NoteId noteId;
+	@NonNull private HsaId personHsaId;
 }

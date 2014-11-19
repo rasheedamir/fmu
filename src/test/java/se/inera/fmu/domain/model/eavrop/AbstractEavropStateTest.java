@@ -235,7 +235,7 @@ public abstract class AbstractEavropStateTest {
 	
 	
 	protected Person createPerson(){
-		return new HoSPerson("Petter Olovsson", "Läkare", "Stafettläkarna", "Ortopeden");
+		return new HoSPerson(new HsaId("SE160000000000-HAHAHHSAL"), "Petter Olovsson", "Läkare", "Stafettläkarna", "Ortopeden");
 	}
 	
 	protected Note createDocumentRequestNote(){

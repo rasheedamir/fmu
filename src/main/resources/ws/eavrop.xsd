@@ -1,3 +1,4 @@
+<!-- edited with XMLSpy v2015 sp1 (x64) (http://www.altova.com) by rick hjo (rickhjo) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://inera.ws/fmu/admin/eavrop" targetNamespace="http://inera.ws/fmu/admin/eavrop" elementFormDefault="qualified">
 	<!-- -->
 	<xs:element name="createEavropRequest">
@@ -117,40 +118,51 @@
 		</xs:complexType>
 	</xs:element>
 	<!-- -->
-	<xs:complexType name="address">
+	<xs:complexType name="adress">
 		<xs:sequence>
-			<xs:element name="postaddress" type="xs:string"/>
-			<xs:element name="zipcode" type="xs:string"/>
-			<xs:element name="city" type="xs:string"/>
-			<xs:element name="country" type="xs:string"/>
+			<xs:element name="postadress" type="xs:string"/>
+			<xs:element name="postnummer" type="xs:string"/>
+			<xs:element name="stad" type="xs:string"/>
+			<xs:element name="land" type="xs:string" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="citizen">
 		<xs:sequence>
 			<xs:element name="personalNumber" type="xs:string"/>
-			<xs:element name="namn" type="tns:name"/>
+			<xs:element name="namn" type="tns:namn"/>
 			<xs:element name="gender" type="tns:gender"/>
-			<xs:element name="homeAddress" type="tns:address"/>
-			<xs:element name="phone" type="xs:string"/>
-			<xs:element name="email" type="tns:emailAddress"/>
-			<xs:element name="specialNeeds" type="xs:string"/>
+			<xs:element name="adress" type="tns:adress"/>
+			<xs:element name="telefon" type="xs:string"/>
+			<xs:element name="epost" type="tns:emailAddress"/>
+			<xs:element name="sarskildaBehov" type="xs:string" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="person">
 		<xs:sequence>
 			<xs:element name="namn" type="xs:string"/>
 			<xs:element name="befattning" type="xs:string"/>
-			<xs:element name="unit" type="xs:string"/>
+			<xs:element name="enhet" type="xs:string"/>
 			<xs:element name="organisation" type="xs:string"/>
-			<xs:element name="phone" type="xs:string" minOccurs="0"/>
-			<xs:element name="email" type="tns:emailAddress" minOccurs="0"/>
+			<xs:element name="telefon" type="xs:string"/>
+			<xs:element name="epost" type="tns:emailAddress"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="name">
+	<xs:complexType name="hosperson">
 		<xs:sequence>
-			<xs:element name="firstName" type="xs:string"/>
-			<xs:element name="middleName" type="xs:string" minOccurs="0"/>
-			<xs:element name="lastName" type="xs:string"/>
+			<xs:element name="namn" type="xs:string"/>
+			<xs:element name="hsaId" type="xs:string"/>
+			<xs:element name="befattning" type="xs:string"/>
+			<xs:element name="enhet" type="xs:string"/>
+			<xs:element name="organisation" type="xs:string"/>
+			<xs:element name="telefon" type="xs:string"/>
+			<xs:element name="epost" type="tns:emailAddress"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="namn">
+		<xs:sequence>
+			<xs:element name="fornamn" type="xs:string"/>
+			<xs:element name="mellannamn" type="xs:string" minOccurs="0"/>
+			<xs:element name="efternamn" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="tidigareUtredning">

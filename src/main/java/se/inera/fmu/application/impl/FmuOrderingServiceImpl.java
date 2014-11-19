@@ -21,6 +21,7 @@ import se.inera.fmu.application.impl.command.ChangeBookingStatusCommand;
 import se.inera.fmu.application.impl.command.ChangeInterpreterBookingStatusCommand;
 import se.inera.fmu.application.impl.command.CreateBookingCommand;
 import se.inera.fmu.application.impl.command.CreateEavropCommand;
+import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.*;
@@ -139,7 +140,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 		Invanare invanare = createInvanare(aCommand.getPersonalNumber(),
 				aCommand.getInvanareName(), aCommand.getInvanareGender(),
-				aCommand.getInvanareHomeAddress(), aCommand.getInvanarePhone(),
+				aCommand.getInvanareAddress(), aCommand.getInvanarePhone(),
 				aCommand.getInvanareEmail(), aCommand.getInvanareSpecialNeeds());
 
 		Bestallaradministrator bestallaradministrator = createBestallaradministrator(
@@ -213,15 +214,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		return bestallaradministrator;
 	}
 
-	private PriorMedicalExamination createPriorMedicalExamination(String examinedAt,
-			String medicalLeaveIssuedAt, String issuerName, String issuerRole,
-			String issuerOrganisation, String issuerUnit) {
-		HoSPerson issuer = new HoSPerson(issuerName, issuerRole, issuerOrganisation, issuerUnit);
-		return new PriorMedicalExamination(examinedAt, medicalLeaveIssuedAt, issuer);
-	}
-
 	private PriorMedicalExamination createPriorMedicalExamination(CreateEavropCommand aCommand) {
-		HoSPerson issuer = new HoSPerson(aCommand.getPriorMedicalLeaveIssuedByName(),
+		HoSPerson issuer = new HoSPerson(null, aCommand.getPriorMedicalLeaveIssuedByName(),
 				aCommand.getPriorMedicalLeaveIssuedByBefattning(),
 				aCommand.getPriorMedicalLeaveIssuedByOrganisation(),
 				aCommand.getPriorMedicalLeaveIssuedByEnhet());
@@ -405,7 +399,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		User currentUser = currentUserService.getCurrentUser();
 		String name = String.format("%s %s", currentUser.getFirstName(),
 				currentUser.getMiddleAndLastName());
-		HoSPerson p = new HoSPerson(name, currentUser.getActiveRole().toString(),
+		HoSPerson p = new HoSPerson(getHsaId(currentUser), name, currentUser.getActiveRole().toString(),
 				currentUser.getOrganization(), currentUser.getUnit());
 
 		return p;
@@ -433,6 +427,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 	@Override
 	public void addBooking(BookingRequestDTO changeRequestDto) {
+		User currentUser = this.currentUserService.getCurrentUser();
 		BookingType type = changeRequestDto.getBookingType();
 		Long bookingDateMilis = changeRequestDto.getBookingDate();
 		TimeDTO startTime = changeRequestDto.getBookingStartTime();
@@ -443,7 +438,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 				endTime.getMinute(), 0, 0);
 
 		CreateBookingCommand command = new CreateBookingCommand(new EavropId(
-				changeRequestDto.getEavropId()), type, sDateTime, eDateTime,
+				changeRequestDto.getEavropId()), type, sDateTime, eDateTime, getHsaId(currentUser),
 				changeRequestDto.getPersonName(), changeRequestDto.getPersonRole(),
 				changeRequestDto.getPersonOrganisation(), // TODO Where does
 															// this info comes
@@ -461,7 +456,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		ChangeBookingStatusCommand command = new ChangeBookingStatusCommand(new EavropId(
 				changeRequestData.getEavropId()), new BookingId(changeRequestData.getBookingId()),
 				changeRequestData.getBookingStatus(), changeRequestData.getComment(),
-				currentUser.getFirstName() + " " + currentUser.getMiddleAndLastName(), currentUser
+				getHsaId(currentUser), currentUser.getFirstName() + " " + currentUser.getMiddleAndLastName(), currentUser
 						.getActiveRole().name(), getUserOrganisation(currentUser),
 				getUserUnit(currentUser));
 		this.bookingService.changeBookingStatus(command);
@@ -473,7 +468,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		ChangeInterpreterBookingStatusCommand command = new ChangeInterpreterBookingStatusCommand(
 				new EavropId(changeRequestData.getEavropId()), new BookingId(
 						changeRequestData.getBookingId()), changeRequestData.getBookingStatus(),
-				changeRequestData.getComment(), getUserName(currentUser), currentUser
+				changeRequestData.getComment(), getHsaId(currentUser), getUserName(currentUser), currentUser
 						.getActiveRole().name(), getUserOrganisation(currentUser),
 				getUserUnit(currentUser));
 		this.bookingService.changeInterpreterBookingStatus(command);
@@ -483,11 +478,23 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	public void addNote(AddNoteRequestDTO addRequest) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		AddNoteCommand command = new AddNoteCommand(new EavropId(addRequest.getEavropId()),
-				addRequest.getText(), getUserName(currentUser), 
+				addRequest.getText(), getHsaId(currentUser), getUserName(currentUser), 
 				currentUser.getActiveRole().name().toLowerCase(), 
 				getUserOrganisation(currentUser),
 				getUserUnit(currentUser));
 		this.noteService.addNote(command);
+	}
+
+	/**
+	 * Get the HsaId of the user
+	 * @param currentUser The currently logged in user
+	 * @return The user's HsaId
+	 */
+	private HsaId getHsaId(User currentUser) {
+		if(!StringUtils.isBlankOrNull(currentUser.getHsaId())){
+			return  new HsaId(currentUser.getHsaId());
+		}
+		return null;
 	}
 
 	/**
