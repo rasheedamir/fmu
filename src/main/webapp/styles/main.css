@@ -596,6 +596,10 @@ h2{
     margin-top: 1em;
 }
 
+.fmu-form-footer > div > button {
+    min-width: 5em;
+}
+
 .dropdown-menu {
     z-index: 1000;
 }
@@ -607,4 +611,14 @@ h2{
 
 .ng-table th {
     text-align: left;
+}
+
+.fmu-confirm-heading-text {
+    color: #008391;
+    font-weight: bold;
+}
+
+.fmu-confirm-text {
+    color: #000000;
+    white-space: nowrap;
 }

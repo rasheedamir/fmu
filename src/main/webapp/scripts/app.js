@@ -210,15 +210,33 @@ angular.module('fmuClientApp', [
                 return $filter('date')(date, 'yyyy-MM-dd');
             };
 
-            $scope.removeNote = function (noteData) {
-                if(noteData && noteData.removable){
-                    var promise = EavropService.removeNote($stateParams.eavropId, noteData.noteId);
-                    promise.then(function () {
-                        loadNotes();
-                    }, function () {
-                        $scope.noteError = [EavropNotes.cannotRemove];
-                    });
-                }
+            $scope.openRemoveNote = function (noteData) {
+                var confirmModal = $modal.open({
+                    templateUrl: 'views/eavrop/confirmModal.html',
+                    size: 'md',
+                    resolve: {
+                        noteData: function () {
+                            return noteData;
+                        }
+                    },
+                    controller: function ($scope, noteData) {
+                        $scope.removeNote = function () {
+                            if(noteData && noteData.removable){
+                                var promise = EavropService.removeNote($stateParams.eavropId, noteData.noteId);
+                                promise.then(function () {
+                                    confirmModal.close();
+                                    loadNotes();
+                                }, function () {
+                                    $scope.noteError = [EAVROP_NOTES.cannotRemove];
+                                });
+                            }
+                        };
+
+                        $scope.cancelRemoval = function () {
+                            confirmModal.close();
+                        }
+                    }
+                });
             };
 
             function loadNotes(){
