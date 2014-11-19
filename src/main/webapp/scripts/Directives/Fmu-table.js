@@ -1,7 +1,7 @@
 'use strict';
 angular.module('fmuClientApp')
-    .directive('fmuTable', ['ngTableParams', '$filter', 'EavropService', 'EAVROP_TABLE',
-        function (ngTableParams, $filter, EavropService, EAVROP_TABLE) {
+    .directive('fmuTable', ['ngTableParams','$state', '$filter', 'EavropService', 'EAVROP_TABLE',
+        function (ngTableParams, $state, $filter, EavropService, EAVROP_TABLE) {
             return {
                 restrict: 'E',
                 scope: {
@@ -68,7 +68,7 @@ angular.module('fmuClientApp')
                     };
 
                     scope.rowClicked = function (row) {
-
+                        $state.go('eavrop.order.contents', {eavropId: row.eavropId});
                     };
 
                     scope.initTableParameters();

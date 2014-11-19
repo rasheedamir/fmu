@@ -378,7 +378,8 @@ ul#strength {
 
 
 .fmu-table-k {
-	margin:0px;padding:0px;
+	margin:0px;
+    padding:0px;
     margin-bottom: 1em;
 	width:100%;
 	border:1px solid #999999;
