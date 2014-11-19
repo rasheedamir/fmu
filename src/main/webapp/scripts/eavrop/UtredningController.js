@@ -17,83 +17,10 @@ angular.module('fmuClientApp')
             $scope.handelseEndTime.setMinutes(0);
             $scope.currentEavropId = $stateParams.eavropId;
             $scope.createBookingErrors = [];
-            function getTimeHHMM(hour, minut) {
-                var hh = hour < 10 ? '0' + hour : hour;
-                var mm = minut < 10 ? '0' + minut : minut;
 
-                return hh + ' : ' + mm;
-            };
-
-            $scope.headerFields = [
-                {
-                    key: 'handelse',
-                    name: 'Händelse',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                },
-                {
-                    key: 'dateOfEvent',
-                    name: 'Datum',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                },
-                {
-                    key: 'timeOfEvent',
-                    name: 'Tidpunkt',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                },
-                {
-                    key: 'utredaPerson',
-                    name: 'Person',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                },
-                {
-                    key: 'role',
-                    name: 'Roll',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
-                },
-
-                {
-                    key: 'tolkStatus',
-                    name: 'Tolk',
-                    restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']
-                },
-                {
-                    key: 'handelseStatus',
-                    name: 'Status',
-                    restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']
-                },
-                {
-                    key: 'edit',
-                    name: 'Ändra',
-                    restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']
-                }
-            ];
-
+            $scope.headerFields = UtredningService.getTableFields();
             $scope.dateDescription = 'Datumen utgår från det datum då intyg levererats';
-
-            $scope.getTableCellValue = function (key, rowData) {
-                var celldata = rowData[key];
-                if (celldata == null) {
-                    return '-';
-                }
-                switch (key) {
-                    case 'timeOfEvent' :
-                        var endTime = rowData['timeOfEventEnd'];
-                        return getTimeHHMM(celldata.hour, celldata.minute) + ' - '
-                            + getTimeHHMM(endTime.hour, endTime.minute);
-                    case 'dateOfEvent':
-                        return $filter('date')(celldata, UTREDNING.dateFormat);
-                    case 'tolkStatus' :
-                        if (celldata.currentStatus == null)
-                            return '-'
-                        return UTREDNING.tolkMapping[celldata.currentStatus];
-                    case 'handelseStatus' :
-                        return UTREDNING.handelseMapping[celldata.currentStatus];
-                    case 'handelse':
-                        return UTREDNING.statusMapping[celldata];
-                    default :
-                        return celldata;
-                }
-            };
+            $scope.getTableCellValue = UtredningService.getTableCellValue;
 
             $scope.visa = function () {
                 console.log($scope);

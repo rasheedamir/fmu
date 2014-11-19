@@ -15,19 +15,23 @@
             ng-click="sort(field.key)">
             <div>{{field.name}}</div>
         </th>
+
+        <th ng-if="rowModifiable" class="text-capitalize">
+            <div>Ändra</div>
+        </th>
     </tr>
 
     </thead>
 
     <tbody>
     <tr ng-repeat-start="row in tableParams.data" ng-class="row.colorClass" ng-click="rowClicked(row)">
-        <td ng-repeat-start="column in headerFields"
+        <td ng-repeat="column in headerFields"
             ng-if="!isEditColumn(column.key)"
             sortable="{{column.key}}" class="text-capitalize">
             <span ng-bind="getValue(column.key, row)"></span>
         </td>
 
-        <td ng-repeat-end ng-if="isEditColumn(column.key, row)">
+        <td ng-if="rowModifiable && isEditColumn(row)">
                     <span class="btn btn-info btn-sm" ng-click="toogleEditRow(row)"><i
                             class="glyphicon glyphicon-edit"></i></span>
         </td>

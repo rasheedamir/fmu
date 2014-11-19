@@ -28,11 +28,8 @@ angular.module('fmuClientApp')
                     };
                     $scope.tableConstants = UTREDNING;
                     // TODO when eavrop status is onhold disable editing functionalities
-                    $scope.isEditColumn = function (key, row) {
-                        if (!row)
-                            return key == 'edit';
-                        return key == 'edit'
-                            && (row.tolkStatus || row.handelseStatus);
+                    $scope.isEditColumn = function (row) {
+                        return (row.tolkStatus || row.handelseStatus);
                     };
 
                     $scope.toogleEditRow = function (row) {
