@@ -107,6 +107,26 @@
         <h2>Tillägg</h2>
         <fmu-tillagg-table tillagg="requestedDocuments"></fmu-tillagg-table>
         <h2>Utredning</h2>
+        <div class="fmu-table-k">
+            <table>
+                <tr>
+                    <td>
+                        Innehåll
+                    </td>
+                    <td>
+                        Skapad av
+                    </td>
+                    <td>
+                        Datum
+                    </td>
+                </tr>
+                <tr ng-repeat="note in notes">
+                    <td>{{note.contents}}</td>
+                    <td>{{note.createdBy}}</td>
+                    <td>{{note.date | date: 'yyyy-MM-dd'}}</td>
+                </tr>
+            </table>
+        </div>
         <h2>Anteckningar</h2>
         <div class="fmu-table-k">
             <table>

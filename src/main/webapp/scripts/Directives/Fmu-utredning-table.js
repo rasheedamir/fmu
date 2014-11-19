@@ -10,7 +10,8 @@ angular.module('fmuClientApp')
                     headerFields: '=',
                     footerHints: '=?',
                     eavropid: '=',
-                    getDataCallback: '&'
+                    getDataCallback: '&',
+                    rowModifiable: '=?'
                 },
                 controller: function ($scope) {
                     function createDataPackage(bookingId, newStatus, comment) {
@@ -117,4 +118,3 @@ angular.module('fmuClientApp')
         }]);
 
 // TODO set default tolk/booking status and commenst in expanded tabs for indicating current stauses
-// TODO add sorting

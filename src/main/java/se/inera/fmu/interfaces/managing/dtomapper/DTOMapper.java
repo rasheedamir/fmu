@@ -47,7 +47,8 @@ public class DTOMapper {
 		.setEavropApprovalDatetime(eavrop.getEavropCompensationApproval() != null 
 		&& eavrop.getEavropCompensationApproval().getCompensationDateTime() != null ?
 				eavrop.getEavropCompensationApproval().getCompensationDateTime().getMillis() : null)
-		;
+		.setAnsvarigUtredare(eavrop.getIntygSigningPerson() != null ? eavrop.getIntygSigningPerson().getName(): null)
+		.setTotalCompletionDays(eavrop.getNoOfDaysUsedForLastComplementRequest());
 		
 		return dto;
 	}

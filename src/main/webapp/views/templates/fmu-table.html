@@ -22,7 +22,7 @@
             </thead>
 
             <tbody>
-            <tr ng-repeat="row in tableParams.data" ng-class="row.colorClass" ng-click="rowClicked(row)">
+            <tr ng-repeat="row in tableParams.data" ng-class="row.color" ng-click="rowClicked(row)">
                 <td ng-repeat="column in headerFields"
                     sortable="{{column.key}}" class="text-capitalize text-center">
                     <span ng-bind="getValue(column.key, row)"></span>

@@ -3,19 +3,17 @@
 
         <thead>
         <tr>
-            <th
-                    class="text-capitalize text-center"
-                    ng-repeat="group in headerGroups" colspan="{{group.colspan}}"
-                    ng-class="group.colorClass == null || group.name == null ? 'invisible-header' : group.colorClass">
+            <th class="text-capitalize text-center"
+                ng-repeat="group in headerGroups" colspan="{{group.colspan}}"
+                ng-class="group.colorClass == null || group.name == null ? 'invisible-header' : group.colorClass">
                 {{group.name}}
             </th>
         </tr>
 
         <tr class="header">
-            <th
-                    ng-repeat="field in headerFields" class="sortable text-capitalize"
-                    ng-class="{'sort-asc': tableParams.isSortBy(field.key, 'asc'),'sort-desc': tableParams.isSortBy(field.key, 'desc')}"
-                    ng-click="sort(field.key)">
+            <th ng-repeat="field in headerFields" class="sortable text-capitalize"
+                ng-class="{'sort-asc': tableParams.isSortBy(field.key, 'asc'),'sort-desc': tableParams.isSortBy(field.key, 'desc')}"
+                ng-click="sort(field.key)">
                 <div>{{field.name}}</div>
             </th>
         </tr>
