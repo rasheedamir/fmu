@@ -56,6 +56,9 @@ angular.module('fmuClientApp', [
         resolve: {
             currentEavrop: function($stateParams, Eavrops){
                 return Eavrops.get({eavropId: $stateParams.eavropId});
+            },
+            patientInfo: function($stateParams, EavropPatient){
+            	return EavropPatient.get({eavropId: $stateParams.eavropId});
             }
         },
         controller: 'EavropCtrl',

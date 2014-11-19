@@ -64,6 +64,13 @@ public class PatientDTO {
 	public void setDetails(Details details) {
 		this.details = details;
 	}
+	
+	public String getLabel(){
+		Object[] args = getDetails() != null ? 
+				(new Object[]{getDetails().getName(), getDetails().getSocSecNo()})
+				: (new Object[]{getInitials(), getDobYear()});
+		return String.format("%s, %s", args);
+	}
 
 
 	public static class Details{

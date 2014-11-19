@@ -559,4 +559,12 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		
 		return dto;
 	}
+
+	@Override
+	public EavropDTO getEavrop(EavropId eavropId) {
+		DTOMapper mapper = new DTOMapper();
+		Eavrop eavropForUser = getEavropForUser(eavropId);
+		EavropDTO eavropDTO = mapper.map(eavropForUser);
+		return eavropDTO;
+	}
 }
