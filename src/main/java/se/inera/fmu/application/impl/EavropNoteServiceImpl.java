@@ -75,13 +75,10 @@ public class EavropNoteServiceImpl implements EavropNoteService {
 			throw new EntityNotFoundException(String.format("Note with NoteId: %s not found on eavrop with eavropId: %s", aCommand.getNoteId().toString(), aCommand.getEavropId()));
 		}
 		
-		if(note.getPerson()!=null 
-				&& note.getPerson() instanceof HoSPerson 
-				&& ((HoSPerson)note.getPerson()).getHsaId() !=null 
-				&& ((HoSPerson)note.getPerson()).getHsaId().equals(aCommand.getPersonHsaId())){
+		if(note.isRemovableBy(aCommand.getPersonHsaId())){
 			eavrop.removeNote(note);
 		}else{
-			throw new IllegalArgumentException(String.format("Note with NoteId: %s not eligeble for remmoval by person with HsaId: %s", aCommand.getNoteId().toString(), aCommand.getPersonHsaId()));
+			throw new IllegalArgumentException(String.format("Note with NoteId: %s not eligeble for removal by person with HsaId: %s", aCommand.getNoteId().toString(), aCommand.getPersonHsaId()));
 		}
 	}
 
