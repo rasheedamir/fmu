@@ -112,7 +112,7 @@ public class EavropTest extends TestCase {
 		bestallaradministrator = new Bestallaradministrator("Per Elofsson","Handläggare", "Försäkringskassan", "LFC Stockholm", "08123456", "per.elofsson@forsakringskassan.se");
 		vardgivare = new Vardgivare(new HsaId("SE160000000000-HAHAHHSAA"), "Cary Care");
 		vardgivarenhet = new Vardgivarenhet(vardgivare, new HsaId("SE160000000000-HAHAHHSAB"), "CareIt", new Address("","","",""));
-		doctorPerson = new HoSPerson("Dr Hudson", "Surgeon", "Danderyds sjukhus","FMU enheten");
+		doctorPerson = new HoSPerson(new HsaId("SE160000000000-HAHAHHSBB"), "Dr Hudson", "Surgeon", "Danderyds sjukhus","FMU enheten");
 
 	}
 	
@@ -715,9 +715,6 @@ public class EavropTest extends TestCase {
 	
 	@Test
 	public void  testFMU_68_Underlag_for_ersattning() {
-		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		
 		//Create EAVROP
 		
 		eavrop = EavropBuilder.eavrop()
@@ -735,95 +732,46 @@ public class EavropTest extends TestCase {
 
 		//Assigned to care giver the following day second of october
 		assignToVardgivarenhet(eavrop, vardgivarenhet, new DateTime(2014,10,2,10,30));
-		
-		assertEquals(EavropStateType.ASSIGNED, eavrop.getStatus());
 
 		//The care giver rejects the eavrop on third of october
 		rejectEavropAssignment(eavrop, new DateTime(2014,10,3,10,30));
 
-		assertEquals(EavropStateType.UNASSIGNED, eavrop.getStatus());
-
 		//Assigned again to a care giver on the sixth of october
 		assignToVardgivarenhet(eavrop, vardgivarenhet, new DateTime(2014,10,6,10,30));
 		
-		assertEquals(EavropStateType.ASSIGNED, eavrop.getStatus());
-
 		acceptEavropAssignment(eavrop, new DateTime(2014,10,10,10,30));
-		
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 		
 		//adding documents internally
 		eavrop.addReceivedDocument(new ReceivedDocument( new DateTime(2014,10,10,10,30), "SASSAM ", doctorPerson, Boolean.FALSE));
 		
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-		
 		//Fk signals that thet have sent documents on the thirteenth then the fist day of the assessment is on the 17th?
 		eavrop.addReceivedDocument(new ReceivedDocument(new DateTime(2014,10,13,10,30), "FK 7325", bestallaradministrator, Boolean.TRUE));
 
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-		
 		//doctor adds another document
 		eavrop.addRequestedDocument(new RequestedDocument(new DateTime(2014,10,17,10,30),"Journal", doctorPerson, new Note(NoteType.DOCUMENT_REQUEST, "Ge hit!!", doctorPerson)));
 
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-		
 		//a booking is made
 		DateTime start = new DateTime(2014,10,20,8,0);
 		Booking booking = new Booking(BookingType.EXAMINATION, start,start.plusHours(1), false, doctorPerson, Boolean.TRUE);
 		eavrop.addBooking(booking);
-		
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-		
 		eavrop.setInterpreterBookingStatus(booking.getBookingId(), InterpreterBookingStatusType.INTERPPRETER_NOT_PRESENT, new Note(NoteType.BOOKING_DEVIATION, "Tolk uteblev",doctorPerson));
 		eavrop.setBookingStatus(booking.getBookingId(), BookingStatusType.CANCELLED_NOT_PRESENT, new Note(NoteType.BOOKING_DEVIATION, "Patient uteblev",doctorPerson));
-		
 		booking.getDeviationNote().setCreatedDate(start);
 		booking.getInterpreterBooking().getDeviationNote().setCreatedDate(start);
-		
-		assertEquals(EavropStateType.ON_HOLD, eavrop.getStatus());
-
 		eavrop.addBookingDeviationResponse(booking.getBookingId(), createBookingDeviationResponse(new DateTime(2014,10,21,8,0)));
-		
-		
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 		
 		//New booking is made
 		start = new DateTime(2014,10,24,8,0);
 		booking = new Booking(BookingType.EXAMINATION, start,start.plusHours(1),Boolean.FALSE, doctorPerson, Boolean.TRUE);
 		eavrop.addBooking(booking);
-
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-		
-		
 		eavrop.addIntygSignedInformation(createIntygSignedInformation(start.plusHours(5)));
-		
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-		
 		eavrop.addIntygComplementRequestInformation(createIntygComplementRequestInformation(new DateTime(2014,10,27,8,0)));
-		
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-
 		eavrop.addIntygSignedInformation(createIntygSignedInformation(new DateTime(2014,10,28,8,0)));
-		
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-
 		eavrop.addIntygApprovedInformation(createIntygApprovedInformation(new DateTime(2014,10,30,8,0)));;
-		
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-		
 		eavrop.addNote(new Note(NoteType.EAVROP,"Utredning utförd",null));
-
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-
 		eavrop.approveEavrop(createEavropApproval(new DateTime(2014,11,3,8,0)));
-		
-		assertEquals(EavropStateType.APPROVED, eavrop.getStatus());
-
 		eavrop.approveEavropCompensation(createEavropCompensationApproval(new DateTime(2014,11,7,8,0)));
 
-		assertEquals(EavropStateType.CLOSED, eavrop.getStatus());
-		System.out.println("Underlag för ersättning\n");
-		System.out.println("Ärende");
 		//Ärende
 		//1. ÄrendeId 
 		assertNotNull(eavrop.getArendeId());
@@ -834,23 +782,30 @@ public class EavropTest extends TestCase {
 		//3 Utförare organisation 
 		assertNotNull(eavrop.getCurrentAssignedVardgivarenhet());
 		assertNotNull(eavrop.getCurrentAssignedVardgivarenhet().getUnitName());
+		assertEquals(vardgivarenhet.getUnitName(), eavrop.getCurrentAssignedVardgivarenhet().getUnitName());
 		assertNotNull(eavrop.getCurrentAssignedVardgivarenhet().getVardgivare());
 		assertNotNull(eavrop.getCurrentAssignedVardgivarenhet().getVardgivare().getName());
+		assertEquals(vardgivarenhet.getVardgivare().getName(), eavrop.getCurrentAssignedVardgivarenhet().getVardgivare().getName());
 		//4. Utförare, namn 
 		assertNotNull(eavrop.getIntygSigningPerson());
+		assertEquals(doctorPerson, eavrop.getIntygSigningPerson());
 		//5. Tolk anlitad
-		assertNotNull(eavrop.hasInterpreterBooking());
+		assertTrue(eavrop.hasInterpreterBooking());
 		//6. Utredning, antal dagar, 
 		assertNotNull(eavrop.getNoOfAssesmentDays());
+		assertEquals(3, eavrop.getNoOfAssesmentDays().intValue());
 		//7.Kompletteringsdagar
 		assertNotNull(eavrop.getNoOfDaysUsedForLastComplementRequest());
+		assertEquals(1, eavrop.getNoOfDaysUsedForLastComplementRequest().intValue());
 		//8.Antal avikelser
-		assertNotNull(eavrop.getNumberOfDeviationsOnEavrop());
+		assertEquals(3, eavrop.getNumberOfDeviationsOnEavrop());
 		//9.Antal utredningsstarter
-		assertNotNull(eavrop.getNoOfEavropAssessmentsStarts());
+		assertEquals(2, eavrop.getNoOfEavropAssessmentsStarts());
 		//10. Utredning är komplett och godkänd?
 		assertNotNull(eavrop.getEavropCompensationApproval());
-		assertNotNull(eavrop.getEavropCompensationApproval().isApproved());
+		assertTrue(eavrop.getEavropCompensationApproval().isApproved());
+		
+		
 	
 	
 	}

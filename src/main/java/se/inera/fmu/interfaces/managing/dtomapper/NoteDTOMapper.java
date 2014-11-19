@@ -9,6 +9,7 @@ public class NoteDTOMapper {
 		dto.setContents(note.getText());
 		dto.setDate(note.getCreatedDate().getMillis());
 		dto.setCreatedBy(String.format("%s, %s, %s", note.getPerson().getName(), note.getPerson().getRole(), note.getPerson().getOrganisation()));
+		// TODO set note isRemovable value
 		return dto;
 	}
 }

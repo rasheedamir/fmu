@@ -180,7 +180,10 @@ angular.module('fmuClientApp', [
             allevents: function(EavropAllEvents, $stateParams){return EavropAllEvents.get({eavropId: $stateParams.eavropId});},
             order: function(EavropOrder, $stateParams){return EavropOrder.get({eavropId: $stateParams.eavropId});}
         },
-        controller: function($scope, documents, requestedDocuments, notes, allevents, order){
+        controller: function($scope,$stateParams, documents, requestedDocuments, notes, allevents, order, UtredningService){
+            $scope.headerFields = UtredningService.getTableFields();
+            $scope.getTableCellValue = UtredningService.getTableCellValue;
+            $scope.currentEavropId = $stateParams.eavropId;
             $scope.documents = documents;
             $scope.notes = notes;
             $scope.requestedDocuments = requestedDocuments;
