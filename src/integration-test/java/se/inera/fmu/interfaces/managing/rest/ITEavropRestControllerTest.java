@@ -30,14 +30,12 @@ import se.inera.fmu.Application;
 import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.authentication.Role;
-import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
-import se.inera.fmu.interfaces.managing.rest.dto.RemoveNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TimeDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestDTO;
 
@@ -360,20 +358,21 @@ public class ITEavropRestControllerTest {
 		MvcResult result = restMock.perform(get("/app/rest/eavrop/3/notes")
 				.contentType(MediaType.APPLICATION_JSON))
 						.andExpect(status().isOk())
+						.andExpect(jsonPath("$", hasSize(1)))
 						.andExpect(jsonPath("$[0].removable", is(true)))
 						.andReturn();
 		
-		String noteId = getJsonValue(0, "noteId", result.getResponse().getContentAsString()).replace("\"", "");
-		RemoveNoteRequestDTO removeReq = new RemoveNoteRequestDTO();
-		removeReq.setEavropId("3");
-		removeReq.setNoteId(noteId);
-		
+		String noteId = getJsonValue(0, "noteId", result.getResponse().getContentAsString());
 		// Remove the newly created note
-		restMock.perform(delete("/app/rest/eavrop/note/remove")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(convertObjectToJsonBytes(removeReq)))
+		restMock.perform(delete("/app/rest/eavrop/3/note/" + noteId + "/remove")
+				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 		
+		// Validate note being removed
+		restMock.perform(get("/app/rest/eavrop/3/notes")
+				.contentType(MediaType.APPLICATION_JSON))
+						.andExpect(status().isOk())
+						.andExpect(jsonPath("$", hasSize(0)));
 	}
 
 	public static String convertObjectToJsonBytes(Object object)

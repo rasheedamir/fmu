@@ -31,6 +31,17 @@ angular.module('fmuClientApp').factory('EavropService', ['$q', '$http', 'RestUrl
                         // Failed to retrieve data
                         return $q.reject(err.data);
                     });
+            },
+
+            removeNote: function (eavropId, noteId) {
+                return $http.delete(RestUrlBuilderService.buildRemoveNoteRestUrl(eavropId, noteId))
+                    .then(function(data) {
+                        // Success
+                        return data.data;
+                    }, function(err) {
+                        // Failed to retrieve data
+                        return $q.reject(err.data);
+                    });
             }
         }
 

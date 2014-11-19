@@ -19,7 +19,6 @@ import se.inera.fmu.interfaces.managing.rest.dto.NoteDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.PatientDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
-import se.inera.fmu.interfaces.managing.rest.dto.RemoveNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestDTO;
 
@@ -65,6 +64,6 @@ public interface FmuOrderingService {
 
 	public EavropDTO getEavrop(EavropId eavropId);
 
-	public void removeNote(RemoveNoteRequestDTO removeRequest);
+	public void removeNote(String eavropId, String noteId);
 
 }

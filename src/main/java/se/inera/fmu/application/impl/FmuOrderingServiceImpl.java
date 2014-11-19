@@ -72,7 +72,6 @@ import se.inera.fmu.interfaces.managing.rest.dto.NoteDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.PatientDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
-import se.inera.fmu.interfaces.managing.rest.dto.RemoveNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TimeDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestDTO;
@@ -490,11 +489,11 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	}
 	
 	@Override
-	public void removeNote(RemoveNoteRequestDTO removeRequest) {
+	public void removeNote(String eavropId, String noteId) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		RemoveNoteCommand command = new RemoveNoteCommand(
-				new EavropId(removeRequest.getEavropId()), 
-				new NoteId(removeRequest.getNoteId()), 
+				new EavropId(eavropId), 
+				new NoteId(noteId), 
 				new HsaId(currentUser.getHsaId()));
 		this.noteService.removeNote(command);
 	}

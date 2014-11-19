@@ -205,9 +205,20 @@ angular.module('fmuClientApp', [
     .state('eavrop.notes', {
         url: '/notes',
         templateUrl: 'views/eavrop/notes.html',
-        controller: function($scope, $modal, $filter, $stateParams, EavropNotes, EavropService){
+        controller: function($scope, $modal, $filter, $stateParams, EavropNotes, EavropService, EAVROP_NOTES){
             $scope.toYYMMDD = function (date) {
                 return $filter('date')(date, 'yyyy-MM-dd');
+            };
+
+            $scope.removeNote = function (noteData) {
+                if(noteData && noteData.removable){
+                    var promise = EavropService.removeNote($stateParams.eavropId, noteData.noteId);
+                    promise.then(function () {
+                        loadNotes();
+                    }, function () {
+                        $scope.noteError = [EavropNotes.cannotRemove];
+                    });
+                }
             };
 
             function loadNotes(){

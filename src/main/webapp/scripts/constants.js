@@ -84,5 +84,6 @@ angular.module('fmuClientApp')
         completed: 'COMPLETED'
     })
     .constant('EAVROP_NOTES', {
-        cannotAdd: 'Anteckningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda'
+        cannotAdd: 'Anteckningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda',
+        cannotRemove: 'Fel uppstod vid bortagning av anteckning, detta kan beror på att du inte har rätt behörighet att genomföra denna förfrågan'
     });

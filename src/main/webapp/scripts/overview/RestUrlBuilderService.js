@@ -33,6 +33,10 @@ angular.module('fmuClientApp').factory('RestUrlBuilderService',
 
             buildAddNoteRestUrl: function () {
                 return '/app/rest/eavrop/note/add';
+            },
+
+            buildRemoveNoteRestUrl: function (eavropId, noteId) {
+                return '/app/rest/eavrop/'+ eavropId + '/note/' + noteId + '/remove';
             }
         }
     });

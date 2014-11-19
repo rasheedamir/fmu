@@ -42,7 +42,6 @@ import se.inera.fmu.interfaces.managing.rest.dto.NoteDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.PatientDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
-import se.inera.fmu.interfaces.managing.rest.dto.RemoveNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TimeDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestDTO;
@@ -176,10 +175,10 @@ public class EavropResource {
 		return HttpStatus.OK;
 	}
 	
-	@RequestMapping(value = "/rest/eavrop/note/remove", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/rest/eavrop/{eavropId}/note/{noteId}/remove", method = RequestMethod.DELETE)
 	@ResponseBody
-	public HttpStatus removeNote(@PathVariable RemoveNoteRequestDTO removeRequest) throws Exception {
-		this.fmuOrderingService.removeNote(removeRequest);
+	public HttpStatus removeNote(@PathVariable String eavropId, @PathVariable String noteId) throws Exception {
+		this.fmuOrderingService.removeNote(eavropId, noteId);
 		return HttpStatus.OK;
 	}
 }
