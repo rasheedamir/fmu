@@ -1,14 +1,9 @@
 package se.inera.fmu.interfaces.managing.rest;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-//import static org.hamcrest.Matchers.*;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
-
-
-
+import static org.hamcrest.Matchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -35,12 +30,14 @@ import se.inera.fmu.Application;
 import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.authentication.Role;
+import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.RemoveNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TimeDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestDTO;
 
@@ -340,6 +337,43 @@ public class ITEavropRestControllerTest {
 						MediaType.APPLICATION_JSON).content(
 						convertObjectToJsonBytes(addRequest))).andExpect(
 				status().isOk());
+	}
+	
+	@Test
+	public void removeNoteTest() throws Exception {
+		this.currentUserService.getCurrentUser().setActiveRole(
+				Role.LANDSTINGSSAMORDNARE);
+		this.currentUserService.getCurrentUser().setLandstingCode(1);
+		
+		// Add note
+		AddNoteRequestDTO addRequest = new AddNoteRequestDTO();
+		addRequest.setEavropId("3")
+		.setText("This is the note content");
+
+		restMock.perform(
+				post("/app/rest/eavrop/note/add").contentType(
+						MediaType.APPLICATION_JSON).content(
+						convertObjectToJsonBytes(addRequest))).andExpect(
+				status().isOk());
+		
+		// Get the newly added note
+		MvcResult result = restMock.perform(get("/app/rest/eavrop/3/notes")
+				.contentType(MediaType.APPLICATION_JSON))
+						.andExpect(status().isOk())
+						.andExpect(jsonPath("$[0].removable", is(true)))
+						.andReturn();
+		
+		String noteId = getJsonValue(0, "noteId", result.getResponse().getContentAsString()).replace("\"", "");
+		RemoveNoteRequestDTO removeReq = new RemoveNoteRequestDTO();
+		removeReq.setEavropId("3");
+		removeReq.setNoteId(noteId);
+		
+		// Remove the newly created note
+		restMock.perform(delete("/app/rest/eavrop/note/remove")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(convertObjectToJsonBytes(removeReq)))
+				.andExpect(status().isOk());
+		
 	}
 
 	public static String convertObjectToJsonBytes(Object object)

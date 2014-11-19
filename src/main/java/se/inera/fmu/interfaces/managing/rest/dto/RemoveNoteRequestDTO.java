@@ -5,10 +5,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class NoteDTO {
+public class RemoveNoteRequestDTO {
+	private String eavropId;
 	private String noteId;
-	private String contents;
-	private String createdBy;
-	private Long date;
-	private boolean isRemovable;
 }

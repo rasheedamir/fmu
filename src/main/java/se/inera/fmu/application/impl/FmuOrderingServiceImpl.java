@@ -21,6 +21,7 @@ import se.inera.fmu.application.impl.command.ChangeBookingStatusCommand;
 import se.inera.fmu.application.impl.command.ChangeInterpreterBookingStatusCommand;
 import se.inera.fmu.application.impl.command.CreateBookingCommand;
 import se.inera.fmu.application.impl.command.CreateEavropCommand;
+import se.inera.fmu.application.impl.command.RemoveNoteCommand;
 import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.authentication.User;
@@ -35,6 +36,7 @@ import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.invanare.medicalexamination.PriorMedicalExamination;
 import se.inera.fmu.domain.model.eavrop.note.Note;
+import se.inera.fmu.domain.model.eavrop.note.NoteId;
 import se.inera.fmu.domain.model.eavrop.note.NoteType;
 import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
@@ -70,6 +72,7 @@ import se.inera.fmu.interfaces.managing.rest.dto.NoteDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.PatientDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.RemoveNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TimeDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestDTO;
@@ -383,13 +386,14 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 	@Override
 	public List<NoteDTO> getNotes(EavropId eavropId) {
+		User currentUser = this.currentUserService.getCurrentUser();
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		NoteDTOMapper mapper = new NoteDTOMapper();
 		List<NoteDTO> result = new ArrayList<>();
 		if (eavropForUser == null)
 			return result;
 		for (Note n : eavropForUser.getAllNotes()) {
-			result.add(mapper.map(n));
+			result.add(mapper.map(n, currentUser));
 		}
 
 		return result;
@@ -484,6 +488,16 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 				getUserUnit(currentUser));
 		this.noteService.addNote(command);
 	}
+	
+	@Override
+	public void removeNote(RemoveNoteRequestDTO removeRequest) {
+		User currentUser = this.currentUserService.getCurrentUser();
+		RemoveNoteCommand command = new RemoveNoteCommand(
+				new EavropId(removeRequest.getEavropId()), 
+				new NoteId(removeRequest.getNoteId()), 
+				new HsaId(currentUser.getHsaId()));
+		this.noteService.removeNote(command);
+	}
 
 	/**
 	 * Get the HsaId of the user
@@ -574,4 +588,5 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		EavropDTO eavropDTO = mapper.map(eavropForUser);
 		return eavropDTO;
 	}
+
 }
