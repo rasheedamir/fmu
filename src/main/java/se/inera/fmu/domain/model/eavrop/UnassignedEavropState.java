@@ -20,8 +20,6 @@ public class UnassignedEavropState extends AbstractEavropState {
 			eavrop.setCurrentAssignment(eavropAssignment);
 			eavrop.addAssignment(eavropAssignment);
 			
-			eavrop.handleEavropAssignedToVardgivarenhet();
-			
 			//State transition UNASSIGNED -> ASSIGNED
 			eavrop.setEavropState(new AssignedEavropState());
 		}

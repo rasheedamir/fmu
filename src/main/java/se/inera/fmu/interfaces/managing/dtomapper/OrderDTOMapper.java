@@ -15,6 +15,12 @@ public class OrderDTOMapper {
 		dto.setInvestigatorOrganization(eavrop.getCurrentAssignedVardgivarenhet().getVardgivare().getName());
 		dto.setInvestigatorUnit(eavrop.getCurrentAssignedVardgivarenhet().getUnitName());
 		dto.setAcceptanceDate(eavrop.getCurrentAssignment().getAssignmentResponseDateTime().getMillis());
+		dto.setInterpreterLang(eavrop.getIterpreterDescription());
+		dto.setValAvInriktning(eavrop.getUtredningFocus());
+		dto.setAdditionalInfo(eavrop.getAdditionalInformation());
+		dto.setOrdererName(eavrop.getBestallaradministrator().getName());
+		dto.setOrdererEmail(eavrop.getBestallaradministrator().getEmail());
+		dto.setOrdererPhone(eavrop.getBestallaradministrator().getPhone());
 		return dto;
 	}
 }

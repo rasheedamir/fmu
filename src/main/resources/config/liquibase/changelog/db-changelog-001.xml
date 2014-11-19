@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Changelog created with liquibase 3.3.0-SNAPSHOT, the http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd schema location is not yet public so changed to 3.0 version  -->
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
-				   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
-				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 	<changeSet author="richjo (generated)" id="001-1">
 		<createTable tableName="R_EAVROP_ASSIGNMENT">
 			<column name="EAVROP_ID" type="VARCHAR(255)">
@@ -294,6 +291,7 @@
 			<column name="PERSONAL_NUMBER" type="VARCHAR(255)">
 				<constraints nullable="false"/>
 			</column>
+			<column name="PHONE" type="VARCHAR(255)"/>
 			<column name="SPECIAL_NEEDS" type="VARCHAR(255)"/>
 		</createTable>
 	</changeSet>
@@ -359,14 +357,15 @@
 			<column autoIncrement="true" name="PERSON_ID" type="BIGINT">
 				<constraints primaryKey="true" primaryKeyName="T_PERSONPK"/>
 			</column>
+			<column name="EMAIL" type="VARCHAR(255)"/>
 			<column name="NAME" type="VARCHAR(255)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="ORGANISATION" type="VARCHAR(255)"/>
+			<column name="PHONE" type="VARCHAR(255)"/>
 			<column name="ROLE" type="VARCHAR(255)"/>
 			<column name="UNIT" type="VARCHAR(255)"/>
-			<column name="EMAIL" type="VARCHAR(255)"/>
-			<column name="PHONE" type="VARCHAR(255)"/>
+			<column name="HSA_ID" type="VARCHAR(255)"/>
 		</createTable>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-23">
@@ -708,4 +707,3 @@
 		<addForeignKeyConstraint baseColumnNames="DEVIATION_RESPONSE_PERSON_ID" baseTableName="T_BOOKING" constraintName="FK_slpdct9cyw40qec1p8se5d7kk" deferrable="false" initiallyDeferred="false" referencedColumnNames="PERSON_ID" referencedTableName="T_PERSON"/>
 	</changeSet>
 </databaseChangeLog>
-

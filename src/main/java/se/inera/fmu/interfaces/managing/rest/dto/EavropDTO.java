@@ -272,4 +272,14 @@ public class EavropDTO {
 	public Boolean getIsCompleted() {
 		return isCompleted;
 	}
+	
+	public EavropDTO setAnsvarigUtredare(String ansvarigUtredare) {
+		this.ansvarigUtredare = ansvarigUtredare;
+		return this;
+	}
+	
+	public EavropDTO setTotalCompletionDays(Integer totalCompletionDays) {
+		this.totalCompletionDays = totalCompletionDays;
+		return this;
+	}
 }

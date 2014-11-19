@@ -115,24 +115,29 @@ public class UtredningDTOMapper {
 		List<HandelseDTO> retval = new ArrayList<HandelseDTO>();
 		for (Booking booking : bookings) {
 			HandelseDTO dto = new HandelseDTO();
-			DateTime duedate = booking.getStartDateTime();
+			DateTime startDateTime = booking.getStartDateTime();
+			DateTime endDateTime = booking.getEndDateTime();
 			Person person = booking.getPerson();
 			dto.setHandelse(booking.getBookingType())
-			.setDateOfEvent(
-							duedate != null ? duedate.getMillis() : null)
-					.setTimeOfEvent(
-							duedate != null ? duedate: null)
+					.setBookingId(booking.getBookingId().getId())
+					.setDateOfEvent(
+							startDateTime != null ? startDateTime.getMillis() : null)
+					.setTimeOfEvent(startDateTime != null ? startDateTime : null)
+					.setTimeOfEventEnd(endDateTime != null ? endDateTime: null)
 					.setUtredaPerson(person != null ? person.getName() : null)
-					.setRole(person != null ? person.getRole() : null);;
+					.setRole(person != null ? person.getRole() : null);
+			;
 
 			StatusDTO tolkstatus = new StatusDTO();
 			StatusDTO handelseStatus = new StatusDTO();
 
 			InterpreterBooking tolk = booking.getInterpreterBooking();
 			tolkstatus
-					.setCurrentStatus(tolk.getInterpreterBookingStatus())
+					.setCurrentStatus(
+							tolk != null ? tolk.getInterpreterBookingStatus()
+									: null)
 					.setComment(
-							tolk.getDeviationNote() != null ? tolk
+							tolk != null && tolk.getDeviationNote() != null ? tolk
 									.getDeviationNote().getText() : null)
 					.setStatuses(InterpreterBookingStatusType.values());
 

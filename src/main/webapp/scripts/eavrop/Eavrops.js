@@ -24,3 +24,7 @@ angular.module('fmuClientApp').factory('EavropAllEvents', ['$resource', 'RESTURL
 angular.module('fmuClientApp').factory('EavropOrder', ['$resource', 'RESTURL', function($resource, RESTURL){
     return $resource(RESTURL.eavropOrder, {eavropId: '@eavropId'});
 }]);
+
+angular.module('fmuClientApp').factory('EavropPatient', ['$resource', 'RESTURL', function($resource, RESTURL){
+    return $resource(RESTURL.eavropPatient, {eavropId: '@eavropId'});
+}]);

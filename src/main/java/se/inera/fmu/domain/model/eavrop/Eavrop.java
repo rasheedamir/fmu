@@ -32,17 +32,13 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 import se.inera.fmu.application.util.BusinessDaysUtil;
-import se.inera.fmu.domain.model.eavrop.assignment.EavropAcceptedByVardgivarenhetEvent;
-import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignedToVardgivarenhetEvent;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
-import se.inera.fmu.domain.model.eavrop.assignment.EavropRejectedByVardgivarenhetEvent;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
-import se.inera.fmu.domain.model.eavrop.document.DocumentSentByBestallareEvent;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
@@ -76,7 +72,6 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	// ================================================================================================
 
 	private static final long serialVersionUID = 1L;
-
 	
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -330,7 +325,6 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		Integer result = null;
 		
 		if(isApproved() && getStartDate() !=null &&  getEavropApproval().getApprovalTimestamp()!=null){
-			
 			//TODO: move calculations to domain service....
 			result = new Integer(BusinessDaysUtil.numberOfBusinessDays(getStartDate(), getEavropApproval().getApprovalTimestamp().toLocalDate()));
 		} 
@@ -374,18 +368,19 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	}
 	
 		
+	/**
+	 * Calculates if the number of days used for getting acceptance of eavrop assignment is greater than the allowed number of days
+	 * defined in the eavrop properties
+	 * @return
+	 */
 	public boolean isEavropAcceptDaysDeviated(){
 		
-		//from date is the day after the Eavrop was received from orderer.
-		LocalDate fromDate = new LocalDate(this.getCreatedDate()).plusDays(1);
-		int maxNumberOfDaysUntilAccept = this.getEavropProperties().getAcceptanceValidLength();
-		
 		//The last day that it is okay to accept;
-		LocalDate lastValidDay = BusinessDaysUtil.calculateBusinessDayDate(fromDate, maxNumberOfDaysUntilAccept);
+		LocalDate lastValidDay = getLastValidEavropAssignmentAcceptDay();
 		
 		LocalDate toDate = new LocalDate();
 		
-		//if assigenment is accepted, get the acceptDate as end date otherwisé stick with today
+		//if assignment is accepted, get the acceptDate as end date otherwisé stick with today
 		if(isAssignmentAccepted()){
 			toDate = new LocalDate(getCurrentAssignment().getLastModifiedDate());
 		}
@@ -397,7 +392,24 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 			return false;
 		}
 	}
+	
+	private LocalDate getLastValidEavropAssignmentAcceptDay(){
 
+		//From date is the day after the Eavrop was received from orderer.
+		LocalDate fromDate = new LocalDate(this.getCreatedDate()).plusDays(1);
+		int maxNumberOfDaysUntilAccept = this.getEavropProperties().getAcceptanceValidLength();
+		
+		//The last day that it is okay to accept;
+		LocalDate lastValidDay = BusinessDaysUtil.calculateBusinessDayDate(fromDate, maxNumberOfDaysUntilAccept);
+		
+		return lastValidDay;
+		
+	}
+
+	/**
+	 * Get number of days used for getting acceptance of eavrop assignment
+	 * @return
+	 */
 	public int noOfAcceptDays(){
 		
 		LocalDate fromDate = new LocalDate(this.getCreatedDate()).plusDays(1);
@@ -412,15 +424,22 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		return noOfBusinessDays;
 	}
 
+	
+	/**
+	 * Method retrives when the Eavrop assignment was accepted by Vårdgivare 
+	 * @return
+	 */
 	public DateTime getEavropAssignmentAcceptanceDateTime(){
 		if(isAssignmentAccepted()){
 			return getCurrentAssignment().getAssignmentResponseDateTime();
 		}
 		return null; 
 	}
-
 	
-	
+	/**
+	 * Method tells if eavrop has Assignment that has been accepted
+	 * @return
+	 */
 	public boolean isAssignmentAccepted() {
 		if(this.getCurrentAssignment()!=null){
 			return this.getCurrentAssignment().isAccepted();
@@ -453,7 +472,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		
 		LocalDate toDate = new LocalDate();
 		
-		//if assigenment is accepted, get the acceptDate as end date otherwisé stick with today
+		//if assignment is accepted, get the acceptDate as end date otherwise stick with today
 		if(assignment.isAccepted()|| assignment.isRejected()){
 			toDate = new LocalDate(assignment.getLastModifiedDate());
 		}
@@ -500,7 +519,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		//The last day that it is okay to accept;
 		LocalDate lastValidDay = BusinessDaysUtil.calculateBusinessDayDate(fromDate, maxNumberOfDaysUntilAccept);
 		
-		//if assigenment is accepted, get the acceptDate as end date otherwisé stick with today
+		//if assignment is accepted, get the acceptDate as end date otherwise stick with today
 		if(getCurrentAssignment() != null && getCurrentAssignment().isAccepted()){
 			toDate = new LocalDate(getCurrentAssignment().getLastModifiedDate());
 		}
@@ -521,6 +540,10 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.getEavropState().rejectEavropAssignment(this);
 	}
 
+	/**
+	 * Returns the current eavrop assignment, if eavrop does not have assignment null is returned
+	 * @return
+	 */
 	public EavropAssignment getCurrentAssignment() {
 		return currentAssignment;
 	}
@@ -555,6 +578,10 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.assignments.add(assignment);
 	}
 
+	/**
+	 * Returns the current assigned vårdgivarenhet
+	 * @return
+	 */
 	public Vardgivarenhet getCurrentAssignedVardgivarenhet(){
 		Vardgivarenhet vardgivarenhet = null;
 		if(getCurrentAssignment()!=null){
@@ -603,38 +630,6 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		return null;
 	}
 
-	
-//	/**
-//	 * Return the bookingDeviation that corresponds to the specified booking id.
-//	 * Will return null if no booking or booking deviation exists
-//	 *
-//	 * @return bookingDeviation
-//	 * @see BookingDevaition
-//	 */
-//	public BookingDeviation getBookingDeviation(BookingId bookingId) {
-//		Booking booking = this.getBooking(bookingId);
-//		if(booking!=null){
-//			return booking.getBookingDeviation();
-//		}
-//		return null;
-//	}
-//
-//	/**
-//	 * Return all booking deviations on all bookings
-//	 */
-//	public Set<BookingDeviation> getBookingDeviations() {
-//		Set<BookingDeviation> result = new HashSet<BookingDeviation>();
-//		
-//		for (Booking booking : getBookings()) {
-//			if(booking.getBookingDeviation()!=null){
-//				result.add(booking.getBookingDeviation());
-//			}
-//		}
-//		
-//		return result;
-//	}
-//
-
 	/**
 	 * Return number of deviation
 	 * Possible deviations are:
@@ -647,7 +642,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	 * * Exceeded assessment time limit
 	 * * Exceeded time limit for completing certificates
 	 */
-	//TODO:is there anything esle that that qualifies as a deviation, and should all booking deviations
+	//TODO:is there anything else that that qualifies as a deviation, and should all booking deviations
 	//be counted here
 	public int getNumberOfDeviationsOnEavrop() {
 		int count = 0;
@@ -674,6 +669,53 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		return count;	
 	}
 	
+//	public EavropDeviationEventDTO getEavropDeviationEventDTOs() {
+//		List<EavropDeviationEventDTO> deviationEvents = new ArrayList<EavropDeviationEventDTO>();
+//		
+//		if(this.isEavropAcceptDaysDeviated()){
+//			deviationEvents.add(createEavropAcceptDaysDeviationEvent());
+//		}
+//		
+//		for (Booking booking : getBookings()) {
+//			if(booking.hasDeviation()){
+//				deviationEvents.add(createEavropBookingDeviationEvent(booking));
+//				count++;
+//			}
+//			if(booking.hasInterpreterDeviation()){
+//				count++;
+//			}
+//		} 
+//
+//		
+//		return null;
+//		
+//	}
+//	
+//
+//
+//	/**
+//	 * 
+//	 * @return
+//	 */
+//	private EavropDeviationEventDTO createEavropAcceptDaysDeviationEvent() {
+//		if(this.isEavropAcceptDaysDeviated()){
+//			LocalDate lastValidDay = getLastValidEavropAssignmentAcceptDay();
+//			DateTime devationDateTime = lastValidDay.toDateTime(new LocalTime(0,0));
+//			return new EavropDeviationEventDTO(EavropDeviationEventDTOType.EAVROP_ASSIGNMENT_ACCEPT_DEVIATION, devationDateTime);
+//		}
+//		return null;
+//	}
+//
+//	private EavropDeviationEventDTO createEavropBookingDeviationEvent(Booking booking) {
+//		
+//		DateTime eventTime = booking.getLastModifiedDate();
+//		
+//		return new EavropDeviationEventDTO(EavropDeviationEventDTOType.EAVROP_ASSIGNMENT_ACCEPT_DEVIATION, devationDateTime);
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
+
 	private void setBookings(Set<Booking> bookings) {
 		this.bookings = bookings;
 	}
@@ -700,11 +742,22 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.bookings.add(booking);
 	}
 
-
+	/**
+	 * Set status of specified booking
+	 * @param bookingId
+	 * @param bookingStatus
+	 * @param cancellationNote
+	 */
 	public void setBookingStatus(BookingId bookingId, BookingStatusType bookingStatus, Note cancellationNote){
 		getEavropState().setBookingStatus(this, bookingId, bookingStatus, cancellationNote);
 	}
 	
+	/**
+	 * Set status of interpreter booking of specified booking 
+	 * @param bookingId
+	 * @param interpreterStatus
+	 * @param cancellationNote
+	 */
 	public void setInterpreterBookingStatus(BookingId bookingId, InterpreterBookingStatusType interpreterStatus, Note cancellationNote){
 		getEavropState().setInterpreterBookingStatus(this, bookingId, interpreterStatus, cancellationNote);
 	}
@@ -744,7 +797,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	}
 	
 	/**
-	 * 
+	 * Method for adding a received document to the eavrop
 	 */
 	public void addReceivedDocument(ReceivedDocument receivedDocument){
 		this.getEavropState().addReceivedDocument(this, receivedDocument);
@@ -771,22 +824,17 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 			this.documentsSentFromBestallareDateTime =  receivedDocument.getDocumentDateTime();
 		}
 		if(getStartDate()==null && receivedDocument.getDocumentDateTime() !=null ){
-			//TODO figure out how to get Service
 			
-			LocalDate from =  new LocalDate(receivedDocument.getDocumentDateTime()).plusDays(1);
-			
+			LocalDate tomorrow =  new LocalDate(receivedDocument.getDocumentDateTime()).plusDays(1);
 			int startDateOffset = this.getEavropProperties().getStartDateOffset();
 			
 			//Since the should start the first business day after the offset we need to plus one on the offset
 			//TODO ????
 			startDateOffset++;
 			
-			LocalDate startDate = BusinessDaysUtil.calculateBusinessDayDate(from, startDateOffset);
-			
+			LocalDate startDate = BusinessDaysUtil.calculateBusinessDayDate(tomorrow, startDateOffset);
 			this.setStartDate(startDate);
-			
 		}
-
 	}
 
 	/**
@@ -803,7 +851,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	}
 	
 	/**
-	 * 
+	 * Add a document request to the eavrop 
 	 */
 	public void addRequestedDocument(RequestedDocument requestedDocument){
 		this.getEavropState().addRequestedDocument(this, requestedDocument);
@@ -832,12 +880,16 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	 * This property represents a point in time when the orderer, bestallare, notified that they sent documents 
 	 * @param  documentsSentFromBestallareDateTime
 	 */
-//	//TODO: This can be sent from the orderer several times ans should probably be logged in a list, possibly with who the sender is as well
-//	//TODO: Maybe the startdate should olny be set through addDocument? 
 	protected void setDocumentsSentFromBestallare(DateTime documentsSentFromBestallareDateTime) {
 		this.documentsSentFromBestallareDateTime = documentsSentFromBestallareDateTime;
 	}
-//
+
+	/**
+	 * To bypass the addDocumentReceived functionality to set the start date, this method can be used if we get a signal that 
+	 * document have been sent but we dont get the document names
+	 * 
+	 * @param documentsSentFromBestallareDateTime
+	 */
 	public void setDateTimeDocumentsSentFromBestallare(DateTime documentsSentFromBestallareDateTime) {
 		this.getEavropState().setDocumentsSentFromBestallareDateTime(this, documentsSentFromBestallareDateTime);
 	}
@@ -894,6 +946,10 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.getEavropState().approveEavropCompensation(this, eavropCompensationApproval);
 	}
 
+	/**
+	 * Return the date time of when the eavrop compensation was approved by the beställare
+	 * @return
+	 */
 	public DateTime getEavropCompensationApprovalDateTime() {
 		if(getEavropCompensationApproval()!=null){
 			return getEavropCompensationApproval().getCompensationDateTime();
@@ -946,7 +1002,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	protected void addToIntygSignedInformation(IntygSignedInformation intygSignedInformation) {
 		addToIntygInformation(intygSignedInformation);
 		
-		// set the intyg signed date once for assessment days calcuation
+		// set the intyg signed date once for assessment days calculation
 		if(intygSignedInformation != null && intygSignedInformation.getInformationTimestamp() != null && getIntygSignedDateTime() == null){
 			this.intygSignedDate = intygSignedInformation.getInformationTimestamp();
 		}
@@ -1016,7 +1072,6 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		
 		return result;
 	}
-
 	
 	/**
 	 * 
@@ -1335,7 +1390,6 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 				}
 			}
 			
-			
 			LocalDate fromDate = new  LocalDate(intygComplementRequestInformation.getInformationTimestamp()).plusDays(1);
 			//The last day that it is okay to send;
 			LocalDate lastValidDay = BusinessDaysUtil.calculateBusinessDayDate(fromDate, maxNumberOfDaysUntilIntygSigned);
@@ -1446,6 +1500,21 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	}
 
 	/**
+	 * Returns true if an interpreter has been booked 
+	 * @return
+	 */
+	public boolean hasInterpreterBooking() 
+	{	
+		for (Booking booking : this.getBookings()) {
+			if(booking.hasInterpreterBooking()){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	
+	/**
 	 * Returns the type of utredning this Eavrop concern
 	 *
 	 * @return utredningType
@@ -1483,63 +1552,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 //		
 //		null;
 //	}
-	
-	// ~ handlers
-	
-	protected void handleEavropAssignedToVardgivarenhet(){
-		EavropAssignedToVardgivarenhetEvent event = new EavropAssignedToVardgivarenhetEvent(this.getEavropId(), getCurrentAssignment().getVardgivarenhet().getHsaId());
-		//getEventBus().post(event);
-	}
 
-	protected void handleEavropAccept(){
-		EavropAcceptedByVardgivarenhetEvent event = new EavropAcceptedByVardgivarenhetEvent(this.getEavropId(),getCurrentAssignment().getVardgivarenhet().getHsaId());
-		//getEventBus().post(event);
-	}
-
-	protected void handleEavropReject(EavropAssignment eavropAssignment){
-		EavropRejectedByVardgivarenhetEvent event = new EavropRejectedByVardgivarenhetEvent(this.getEavropId(), eavropAssignment.getVardgivarenhet().getHsaId());
-		//getEventBus().post(event);	
-	}
-
-	protected void handleDocumentsSent(){
-		//TODO: dont know if this event should be created... 
-		DocumentSentByBestallareEvent event = new DocumentSentByBestallareEvent(this.getEavropId(), getDateTimeDocumentsSentFromBestallare());
-		//getEventBus().post(event);
-	}
-
-//	protected void handleBookingAdded(BookingId bookingId){
-//		BookingCreatedEvent event = new BookingCreatedEvent(this.getArendeId(), bookingId);
-//		getEventBus().post(event);
-//	}
-
-//	protected void handleBookingDeviation(BookingId bookingId){
-//		BookingDeviationEvent event = new BookingDeviationEvent(this.getEavropId(), bookingId);
-//		//getEventBus().post(event);
-//	}
-
-//	protected void handleInterpreterBookingDeviation(BookingId bookingId){
-//		InterpreterBookingDeviationEvent event = new InterpreterBookingDeviationEvent(this.getEavropId(), bookingId);
-//		//getEventBus().post(event);
-//	}
-	
-//	protected void handleEavropRestarted(){
-//		EavropRestartedByBestallareEvent event = new EavropRestartedByBestallareEvent(this.getEavropId());
-//		//getEventBus().post(event);
-//	}
-
-//	protected void handleEavropStoppedByBestallare(){
-//		EavropClosedByBestallareEvent event = new EavropClosedByBestallareEvent(this.getEavropId());
-//		//getEventBus().post(event);
-//	}
-
-	protected void handleEavropApproval(){
-		//TODO:Should there be an event?
-	}
-	
-	protected void handleEavropCompensationApproval(){
-		//TODO:Should there be an event?
-	}
-	
 	// ~ Other Methods ==================================================================================================
 
 	@Override

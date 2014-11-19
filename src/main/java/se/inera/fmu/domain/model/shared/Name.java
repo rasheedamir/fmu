@@ -76,6 +76,20 @@ public final class Name implements ValueObject<Name> {
     	
     	return sb.toString();
     }
+    
+    public String getFullName(){
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getFirstName());
+    	
+    	if(getMiddleName() != null){
+    		sb.append(' ');
+    		sb.append(getMiddleName());
+    	}
+    	
+    	sb.append(' ');
+    	sb.append(getLastName());
+    	return sb.toString();
+    }
 
     //~ Other Methods ==================================================================================================
 

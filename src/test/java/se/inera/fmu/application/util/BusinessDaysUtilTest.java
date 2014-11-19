@@ -22,7 +22,6 @@ public class BusinessDaysUtilTest {
 		
 		//Fixed dates in 2014
 		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2014,1,1))); //Nyårsdagen 
-		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2014,1,2)));
 		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2014,1,5)));
 		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2014,1,6))); ////Trettondagen
 		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2014,1,7)));
@@ -36,7 +35,6 @@ public class BusinessDaysUtilTest {
 
 		//Fixed dates in 2015
 		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,1,1))); //Nyårsdagen 
-		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2015,1,2)));
 		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2015,1,5)));
 		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,1,6))); ////Trettondagen
 		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2015,1,7)));
@@ -63,7 +61,7 @@ public class BusinessDaysUtilTest {
 		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2014,6,21))); //Midsommardagen
 		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2014,11,1))); //Alla helgons dag
 
-		LocalDate day = new LocalDate(2014,7,7);
+		LocalDate day = new LocalDate(2014,7,14);
 		LocalDate backToWork = new LocalDate(2014,7,28);
 		
 		while(day.isBefore(backToWork)){
@@ -97,7 +95,7 @@ public class BusinessDaysUtilTest {
 		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,6,20))); //Midsommardagen
 		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,10,31))); //Alla helgons dag
 
-		day = new LocalDate(2015,7,6);
+		day = new LocalDate(2015,7,13);
 		backToWork = new LocalDate(2015,7,27);
 		
 		while(day.isBefore(backToWork)){
@@ -119,6 +117,30 @@ public class BusinessDaysUtilTest {
 		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2015,6,21)));
 		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2015,11,1)));
 	}
+
+	@Test
+	public void testSkippableWeeks() {
+		//Floating dates in 2015
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,1,1))); 
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,1,2)));
+		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2015,1,5)));
+		
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,13)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,14)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,15)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,16)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,17)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,20)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,21)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,22)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,23)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,24)));
+		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2015,7,27)));
+
+		
+
+	}
+
 	
 	/**
 	 * Test number of business days between two dates.
@@ -140,11 +162,11 @@ public class BusinessDaysUtilTest {
 		//Christmas week 2015
 		assertEquals(3, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2015,12,21), new LocalDate(2015,12,28)));
 		
-		//Christmas holiday 2014, 9 working days
-		assertEquals(9, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2014,12,22), new LocalDate(2015,1,12)));
+		//Christmas holiday 2014, 8 working days
+		assertEquals(8, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2014,12,22), new LocalDate(2015,1,12)));
 
 		//Christmas holiday 2015
-		assertEquals(10, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2015,12,21), new LocalDate(2016,1,11)));
+		assertEquals(6, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2015,12,21), new LocalDate(2016,1,11)));
 
 	}
 

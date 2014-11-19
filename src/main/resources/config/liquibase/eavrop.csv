@@ -2,8 +2,8 @@ EAVROP_ID;created_by;created_date;last_modified_by;last_modified_date;version;AD
 1;Quang;2014-11-29;Quang;2014-11-29;1;test info;12345;test description;2014-11-29;25;15;10;0;UNASSIGNED;tolk description;NULL;NULL;NULL;SLU;1;NULL;NULL;NULL;1;1;NULL
 2;system;2014-11-23;system;2014-11-23;0;test info;12453;test description;2014-11-23 12:20:00;25;10;5;0;ASSIGNED;NULL;NULL;2014-11-23;no fokus;TMU;3;1;NULL;NULL;1;1;NULL
 3;system;2014-11-24;system;2014-11-25;0;test info;12463453;test description;2014-11-26 12:20:00;25;10;5;0;ACCEPTED;NULL;NULL;2014-11-26;no fokus;TMU;3;2;NULL;NULL;1;1;NULL
-7;system;2014-11-24;system;2014-11-25;0;test info;12463454;test description;2014-11-26 12:20:00;25;10;5;0;ACCEPTED;NULL;NULL;2014-11-26;no fokus;TMU;3;2;NULL;NULL;1;1;NULL
-8;system;2014-11-24;system;2014-11-25;0;test info;12463456;test description;2014-11-26 12:20:00;25;10;5;0;ACCEPTED;NULL;NULL;2014-11-26;no fokus;TMU;3;2;NULL;NULL;1;1;NULL
+7;system;2014-11-24;system;2014-11-25;0;test info;12463454;test description;2014-11-26 12:20:00;2;25;10;3;ASSIGNED;NULL;NULL;NULL;no fokus;TMU;3;5;NULL;NULL;1;1;NULL
+8;system;2014-11-24;system;2014-11-25;0;test info;12463456;test description;2014-11-26 12:20:00;2;25;10;3;ACCEPTED;NULL;NULL;2014-11-26;no fokus;TMU;3;5;NULL;NULL;1;1;NULL
 9;system;2014-11-28;system;2014-11-26;0;test info;12416736353;test description;2014-11-28 12:20:00;25;10;5;0;ON_HOLD;NULL;NULL;2014-11-28;no fokus;TMU;3;2;NULL;NULL;1;1;NULL
 4;system;2014-11-26;system;2014-11-26;0;test info;1343453;test description;2014-11-26 12:20:00;25;10;5;0;CLOSED;NULL;2014-11-26;2014-11-26;no fokus;TMU;3;2;NULL;NULL;1;1;NULL
 5;system;2014-11-27;system;2014-11-27;0;test info;12313453;test description;2014-11-27 12:20:00;25;10;5;0;APPROVED;NULL;2014-11-27;2014-11-27;no fokus;TMU;3;2;NULL;NULL;1;1;NULL
@@ -16,3 +16,4 @@ EAVROP_ID;created_by;created_date;last_modified_by;last_modified_date;version;AD
 14;system;2014-11-26;system;2014-11-26;0;test info;6743453;test description;2014-11-26 12:20:00;25;10;5;0;CLOSED;NULL;2014-11-26;2014-11-26;no fokus;TMU;3;2;NULL;NULL;1;1;NULL
 15;system;2014-11-27;system;2014-11-27;0;test info;7313453;test description;2014-11-27 12:20:00;25;10;5;0;APPROVED;NULL;2014-11-27;2014-11-27;no fokus;TMU;3;2;NULL;NULL;1;1;NULL
 16;system;2014-09-17;system;2014-11-27;1;Additional test info;987654321;test description;2014-09-20;25;10;5;3;CLOSED;Swahili;2014-10-28;2014-09-19;Psykologi;TMU;3;4;1;1;1;1;NULL
+99;system;2014-09-17;system;2014-11-27;1;Additional test info;19860904;test description;2014-09-20;25;10;5;3;ACCEPTED;Swahili;2014-10-28;2014-09-19;Psykologi;TMU;3;4;1;1;1;1;NULL

@@ -51,26 +51,6 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 		//No state transition
 	}
 	
-//	@Override
-//	public void cancelBooking(Eavrop eavrop, BookingId bookingId, BookingDeviation deviation) {
-//		Booking booking = eavrop.getBooking(bookingId);
-//		
-//		if(booking.getBookingDeviation() != null){
-//			//TODO: create separate state machine for bookings
-//			throw new IllegalArgumentException();
-//		}
-//		booking.setBookingDeviation(deviation);
-//		
-//		//TODO: BookingDeviationTypeUtil functionality should be moved to domain object
-//		if(BookingDeviationTypeUtil.isDeviationTypeReasonForOnHold(deviation.getDeviationType(), eavrop.getUtredningType())){
-//			
-//			//State transition ACCEPTED -> ON_HOLD
-//			eavrop.setEavropState(new OnHoldEavropState());
-//		}
-//		eavrop.handleBookingDeviation(booking.getBookingId());
-//	}
-	
-
 	@Override
 	public void setBookingStatus(Eavrop eavrop, BookingId bookingId, BookingStatusType bookingStatus, Note cancelNote) {
 		Booking booking = eavrop.getBooking(bookingId);
@@ -122,7 +102,6 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 	public void approveEavrop(Eavrop eavrop, EavropApproval eavropApproval){
 		eavrop.setEavropApproval(eavropApproval);
 		
-		eavrop.handleEavropApproval();
 		//State transition ACCEPTED -> APPROVED
 		eavrop.setEavropState(new ApprovedEavropState());
 	}
@@ -139,7 +118,6 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 		//No state transition
 	}
 	
-	//TODO: Is valid entity?
 	@Override
 	public void addIntygApprovedInformation(Eavrop eavrop, IntygApprovedInformation intygApprovedInformation){
 		eavrop.addToIntygApprovedInformation(intygApprovedInformation);
@@ -149,13 +127,11 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 	@Override
 	public void addReceivedDocument(Eavrop eavrop, ReceivedDocument receivedDocument) {
 		eavrop.addToReceivedDocuments(receivedDocument);
-		
 	}
 	
 	@Override
 	public void addRequestedDocument(Eavrop eavrop, RequestedDocument requestedDocument) {
 		eavrop.addToRequestedDocuments(requestedDocument);
 		//No state transition
-		
 	}
 }

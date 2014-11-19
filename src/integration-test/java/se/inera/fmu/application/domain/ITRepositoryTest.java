@@ -74,7 +74,6 @@ import se.inera.fmu.domain.model.landsting.LandstingRepository;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.HoSPerson;
 import se.inera.fmu.domain.model.person.Person;
-import se.inera.fmu.domain.model.person.TolkPerson;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
@@ -898,7 +897,7 @@ public class ITRepositoryTest {
     private Eavrop deviateEavrop(Eavrop eavrop){
     	
     	//Booking booking =  createBooking();
-    	Person person = new TolkPerson("","");
+    	Person person = new HoSPerson(null,"","","","");
     	
     	Booking booking = new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(), Boolean.FALSE, person, Boolean.FALSE);
     	assertNotNull(booking.getPerson());
@@ -951,7 +950,7 @@ public class ITRepositoryTest {
     	ReceivedDocument receivedDocument = new ReceivedDocument(today.minusDays(6), "Journal", new Bestallaradministrator("Ordny Ordnarsson", "Handläggare", "Försäkringskassan", "LFC Stockholm", "555-12345", "ordny@fk.se"), Boolean.TRUE);
     	eavrop.addReceivedDocument(receivedDocument);
 
-    	IntygSignedInformation  intygSignedInformation = new IntygSignedInformation(today, new HoSPerson("Dr Hudson", "Surgeon", "Danderyds sjukhus")); 
+    	IntygSignedInformation  intygSignedInformation = new IntygSignedInformation(today, new HoSPerson(new HsaId("SE160000000000-HAHAHHSBB"), "Dr Hudson", "Surgeon", "Danderyds sjukhus", "AVD fmu")); 
     	eavrop.addIntygSignedInformation(intygSignedInformation);
     	
     	return eavropRepository.save(eavrop);
@@ -959,12 +958,9 @@ public class ITRepositoryTest {
 
     
     private Eavrop deviateRespondEavrop(Eavrop eavrop){
-    	
     	eavrop.addBookingDeviationResponse(eavrop.getBookings().iterator().next().getBookingId(),createBookingDeviationResponse());
-    	
     	return eavropRepository.save(eavrop);
     }
-
     
     private Eavrop approveEavrop(Eavrop eavrop){
     	eavrop.approveEavrop(new EavropApproval(new DateTime(), createBestallaradministrator()));
@@ -980,7 +976,7 @@ public class ITRepositoryTest {
     	PersonalNumber pnr = new PersonalNumber("700101-0101");
     	Name name = new Name("Dennis", null, "Ritchie");
     	Address address  = new Address("Bell Labs", "07974", "California", "USA");
-    	Invanare invanare = new Invanare(pnr, name, Gender.MALE, address, "dennis.ritchie@belllabs.com", null); 
+    	Invanare invanare = new Invanare(pnr, name, Gender.MALE, address, "555-1233445", "dennis.ritchie@belllabs.com", null); 
     	
     	return invanareRepository.saveAndFlush(invanare);
     }
@@ -996,9 +992,7 @@ public class ITRepositoryTest {
     	
     	DateTime start = new DateTime();
     	DateTime end = start.plusHours(1);
-    	Person person = new HoSPerson("Dr Hudson", "Surgeon", "Danderyds sjukhus");
-    	//Set<Person> persons = new HashSet<Person>();
-    	//persons.add(person);
+    	Person person = new HoSPerson(new HsaId("SE160000000000-HAHAHHSBB"), "Dr Hudson", "Surgeon", "Danderyds sjukhus", "AVD fmu");
     	Booking booking = new Booking(BookingType.EXAMINATION, start,end, Boolean.FALSE, person, Boolean.FALSE);
 
     	return booking;
@@ -1006,7 +1000,7 @@ public class ITRepositoryTest {
     
     private BookingDeviation createBookingDeviation(){
     	
-    	BookingDeviation deviation = new BookingDeviation(BookingDeviationType.INVANARE_CANCELLED_LT_48, new Note(NoteType.BOOKING_DEVIATION, "No Show", new HoSPerson("Lasse Kongo", "Läkare", "Danderydssjukhus")));
+    	BookingDeviation deviation = new BookingDeviation(BookingDeviationType.INVANARE_CANCELLED_LT_48, new Note(NoteType.BOOKING_DEVIATION, "No Show", new HoSPerson(new HsaId("SE160000000000-HAHAHHSLC"), "Lasse Kongo", "Läkare", "Danderydssjukhus", "AVD fmu")));
     	return deviation;
     }
 
@@ -1023,7 +1017,7 @@ public class ITRepositoryTest {
     
     private Note createNote(){
     	
-    	Note note = new Note(NoteType.EAVROP, "Test note", new HoSPerson("Test Testsson", "Testare", "AVD Testning"));
+    	Note note = new Note(NoteType.EAVROP, "Test note", new HoSPerson(new HsaId("SE160000000000-HAHAHHTST"),"Test Testsson", "Testare", "Test AB", "AVD Testning"));
     	return note;
     }
     

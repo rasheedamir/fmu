@@ -59,6 +59,10 @@
 		<loadData encoding="UTF-8" file="config/liquibase/eavrop.csv"
 			separator=";" tableName="T_EAVROP">
 		</loadData>
+		
+		<loadData encoding="UTF-8" file="config/liquibase/eavrop_intyg.csv"
+			separator=";" tableName="R_EAVROP_INTYG">
+		</loadData>
 
 		<loadData encoding="UTF-8" file="config/liquibase/bookings.csv"
 			separator=";" tableName="T_BOOKING">

@@ -209,7 +209,7 @@ public abstract class AbstractEavropStateTest {
 		PersonalNumber pnr = new PersonalNumber("5604262214");
 		Name name = new Name("Oscar",  "II", "Adolf");
 		Address address = new Address("Slottsbacken 1","11122","Stockholm","SWEDEN");
-		return new Invanare(pnr,name, Gender.MALE, address,"test@test.com",null);
+		return new Invanare(pnr,name, Gender.MALE, address, "555-1233445", "test@test.com",null);
 	}
 	
 	protected Vardgivarenhet createVardgivarenhet(){
@@ -235,7 +235,7 @@ public abstract class AbstractEavropStateTest {
 	
 	
 	protected Person createPerson(){
-		return new HoSPerson("Petter Olovsson", "Läkare", "Stafettläkarna");
+		return new HoSPerson(new HsaId("SE160000000000-HAHAHHSAL"), "Petter Olovsson", "Läkare", "Stafettläkarna", "Ortopeden");
 	}
 	
 	protected Note createDocumentRequestNote(){

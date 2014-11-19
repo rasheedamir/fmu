@@ -106,7 +106,18 @@
         <fmu-handlingar-table handlingar="documents"></fmu-handlingar-table>
         <h2>Tillägg</h2>
         <fmu-tillagg-table tillagg="requestedDocuments"></fmu-tillagg-table>
+
         <h2>Utredning</h2>
+        <div>
+            <fmu-utredning-table
+                    table-parameters="tableParameters"
+                    header-fields="headerFields"
+                    eavropid="currentEavropId"
+                    row-modifiable="false"
+                    get-data-callback="getTableCellValue">
+            </fmu-utredning-table>
+        </div>
+
         <h2>Anteckningar</h2>
         <div class="fmu-table-k">
             <table>

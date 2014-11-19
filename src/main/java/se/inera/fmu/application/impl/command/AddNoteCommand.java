@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 import se.inera.fmu.domain.model.eavrop.EavropId;
+import se.inera.fmu.domain.model.hos.hsa.HsaId;
 
 
 /**
@@ -16,6 +17,7 @@ import se.inera.fmu.domain.model.eavrop.EavropId;
 public class AddNoteCommand {
 	@NonNull private EavropId eavropId;
 	@NonNull private String text;
+	@NonNull private HsaId personHsaId;
 	private String personName;
     private String personRole;
     private String personOrganisation;

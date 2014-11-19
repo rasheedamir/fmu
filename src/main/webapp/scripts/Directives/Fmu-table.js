@@ -1,7 +1,7 @@
 'use strict';
 angular.module('fmuClientApp')
-    .directive('fmuTable', ['ngTableParams', '$filter', 'EavropService',
-        function (ngTableParams, $filter, EavropService) {
+    .directive('fmuTable', ['ngTableParams','$state', '$filter', 'EavropService', 'EAVROP_TABLE',
+        function (ngTableParams, $state, $filter, EavropService, EAVROP_TABLE) {
             return {
                 restrict: 'E',
                 scope: {
@@ -16,7 +16,14 @@ angular.module('fmuClientApp')
                     getDataCallback: '&'
                 },
                 controller: function ($scope) {
+                    $scope.isSortable = function (key) {
+                        return EAVROP_TABLE.sortKeyMap.hasOwnProperty(key);
+                    };
                     $scope.sort = function (key) {
+                        if(!$scope.isSortable(key)){
+                            return;
+                        }
+
                         var params = {};
                         params[key] = $scope.tableParams.isSortBy(key, 'asc') ? 'desc' : 'asc';
                         $scope.tableParams.sorting(params);
@@ -61,7 +68,7 @@ angular.module('fmuClientApp')
                     };
 
                     scope.rowClicked = function (row) {
-
+                        $state.go('eavrop.order.contents', {eavropId: row.eavropId});
                     };
 
                     scope.initTableParameters();

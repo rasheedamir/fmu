@@ -15,6 +15,6 @@ public class PriorMedicalExaminationUtil {
     public static final String EMAIL = "jan.janssonn@ksjh.se";
 
 	public static PriorMedicalExamination createPriorMedicalExamination() {
-		return new PriorMedicalExamination(EXAMINED_AT, MEDICAL_LEAVE_ISSUED_AT, new HoSPerson(NAME, ROLE, ORGANISATION, UNIT)); 
+		return new PriorMedicalExamination(EXAMINED_AT, MEDICAL_LEAVE_ISSUED_AT, new HoSPerson(null, NAME, ROLE, ORGANISATION, UNIT)); 
 	}
 }

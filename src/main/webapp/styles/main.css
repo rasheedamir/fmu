@@ -142,9 +142,9 @@ ul#strength {
 .table-wrapper {
     overflow-x: auto;
     margin-top: 20px;
-    box-shadow: 0px 3px 3px 2px #999;
     padding: 10px;
-    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0.5px 0.5px 1px 1px #999;
+    border-radius: 2px;
 }
 
 
@@ -157,7 +157,7 @@ ul#strength {
 }
 
 .fmu-table > thead > tr:nth-child(2) {
-    background-color: rgb(26, 54, 66);
+    background-color: #3c4e57;
 }
 
 .fmu-table > thead > tr > th,
@@ -178,11 +178,11 @@ ul#strength {
 
 /* Data headers */
 .fmu-table > thead > tr:last-child > th:first-child {
-    border-radius: 10px 0 0 0;
+    border-radius: 5px 0 0 0;
 }
 
 .fmu-table > thead > tr:last-child > th:last-child {
-    border-radius: 0 10px 0 0;
+    border-radius: 0 5px 0 0;
 }
 
 /* Data fields */
@@ -378,7 +378,8 @@ ul#strength {
 
 
 .fmu-table-k {
-	margin:0px;padding:0px;
+	margin:0px;
+    padding:0px;
     margin-bottom: 1em;
 	width:100%;
 	border:1px solid #999999;
@@ -541,16 +542,19 @@ h2{
     border: 1px solid rgba(255, 75, 73, 0.5);
     background-color: rgba(255, 75, 73, 0.5);
     padding: 0.5em;
+    margin: 0.5em;
 }
 
 .fmu-error-field p i {
     color: #000000;
+    font-size: 9pt;
 }
 
 .fmu-form-container {
     display: block;
     position: relative;
     border-collapse: separate;
+    margin: 1em;
 }
 
 .fmu-form-header {
@@ -577,7 +581,9 @@ h2{
     width: 100%;
     text-align: left;
     padding-left: 1em;
+/*
     padding-right: 1em;
+*/
     padding-top: 1em;
     border-top: 1px solid #ddd;
 }
@@ -592,4 +598,13 @@ h2{
 
 .dropdown-menu {
     z-index: 1000;
+}
+
+.utredning-laggtill-btn {
+    display: inline-block;
+    float: right;
+}
+
+.ng-table th {
+    text-align: left;
 }

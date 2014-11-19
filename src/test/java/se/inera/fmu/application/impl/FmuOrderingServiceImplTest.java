@@ -2,7 +2,9 @@ package se.inera.fmu.application.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +14,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.DomainEventPublisher;
-import se.inera.fmu.application.impl.FmuOrderingServiceImpl;
 import se.inera.fmu.application.impl.command.CreateEavropCommand;
 import se.inera.fmu.application.util.BestallaradministratorUtil;
 import se.inera.fmu.application.util.EavropUtil;
@@ -27,7 +28,6 @@ import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
-import se.inera.fmu.domain.model.eavrop.invanare.medicalexamination.PriorMedicalExamination;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
@@ -76,7 +76,7 @@ public class FmuOrderingServiceImplTest {
 
     @Before
     public void setUp() {
-        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, configuration, eventPublisher, landstingRepository, currentUserService, vgRepository, null);
+        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, configuration, eventPublisher, landstingRepository, currentUserService, vgRepository, null, null, null);
     }
 
     @Test
@@ -85,7 +85,7 @@ public class FmuOrderingServiceImplTest {
         final Invanare savedPatient = stubRepositoryToReturnPatientOnSave();
         final ArendeId arendeId = fmuOrderingService.createEavrop(new CreateEavropCommand(
         		EavropUtil.ARENDE_ID, EavropUtil.UTREDNING_TYPE,  EavropUtil.TOLK, InvanareUtil.PERSONAL_NUMBER, InvanareUtil.NAME, 
-        		InvanareUtil.GENDER, InvanareUtil.HOME_ADDRESS, InvanareUtil.EMAIL, InvanareUtil.SPECIAL_NEED, LandstingUtil.createLandsting(), 
+        		InvanareUtil.GENDER, InvanareUtil.HOME_ADDRESS, InvanareUtil.PHONE, InvanareUtil.EMAIL, InvanareUtil.SPECIAL_NEED, LandstingUtil.createLandsting(), 
                 BestallaradministratorUtil.NAME, BestallaradministratorUtil.BEFATTNING, BestallaradministratorUtil.ORGANISATION, 
                 BestallaradministratorUtil.UNIT, BestallaradministratorUtil.PHONE, BestallaradministratorUtil.EMAIL, EavropUtil.DESCRIPTION, 
                 EavropUtil.UTREDNING_FOCUS, EavropUtil.ADDITIONAL_INFORMATION, PriorMedicalExaminationUtil.EXAMINED_AT, 

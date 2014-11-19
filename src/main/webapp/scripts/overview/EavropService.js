@@ -18,9 +18,31 @@ angular.module('fmuClientApp').factory('EavropService', ['$q', '$http', 'RestUrl
                     return data.data;
                 }, function(err) {
                     // Failed to retrieve data
-                    console.log('error loading data');
                     return $q.reject(err.data);
                 });
+            },
+
+            addNote: function (dataPackage) {
+                return $http.post(RestUrlBuilderService.buildAddNoteRestUrl(), dataPackage)
+                    .then(function(data) {
+                        // Success
+                        return data.data;
+                    }, function(err) {
+                        // Failed to retrieve data
+                        return $q.reject(err.data);
+                    });
+            },
+
+            removeNote: function (eavropId, noteId) {
+                return $http.delete(RestUrlBuilderService.buildRemoveNoteRestUrl(eavropId, noteId))
+                    .then(function(data) {
+                        // Success
+                        return data.data;
+                    }, function(err) {
+                        // Failed to retrieve data
+                        return $q.reject(err.data);
+                    });
             }
         }
+
     }]);

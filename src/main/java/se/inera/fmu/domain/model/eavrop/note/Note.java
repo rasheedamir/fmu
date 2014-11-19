@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.ToString;
+import se.inera.fmu.domain.model.hos.hsa.HsaId;
+import se.inera.fmu.domain.model.person.HoSPerson;
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.ValueObject;
@@ -88,6 +90,26 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>, Compa
 
 	// ~ Other Methods ==================================================================================================
 
+	/**
+	 * Checks if the note has been created by the user with the specified HsaId and return true if that is so.
+	 * @param hsaId 
+	 * @return
+	 */
+	
+	public boolean isRemovableBy(HsaId hsaId){
+		Person person = getPerson();
+		if(getPerson()!=null){
+			if(person instanceof HoSPerson){
+				HoSPerson hosPerson = (HoSPerson)person;
+				if(hosPerson.getHsaId()!=null){
+					return hosPerson.getHsaId().equals(hsaId);
+				}
+			}
+		} 
+		return false;
+	}
+	
+	
 	/**
 	 * @param object to compare
 	 * @return True if they have the same value

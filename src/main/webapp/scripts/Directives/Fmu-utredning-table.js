@@ -1,28 +1,69 @@
 'use strict';
 angular.module('fmuClientApp')
-    .directive('fmuUtredningTable', ['ngTableParams', '$filter', 'UtredningService', 'ngDialog', 'UTREDNING_TABLE',
-        function (ngTableParams, $filter, UtredningService, ngDialog, UTREDNING_TABLE) {
+    .directive('fmuUtredningTable', ['ngTableParams', '$filter', 'UtredningService', 'ngDialog', 'UTREDNING',
+        function (ngTableParams, $filter, UtredningService, ngDialog, UTREDNING) {
             return {
                 restrict: 'E',
                 scope: {
                     tableParams: '=?tableParameters',
                     headerGroups: '=?',
                     headerFields: '=',
-                    dateKey: '@',
                     footerHints: '=?',
-                    startDate: '=?',
-                    endDate: '=?',
                     eavropid: '=',
-                    getDataCallback: '&'
+                    getDataCallback: '&',
+                    rowModifiable: '=?'
                 },
                 controller: function ($scope) {
-                    $scope.tableConstants = UTREDNING_TABLE;
-                    $scope.isEditColumn = function (key) {
-                        return key == 'edit';
+                    function createDataPackage(bookingId, newStatus, comment) {
+                        return {
+                            eavropId: $scope.eavropid,
+                            bookingId: bookingId,
+                            bookingStatus: newStatus,
+                            comment: comment
+                        }
                     };
 
-                    $scope.openEditRow = function (row) {
+                    $scope.cancelChange = function (rowData) {
+                        $scope.toogleEditRow(rowData);
+                    };
+                    $scope.tableConstants = UTREDNING;
+                    // TODO when eavrop status is onhold disable editing functionalities
+                    $scope.isEditColumn = function (row) {
+                        return (row.tolkStatus || row.handelseStatus);
+                    };
+
+                    $scope.toogleEditRow = function (row) {
                         row.isEditExpanded = !row.isEditExpanded;
+                    };
+
+                    $scope.changeTolkStatus = function (rowData) {
+                        var dataPackage = createDataPackage(rowData.bookingId,
+                            rowData.selectedTolkStatus.name,
+                            rowData.selectedTolkStatus.requireComment ? rowData.tolkComment : null);
+                        var promise = UtredningService.changeTolkBooking(dataPackage);
+                        promise.then(function () {
+                                // Success
+                                $scope.toogleEditRow(rowData);
+                                $scope.tableParams.reload();
+                            },
+                            function () {
+                                // Failed
+                            });
+                    };
+
+                    $scope.changeHandelseStatus = function (rowData) {
+                        var dataPackage = createDataPackage(rowData.bookingId,
+                            rowData.selectedHandelseStatus.name,
+                            rowData.selectedHandelseStatus.requireComment ? rowData.handelseComment : null);
+                        var promise = UtredningService.changeBooking(dataPackage);
+                        promise.then(function () {
+                                // Success
+                                $scope.toogleEditRow(rowData);
+                                $scope.tableParams.reload();
+                            },
+                            function () {
+                                // Failed
+                            });
                     };
 
                     $scope.sort = function (key) {
@@ -45,8 +86,12 @@ angular.module('fmuClientApp')
                                         var promise = UtredningService.getAllEvents($scope.eavropid);
 
                                         promise.then(function (serverResponse) {
-                                            params.total(serverResponse.length);
-                                            $defer.resolve(serverResponse);
+                                            var orderedData = params.sorting() ?
+                                                $filter('orderBy')(serverResponse, params.orderBy()) :
+                                                serverResponse;
+
+                                            params.total(orderedData.length);
+                                            $defer.resolve(orderedData);
                                         })
                                     },
                                     $scope: $scope
@@ -68,3 +113,5 @@ angular.module('fmuClientApp')
                 templateUrl: 'views/templates/fmu-utredning-table.html'
             };
         }]);
+
+// TODO set default tolk/booking status and commenst in expanded tabs for indicating current stauses

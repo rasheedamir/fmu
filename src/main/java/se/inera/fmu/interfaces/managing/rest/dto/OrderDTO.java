@@ -10,6 +10,13 @@ public class OrderDTO {
 	private String investigatorOrganization;
 	private String investigatorUnit;
 	private Long acceptanceDate;
+	private String interpreterLang;
+	private String valAvInriktning;
+	private String additionalInfo;
+	private String ordererName;
+	private String ordererPhone;
+	private String ordererEmail;
+	
 	public String getArendeId() {
 		return arendeId;
 	}
@@ -63,5 +70,41 @@ public class OrderDTO {
 	}
 	public void setAcceptanceDate(Long acceptanceDate) {
 		this.acceptanceDate = acceptanceDate;
+	}
+	public String getInterpreterLang() {
+		return interpreterLang;
+	}
+	public void setInterpreterLang(String interpreterLang) {
+		this.interpreterLang = interpreterLang;
+	}
+	public String getValAvInriktning() {
+		return valAvInriktning;
+	}
+	public void setValAvInriktning(String valAvInriktning) {
+		this.valAvInriktning = valAvInriktning;
+	}
+	public String getAdditionalInfo() {
+		return additionalInfo;
+	}
+	public void setAdditionalInfo(String additionalInfo) {
+		this.additionalInfo = additionalInfo;
+	}
+	public String getOrdererName() {
+		return ordererName;
+	}
+	public void setOrdererName(String ordererName) {
+		this.ordererName = ordererName;
+	}
+	public String getOrdererPhone() {
+		return ordererPhone;
+	}
+	public void setOrdererPhone(String ordererPhone) {
+		this.ordererPhone = ordererPhone;
+	}
+	public String getOrdererEmail() {
+		return ordererEmail;
+	}
+	public void setOrdererEmail(String ordererEmail) {
+		this.ordererEmail = ordererEmail;
 	}
 }

@@ -3,12 +3,13 @@
 /* Constants */
 angular.module('fmuClientApp')
     .constant('RESTURL', {
-        eavrop: '/eavrop/:eavropId',
+        eavrop: 'app/rest/eavrop/:eavropId',
         eavropDocuments: 'app/rest/eavrop/:eavropId/received-documents',
         eavropRequestedDocuments: 'app/rest/eavrop/:eavropId/requested-documents',
         eavropNotes: 'app/rest/eavrop/:eavropId/notes',
         eavropAllEvents: 'app/rest/eavrop/:eavropId/all-events',
-        eavropOrder: 'app/rest/eavrop/:eavropId/order'
+        eavropOrder: 'app/rest/eavrop/:eavropId/order',
+        eavropPatient: 'app/rest/eavrop/:eavropId/patient'
     })
     .constant('EAVROP_TABLE', {
         dateFormat: 'yyyy-MM-dd',
@@ -18,15 +19,7 @@ angular.module('fmuClientApp')
 
             arendeId: 'arendeId',
             utredningType: 'utredningType',
-            bestallareEnhet: 'bestallaradministrator',
-            bestallareOrganisation: 'bestallaradministrator',
-            creationTime: 'documentsSentFromBestallareDateTime',
-            patientCity: 'invanare',
-            mottagarenOrganisation: 'currentAssignment',
-            status: 'eavropState',
-            antalDagarEfterForfragan: null,
-            color: null,
-            avikelser: null
+            status: 'eavropState'
         },
         statusMapping: {
             UNASSIGNED: 'Förfrågan om utredning har inkommit',
@@ -42,17 +35,17 @@ angular.module('fmuClientApp')
             false: 'Nej'
         }
     })
-    .constant('UTREDNING_TABLE', {
+    .constant('UTREDNING', {
         dateFormat: 'yyyy-MM-dd',
         statusMapping: {
             INTYG_APPROVED: 'Intyg godkänt',
             INTYG_COMPLEMENT_REQUEST: 'Intyg kompleteras',
-            INTYG_SIGNED : 'Intyg signeras',
-            EAVROP_APPROVED : 'Utredningen godkänts',
-            EAVROP_COMPENSATION_APPROVED : 'Utredningens godkänts för utbetalning',
+            INTYG_SIGNED: 'Intyg signeras',
+            EAVROP_APPROVED: 'Utredningen godkänts',
+            EAVROP_COMPENSATION_APPROVED: 'Utredningens godkänts för utbetalning',
             UNKNOWN: 'Okänt handelse',
             EXAMINATION: 'Examination',
-            BREIFING_WITH_CITIZEN : 'Möte med patient',
+            BREIFING_WITH_CITIZEN: 'Möte med patient',
             INTERNAL_WORK: 'Internt arbete'
         },
 
@@ -68,21 +61,29 @@ angular.module('fmuClientApp')
         },
 
         tolkMapping: {
-            BOOKED: 'Bokat',
-            PERFORMED: 'Tolkning genomförd',
-            CANCELED: 'Tolk avbokad',
-            NOT_PRESENT: 'Tolk uteblev',
-            PRESENT_BUT_NOT_USED: 'Tolk anlänt, men tolkning inte använd'
+            INTERPPRETER_BOOKED: 'Bokat',
+            INTERPRETATION_PERFORMED: 'Tolkning genomförd',
+            INTERPPRETER_CANCELED: 'Tolk avbokad',
+            INTERPPRETER_NOT_PRESENT: 'Tolk uteblev',
+            INTERPPRETER_PRESENT_BUT_NOT_USED: 'Tolk anlänt, men tolkning inte använd'
         },
 
-        editableEvents: [
-            'EXAMINATION',
-            'BREIFING_WITH_CITIZEN',
-            'INTERNAL_WORK'
-        ]
+        editableEvents: {
+            examination: 'EXAMINATION',
+            briefing: 'BREIFING_WITH_CITIZEN',
+            internalWork: 'INTERNAL_WORK'
+        },
+
+        errors: {
+            cannotCreateBooking: 'Bookningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda'
+        }
     })
     .constant('EAVROP_STATUS', {
         notAccepted: 'NOT_ACCEPTED',
         accepted: 'ACCEPTED',
         completed: 'COMPLETED'
+    })
+    .constant('EAVROP_NOTES', {
+        cannotAdd: 'Anteckningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda',
+        cannotRemove: 'Fel uppstod vid bortagning av anteckning, detta kan beror på att du inte har rätt behörighet att genomföra denna förfrågan'
     });

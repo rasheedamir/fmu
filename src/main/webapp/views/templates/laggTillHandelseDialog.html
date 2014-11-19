@@ -1,31 +1,33 @@
 <div class="fmu-form-container" ng-controller="UtredningController">
     <!--Typ-->
-    <div class="modal-header fmu-form-header">
+    <div class="fmu-form-header">
         <h1>Lägg till Händelse</h1>
     </div>
 
     <div class="fmu-form-body">
+        <fmu-error-field errors="createBookingErrors"></fmu-error-field>
+
         <div>
-            <h3>Typ av händelse</h3>
+            <label>Typ av händelse</label>
             <select class="form-control" ng-model="choosenHandelseType"
-                    ng-options="handelse.type for handelse in handelseTypes">
+                    ng-options="handelse.name for handelse in handelseTypes">
                 <option value="">-- Välj en händelse --</option>
             </select>
         </div>
 
         <!--Datum-->
-        <div class="row" style="margin-left: 0">
+        <div>
             <div class="col-md-5" style="padding-top: 0.5em">
                 <fmu-datepicker title="Datum" date-model="handelseDate"></fmu-datepicker>
             </div>
 
             <div class="col-md-6">
                 <div class="col-md-6">
-                    <timepicker ng-model="startTime" hour-step="1" minute-step="10"
-                                show-meridian="true"></timepicker>
+                    <timepicker ng-model="handelseStartTime" hour-step="1" minute-step="10"
+                                show-meridian="false"></timepicker>
                 </div>
                 <div class="col-md-6">
-                    <timepicker ng-model="endTime" hour-step="1" minute-step="10" show-meridian="true"></timepicker>
+                    <timepicker ng-model="handelseEndTime" hour-step="1" minute-step="10" show-meridian="false"></timepicker>
                 </div>
             </div>
         </div>
@@ -34,12 +36,12 @@
 
         <div class="row">
             <div class="col-md-5">
-                <h3>Person</h3>
-                <input class="form-control" ng-model="personNAme">
+                <label>Person</label>
+                <input class="form-control" ng-model="personName">
             </div>
 
             <div class="col-md-6">
-                <h3>Roll</h3>
+                <label>Roll</label>
                 <select class="form-control" ng-model="choosenRole"
                         ng-options="role.name for role in roles">
                     <option value="">-- Välj en roll --</option>
@@ -48,14 +50,27 @@
         </div>
 
         <div>
-            <label>Tolk ?</label>
+            <label>Tillägg Tjänst</label>
             <div class="radio">
                 <label>
-                    <input ng-model="tolkRadio" type="radio" value="false"> Ja
+                    <input ng-model="tillaggRadio" type="radio" value="true"> Ja
                 </label>
 
                 <label>
-                    <input ng-model="tolkRadio" type="radio" value="true"> Nej
+                    <input ng-model="tillaggRadio" type="radio" value="false"> Nej
+                </label>
+            </div>
+        </div>
+
+        <div>
+            <label>Tolk ?</label>
+            <div class="radio">
+                <label>
+                    <input ng-model="tolkRadio" type="radio" value="true"> Ja
+                </label>
+
+                <label>
+                    <input ng-model="tolkRadio" type="radio" value="false"> Nej
                 </label>
             </div>
         </div>
@@ -67,7 +82,7 @@
                     ng-click="saveHandelse()">Spara
             </button>
             <button class="btn btn-warning"
-                    ng-click="cancelHandelse()">Avbryt
+                    ng-click="closeThisDialog()">Avbryt
             </button>
         </div>
     </div>

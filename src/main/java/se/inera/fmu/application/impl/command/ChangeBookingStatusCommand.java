@@ -6,6 +6,7 @@ import lombok.NonNull;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
+import se.inera.fmu.domain.model.hos.hsa.HsaId;
 
 /**
  * Created by Rickard on 11/12/14.
@@ -20,6 +21,7 @@ public class ChangeBookingStatusCommand {
     @NonNull private BookingId bookingId; 
     @NonNull private BookingStatusType bookingStatus; 
 	private String comment;
+	private HsaId personHsaId;
 	private String personName;
     private String personRole;
     private String personOrganisation;

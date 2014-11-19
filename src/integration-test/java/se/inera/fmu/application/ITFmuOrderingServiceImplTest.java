@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
- import javax.inject.Inject;
+import javax.inject.Inject;
 
 import lombok.extern.slf4j.Slf4j;
 

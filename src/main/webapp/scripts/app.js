@@ -56,6 +56,9 @@ angular.module('fmuClientApp', [
         resolve: {
             currentEavrop: function($stateParams, Eavrops){
                 return Eavrops.get({eavropId: $stateParams.eavropId});
+            },
+            patientInfo: function($stateParams, EavropPatient){
+            	return EavropPatient.get({eavropId: $stateParams.eavropId});
             }
         },
         controller: 'EavropCtrl',
@@ -68,7 +71,15 @@ angular.module('fmuClientApp', [
     })
     .state('eavrop.order.contents', {
         url: '/contents',
-        templateUrl: 'views/eavrop/order/contents.html'
+        resolve: {
+        	order: function($stateParams, EavropOrder){
+        		return EavropOrder.get({eavropId: $stateParams.eavropId});
+        	}
+        },
+        templateUrl: 'views/eavrop/order/contents.html',
+        controller: function($scope, order){
+        	$scope.order = order;
+        }
     })
     .state('eavrop.order.documents', {
         url: '/documents',
@@ -139,7 +150,11 @@ angular.module('fmuClientApp', [
                 });
 
                 mod.result.then(function(result){
-                    new Documents(result).$save({eavropId: $stateParams.eavropId}).then(function(){
+                	var payload = {
+                			name: result.name,
+                			regDate: result.regDate.getTime()
+                	};
+                    new Documents(payload).$save({eavropId: $stateParams.eavropId}).then(function(){
                         loadDocuments();
                     });
                 });
@@ -148,7 +163,13 @@ angular.module('fmuClientApp', [
     })
     .state('eavrop.order.citizen', {
         url: '/citizen',
-        templateUrl: 'views/eavrop/order/citizen.html'
+        templateUrl: 'views/eavrop/order/citizen.html',
+        resolve:{
+        	patient: function(EavropPatient, $stateParams){return EavropPatient.get({eavropId: $stateParams.eavropId});}
+        },
+        controller: function($scope, patient){
+        	$scope.patient = patient;
+        }
     })
     .state('eavrop.allevents', {
         url: '/all-events',
@@ -159,7 +180,11 @@ angular.module('fmuClientApp', [
             allevents: function(EavropAllEvents, $stateParams){return EavropAllEvents.get({eavropId: $stateParams.eavropId});},
             order: function(EavropOrder, $stateParams){return EavropOrder.get({eavropId: $stateParams.eavropId});}
         },
-        controller: function($scope, documents, requestedDocuments, notes, allevents, order){
+        controller: function($scope,$stateParams, documents, requestedDocuments, notes, allevents, order, UtredningService){
+            $scope.headerFields = UtredningService.getTableFields();
+            $scope.getTableCellValue = UtredningService.getTableCellValue;
+            $scope.currentEavropId = $stateParams.eavropId;
+
             $scope.documents = documents;
             $scope.notes = notes;
             $scope.requestedDocuments = requestedDocuments;
@@ -180,7 +205,22 @@ angular.module('fmuClientApp', [
     .state('eavrop.notes', {
         url: '/notes',
         templateUrl: 'views/eavrop/notes.html',
-        controller: function($scope, $modal, $stateParams, EavropNotes){
+        controller: function($scope, $modal, $filter, $stateParams, EavropNotes, EavropService, EAVROP_NOTES){
+            $scope.toYYMMDD = function (date) {
+                return $filter('date')(date, 'yyyy-MM-dd');
+            };
+
+            $scope.removeNote = function (noteData) {
+                if(noteData && noteData.removable){
+                    var promise = EavropService.removeNote($stateParams.eavropId, noteData.noteId);
+                    promise.then(function () {
+                        loadNotes();
+                    }, function () {
+                        $scope.noteError = [EavropNotes.cannotRemove];
+                    });
+                }
+            };
+
             function loadNotes(){
                 $scope.notes = EavropNotes.query({eavropId: $stateParams.eavropId});
             }
@@ -189,10 +229,10 @@ angular.module('fmuClientApp', [
                 var modalInstance = $modal.open({
                     templateUrl: 'views/eavrop/add-note-modal.html',
                     size: 'md',
-                    controller: function($scope, EavropNotes){
+                    controller: function($scope, EavropNotes, EAVROP_NOTES){
                         $scope.picker = {opened: false}
                         $scope.note = new EavropNotes({
-                            content: 'asd',
+                            content: '',
                             createdDate: new Date()
                         });
                         $scope.open = function($event){
@@ -201,19 +241,28 @@ angular.module('fmuClientApp', [
                             $scope.picker.opened = true;
                         };
 
+                        function createNoteDateObject(){
+                            return {
+                                eavropId: $stateParams.eavropId,
+                                text: $scope.note.content
+                            }
+                        };
+
                         $scope.save = function(){
-                            modalInstance.close($scope.note);
+                            var promise = EavropService.addNote(createNoteDateObject());
+                            promise.then(function () {
+                                // Success
+                                modalInstance.close();
+                                loadNotes();
+                            }, function () {
+                                // Failed
+                                $scope.noteError = [EAVROP_NOTES.cannotAdd];
+                            });
                         },
                         $scope.close = function(){
                             modalInstance.dismiss();
                         }
                     }
-                });
-
-                modalInstance.result.then(function(result){
-                    result.$save({eavropId: $stateParams.eavropId}).then(function(){
-                        loadNotes();
-                    });
                 });
             }
         }
