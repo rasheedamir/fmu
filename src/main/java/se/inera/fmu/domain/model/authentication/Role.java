@@ -1,6 +1,6 @@
 package se.inera.fmu.domain.model.authentication;
 
 public enum Role {
-	LANDSTINGSSAMORDNARE,
-	UTREDARE
+	ROLE_SAMORDNARE,
+	ROLE_UTREDARE
 }

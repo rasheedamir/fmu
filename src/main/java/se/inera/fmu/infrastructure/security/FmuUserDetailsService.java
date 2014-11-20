@@ -37,12 +37,12 @@ public class FmuUserDetailsService implements SAMLUserDetailsService {
 		User user = createFmuUser(assertion);
 		
 		if(user.getVardenhetHsaId() != null && user.getVardenhetHsaId().isEmpty() == false){
-			user.getRoles().add(Role.UTREDARE);	
+			user.getRoles().add(Role.ROLE_UTREDARE);	
 		}
 		
 		Landstingssamordnare landstingssamordnare = ltSamordnareRepo.findByHsaId(new HsaId(user.getHsaId()));
 		if(landstingssamordnare != null){
-			user.getRoles().add(Role.LANDSTINGSSAMORDNARE);
+			user.getRoles().add(Role.ROLE_SAMORDNARE);
 		}
 		
 		user.setActiveRole(user.getRoles().get(0));

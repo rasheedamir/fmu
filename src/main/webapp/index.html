@@ -48,7 +48,7 @@
                 <tr ng-repeat="role in roles">
                     <td>{{role}}</td><td>
                             <input type="button" class="btn btn-xs btn-danger" value="-" ng-click="removeRole(role)" ng-show="hasRole(role)"/>
-                            <input type="button" class="btn btn-xs" value="+" ng-click="addRole(role)" ng-show="!hasRole(role)"/>
+                            <input type="button" class="btn btn-xs" value="+" ng-click="changeRole(role)" ng-show="!hasRole(role)"/>
                     </td>                
                 </tr>
             </table>

@@ -72,7 +72,7 @@ public class ITEavropRestControllerTest {
 	@Test
 	public void loggedInasLandstingSamordnareNotAccepted() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.LANDSTINGSSAMORDNARE);
+				Role.ROLE_SAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 
 		DateTime startDate = new DateTime(1990, 1, 1, 0, 0, 0);
@@ -95,7 +95,7 @@ public class ITEavropRestControllerTest {
 	@Test
 	public void loggedInasLandstingSamordnareAccepted() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.LANDSTINGSSAMORDNARE);
+				Role.ROLE_SAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 
 		DateTime startDate = new DateTime(1990, 1, 1, 0, 0, 0);
@@ -118,7 +118,7 @@ public class ITEavropRestControllerTest {
 	@Test
 	public void loggedInasLandstingSamordnareCompleted() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.LANDSTINGSSAMORDNARE);
+				Role.ROLE_SAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 
 		DateTime startDate = new DateTime(1990, 1, 1, 0, 0, 0);
@@ -140,7 +140,7 @@ public class ITEavropRestControllerTest {
 
 	@Test
 	public void loggedInasUtredareNotAccepted() throws Exception {
-		this.currentUserService.getCurrentUser().setActiveRole(Role.UTREDARE);
+		this.currentUserService.getCurrentUser().setActiveRole(Role.ROLE_UTREDARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 
 		DateTime startDate = new DateTime(1990, 1, 1, 0, 0, 0);
@@ -162,7 +162,7 @@ public class ITEavropRestControllerTest {
 
 	@Test
 	public void loggedInasUtredareAccepted() throws Exception {
-		this.currentUserService.getCurrentUser().setActiveRole(Role.UTREDARE);
+		this.currentUserService.getCurrentUser().setActiveRole(Role.ROLE_UTREDARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 
 		DateTime startDate = new DateTime(1990, 1, 1, 0, 0, 0);
@@ -184,7 +184,7 @@ public class ITEavropRestControllerTest {
 
 	@Test
 	public void loggedInasUtredareCompleted() throws Exception {
-		this.currentUserService.getCurrentUser().setActiveRole(Role.UTREDARE);
+		this.currentUserService.getCurrentUser().setActiveRole(Role.ROLE_UTREDARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 
 		DateTime startDate = new DateTime(1990, 1, 1, 0, 0, 0);
@@ -207,7 +207,7 @@ public class ITEavropRestControllerTest {
 	@Test
 	public void getEavropEvents() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.LANDSTINGSSAMORDNARE);
+				Role.ROLE_SAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 
 		MvcResult result = restMock
@@ -224,7 +224,7 @@ public class ITEavropRestControllerTest {
 	@Test
 	public void createBookingTest() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.LANDSTINGSSAMORDNARE);
+				Role.ROLE_SAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 		BookingRequestDTO booking = new BookingRequestDTO();
 		booking.setEavropId("3");
@@ -258,7 +258,7 @@ public class ITEavropRestControllerTest {
 	public void changeBookingTest() throws Exception {
 		// Set login credencials
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.LANDSTINGSSAMORDNARE);
+				Role.ROLE_SAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 
 		// Create a booking
@@ -324,7 +324,7 @@ public class ITEavropRestControllerTest {
 	@Test
 	public void addNoteTest() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.LANDSTINGSSAMORDNARE);
+				Role.ROLE_SAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 		AddNoteRequestDTO addRequest = new AddNoteRequestDTO();
 		addRequest.setEavropId("3")
@@ -340,7 +340,7 @@ public class ITEavropRestControllerTest {
 	@Test
 	public void removeNoteTest() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.LANDSTINGSSAMORDNARE);
+				Role.ROLE_SAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 		
 		// Add note
