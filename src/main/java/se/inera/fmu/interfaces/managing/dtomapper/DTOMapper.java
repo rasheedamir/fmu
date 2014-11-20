@@ -40,8 +40,8 @@ public class DTOMapper {
 				eavrop.getCurrentAssignedVardgivarenhet().getUnitName() : null)
 		.setUtredareAnsvarigNamn(eavrop.getIntygSigningPerson() != null ?
 				eavrop.getIntygSigningPerson().getName() :  null)
-		.setIntygDeliveredDate(eavrop.getIntygSignedDateTime() != null ?
-				eavrop.getIntygSignedDateTime().getMillis() : null)
+		.setIntygDeliveredDate(eavrop.getIntygSentDateTime() != null ?
+				eavrop.getIntygSentDateTime().getMillis() : null)
 		.setIsIntygComplete(eavrop.isApproved())
 		.setEavropApprovedForPayment(eavrop.getEavropCompensationApproval() != null ?
 				eavrop.getEavropCompensationApproval().isApproved() : null)

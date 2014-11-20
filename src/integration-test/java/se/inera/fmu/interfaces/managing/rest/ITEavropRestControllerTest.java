@@ -289,7 +289,7 @@ public class ITEavropRestControllerTest {
 		
 		TolkBookingModificationRequestDTO tolkModificationRequest = new TolkBookingModificationRequestDTO();
 		tolkModificationRequest.setBookingId(bookingId)
-		  .setBookingStatus(InterpreterBookingStatusType.INTERPPRETER_NOT_PRESENT)
+		  .setBookingStatus(InterpreterBookingStatusType.INTERPRETER_NOT_PRESENT)
 		  .setEavropId("3")
 		  .setComment("This tolk is bad");
 
@@ -316,7 +316,7 @@ public class ITEavropRestControllerTest {
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$", hasSize(1)))
-				.andExpect(jsonPath("$[0].tolkStatus.currentStatus.name", is("INTERPPRETER_NOT_PRESENT")))
+				.andExpect(jsonPath("$[0].tolkStatus.currentStatus.name", is("INTERPRETER_NOT_PRESENT")))
 				.andExpect(jsonPath("$[0].handelseStatus.currentStatus.name", is("CANCELLED_NOT_PRESENT")))
 				.andExpect(jsonPath("$[0].tolkStatus.comment", is("This tolk is bad")))
 				.andExpect(jsonPath("$[0].handelseStatus.comment", is("This booking is bad")))

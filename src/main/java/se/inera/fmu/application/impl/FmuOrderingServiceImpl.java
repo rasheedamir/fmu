@@ -268,7 +268,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 								startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs));
 			case COMPLETED:
 				return constructOverviewDTO(this.fmuListService
-						.findAllCompletedEavropByLandstingAndDateTimeSigned(landsting, startDate,
+						.findAllCompletedEavropByLandstingAndDateTimeSent(landsting, startDate,
 								endDate, paginationSpecs));
 			default:
 				return null;
@@ -291,7 +291,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 								startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs));
 			case COMPLETED:
 				return constructOverviewDTO(this.fmuListService
-						.findAllCompletedEavropByVardgivarenhetAndDateTimeSigned(vardgivarenhet,
+						.findAllCompletedEavropByVardgivarenhetAndDateTimeSent(vardgivarenhet,
 								startDate, endDate, paginationSpecs));
 			default:
 				return null;

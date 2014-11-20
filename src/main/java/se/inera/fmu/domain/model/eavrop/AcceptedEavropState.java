@@ -10,7 +10,7 @@ import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygComplementRequestInformation;
-import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedInformation;
+import se.inera.fmu.domain.model.eavrop.intyg.IntygSentInformation;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 
 /**
@@ -89,7 +89,6 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 	public void setInterpreterBookingStatus(Eavrop eavrop, BookingId bookingId, InterpreterBookingStatusType interpreterStatus, Note cancelNote) {
 		Booking booking = eavrop.getBooking(bookingId);
 		if(booking.getInterpreterBooking() == null){
-			//TODO: create separate state machine for bookings
 			throw new IllegalArgumentException(String.format("Booking %s on eavrop %s has no interpreter booked", bookingId.toString(), eavrop.getEavropId().toString()));
 		}
 		
@@ -98,37 +97,18 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 		interpreter.setDeviationNote(cancelNote);
 	}
 	
-//	@Override
-//	public void approveEavrop(Eavrop eavrop, EavropApproval eavropApproval){
-//		eavrop.setEavropApproval(eavropApproval);
-//		
-//		//State transition ACCEPTED -> APPROVED
-//		eavrop.setEavropState(new ApprovedEavropState());
-//	}
-	
 	@Override
-	public void addIntygSignedInformation(Eavrop eavrop, IntygSignedInformation intygSignedInformation){
-		eavrop.addToIntygSignedInformation(intygSignedInformation);
+	public void addIntygSentInformation(Eavrop eavrop, IntygSentInformation intygSentInformation){
+		eavrop.addToIntygSentInformation(intygSentInformation);
 		
 		//State transition ACCEPTED -> SENT
 		eavrop.setEavropState(new SentEavropState());
 	}
 	
-//	@Override
-//	public void addIntygComplementRequestInformation(Eavrop eavrop, IntygComplementRequestInformation intygComplementRequestInformation){
-//		eavrop.addToIntygComplementRequestInformation(intygComplementRequestInformation);
-//		//No state transition
-//	}
-//	
-//	@Override
-//	public void addIntygApprovedInformation(Eavrop eavrop, IntygApprovedInformation intygApprovedInformation){
-//		eavrop.addToIntygApprovedInformation(intygApprovedInformation);
-//		//No state transition
-//	}
-	
 	@Override
 	public void addReceivedDocument(Eavrop eavrop, ReceivedDocument receivedDocument) {
 		eavrop.addToReceivedDocuments(receivedDocument);
+		//No state transition
 	}
 	
 	@Override

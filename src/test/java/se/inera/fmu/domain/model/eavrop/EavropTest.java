@@ -28,7 +28,7 @@ import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygComplementRequestInformation;
-import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedInformation;
+import se.inera.fmu.domain.model.eavrop.intyg.IntygSentInformation;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.note.Note;
@@ -246,7 +246,7 @@ public class EavropTest extends TestCase {
 
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 
-		eavrop.addIntygSignedInformation(createIntygSignedInformation(null));
+		eavrop.addIntygSentInformation(createIntygSentInformation(null));
 		
 		assertEquals(EavropStateType.SENT, eavrop.getStatus());
 		
@@ -254,7 +254,7 @@ public class EavropTest extends TestCase {
 		
 		assertEquals(EavropStateType.SENT, eavrop.getStatus());
 
-		eavrop.addIntygSignedInformation(createIntygSignedInformation(null));
+		eavrop.addIntygSentInformation(createIntygSentInformation(null));
 		
 		assertEquals(EavropStateType.SENT, eavrop.getStatus());
 
@@ -328,7 +328,7 @@ public class EavropTest extends TestCase {
 		
 		assertNotNull(eavrop.getStartDate());
 		
-		eavrop.addIntygSignedInformation(new IntygSignedInformation(new DateTime(2014,11,14,23,59),doctorPerson));
+		eavrop.addIntygSentInformation(new IntygSentInformation(new DateTime(2014,11,14,23,59),doctorPerson));
 		
 		assertEquals(false, eavrop.isEavropAssessmentDaysDeviated());
 		
@@ -514,7 +514,7 @@ public class EavropTest extends TestCase {
 		
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 		
-		eavrop.setInterpreterBookingStatus(booking.getBookingId(), InterpreterBookingStatusType.INTERPPRETER_NOT_PRESENT, new Note(NoteType.BOOKING_DEVIATION, "Tolk uteblev",doctorPerson));
+		eavrop.setInterpreterBookingStatus(booking.getBookingId(), InterpreterBookingStatusType.INTERPRETER_NOT_PRESENT, new Note(NoteType.BOOKING_DEVIATION, "Tolk uteblev",doctorPerson));
 		eavrop.setBookingStatus(booking.getBookingId(), BookingStatusType.CANCELLED_NOT_PRESENT, new Note(NoteType.BOOKING_DEVIATION, "Patient uteblev",doctorPerson));
 		
 		booking.getDeviationNote().setCreatedDate(start);
@@ -538,7 +538,7 @@ public class EavropTest extends TestCase {
 
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 
-		eavrop.addIntygSignedInformation(createIntygSignedInformation(start.plusHours(5)));
+		eavrop.addIntygSentInformation(createIntygSentInformation(start.plusHours(5)));
 		
 		assertEquals(EavropStateType.SENT, eavrop.getStatus());
 		
@@ -546,7 +546,7 @@ public class EavropTest extends TestCase {
 		
 		assertEquals(EavropStateType.SENT, eavrop.getStatus());
 
-		eavrop.addIntygSignedInformation(createIntygSignedInformation(new DateTime(2014,10,28,8,0)));
+		eavrop.addIntygSentInformation(createIntygSentInformation(new DateTime(2014,10,28,8,0)));
 		
 		assertEquals(EavropStateType.SENT, eavrop.getStatus());
 
@@ -578,7 +578,7 @@ public class EavropTest extends TestCase {
 		assertNotNull(eavrop.getCurrentAssignment().isAccepted());
 		assertNotNull(eavrop.getCurrentAssignment().getAssignmentResponseDateTime());
 		//6.Intyg skickat till beställaren
-		assertNotNull(eavrop.getIntygSignedDateTime());
+		assertNotNull(eavrop.getIntygSentDateTime());
 		//7. Antal avvikelser
 		assertNotNull(eavrop.getNumberOfDeviationsOnEavrop());
 		//8. Begärda kompletteringar till utredning.
@@ -588,7 +588,7 @@ public class EavropTest extends TestCase {
 		System.out.println(format.format(eavrop.getCreatedDate().toDate())+"\t\t"+format.format(eavrop.getDateTimeDocumentsSentFromBestallare().toDate())+"\t\t"+eavrop.getNoOfAssesmentDays()+"\t\t\t"+(eavrop.getRequestedDocuments().size()+eavrop.getReceivedDocuments().size()));
 		System.out.println();
 		System.out.println("Acceptans av utred.\tIntyg skickat\t\tAntal avvikelser\tBegärda kompletteringar");
-		System.out.println(format.format(eavrop.getCurrentAssignment().getAssignmentResponseDateTime().toDate())+"\t\t"+format.format(eavrop.getIntygSignedDateTime().toDate())+"\t\t"+eavrop.getNumberOfDeviationsOnEavrop()+"\t\t\t"+eavrop.getNoOfIntygComplementRequests());
+		System.out.println(format.format(eavrop.getCurrentAssignment().getAssignmentResponseDateTime().toDate())+"\t\t"+format.format(eavrop.getIntygSentDateTime().toDate())+"\t\t"+eavrop.getNumberOfDeviationsOnEavrop()+"\t\t\t"+eavrop.getNoOfIntygComplementRequests());
 		System.out.println();
 		
 		//Beställning
@@ -751,7 +751,7 @@ public class EavropTest extends TestCase {
 		DateTime start = new DateTime(2014,10,20,8,0);
 		Booking booking = new Booking(BookingType.EXAMINATION, start,start.plusHours(1), Boolean.TRUE, doctorPerson, Boolean.TRUE);
 		eavrop.addBooking(booking);
-		eavrop.setInterpreterBookingStatus(booking.getBookingId(), InterpreterBookingStatusType.INTERPPRETER_NOT_PRESENT, new Note(NoteType.BOOKING_DEVIATION, "Tolk uteblev",doctorPerson));
+		eavrop.setInterpreterBookingStatus(booking.getBookingId(), InterpreterBookingStatusType.INTERPRETER_NOT_PRESENT, new Note(NoteType.BOOKING_DEVIATION, "Tolk uteblev",doctorPerson));
 		eavrop.setBookingStatus(booking.getBookingId(), BookingStatusType.CANCELLED_NOT_PRESENT, new Note(NoteType.BOOKING_DEVIATION, "Patient uteblev",doctorPerson));
 		booking.getDeviationNote().setCreatedDate(start);
 		booking.getInterpreterBooking().getDeviationNote().setCreatedDate(start);
@@ -762,9 +762,9 @@ public class EavropTest extends TestCase {
 		booking = new Booking(BookingType.EXAMINATION, start,start.plusHours(1),Boolean.TRUE, doctorPerson, Boolean.TRUE);
 		eavrop.addBooking(booking);
 		eavrop.setBookingStatus(booking.getBookingId(), BookingStatusType.PERFORMED, null);
-		eavrop.addIntygSignedInformation(createIntygSignedInformation(start.plusHours(5)));
+		eavrop.addIntygSentInformation(createIntygSentInformation(start.plusHours(5)));
 		eavrop.addIntygComplementRequestInformation(createIntygComplementRequestInformation(new DateTime(2014,10,27,8,0)));
-		eavrop.addIntygSignedInformation(createIntygSignedInformation(new DateTime(2014,11,15,8,0)));
+		eavrop.addIntygSentInformation(createIntygSentInformation(new DateTime(2014,11,15,8,0)));
 		eavrop.addIntygApprovedInformation(createIntygApprovedInformation(new DateTime(2014,11,16,8,0)));;
 		eavrop.addNote(new Note(NoteType.EAVROP,"Utredning utförd",null));
 		eavrop.approveEavrop(createEavropApproval(new DateTime(2014,11,3,8,0)));
@@ -953,8 +953,8 @@ private void rejectEavropAssignment(Eavrop eavrop, DateTime dateTime) {
     	return deviationResponse;
     }
 
-	protected IntygSignedInformation createIntygSignedInformation(DateTime dt){
-		return new IntygSignedInformation((dt!=null)?dt:new DateTime(), doctorPerson);
+	protected IntygSentInformation createIntygSentInformation(DateTime dt){
+		return new IntygSentInformation((dt!=null)?dt:new DateTime(), doctorPerson);
 	}
 
 	private IntygComplementRequestInformation createIntygComplementRequestInformation(DateTime dateTime) {

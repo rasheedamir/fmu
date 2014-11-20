@@ -14,7 +14,7 @@ import se.inera.fmu.application.DomainEventPublisher;
 import se.inera.fmu.application.EavropIntygService;
 import se.inera.fmu.application.impl.command.AddIntygApprovedCommand;
 import se.inera.fmu.application.impl.command.AddIntygComplementRequestCommand;
-import se.inera.fmu.application.impl.command.AddIntygSignedCommand;
+import se.inera.fmu.application.impl.command.AddIntygSentCommand;
 import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
@@ -24,8 +24,8 @@ import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedByBestallareEvent;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygComplementRequestInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygComplemetsRequestedFromBestallareEvent;
-import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedEvent;
-import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedInformation;
+import se.inera.fmu.domain.model.eavrop.intyg.IntygSentEvent;
+import se.inera.fmu.domain.model.eavrop.intyg.IntygSentInformation;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 
 /**
@@ -57,7 +57,7 @@ public class EavropIntygServiceImpl implements EavropIntygService {
 	}
 
 	@Override
-	public void addIntygSignedInformation(AddIntygSignedCommand aCommand) {
+	public void addIntygSentInformation(AddIntygSentCommand aCommand) {
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		
 		Bestallaradministrator person = null;
@@ -65,15 +65,15 @@ public class EavropIntygServiceImpl implements EavropIntygService {
 			person  = new Bestallaradministrator(aCommand.getPersonName(),  aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit(), aCommand.getPersonPhone(), aCommand.getPersonEmail());
 		}
 		
-		IntygSignedInformation intygSignedInformation = new IntygSignedInformation(aCommand.getIntygSignedDateTime(),person);
+		IntygSentInformation intygSentInformation = new IntygSentInformation(aCommand.getIntygSentDateTime(),person);
 		
-		eavrop.addIntygSignedInformation(intygSignedInformation);
+		eavrop.addIntygSentInformation(intygSentInformation);
 
 		if(log.isDebugEnabled()){
-        	log.debug(String.format("IntygSignedInformation added for eavrop:: %s", eavrop.getEavropId().toString()));
+        	log.debug(String.format("IntygSentInformation added for eavrop:: %s", eavrop.getEavropId().toString()));
         }
 		
-		handleIntygSigned(eavrop.getEavropId(), aCommand.getIntygSignedDateTime());
+		handleIntygSent(eavrop.getEavropId(), aCommand.getIntygSentDateTime());
 	}
 
 	@Override
@@ -145,10 +145,10 @@ public class EavropIntygServiceImpl implements EavropIntygService {
 		getDomainEventPublisher().post(event);
 	}
 
-	private void handleIntygSigned(EavropId eavropId, DateTime intygSignedDateTime){
-		IntygSignedEvent event = new IntygSignedEvent(eavropId, intygSignedDateTime);
+	private void handleIntygSent(EavropId eavropId, DateTime intygSentDateTime){
+		IntygSentEvent event = new IntygSentEvent(eavropId, intygSentDateTime);
         if(log.isDebugEnabled()){
-        	log.debug(String.format("IntygSignedEvent created :: %s", event.toString()));
+        	log.debug(String.format("IntygSentEvent created :: %s", event.toString()));
         }
 		getDomainEventPublisher().post(event);
 	}

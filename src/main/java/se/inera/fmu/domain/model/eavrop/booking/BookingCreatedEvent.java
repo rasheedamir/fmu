@@ -7,7 +7,6 @@ import se.inera.fmu.domain.model.eavrop.EavropId;
 
 @ToString
 public class BookingCreatedEvent extends EavropEvent{
-//TODO: Maybe there should be a RebookingEvent only	
 	private final BookingId bookingId;
 	
 	//~ Constructors ===================================================================================================

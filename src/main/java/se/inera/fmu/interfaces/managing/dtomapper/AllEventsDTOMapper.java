@@ -11,7 +11,7 @@ public class AllEventsDTOMapper {
 		result.setInvestigationNoDays(eavrop.getNoOfAssesmentDays());
 		result.setReqAmendmentsDocuments(eavrop.getRequestedDocuments().size());
 		result.setAcceptanceDate(eavrop.getCurrentAssignment().getAssignmentResponseDateTime().getMillis());
-		result.setCertSentToOrdererDate(eavrop.getIntygSignedDateTime().getMillis());
+		result.setCertSentToOrdererDate(eavrop.getIntygSentDateTime().getMillis());
 		result.setNoDeviations(eavrop.getNumberOfDeviationsOnEavrop());
 		result.setReqAmendmentsInvestigation(eavrop.getNoOfIntygComplementRequests());
 		return result;

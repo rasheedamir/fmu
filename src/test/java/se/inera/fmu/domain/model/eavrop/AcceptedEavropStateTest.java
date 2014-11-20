@@ -87,10 +87,10 @@ public class AcceptedEavropStateTest extends AbstractNoteableEavropStateTest{
 
 	@Test
 	@Override
-	public void testAddIntygSignedInformationToEavrop() {
+	public void testAddIntygSentInformationToEavrop() {
 		Eavrop eavrop = getEavrop();
 		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.addIntygSignedInformation(createIntygSignedInformation());
+		eavrop.addIntygSentInformation(createIntygSentInformation());
 		
 		assertEquals(EavropStateType.SENT, eavrop.getEavropState().getEavropStateType());
 	}

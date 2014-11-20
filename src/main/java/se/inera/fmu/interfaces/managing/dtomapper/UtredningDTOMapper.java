@@ -16,7 +16,7 @@ import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingSt
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygComplementRequestInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygInformation;
-import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedInformation;
+import se.inera.fmu.domain.model.eavrop.intyg.IntygSentInformation;
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.StatusDTO;
@@ -93,7 +93,7 @@ public class UtredningDTOMapper {
 				dto.setHandelse(NoneBookingEvents.INTYG_APPROVED);
 			else if (info instanceof IntygComplementRequestInformation)
 				dto.setHandelse(NoneBookingEvents.INTYG_COMPLEMENT_REQUEST);
-			else if (info instanceof IntygSignedInformation)
+			else if (info instanceof IntygSentInformation)
 				dto.setHandelse(NoneBookingEvents.INTYG_SIGNED);
 			else
 				dto.setHandelse(NoneBookingEvents.UNKNOWN);

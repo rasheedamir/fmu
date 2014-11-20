@@ -16,7 +16,7 @@ import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygComplementRequestInformation;
-import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedInformation;
+import se.inera.fmu.domain.model.eavrop.intyg.IntygSentInformation;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.note.Note;
@@ -76,10 +76,10 @@ public abstract class AbstractEavropStateTest {
 	}
 
 	@Test(expected=IllegalStateException.class)
-	public void testAddIntygSignedInformationToEavrop() {
+	public void testAddIntygSentInformationToEavrop() {
 		Eavrop eavrop = getEavrop();
 		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.addIntygSignedInformation(createIntygSignedInformation());
+		eavrop.addIntygSentInformation(createIntygSentInformation());
 	}
 	
 	@Test(expected=IllegalStateException.class)
@@ -194,7 +194,7 @@ public abstract class AbstractEavropStateTest {
 
 	protected Eavrop createSentEavrop(){
 		Eavrop eavrop =  createAcceptedEavrop();
-		eavrop.addIntygSignedInformation(createIntygSignedInformation());;
+		eavrop.addIntygSentInformation(createIntygSentInformation());;
 		return eavrop;
 	}
 
@@ -249,8 +249,8 @@ public abstract class AbstractEavropStateTest {
 		return new Note(NoteType.DOCUMENT_REQUEST, "Ge hit!!", createPerson());
 	}
 	
-	protected IntygSignedInformation createIntygSignedInformation(){
-		return new IntygSignedInformation(new DateTime(), createPerson());
+	protected IntygSentInformation createIntygSentInformation(){
+		return new IntygSentInformation(new DateTime(), createPerson());
 	}
 
 	protected IntygComplementRequestInformation createIntygComplementRequestInformation(){

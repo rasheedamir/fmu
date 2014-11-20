@@ -89,7 +89,7 @@ public interface FmuListService {
     
     /**
    	 *  Finds all 'Completed' Eavrop connected to a Landsting 
-   	 *  i.e. Eavrop that are in APPROVED or CLOSED state and that have had intyg signed in the specified timespan
+   	 *  i.e. Eavrop that are in SENT, APPROVED or CLOSED state and that have had intyg signed/sent in the specified timespan
    	 *  Retuns all if fromdate and todate are not specified 
    	 *  
    	 * @param landsting
@@ -97,11 +97,11 @@ public interface FmuListService {
    	 * @param toDate
    	 * @return
    	 */
-    public Page<Eavrop> findAllCompletedEavropByLandstingAndDateTimeSigned(Landsting landsting, DateTime fromDate, DateTime toDate, Pageable pageable);
+    public Page<Eavrop> findAllCompletedEavropByLandstingAndDateTimeSent(Landsting landsting, DateTime fromDate, DateTime toDate, Pageable pageable);
 
     /**
 	 *  Finds all 'Completed' Eavrop accepted by a vardgivarenhet 
-	 *  i.e. Eavrop that are in APPROVED or CLOSED state and that have had intyg signed in the specified timespan
+	 *  i.e. Eavrop that are in SENT, APPROVED or CLOSED state and that have had intyg signed/sent in the specified timespan
 	 *  Retuns all if fromdate and todate are not specified 
 	 *  
 	 * @param vardgivarenhet
@@ -109,6 +109,6 @@ public interface FmuListService {
 	 * @param toDate
 	 * @return
 	 */
-    public Page<Eavrop> findAllCompletedEavropByVardgivarenhetAndDateTimeSigned(Vardgivarenhet vardgivarenhet, DateTime fromDate, DateTime toDate, Pageable pageable);
+    public Page<Eavrop> findAllCompletedEavropByVardgivarenhetAndDateTimeSent(Vardgivarenhet vardgivarenhet, DateTime fromDate, DateTime toDate, Pageable pageable);
     
 }

@@ -2,7 +2,7 @@ package se.inera.fmu.domain.model.eavrop;
 
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygComplementRequestInformation;
-import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedInformation;
+import se.inera.fmu.domain.model.eavrop.intyg.IntygSentInformation;
 
 /**
  * When an Eavrop is sent we await the approval, then the Eavrop statewise will be Approved
@@ -23,8 +23,8 @@ public class SentEavropState extends AbstractNoteableEavropState{
 	}
 	
 	@Override
-	public void addIntygSignedInformation(Eavrop eavrop, IntygSignedInformation intygSignedInformation){
-		eavrop.addToIntygSignedInformation(intygSignedInformation);
+	public void addIntygSentInformation(Eavrop eavrop, IntygSentInformation intygSentInformation){
+		eavrop.addToIntygSentInformation(intygSentInformation);
 	}
 	
 	@Override
