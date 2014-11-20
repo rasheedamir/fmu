@@ -92,39 +92,9 @@ public class AcceptedEavropStateTest extends AbstractNoteableEavropStateTest{
 		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
 		eavrop.addIntygSignedInformation(createIntygSignedInformation());
 		
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getEavropState().getEavropStateType());
-	}
-	
-	@Test
-	@Override
-	public void testAddIntygComplementRequestToEavrop() {
-		Eavrop eavrop = getEavrop();
-		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.addIntygComplementRequestInformation(createIntygComplementRequestInformation());
-		
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getEavropState().getEavropStateType());
-	}
-	
-	@Test
-	@Override
-	public void testAddIntygApprovedToEavrop() {
-		Eavrop eavrop = getEavrop();
-		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.addIntygApprovedInformation(createIntygApprovedInformation());
-		
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getEavropState().getEavropStateType());
+		assertEquals(EavropStateType.SENT, eavrop.getEavropState().getEavropStateType());
 	}
 
-	@Test
-	@Override
-	public void testApproveEavrop() {
-		Eavrop eavrop = getEavrop();
-		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.approveEavrop(createEavropApproval());
-		
-		assertEquals(EavropStateType.APPROVED, eavrop.getEavropState().getEavropStateType());
-	}
-	
 	@Override
 	Eavrop getEavrop() {
 		return createAcceptedEavrop();

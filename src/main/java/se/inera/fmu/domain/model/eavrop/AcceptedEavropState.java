@@ -98,31 +98,33 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 		interpreter.setDeviationNote(cancelNote);
 	}
 	
-	@Override
-	public void approveEavrop(Eavrop eavrop, EavropApproval eavropApproval){
-		eavrop.setEavropApproval(eavropApproval);
-		
-		//State transition ACCEPTED -> APPROVED
-		eavrop.setEavropState(new ApprovedEavropState());
-	}
+//	@Override
+//	public void approveEavrop(Eavrop eavrop, EavropApproval eavropApproval){
+//		eavrop.setEavropApproval(eavropApproval);
+//		
+//		//State transition ACCEPTED -> APPROVED
+//		eavrop.setEavropState(new ApprovedEavropState());
+//	}
 	
 	@Override
 	public void addIntygSignedInformation(Eavrop eavrop, IntygSignedInformation intygSignedInformation){
 		eavrop.addToIntygSignedInformation(intygSignedInformation);
-		//No state transition
+		
+		//State transition ACCEPTED -> SENT
+		eavrop.setEavropState(new SentEavropState());
 	}
 	
-	@Override
-	public void addIntygComplementRequestInformation(Eavrop eavrop, IntygComplementRequestInformation intygComplementRequestInformation){
-		eavrop.addToIntygComplementRequestInformation(intygComplementRequestInformation);
-		//No state transition
-	}
-	
-	@Override
-	public void addIntygApprovedInformation(Eavrop eavrop, IntygApprovedInformation intygApprovedInformation){
-		eavrop.addToIntygApprovedInformation(intygApprovedInformation);
-		//No state transition
-	}
+//	@Override
+//	public void addIntygComplementRequestInformation(Eavrop eavrop, IntygComplementRequestInformation intygComplementRequestInformation){
+//		eavrop.addToIntygComplementRequestInformation(intygComplementRequestInformation);
+//		//No state transition
+//	}
+//	
+//	@Override
+//	public void addIntygApprovedInformation(Eavrop eavrop, IntygApprovedInformation intygApprovedInformation){
+//		eavrop.addToIntygApprovedInformation(intygApprovedInformation);
+//		//No state transition
+//	}
 	
 	@Override
 	public void addReceivedDocument(Eavrop eavrop, ReceivedDocument receivedDocument) {

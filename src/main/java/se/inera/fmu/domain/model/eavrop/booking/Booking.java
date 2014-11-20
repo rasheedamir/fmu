@@ -91,13 +91,13 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	}
 
 	public Booking(BookingType type, DateTime startDateTime,
-			DateTime endDateTime, Boolean additionalService, Person person, boolean useInterpreter) {
+			DateTime endDateTime, boolean additionalService, 
+			Person person, boolean useInterpreter) {
 		this.setBookingId(new BookingId(UUID.randomUUID().toString()));
 		this.setBookingStatus(BookingStatusType.BOOKED);
 		Validate.notNull(type);
 		Validate.notNull(startDateTime);
 		Validate.notNull(endDateTime);
-		Validate.notNull(additionalService);
 		Validate.notNull(person);
 		this.setBookingType(type);
 		this.setStartDateTime(startDateTime);
@@ -167,6 +167,13 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 
 	private void setEndDateTime(DateTime endDateTime) {
 		this.endDateTime = endDateTime;
+	}
+	
+	public long getBookingDuration(){
+		if(getStartDateTime() !=null && getEndDateTime() !=null && getStartDateTime().isBefore(getEndDateTime())){
+			return getStartDateTime().getMillis() - getEndDateTime().getMillis();
+		}
+		return 0L;
 	}
 
 	public Person getPerson() {

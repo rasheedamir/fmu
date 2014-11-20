@@ -192,8 +192,15 @@ public abstract class AbstractEavropStateTest {
 		return eavrop;
 	}
 
+	protected Eavrop createSentEavrop(){
+		Eavrop eavrop =  createAcceptedEavrop();
+		eavrop.addIntygSignedInformation(createIntygSignedInformation());;
+		return eavrop;
+	}
+
+	
 	protected Eavrop createApprovedEavrop(){
-		Eavrop eavrop = createAcceptedEavrop();
+		Eavrop eavrop =  createSentEavrop();
 		eavrop.approveEavrop(createEavropApproval());
 		return eavrop;
 	}

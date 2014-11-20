@@ -30,6 +30,7 @@ import org.apache.commons.lang3.Validate;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 import se.inera.fmu.application.util.BusinessDaysUtil;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
@@ -118,7 +119,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	@Embedded
 	private EavropProperties eavropProperties;
 	
-	// A log of all assignments to vardgivarenheter and there replies
+	// A log of all assignments to vardgivarenheter and their replies
 	@OneToMany
 	@JoinTable(name = "R_EAVROP_ASSIGNMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "ASSIGNMENT_ID"))
 	private List<EavropAssignment> assignments;
@@ -403,9 +404,24 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		LocalDate lastValidDay = BusinessDaysUtil.calculateBusinessDayDate(fromDate, maxNumberOfDaysUntilAccept);
 		
 		return lastValidDay;
-		
 	}
 
+	private LocalDate getLastValidEavropAssessmentDay(){
+		
+		//From date is the day that the assessment started
+		LocalDate fromDate = getStartDate();
+		if(fromDate==null){
+			return null;
+		}
+		int maxNumberOfAssessmentDays = this.getEavropProperties().getAssessmentValidLength();
+		
+		//The last day that it is okay to accept;
+		LocalDate lastValidDay = BusinessDaysUtil.calculateBusinessDayDate(fromDate, maxNumberOfAssessmentDays);
+		
+		return lastValidDay;
+	}
+
+	
 	/**
 	 * Get number of days used for getting acceptance of eavrop assignment
 	 * @return
@@ -660,7 +676,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 			}
 		} 
 		
-		if(this.isEavropAssesmentDaysDeviated()){
+		if(this.isEavropAssessmentDaysDeviated()){
 			count++;
 		}
 		
@@ -669,51 +685,125 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		return count;	
 	}
 	
-//	public EavropDeviationEventDTO getEavropDeviationEventDTOs() {
-//		List<EavropDeviationEventDTO> deviationEvents = new ArrayList<EavropDeviationEventDTO>();
-//		
-//		if(this.isEavropAcceptDaysDeviated()){
-//			deviationEvents.add(createEavropAcceptDaysDeviationEvent());
-//		}
-//		
-//		for (Booking booking : getBookings()) {
-//			if(booking.hasDeviation()){
-//				deviationEvents.add(createEavropBookingDeviationEvent(booking));
-//				count++;
-//			}
-//			if(booking.hasInterpreterDeviation()){
-//				count++;
-//			}
-//		} 
-//
-//		
-//		return null;
-//		
-//	}
-//	
-//
-//
-//	/**
-//	 * 
-//	 * @return
-//	 */
-//	private EavropDeviationEventDTO createEavropAcceptDaysDeviationEvent() {
-//		if(this.isEavropAcceptDaysDeviated()){
-//			LocalDate lastValidDay = getLastValidEavropAssignmentAcceptDay();
-//			DateTime devationDateTime = lastValidDay.toDateTime(new LocalTime(0,0));
-//			return new EavropDeviationEventDTO(EavropDeviationEventDTOType.EAVROP_ASSIGNMENT_ACCEPT_DEVIATION, devationDateTime);
-//		}
-//		return null;
-//	}
-//
-//	private EavropDeviationEventDTO createEavropBookingDeviationEvent(Booking booking) {
-//		
-//		DateTime eventTime = booking.getLastModifiedDate();
-//		
-//		return new EavropDeviationEventDTO(EavropDeviationEventDTOType.EAVROP_ASSIGNMENT_ACCEPT_DEVIATION, devationDateTime);
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	public List<EavropDeviationEventDTO> getEavropDeviationEventDTOs() {
+		List<EavropDeviationEventDTO> deviationEvents = new ArrayList<EavropDeviationEventDTO>();
+		
+		if(this.isEavropAcceptDaysDeviated()){
+			deviationEvents.add(createEavropAcceptDaysDeviationEvent());
+		}
+		
+		for (Booking booking : getBookings()) {
+			if(booking.hasDeviation()){
+				deviationEvents.add(createBookingDeviationEvent(booking));
+			}
+			if(booking.hasInterpreterDeviation()){
+				deviationEvents.add(createInterpreterBookingDeviationEvent(booking));
+			}
+		} 
+		
+		if(this.isIntygComplementDaysDeviated()){
+			deviationEvents.addAll(createIntygComplementDaysDeviationEvents());
+		}
+
+		if(!deviationEvents.isEmpty()){
+			Collections.sort(deviationEvents);
+			return deviationEvents;
+		}
+		return null;
+	}
+	
+
+
+	/**
+	 * 
+	 * @return
+	 */
+	private EavropDeviationEventDTO createEavropAcceptDaysDeviationEvent() {
+		if(this.isEavropAcceptDaysDeviated()){
+			LocalDate lastValidDay = getLastValidEavropAssignmentAcceptDay();
+			DateTime devationDateTime = lastValidDay.toDateTime(new LocalTime(0,0));
+			return new EavropDeviationEventDTO(EavropDeviationEventDTOType.EAVROP_ASSIGNMENT_ACCEPT_DEVIATION, devationDateTime);
+		}
+		return null;
+	}
+
+	private EavropDeviationEventDTO createBookingDeviationEvent(Booking booking) {
+		if(booking.hasDeviation()){
+			return new EavropDeviationEventDTO(EavropDeviationEventDTOType.convertToEavropDeviationEventDTOType(booking.getBookingStatus()), booking.getLastModifiedDate());
+		}
+		return null;
+	}
+
+	private EavropDeviationEventDTO createInterpreterBookingDeviationEvent(Booking booking) {
+		if(booking.hasInterpreterDeviation()){
+			return new EavropDeviationEventDTO(EavropDeviationEventDTOType.INTERPPRETER_NOT_PRESENT, booking.getLastModifiedDate());
+		}
+		return null;
+	}
+
+
+	/**
+	 * 
+	 * @return
+	 */
+	private EavropDeviationEventDTO createEavropAssessmentDaysDeviationEvent() {
+		if(this.isEavropAssessmentDaysDeviated()){
+			LocalDate lastValidDay = getLastValidEavropAssessmentDay();
+			if(lastValidDay!=null){
+				DateTime devationDateTime = lastValidDay.plusDays(1).toDateTime(new LocalTime(0,0));
+				return new EavropDeviationEventDTO(EavropDeviationEventDTOType.EAVROP_ASSESSMENT_LENGHT_DEVIATION, devationDateTime);
+			}
+		}
+		return null;
+	}
+	
+	public List<EavropDeviationEventDTO> createIntygComplementDaysDeviationEvents(){
+		List<EavropDeviationEventDTO> deviations = new ArrayList<EavropDeviationEventDTO>();		
+		
+		//from date is the day after the Eavrop was received from orderer.
+		int maxNumberOfDaysUntilIntygSigned = this.getEavropProperties().getCompletionValidLength();
+		
+		List<IntygComplementRequestInformation> complementRequests = this.getAllIntygComplementRequestInformation();
+		Collections.sort(complementRequests);
+
+		List<IntygSignedInformation> intygSignings = this.getAllIntygSignedInformation();
+		Collections.sort(intygSignings);
+
+		
+		for (IntygComplementRequestInformation intygComplementRequestInformation : complementRequests) {
+			
+			DateTime fromDateTime = intygComplementRequestInformation.getInformationTimestamp();
+			//Find first intyg signed after request
+			DateTime toDateTime  = null;
+			
+			for (IntygSignedInformation intygSignedInformation : intygSignings) {
+				if(intygSignedInformation.getInformationTimestamp().isAfter(fromDateTime)){
+					toDateTime = intygSignedInformation.getInformationTimestamp();
+					
+				}else{
+					toDateTime  = null;
+				}
+			}
+			
+			LocalDate fromDate = new  LocalDate(intygComplementRequestInformation.getInformationTimestamp()).plusDays(1);
+			//The last day that it is okay to send;
+			LocalDate lastValidDay = BusinessDaysUtil.calculateBusinessDayDate(fromDate, maxNumberOfDaysUntilIntygSigned);
+			
+			LocalDate toDate = new LocalDate();
+			
+			//if a intyg signed has been found after the request use that otherwise stick with today
+			if(toDateTime != null){
+				toDate = new LocalDate(toDateTime);
+			}
+			
+			if(toDate.isAfter(lastValidDay)){
+				DateTime devationDateTime = lastValidDay.plusDays(1).toDateTime(new LocalTime(0,0));
+				deviations.add(new EavropDeviationEventDTO(EavropDeviationEventDTOType.INTYG_COMPLEMENT_RESPONSE_DEVIATION, devationDateTime)) ;
+			}
+		}
+		return deviations;
+	}
+
 
 
 	private void setBookings(Set<Booking> bookings) {
@@ -1303,19 +1393,9 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	}
 	
 	
-	public boolean isEavropAssesmentDaysDeviated(){
+	public boolean isEavropAssessmentDaysDeviated(){
 		
-		//from date is the day after the Eavrop was received from orderer.
-		LocalDate fromDate = getStartDate();
-		if(fromDate==null){
-			return false;
-		}
-		
-		int maxNumberOfDaysUntilIntygSigned = this.getEavropProperties().getAssessmentValidLength();
-		
-		//The last day that it is okay to send;
-		LocalDate lastValidDay = BusinessDaysUtil.calculateBusinessDayDate(fromDate, maxNumberOfDaysUntilIntygSigned);
-		
+		LocalDate lastValidDay = this.getLastValidEavropAssessmentDay();
 		LocalDate toDate = new LocalDate();
 		
 		//if assigenment is accepted, get the acceptDate as end date otherwisé stick with today
@@ -1324,7 +1404,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		}
 		
 		//if to date is after the last valid day the assignment has been accepted to late
-		if(toDate.isAfter(lastValidDay)){
+		if(lastValidDay != null && toDate.isAfter(lastValidDay)){
 			return true;
 		}else{
 			return false;
@@ -1552,6 +1632,27 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 //		
 //		null;
 //	}
+	
+	
+	/**
+	 * Method retrives bookings marked as additional service and has performed status
+	 * @return
+	 */
+	public List<Booking> getAdditionalServiceBookings(){
+		List<Booking> serviceBookings = null;
+		
+		if(UtredningType.AFU.equals(this.getUtredningType())){
+			for (Booking booking : getBookings()) {
+				if(booking.isAdditionalService() && booking.getBookingStatus().isPerformed()){
+					if(serviceBookings==null){
+						serviceBookings = new ArrayList<Booking>();
+					}
+					serviceBookings.add(booking);
+				}
+			}
+		}
+		return serviceBookings;
+	}
 
 	// ~ Other Methods ==================================================================================================
 
