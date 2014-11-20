@@ -251,7 +251,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		DateTime endDate = new DateTime(toDate);
 
 		switch (currentUSer.getActiveRole()) {
-		case LANDSTINGSSAMORDNARE:
+		case ROLE_SAMORDNARE:
 			if (currentUSer.getLandstingCode() == null)
 				return null;
 			Landsting landsting = this.landstingRepository.findByLandstingCode(new LandstingCode(
@@ -273,7 +273,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 			default:
 				return null;
 			}
-		case UTREDARE:
+		case ROLE_UTREDARE:
 			if (currentUSer.getVardenhetHsaId() == null) {
 				return null;
 			}
@@ -329,11 +329,11 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		User currentUser = this.currentUserService.getCurrentUser();
 		Eavrop result = null;
 
-		if (currentUser.getActiveRole() == Role.LANDSTINGSSAMORDNARE) {
+		if (currentUser.getActiveRole() == Role.ROLE_SAMORDNARE) {
 			Landsting landsting = this.landstingRepository.findByLandstingCode(new LandstingCode(
 					currentUser.getLandstingCode()));
 			result = this.eavropRepository.findByEavropIdAndLandsting(id, landsting);
-		} else if (currentUser.getActiveRole() == Role.UTREDARE) {
+		} else if (currentUser.getActiveRole() == Role.ROLE_UTREDARE) {
 			Vardgivarenhet ve = this.vardgivarEnhetRepository.findByHsaId(new HsaId(currentUser
 					.getVardenhetHsaId()));
 			result = this.eavropRepository.findByEavropIdAndVardgivare(id, ve);
@@ -530,12 +530,12 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	private String getUserOrganisation(User user) {
 		String retval = null;
 		switch (user.getActiveRole()) {
-		case LANDSTINGSSAMORDNARE:
+		case ROLE_SAMORDNARE:
 			Landsting landsting = this.landstingRepository
 					.findByLandstingCode(new LandstingCode(user.getLandstingCode()));
 			retval = landsting.getName();
 			break;
-		case UTREDARE:
+		case ROLE_UTREDARE:
 			Vardgivarenhet vEnhet = this.vardgivarEnhetRepository.findByHsaId(new HsaId(user.getVardenhetHsaId()));
 			retval = vEnhet.getVardgivare().getName();
 			break;
@@ -555,10 +555,10 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	private String getUserUnit(User user) {
 		String retval = null;
 		switch (user.getActiveRole()) {
-		case LANDSTINGSSAMORDNARE:
+		case ROLE_SAMORDNARE:
 			retval = null;
 			break;
-		case UTREDARE:
+		case ROLE_UTREDARE:
 			Vardgivarenhet vEnhet = this.vardgivarEnhetRepository.findByHsaId(new HsaId(user.getVardenhetHsaId()));
 			retval = vEnhet.getUnitName();
 			break;
@@ -575,7 +575,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		Invanare invanare = eavropForUser.getInvanare();
 		
 		PatientDTOMapper mapper = new PatientDTOMapper();
-		PatientDTO dto = mapper.map(eavropForUser, currentUserService.getCurrentUser().getActiveRole() == Role.UTREDARE);
+		PatientDTO dto = mapper.map(eavropForUser, currentUserService.getCurrentUser().getActiveRole() == Role.ROLE_UTREDARE);
 		
 		return dto;
 	}

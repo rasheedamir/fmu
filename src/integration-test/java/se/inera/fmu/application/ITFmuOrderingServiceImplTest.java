@@ -61,7 +61,7 @@ public class ITFmuOrderingServiceImplTest {
     @Test
     public void serviceShouldReturnAllEavropsForUserLandstingSamordnare() {
     	User currentUser = this.currentUserService.getCurrentUser();
-    	currentUser.setActiveRole(Role.LANDSTINGSSAMORDNARE);
+    	currentUser.setActiveRole(Role.ROLE_SAMORDNARE);
 		DateTime fromDate = new DateTime(1990, 1, 1, 0, 0);
 		DateTime toDate = new DateTime(2052,12,1, 0, 0);
 		currentUser.setLandstingCode(1);
@@ -119,7 +119,7 @@ public class ITFmuOrderingServiceImplTest {
     @Test
     public void serviceShouldReturnAllEavropsForUserUtredare() {
     	User currentUser = this.currentUserService.getCurrentUser();
-    	currentUser.setActiveRole(Role.UTREDARE);
+    	currentUser.setActiveRole(Role.ROLE_UTREDARE);
 		DateTime fromDate = new DateTime(1990, 1, 1, 0, 0);
 		DateTime toDate = new DateTime(2052,12,1, 0, 0);
 		Pageable pageSpecs = new PageRequest(0, 10, new Sort(Sort.Direction.ASC, "eavropId"));

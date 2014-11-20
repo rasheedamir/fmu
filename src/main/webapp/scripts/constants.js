@@ -9,7 +9,9 @@ angular.module('fmuClientApp')
         eavropNotes: 'app/rest/eavrop/:eavropId/notes',
         eavropAllEvents: 'app/rest/eavrop/:eavropId/all-events',
         eavropOrder: 'app/rest/eavrop/:eavropId/order',
-        eavropPatient: 'app/rest/eavrop/:eavropId/patient'
+        eavropPatient: 'app/rest/eavrop/:eavropId/patient',
+        userInfo: 'app/rest/user',
+        changeRole: 'app/rest/user/changerole'
     })
     .constant('EAVROP_TABLE', {
         dateFormat: 'yyyy-MM-dd',

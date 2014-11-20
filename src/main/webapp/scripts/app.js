@@ -22,6 +22,9 @@ angular.module('fmuClientApp', [
 .run(['$rootScope', '$state', function($rootScope, $state){
     $rootScope.$state = $state;
 }])
+.run(['$rootScope', 'AuthService', function($rootScope, AuthService){
+	$rootScope.userInfo = AuthService.getUserInfo();
+}])
 .config(function($stateProvider, $urlRouterProvider) {
     //
     // For any unmatched url, redirect to /state1
