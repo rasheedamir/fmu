@@ -43,7 +43,7 @@ angular.module('fmuClientApp')
                         },
                         {
                             key: 'creationTime',
-                            name: 'Förfrågan skickad datum'
+                            name: 'Förfrågan inkommit datum'
                         },
                         {
                             key: 'patientCity',
@@ -110,7 +110,7 @@ angular.module('fmuClientApp')
                         },
                         {
                             key: 'creationTime',
-                            name: 'Förfrågan skickad datum'
+                            name: 'Förfrågan inkommit datum'
                         },
                         {
                             key: 'mottagarenOrganisation',
