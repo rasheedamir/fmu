@@ -33,6 +33,17 @@ angular.module('fmuClientApp')
                     };
 
                     $scope.toogleEditRow = function (row) {
+                        row.selectedTolkStatus = row.tolkStatus.currentStatus;
+                        if (row.selectedTolkStatus.requireComment) {
+                            row.tolkComment = row.tolkStatus.comment;
+                        }
+
+                        row.selectedHandelseStatus = row.handelseStatus.currentStatus;
+                        if (row.selectedHandelseStatus.requireComment) {
+                            row.handelseComment = row.handelseStatus.comment;
+                        }
+
+                        console.log(row.selectedHandelseStatus);
                         row.isEditExpanded = !row.isEditExpanded;
                     };
 
@@ -40,6 +51,7 @@ angular.module('fmuClientApp')
                         var dataPackage = createDataPackage(rowData.bookingId,
                             rowData.selectedTolkStatus.name,
                             rowData.selectedTolkStatus.requireComment ? rowData.tolkComment : null);
+                        console.log(dataPackage);
                         var promise = UtredningService.changeTolkBooking(dataPackage);
                         promise.then(function () {
                                 // Success
@@ -55,6 +67,7 @@ angular.module('fmuClientApp')
                         var dataPackage = createDataPackage(rowData.bookingId,
                             rowData.selectedHandelseStatus.name,
                             rowData.selectedHandelseStatus.requireComment ? rowData.handelseComment : null);
+                        console.log(dataPackage);
                         var promise = UtredningService.changeBooking(dataPackage);
                         promise.then(function () {
                                 // Success

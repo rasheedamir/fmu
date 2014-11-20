@@ -235,7 +235,6 @@ ul#strength {
     opacity: 0.6;
 }
 
-/*Table hover animation*/
 .fmu-table > tbody > tr:hover > td{
     background-color: inherit;
     opacity: 1;
@@ -462,12 +461,6 @@ h2{
 .ngdialog.ngdialog-theme-default .ngdialog-content {
     max-width: 100%;
     width: 50%
-}
-
-.fmu-utredning-animation > tbody > tr:hover{
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    -webkit-transform: scale(1);
-    transform: scale(1);
 }
 
 .utredning-edit-row {

@@ -30,7 +30,7 @@ angular.module('fmuClientApp')
                     name: 'Enhet/Avdelning'
                 },
                 {
-                    key: 'mottagarenOrganisation',
+                    key: 'utredareOrganisation',
                     name: 'Organisation'
                 },
                 {

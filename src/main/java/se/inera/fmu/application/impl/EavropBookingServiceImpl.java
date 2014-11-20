@@ -39,7 +39,7 @@ import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.HoSPerson;
 import se.inera.fmu.domain.model.person.Person;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("all")
 @Service
 @Validated
 @Transactional

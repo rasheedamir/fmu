@@ -27,8 +27,8 @@ angular.module('fmuClientApp')
             UNASSIGNED: 'Förfrågan om utredning har inkommit',
             ASSIGNED: 'Förfrågan tilldelas, inväntar acceptans',
             ACCEPTED: 'Förfrågan accepterade',
-            ON_HOLD: 'Utredningen väntar',
-            SENT: 'Sent ???',
+            ON_HOLD: 'Inväntar beslut från beställare',
+            SENT: 'Inväntar acceptans',
             APPROVED: 'Utredningen godkänts av beställare',
             CLOSED: 'Utredningen är avslutad'
         },

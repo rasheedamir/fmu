@@ -112,11 +112,13 @@ angular.module('fmuClientApp').factory('UtredningService', ['$http','$filter', '
                         case 'dateOfEvent':
                             return $filter('date')(celldata, UTREDNING.dateFormat);
                         case 'tolkStatus' :
-                            if (celldata.currentStatus == null)
+                            if (celldata.currentStatus.name == null)
                                 return '-';
-                            return UTREDNING.tolkMapping[celldata.currentStatus];
+                            return UTREDNING.tolkMapping[celldata.currentStatus.name];
                         case 'handelseStatus' :
-                            return UTREDNING.handelseMapping[celldata.currentStatus];
+                            if (celldata.currentStatus.name == null)
+                                return '-';
+                            return UTREDNING.handelseMapping[celldata.currentStatus.name];
                         case 'handelse':
                             return UTREDNING.statusMapping[celldata];
                         default :

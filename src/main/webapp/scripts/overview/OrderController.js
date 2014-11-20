@@ -178,7 +178,6 @@ angular.module('fmuClientApp')
 
             // TODO fix this with event ?
             $scope.$watch('authService', function () {
-                console.log('changed');
                 $scope.initTableParameters();
             }, true);
         }

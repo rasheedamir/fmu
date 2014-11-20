@@ -8,7 +8,7 @@ import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingSt
 
 @SuppressWarnings("rawtypes")
 public class StatusDTO {
-	private Enum currentStatus;
+	private Status currentStatus;
 	private List<Status> statuses;
 	private String comment;
 
@@ -16,7 +16,7 @@ public class StatusDTO {
 		return comment;
 	}
 
-	public Enum getCurrentStatus() {
+	public Status getCurrentStatus() {
 		return currentStatus;
 	}
 
@@ -30,8 +30,17 @@ public class StatusDTO {
 	}
 
 	public StatusDTO setCurrentStatus(Enum currentStatus) {
-		if (isValidHandelseStatus(currentStatus))
-			this.currentStatus = currentStatus;
+		Status status = new Status();
+		if (currentStatus instanceof BookingStatusType) {
+			status.setName(currentStatus).setRequireComment(
+					((BookingStatusType) currentStatus).isDeviant());
+			this.currentStatus = status;
+		} else if (currentStatus instanceof InterpreterBookingStatusType) {
+			status.setName(currentStatus).setRequireComment(
+					((InterpreterBookingStatusType) currentStatus).isDeviant());
+			this.currentStatus = status;
+		}
+
 		return this;
 	}
 
@@ -47,17 +56,15 @@ public class StatusDTO {
 				Status s = new Status();
 				if (status instanceof BookingStatusType) {
 					BookingStatusType bt = (BookingStatusType) status;
-					s.setName(bt)
-					.setRequireComment(bt.isDeviant());
+					s.setName(bt).setRequireComment(bt.isDeviant());
 				} else {
 					InterpreterBookingStatusType it = (InterpreterBookingStatusType) status;
-					s.setName(it)
-					.setRequireComment(it.isDeviant());
+					s.setName(it).setRequireComment(it.isDeviant());
 				}
 				retval.add(s);
 			}
 		}
-		
+
 		this.statuses = retval;
 		return this;
 	}

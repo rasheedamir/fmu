@@ -287,19 +287,13 @@ public class ITEavropRestControllerTest {
 				.andExpect(status().isOk()).andReturn();
 
 		log.debug("Handelse: " + result.getResponse().getContentAsString());
-		
-		BookingModificationRequestDTO modificationRequest = new BookingModificationRequestDTO();
 		String bookingId = getJsonValue(0, "bookingId", result.getResponse().getContentAsString());
-		modificationRequest.setBookingId(bookingId)
-		  .setBookingStatus(BookingStatusType.CANCELLED_NOT_PRESENT)
-		  .setEavropId("3")
-		  .setComment("This is bad");
 		
 		TolkBookingModificationRequestDTO tolkModificationRequest = new TolkBookingModificationRequestDTO();
 		tolkModificationRequest.setBookingId(bookingId)
 		  .setBookingStatus(InterpreterBookingStatusType.INTERPPRETER_NOT_PRESENT)
 		  .setEavropId("3")
-		  .setComment("This is bad");
+		  .setComment("This tolk is bad");
 
 		log.debug(convertObjectToJsonBytes(tolkModificationRequest));
 		restMock.perform(post("/app/rest/eavrop/utredning/modify/tolk")
@@ -312,13 +306,24 @@ public class ITEavropRestControllerTest {
 		bookingModificationRequest.setBookingId(bookingId)
 		  .setBookingStatus(BookingStatusType.CANCELLED_NOT_PRESENT)
 		  .setEavropId("3")
-		  .setComment("This is bad");
+		  .setComment("This booking is bad");
 
-		log.debug(convertObjectToJsonBytes(tolkModificationRequest));
-		restMock.perform(post("/app/rest/eavrop/utredning/modify/tolk")
+		log.debug(convertObjectToJsonBytes(bookingModificationRequest));
+		restMock.perform(post("/app/rest/eavrop/utredning/modify/booking")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(convertObjectToJsonBytes(tolkModificationRequest)))
+				.content(convertObjectToJsonBytes(bookingModificationRequest)))
 						.andExpect(status().isOk());
+		// Verify
+		result = restMock.perform(get("/app/rest/eavrop/3/utredning")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", hasSize(1)))
+				.andExpect(jsonPath("$[0].tolkStatus.currentStatus.name", is("INTERPPRETER_NOT_PRESENT")))
+				.andExpect(jsonPath("$[0].handelseStatus.currentStatus.name", is("CANCELLED_NOT_PRESENT")))
+//				.andExpect(jsonPath("$[0].tolkStatus.comment", is("This tolk is bad")))
+//				.andExpect(jsonPath("$[0].handelseStatus.comment", is("This booking is bad")))
+				.andReturn();
+		log.debug(result.getResponse().getContentAsString());
 	}
 	
 	@Test
