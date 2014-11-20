@@ -219,8 +219,6 @@ public class ITEavropRestControllerTest {
 		log.error(result.getResponse().getContentAsString());
 	}
 
-	// TODO Check time POST/GET consistency
-
 	@Test
 	public void createBookingTest() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(
@@ -320,8 +318,8 @@ public class ITEavropRestControllerTest {
 				.andExpect(jsonPath("$", hasSize(1)))
 				.andExpect(jsonPath("$[0].tolkStatus.currentStatus.name", is("INTERPPRETER_NOT_PRESENT")))
 				.andExpect(jsonPath("$[0].handelseStatus.currentStatus.name", is("CANCELLED_NOT_PRESENT")))
-//				.andExpect(jsonPath("$[0].tolkStatus.comment", is("This tolk is bad")))
-//				.andExpect(jsonPath("$[0].handelseStatus.comment", is("This booking is bad")))
+				.andExpect(jsonPath("$[0].tolkStatus.comment", is("This tolk is bad")))
+				.andExpect(jsonPath("$[0].handelseStatus.comment", is("This booking is bad")))
 				.andReturn();
 		log.debug(result.getResponse().getContentAsString());
 	}
@@ -393,4 +391,6 @@ public class ITEavropRestControllerTest {
 		JsonNode jsonobj = mapper.readTree(jsonString);
 		return jsonobj.path(index).path(fieldName).toString().replace("\"", "");
 	}
+	
+	//TODO kommentarer från Utredning är removable i Anteckningar men är inte bortagbara
 }
