@@ -15,48 +15,39 @@ angular.module('fmuClientApp')
             $scope.headerFields = [
                 {
                     key: 'arendeId',
-                    name: 'Ärende-ID',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                    name: 'Ärende-ID'
                 },
                 {
                     key: 'utredningType',
-                    name: 'Typ',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                    name: 'Typ'
                 },
                 {
                     key: 'bestallareOrganisation',
-                    name: 'Organisation',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                    name: 'Organisation'
                 },
                 {
                     key: 'bestallareEnhet',
-                    name: 'Enhet/Avdelning',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                    name: 'Enhet/Avdelning'
                 },
                 {
                     key: 'mottagarenOrganisation',
-                    name: 'Organisation',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                    name: 'Organisation'
                 },
                 {
                     key: 'status',
-                    name: 'Status',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                    name: 'Status'
                 },
                 {
                     key: 'startDate',
-                    name: 'Utredning start',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                    name: 'Utredning start'
                 },
                 {
                     key: 'nrOfDaysSinceStart',
-                    name: 'Antal dagar från start',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                    name: 'Antal dagar från start'
                 },
                 {
                     key: 'avikelser',
-                    name: 'Avikelser',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                    name: 'Avikelser'
                 }
             ];
 

@@ -15,54 +15,44 @@ angular.module('fmuClientApp')
             $scope.headerFields = [
                 {
                     key: 'arendeId',
-                    name: 'Ärende-ID',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                    name: 'Ärende-ID'
                 },
                 {
                     key: 'utredningType',
-                    name: 'Typ',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                    name: 'Typ'
                 },
                 {
                     key: 'dagarFromStartToAccepted',
-                    name: 'Antal dgr klar',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                    name: 'Antal dgr klar'
                 },
                 {
                     key: 'totalCompletionDays',
-                    name: 'Antal dgr för komplettering',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                    name: 'Antal dgr för komplettering'
                 },
                 {
                     key: 'avikelser',
-                    name: 'avikelser',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                    name: 'avikelser'
                 },
 
                 {
                     key: 'utredareOrganisation',
-                    name: 'Utredare, organisation',
-                    restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']
+                    name: 'Utredare, organisation'
                 },
                 {
                     key: 'ansvarigUtredare',
-                    name: 'Utredare, ansvarig',
-                    restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']
+                    name: 'Utredare, ansvarig'
                 },
                 {
                     key: 'dateIntygDelivered',
-                    name: 'Intyg levererades, datum',
-                    restricted: ['ROLE_SAMORDNARE', 'ROLE_UTREDARE']
+                    name: 'Intyg levererades, datum'
                 },
                 {
                     key: 'isCompleted',
-                    name: 'Utredning komplett ?',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                    name: 'Utredning komplett ?'
                 },
                 {
                     key: 'compensationApprovedStatusAndDate',
-                    name: 'Godkänd för ersättning',
-                    restricted: ['ROLE_UTREDARE', 'ROLE_SAMORDNARE']
+                    name: 'Godkänd för ersättning'
                 }
             ];
             $scope.headerGroups = [
@@ -75,15 +65,15 @@ angular.module('fmuClientApp')
 
             $scope.footerHints = [
                 {
-                    description: 'Ej godkänd',
+                    description: 'Utredningen är ej komplett, ej godkänd, försenad eller innehåller ersättningsbara avvikelser',
                     colorClass: 'bg-danger'
                 },
                 {
-                    description: 'Avikelser finns',
+                    description: 'Utredning komplett, inväntar godkännande för ersättning',
                     colorClass: 'bg-warning'
                 },
                 {
-                    description: 'Utredning är avslutad och godkänd',
+                    description: 'Utredning är komplett och godkänd',
                     colorClass: 'bg-success'
                 }
             ];

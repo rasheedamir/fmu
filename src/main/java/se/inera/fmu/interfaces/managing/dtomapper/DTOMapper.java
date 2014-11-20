@@ -25,7 +25,7 @@ public class DTOMapper {
 		.setBestallareEnhet(eavrop.getBestallaradministrator() != null ? 
 				eavrop.getBestallaradministrator().getUnit() : null)
 		.setAvikelser(eavrop.getNumberOfDeviationsOnEavrop())
-		.setRowColor(eavrop.isEavropAcceptDaysDeviated() ? "bg-danger": null)
+		.setRowColor(eavrop.isEavropAcceptDaysDeviated() ? "bg-danger": "fmu-table-color-inactive")
 		
 		.setStartDate(eavrop.getStartDate() != null ? 
 				eavrop.getStartDate().toDateTimeAtCurrentTime().getMillis()

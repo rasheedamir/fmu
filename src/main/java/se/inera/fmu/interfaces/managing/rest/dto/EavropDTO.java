@@ -53,7 +53,9 @@ public class EavropDTO {
 	private String ansvarigUtredare;
 
 	private Boolean isCompleted;
-
+	
+	private String completedColor;
+	
 	public EavropDTO() {
 	}
 
@@ -280,6 +282,15 @@ public class EavropDTO {
 	
 	public EavropDTO setTotalCompletionDays(Integer totalCompletionDays) {
 		this.totalCompletionDays = totalCompletionDays;
+		return this;
+	}
+	
+	public String getCompletedColor() {
+		return completedColor;
+	}
+	
+	public EavropDTO setCompletedColor(String completedColor) {
+		this.completedColor = completedColor;
 		return this;
 	}
 }

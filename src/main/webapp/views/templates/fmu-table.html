@@ -59,8 +59,7 @@
 
         <div>
             <div ng-repeat="value in params.settings().$scope.footerHints" class="table-legend">
-                <div class="circle {{value.colorClass}}"></div>
-                <p>{{value.description}}</p>
+                <span><i class="circle {{value.colorClass}}"></i>{{value.description}}</span>
             </div>
         </div>
     </script>

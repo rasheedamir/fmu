@@ -141,8 +141,11 @@ ul#strength {
 
 .table-wrapper {
     overflow-x: auto;
-    margin-top: 20px;
-    padding: 10px;
+    margin-top: 1em;
+    padding: 2em;
+    -webkit-box-shadow: 0.5px 0.5px 1px 1px #999;
+    -moz-box-shadow: 0.5px 0.5px 1px 1px #999;
+    box-shadow: 0.5px 0.5px 1px 1px #999;
     box-shadow: 0.5px 0.5px 1px 1px #999;
     border-radius: 2px;
 }
@@ -158,6 +161,10 @@ ul#strength {
 
 .fmu-table > thead > tr:nth-child(2) {
     background-color: #3c4e57;
+}
+
+.fmu-table-color-inactive {
+    background-color: #FAFAFA;
 }
 
 .fmu-table > thead > tr > th,
@@ -197,6 +204,7 @@ ul#strength {
 .circle {
     width: 15px;
     height: 15px;
+    margin-right: 0.5em;
     -moz-border-radius: 50px;
     -webkit-border-radius: 50px;
     float: left;
@@ -229,15 +237,7 @@ ul#strength {
 
 /*Table row hover animation*/
 .fmu-table> tbody > tr:hover {
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-    -webkit-transition-property: transform;
-    transition-property: transform;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    -webkit-transform: scale(1.02);
-    transform: scale(1.02);
+    opacity: 1.5;
 }
 
 /*Table hover animation*/
@@ -316,19 +316,19 @@ ul#strength {
     margin-bottom: 1em;
 	width:100%;
 	border:1px solid #999999;
-	
+
 	-moz-border-radius-bottomleft:5px;
 	-webkit-border-bottom-left-radius:5px;
 	border-bottom-left-radius:5px;
-	
+
 	-moz-border-radius-bottomright:5px;
 	-webkit-border-bottom-right-radius:5px;
 	border-bottom-right-radius:5px;
-	
+
 	-moz-border-radius-topright:5px;
 	-webkit-border-top-right-radius:5px;
 	border-top-right-radius:5px;
-	
+
 	-moz-border-radius-topleft:5px;
 	-webkit-border-top-left-radius:5px;
 	border-top-left-radius:5px;
@@ -383,19 +383,19 @@ ul#strength {
     margin-bottom: 1em;
 	width:100%;
 	border:1px solid #999999;
-	
+
 	-moz-border-radius-bottomleft:5px;
 	-webkit-border-bottom-left-radius:5px;
 	border-bottom-left-radius:5px;
-	
+
 	-moz-border-radius-bottomright:5px;
 	-webkit-border-bottom-right-radius:5px;
 	border-bottom-right-radius:5px;
-	
+
 	-moz-border-radius-topright:5px;
 	-webkit-border-top-right-radius:5px;
 	border-top-right-radius:5px;
-	
+
 	-moz-border-radius-topleft:5px;
 	-webkit-border-top-left-radius:5px;
 	border-top-left-radius:5px;
