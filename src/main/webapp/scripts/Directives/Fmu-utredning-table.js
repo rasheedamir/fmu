@@ -126,5 +126,3 @@ angular.module('fmuClientApp')
                 templateUrl: 'views/templates/fmu-utredning-table.html'
             };
         }]);
-
-// TODO set default tolk/booking status and commenst in expanded tabs for indicating current stauses

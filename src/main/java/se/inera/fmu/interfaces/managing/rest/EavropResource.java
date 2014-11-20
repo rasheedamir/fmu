@@ -181,4 +181,6 @@ public class EavropResource {
 		this.fmuOrderingService.removeNote(eavropId, noteId);
 		return HttpStatus.OK;
 	}
+	
+	//TODO create eavrop data and test for role SAMORDNARE
 }

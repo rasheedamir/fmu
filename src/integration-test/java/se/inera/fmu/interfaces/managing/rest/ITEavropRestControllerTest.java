@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -42,6 +43,7 @@ import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestD
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -78,16 +80,16 @@ public class ITEavropRestControllerTest {
 		DateTime startDate = new DateTime(1990, 1, 1, 0, 0, 0);
 		DateTime endDate = new DateTime(2990, 1, 1, 0, 0, 0);
 		MvcResult result = restMock
-				.perform(
-						get(
-								"/app/rest/eavrop" + "/fromdate/"
+				.perform(get("/app/rest/eavrop" + "/fromdate/"
 										+ startDate.getMillis() + "/todate/"
 										+ endDate.getMillis()
 										+ "/status/NOT_ACCEPTED" + "/page/0"
 										+ "/pagesize/10" + "/sortkey/arendeId"
 										+ "/sortorder/ASC").accept(
 								MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk()).andReturn();
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.totalElements", is(5)))
+				.andReturn();
 		result.getResponse().setCharacterEncoding("UTF-8");
 		log.debug(result.getResponse().getContentAsString());
 	}
