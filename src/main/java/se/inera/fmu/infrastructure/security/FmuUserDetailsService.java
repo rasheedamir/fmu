@@ -43,6 +43,7 @@ public class FmuUserDetailsService implements SAMLUserDetailsService {
 		Landstingssamordnare landstingssamordnare = ltSamordnareRepo.findByHsaId(new HsaId(user.getHsaId()));
 		if(landstingssamordnare != null){
 			user.getRoles().add(Role.ROLE_SAMORDNARE);
+			user.setLandstingCode(landstingssamordnare.getLandsting().getLandstingCode().getCode());
 		}
 		
 		user.setActiveRole(user.getRoles().get(0));
