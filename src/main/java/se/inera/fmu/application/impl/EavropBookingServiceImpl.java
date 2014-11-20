@@ -150,7 +150,7 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 	}
 	
 	private Note createDeviationNote(String text, HsaId hsaId, String name, String role, String organisation, String unit){
-		if(!StringUtils.isBlankOrNull(text)){
+		if(StringUtils.isBlankOrNull(text)){
 			return null;
 		}
 		HoSPerson person = null;
