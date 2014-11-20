@@ -426,7 +426,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	 * Get number of days used for getting acceptance of eavrop assignment
 	 * @return
 	 */
-	public int noOfAcceptDays(){
+	public int getNoOfAcceptDays(){
 		
 		LocalDate fromDate = new LocalDate(this.getCreatedDate()).plusDays(1);
 		LocalDate toDate = new LocalDate();

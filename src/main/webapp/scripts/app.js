@@ -17,7 +17,8 @@ angular.module('fmuClientApp', [
     'ui.router',
     'ngTable',
     'ui.bootstrap',
-    'ngDialog'
+    'ngDialog',
+    'ngAnimate'
 ])
 .run(['$rootScope', '$state', function($rootScope, $state){
     $rootScope.$state = $state;
