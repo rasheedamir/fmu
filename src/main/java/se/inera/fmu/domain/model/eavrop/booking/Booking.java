@@ -98,6 +98,7 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 		Validate.notNull(type);
 		Validate.notNull(startDateTime);
 		Validate.notNull(endDateTime);
+		Validate.isTrue(endDateTime.isAfter(startDateTime));
 		Validate.notNull(person);
 		this.setBookingType(type);
 		this.setStartDateTime(startDateTime);
