@@ -1,7 +1,7 @@
 'use strict';
 angular.module('fmuClientApp')
-    .directive('fmuUtredningTable', ['ngTableParams', '$filter', 'UtredningService', 'ngDialog', 'UTREDNING',
-        function (ngTableParams, $filter, UtredningService, ngDialog, UTREDNING) {
+    .directive('fmuUtredningTable', ['ngTableParams', '$filter', 'UtredningService', '$modal', 'UTREDNING',
+        function (ngTableParams, $filter, UtredningService, $modal, UTREDNING) {
             return {
                 restrict: 'E',
                 scope: {
