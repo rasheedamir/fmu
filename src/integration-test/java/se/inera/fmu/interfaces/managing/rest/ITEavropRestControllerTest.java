@@ -313,7 +313,7 @@ public class ITEavropRestControllerTest {
 		result = restMock.perform(get("/app/rest/eavrop/3/utredning")
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$", hasSize(1)))
+				.andExpect(jsonPath("$", hasSize(2)))
 				.andExpect(jsonPath("$[0].tolkStatus.currentStatus.name", is("INTERPRETER_NOT_PRESENT")))
 				.andExpect(jsonPath("$[0].handelseStatus.currentStatus.name", is("CANCELLED_NOT_PRESENT")))
 				.andExpect(jsonPath("$[0].tolkStatus.comment", is("This tolk is bad")))

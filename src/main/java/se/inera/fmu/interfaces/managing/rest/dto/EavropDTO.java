@@ -32,8 +32,12 @@ public class EavropDTO {
 
 	private Integer avikelser;
 
-	private String color;
-
+	private String bestallningRowColor;
+	
+	private String pagaendeRowColor;
+	
+	private String completedRowColor;
+	
 	private Long startDate;
 
 	private Integer nrOfDaysSinceStart;
@@ -53,8 +57,6 @@ public class EavropDTO {
 	private String ansvarigUtredare;
 
 	private Boolean isCompleted;
-	
-	private String completedColor;
 	
 	public EavropDTO() {
 	}
@@ -95,17 +97,8 @@ public class EavropDTO {
 		return this;
 	}
 
-	public EavropDTO setRowColor(String randomHexString) {
-		this.setColor(randomHexString);
-		return this;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public EavropDTO setColor(String color) {
-		this.color = color;
+	public EavropDTO setBestallningRowColor(String color) {
+		this.bestallningRowColor = color;
 		return this;
 	}
 
@@ -285,12 +278,12 @@ public class EavropDTO {
 		return this;
 	}
 	
-	public String getCompletedColor() {
-		return completedColor;
+	public String getEavropCompletionStatus() {
+		return this.completedRowColor;
 	}
 	
-	public EavropDTO setCompletedColor(String completedColor) {
-		this.completedColor = completedColor;
+	public EavropDTO setEavropCompletionStatus(String eavropCompletionStatus) {
+		this.completedRowColor = eavropCompletionStatus;
 		return this;
 	}
 }

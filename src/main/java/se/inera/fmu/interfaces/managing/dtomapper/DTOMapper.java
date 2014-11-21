@@ -5,6 +5,11 @@ import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 
 public class DTOMapper {
 
+	private static final String DEFAULT_COLOR = "fmu-table-color-inactive";
+	private static final String DANGER_COLOR = "bg-danger";
+	private static final String WARNING_COLOR = "bg-warning";
+	private static final String SUCCESS_COLOR = "bg-success";
+
 	public EavropDTO map(Eavrop eavrop) {
 		EavropDTO dto = new EavropDTO();
 		if(eavrop == null)
@@ -25,7 +30,7 @@ public class DTOMapper {
 		.setBestallareEnhet(eavrop.getBestallaradministrator() != null ? 
 				eavrop.getBestallaradministrator().getUnit() : null)
 		.setAvikelser(eavrop.getNumberOfDeviationsOnEavrop())
-		.setRowColor(eavrop.isEavropAcceptDaysDeviated() ? "bg-danger": "fmu-table-color-inactive")
+		.setBestallningRowColor(eavrop.isEavropAcceptDaysDeviated() ? "bg-danger": DEFAULT_COLOR)
 		
 		.setStartDate(eavrop.getStartDate() != null ? 
 				eavrop.getStartDate().toDateTimeAtCurrentTime().getMillis()
@@ -49,8 +54,25 @@ public class DTOMapper {
 		&& eavrop.getEavropCompensationApproval().getCompensationDateTime() != null ?
 				eavrop.getEavropCompensationApproval().getCompensationDateTime().getMillis() : null)
 		.setAnsvarigUtredare(eavrop.getIntygSigningPerson() != null ? eavrop.getIntygSigningPerson().getName(): null)
-		.setTotalCompletionDays(eavrop.getNoOfDaysUsedForLastComplementRequest());
+		.setTotalCompletionDays(eavrop.getNoOfDaysUsedForLastComplementRequest())
+		.setEavropCompletionStatus(toColorCode(eavrop));
 		
 		return dto;
+	}
+
+	private String toColorCode(Eavrop eavrop) {
+		if(eavrop.getStatus() == null || !eavrop.getStatus().isCompleted())
+			return DEFAULT_COLOR;
+		switch (eavrop.getStatus()) {
+		case SENT:
+			return eavrop.isDeviated() ? DANGER_COLOR : DEFAULT_COLOR;
+		case APPROVED:
+			return WARNING_COLOR;
+		case CLOSED:
+			return eavrop.getEavropCompensationApproval() != null && eavrop.getEavropCompensationApproval().isApproved() ?
+					SUCCESS_COLOR: DANGER_COLOR;
+		default:
+			return DEFAULT_COLOR;
+		}
 	}
 }
