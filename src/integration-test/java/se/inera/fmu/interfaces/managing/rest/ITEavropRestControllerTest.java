@@ -126,9 +126,7 @@ public class ITEavropRestControllerTest {
 		DateTime startDate = new DateTime(1990, 1, 1, 0, 0, 0);
 		DateTime endDate = new DateTime(2990, 1, 1, 0, 0, 0);
 		MvcResult result = restMock
-				.perform(
-						get(
-								"/app/rest/eavrop" + "/fromdate/"
+				.perform(get("/app/rest/eavrop" + "/fromdate/"
 										+ startDate.getMillis() + "/todate/"
 										+ endDate.getMillis()
 										+ "/status/COMPLETED" + "/page/0"
@@ -193,8 +191,7 @@ public class ITEavropRestControllerTest {
 		DateTime endDate = new DateTime(2990, 1, 1, 0, 0, 0);
 		MvcResult result = restMock
 				.perform(
-						get(
-								"/app/rest/eavrop" + "/fromdate/"
+						get("/app/rest/eavrop" + "/fromdate/"
 										+ startDate.getMillis() + "/todate/"
 										+ endDate.getMillis()
 										+ "/status/COMPLETED" + "/page/0"
