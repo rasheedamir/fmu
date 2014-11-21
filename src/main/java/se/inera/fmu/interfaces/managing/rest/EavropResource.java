@@ -35,6 +35,7 @@ import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.EavropBaseDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
@@ -108,7 +109,7 @@ public class EavropResource {
 	}
 	
 	@RequestMapping(value = "/rest/eavrop/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public EavropDTO getEavrop(@PathVariable("id") String id) {
+	public EavropBaseDTO getEavrop(@PathVariable("id") String id) {
 		return this.fmuOrderingService.getEavrop(new EavropId(id));
 	}	
 	

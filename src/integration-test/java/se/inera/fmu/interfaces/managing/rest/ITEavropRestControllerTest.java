@@ -69,6 +69,21 @@ public class ITEavropRestControllerTest {
 		this.restMock = MockMvcBuilders.standaloneSetup(eavropResource).build();
 		TestUtil.loginWithNoActiveRole();
 	}
+	
+	@Test
+	public void getEavropAsSamordnareTest() throws Exception {
+		this.currentUserService.getCurrentUser().setActiveRole(
+				Role.ROLE_SAMORDNARE);
+		this.currentUserService.getCurrentUser().setLandstingCode(1);
+
+		MvcResult result = restMock
+				.perform(get("/app/rest/eavrop/1").accept(
+								MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andReturn();
+		result.getResponse().setCharacterEncoding("UTF-8");
+		log.debug(result.getResponse().getContentAsString());
+	}
 
 	@Test
 	public void loggedInasLandstingSamordnareNotAccepted() throws Exception {

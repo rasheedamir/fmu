@@ -28,6 +28,7 @@ import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.TestUtil;
+import se.inera.fmu.interfaces.managing.rest.dto.EavropBaseDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 
@@ -74,7 +75,7 @@ public class ITFmuOrderingServiceImplTest {
 		assertTrue(eavrops.getEavrops().size() > 0);
 		
 		DateTime previous = null;
-		for (EavropDTO eavrop : eavrops.getEavrops()) {
+		for (EavropBaseDTO eavrop : eavrops.getEavrops()) {
 			assertEquals(eavrop.getMottagarenOrganisation(),this.fmuListService.findLandstingByLandstingCode(new LandstingCode(currentUser.getLandstingCode())).getName());
 			assertTrue(eavrop.getStatus() == EavropStateType.UNASSIGNED
 					|| eavrop.getStatus() == EavropStateType.ASSIGNED);
@@ -90,7 +91,7 @@ public class ITFmuOrderingServiceImplTest {
 		assertTrue(eavrops.getEavrops().size() > 0);
 		
 		previous = null;
-		for (EavropDTO eavrop : eavrops.getEavrops()) {
+		for (EavropBaseDTO eavrop : eavrops.getEavrops()) {
 			assertEquals(eavrop.getMottagarenOrganisation(),this.fmuListService.findLandstingByLandstingCode(new LandstingCode(currentUser.getLandstingCode())).getName());
 			assertTrue(eavrop.getStatus() == EavropStateType.ACCEPTED
 					|| eavrop.getStatus() == EavropStateType.ON_HOLD);
@@ -106,7 +107,7 @@ public class ITFmuOrderingServiceImplTest {
 		assertTrue(eavrops.getEavrops().size() > 0);
 		
 		previous = null;
-		for (EavropDTO eavrop : eavrops.getEavrops()) {
+		for (EavropBaseDTO eavrop : eavrops.getEavrops()) {
 			assertEquals(eavrop.getMottagarenOrganisation(),this.fmuListService.findLandstingByLandstingCode(new LandstingCode(currentUser.getLandstingCode())).getName());
 			assertTrue(eavrop.getStatus() == EavropStateType.CLOSED
 					|| eavrop.getStatus() == EavropStateType.APPROVED);
@@ -131,7 +132,7 @@ public class ITFmuOrderingServiceImplTest {
 		assertTrue(eavrops.getEavrops().size() > 0);
 		
 		DateTime previous = null;
-		for (EavropDTO eavrop : eavrops.getEavrops()) {
+		for (EavropBaseDTO eavrop : eavrops.getEavrops()) {
 //			assertTrue(eavrop.get);
 			assertTrue(eavrop.getStatus() == EavropStateType.UNASSIGNED
 					|| eavrop.getStatus() == EavropStateType.ASSIGNED);
@@ -147,7 +148,7 @@ public class ITFmuOrderingServiceImplTest {
 		assertTrue(eavrops.getEavrops().size() > 0);
 		
 		previous = null;
-		for (EavropDTO eavrop : eavrops.getEavrops()) {
+		for (EavropBaseDTO eavrop : eavrops.getEavrops()) {
 //			assertTrue(eavrop.getLandsting().getLandstingCode().getCode() == currentUser.getLandstingCode());
 			assertTrue(eavrop.getStatus() == EavropStateType.ACCEPTED
 					|| eavrop.getStatus() == EavropStateType.ON_HOLD);
@@ -163,7 +164,7 @@ public class ITFmuOrderingServiceImplTest {
 		assertTrue(eavrops.getEavrops().size() > 0);
 		
 		previous = null;
-		for (EavropDTO eavrop : eavrops.getEavrops()) {
+		for (EavropBaseDTO eavrop : eavrops.getEavrops()) {
 //			assertTrue(eavrop.getLandsting().getLandstingCode().getCode() == currentUser.getLandstingCode());
 			assertTrue(eavrop.getStatus() == EavropStateType.CLOSED
 					|| eavrop.getStatus() == EavropStateType.APPROVED);

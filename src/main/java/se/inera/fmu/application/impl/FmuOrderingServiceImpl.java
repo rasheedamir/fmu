@@ -1,8 +1,12 @@
 package se.inera.fmu.application.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import lombok.extern.slf4j.Slf4j;
 
-import org.apache.velocity.runtime.parser.node.GetExecutor;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,8 +29,13 @@ import se.inera.fmu.application.impl.command.RemoveNoteCommand;
 import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.authentication.User;
-import se.inera.fmu.domain.model.eavrop.*;
-import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignedToVardgivarenhetEvent;
+import se.inera.fmu.domain.model.eavrop.ArendeId;
+import se.inera.fmu.domain.model.eavrop.Eavrop;
+import se.inera.fmu.domain.model.eavrop.EavropBuilder;
+import se.inera.fmu.domain.model.eavrop.EavropCreatedEvent;
+import se.inera.fmu.domain.model.eavrop.EavropId;
+import se.inera.fmu.domain.model.eavrop.EavropRepository;
+import se.inera.fmu.domain.model.eavrop.Interpreter;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
@@ -53,18 +62,23 @@ import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
 import se.inera.fmu.domain.model.systemparameter.Configuration;
 import se.inera.fmu.interfaces.managing.dtomapper.AllEventsDTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.BestallningDTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.CompletedEavropDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.DTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.EavropBaseDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.NoteDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.OrderDTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.PagaendeDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.PatientDTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.ReceivedDocumentDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.RequestedDocumentDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.UtredningDTOMapper;
-import se.inera.fmu.interfaces.managing.dtomapper.ReceivedDocumentDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.EavropBaseDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
@@ -75,11 +89,6 @@ import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TimeDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestDTO;
-
-import javax.inject.Inject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Rasheed on 7/7/14.
@@ -261,15 +270,16 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 			case NOT_ACCEPTED:
 				return constructOverviewDTO(this.fmuListService
 						.findAllNotAcceptedEavropByLandstingAndDateTimeOrdered(landsting,
-								startDate, endDate, paginationSpecs));
+								startDate, endDate, paginationSpecs), new BestallningDTOMapper());
 			case ACCEPTED:
 				return constructOverviewDTO(this.fmuListService
 						.findAllOngoingEavropByLandstingAndDateTimeStarted(landsting,
-								startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs));
+								startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs), 
+								new PagaendeDTOMapper());
 			case COMPLETED:
 				return constructOverviewDTO(this.fmuListService
 						.findAllCompletedEavropByLandstingAndDateTimeSent(landsting, startDate,
-								endDate, paginationSpecs));
+								endDate, paginationSpecs), new CompletedEavropDTOMapper());
 			default:
 				return null;
 			}
@@ -284,15 +294,16 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 			case NOT_ACCEPTED:
 				return constructOverviewDTO(this.fmuListService
 						.findAllNotAcceptedEavropByVardgivarenhetAndDateTimeOrdered(vardgivarenhet,
-								startDate, endDate, paginationSpecs));
+								startDate, endDate, paginationSpecs), new BestallningDTOMapper());
 			case ACCEPTED:
 				return constructOverviewDTO(this.fmuListService
 						.findAllOngoingEavropByVardgivarenhetAndDateTimeStarted(vardgivarenhet,
-								startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs));
+								startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs), 
+								new PagaendeDTOMapper());
 			case COMPLETED:
 				return constructOverviewDTO(this.fmuListService
 						.findAllCompletedEavropByVardgivarenhetAndDateTimeSent(vardgivarenhet,
-								startDate, endDate, paginationSpecs));
+								startDate, endDate, paginationSpecs), new CompletedEavropDTOMapper());
 			default:
 				return null;
 			}
@@ -301,10 +312,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		}
 	}
 
-	private EavropPageDTO constructOverviewDTO(Page<Eavrop> eavrops) {
-		List<EavropDTO> data = new ArrayList<EavropDTO>();
-		DTOMapper eavropMapper = new DTOMapper();
-
+	private EavropPageDTO constructOverviewDTO(Page<Eavrop> eavrops, EavropBaseDTOMapper eavropMapper) {
+		List<EavropBaseDTO> data = new ArrayList<EavropBaseDTO>();
 		for (Eavrop eavrop : eavrops.getContent()) {
 			data.add(eavropMapper.map(eavrop));
 		}
@@ -578,11 +587,10 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	}
 
 	@Override
-	public EavropDTO getEavrop(EavropId eavropId) {
-		DTOMapper mapper = new DTOMapper();
+	public EavropBaseDTO getEavrop(EavropId eavropId) {
+		EavropBaseDTOMapper mapper = new EavropBaseDTOMapper();
 		Eavrop eavropForUser = getEavropForUser(eavropId);
-		EavropDTO eavropDTO = mapper.map(eavropForUser);
-		return eavropDTO;
+		return mapper.map(eavropForUser, new EavropBaseDTO());
 	}
 
 }
