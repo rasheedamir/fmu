@@ -63,11 +63,11 @@ angular.module('fmuClientApp')
         },
 
         tolkMapping: {
-            INTERPPRETER_BOOKED: 'Bokat',
+            INTERPRETER_BOOKED: 'Bokat',
             INTERPRETATION_PERFORMED: 'Tolkning genomförd',
-            INTERPPRETER_CANCELED: 'Tolk avbokad',
-            INTERPPRETER_NOT_PRESENT: 'Tolk uteblev',
-            INTERPPRETER_PRESENT_BUT_NOT_USED: 'Tolk anlänt, men tolkning inte använd'
+            INTERPRETER_CANCELED: 'Tolk avbokad',
+            INTERPRETER_NOT_PRESENT: 'Tolk uteblev',
+            INTERPRETER_PRESENT_BUT_NOT_USED: 'Tolk anlänt, men tolkning inte använd'
         },
 
         editableEvents: {
