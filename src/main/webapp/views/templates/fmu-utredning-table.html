@@ -41,7 +41,7 @@
         <td colspan="{{headerFields.length}}" ng-if="row.isEditExpanded">
             <div class="utredning-edit-row">
                 <tabset justified="false">
-                    <tab ng-if="row.tolkStatus" heading="Tolk">
+                    <tab ng-if="row.selectedTolkStatus" heading="Tolk">
                         <div class="fmu-form-container">
                             <div class="fmu-form-header" ng-if="statusModificationErrors.tolk">
                                 <label>Error: </label>
@@ -78,7 +78,7 @@
                     </tab>
 
 
-                    <tab ng-if="row.handelseStatus" heading="Händelse">
+                    <tab ng-if="row.selectedHandelseStatus" heading="Händelse">
                         <div class="fmu-form-container">
                             <div class="fmu-form-header" ng-if="statusModificationErrors.handelse">
                                 <label>Error: </label>

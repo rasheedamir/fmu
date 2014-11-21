@@ -34,12 +34,12 @@ angular.module('fmuClientApp')
 
                     $scope.toogleEditRow = function (row) {
                         row.selectedTolkStatus = row.tolkStatus.currentStatus;
-                        if (row.selectedTolkStatus.requireComment) {
+                        if (row.selectedTolkStatus && row.selectedTolkStatus.requireComment) {
                             row.tolkComment = row.tolkStatus.comment;
                         }
 
                         row.selectedHandelseStatus = row.handelseStatus.currentStatus;
-                        if (row.selectedHandelseStatus.requireComment) {
+                        if (row.selectedHandelseStatus && row.selectedHandelseStatus.requireComment) {
                             row.handelseComment = row.handelseStatus.comment;
                         }
 

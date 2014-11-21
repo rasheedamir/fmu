@@ -43,7 +43,6 @@ import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestD
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.jsonpath.JsonPath;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -342,7 +341,7 @@ public class ITEavropRestControllerTest {
 	@Test
 	public void removeNoteTest() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.ROLE_SAMORDNARE);
+				Role.ROLE_UTREDARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 		
 		// Add note
