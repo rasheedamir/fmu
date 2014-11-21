@@ -23,9 +23,7 @@ public class NoteDTOMapper {
 		case "ROLE_UTREDARE":
 			return "Utredare";
 		default:
-			break;
+			return role;
 		}
-		
-		return null;
 	}
 }
