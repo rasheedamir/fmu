@@ -430,6 +430,8 @@ The Failsafe Maven plugin is used to execute our integration tests. Run followin
  
 `mvn clean verify -P integration-test`
 
+When running integration tests from within `IntelliJ` just ensure to write click the `resources` folder and select `Mark Directory As` `Resources Root`
+
 ####Unit Tests (JavaScript)
 Front end unit tests can be run directly using command line at the project folder.
 Use `grunt karma` for unit testing 

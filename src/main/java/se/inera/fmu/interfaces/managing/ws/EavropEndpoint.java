@@ -9,7 +9,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import se.inera.fmu.application.FmuOrderingService;
 import ws.inera.fmu.admin.eavrop.CreateEavropRequest;
-import ws.inera.fmu.admin.eavrop.CreateEavropResponse;
+import ws.inera.fmu.admin.eavrop.FmuResponse;
 
 /**
  * Created by Rasheed on 10/25/14.
@@ -25,9 +25,21 @@ public class EavropEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "createEavropRequest")
     @ResponsePayload
-    public CreateEavropResponse createEavrop(@RequestPayload CreateEavropRequest request) {
+    public FmuResponse createEavrop(@RequestPayload CreateEavropRequest request) {
 
-        return null;
+        FmuResponse fmuResponse = new FmuResponse();
+
+        try {
+
+            fmuResponse.setCode("SUCCESS");
+            fmuResponse.setMessage("Request was successfull");
+        } catch (Exception exception) {
+
+            fmuResponse.setCode("FAILED");
+            fmuResponse.setCode("Exception occured!");
+        }
+
+        return fmuResponse;
     }
 
     //handlingarSkickade or initialDocumentsSent
