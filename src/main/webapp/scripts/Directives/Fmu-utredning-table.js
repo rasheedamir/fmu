@@ -1,7 +1,7 @@
 'use strict';
 angular.module('fmuClientApp')
-    .directive('fmuUtredningTable', ['ngTableParams', '$filter', 'UtredningService', 'ngDialog', 'UTREDNING',
-        function (ngTableParams, $filter, UtredningService, ngDialog, UTREDNING) {
+    .directive('fmuUtredningTable', ['ngTableParams', '$filter', 'UtredningService', '$modal', 'UTREDNING',
+        function (ngTableParams, $filter, UtredningService, $modal, UTREDNING) {
             return {
                 restrict: 'E',
                 scope: {
@@ -43,7 +43,6 @@ angular.module('fmuClientApp')
                             row.handelseComment = row.handelseStatus.comment;
                         }
 
-                        console.log(row.selectedHandelseStatus);
                         row.isEditExpanded = !row.isEditExpanded;
                     };
 
@@ -51,7 +50,6 @@ angular.module('fmuClientApp')
                         var dataPackage = createDataPackage(rowData.bookingId,
                             rowData.selectedTolkStatus.name,
                             rowData.selectedTolkStatus.requireComment ? rowData.tolkComment : null);
-                        console.log(dataPackage);
                         var promise = UtredningService.changeTolkBooking(dataPackage);
                         promise.then(function () {
                                 // Success
@@ -67,7 +65,6 @@ angular.module('fmuClientApp')
                         var dataPackage = createDataPackage(rowData.bookingId,
                             rowData.selectedHandelseStatus.name,
                             rowData.selectedHandelseStatus.requireComment ? rowData.handelseComment : null);
-                        console.log(dataPackage);
                         var promise = UtredningService.changeBooking(dataPackage);
                         promise.then(function () {
                                 // Success

@@ -615,7 +615,8 @@ h2{
 }
 
 .fmu-header {
-    display: block;
+    display: inline-block;
+    width: 100%;
     margin: 0;
     padding: 1em;
     background-color: #E6F3F4;
@@ -634,4 +635,10 @@ h2{
 
 .fmu-name-banner b{
     font-weight: bold;
+}
+
+@media (max-width: 480px) {
+    .nav-tabs > li {
+        float:none;
+    }
 }

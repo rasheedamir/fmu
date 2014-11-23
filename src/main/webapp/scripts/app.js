@@ -17,7 +17,6 @@ angular.module('fmuClientApp', [
     'ui.router',
     'ngTable',
     'ui.bootstrap',
-    'ngDialog',
     'ngAnimate'
 ])
 .run(['$rootScope', '$state', function($rootScope, $state){
