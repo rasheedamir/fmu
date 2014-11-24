@@ -35,6 +35,12 @@ angular.module('fmuClientApp')
         isCompletedMapping: {
             true: 'Ja',
             false: 'Nej'
+        },
+
+        isCompensationApprovedMapping: {
+            null : 'inväntar',
+            true : 'Ja',
+            false : 'Nej'
         }
     })
     .constant('UTREDNING', {

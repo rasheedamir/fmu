@@ -1,8 +1,5 @@
 package se.inera.fmu.interfaces.managing.dtomapper;
 
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropCompensationApproval;
 import se.inera.fmu.interfaces.managing.rest.dto.CompletedEavropDTO;
@@ -15,31 +12,20 @@ public class CompletedEavropDTOMapper extends EavropDTOMapper {
 		EavropCompensationApproval compensation = eavrop.getEavropCompensationApproval();
 		dto.setDagarFromStartToAccepted(eavrop.getNoOfAcceptDays());
 		dto.setAvikelser(eavrop.getNumberOfDeviationsOnEavrop());
-		dto.setIsCompleted(eavrop.isApproved());
+//		dto.setIsCompleted(eavrop.isin);
 		dto.setTotalCompletionDays(eavrop.getNoOfDaysUsedForLastComplementRequest());
+		dto.setDateIntygDelivered(eavrop.getIntygSentDateTime() != null ? eavrop.getIntygSentDateTime().getMillis(): null);
 		dto.setUtredareOrganisation(eavrop.getCurrentAssignedVardgivarenhet() != null ?
 				eavrop.getCurrentAssignedVardgivarenhet().getUnitName() : null);
 		dto.setAnsvarigUtredare(eavrop.getIntygSigningPerson() != null ?
 				eavrop.getIntygSigningPerson().getName() :  null);
 		dto.setUtredareOrganisation(eavrop.getCurrentAssignedVardgivarenhet() != null ?
 				eavrop.getCurrentAssignedVardgivarenhet().getUnitName() : null);
-		dto.setCompensationApprovedStatusAndDate(compensation == null ? 
-				toApprovedyyyMMDD(compensation)  : null);
+		dto.setIsCompensationApproved(compensation != null ? compensation.isApproved() : null);
+		dto.setCompensationApprovalDate(compensation != null && compensation.getCompensationDateTime() != null ? 
+				compensation.getCompensationDateTime().getMillis() : null);
 		dto.setColor(toColorCode(eavrop));
 		return dto;
-	}
-	
-	private String toApprovedyyyMMDD(EavropCompensationApproval compensation) {
-		String retval = null;
-		if(compensation == null)
-			return retval;
-		
-		retval = compensation.isApproved() ? "Ja" : "Nej";
-		
-		DateTimeFormatter dtfOut = DateTimeFormat.forPattern("MM/dd/yyyy");
-		String date = compensation.getCompensationDateTime() != null ? 
-				dtfOut.print(compensation.getCompensationDateTime()) : "";
-		return retval + " " + date;
 	}
 
 	@Override

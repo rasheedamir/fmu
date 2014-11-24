@@ -48,10 +48,10 @@ angular.module('fmuClientApp')
                 },
                 {
                     key: 'isCompleted',
-                    name: 'Utredning komplett ?'
+                    name: 'Utredning komplett&nbsp;?'
                 },
                 {
-                    key: 'compensationApprovedStatusAndDate',
+                    key: 'isCompensationApproved',
                     name: 'Godkänd för ersättning'
                 }
             ];
@@ -87,13 +87,21 @@ angular.module('fmuClientApp')
             };
 
             $scope.getTableCellValue = function (key, rowData) {
+                var value = rowData[key];
                 switch (key) {
                     case 'dateIntygDelivered':
-                        return $filter('date')(rowData[key], EAVROP_TABLE.dateFormat);
+                        return $filter('date')(value, EAVROP_TABLE.dateFormat);
                     case 'isCompleted':
-                        return EAVROP_TABLE.isCompletedMapping[rowData[key]];
+                        return EAVROP_TABLE.isCompletedMapping[value];
+                    case 'isCompensationApproved':
+                        var status = EAVROP_TABLE.isCompensationApprovedMapping[value];
+                        if(value === null){
+                            return status;
+                        } else {
+                            return status + ', ' + $filter('date')(rowData.compensationApprovalDate, EAVROP_TABLE.dateFormat);
+                        }
                     default:
-                        return rowData[key];
+                        return value === null ? '-' : value;
                 }
             };
         }

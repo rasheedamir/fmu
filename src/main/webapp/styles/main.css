@@ -296,7 +296,7 @@ ul#strength {
 }
 
 .bg-success {
-    background-color: rgb(153, 219, 102);
+    background-color: rgba(153, 219, 102, 0.5);
 }
 
 .summary-badge-text {

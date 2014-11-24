@@ -18,3 +18,4 @@ EAVROP_ID;created_by;created_date;last_modified_by;last_modified_date;version;AD
 16;system;2014-09-17;system;2014-11-27;1;Additional test info;987654321;test description;2014-09-20;25;10;5;3;CLOSED;Swahili;2014-10-28;2014-09-19;Psykologi;TMU;3;4;1;1;1;1;NULL
 99;system;2014-09-17;system;2014-11-27;1;Additional test info;19860904;test description;2014-09-20;25;10;5;3;ACCEPTED;Swahili;2014-10-28;2014-09-19;Psykologi;TMU;3;4;1;1;1;1;NULL
 20;system;2014-09-17;system;2014-11-27;1;Additional test info;AI-123TLC;test description;2014-09-20;5;25;10;3;SENT;Swahili;2014-10-28;2014-09-19;Psykologi;AFU;3;4;NULL;NULL;1;1;NULL
+21;system;2014-09-17;system;2014-11-27;1;Additional test info;AI-123TLD;test description;2014-09-20;5;25;10;3;CLOSED;Swahili;2014-10-28;2014-09-19;Psykologi;AFU;3;4;2;2;1;1;NULL
