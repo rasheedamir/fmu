@@ -1,20 +1,21 @@
-<div class="alert alert-info" style="margin-bottom: 0px">
+<div class="fmu-header">
     <a class="fmu-backlink" ui-sref="overview.orders">Till översikten</a>
-    <div class="pull-right" style="font-size: 120%">
+    <div class="pull-right fmu-name-banner" style="font-size: 120%">
         <span>Invånare: <b>{{patientInfo.label}}</b></span>
         <span style="margin-left: 2em;">Ärende-ID: <b>{{currentEavrop.arendeId}}</b></span>
     </div>
 </div>
 
-<div class="navbar navbar-default navbar-static-top" style="margin-bottom: 1em" role="navigation">
-    <div class="navbar-collapse collapse">
+<div class="navbar navbar-default" style="margin-bottom: 1em" role="navigation">
+    <div>
         <ul class="nav navbar-nav">
             <li ng-class="{active: $state.includes('eavrop.order')}"><a ui-sref=".order.contents"><span class="glyphicon glyphicon-save">&nbsp;</span>Beställning</a></li>
             <li ui-sref-active="active"><a ui-sref=".investigation"><span class="glyphicon glyphicon-search">&nbsp;</span>Utredning</a></li>
             <li ui-sref-active="active"><a ui-sref=".allevents"><span class="glyphicon glyphicon-random">&nbsp;</span>Alla händelser</a></li>
             <li ui-sref-active="active"><a ui-sref=".notes"><span class="glyphicon glyphicon-pencil">&nbsp;</span>Anteckningar</a></li>
             <li ui-sref-active="active"><a ui-sref=".compensation"><span class="glyphicon glyphicon-book">&nbsp;</span>Underlag för ersättning</a></li>
-        </div>
+        </ul>
+    </div>
     </div>
 </div>
 

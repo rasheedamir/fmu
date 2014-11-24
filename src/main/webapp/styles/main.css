@@ -141,8 +141,11 @@ ul#strength {
 
 .table-wrapper {
     overflow-x: auto;
-    margin-top: 20px;
-    padding: 10px;
+    margin-top: 1em;
+    padding: 2em;
+    -webkit-box-shadow: 0.5px 0.5px 1px 1px #999;
+    -moz-box-shadow: 0.5px 0.5px 1px 1px #999;
+    box-shadow: 0.5px 0.5px 1px 1px #999;
     box-shadow: 0.5px 0.5px 1px 1px #999;
     border-radius: 2px;
 }
@@ -158,6 +161,10 @@ ul#strength {
 
 .fmu-table > thead > tr:nth-child(2) {
     background-color: #3c4e57;
+}
+
+.fmu-table-color-inactive {
+    background-color: rgba(139, 149, 154, 0.1);
 }
 
 .fmu-table > thead > tr > th,
@@ -197,6 +204,7 @@ ul#strength {
 .circle {
     width: 15px;
     height: 15px;
+    margin-right: 0.5em;
     -moz-border-radius: 50px;
     -webkit-border-radius: 50px;
     float: left;
@@ -227,22 +235,10 @@ ul#strength {
     opacity: 0.6;
 }
 
-/*Table row hover animation*/
-.fmu-table> tbody > tr:hover {
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-    -webkit-transition-property: transform;
-    transition-property: transform;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    -webkit-transform: scale(1.02);
-    transform: scale(1.02);
-}
-
-/*Table hover animation*/
 .fmu-table > tbody > tr:hover > td{
     background-color: inherit;
+    opacity: 1;
+    filter: alpha(opacity=100);
 }
 
 .ng-table th.sortable div:after,
@@ -292,11 +288,11 @@ ul#strength {
 }
 
 .bg-danger {
-    background-color: rgba(255, 75, 73, 0.5);
+    background-color: rgba(250, 103, 97, 0.5);
 }
 
 .bg-warning {
-    background-color: rgba(250, 206, 65, 0.5);
+    background-color: rgba(233, 197, 112, 0.5);
 }
 
 .bg-success {
@@ -316,19 +312,19 @@ ul#strength {
     margin-bottom: 1em;
 	width:100%;
 	border:1px solid #999999;
-	
+
 	-moz-border-radius-bottomleft:5px;
 	-webkit-border-bottom-left-radius:5px;
 	border-bottom-left-radius:5px;
-	
+
 	-moz-border-radius-bottomright:5px;
 	-webkit-border-bottom-right-radius:5px;
 	border-bottom-right-radius:5px;
-	
+
 	-moz-border-radius-topright:5px;
 	-webkit-border-top-right-radius:5px;
 	border-top-right-radius:5px;
-	
+
 	-moz-border-radius-topleft:5px;
 	-webkit-border-top-left-radius:5px;
 	border-top-left-radius:5px;
@@ -383,22 +379,23 @@ ul#strength {
     margin-bottom: 1em;
 	width:100%;
 	border:1px solid #999999;
-	
+
 	-moz-border-radius-bottomleft:5px;
 	-webkit-border-bottom-left-radius:5px;
 	border-bottom-left-radius:5px;
-	
+
 	-moz-border-radius-bottomright:5px;
 	-webkit-border-bottom-right-radius:5px;
 	border-bottom-right-radius:5px;
-	
+
 	-moz-border-radius-topright:5px;
 	-webkit-border-top-right-radius:5px;
 	border-top-right-radius:5px;
-	
+
 	-moz-border-radius-topleft:5px;
 	-webkit-border-top-left-radius:5px;
 	border-top-left-radius:5px;
+
 }.fmu-table-k table{
     border-collapse: collapse;
     border-spacing: 0;
@@ -464,12 +461,6 @@ h2{
 .ngdialog.ngdialog-theme-default .ngdialog-content {
     max-width: 100%;
     width: 50%
-}
-
-.fmu-utredning-animation > tbody > tr:hover{
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    -webkit-transform: scale(1);
-    transform: scale(1);
 }
 
 .utredning-edit-row {
@@ -596,6 +587,10 @@ h2{
     margin-top: 1em;
 }
 
+.fmu-form-footer > div > button {
+    min-width: 5em;
+}
+
 .dropdown-menu {
     z-index: 1000;
 }
@@ -607,4 +602,43 @@ h2{
 
 .ng-table th {
     text-align: left;
+}
+
+.fmu-confirm-heading-text {
+    color: #008391;
+    font-weight: bold;
+}
+
+.fmu-confirm-text {
+    color: #000000;
+    white-space: nowrap;
+}
+
+.fmu-header {
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+    padding: 1em;
+    background-color: #E6F3F4;
+    border: 1px solid #9cd7e3;
+}
+
+.fmu-name-banner {
+    background-color: #ffffff;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000;
+}
+
+.fmu-name-banner b{
+    font-weight: bold;
+}
+
+@media (max-width: 480px) {
+    .nav-tabs > li {
+        float:none;
+    }
 }

@@ -19,6 +19,8 @@ public class EavropStateConverter implements AttributeConverter<EavropState, Str
 				return EavropStateType.CLOSED.name();
 			case ON_HOLD:
 				return EavropStateType.ON_HOLD.name();
+			case SENT:
+				return EavropStateType.SENT.name();
 			default:
 				 throw new IllegalArgumentException("Unknown value: " + state.getEavropStateType());
 			}
@@ -39,6 +41,8 @@ public class EavropStateConverter implements AttributeConverter<EavropState, Str
 				   return new ClosedEavropState();
 			  case "ON_HOLD":
 				   return new OnHoldEavropState();
+			  case "SENT":
+				   return new SentEavropState();
 			  default:
 			   throw new IllegalArgumentException("Unknown value: " + dbData);
 			  }

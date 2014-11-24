@@ -11,7 +11,7 @@ import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygComplementRequestInformation;
-import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedInformation;
+import se.inera.fmu.domain.model.eavrop.intyg.IntygSentInformation;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 
@@ -20,9 +20,9 @@ import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
  */
 public interface EavropState{
 	
-	public static final EavropState[] NOT_ACCEPTED_STATES = {new  UnassignedEavropState(), new AssignedEavropState() };
-	public static final EavropState[] ACCEPTED_STATES = {new  AcceptedEavropState(), new OnHoldEavropState() };
-	public static final EavropState[] COMPLETED_STATES = {new  ApprovedEavropState(), new ClosedEavropState() };
+	public static final EavropState[] NOT_ACCEPTED_STATES = {new UnassignedEavropState(), new AssignedEavropState() };
+	public static final EavropState[] ACCEPTED_STATES = {new AcceptedEavropState(), new OnHoldEavropState() };
+	public static final EavropState[] COMPLETED_STATES = {new SentEavropState(), new ApprovedEavropState(), new ClosedEavropState() };
 	
 	public EavropStateType getEavropStateType();
 	
@@ -55,7 +55,7 @@ public interface EavropState{
 	public void removeNote(Eavrop eavrop, Note note);
 	
 	//Intyg
-	public void addIntygSignedInformation(Eavrop eavrop, IntygSignedInformation intygSignedInformation);
+	public void addIntygSentInformation(Eavrop eavrop, IntygSentInformation intygSentInformation);
 
 	public void addIntygComplementRequestInformation(Eavrop eavrop, IntygComplementRequestInformation intygComplementRequestInformation);
 	

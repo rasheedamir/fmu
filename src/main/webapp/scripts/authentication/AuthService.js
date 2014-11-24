@@ -1,25 +1,27 @@
 'use strict';
 
 angular.module('fmuClientApp')
-.factory('AuthService', function(){
-    var userInfo = {roles: []};
+.factory('AuthService', ['$resource', 'RESTURL', '$http', function($resource, RESTURL, $http){
+    var userInfo = {};
+    
+    var UserResource = $resource(RESTURL.userInfo);
+    
+    function getUserInfo(){
+    	userInfo = UserResource.get();
+    	return userInfo;
+    }
 
     function hasRole(roleName){
-        return userInfo.roles.indexOf(roleName) !== -1;
+        return userInfo.activeRole === roleName;
     }
-
-    function removeRole(roleName){
-        userInfo.roles.splice(userInfo.roles.indexOf(roleName), 1);
-    }
-
-    function addRole(roleName){
-        userInfo.roles.push(roleName);
+    
+    function changeRole(roleName){
+    	$http.put(RESTURL.changeRole, null, {params: {role: roleName}});
     }
 
     return {
-        userInfo: userInfo,
         hasRole: hasRole,
-        removeRole: removeRole,
-        addRole: addRole
+        getUserInfo: getUserInfo,
+        changeRole: changeRole
     };
-});
+}]);

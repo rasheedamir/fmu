@@ -39,7 +39,7 @@ import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.HoSPerson;
 import se.inera.fmu.domain.model.person.Person;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("all")
 @Service
 @Validated
 @Transactional
@@ -150,7 +150,7 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 	}
 	
 	private Note createDeviationNote(String text, HsaId hsaId, String name, String role, String organisation, String unit){
-		if(!StringUtils.isBlankOrNull(text)){
+		if(StringUtils.isBlankOrNull(text)){
 			return null;
 		}
 		HoSPerson person = null;

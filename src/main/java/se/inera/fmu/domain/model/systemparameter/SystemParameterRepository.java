@@ -18,7 +18,7 @@ public interface SystemParameterRepository extends JpaRepository<SystemParameter
 	 * @param key which represents the system parameter key
 	 * @return a system parameter if key exists otherwise null
 	 */
-	@Query(value = "SELECT * FROM SYSTEM_PARAMETER sp WHERE sp.key = :key", nativeQuery = true)
+	@Query(value = "SELECT * FROM T_SYSTEM_PARAMETER sp WHERE sp.key = :key", nativeQuery = true)
 	 public SystemParameter findByKey(@Param("key") String key);
 
 }

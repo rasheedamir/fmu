@@ -50,8 +50,8 @@ public class TestUtil {
 		User user = new User();
         user.setFirstName("Åsa");
         List<Role> roles = new ArrayList<Role>();
-        roles.add(Role.LANDSTINGSSAMORDNARE);
-        roles.add(Role.UTREDARE);
+        roles.add(Role.ROLE_SAMORDNARE);
+        roles.add(Role.ROLE_UTREDARE);
 		user.setRoles(roles);
 		user.setMiddleAndLastName("Andersson");
 		user.setVardenhetHsaId("IFV1239877878-1045");

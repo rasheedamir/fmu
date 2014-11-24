@@ -25,7 +25,7 @@ public class InterpreterBooking {
 	private Note deviationNote;
 
 	public InterpreterBooking() {
-		this.interpreterBookingStatus = InterpreterBookingStatusType.INTERPPRETER_BOOKED;
+		this.interpreterBookingStatus = InterpreterBookingStatusType.INTERPRETER_BOOKED;
 	}
 
 	public InterpreterBookingStatusType getInterpreterBookingStatus() {
@@ -46,7 +46,7 @@ public class InterpreterBooking {
 	}
 	
 	public boolean hasDeviation(){
-		return InterpreterBookingStatusType.INTERPPRETER_NOT_PRESENT.equals(this.getInterpreterBookingStatus());
+		return InterpreterBookingStatusType.INTERPRETER_NOT_PRESENT.equals(this.getInterpreterBookingStatus());
 	}
 
 	public InterpreterBookingEventDTO getAsInterpreterBookingEventDTO() {

@@ -11,8 +11,19 @@ public class NoteDTOMapper {
 		dto.setNoteId(note.getNoteId().getNoteId());
 		dto.setContents(note.getText());
 		dto.setDate(note.getCreatedDate().getMillis());
-		dto.setCreatedBy(String.format("%s, %s, %s", note.getPerson().getName(), note.getPerson().getRole(), note.getPerson().getOrganisation()));
+		dto.setCreatedBy(String.format("%s, %s, %s", note.getPerson().getName(), getRoleName(note.getPerson().getRole()), note.getPerson().getOrganisation()));
 		dto.setRemovable(note.isRemovableBy(new HsaId(currentUser.getHsaId())));
 		return dto;
+	}
+
+	private String getRoleName(String role) {
+		switch (role) {
+		case "ROLE_SAMORDNARE":
+			return "Samordnare";
+		case "ROLE_UTREDARE":
+			return "Utredare";
+		default:
+			return role;
+		}
 	}
 }

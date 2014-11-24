@@ -1,7 +1,7 @@
 'use strict';
 angular.module('fmuClientApp')
-    .directive('fmuUtredningTable', ['ngTableParams', '$filter', 'UtredningService', 'ngDialog', 'UTREDNING',
-        function (ngTableParams, $filter, UtredningService, ngDialog, UTREDNING) {
+    .directive('fmuUtredningTable', ['ngTableParams', '$filter', 'UtredningService', '$modal', 'UTREDNING',
+        function (ngTableParams, $filter, UtredningService, $modal, UTREDNING) {
             return {
                 restrict: 'E',
                 scope: {
@@ -20,8 +20,8 @@ angular.module('fmuClientApp')
                             bookingId: bookingId,
                             bookingStatus: newStatus,
                             comment: comment
-                        }
-                    };
+                        };
+                    }
 
                     $scope.cancelChange = function (rowData) {
                         $scope.toogleEditRow(rowData);
@@ -33,6 +33,16 @@ angular.module('fmuClientApp')
                     };
 
                     $scope.toogleEditRow = function (row) {
+                        row.selectedTolkStatus = row.tolkStatus.currentStatus;
+                        if (row.selectedTolkStatus && row.selectedTolkStatus.requireComment) {
+                            row.tolkComment = row.tolkStatus.comment;
+                        }
+
+                        row.selectedHandelseStatus = row.handelseStatus.currentStatus;
+                        if (row.selectedHandelseStatus && row.selectedHandelseStatus.requireComment) {
+                            row.handelseComment = row.handelseStatus.comment;
+                        }
+
                         row.isEditExpanded = !row.isEditExpanded;
                     };
 
@@ -92,7 +102,7 @@ angular.module('fmuClientApp')
 
                                             params.total(orderedData.length);
                                             $defer.resolve(orderedData);
-                                        })
+                                        });
                                     },
                                     $scope: $scope
                                 });
@@ -104,14 +114,9 @@ angular.module('fmuClientApp')
                     scope.getValue = function (key, row) {
                         return scope.getDataCallback() ? scope.getDataCallback()(key, row) : row[key];
                     };
-                    scope.rowClicked = function (row) {
-
-                    };
 
                     scope.initTableParameters();
                 },
                 templateUrl: 'views/templates/fmu-utredning-table.html'
             };
         }]);
-
-// TODO set default tolk/booking status and commenst in expanded tabs for indicating current stauses

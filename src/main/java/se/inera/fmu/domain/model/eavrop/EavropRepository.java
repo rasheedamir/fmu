@@ -63,10 +63,10 @@ public interface EavropRepository extends JpaRepository<Eavrop, Long> {
 	
 	@Query("SELECT e FROM Eavrop e "
 			+ "WHERE e.landsting = :landsting "
-			+ " AND (e.intygSignedDate >= :fromDate or :fromDate IS NULL) "
-			+ " AND (e.intygSignedDate < :toDate or :toDate IS NULL) "
+			+ " AND (e.intygSentDate >= :fromDate or :fromDate IS NULL) "
+			+ " AND (e.intygSentDate < :toDate or :toDate IS NULL) "
 			+ " AND e.eavropState in (:eavropStates) ")
-    public Page<Eavrop> findByLandstingAndIntygSignedDateAndEavropStateIn(
+    public Page<Eavrop> findByLandstingAndIntygSentDateAndEavropStateIn(
     		@Param("landsting") Landsting landsting,
     		@Param("fromDate") DateTime fromDate,
     		@Param("toDate") DateTime toDate,
@@ -99,10 +99,10 @@ public interface EavropRepository extends JpaRepository<Eavrop, Long> {
 
 	@Query("SELECT e FROM Eavrop e "
 			+ "WHERE e.currentAssignment.vardgivarenhet = :vardgivarenhet "
-			+ " AND (e.intygSignedDate >= :fromDate or :fromDate IS NULL) "
-			+ " AND (e.intygSignedDate < :toDate or :toDate IS NULL) "
+			+ " AND (e.intygSentDate >= :fromDate or :fromDate IS NULL) "
+			+ " AND (e.intygSentDate < :toDate or :toDate IS NULL) "
 			+ " AND e.eavropState in (:eavropStates) ")
-    public Page<Eavrop> findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(
+    public Page<Eavrop> findByVardgivarenhetAndIntygSentDateAndEavropStateIn(
     		@Param("vardgivarenhet") Vardgivarenhet vardgivarenhet,
     		@Param("fromDate") DateTime fromDate,
     		@Param("toDate") DateTime toDate,

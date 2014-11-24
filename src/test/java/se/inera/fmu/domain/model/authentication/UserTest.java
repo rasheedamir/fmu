@@ -9,19 +9,19 @@ public class UserTest {
 	@Test
 	public void setActiveRole() {
 		User u = new User();
-		u.getRoles().add(Role.LANDSTINGSSAMORDNARE);
-		u.getRoles().add(Role.UTREDARE);
+		u.getRoles().add(Role.ROLE_SAMORDNARE);
+		u.getRoles().add(Role.ROLE_UTREDARE);
 		
-		u.setActiveRole(Role.LANDSTINGSSAMORDNARE);
-		assertEquals(Role.LANDSTINGSSAMORDNARE, u.getActiveRole());
+		u.setActiveRole(Role.ROLE_SAMORDNARE);
+		assertEquals(Role.ROLE_SAMORDNARE, u.getActiveRole());
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void setActiveRoleNonExistingShouldThrowException() {
 		User u = new User();
-		u.getRoles().add(Role.UTREDARE);
+		u.getRoles().add(Role.ROLE_UTREDARE);
 		
-		u.setActiveRole(Role.LANDSTINGSSAMORDNARE);
+		u.setActiveRole(Role.ROLE_SAMORDNARE);
 	}	
 
 }

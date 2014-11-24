@@ -6,22 +6,22 @@ import org.joda.time.DateTime;
 import se.inera.fmu.domain.model.eavrop.EavropEvent;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 
-public class IntygSignedEvent extends EavropEvent{
+public class IntygSentEvent extends EavropEvent{
 	
-	private final DateTime signedDateTime; 
+	private final DateTime sentDateTime; 
 	
 	//~ Constructors ===================================================================================================
     
-	public IntygSignedEvent(final EavropId eavropId, final DateTime signedDateTime) {
+	public IntygSentEvent(final EavropId eavropId, final DateTime sentDateTime) {
 		super(eavropId);
-		Validate.notNull(signedDateTime);
-		this.signedDateTime= signedDateTime;
+		Validate.notNull(sentDateTime);
+		this.sentDateTime= sentDateTime;
 	}
 
 	//~ Property Methods ===============================================================================================
 
-	public DateTime getSignedDateTime() {
-		return this.signedDateTime;
+	public DateTime getSentDateTime() {
+		return this.sentDateTime;
 	}
 
 	//~ Other Methods ==================================================================================================

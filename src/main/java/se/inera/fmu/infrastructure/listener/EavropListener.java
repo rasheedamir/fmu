@@ -14,7 +14,7 @@ import se.inera.fmu.domain.model.eavrop.document.DocumentRequestedEvent;
 import se.inera.fmu.domain.model.eavrop.document.DocumentSentByBestallareEvent;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedByBestallareEvent;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygComplemetsRequestedFromBestallareEvent;
-import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedEvent;
+import se.inera.fmu.domain.model.eavrop.intyg.IntygSentEvent;
 
 /**
  * Created by Rasheed on 9/30/14.
@@ -83,7 +83,7 @@ public class EavropListener implements EventBusListener {
 
     @Subscribe
     @AllowConcurrentEvents
-    public void handleIntygSignedEvent(IntygSignedEvent intygSignedEvent) {
+    public void handleIntygSentEvent(IntygSentEvent intygSentEvent) {
 
     }
 

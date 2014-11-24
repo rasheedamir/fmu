@@ -43,6 +43,6 @@ angular.module('fmuClientApp').factory('EavropService', ['$q', '$http', 'RestUrl
                         return $q.reject(err.data);
                     });
             }
-        }
+        };
 
     }]);

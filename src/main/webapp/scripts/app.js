@@ -17,10 +17,13 @@ angular.module('fmuClientApp', [
     'ui.router',
     'ngTable',
     'ui.bootstrap',
-    'ngDialog'
+    'ngAnimate'
 ])
 .run(['$rootScope', '$state', function($rootScope, $state){
     $rootScope.$state = $state;
+}])
+.run(['$rootScope', 'AuthService', function($rootScope, AuthService){
+	$rootScope.userInfo = AuthService.getUserInfo();
 }])
 .config(function($stateProvider, $urlRouterProvider) {
     //
@@ -210,15 +213,33 @@ angular.module('fmuClientApp', [
                 return $filter('date')(date, 'yyyy-MM-dd');
             };
 
-            $scope.removeNote = function (noteData) {
-                if(noteData && noteData.removable){
-                    var promise = EavropService.removeNote($stateParams.eavropId, noteData.noteId);
-                    promise.then(function () {
-                        loadNotes();
-                    }, function () {
-                        $scope.noteError = [EavropNotes.cannotRemove];
-                    });
-                }
+            $scope.openRemoveNote = function (noteData) {
+                var confirmModal = $modal.open({
+                    templateUrl: 'views/eavrop/confirmModal.html',
+                    size: 'md',
+                    resolve: {
+                        noteData: function () {
+                            return noteData;
+                        }
+                    },
+                    controller: function ($scope, noteData) {
+                        $scope.removeNote = function () {
+                            if(noteData && noteData.removable){
+                                var promise = EavropService.removeNote($stateParams.eavropId, noteData.noteId);
+                                promise.then(function () {
+                                    confirmModal.close();
+                                    loadNotes();
+                                }, function () {
+                                    $scope.noteError = [EAVROP_NOTES.cannotRemove];
+                                });
+                            }
+                        };
+
+                        $scope.cancelRemoval = function () {
+                            confirmModal.close();
+                        };
+                    }
+                });
             };
 
             function loadNotes(){
@@ -230,7 +251,7 @@ angular.module('fmuClientApp', [
                     templateUrl: 'views/eavrop/add-note-modal.html',
                     size: 'md',
                     controller: function($scope, EavropNotes, EAVROP_NOTES){
-                        $scope.picker = {opened: false}
+                        $scope.picker = {opened: false};
                         $scope.note = new EavropNotes({
                             content: '',
                             createdDate: new Date()
@@ -245,8 +266,8 @@ angular.module('fmuClientApp', [
                             return {
                                 eavropId: $stateParams.eavropId,
                                 text: $scope.note.content
-                            }
-                        };
+                            };
+                        }
 
                         $scope.save = function(){
                             var promise = EavropService.addNote(createNoteDateObject());
@@ -258,13 +279,14 @@ angular.module('fmuClientApp', [
                                 // Failed
                                 $scope.noteError = [EAVROP_NOTES.cannotAdd];
                             });
-                        },
+                        };
+
                         $scope.close = function(){
                             modalInstance.dismiss();
-                        }
+                        };
                     }
                 });
-            }
+            };
         }
     });
 });

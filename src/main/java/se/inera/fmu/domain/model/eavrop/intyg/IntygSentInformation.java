@@ -12,27 +12,27 @@ import se.inera.fmu.domain.model.eavrop.EavropEventDTOType;
 import se.inera.fmu.domain.model.person.Person;
 
 @Entity
-@DiscriminatorValue("SIGNED")
+@DiscriminatorValue("SENT")
 @ToString
-public class IntygSignedInformation extends IntygInformation implements Comparable<IntygSignedInformation> {
+public class IntygSentInformation extends IntygInformation implements Comparable<IntygSentInformation> {
 	
-	public IntygSignedInformation(){
+	public IntygSentInformation(){
         //Needed by hibernate
     }
 
-	public IntygSignedInformation(DateTime informationTimestamp, Person person) {
+	public IntygSentInformation(DateTime informationTimestamp, Person person) {
 		super(informationTimestamp, person);
 	}
 
 	@Override
-	public int compareTo(IntygSignedInformation  other) {
+	public int compareTo(IntygSentInformation  other) {
 	        return this.getInformationTimestamp().compareTo(other.getInformationTimestamp());
 	}
 
 	@Override
 	public EavropEventDTO getAsEavropEvent() {
 		return (this.getPerson()!=null)?
-			new EavropEventDTO(EavropEventDTOType.INTYG_SIGNED,this.getInformationTimestamp(),null, null, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
-			new EavropEventDTO(EavropEventDTOType.INTYG_SIGNED,this.getInformationTimestamp(),null, null, null, null, null, null);
+			new EavropEventDTO(EavropEventDTOType.INTYG_SENT,this.getInformationTimestamp(),null, null, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
+			new EavropEventDTO(EavropEventDTOType.INTYG_SENT,this.getInformationTimestamp(),null, null, null, null, null, null);
 	}
 }

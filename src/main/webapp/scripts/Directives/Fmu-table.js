@@ -53,7 +53,7 @@ angular.module('fmuClientApp')
                                         promise.then(function (serverResponse) {
                                             params.total(serverResponse.totalElements);
                                             $defer.resolve(serverResponse.eavrops);
-                                        })
+                                        });
 
                                     },
                                     $scope: $scope

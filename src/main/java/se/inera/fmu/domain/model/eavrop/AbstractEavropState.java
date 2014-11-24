@@ -13,7 +13,7 @@ import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygComplementRequestInformation;
-import se.inera.fmu.domain.model.eavrop.intyg.IntygSignedInformation;
+import se.inera.fmu.domain.model.eavrop.intyg.IntygSentInformation;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 
@@ -113,10 +113,10 @@ public abstract class AbstractEavropState implements EavropState, Serializable {
 	}
 	
 	@Override
-	public void addIntygSignedInformation(Eavrop eavrop,
-			IntygSignedInformation intygSignedInformation) {
+	public void addIntygSentInformation(Eavrop eavrop,
+			IntygSentInformation intygSentInformation) {
 		throw new IllegalStateException(
-				"Method addIntygSignedInformation is not available in state "
+				"Method addIntygSentInformation is not available in state "
 						+ getEavropStateType().name());
 	}
 

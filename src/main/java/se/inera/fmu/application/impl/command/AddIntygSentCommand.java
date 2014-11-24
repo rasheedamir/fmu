@@ -12,13 +12,13 @@ import se.inera.fmu.domain.model.eavrop.ArendeId;
 /**
  * Created by Rickard on 11/12/14.
  *
- * Command to add information about signed intyg to eavrop.
+ * Command to add information about signed and sent intyg to eavrop.
  */
 @Getter
 @AllArgsConstructor
-public class AddIntygSignedCommand {
+public class AddIntygSentCommand {
 	@NonNull private ArendeId arendeId;
-	@NonNull private DateTime intygSignedDateTime;
+	@NonNull private DateTime intygSentDateTime;
 	private String personName;
     private String personRole;
     private String personOrganisation;

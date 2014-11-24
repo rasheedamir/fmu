@@ -14,8 +14,8 @@ public class EavropPageDTO {
 		return totalElements;
 	}
 	
-	public EavropPageDTO setEavrops(List<EavropDTO> eavrops) {
-		this.eavrops = eavrops;
+	public EavropPageDTO setEavrops(List<EavropDTO> data) {
+		this.eavrops = data;
 		return this;
 	}
 	

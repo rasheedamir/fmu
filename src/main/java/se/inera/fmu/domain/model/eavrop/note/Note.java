@@ -91,21 +91,23 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>, Compa
 	// ~ Other Methods ==================================================================================================
 
 	/**
-	 * Checks if the note has been created by the user with the specified HsaId and return true if that is so.
+	 * Checks if the note is of type 'Eavrop' and have been created by the user with the specified HsaId and return true if that is so.
 	 * @param hsaId 
 	 * @return
 	 */
 	
 	public boolean isRemovableBy(HsaId hsaId){
-		Person person = getPerson();
-		if(getPerson()!=null){
-			if(person instanceof HoSPerson){
-				HoSPerson hosPerson = (HoSPerson)person;
-				if(hosPerson.getHsaId()!=null){
-					return hosPerson.getHsaId().equals(hsaId);
+		if(NoteType.EAVROP.equals(getNoteType())){
+			Person person = getPerson();
+			if(getPerson()!=null){
+				if(person instanceof HoSPerson){
+					HoSPerson hosPerson = (HoSPerson)person;
+					if(hosPerson.getHsaId()!=null){
+						return hosPerson.getHsaId().equals(hsaId);
+					}
 				}
 			}
-		} 
+		}
 		return false;
 	}
 	

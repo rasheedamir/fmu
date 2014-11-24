@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -68,26 +69,41 @@ public class ITEavropRestControllerTest {
 		this.restMock = MockMvcBuilders.standaloneSetup(eavropResource).build();
 		TestUtil.loginWithNoActiveRole();
 	}
+	
+	@Test
+	public void getEavropAsSamordnareTest() throws Exception {
+		this.currentUserService.getCurrentUser().setActiveRole(
+				Role.ROLE_SAMORDNARE);
+		this.currentUserService.getCurrentUser().setLandstingCode(1);
+
+		MvcResult result = restMock
+				.perform(get("/app/rest/eavrop/1").accept(
+								MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andReturn();
+		result.getResponse().setCharacterEncoding("UTF-8");
+		log.debug(result.getResponse().getContentAsString());
+	}
 
 	@Test
 	public void loggedInasLandstingSamordnareNotAccepted() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.LANDSTINGSSAMORDNARE);
+				Role.ROLE_SAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 
 		DateTime startDate = new DateTime(1990, 1, 1, 0, 0, 0);
 		DateTime endDate = new DateTime(2990, 1, 1, 0, 0, 0);
 		MvcResult result = restMock
-				.perform(
-						get(
-								"/app/rest/eavrop" + "/fromdate/"
+				.perform(get("/app/rest/eavrop" + "/fromdate/"
 										+ startDate.getMillis() + "/todate/"
 										+ endDate.getMillis()
 										+ "/status/NOT_ACCEPTED" + "/page/0"
 										+ "/pagesize/10" + "/sortkey/arendeId"
 										+ "/sortorder/ASC").accept(
 								MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk()).andReturn();
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.totalElements", is(5)))
+				.andReturn();
 		result.getResponse().setCharacterEncoding("UTF-8");
 		log.debug(result.getResponse().getContentAsString());
 	}
@@ -95,7 +111,7 @@ public class ITEavropRestControllerTest {
 	@Test
 	public void loggedInasLandstingSamordnareAccepted() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.LANDSTINGSSAMORDNARE);
+				Role.ROLE_SAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 
 		DateTime startDate = new DateTime(1990, 1, 1, 0, 0, 0);
@@ -118,15 +134,13 @@ public class ITEavropRestControllerTest {
 	@Test
 	public void loggedInasLandstingSamordnareCompleted() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.LANDSTINGSSAMORDNARE);
+				Role.ROLE_SAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 
 		DateTime startDate = new DateTime(1990, 1, 1, 0, 0, 0);
 		DateTime endDate = new DateTime(2990, 1, 1, 0, 0, 0);
 		MvcResult result = restMock
-				.perform(
-						get(
-								"/app/rest/eavrop" + "/fromdate/"
+				.perform(get("/app/rest/eavrop" + "/fromdate/"
 										+ startDate.getMillis() + "/todate/"
 										+ endDate.getMillis()
 										+ "/status/COMPLETED" + "/page/0"
@@ -140,15 +154,13 @@ public class ITEavropRestControllerTest {
 
 	@Test
 	public void loggedInasUtredareNotAccepted() throws Exception {
-		this.currentUserService.getCurrentUser().setActiveRole(Role.UTREDARE);
+		this.currentUserService.getCurrentUser().setActiveRole(Role.ROLE_UTREDARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 
 		DateTime startDate = new DateTime(1990, 1, 1, 0, 0, 0);
 		DateTime endDate = new DateTime(2990, 1, 1, 0, 0, 0);
-		MvcResult result = restMock
-				.perform(
-						get(
-								"/app/rest/eavrop" + "/fromdate/"
+		MvcResult result = restMock.perform(
+						get("/app/rest/eavrop" + "/fromdate/"
 										+ startDate.getMillis() + "/todate/"
 										+ endDate.getMillis()
 										+ "/status/NOT_ACCEPTED" + "/page/0"
@@ -162,37 +174,35 @@ public class ITEavropRestControllerTest {
 
 	@Test
 	public void loggedInasUtredareAccepted() throws Exception {
-		this.currentUserService.getCurrentUser().setActiveRole(Role.UTREDARE);
-		this.currentUserService.getCurrentUser().setLandstingCode(1);
+		this.currentUserService.getCurrentUser().setActiveRole(Role.ROLE_UTREDARE);
 
 		DateTime startDate = new DateTime(1990, 1, 1, 0, 0, 0);
 		DateTime endDate = new DateTime(2990, 1, 1, 0, 0, 0);
-		MvcResult result = restMock
-				.perform(
-						get(
-								"/app/rest/eavrop" + "/fromdate/"
+		MvcResult result = restMock.perform(
+				get("/app/rest/eavrop" + "/fromdate/"
 										+ startDate.getMillis() + "/todate/"
 										+ endDate.getMillis()
 										+ "/status/ACCEPTED" + "/page/0"
 										+ "/pagesize/10" + "/sortkey/arendeId"
 										+ "/sortorder/ASC").accept(
 								MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk()).andReturn();
+				.andExpect(jsonPath("$.totalElements", is(8)))
+				.andExpect(status().isOk())
+				.andReturn();
 		result.getResponse().setCharacterEncoding("UTF-8");
 		log.debug(result.getResponse().getContentAsString());
 	}
 
 	@Test
 	public void loggedInasUtredareCompleted() throws Exception {
-		this.currentUserService.getCurrentUser().setActiveRole(Role.UTREDARE);
+		this.currentUserService.getCurrentUser().setActiveRole(Role.ROLE_UTREDARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 
 		DateTime startDate = new DateTime(1990, 1, 1, 0, 0, 0);
 		DateTime endDate = new DateTime(2990, 1, 1, 0, 0, 0);
 		MvcResult result = restMock
 				.perform(
-						get(
-								"/app/rest/eavrop" + "/fromdate/"
+						get("/app/rest/eavrop" + "/fromdate/"
 										+ startDate.getMillis() + "/todate/"
 										+ endDate.getMillis()
 										+ "/status/COMPLETED" + "/page/0"
@@ -207,7 +217,7 @@ public class ITEavropRestControllerTest {
 	@Test
 	public void getEavropEvents() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.LANDSTINGSSAMORDNARE);
+				Role.ROLE_SAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 
 		MvcResult result = restMock
@@ -219,12 +229,10 @@ public class ITEavropRestControllerTest {
 		log.error(result.getResponse().getContentAsString());
 	}
 
-	// TODO Check time POST/GET consistency
-
 	@Test
 	public void createBookingTest() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.LANDSTINGSSAMORDNARE);
+				Role.ROLE_SAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 		BookingRequestDTO booking = new BookingRequestDTO();
 		booking.setEavropId("3");
@@ -258,7 +266,7 @@ public class ITEavropRestControllerTest {
 	public void changeBookingTest() throws Exception {
 		// Set login credencials
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.LANDSTINGSSAMORDNARE);
+				Role.ROLE_SAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 
 		// Create a booking
@@ -287,19 +295,13 @@ public class ITEavropRestControllerTest {
 				.andExpect(status().isOk()).andReturn();
 
 		log.debug("Handelse: " + result.getResponse().getContentAsString());
-		
-		BookingModificationRequestDTO modificationRequest = new BookingModificationRequestDTO();
 		String bookingId = getJsonValue(0, "bookingId", result.getResponse().getContentAsString());
-		modificationRequest.setBookingId(bookingId)
-		  .setBookingStatus(BookingStatusType.CANCELLED_NOT_PRESENT)
-		  .setEavropId("3")
-		  .setComment("This is bad");
 		
 		TolkBookingModificationRequestDTO tolkModificationRequest = new TolkBookingModificationRequestDTO();
 		tolkModificationRequest.setBookingId(bookingId)
-		  .setBookingStatus(InterpreterBookingStatusType.INTERPPRETER_NOT_PRESENT)
+		  .setBookingStatus(InterpreterBookingStatusType.INTERPRETER_NOT_PRESENT)
 		  .setEavropId("3")
-		  .setComment("This is bad");
+		  .setComment("This tolk is bad");
 
 		log.debug(convertObjectToJsonBytes(tolkModificationRequest));
 		restMock.perform(post("/app/rest/eavrop/utredning/modify/tolk")
@@ -312,19 +314,30 @@ public class ITEavropRestControllerTest {
 		bookingModificationRequest.setBookingId(bookingId)
 		  .setBookingStatus(BookingStatusType.CANCELLED_NOT_PRESENT)
 		  .setEavropId("3")
-		  .setComment("This is bad");
+		  .setComment("This booking is bad");
 
-		log.debug(convertObjectToJsonBytes(tolkModificationRequest));
-		restMock.perform(post("/app/rest/eavrop/utredning/modify/tolk")
+		log.debug(convertObjectToJsonBytes(bookingModificationRequest));
+		restMock.perform(post("/app/rest/eavrop/utredning/modify/booking")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(convertObjectToJsonBytes(tolkModificationRequest)))
+				.content(convertObjectToJsonBytes(bookingModificationRequest)))
 						.andExpect(status().isOk());
+		// Verify
+		result = restMock.perform(get("/app/rest/eavrop/3/utredning")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", hasSize(2)))
+				.andExpect(jsonPath("$[0].tolkStatus.currentStatus.name", is("INTERPRETER_NOT_PRESENT")))
+				.andExpect(jsonPath("$[0].handelseStatus.currentStatus.name", is("CANCELLED_NOT_PRESENT")))
+				.andExpect(jsonPath("$[0].tolkStatus.comment", is("This tolk is bad")))
+				.andExpect(jsonPath("$[0].handelseStatus.comment", is("This booking is bad")))
+				.andReturn();
+		log.debug(result.getResponse().getContentAsString());
 	}
 	
 	@Test
 	public void addNoteTest() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.LANDSTINGSSAMORDNARE);
+				Role.ROLE_SAMORDNARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 		AddNoteRequestDTO addRequest = new AddNoteRequestDTO();
 		addRequest.setEavropId("3")
@@ -340,7 +353,7 @@ public class ITEavropRestControllerTest {
 	@Test
 	public void removeNoteTest() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(
-				Role.LANDSTINGSSAMORDNARE);
+				Role.ROLE_UTREDARE);
 		this.currentUserService.getCurrentUser().setLandstingCode(1);
 		
 		// Add note
@@ -388,4 +401,6 @@ public class ITEavropRestControllerTest {
 		JsonNode jsonobj = mapper.readTree(jsonString);
 		return jsonobj.path(index).path(fieldName).toString().replace("\"", "");
 	}
+	
+	//TODO kommentarer från Utredning är removable i Anteckningar men är inte bortagbara
 }

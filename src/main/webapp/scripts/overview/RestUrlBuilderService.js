@@ -12,7 +12,7 @@ angular.module('fmuClientApp').factory('RestUrlBuilderService',
                     '/page/' + currentPageNumber +
                     '/pagesize/' + currentNrOfElementPerPage +
                     '/sortkey/' + sortKey +
-                    '/sortorder/' + sortOrder
+                    '/sortorder/' + sortOrder;
             },
 
             buildEventsRestUrl: function (eavropId) {
@@ -38,5 +38,5 @@ angular.module('fmuClientApp').factory('RestUrlBuilderService',
             buildRemoveNoteRestUrl: function (eavropId, noteId) {
                 return '/app/rest/eavrop/'+ eavropId + '/note/' + noteId + '/remove';
             }
-        }
+        };
     });

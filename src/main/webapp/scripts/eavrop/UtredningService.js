@@ -1,13 +1,13 @@
 'use strict';
 
-angular.module('fmuClientApp').factory('UtredningService', ['$http','$filter', '$q', 'RestUrlBuilderService', 'UTREDNING',
+angular.module('fmuClientApp').factory('UtredningService', ['$http', '$filter', '$q', 'RestUrlBuilderService', 'UTREDNING',
         function ($http, $filter, $q, RestUrlBuilderService, UTREDNING) {
             function getTimeHHMM(hour, minut) {
                 var hh = hour < 10 ? '0' + hour : hour;
                 var mm = minut < 10 ? '0' + minut : minut;
 
                 return hh + ' : ' + mm;
-            };
+            }
 
             return {
                 getAllEvents: function (eavropId) {
@@ -97,32 +97,35 @@ angular.module('fmuClientApp').factory('UtredningService', ['$http','$filter', '
 
                 getTableCellValue: function (key, rowData) {
                     var celldata = rowData[key];
-                    if (celldata == null) {
+                    if (celldata === null) {
                         return '-';
                     }
                     switch (key) {
                         case 'timeOfEvent' :
-                            var endTime = rowData['timeOfEventEnd'];
-                            if(endTime != null){
-                                return getTimeHHMM(celldata.hour, celldata.minute) + ' - '
-                                    + getTimeHHMM(endTime.hour, endTime.minute);
+                            var endTime = rowData.timeOfEventEnd;
+                            if (endTime !== null) {
+                                return getTimeHHMM(celldata.hour, celldata.minute) + ' - ' + getTimeHHMM(endTime.hour, endTime.minute);
                             }
 
                             return getTimeHHMM(celldata.hour, celldata.minute);
                         case 'dateOfEvent':
                             return $filter('date')(celldata, UTREDNING.dateFormat);
                         case 'tolkStatus' :
-                            if (celldata.currentStatus == null)
+                            if (celldata.currentStatus === null) {
                                 return '-';
-                            return UTREDNING.tolkMapping[celldata.currentStatus];
+                            }
+                            return UTREDNING.tolkMapping[celldata.currentStatus.name];
                         case 'handelseStatus' :
-                            return UTREDNING.handelseMapping[celldata.currentStatus];
+                            if (celldata.currentStatus === null) {
+                                return '-';
+                            }
+                            return UTREDNING.handelseMapping[celldata.currentStatus.name];
                         case 'handelse':
                             return UTREDNING.statusMapping[celldata];
                         default :
                             return celldata;
                     }
                 }
-            }
+            };
         }]
 );

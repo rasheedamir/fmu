@@ -1,4 +1,4 @@
-<div class="fmu-form-container" ng-controller="UtredningController">
+<div class="fmu-form-container">
     <!--Typ-->
     <div class="fmu-form-header">
         <h1>Lägg till Händelse</h1>
@@ -50,7 +50,7 @@
         </div>
 
         <div>
-            <label>Tillägg Tjänst</label>
+            <label>Tilläggstjänst</label>
             <div class="radio">
                 <label>
                     <input ng-model="tillaggRadio" type="radio" value="true"> Ja
@@ -82,7 +82,7 @@
                     ng-click="saveHandelse()">Spara
             </button>
             <button class="btn btn-warning"
-                    ng-click="closeThisDialog()">Avbryt
+                    ng-click="cancel()">Avbryt
             </button>
         </div>
     </div>

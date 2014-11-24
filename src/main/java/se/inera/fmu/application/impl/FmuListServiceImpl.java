@@ -92,13 +92,13 @@ public class FmuListServiceImpl implements FmuListService {
 	}
 
     @Override
-    public Page<Eavrop> findAllCompletedEavropByLandstingAndDateTimeSigned(Landsting landsting, DateTime fromDate, DateTime toDate, Pageable pageable){
-    	return this.eavropRepository.findByLandstingAndIntygSignedDateAndEavropStateIn(landsting, fromDate, toDate, Arrays.asList(EavropState.COMPLETED_STATES), pageable);
+    public Page<Eavrop> findAllCompletedEavropByLandstingAndDateTimeSent(Landsting landsting, DateTime fromDate, DateTime toDate, Pageable pageable){
+    	return this.eavropRepository.findByLandstingAndIntygSentDateAndEavropStateIn(landsting, fromDate, toDate, Arrays.asList(EavropState.COMPLETED_STATES), pageable);
     }
 
 	@Override
-	public Page<Eavrop> findAllCompletedEavropByVardgivarenhetAndDateTimeSigned(Vardgivarenhet vardgivarenhet, DateTime fromDate, DateTime toDate, Pageable pageable) {
-		return this.eavropRepository.findByVardgivarenhetAndIntygSignedDateAndEavropStateIn(vardgivarenhet, fromDate, toDate,Arrays.asList(EavropState.COMPLETED_STATES), pageable);
+	public Page<Eavrop> findAllCompletedEavropByVardgivarenhetAndDateTimeSent(Vardgivarenhet vardgivarenhet, DateTime fromDate, DateTime toDate, Pageable pageable) {
+		return this.eavropRepository.findByVardgivarenhetAndIntygSentDateAndEavropStateIn(vardgivarenhet, fromDate, toDate,Arrays.asList(EavropState.COMPLETED_STATES), pageable);
 	}
 
 }

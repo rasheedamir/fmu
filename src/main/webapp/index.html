@@ -10,8 +10,6 @@
 <!-- bower:css -->
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
 <link rel="stylesheet" href="bower_components/ng-table/ng-table.css" />
-<link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog.css" />
-<link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog-theme-default.css" />
 <!-- endbower -->
 <!-- endbuild -->
 <!-- build:css styles/main.css -->
@@ -48,7 +46,7 @@
                 <tr ng-repeat="role in roles">
                     <td>{{role}}</td><td>
                             <input type="button" class="btn btn-xs btn-danger" value="-" ng-click="removeRole(role)" ng-show="hasRole(role)"/>
-                            <input type="button" class="btn btn-xs" value="+" ng-click="addRole(role)" ng-show="!hasRole(role)"/>
+                            <input type="button" class="btn btn-xs" value="+" ng-click="changeRole(role)" ng-show="!hasRole(role)"/>
                     </td>                
                 </tr>
             </table>
@@ -93,7 +91,6 @@ ga('send', 'pageview');
 <script src="bower_components/ng-table/ng-table.js"></script>
 <script src="bower_components/underscore/underscore.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="bower_components/ngDialog/js/ngDialog.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 

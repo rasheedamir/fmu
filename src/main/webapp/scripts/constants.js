@@ -9,7 +9,9 @@ angular.module('fmuClientApp')
         eavropNotes: 'app/rest/eavrop/:eavropId/notes',
         eavropAllEvents: 'app/rest/eavrop/:eavropId/all-events',
         eavropOrder: 'app/rest/eavrop/:eavropId/order',
-        eavropPatient: 'app/rest/eavrop/:eavropId/patient'
+        eavropPatient: 'app/rest/eavrop/:eavropId/patient',
+        userInfo: 'app/rest/user',
+        changeRole: 'app/rest/user/changerole'
     })
     .constant('EAVROP_TABLE', {
         dateFormat: 'yyyy-MM-dd',
@@ -25,8 +27,8 @@ angular.module('fmuClientApp')
             UNASSIGNED: 'Förfrågan om utredning har inkommit',
             ASSIGNED: 'Förfrågan tilldelas, inväntar acceptans',
             ACCEPTED: 'Förfrågan accepterade',
-            ON_HOLD: 'Utredningen väntar',
-            SENT: 'Sent ???',
+            ON_HOLD: 'Inväntar beslut från beställare',
+            SENT: 'Inväntar acceptans',
             APPROVED: 'Utredningen godkänts av beställare',
             CLOSED: 'Utredningen är avslutad'
         },
@@ -61,11 +63,11 @@ angular.module('fmuClientApp')
         },
 
         tolkMapping: {
-            INTERPPRETER_BOOKED: 'Bokat',
+            INTERPRETER_BOOKED: 'Bokat',
             INTERPRETATION_PERFORMED: 'Tolkning genomförd',
-            INTERPPRETER_CANCELED: 'Tolk avbokad',
-            INTERPPRETER_NOT_PRESENT: 'Tolk uteblev',
-            INTERPPRETER_PRESENT_BUT_NOT_USED: 'Tolk anlänt, men tolkning inte använd'
+            INTERPRETER_CANCELED: 'Tolk avbokad',
+            INTERPRETER_NOT_PRESENT: 'Tolk uteblev',
+            INTERPRETER_PRESENT_BUT_NOT_USED: 'Tolk anlänt, men tolkning inte använd'
         },
 
         editableEvents: {

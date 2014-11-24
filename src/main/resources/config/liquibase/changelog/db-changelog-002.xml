@@ -91,5 +91,8 @@
 		<loadData encoding="UTF-8" file="config/liquibase/eavrop_requested_document.csv"
  			separator=";" tableName="R_EAVROP_REQ_DOCUMENT">
 		</loadData>
+		<loadData encoding="UTF-8" file="config/liquibase/hos_personal.csv"
+ 			separator=";" tableName="T_HOSPERSONAL">
+		</loadData>
 	</changeSet>
 </databaseChangeLog>

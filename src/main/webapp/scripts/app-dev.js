@@ -120,8 +120,3 @@ angular.module('fmuClientAppDev').run(function($httpBackend){
     $httpBackend.whenPUT(/.*/).passThrough();
 });
 
-
-angular.module('fmuClientAppDev').run(function(AuthService){
-    AuthService.userInfo.roles.push('ROLE_SAMORDNARE');
-    AuthService.userInfo.roles.push('ROLE_UTREDARE');
-});

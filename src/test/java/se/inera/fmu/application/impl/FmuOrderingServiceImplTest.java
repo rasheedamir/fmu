@@ -118,8 +118,8 @@ public class FmuOrderingServiceImplTest {
     	User currentUser = new User();
     	final int landstingCode = 100;
 		currentUser.setLandstingCode(landstingCode);
-    	currentUser.getRoles().add(Role.LANDSTINGSSAMORDNARE);
-    	currentUser.setActiveRole(Role.LANDSTINGSSAMORDNARE);
+    	currentUser.getRoles().add(Role.ROLE_SAMORDNARE);
+    	currentUser.setActiveRole(Role.ROLE_SAMORDNARE);
     	
     	Landsting lt = new Landsting(new LandstingCode(landstingCode), "Test landsting");
     	
@@ -138,8 +138,8 @@ public class FmuOrderingServiceImplTest {
     	User currentUser = new User();
 		final String vardenhetHsaId = "SE1111112222-AAAA";
 		currentUser.setVardenhetHsaId(vardenhetHsaId);
-    	currentUser.getRoles().add(Role.UTREDARE);
-    	currentUser.setActiveRole(Role.UTREDARE);
+    	currentUser.getRoles().add(Role.ROLE_UTREDARE);
+    	currentUser.setActiveRole(Role.ROLE_UTREDARE);
     	
     	Vardgivarenhet ve = new Vardgivarenhet(new Vardgivare(new HsaId("SE2222223333-BBBB"), "test vg"), new HsaId(vardenhetHsaId), "Test unit", null);
     	
