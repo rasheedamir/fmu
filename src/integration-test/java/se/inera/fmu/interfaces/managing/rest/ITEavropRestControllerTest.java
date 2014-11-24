@@ -401,6 +401,5 @@ public class ITEavropRestControllerTest {
 		JsonNode jsonobj = mapper.readTree(jsonString);
 		return jsonobj.path(index).path(fieldName).toString().replace("\"", "");
 	}
-	
-	//TODO kommentarer från Utredning är removable i Anteckningar men är inte bortagbara
+
 }

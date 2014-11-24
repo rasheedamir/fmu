@@ -1166,6 +1166,19 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		return result;
 	}
 	
+
+	private List<IntygApprovedInformation> getAllIntygApprovedInformation() {
+		ArrayList<IntygApprovedInformation> result = new  ArrayList<IntygApprovedInformation>();
+		for(IntygInformation intygInformation : getIntygInformations()){
+			if(intygInformation instanceof IntygApprovedInformation){
+				result.add((IntygApprovedInformation)intygInformation);
+			}
+		}
+		return result;
+	}
+
+	
+	
 	/**
 	 * 
 	 * @param intygApprovedInformation 
@@ -1183,6 +1196,20 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		addToIntygInformation(intygApprovedInformation);
 	}
 
+	/**
+	 * Method for checking if the Eavrop intyg is considered complete. 
+	 * 
+	 * @return true if the customer has sent a intyg approved information message
+	 */
+	public boolean isIntygComplete(){
+		List<IntygApprovedInformation>  intygApprovedList = getAllIntygApprovedInformation();
+		
+		if(intygApprovedList != null &&  ! intygApprovedList.isEmpty()){
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * Returns the invanare that the eavrop/utredning concerns
 	 * @return
@@ -1611,22 +1638,6 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	}
 	
 	// ~ util
-
-	public EavropCompletedType getEavropCompleted(){
-		if(getStatus() != null && getStatus().isCompleted()){
-			switch(getStatus()){
-			case SENT :
-				return (isDeviated())?EavropCompletedType.NOT_COMPLETED_NOT_APPROVED_OR_DEVIATED:EavropCompletedType.NOT_COMPLETED_PENDING;
-			case APPROVED :
-				return EavropCompletedType.COMPLETE_PENDING_COMPENSATION_APPROVAL ;
-			case CLOSED:
-				return (getEavropCompensationApproval().isApproved())?EavropCompletedType.COMPLETE_AND_APPROVED_FOR_COMPENSATION:EavropCompletedType.NOT_COMPLETED_NOT_APPROVED_OR_DEVIATED;
-			default:
-				 throw new IllegalArgumentException("Unknown value: " + getStatus().name());
-			}	
-		}
-		return null;
-	}
 	
 //	public Integer getAssesmentDay(){
 //		

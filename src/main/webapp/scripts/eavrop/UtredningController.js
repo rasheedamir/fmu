@@ -27,6 +27,10 @@ angular.module('fmuClientApp')
                         }
                     },
                     controller: function ($scope, currentEavrop, tableParameters) {
+                        $scope.isAFU = function () {
+                             return currentEavrop && currentEavrop.utredningType === 'AFU'
+                        };
+
                         function constructBookingObject() {
                             return {
                                 eavropId: currentEavrop.eavropId,

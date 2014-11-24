@@ -13,6 +13,7 @@ public class CompletedEavropDTO extends EavropDTO{
 	private String utredareOrganisation;
 	private Long dateIntygDelivered;
 	private Boolean isCompleted;
-	private String compensationApprovedStatusAndDate;
+	private Boolean isCompensationApproved;
+	private Long compensationApprovalDate;
 	private String color;
 }

@@ -14,7 +14,7 @@
             <th ng-repeat="field in headerFields" class="text-center text-capitalize"
                 ng-class="{'sortable': isSortable(field.key), 'sort-asc': tableParams.isSortBy(field.key, 'asc'),'sort-desc': tableParams.isSortBy(field.key, 'desc')}"
                 ng-click="sort(field.key)">
-                <div>{{field.name}}</div>
+                <div ng-bind-html="field.name"></div>
             </th>
         </tr>
 
