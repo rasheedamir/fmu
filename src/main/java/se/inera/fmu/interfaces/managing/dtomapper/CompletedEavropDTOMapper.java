@@ -12,7 +12,7 @@ public class CompletedEavropDTOMapper extends EavropDTOMapper {
 		EavropCompensationApproval compensation = eavrop.getEavropCompensationApproval();
 		dto.setDagarFromStartToAccepted(eavrop.getNoOfAcceptDays());
 		dto.setAvikelser(eavrop.getNumberOfDeviationsOnEavrop());
-//		dto.setIsCompleted(eavrop.isin);
+		dto.setIsCompleted(eavrop.isIntygComplete());
 		dto.setTotalCompletionDays(eavrop.getNoOfDaysUsedForLastComplementRequest());
 		dto.setDateIntygDelivered(eavrop.getIntygSentDateTime() != null ? eavrop.getIntygSentDateTime().getMillis(): null);
 		dto.setUtredareOrganisation(eavrop.getCurrentAssignedVardgivarenhet() != null ?
