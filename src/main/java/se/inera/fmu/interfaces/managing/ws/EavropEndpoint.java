@@ -22,8 +22,9 @@ import se.inera.fmu.domain.model.person.HoSPerson;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
-import ws.inera.fmu.admin.eavrop.CreateEavropRequest;
+import ws.inera.fmu.admin.eavrop.BestallEavropRequest;
 import ws.inera.fmu.admin.eavrop.FmuResponse;
+import ws.inera.fmu.admin.eavrop.StatusCode;
 
 /**
  * Created by Rasheed on 10/25/14.
@@ -38,22 +39,23 @@ public class EavropEndpoint {
     @Inject
     private FmuOrderingService fmuOrderingService;
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "createEavropRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "bestallEavropRequest")
     @ResponsePayload
-    public FmuResponse createEavrop(@RequestPayload CreateEavropRequest request) {
+    public FmuResponse createEavrop(@RequestPayload BestallEavropRequest request) {
 
         FmuResponse fmuResponse = new FmuResponse();
 
         try {
             CreateEavropCommand aCommand = mapCreateEavropRequestToCreateEavropCommand(request);
-            fmuOrderingService.createEavrop(aCommand);
+            ArendeId arendeId = fmuOrderingService.createEavrop(aCommand);
 
-            fmuResponse.setCode("SUCCESS");
-            fmuResponse.setMessage("Request was successfull");
+            fmuResponse.setArendeId(arendeId.toString());
+            fmuResponse.setStatusCode(StatusCode.OK);
         } catch (Exception exception) {
             log.error("Exception occured : ", exception);
-            fmuResponse.setCode("FAILED");
-            fmuResponse.setCode("Exception occured!");
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.UNKNOWN_ERROR);
+            fmuResponse.setErrorMessage(exception.toString());
         }
 
         return fmuResponse;
@@ -64,7 +66,7 @@ public class EavropEndpoint {
      * @param request - CreateEavropRequest
      * @return
      */
-    private CreateEavropCommand mapCreateEavropRequestToCreateEavropCommand(CreateEavropRequest request) {
+    private CreateEavropCommand mapCreateEavropRequestToCreateEavropCommand(BestallEavropRequest request) {
         ArendeId arendeId = new ArendeId(request.getArendeId());
         UtredningType utredningType = UtredningType.valueOf(request.getUtredningType().toString());
         Interpreter interpreter = createInterpreter(request);
@@ -86,7 +88,7 @@ public class EavropEndpoint {
      * @param request
      * @return
      */
-    private Interpreter createInterpreter(CreateEavropRequest request) {
+    private Interpreter createInterpreter(BestallEavropRequest request) {
         String interpreterLanguages = null;
         if(request.isTolk()) {
             interpreterLanguages = request.getTolkSprak();
@@ -100,12 +102,12 @@ public class EavropEndpoint {
      * @param request
      * @return
      */
-    private Invanare createInvanare(CreateEavropRequest request) {
-        PersonalNumber personalNumber = new PersonalNumber(request.getInvanare().getPersonalNumber());
+    private Invanare createInvanare(BestallEavropRequest request) {
+        PersonalNumber personalNumber = new PersonalNumber(request.getInvanare().getPersonnummer());
         Name name = new Name(request.getInvanare().getNamn().getFornamn(),
                              request.getInvanare().getNamn().getMellannamn(),
                              request.getInvanare().getNamn().getEfternamn());
-        Gender gender = Gender.valueOf(request.getInvanare().getGender().toString());
+        Gender gender = Gender.valueOf(request.getInvanare().getKon().toString());
         Address homeAddress = new Address(request.getInvanare().getAdress().getPostadress(),
                                           request.getInvanare().getAdress().getPostnummer(),
                                           request.getInvanare().getAdress().getStad(),
@@ -122,7 +124,7 @@ public class EavropEndpoint {
      * @param request
      * @return
      */
-    private Bestallaradministrator createBestallaradministrator(CreateEavropRequest request) {
+    private Bestallaradministrator createBestallaradministrator(BestallEavropRequest request) {
         String name = request.getAdministrator().getNamn();
         String befattning = request.getAdministrator().getBefattning();
         String organisation = request.getAdministrator().getOrganisation();
@@ -138,7 +140,7 @@ public class EavropEndpoint {
      * @param request
      * @return
      */
-    private PriorMedicalExamination createPriorMedicalExamination(CreateEavropRequest request) {
+    private PriorMedicalExamination createPriorMedicalExamination(BestallEavropRequest request) {
         String examinedAt = request.getTidigareUtredning().getUtreddVid();
         String medicalLeaveIssuedAt = request.getTidigareUtredning().getSjukskrivandeenhet();
         HoSPerson medicalLeaveIssuedBy = new HoSPerson(null, request.getTidigareUtredning().getSjukskrivenAv().getNamn(),
