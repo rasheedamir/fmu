@@ -80,6 +80,10 @@ angular.module('fmuClientApp')
                                 $scope.createBookingErrors.push(UTREDNING.errors.cannotCreateBooking);
                             });
                         };
+
+                        $scope.cancel = function () {
+                            modal.dismiss('cancel');
+                        };
                     }
                 });
             };
