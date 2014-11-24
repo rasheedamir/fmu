@@ -100,6 +100,7 @@ angular.module('fmuClientApp')
                         } else {
                             return status + ', ' + $filter('date')(rowData.compensationApprovalDate, EAVROP_TABLE.dateFormat);
                         }
+                        break;
                     default:
                         return value === null ? '-' : value;
                 }
