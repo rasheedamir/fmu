@@ -1,9 +1,9 @@
 package se.inera.fmu.interfaces.managing.dtomapper;
 
 import se.inera.fmu.domain.model.eavrop.Eavrop;
-import se.inera.fmu.interfaces.managing.rest.dto.EavropBaseDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 
 public interface Mapper {
-	public EavropBaseDTO map(Eavrop eavrop, EavropBaseDTO dto);
-	public EavropBaseDTO map(Eavrop eavrop);
+	public EavropDTO map(Eavrop eavrop, EavropDTO dto);
+	public EavropDTO map(Eavrop eavrop);
 }

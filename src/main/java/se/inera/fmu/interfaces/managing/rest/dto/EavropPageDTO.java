@@ -3,10 +3,10 @@ package se.inera.fmu.interfaces.managing.rest.dto;
 import java.util.List;
 
 public class EavropPageDTO {
-	private List<EavropBaseDTO> eavrops;
+	private List<EavropDTO> eavrops;
 	private long totalElements;
 	
-	public List<EavropBaseDTO> getEavrops() {
+	public List<EavropDTO> getEavrops() {
 		return eavrops;
 	}
 	
@@ -14,7 +14,7 @@ public class EavropPageDTO {
 		return totalElements;
 	}
 	
-	public EavropPageDTO setEavrops(List<EavropBaseDTO> data) {
+	public EavropPageDTO setEavrops(List<EavropDTO> data) {
 		this.eavrops = data;
 		return this;
 	}

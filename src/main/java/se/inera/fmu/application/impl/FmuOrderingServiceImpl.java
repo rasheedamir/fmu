@@ -64,8 +64,7 @@ import se.inera.fmu.domain.model.systemparameter.Configuration;
 import se.inera.fmu.interfaces.managing.dtomapper.AllEventsDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.BestallningDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.CompletedEavropDTOMapper;
-import se.inera.fmu.interfaces.managing.dtomapper.DTOMapper;
-import se.inera.fmu.interfaces.managing.dtomapper.EavropBaseDTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.EavropDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.NoteDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.OrderDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.PagaendeDTOMapper;
@@ -78,7 +77,6 @@ import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
-import se.inera.fmu.interfaces.managing.rest.dto.EavropBaseDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
@@ -312,8 +310,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		}
 	}
 
-	private EavropPageDTO constructOverviewDTO(Page<Eavrop> eavrops, EavropBaseDTOMapper eavropMapper) {
-		List<EavropBaseDTO> data = new ArrayList<EavropBaseDTO>();
+	private EavropPageDTO constructOverviewDTO(Page<Eavrop> eavrops, EavropDTOMapper eavropMapper) {
+		List<EavropDTO> data = new ArrayList<EavropDTO>();
 		for (Eavrop eavrop : eavrops.getContent()) {
 			data.add(eavropMapper.map(eavrop));
 		}
@@ -587,10 +585,10 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	}
 
 	@Override
-	public EavropBaseDTO getEavrop(EavropId eavropId) {
-		EavropBaseDTOMapper mapper = new EavropBaseDTOMapper();
+	public EavropDTO getEavrop(EavropId eavropId) {
+		EavropDTOMapper mapper = new EavropDTOMapper();
 		Eavrop eavropForUser = getEavropForUser(eavropId);
-		return mapper.map(eavropForUser, new EavropBaseDTO());
+		return mapper.map(eavropForUser, new EavropDTO());
 	}
 
 }

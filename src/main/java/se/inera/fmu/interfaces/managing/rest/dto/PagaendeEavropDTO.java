@@ -5,9 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PagaendeEavropDTO extends EavropBaseDTO{
+public class PagaendeEavropDTO extends EavropDTO{
 	private String color;
 	private Long startDate;
 	private Integer nrOfDaysSinceStart;
 	private Integer avikelser;
+	private String utredareOrganisation;
 }

@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class BestallningEavropDTO extends EavropBaseDTO{
+public class BestallningEavropDTO extends EavropDTO{
 	private String patientCity;
 	private Integer antalDagarEfterForfragan;
 	private String color;

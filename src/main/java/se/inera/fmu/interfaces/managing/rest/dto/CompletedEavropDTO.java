@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CompletedEavropDTO extends EavropBaseDTO{
+public class CompletedEavropDTO extends EavropDTO{
 	private Integer dagarFromStartToAccepted;
 	private Integer totalCompletionDays;
 	private Integer avikelser;
@@ -14,4 +14,5 @@ public class CompletedEavropDTO extends EavropBaseDTO{
 	private Long dateIntygDelivered;
 	private Boolean isCompleted;
 	private String compensationApprovedStatusAndDate;
+	private String color;
 }

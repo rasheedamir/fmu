@@ -21,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.util.JsonPathExpectationsHelper;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -159,10 +160,8 @@ public class ITEavropRestControllerTest {
 
 		DateTime startDate = new DateTime(1990, 1, 1, 0, 0, 0);
 		DateTime endDate = new DateTime(2990, 1, 1, 0, 0, 0);
-		MvcResult result = restMock
-				.perform(
-						get(
-								"/app/rest/eavrop" + "/fromdate/"
+		MvcResult result = restMock.perform(
+						get("/app/rest/eavrop" + "/fromdate/"
 										+ startDate.getMillis() + "/todate/"
 										+ endDate.getMillis()
 										+ "/status/NOT_ACCEPTED" + "/page/0"
@@ -177,21 +176,20 @@ public class ITEavropRestControllerTest {
 	@Test
 	public void loggedInasUtredareAccepted() throws Exception {
 		this.currentUserService.getCurrentUser().setActiveRole(Role.ROLE_UTREDARE);
-		this.currentUserService.getCurrentUser().setLandstingCode(1);
 
 		DateTime startDate = new DateTime(1990, 1, 1, 0, 0, 0);
 		DateTime endDate = new DateTime(2990, 1, 1, 0, 0, 0);
-		MvcResult result = restMock
-				.perform(
-						get(
-								"/app/rest/eavrop" + "/fromdate/"
+		MvcResult result = restMock.perform(
+				get("/app/rest/eavrop" + "/fromdate/"
 										+ startDate.getMillis() + "/todate/"
 										+ endDate.getMillis()
 										+ "/status/ACCEPTED" + "/page/0"
 										+ "/pagesize/10" + "/sortkey/arendeId"
 										+ "/sortorder/ASC").accept(
 								MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk()).andReturn();
+				.andExpect(jsonPath("$.totalElements", is(8)))
+				.andExpect(status().isOk())
+				.andReturn();
 		result.getResponse().setCharacterEncoding("UTF-8");
 		log.debug(result.getResponse().getContentAsString());
 	}

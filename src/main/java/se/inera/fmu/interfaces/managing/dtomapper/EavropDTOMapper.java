@@ -1,9 +1,9 @@
 package se.inera.fmu.interfaces.managing.dtomapper;
 
 import se.inera.fmu.domain.model.eavrop.Eavrop;
-import se.inera.fmu.interfaces.managing.rest.dto.EavropBaseDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 
-public class EavropBaseDTOMapper implements Mapper{
+public class EavropDTOMapper implements Mapper{
 
 	protected static final String DEFAULT_COLOR = "fmu-table-color-inactive";
 	protected static final String DANGER_COLOR = "bg-danger";
@@ -11,7 +11,7 @@ public class EavropBaseDTOMapper implements Mapper{
 	protected static final String SUCCESS_COLOR = "bg-success";
 	
 	@Override
-	public EavropBaseDTO map(Eavrop eavrop, EavropBaseDTO dto) {
+	public EavropDTO map(Eavrop eavrop, EavropDTO dto) {
 		dto.setArendeId(eavrop.getArendeId().toString());
 		dto.setEavropId(eavrop.getEavropId().getId());
 		dto.setStatus(eavrop.getStatus());
@@ -27,8 +27,8 @@ public class EavropBaseDTOMapper implements Mapper{
 	}
 
 	@Override
-	public EavropBaseDTO map(Eavrop eavrop) {
-		return map(eavrop, new EavropBaseDTO());
+	public EavropDTO map(Eavrop eavrop) {
+		return map(eavrop, new EavropDTO());
 	}
 
 }
