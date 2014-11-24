@@ -79,25 +79,27 @@ public class FmuOrderingServiceImplTest {
         fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, configuration, eventPublisher, landstingRepository, currentUserService, vgRepository, null, null, null);
     }
 
-    @Test
-    public void shouldCreateNewEavrop() {
-        final Eavrop savedEavrop = stubRepositoryToReturnEavropOnSave();
-        final Invanare savedPatient = stubRepositoryToReturnPatientOnSave();
-        final ArendeId arendeId = fmuOrderingService.createEavrop(new CreateEavropCommand(
-        		EavropUtil.ARENDE_ID, EavropUtil.UTREDNING_TYPE,  EavropUtil.TOLK, InvanareUtil.PERSONAL_NUMBER, InvanareUtil.NAME, 
-        		InvanareUtil.GENDER, InvanareUtil.HOME_ADDRESS, InvanareUtil.PHONE, InvanareUtil.EMAIL, InvanareUtil.SPECIAL_NEED, LandstingUtil.createLandsting(), 
-                BestallaradministratorUtil.NAME, BestallaradministratorUtil.BEFATTNING, BestallaradministratorUtil.ORGANISATION, 
-                BestallaradministratorUtil.UNIT, BestallaradministratorUtil.PHONE, BestallaradministratorUtil.EMAIL, EavropUtil.DESCRIPTION, 
-                EavropUtil.UTREDNING_FOCUS, EavropUtil.ADDITIONAL_INFORMATION, PriorMedicalExaminationUtil.EXAMINED_AT, 
-                PriorMedicalExaminationUtil.MEDICAL_LEAVE_ISSUED_AT, PriorMedicalExaminationUtil.NAME, PriorMedicalExaminationUtil.ROLE, 
-                PriorMedicalExaminationUtil.ORGANISATION, PriorMedicalExaminationUtil.UNIT, PriorMedicalExaminationUtil.PHONE, 
-                PriorMedicalExaminationUtil.EMAIL));
-        
-        // verify repository's were called
-        verify(patientRepository, times(1)).save(savedPatient);
-        verify(eavropRepository, times(1)).save(savedEavrop);
-        assertEquals("Returned ArendeId should come from the repository", savedEavrop.getArendeId(), arendeId);
-    }
+    /*
+        @Test
+        public void shouldCreateNewEavrop() {
+            final Eavrop savedEavrop = stubRepositoryToReturnEavropOnSave();
+            final Invanare savedPatient = stubRepositoryToReturnPatientOnSave();
+            final ArendeId arendeId = fmuOrderingService.createEavrop(new CreateEavropCommand(
+                    EavropUtil.ARENDE_ID, EavropUtil.UTREDNING_TYPE,  EavropUtil.TOLK, InvanareUtil.PERSONAL_NUMBER, InvanareUtil.NAME,
+                    InvanareUtil.GENDER, InvanareUtil.HOME_ADDRESS, InvanareUtil.PHONE, InvanareUtil.EMAIL, InvanareUtil.SPECIAL_NEED, LandstingUtil.createLandsting(),
+                    BestallaradministratorUtil.NAME, BestallaradministratorUtil.BEFATTNING, BestallaradministratorUtil.ORGANISATION,
+                    BestallaradministratorUtil.UNIT, BestallaradministratorUtil.PHONE, BestallaradministratorUtil.EMAIL, EavropUtil.DESCRIPTION,
+                    EavropUtil.UTREDNING_FOCUS, EavropUtil.ADDITIONAL_INFORMATION, PriorMedicalExaminationUtil.EXAMINED_AT,
+                    PriorMedicalExaminationUtil.MEDICAL_LEAVE_ISSUED_AT, PriorMedicalExaminationUtil.NAME, PriorMedicalExaminationUtil.ROLE,
+                    PriorMedicalExaminationUtil.ORGANISATION, PriorMedicalExaminationUtil.UNIT, PriorMedicalExaminationUtil.PHONE,
+                    PriorMedicalExaminationUtil.EMAIL));
+
+            // verify repository's were called
+            verify(patientRepository, times(1)).save(savedPatient);
+            verify(eavropRepository, times(1)).save(savedEavrop);
+            assertEquals("Returned ArendeId should come from the repository", savedEavrop.getArendeId(), arendeId);
+        }
+    */
 
     private Eavrop stubRepositoryToReturnEavropOnSave() {
         Eavrop eavrop = EavropUtil.createEavrop();

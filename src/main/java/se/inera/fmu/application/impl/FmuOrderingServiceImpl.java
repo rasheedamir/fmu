@@ -140,89 +140,35 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	@Override
 	public ArendeId createEavrop(CreateEavropCommand aCommand) {
 
-		Invanare invanare = createInvanare(aCommand.getPersonalNumber(),
-				aCommand.getInvanareName(), aCommand.getInvanareGender(),
-				aCommand.getInvanareAddress(), aCommand.getInvanarePhone(),
-				aCommand.getInvanareEmail(), aCommand.getInvanareSpecialNeeds());
-
-		Bestallaradministrator bestallaradministrator = createBestallaradministrator(
-				aCommand.getAdministratorName(), aCommand.getAdministratorBefattning(),
-				aCommand.getAdministratorOrganisation(), aCommand.getAdministratorEnhet(),
-				aCommand.getAdministratorPhone(), aCommand.getAdministratorEmail());
-
-		Interpreter interpreter = new Interpreter(aCommand.getInterpreterLanguages());
-
 		EavropProperties props = getEavropProperties();
 
-		PriorMedicalExamination priorMedicalExamination = createPriorMedicalExamination(aCommand);
+        Landsting landsting = landstingRepository.findByLandstingCode(aCommand.getLandstingCode());
+        if(landsting == null){
+            throw new IllegalArgumentException(String.format("Landsting with id %s does not exist", aCommand.getArendeId()));
+        }
 
-		Eavrop eavrop = EavropBuilder.eavrop().withArendeId(aCommand.getArendeId())
-				.withUtredningType(aCommand.getUtredningType()).withInvanare(invanare)
-				.withLandsting(aCommand.getLandsting())
-				.withBestallaradministrator(bestallaradministrator).withInterpreter(interpreter)
+		Eavrop eavrop = EavropBuilder.eavrop()
+                .withArendeId(aCommand.getArendeId())
+				.withUtredningType(aCommand.getUtredningType())
+                .withInvanare(aCommand.getInvanare())
+				.withLandsting(landsting)
+				.withBestallaradministrator(aCommand.getBestallaradministrator())
+                .withInterpreter(aCommand.getInterpreter())
 				.withEavropProperties(props).withDescription(aCommand.getDescription())
 				.withUtredningFocus(aCommand.getUtredningFocus())
 				.withAdditionalInformation(aCommand.getAdditionalInformation())
-				.withPriorMedicalExamination(priorMedicalExamination).build();
+				.withPriorMedicalExamination(aCommand.getPriorMedicalExamination())
+                .build();
 
 		eavrop = eavropRepository.save(eavrop);
 
-		log.debug(String.format("invanare created :: %s", invanare));
-		log.debug(String.format("bestallaradministrator created :: %s", bestallaradministrator));
 		log.debug(String.format("eavrop created :: %s", eavrop));
 
 		// Publish an event to notify the interested listeners/subscribers that
 		// an eavrop has been created.
-
 		domainEventPublisher.post(new EavropCreatedEvent(eavrop.getEavropId()));
 
 		return eavrop.getArendeId();
-	}
-
-	/**
-	 *
-	 * @param personalNumber
-	 * @param invanareName
-	 * @param invanareGender
-	 * @param invanareHomeAddress
-	 * @param invanareEmail
-	 * @param specialNeeds
-	 * @return
-	 */
-	private Invanare createInvanare(PersonalNumber personalNumber, Name invanareName,
-			Gender invanareGender, Address invanareHomeAddress, String phone, String invanareEmail,
-			String specialNeeds) {
-		Invanare invanare = new Invanare(personalNumber, invanareName, invanareGender,
-				invanareHomeAddress, phone, invanareEmail, specialNeeds);
-		invanare = invanareRepository.save(invanare);
-		return invanare;
-	}
-
-	/**
-	 *
-	 * @param name
-	 * @param befattning
-	 * @param organisation
-	 * @param phone
-	 * @param email
-	 * @return
-	 */
-	private Bestallaradministrator createBestallaradministrator(String name, String befattning,
-			String organisation, String unit, String phone, String email) {
-		Bestallaradministrator bestallaradministrator = new Bestallaradministrator(name,
-				befattning, organisation, unit, phone, email);
-		// TODO: Set up repository, for this subclass or abstract superclass;
-		// bestallaradministrator = bestallaradministrator.save(invanare);
-		return bestallaradministrator;
-	}
-
-	private PriorMedicalExamination createPriorMedicalExamination(CreateEavropCommand aCommand) {
-		HoSPerson issuer = new HoSPerson(null, aCommand.getPriorMedicalLeaveIssuedByName(),
-				aCommand.getPriorMedicalLeaveIssuedByBefattning(),
-				aCommand.getPriorMedicalLeaveIssuedByOrganisation(),
-				aCommand.getPriorMedicalLeaveIssuedByEnhet());
-		return new PriorMedicalExamination(aCommand.getPriorExaminedAt(),
-				aCommand.getPriorMedicalLeaveIssuedAt(), issuer);
 	}
 
 	private EavropProperties getEavropProperties() {
