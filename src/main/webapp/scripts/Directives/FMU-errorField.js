@@ -1,14 +1,11 @@
 'use strict';
 angular.module('fmuClientApp')
-    .directive('fmuErrorField', function(AuthService){
+    .directive('fmuErrorField', function(){
         return {
             restrict: 'E',
             scope: {
                 errors: '=',
                 title: '@'
-            },
-            controller: function ($scope, $element) {
-
             },
             template: '<div class="fmu-error-field" ng-if="errors && errors.length > 0">' +
                             '<label>Följande fel uppstod: </label>' +

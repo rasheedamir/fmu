@@ -12,11 +12,11 @@ angular.module('fmuClientApp')
     }
 
     function hasRole(roleName){
-        return userInfo.activeRole == roleName;
+        return userInfo.activeRole === roleName;
     }
     
     function changeRole(roleName){
-    	$http.put(RESTURL.changeRole, null, {params: {role: roleName}})
+    	$http.put(RESTURL.changeRole, null, {params: {role: roleName}});
     }
 
     return {

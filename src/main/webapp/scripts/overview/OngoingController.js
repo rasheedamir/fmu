@@ -98,7 +98,7 @@ angular.module('fmuClientApp')
                     default:
                         return rowData[key];
                 }
-            }
+            };
             
         }
     ]);

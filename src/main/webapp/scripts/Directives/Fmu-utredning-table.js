@@ -20,8 +20,8 @@ angular.module('fmuClientApp')
                             bookingId: bookingId,
                             bookingStatus: newStatus,
                             comment: comment
-                        }
-                    };
+                        };
+                    }
 
                     $scope.cancelChange = function (rowData) {
                         $scope.toogleEditRow(rowData);
@@ -102,7 +102,7 @@ angular.module('fmuClientApp')
 
                                             params.total(orderedData.length);
                                             $defer.resolve(orderedData);
-                                        })
+                                        });
                                     },
                                     $scope: $scope
                                 });
@@ -113,9 +113,6 @@ angular.module('fmuClientApp')
                 link: function (scope) {
                     scope.getValue = function (key, row) {
                         return scope.getDataCallback() ? scope.getDataCallback()(key, row) : row[key];
-                    };
-                    scope.rowClicked = function (row) {
-
                     };
 
                     scope.initTableParameters();

@@ -46,8 +46,8 @@ angular.module('fmuClientApp')
                                 personOrganisation: 'Implement this',
                                 personUnit: 'Implement this',
                                 useInterpreter: $scope.tolkRadio
-                            }
-                        };
+                            };
+                        }
 
                         $scope.handelseDate = new Date();
                         $scope.handelseStartTime = new Date();

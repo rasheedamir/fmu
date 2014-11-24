@@ -237,7 +237,7 @@ angular.module('fmuClientApp', [
 
                         $scope.cancelRemoval = function () {
                             confirmModal.close();
-                        }
+                        };
                     }
                 });
             };
@@ -251,7 +251,7 @@ angular.module('fmuClientApp', [
                     templateUrl: 'views/eavrop/add-note-modal.html',
                     size: 'md',
                     controller: function($scope, EavropNotes, EAVROP_NOTES){
-                        $scope.picker = {opened: false}
+                        $scope.picker = {opened: false};
                         $scope.note = new EavropNotes({
                             content: '',
                             createdDate: new Date()
@@ -266,8 +266,8 @@ angular.module('fmuClientApp', [
                             return {
                                 eavropId: $stateParams.eavropId,
                                 text: $scope.note.content
-                            }
-                        };
+                            };
+                        }
 
                         $scope.save = function(){
                             var promise = EavropService.addNote(createNoteDateObject());
@@ -279,13 +279,14 @@ angular.module('fmuClientApp', [
                                 // Failed
                                 $scope.noteError = [EAVROP_NOTES.cannotAdd];
                             });
-                        },
+                        };
+
                         $scope.close = function(){
                             modalInstance.dismiss();
-                        }
+                        };
                     }
                 });
-            }
+            };
         }
     });
 });
