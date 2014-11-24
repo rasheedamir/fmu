@@ -27,6 +27,29 @@ angular.module('fmuClientApp')
                         }
                     },
                     controller: function ($scope, currentEavrop, tableParameters) {
+                        $scope.handelseDate = new Date();
+                        $scope.handelseStartTime = new Date();
+                        $scope.handelseStartTime.setMinutes(0);
+                        $scope.handelseEndTime = new Date();
+                        $scope.handelseEndTime.setMinutes(0);
+                        $scope.createBookingErrors = [];
+                        $scope.tillaggRadio = false;
+                        $scope.tolkRadio = false;
+
+                        $scope.handelseTypes = [
+                            {type: UTREDNING.editableEvents.examination, name: 'Undersökning'},
+                            {type: UTREDNING.editableEvents.briefing, name: 'Genomgång med patient'},
+                            {type: UTREDNING.editableEvents.internalWork, name: 'Internt arbete'}
+                        ];
+
+                        $scope.roles = [
+                            {name: 'Läkare'},
+                            {name: 'Psykolog'},
+                            {name: 'Arbetsterapeut'},
+                            {name: 'Sjukgymnast'},
+                            {name: 'Utredare'}
+                        ];
+
                         $scope.isAFU = function () {
                              return currentEavrop && currentEavrop.utredningType === 'AFU';
                         };
@@ -52,27 +75,6 @@ angular.module('fmuClientApp')
                                 useInterpreter: $scope.tolkRadio
                             };
                         }
-
-                        $scope.handelseDate = new Date();
-                        $scope.handelseStartTime = new Date();
-                        $scope.handelseStartTime.setMinutes(0);
-                        $scope.handelseEndTime = new Date();
-                        $scope.handelseEndTime.setMinutes(0);
-                        $scope.createBookingErrors = [];
-
-                        $scope.handelseTypes = [
-                            {type: UTREDNING.editableEvents.examination, name: 'Undersökning'},
-                            {type: UTREDNING.editableEvents.briefing, name: 'Genomgång med patient'},
-                            {type: UTREDNING.editableEvents.internalWork, name: 'Internt arbete'}
-                        ];
-
-                        $scope.roles = [
-                            {name: 'Läkare'},
-                            {name: 'Psykolog'},
-                            {name: 'Arbetsterapeut'},
-                            {name: 'Sjukgymnast'},
-                            {name: 'Utredare'}
-                        ];
 
                         $scope.saveHandelse = function () {
                             var dataPackage = constructBookingObject();
