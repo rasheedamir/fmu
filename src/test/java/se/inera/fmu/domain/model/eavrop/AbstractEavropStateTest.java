@@ -44,14 +44,14 @@ public abstract class AbstractEavropStateTest {
 	public void testAssignEavropToVardgivarenhet() {
 		Eavrop eavrop = getEavrop();
 		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.assignEavropToVardgivarenhet(createVardgivarenhet());
+		eavrop.assignEavropToVardgivarenhet(createVardgivarenhet(), createHoSPerson());
 	}
 	
 	@Test(expected=IllegalStateException.class)
 	public void testAcceptEavrop() {
 		Eavrop eavrop = getEavrop();
 		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.acceptEavropAssignment();
+		eavrop.acceptEavropAssignment(createHoSPerson());
 	}
 
 	@Test(expected=IllegalStateException.class)
@@ -146,7 +146,7 @@ public abstract class AbstractEavropStateTest {
 	public void testRejectEavropAssignment() {
 		Eavrop eavrop = getEavrop();
 		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.rejectEavropAssignment();
+		eavrop.rejectEavropAssignment(createHoSPerson());
 	}
 
 	@Test(expected=IllegalStateException.class)
@@ -174,13 +174,13 @@ public abstract class AbstractEavropStateTest {
 	
 	protected Eavrop createAssignedEavrop(){
 		Eavrop eavrop = createUnassignedEavrop();
-		eavrop.assignEavropToVardgivarenhet(createVardgivarenhet());
+		eavrop.assignEavropToVardgivarenhet(createVardgivarenhet(),createHoSPerson());
 		return eavrop;
 	}
 
 	protected Eavrop createAcceptedEavrop(){
 		Eavrop eavrop = createAssignedEavrop();
-		eavrop.acceptEavropAssignment();
+		eavrop.acceptEavropAssignment(createHoSPerson());
 		return eavrop;
 	}
 
@@ -229,48 +229,50 @@ public abstract class AbstractEavropStateTest {
 	protected Booking createBooking(){
 		//Set<Person> persons = new HashSet<Person>();
 		//persons.add(createPerson());
-		return new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(), Boolean.FALSE, createPerson(), Boolean.FALSE);
+		DateTime now = DateTime.now();
+		DateTime to = now.plusHours(1);
+		return new Booking(BookingType.EXAMINATION, now, to, Boolean.FALSE, createHoSPerson(), Boolean.FALSE);
 	}
 	
 	protected ReceivedDocument createReceivedDocument(){
-		return new ReceivedDocument( "RECEIVED_DOCUMENT", createPerson(), true);
+		return new ReceivedDocument( "RECEIVED_DOCUMENT", createHoSPerson(), true);
 	}
 
 	protected RequestedDocument createRequestedDocument(){
-		return new RequestedDocument("REQUESTED_DOCUMENT", createPerson(), createDocumentRequestNote());
+		return new RequestedDocument("REQUESTED_DOCUMENT", createHoSPerson(), createDocumentRequestNote());
 	}
 	
 	
-	protected Person createPerson(){
+	protected HoSPerson createHoSPerson(){
 		return new HoSPerson(new HsaId("SE160000000000-HAHAHHSAL"), "Petter Olovsson", "Läkare", "Stafettläkarna", "Ortopeden");
 	}
 	
 	protected Note createDocumentRequestNote(){
-		return new Note(NoteType.DOCUMENT_REQUEST, "Ge hit!!", createPerson());
+		return new Note(NoteType.DOCUMENT_REQUEST, "Ge hit!!", createHoSPerson());
 	}
 	
 	protected IntygSentInformation createIntygSentInformation(){
-		return new IntygSentInformation(new DateTime(), createPerson());
+		return new IntygSentInformation(new DateTime(), createHoSPerson());
 	}
 
 	protected IntygComplementRequestInformation createIntygComplementRequestInformation(){
-		return new IntygComplementRequestInformation(new DateTime(), createPerson());
+		return new IntygComplementRequestInformation(new DateTime(), createHoSPerson());
 	}
 
 	protected IntygApprovedInformation createIntygApprovedInformation(){
-		return new IntygApprovedInformation(new DateTime(), createPerson());
+		return new IntygApprovedInformation(new DateTime(), createHoSPerson());
 	}
 
 	protected Note createNote(){
-		return new Note(NoteType.EAVROP, "Comment", createPerson());
+		return new Note(NoteType.EAVROP, "Comment", createHoSPerson());
 	}
 
 	protected EavropApproval createEavropApproval(){
-		return new EavropApproval(new DateTime(), createPerson());
+		return new EavropApproval(new DateTime(), createHoSPerson());
 	}
 
 	protected EavropCompensationApproval createEavropCompensationApproval(){
-		return new EavropCompensationApproval(Boolean.TRUE, new DateTime(), createPerson());
+		return new EavropCompensationApproval(Boolean.TRUE, new DateTime(), createHoSPerson());
 	}
 
 	protected BookingDeviation createBookingDevation(){
@@ -278,7 +280,7 @@ public abstract class AbstractEavropStateTest {
 	}
 
 	protected BookingDeviationResponse createBookingDevationResponse(){
-		BookingDeviationResponse response = new BookingDeviationResponse(BookingDeviationResponseType.RESTART, new DateTime(), createPerson()); 
+		BookingDeviationResponse response = new BookingDeviationResponse(BookingDeviationResponseType.RESTART, new DateTime(), createHoSPerson()); 
 		
 		response.setDeviationResponseNote(createNote());
 		

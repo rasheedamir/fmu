@@ -1,5 +1,7 @@
 package se.inera.fmu.domain.model.eavrop;
 
+import org.joda.time.DateTime;
+
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationTypeUtil;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
@@ -8,8 +10,6 @@ import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBooking;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
-import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
-import se.inera.fmu.domain.model.eavrop.intyg.IntygComplementRequestInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygSentInformation;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 
@@ -25,23 +25,12 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 		return EavropStateType.ACCEPTED;
 	}
 	
-//	@Override
-//	public void setDocumentsSentFromBestallareDateTime(Eavrop eavrop, DateTime documentsSentFromBestallareDateTime){
-//		
-//		//TODO:Use adding of documents, if type is exteral, then check if start should be set
-//		//TODO:Remove timestamp and amd only store documents? 
-//		//TODO:Can this be sent multiple times and does it have any effect on start date
-//		eavrop.setDocumentsSentFromBestallare(documentsSentFromBestallareDateTime);
-//		
-//		//TODO: SET new base date, use some kind of domain service
-//		eavrop.setStartDate(documentsSentFromBestallareDateTime.plusDays(3).toLocalDate());
-//		
-//		eavrop.handleDocumentsSent();
-//		
-//		//No state transition
-//		//TODO: what should happen if multiple calls to this method is made?
-//		// Just set the latest date and let that be the base for the start date
-//	}
+	@Override
+	public void setDocumentsSentFromBestallareDateTime(Eavrop eavrop, DateTime documentsSentFromBestallareDateTime){
+		eavrop.setDocumentsSentFromBestallare(documentsSentFromBestallareDateTime);
+		eavrop.doDateTimeDocumentsSentFromBestallare(documentsSentFromBestallareDateTime);
+		//No state transition
+	}
 			
 	@Override
 	public void addBooking(Eavrop eavrop, Booking booking){

@@ -1,5 +1,7 @@
 package se.inera.fmu.application.impl;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
@@ -13,7 +15,7 @@ import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.application.DomainEventPublisher;
 import se.inera.fmu.application.EavropDocumentService;
-import se.inera.fmu.application.impl.command.AddReceivedExternalDocumentCommand;
+import se.inera.fmu.application.impl.command.AddReceivedExternalDocumentsCommand;
 import se.inera.fmu.application.impl.command.AddReceivedInternalDocumentCommand;
 import se.inera.fmu.application.impl.command.AddRequestedDocumentCommand;
 import se.inera.fmu.application.util.StringUtils;
@@ -27,6 +29,7 @@ import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.note.NoteType;
+import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.HoSPerson;
 
@@ -59,17 +62,31 @@ public class EavropDocumentServiceImpl implements EavropDocumentService {
 	}
 
 	@Override
-	public void addReceivedExternalDocument(AddReceivedExternalDocumentCommand aCommand) {
+	public void addReceivedExternalDocument(AddReceivedExternalDocumentsCommand aCommand) {
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		LocalDate startDate = eavrop.getStartDate();
+		DateTime documentsSentFromBestallareDateTime = (aCommand.getDocumentsSentDateTime()!=null)?aCommand.getDocumentsSentDateTime():DateTime.now();
 		
-		Bestallaradministrator person = new Bestallaradministrator(aCommand.getPersonName(),  aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit(), aCommand.getPersonPhone(), aCommand.getPersonEmail());
-		ReceivedDocument document = new ReceivedDocument(aCommand.getDocumentName(), person, Boolean.TRUE);
+		Bestallaradministrator person = aCommand.getBestallaradministrator();
 		
-		eavrop.addReceivedDocument(document);
+		List<String> documentNames = aCommand.getDocumentNames();
+		
+		
+		if(documentNames != null && !documentNames.isEmpty()){
+			for (String documentName : documentNames) {
+				if(!StringUtils.isBlankOrNull(documentName)){
+					ReceivedDocument document = new ReceivedDocument(documentsSentFromBestallareDateTime, documentName, person, Boolean.TRUE);
+					eavrop.addReceivedDocument(document);
+				}
+			}	
+		}else{
+			if(eavrop.getStartDate()==null){
+				eavrop.setDateTimeDocumentsSentFromBestallare(documentsSentFromBestallareDateTime);
+			}
+		}
 		
 		if(eavrop.getStartDate() != null && !eavrop.getStartDate().equals(startDate)){
-			handleDocumentsSentByBestallare(eavrop.getEavropId(), document.getDocumentDateTime());
+			handleDocumentsSentByBestallare(eavrop.getEavropId(), documentsSentFromBestallareDateTime);
 		}
 	}
 

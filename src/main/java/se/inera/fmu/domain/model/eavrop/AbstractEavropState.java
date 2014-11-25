@@ -16,6 +16,8 @@ import se.inera.fmu.domain.model.eavrop.intyg.IntygComplementRequestInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygSentInformation;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
+import se.inera.fmu.domain.model.landsting.Landstingssamordnare;
+import se.inera.fmu.domain.model.person.HoSPerson;
 
 /*
  * Base class implementing the EavropState interface, 
@@ -26,20 +28,20 @@ public abstract class AbstractEavropState implements EavropState, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void assignEavropToVardgivarenhet(Eavrop eavrop, Vardgivarenhet vardgivarenhet) {
+	public void assignEavropToVardgivarenhet(Eavrop eavrop, Vardgivarenhet vardgivarenhet, HoSPerson assigningPerson) {
 		throw new IllegalStateException("Method assignEavropToVardgivarenhet is not available in state "
 						+ getEavropStateType().name());
 	}
 
 	@Override
-	public void acceptEavropAssignment(Eavrop eavrop) {
+	public void acceptEavropAssignment(Eavrop eavrop, HoSPerson acceptingPerson) {
 		throw new IllegalStateException(
 				"Method acceptEavropAssignment is not available in state "
 						+ getEavropStateType().name());
 	}
 
 	@Override
-	public void rejectEavropAssignment(Eavrop eavrop) {
+	public void rejectEavropAssignment(Eavrop eavrop, HoSPerson rejectingPerson) {
 		throw new IllegalStateException(
 				"Method rejectEavropAssignment is not available in state "
 						+ getEavropStateType().name());

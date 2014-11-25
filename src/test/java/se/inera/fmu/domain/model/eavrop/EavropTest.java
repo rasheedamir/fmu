@@ -39,6 +39,7 @@ import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
+import se.inera.fmu.domain.model.landsting.Landstingssamordnare;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.HoSPerson;
 import se.inera.fmu.domain.model.person.Person;
@@ -78,7 +79,9 @@ public class EavropTest extends TestCase {
 	private String tolk;
 	
 	private Landsting landsting;
-	
+
+	private HoSPerson samordnare;
+
 	private Bestallaradministrator bestallaradministrator;
 	
 	private HoSPerson doctorPerson;
@@ -109,6 +112,7 @@ public class EavropTest extends TestCase {
 		utredningType = UtredningType.SLU;
 		tolk = "Swedish";
 		landsting = new Landsting (new LandstingCode(1), "Stockholms läns landsting");
+		samordnare = new HoSPerson(new HsaId("SE160000000000-HAHAHHSLS"), "Sven Duva", "Samordnare", "Landstinget Stockholm","Avd2", "08654321", "sven.duva@landstinget.se");
 		bestallaradministrator = new Bestallaradministrator("Per Elofsson","Handläggare", "Försäkringskassan", "LFC Stockholm", "08123456", "per.elofsson@forsakringskassan.se");
 		vardgivare = new Vardgivare(new HsaId("SE160000000000-HAHAHHSAA"), "Cary Care");
 		vardgivarenhet = new Vardgivarenhet(vardgivare, new HsaId("SE160000000000-HAHAHHSAB"), "CareIt", new Address("","","",""));
@@ -193,19 +197,19 @@ public class EavropTest extends TestCase {
 		
 		assertEquals(EavropStateType.UNASSIGNED, eavrop.getStatus());
 	
-		eavrop.assignEavropToVardgivarenhet(vardgivarenhet);
+		eavrop.assignEavropToVardgivarenhet(vardgivarenhet, samordnare);
 		
 		assertEquals(EavropStateType.ASSIGNED, eavrop.getStatus());
 
-		eavrop.rejectEavropAssignment();;
+		eavrop.rejectEavropAssignment(doctorPerson);;
 
 		assertEquals(EavropStateType.UNASSIGNED, eavrop.getStatus());
 
-		eavrop.assignEavropToVardgivarenhet(vardgivarenhet);
+		eavrop.assignEavropToVardgivarenhet(vardgivarenhet, samordnare);
 		
 		assertEquals(EavropStateType.ASSIGNED, eavrop.getStatus());
 
-		eavrop.acceptEavropAssignment();;
+		eavrop.acceptEavropAssignment(doctorPerson);;
 
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 		
@@ -290,8 +294,8 @@ public class EavropTest extends TestCase {
 		assertEquals(true, eavrop.isEavropAcceptDaysDeviated());
 
 		
-		eavrop.assignEavropToVardgivarenhet(vardgivarenhet);
-		eavrop.acceptEavropAssignment();
+		eavrop.assignEavropToVardgivarenhet(vardgivarenhet, samordnare);
+		eavrop.acceptEavropAssignment(doctorPerson);
 		assertEquals(true, eavrop.isEavropAcceptDaysDeviated());
 		
 		
@@ -317,9 +321,9 @@ public class EavropTest extends TestCase {
 		
 		eavrop.setCreatedDate(new DateTime(2014,10,1,10,30));
 
-		eavrop.assignEavropToVardgivarenhet(vardgivarenhet);
+		eavrop.assignEavropToVardgivarenhet(vardgivarenhet, samordnare);
 		
-		eavrop.acceptEavropAssignment();
+		eavrop.acceptEavropAssignment(doctorPerson);
 		
 		assertNull(eavrop.getStartDate());
 		
@@ -561,8 +565,6 @@ public class EavropTest extends TestCase {
 		eavrop.approveEavropCompensation(createEavropCompensationApproval(new DateTime(2014,11,7,8,0)));
 
 		assertEquals(EavropStateType.CLOSED, eavrop.getStatus());
-		System.out.println("Alla händelser\n");
-		System.out.println("Sammanfattning");
 		//Sammanfattning
 		//1. Förfrågan om utredning
 		assertNotNull(eavrop.getCreatedDate());
@@ -584,13 +586,6 @@ public class EavropTest extends TestCase {
 		//8. Begärda kompletteringar till utredning.
 		assertNotNull(eavrop.getNoOfIntygComplementRequests());
 
-		System.out.println("Förfrågan om utreding\tHandlingar översändes\tUtredning antal dagar\tBegärda tillägg / handlingar");
-		System.out.println(format.format(eavrop.getCreatedDate().toDate())+"\t\t"+format.format(eavrop.getDateTimeDocumentsSentFromBestallare().toDate())+"\t\t"+eavrop.getNoOfAssesmentDays()+"\t\t\t"+(eavrop.getRequestedDocuments().size()+eavrop.getReceivedDocuments().size()));
-		System.out.println();
-		System.out.println("Acceptans av utred.\tIntyg skickat\t\tAntal avvikelser\tBegärda kompletteringar");
-		System.out.println(format.format(eavrop.getCurrentAssignment().getAssignmentResponseDateTime().toDate())+"\t\t"+format.format(eavrop.getIntygSentDateTime().toDate())+"\t\t"+eavrop.getNumberOfDeviationsOnEavrop()+"\t\t\t"+eavrop.getNoOfIntygComplementRequests());
-		System.out.println();
-		
 		//Beställning
 		//9. Ärende-ID
 		assertNotNull(eavrop.getArendeId());
@@ -610,26 +605,8 @@ public class EavropTest extends TestCase {
 		assertNotNull(eavrop.getCurrentAssignment().getAssignmentResponseDateTime());
 		//17. Antal dagar efter förfrågan om utredning
 		assertNotNull(eavrop.getCurrentAssignment().getNoOfAssignmentResponseDays());
-		System.out.println("Beställning");
-		boolean first = true;
-		System.out.println("Ärende-ID\tTyp\tOrganisation\t\tEnhet\t\tFörfrågan inkommit\tUtredare/Enhet\tAcceptans\tAntal dagar efter förfrågan om utredning");
-		for (EavropAssignment assignment : eavrop.getAssignments()) {
-			System.out.println(""+((first)?eavrop.getArendeId()+"\t":("\t\t\t"))
-								 +((first)?eavrop.getUtredningType()+"\t":("\t\t")) 
-								 +((first)?eavrop.getBestallaradministrator().getOrganisation()+"\t":("\t\t"))
-								 +((first)?eavrop.getBestallaradministrator().getUnit()+"\t":("\t\t"))
-								 +((first)?format.format(eavrop.getCreatedDate().toDate())+"\t\t":("\t\t"))
-								 +assignment.getVardgivarenhet().getUnitName()+"\t\t"
-								 +assignment.getAssignmentStatus()+"\t"
-								 +eavrop.getAssignmentNumberOFResponsDaysFromOrderDate(assignment)+ ((eavrop.isAssignmentNumberOFResponsDaysFromOrderDateDeviated(assignment))?"(*)":"")); //TODO
-			first = false;
-		}
-
-		
 		
 		//Handlingar
-		System.out.println("Handlingar");
-		System.out.println("Handling\tDelad av\tDelad Datum\tMottagen Datum");
 		for (ReceivedDocument receivedDocument : eavrop.getReceivedDocuments()) {
 			//18. Handling
 			assertNotNull(receivedDocument.getDocumentName());
@@ -639,15 +616,9 @@ public class EavropTest extends TestCase {
 			//Finns ej....//TODO:
 			//21. Mottagen, datum
 			assertNotNull(receivedDocument.getDocumentDateTime());
-			System.out.println(receivedDocument.getDocumentName()+"\t\t"+receivedDocument.getPerson().getName()+"\tN/A\t\t"+format.format(receivedDocument.getDocumentDateTime().toDate()));
-			
 		}
 
-		System.out.println("");
-		
 		//Tillägg
-		System.out.println("Tillägg");
-		System.out.println("Handling\tBegäran av\tBegäran Datum\tBegäran till\tMottagen Datum");
 		for (RequestedDocument requestedDocument : eavrop.getRequestedDocuments()) {
 			//22. Handling
 			assertNotNull(requestedDocument.getDocumentName());
@@ -659,13 +630,9 @@ public class EavropTest extends TestCase {
 			assertNotNull(eavrop.getBestallaradministrator().getName());
 			//25. Tillägg mottaget, datum
 			//Finns ej...
-			System.out.println(requestedDocument.getDocumentName()+"\t\t"+requestedDocument.getPerson().getName()+"\t"+format.format(requestedDocument.getDocumentDateTime().toDate())+"\t"+eavrop.getBestallaradministrator().getName()+"\t\tN/A");
 		}
-		System.out.println("");
-		
+
 		//Utredning EavropEventDTO
-		System.out.println("Utredning");
-		System.out.println("Händelse\t\t\tDatum\tPerson/Roll/Organisation\tStatus\t");
 		for (EavropEventDTO eavropEventDTO : eavrop.getEavropEvents()) {
 			//26. Händelse
 			assertNotNull(eavropEventDTO.getEventType());
@@ -678,15 +645,9 @@ public class EavropTest extends TestCase {
 			//assertNotNull(eavropEventDTO.getPersonUnit());
 			//29. Status
 			//assertNotNull(eavropEventDTO.getEventStatus());
-			System.out.println(eavropEventDTO.getEventType().toString()+"\t\t"+format.format(eavropEventDTO.getEventTime().toDate())+"\t"+eavropEventDTO.getPersonName()+"/"+eavropEventDTO.getPersonRole()+"/"+eavropEventDTO.getPersonOrganistation()+"/"+eavropEventDTO.getPersonUnit()+"\t"+eavropEventDTO.getEventStatus());
-
 		}
-	
-		System.out.println("");
-		
+
 		//Anteckningar
-		System.out.println("Anteckning");
-		System.out.println("Innehåll\t\t\tSkapad av \tDatum\t");
 		for (Note note : eavrop.getAllNotes()) {
 			//??. Typ
 			assertNotNull(note.getNoteType());
@@ -699,8 +660,6 @@ public class EavropTest extends TestCase {
 //			assertNotNull(note.getPerson().getUnit());
 			//24. Datum
 			assertNotNull(eavrop.getBestallaradministrator().getName());
-			
-			System.out.println(note.getText()+"\t\t"+((note.getPerson()!=null)?note.getPerson().getName():"")+"\t\t"+format.format(note.getCreatedDate().toDate()));
 		}
 	
 		
@@ -815,7 +774,8 @@ public class EavropTest extends TestCase {
 	}
 
 private void acceptEavropAssignment(Eavrop eavrop, DateTime dateTime) {
-		eavrop.acceptEavropAssignment();
+	
+		eavrop.acceptEavropAssignment(new HoSPerson(new HsaId("SE160000000000-HAHAHHSAL"), "Petter Olovsson", "Läkare", "Stafettläkarna", "Ortopeden"));
 		EavropAssignment assignment = eavrop.getCurrentAssignment();
 		assignment.setLastModifiedDate(dateTime);
 		
@@ -823,7 +783,7 @@ private void acceptEavropAssignment(Eavrop eavrop, DateTime dateTime) {
 
 private void rejectEavropAssignment(Eavrop eavrop, DateTime dateTime) {
 	EavropAssignment assignment = eavrop.getCurrentAssignment();
-	eavrop.rejectEavropAssignment();
+	eavrop.rejectEavropAssignment(new HoSPerson(new HsaId("SE160000000000-HAHAHHSAL"), "Petter Olovsson", "Läkare", "Stafettläkarna", "Ortopeden"));
 	assignment.setLastModifiedDate(dateTime);
 	
 }
@@ -929,8 +889,7 @@ private void rejectEavropAssignment(Eavrop eavrop, DateTime dateTime) {
 
 	private void assignToVardgivarenhet(Eavrop eavrop, Vardgivarenhet enhet,
 			DateTime dateTime) {
-		
-		eavrop.assignEavropToVardgivarenhet(enhet);
+		eavrop.assignEavropToVardgivarenhet(enhet, new HoSPerson(new HsaId("SE160000000000-HAHAHHSAL"), "Petter Olovsson", "Läkare", "Stafettläkarna", "Ortopeden"));
 		EavropAssignment assignment = eavrop.getCurrentAssignment();
 		assignment.setCreatedDate(dateTime);
 	}

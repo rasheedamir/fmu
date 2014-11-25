@@ -24,6 +24,7 @@ import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.note.NoteType;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
+import se.inera.fmu.domain.model.person.Bestallarsamordnare;
 
 /**
  * Service for handling eavrop assignments
@@ -57,10 +58,7 @@ public class EavropApprovalServiceImpl implements EavropApprovalService {
 	public void approveEavrop(ApproveEavropCommand aCommand) {
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		
-		Bestallaradministrator person = null;
-		if(!StringUtils.isBlankOrNull(aCommand.getPersonName())){
-			person  = new Bestallaradministrator(aCommand.getPersonName(),  aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit(), aCommand.getPersonPhone(), aCommand.getPersonEmail());
-		}
+		Bestallaradministrator person = aCommand.getBestallaradministrator();
 		Note note = null;
 		if(!StringUtils.isBlankOrNull(aCommand.getComment())){
 			note = new Note(NoteType.APPROVAL,aCommand.getComment(), person);
@@ -81,13 +79,10 @@ public class EavropApprovalServiceImpl implements EavropApprovalService {
 	public void approveEavropCompensation(ApproveEavropCompensationCommand aCommand) {
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		
-		Bestallaradministrator person = null;
-		if(!StringUtils.isBlankOrNull(aCommand.getPersonName())){
-			person  = new Bestallaradministrator(aCommand.getPersonName(),  aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit(), aCommand.getPersonPhone(), aCommand.getPersonEmail());
-		}
+		Bestallarsamordnare person = aCommand.getBestallarsamordnare();
 		Note note = null;
 		if(!StringUtils.isBlankOrNull(aCommand.getComment())){
-			note = new Note(NoteType.APPROVAL,aCommand.getComment(), person);
+			note = new Note(NoteType.COMPENSATION_APPROVAL,aCommand.getComment(), person);
 		}
 		
 		 EavropCompensationApproval eavropCompensationApproval = new EavropCompensationApproval(aCommand.getApproved(), aCommand.getApproveDateTime(), person, note);

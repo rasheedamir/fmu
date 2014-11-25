@@ -1,30 +1,58 @@
 package se.inera.fmu.interfaces.managing.ws;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import lombok.extern.slf4j.Slf4j;
+
+import org.joda.time.DateTime;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import se.inera.fmu.application.EavropApprovalService;
+import se.inera.fmu.application.EavropBookingService;
+import se.inera.fmu.application.EavropDocumentService;
+import se.inera.fmu.application.EavropIntygService;
 import se.inera.fmu.application.FmuOrderingService;
+import se.inera.fmu.application.impl.command.AddBookingDeviationResponseCommand;
+import se.inera.fmu.application.impl.command.AddIntygApprovedCommand;
+import se.inera.fmu.application.impl.command.AddIntygComplementRequestCommand;
+import se.inera.fmu.application.impl.command.AddIntygSentCommand;
+import se.inera.fmu.application.impl.command.AddReceivedExternalDocumentsCommand;
+import se.inera.fmu.application.impl.command.ApproveEavropCommand;
+import se.inera.fmu.application.impl.command.ApproveEavropCompensationCommand;
 import se.inera.fmu.application.impl.command.CreateEavropCommand;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Interpreter;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
+import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
+import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.invanare.medicalexamination.PriorMedicalExamination;
+import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
+import se.inera.fmu.domain.model.person.Bestallarsamordnare;
 import se.inera.fmu.domain.model.person.HoSPerson;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
+import ws.inera.fmu.admin.eavrop.AccepteratFmuIntygRequest;
+import ws.inera.fmu.admin.eavrop.AccepteratFmuUtredningRequest;
+import ws.inera.fmu.admin.eavrop.BegartFmuIntygKompletteringRequest;
 import ws.inera.fmu.admin.eavrop.BestallEavropRequest;
 import ws.inera.fmu.admin.eavrop.FmuResponse;
+import ws.inera.fmu.admin.eavrop.GodkannandeErsattningFmuUtredningRequest;
+import ws.inera.fmu.admin.eavrop.Person;
+import ws.inera.fmu.admin.eavrop.SkickatFmuHandlingarRequest;
+import ws.inera.fmu.admin.eavrop.SkickatFmuIntygRequest;
 import ws.inera.fmu.admin.eavrop.StatusCode;
+import ws.inera.fmu.admin.eavrop.SvarBokningsavvikelseRequest;
+import static se.inera.fmu.application.util.StringUtils.isBlankOrNull;
 
 /**
  * Created by Rasheed on 10/25/14.
@@ -38,7 +66,15 @@ public class EavropEndpoint {
 
     @Inject
     private FmuOrderingService fmuOrderingService;
-
+    @Inject
+    private EavropDocumentService eavropDocumentService;
+    @Inject
+    private EavropBookingService eavropBookingService;
+    @Inject
+    private EavropIntygService eavropIntygService;
+    @Inject
+    private EavropApprovalService eavropApprovalService;
+    
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "bestallEavropRequest")
     @ResponsePayload
     public FmuResponse createEavrop(@RequestPayload BestallEavropRequest request) {
@@ -48,9 +84,13 @@ public class EavropEndpoint {
         try {
             CreateEavropCommand aCommand = mapCreateEavropRequestToCreateEavropCommand(request);
             ArendeId arendeId = fmuOrderingService.createEavrop(aCommand);
-
             fmuResponse.setArendeId(arendeId.toString());
             fmuResponse.setStatusCode(StatusCode.OK);
+        } catch (IllegalArgumentException exception) {
+            log.error("IllegalArgumentException occured : ", exception);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.INVALID_REQUEST);
+            fmuResponse.setErrorMessage(exception.toString());
         } catch (Exception exception) {
             log.error("Exception occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
@@ -61,7 +101,183 @@ public class EavropEndpoint {
         return fmuResponse;
     }
 
-    /**
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "skickatFmuHandlingarRequest")
+    @ResponsePayload
+    public FmuResponse documentsSent(@RequestPayload SkickatFmuHandlingarRequest request) {
+        FmuResponse fmuResponse = new FmuResponse();
+
+        try {
+        	AddReceivedExternalDocumentsCommand aCommand = mapSkickatFmuHandlingarRequestToAddReceivedExternalDocumentCommand(request);
+            eavropDocumentService.addReceivedExternalDocument(aCommand);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.OK);
+        } catch (IllegalArgumentException exception) {
+            log.error("IllegalArgumentException occured : ", exception);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.INVALID_REQUEST);
+            fmuResponse.setErrorMessage(exception.toString());
+        } catch (Exception exception) {
+            log.error("Exception occured : ", exception);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.UNKNOWN_ERROR);
+            fmuResponse.setErrorMessage(exception.toString());
+        }
+
+        return fmuResponse;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "svarBokningsavvikelseRequest")
+    @ResponsePayload
+    public FmuResponse bookingDeviationResponse(@RequestPayload SvarBokningsavvikelseRequest request) {
+        FmuResponse fmuResponse = new FmuResponse();
+
+        try {
+        	AddBookingDeviationResponseCommand aCommand = mapSvarBokningsavvikelseRequestToAddBookingDeviationResponseCommand (request);
+            eavropBookingService.addBookingDeviationResponse(aCommand);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.OK);
+        } catch (IllegalArgumentException exception) {
+            log.error("IllegalArgumentException occured : ", exception);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.INVALID_REQUEST);
+            fmuResponse.setErrorMessage(exception.toString());
+        } catch (Exception exception) {
+            log.error("Exception occured : ", exception);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.UNKNOWN_ERROR);
+            fmuResponse.setErrorMessage(exception.toString());
+        }
+
+        return fmuResponse;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "skickatFmuIntygRequest")
+    @ResponsePayload
+    public FmuResponse intygSent(@RequestPayload SkickatFmuIntygRequest request) {
+        FmuResponse fmuResponse = new FmuResponse();
+
+        try {
+        	AddIntygSentCommand aCommand = mapSkickatFmuIntygRequestToAddIntygSentCommand (request);
+            eavropIntygService.addIntygSentInformation(aCommand);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.OK);
+        } catch (IllegalArgumentException exception) {
+            log.error("IllegalArgumentException occured : ", exception);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.INVALID_REQUEST);
+            fmuResponse.setErrorMessage(exception.toString());
+        } catch (Exception exception) {
+            log.error("Exception occured : ", exception);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.UNKNOWN_ERROR);
+            fmuResponse.setErrorMessage(exception.toString());
+        }
+
+        return fmuResponse;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "begartFmuIntygKompletteringRequest")
+    @ResponsePayload
+    public FmuResponse intygCompletionRequest(@RequestPayload BegartFmuIntygKompletteringRequest request) {
+        FmuResponse fmuResponse = new FmuResponse();
+
+        try {
+        	AddIntygComplementRequestCommand aCommand = mapBegartFmuIntygKompletteringRequestToAddIntygComplementRequestCommand (request);
+            eavropIntygService.addIntygComplementRequestInformation(aCommand);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.OK);
+        } catch (IllegalArgumentException exception) {
+            log.error("IllegalArgumentException occured : ", exception);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.INVALID_REQUEST);
+            fmuResponse.setErrorMessage(exception.toString());
+        } catch (Exception exception) {
+            log.error("Exception occured : ", exception);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.UNKNOWN_ERROR);
+            fmuResponse.setErrorMessage(exception.toString());
+        }
+
+        return fmuResponse;
+    }
+
+    
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "accepteratFmuIntygRequest")
+    @ResponsePayload
+    public FmuResponse intygApproved(@RequestPayload AccepteratFmuIntygRequest request) {
+        FmuResponse fmuResponse = new FmuResponse();
+
+        try {
+        	AddIntygApprovedCommand aCommand = mapAccepteratFmuIntygRequestToAddIntygApprovedCommand(request);
+            eavropIntygService.addIntygApprovedInformation(aCommand);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.OK);
+        } catch (IllegalArgumentException exception) {
+            log.error("IllegalArgumentException occured : ", exception);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.INVALID_REQUEST);
+            fmuResponse.setErrorMessage(exception.toString());
+        } catch (Exception exception) {
+            log.error("Exception occured : ", exception);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.UNKNOWN_ERROR);
+            fmuResponse.setErrorMessage(exception.toString());
+        }
+
+        return fmuResponse;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "accepteratFmuUtredningRequest")
+    @ResponsePayload
+    public FmuResponse approveEavrop(@RequestPayload AccepteratFmuUtredningRequest request) {
+        FmuResponse fmuResponse = new FmuResponse();
+
+        try {
+        	ApproveEavropCommand aCommand = mapAccepteratFmuUtredningRequestToApproveEavropCommand(request);
+            eavropApprovalService.approveEavrop(aCommand);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.OK);
+        } catch (IllegalArgumentException exception) {
+            log.error("IllegalArgumentException occured : ", exception);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.INVALID_REQUEST);
+            fmuResponse.setErrorMessage(exception.toString());
+        } catch (Exception exception) {
+            log.error("Exception occured : ", exception);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.UNKNOWN_ERROR);
+            fmuResponse.setErrorMessage(exception.toString());
+        }
+
+        return fmuResponse;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "godkannandeErsattningFmuUtredningRequest")
+    @ResponsePayload
+    public FmuResponse approveEavropCompensation(@RequestPayload GodkannandeErsattningFmuUtredningRequest request) {
+        FmuResponse fmuResponse = new FmuResponse();
+
+        try {
+        	ApproveEavropCompensationCommand aCommand = mapGodkannandeErsattningFmuUtredningRequestToApproveEavropCompensationCommand(request);
+            eavropApprovalService.approveEavropCompensation(aCommand);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.OK);
+        } catch (IllegalArgumentException exception) {
+            log.error("IllegalArgumentException occured : ", exception);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.INVALID_REQUEST);
+            fmuResponse.setErrorMessage(exception.toString());
+        } catch (Exception exception) {
+            log.error("Exception occured : ", exception);
+            fmuResponse.setArendeId(request.getArendeId());
+            fmuResponse.setStatusCode(StatusCode.UNKNOWN_ERROR);
+            fmuResponse.setErrorMessage(exception.toString());
+        }
+
+        return fmuResponse;
+    }
+    
+	/**
      *
      * @param request - CreateEavropRequest
      * @return
@@ -75,14 +291,132 @@ public class EavropEndpoint {
         String additionalInformation = request.getYtterligareInformation();
         Invanare invanare = createInvanare(request);
         LandstingCode landstingCode = new LandstingCode(request.getLandstingId());
-        Bestallaradministrator bestallaradministrator = createBestallaradministrator(request);
+        Bestallaradministrator bestallaradministrator = createBestallaradministrator(request.getAdministrator());
         PriorMedicalExamination priorMedicalExamination = createPriorMedicalExamination(request);
         return new CreateEavropCommand(arendeId, utredningType, description, utredningFocus, additionalInformation,
                                        interpreter, invanare, landstingCode, bestallaradministrator,
                                        priorMedicalExamination);
     }
 
-    /**
+	/**
+    *
+    * @param request - SkickatFmuHandlingarRequest
+    * @return
+    */
+    private AddReceivedExternalDocumentsCommand mapSkickatFmuHandlingarRequestToAddReceivedExternalDocumentCommand(
+			SkickatFmuHandlingarRequest request) {
+    	ArendeId arendeId = new ArendeId(request.getArendeId());
+    	DateTime documentsSentDateTime = new DateTime(request.getHandlingarSkickadeDateTime().toGregorianCalendar().getTimeInMillis());
+    	List<String> documents = request.getHandlingar();
+    	Bestallaradministrator bestallaradministrator = createBestallaradministrator(request.getHandlingarSkickadeAv());
+        
+    	return new AddReceivedExternalDocumentsCommand(arendeId, documentsSentDateTime, documents, bestallaradministrator);
+	}
+
+
+	/**
+    *
+    * @param request - SvarBokningsavvikelseRequest
+    * @return
+    */
+	private AddBookingDeviationResponseCommand mapSvarBokningsavvikelseRequestToAddBookingDeviationResponseCommand(
+			SvarBokningsavvikelseRequest request) {
+    	ArendeId arendeId = new ArendeId(request.getArendeId());
+		BookingId bookingId = new BookingId(request.getBokningsId());
+		BookingDeviationResponseType responseType = BookingDeviationResponseType.valueOf(request.getSvar().toString());
+		DateTime responseDateTime = new DateTime(request.getSvarDateTime().toGregorianCalendar().getTimeInMillis());
+		String note = null;
+		Bestallaradministrator administrator = null;		
+		if(request.getNotering()!=null && !isBlankOrNull(request.getNotering().getNotering())){
+			note = request.getNotering().getNotering();
+			administrator = createBestallaradministrator(request.getNotering().getNoteradAv());
+		}
+		
+		return new AddBookingDeviationResponseCommand(arendeId, bookingId, responseType, responseDateTime, note, administrator);
+	}
+
+
+	/**
+    *
+    * @param request - SkickatFmuIntygRequest
+    * @return
+    */
+	private AddIntygSentCommand mapSkickatFmuIntygRequestToAddIntygSentCommand(
+			SkickatFmuIntygRequest request) {
+		ArendeId arendeId = new ArendeId(request.getArendeId());
+		DateTime intygSentDateTime = new DateTime(request.getIntygSkickatDateTime().toGregorianCalendar().getTimeInMillis());
+		HoSPerson hoSPerson = createHoSPerson(request.getIntygSkickatAv());
+		return new AddIntygSentCommand(arendeId,intygSentDateTime,hoSPerson);
+	}
+
+	/**
+     *
+    * @param request - BegartFmuIntygKompletteringRequest
+    * @return
+     */
+	private AddIntygComplementRequestCommand mapBegartFmuIntygKompletteringRequestToAddIntygComplementRequestCommand(
+			BegartFmuIntygKompletteringRequest request) {
+		ArendeId arendeId = new ArendeId(request.getArendeId());
+		DateTime intygComplementRequestDateTime = new DateTime(request.getIntygKompletteringBegardDateTime().toGregorianCalendar().getTimeInMillis());
+        Bestallaradministrator bestallaradministrator = createBestallaradministrator(request.getIntygKompletteringBegardAv());
+
+		return new AddIntygComplementRequestCommand(arendeId, intygComplementRequestDateTime,bestallaradministrator);
+	}
+
+	/**
+    *
+    * @param request - AccepteratFmuIntygRequest
+    * @return
+    */
+	private AddIntygApprovedCommand mapAccepteratFmuIntygRequestToAddIntygApprovedCommand(
+			AccepteratFmuIntygRequest request) {
+		ArendeId arendeId = new ArendeId(request.getArendeId());
+		DateTime intygApprovedDateTime = new DateTime(request.getIntygAccepteratDateTime().toGregorianCalendar().getTimeInMillis());
+        Bestallaradministrator bestallaradministrator = createBestallaradministrator(request.getIntygAccepteratAv());
+		return new AddIntygApprovedCommand(arendeId, intygApprovedDateTime, bestallaradministrator);
+	}
+
+	/**
+    *
+    * @param request - AccepteratFmuUtredningRequest
+    * @return
+    */
+	private ApproveEavropCommand mapAccepteratFmuUtredningRequestToApproveEavropCommand(
+			AccepteratFmuUtredningRequest request) {
+		ArendeId arendeId = new ArendeId(request.getArendeId());
+		DateTime eavropApprovedDateTime = new DateTime(request.getUtredningAccepteradDateTime().toGregorianCalendar().getTimeInMillis());
+        Bestallaradministrator bestallaradministrator = createBestallaradministrator(request.getUtredningAccepteradAv());
+		String note = null;
+		Bestallaradministrator administrator = null;		
+		if(request.getNotering()!=null && !isBlankOrNull(request.getNotering().getNotering())){
+			note = request.getNotering().getNotering();
+		}
+
+		return new ApproveEavropCommand(arendeId, eavropApprovedDateTime, bestallaradministrator, note);
+	}
+
+	/**
+    *
+    * @param request - GodkannandeErsattningFmuUtredningRequest
+    * @return
+    */
+	private ApproveEavropCompensationCommand mapGodkannandeErsattningFmuUtredningRequestToApproveEavropCompensationCommand(
+			GodkannandeErsattningFmuUtredningRequest request) {
+		ArendeId arendeId = new ArendeId(request.getArendeId());
+		Boolean isApproved = request.isGodkand();
+		DateTime eavropCompensationApprovedDateTime = new DateTime(request.getUtredningErsattningGodkandDateTime().toGregorianCalendar().getTimeInMillis());
+        Bestallarsamordnare bestallarsamordnare = createBestallarsamordnare(request.getUtredningErsattningGodkandAv());
+		String note = null;
+		Bestallaradministrator administrator = null;		
+		if(request.getNotering()!=null && !isBlankOrNull(request.getNotering().getNotering())){
+			note = request.getNotering().getNotering();
+		}
+		return new ApproveEavropCompensationCommand(arendeId, eavropCompensationApprovedDateTime, isApproved, bestallarsamordnare, note) ;
+	}
+
+	
+	
+	/**
      * Finds if tolk is required then it creates interpreter
      *
      * @param request
@@ -124,14 +458,61 @@ public class EavropEndpoint {
      * @param request
      * @return
      */
-    private Bestallaradministrator createBestallaradministrator(BestallEavropRequest request) {
-        String name = request.getAdministrator().getNamn();
-        String befattning = request.getAdministrator().getBefattning();
-        String organisation = request.getAdministrator().getOrganisation();
-        String unit = request.getAdministrator().getEnhet();
-        String phone = request.getAdministrator().getTelefon();
-        String email = request.getAdministrator().getEpost();
-        return new Bestallaradministrator(name, befattning, organisation, unit, phone, email);
+    private Bestallaradministrator createBestallaradministrator(Person person) {
+        if(person!=null){
+        	String name = person.getNamn();
+            String befattning = person.getBefattning();
+            String organisation = person.getOrganisation();
+            String unit = person.getEnhet();
+            String phone = person.getTelefon();
+            String email = person.getEpost();
+            return new Bestallaradministrator(name, befattning, organisation, unit, phone, email);
+        	
+        }
+        return null;
+    }
+
+
+    /**
+     * Creates bestallarsamordnare from given request
+     *
+     * @param request
+     * @return
+     */
+    private Bestallarsamordnare createBestallarsamordnare(Person person) {
+        if(person!=null){
+        	String name = person.getNamn();
+            String befattning = person.getBefattning();
+            String organisation = person.getOrganisation();
+            String unit = person.getEnhet();
+            String phone = person.getTelefon();
+            String email = person.getEpost();
+            return new Bestallarsamordnare(name, befattning, organisation, unit, phone, email);
+        	
+        }
+        return null;
+    }
+
+    
+    /**
+     * Creates HoSPerson from given request
+     *
+     * @param request
+     * @return
+     */
+    private HoSPerson createHoSPerson(ws.inera.fmu.admin.eavrop.HoSPerson person) {
+        if(person!=null){
+        	HsaId hsaId = (isBlankOrNull(person.getHsaId()))?new HsaId(person.getHsaId()):null;
+        	String name = person.getNamn();
+            String befattning = person.getBefattning();
+            String organisation = person.getOrganisation();
+            String unit = person.getEnhet();
+            String phone = person.getTelefon();
+            String email = person.getEpost();
+            return new HoSPerson(hsaId, name, befattning, organisation, unit, phone, email);
+        	
+        }
+        return null;
     }
 
     /**

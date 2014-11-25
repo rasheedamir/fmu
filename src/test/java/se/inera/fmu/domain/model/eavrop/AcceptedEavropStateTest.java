@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 
 import java.util.Set;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
@@ -48,14 +49,14 @@ public class AcceptedEavropStateTest extends AbstractNoteableEavropStateTest{
 	
 
 	
-//	@Test
-//	@Override
-//	public void testSetDocumentsSentFromBestallare() {
-//		Eavrop eavrop = getEavrop();
-//		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-//		eavrop.setDateTimeDocumentsSentFromBestallare(new DateTime());
-//		assertEquals(EavropStateType.ACCEPTED, eavrop.getEavropState().getEavropStateType());
-//	}
+	@Test
+	@Override
+	public void testSetDocumentsSentFromBestallare() {
+		Eavrop eavrop = getEavrop();
+		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
+		eavrop.setDateTimeDocumentsSentFromBestallare(new DateTime());
+		assertEquals(EavropStateType.ACCEPTED, eavrop.getEavropState().getEavropStateType());
+	}
 	
 	@Test
 	@Override

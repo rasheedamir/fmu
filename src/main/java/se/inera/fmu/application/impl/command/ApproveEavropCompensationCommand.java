@@ -8,6 +8,8 @@ import lombok.Setter;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.ArendeId;
+import se.inera.fmu.domain.model.person.Bestallaradministrator;
+import se.inera.fmu.domain.model.person.Bestallarsamordnare;
 
 /**
  * Created by Rickard on 11/12/14.
@@ -21,11 +23,6 @@ public class ApproveEavropCompensationCommand {
 	@NonNull private ArendeId arendeId;
 	@NonNull private DateTime approveDateTime;
 	@NonNull private Boolean approved;
+	@NonNull private Bestallarsamordnare bestallarsamordnare;
 	private String comment;
-	private String personName;
-    private String personRole;
-    private String personOrganisation;
-    private String personUnit;
-    private String personPhone;
-    private String personEmail;
 }

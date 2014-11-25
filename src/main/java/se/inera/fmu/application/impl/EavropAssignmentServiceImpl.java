@@ -14,6 +14,7 @@ import se.inera.fmu.application.EavropAssignmentService;
 import se.inera.fmu.application.impl.command.AcceptEavropAssignmentCommand;
 import se.inera.fmu.application.impl.command.AssignEavropCommand;
 import se.inera.fmu.application.impl.command.RejectEavropAssignmentCommand;
+import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
@@ -23,6 +24,7 @@ import se.inera.fmu.domain.model.eavrop.assignment.EavropRejectedByVardgivarenhe
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.hos.vardgivare.VardgivarenhetRepository;
+import se.inera.fmu.domain.model.person.HoSPerson;
 
 /**
  * Service for handling eavrop assignments
@@ -56,43 +58,59 @@ public class EavropAssignmentServiceImpl implements EavropAssignmentService {
 	@Override
 	public void assignEavropToVardgivarenhet(AssignEavropCommand aCommand) throws EntityNotFoundException, IllegalArgumentException{
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
-		Vardgivarenhet vardgivarenhet = getVardgivarenhetByHsaId(aCommand.getHsaId());
+		Vardgivarenhet vardgivarenhet = getVardgivarenhetByHsaId(aCommand.getVardgivarenhetHsaId());
 
 		if(eavrop.getCurrentAssignedVardgivarenhet()!=null){
 			throw new IllegalArgumentException(String.format("Eavrop %s already assigned to vardgivarenhet %s", aCommand.getEavropId().toString(), eavrop.getCurrentAssignedVardgivarenhet().getHsaId().toString() ));
 		}
-		eavrop.assignEavropToVardgivarenhet(vardgivarenhet);;
-		log.debug(String.format("Eavrop %s assigned to :: %s", aCommand.getEavropId().toString(), aCommand.getHsaId().toString()));
+
+		HoSPerson assigningPerson = null;
+		if(!StringUtils.isBlankOrNull(aCommand.getPersonName()) || aCommand.getPersonHsaId() != null){
+			assigningPerson  = new HoSPerson(aCommand.getPersonHsaId(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
+		}
+		eavrop.assignEavropToVardgivarenhet(vardgivarenhet, assigningPerson);
+		log.debug(String.format("Eavrop %s assigned to :: %s", aCommand.getEavropId().toString(), aCommand.getVardgivarenhetHsaId().toString()));
 		
-		handleEavropAssigned(aCommand.getEavropId(), aCommand.getHsaId());
+		handleEavropAssigned(aCommand.getEavropId(), aCommand.getVardgivarenhetHsaId());
 	}
 
 	@Override
 	public void acceptEavropAssignment(AcceptEavropAssignmentCommand aCommand) throws EntityNotFoundException, IllegalArgumentException{
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
-		Vardgivarenhet vardgivarenhet = getVardgivarenhetByHsaId(aCommand.getHsaId());
+		Vardgivarenhet vardgivarenhet = getVardgivarenhetByHsaId(aCommand.getVardgivarenhetHsaId());
 
 		if(!vardgivarenhet.equals(eavrop.getCurrentAssignedVardgivarenhet())){
-			throw new IllegalArgumentException(String.format("Eavrop %s not assigned to vardgivarenhet %s", aCommand.getEavropId().toString(), aCommand.getHsaId().toString() ));
+			throw new IllegalArgumentException(String.format("Eavrop %s not assigned to vardgivarenhet %s", aCommand.getEavropId().toString(), aCommand.getVardgivarenhetHsaId().toString() ));
 		}
-		eavrop.acceptEavropAssignment();
-		log.debug(String.format("Eavrop %s accepted  by :: %s", aCommand.getEavropId().toString(), aCommand.getHsaId().toString()));
+		HoSPerson acceptingPerson = null;
+		if(!StringUtils.isBlankOrNull(aCommand.getPersonName()) || aCommand.getPersonHsaId() != null){
+			acceptingPerson  = new HoSPerson(aCommand.getPersonHsaId(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
+		}
 		
-		handleEavropAccepted(aCommand.getEavropId(), aCommand.getHsaId());
+		eavrop.acceptEavropAssignment(acceptingPerson);
+		log.debug(String.format("Eavrop %s accepted  by :: %s", aCommand.getEavropId().toString(), aCommand.getVardgivarenhetHsaId().toString()));
+		
+		handleEavropAccepted(aCommand.getEavropId(), aCommand.getVardgivarenhetHsaId());
 	}
 
 	@Override
 	public void rejectEavropAssignment(RejectEavropAssignmentCommand aCommand)  throws EntityNotFoundException, IllegalArgumentException{
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
-		Vardgivarenhet vardgivarenhet = getVardgivarenhetByHsaId(aCommand.getHsaId());
+		Vardgivarenhet vardgivarenhet = getVardgivarenhetByHsaId(aCommand.getVardgivarenhetHsaId());
 
 		if(!vardgivarenhet.equals(eavrop.getCurrentAssignedVardgivarenhet())){
-			throw new IllegalArgumentException(String.format("Eavrop %s not assigned to vardgivarenhet %s", aCommand.getEavropId().toString(), aCommand.getHsaId().toString()));
+			throw new IllegalArgumentException(String.format("Eavrop %s not assigned to vardgivarenhet %s", aCommand.getEavropId().toString(), aCommand.getVardgivarenhetHsaId().toString()));
 		}
-		eavrop.rejectEavropAssignment();
-		log.debug(String.format("Eavrop %s rejected  by :: %s", aCommand.getEavropId().toString(), aCommand.getHsaId().toString()));
 		
-		handleEavropRejected(aCommand.getEavropId(), aCommand.getHsaId());
+		HoSPerson rejectingPerson = null;
+		if(!StringUtils.isBlankOrNull(aCommand.getPersonName()) || aCommand.getPersonHsaId() != null){
+			rejectingPerson = new HoSPerson(aCommand.getPersonHsaId(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
+		}
+
+		eavrop.rejectEavropAssignment(rejectingPerson);
+		log.debug(String.format("Eavrop %s rejected  by :: %s", aCommand.getEavropId().toString(), aCommand.getVardgivarenhetHsaId().toString()));
+		
+		handleEavropRejected(aCommand.getEavropId(), aCommand.getVardgivarenhetHsaId());
 	}
 
 	private Eavrop getEavropByEavropId(EavropId eavropId) throws EntityNotFoundException{

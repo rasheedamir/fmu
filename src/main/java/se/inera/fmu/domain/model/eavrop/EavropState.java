@@ -14,6 +14,8 @@ import se.inera.fmu.domain.model.eavrop.intyg.IntygComplementRequestInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygSentInformation;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
+import se.inera.fmu.domain.model.landsting.Landstingssamordnare;
+import se.inera.fmu.domain.model.person.HoSPerson;
 
 /*
  * Inteface of state controlled behaviour
@@ -27,11 +29,11 @@ public interface EavropState{
 	public EavropStateType getEavropStateType();
 	
 	//Assignment
-	public void assignEavropToVardgivarenhet(Eavrop eavrop, Vardgivarenhet vardgivarenhet);
+	public void assignEavropToVardgivarenhet(Eavrop eavrop, Vardgivarenhet vardgivarenhet, HoSPerson assigningPerson);
 	
-	public void acceptEavropAssignment(Eavrop eavrop);
+	public void acceptEavropAssignment(Eavrop eavrop, HoSPerson acceptingPerson);
 	
-	public void rejectEavropAssignment(Eavrop eavrop);
+	public void rejectEavropAssignment(Eavrop eavrop, HoSPerson rejectingPerson);
 	
 	//Documents
 	public void setDocumentsSentFromBestallareDateTime(Eavrop eavrop, DateTime documentsSentFromBestallareDateTime);

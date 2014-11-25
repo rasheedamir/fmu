@@ -130,8 +130,8 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 	public void addBookingDeviationResponse(AddBookingDeviationResponseCommand aCommand ){
 		//Look up eavrop 
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
-	
-		BookingDeviationResponse bookingDeviationResponse = createBookingDeviationResponse(aCommand.getResponse(), aCommand.getResponseTimestamp(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit(), aCommand.getPersonPhone(), aCommand.getPersonEmail(), aCommand.getResponseComment());
+		
+		BookingDeviationResponse bookingDeviationResponse = createBookingDeviationResponse(aCommand);
 		
 		eavrop.addBookingDeviationResponse(aCommand.getBookingId(), bookingDeviationResponse);
 
@@ -161,16 +161,21 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 		return new Note(NoteType.BOOKING_DEVIATION, text, person);	
 	}
 
-	private BookingDeviationResponse  createBookingDeviationResponse(String responseType, DateTime responseTimestamp, String personName, String personRole, String personOrganistation, String personUnit, String personPhone, String personEmail, String comment) {
-		
-		BookingDeviationResponseType bookingDeviationResponseType = BookingDeviationResponseType.valueOf(responseType);
-		
-		Person person = createBestallaradministrator(personName, personRole, personOrganistation, personUnit, personPhone, personEmail);
-		Note note = createResponseNote(comment, person);
+//	private BookingDeviationResponse  createBookingDeviationResponse(String responseType, DateTime responseTimestamp, String personName, String personRole, String personOrganistation, String personUnit, String personPhone, String personEmail, String comment) {
+//		
+//		BookingDeviationResponseType bookingDeviationResponseType = BookingDeviationResponseType.valueOf(responseType);
+//		
+//		Person person = createBestallaradministrator(personName, personRole, personOrganistation, personUnit, personPhone, personEmail);
+//		Note note = createResponseNote(comment, person);
+//
+//		return new BookingDeviationResponse(bookingDeviationResponseType, responseTimestamp, person, note);
+//
+//	}
 
-		return new BookingDeviationResponse(bookingDeviationResponseType, responseTimestamp, person, note);
-
+	private BookingDeviationResponse  createBookingDeviationResponse(AddBookingDeviationResponseCommand aCommand ) {
+		return new BookingDeviationResponse(aCommand.getResponseType(), aCommand.getResponseTimestamp(), aCommand.getBestallaradministrator(), createResponseNote(aCommand.getResponseComment(), aCommand.getBestallaradministrator()));
 	}
+
 	
 	private Bestallaradministrator createBestallaradministrator(String personName, String personRole, String personOrganistation, String personUnit, String personPhone, String personEmail){
 		return new Bestallaradministrator(personName,  personRole, personOrganistation, personUnit, personPhone, personEmail);

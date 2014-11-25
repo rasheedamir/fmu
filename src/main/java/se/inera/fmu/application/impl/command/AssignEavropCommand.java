@@ -14,5 +14,10 @@ import se.inera.fmu.domain.model.hos.hsa.HsaId;
 @AllArgsConstructor
 public class AssignEavropCommand {
 	@NonNull private EavropId eavropId;
-	@NonNull private HsaId hsaId;
+	@NonNull private HsaId vardgivarenhetHsaId;
+	@NonNull private HsaId personHsaId;
+    @NonNull private String personName;
+    @NonNull private String personRole;
+    private String personOrganisation;
+    private String personUnit;
 }

@@ -174,8 +174,8 @@ public class ITRepositoryTest {
     	Eavrop eavrop = eavropRepository.findByArendeId(this.arendeId);
     	assertNotNull(eavrop);
     	
-    	eavrop = assignEavrop(eavrop, vardgivarenhetRepository.findByHsaId(this.vardgivarenhetId));
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhetRepository.findByHsaId(this.vardgivarenhetId),createHoSPerson());
+    	eavrop = acceptEavrop(eavrop, createHoSPerson());
     	
     	Note note = createNote();
     	eavrop.addNote(note);
@@ -207,8 +207,8 @@ public class ITRepositoryTest {
     	Eavrop eavrop = eavropRepository.findByArendeId(arendeId);
     	assertNotNull(eavrop);
     	
-    	eavrop = assignEavrop(eavrop, vardgivarenhetRepository.findByHsaId(this.vardgivarenhetId));
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhetRepository.findByHsaId(this.vardgivarenhetId),createHoSPerson());
+    	eavrop = acceptEavrop(eavrop,createHoSPerson());
     	eavrop = deviateEavrop(eavrop);
     	
     	eavrop = eavropRepository.findByArendeId(arendeId);
@@ -253,7 +253,7 @@ public class ITRepositoryTest {
     	
     	//ASSIGNED
     	eavrop = createEavrop(new ArendeId("2"), landsting);
-    	assignEavrop(eavrop, vardgivarenhet);
+    	assignEavrop(eavrop, vardgivarenhet,createHoSPerson());
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("2")));
     	assertEquals(EavropStateType.ASSIGNED, eavropRepository.findByArendeId(new ArendeId("2")).getEavropState().getEavropStateType());
     	
@@ -262,22 +262,22 @@ public class ITRepositoryTest {
     	
     	//ACCEPTED
     	eavrop = createEavrop(new ArendeId("3"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet,createHoSPerson());
+    	acceptEavrop(eavrop,createHoSPerson());
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("3")));
     	assertEquals(EavropStateType.ACCEPTED, eavropRepository.findByArendeId(new ArendeId("3")).getEavropState().getEavropStateType());
     	
     	//ACCEPTED
     	eavrop = createEavrop(new ArendeId("4"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet,createHoSPerson());
+    	acceptEavrop(eavrop,createHoSPerson());
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("4")));
     	assertEquals(EavropStateType.ACCEPTED, eavropRepository.findByArendeId(new ArendeId("4")).getEavropState().getEavropStateType());
 
     	//ON_HOLD
     	eavrop = createEavrop(new ArendeId("5"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet,createHoSPerson());
+    	eavrop = acceptEavrop(eavrop,createHoSPerson());
     	deviateEavrop(eavrop);
 //    	eavrop = createDeviatedEavrop(new ArendeId("5"), landsting);    	
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("5")));
@@ -287,24 +287,24 @@ public class ITRepositoryTest {
     	
     	//ON_HOLD
     	eavrop = createEavrop(new ArendeId("6"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet,createHoSPerson());
+    	eavrop = acceptEavrop(eavrop,createHoSPerson());
     	deviateEavrop(eavrop);
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("6")));
     	assertEquals(EavropStateType.ON_HOLD, eavropRepository.findByArendeId(new ArendeId("6")).getEavropState().getEavropStateType());
 
     	//SENT
     	eavrop = createEavrop(new ArendeId("7"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet,createHoSPerson());
+    	eavrop = acceptEavrop(eavrop,createHoSPerson());
     	sendIntyg(eavrop);
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("7")));
     	assertEquals(EavropStateType.SENT, eavropRepository.findByArendeId(new ArendeId("7")).getEavropState().getEavropStateType());
 
     	//APPROVED
     	eavrop = createEavrop(new ArendeId("8"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet,createHoSPerson());
+    	eavrop = acceptEavrop(eavrop,createHoSPerson());
     	eavrop = sendIntyg(eavrop);
     	approveEavrop(eavrop);
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("8")));
@@ -312,8 +312,8 @@ public class ITRepositoryTest {
     	
     	//CLOSED
     	eavrop = createEavrop(new ArendeId("9"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet,createHoSPerson());
+    	eavrop = acceptEavrop(eavrop,createHoSPerson());
     	eavrop = sendIntyg(eavrop);
     	eavrop = approveEavrop(eavrop);
     	approveEavropCompensation(eavrop);
@@ -322,8 +322,8 @@ public class ITRepositoryTest {
 
     	//CLOSED
     	eavrop = createEavrop(new ArendeId("10"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet,createHoSPerson());
+    	eavrop = acceptEavrop(eavrop,createHoSPerson());
     	eavrop = sendIntyg(eavrop);
     	eavrop = approveEavrop(eavrop);
     	approveEavropCompensation(eavrop);
@@ -380,15 +380,12 @@ public class ITRepositoryTest {
 			System.out.println(receivedDocument.toString());
 		}
     	
-    	
     	Set<RequestedDocument> reqDocs = eavrop.getRequestedDocuments();
       	assertNotNull(reqDocs);
     	for (RequestedDocument requestedDocument : reqDocs) {
     		System.out.println(requestedDocument.toString());
 		}
-    	
     }
-
 
     @Test
     public void testFindByLandstingAndCreateDateAndStates(){
@@ -434,8 +431,8 @@ public class ITRepositoryTest {
       	assertNotNull(vardgivarenhet);
       	
     	Eavrop eavrop = createEavrop(new ArendeId("StartDate"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet,createHoSPerson());
+    	eavrop = acceptEavrop(eavrop,createHoSPerson());
     	eavrop = startEavrop(eavrop);
     	eavrop = eavropRepository.findByArendeId(new ArendeId("StartDate"));
     	
@@ -489,8 +486,8 @@ public class ITRepositoryTest {
       	ArendeId arendeId = new ArendeId("SignedDate");
       	
     	Eavrop eavrop = createEavrop(arendeId, landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet, createHoSPerson());
+    	eavrop = acceptEavrop(eavrop, createHoSPerson());
     	eavrop = startEavrop(eavrop);
     	eavrop = sendIntygToday(eavrop);
     	eavrop = approveEavrop(eavrop);
@@ -545,7 +542,7 @@ public class ITRepositoryTest {
     	DateTime today = new DateTime().withTimeAtStartOfDay(); 
    
     	Eavrop eavrop = createEavrop(arendeId, landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet, createHoSPerson());
     	
     	eavrop = eavropRepository.findByArendeId(arendeId);
     	
@@ -592,8 +589,8 @@ public class ITRepositoryTest {
       	assertNotNull(vardgivarenhet);
       	
     	Eavrop eavrop = createEavrop(new ArendeId("StartDate"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet, createHoSPerson());
+    	eavrop = acceptEavrop(eavrop, createHoSPerson());
     	eavrop = startEavrop(eavrop);
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("StartDate")));
     	assertEquals(EavropStateType.ACCEPTED, eavropRepository.findByArendeId(new ArendeId("StartDate")).getEavropState().getEavropStateType());
@@ -644,8 +641,8 @@ public class ITRepositoryTest {
       	ArendeId arendeId = new ArendeId("SignedDate");
       	
     	Eavrop eavrop = createEavrop(arendeId, landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet, createHoSPerson());
+    	eavrop = acceptEavrop(eavrop, createHoSPerson());
     	eavrop = startEavrop(eavrop);
     	eavrop = sendIntygToday(eavrop);
     	eavrop = approveEavrop(eavrop);
@@ -703,7 +700,7 @@ public class ITRepositoryTest {
     	
     	//ASSIGNED
     	eavrop = createEavrop(new ArendeId("2"), landsting);
-    	assignEavrop(eavrop, vardgivarenhet);
+    	assignEavrop(eavrop, vardgivarenhet, createHoSPerson());
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("2")));
     	assertEquals(EavropStateType.ASSIGNED, eavropRepository.findByArendeId(new ArendeId("2")).getEavropState().getEavropStateType());
     	
@@ -712,22 +709,22 @@ public class ITRepositoryTest {
     	
     	//ACCEPTED
     	eavrop = createEavrop(new ArendeId("3"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet, createHoSPerson());
+    	acceptEavrop(eavrop, createHoSPerson());
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("3")));
     	assertEquals(EavropStateType.ACCEPTED, eavropRepository.findByArendeId(new ArendeId("3")).getEavropState().getEavropStateType());
     	
     	//ACCEPTED
     	eavrop = createEavrop(new ArendeId("4"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet, createHoSPerson());
+    	acceptEavrop(eavrop, createHoSPerson());
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("4")));
     	assertEquals(EavropStateType.ACCEPTED, eavropRepository.findByArendeId(new ArendeId("4")).getEavropState().getEavropStateType());
 
     	//ON_HOLD
     	eavrop = createEavrop(new ArendeId("5"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet, createHoSPerson());
+    	eavrop = acceptEavrop(eavrop, createHoSPerson());
     	deviateEavrop(eavrop);
 //    	eavrop = createDeviatedEavrop(new ArendeId("5"), landsting);    	
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("5")));
@@ -737,24 +734,24 @@ public class ITRepositoryTest {
     	
     	//ON_HOLD
     	eavrop = createEavrop(new ArendeId("6"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet, createHoSPerson());
+    	eavrop = acceptEavrop(eavrop, createHoSPerson());
     	deviateEavrop(eavrop);
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("6")));
     	assertEquals(EavropStateType.ON_HOLD, eavropRepository.findByArendeId(new ArendeId("6")).getEavropState().getEavropStateType());
 
     	//SENT
     	eavrop = createEavrop(new ArendeId("7"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet, createHoSPerson());
+    	eavrop = acceptEavrop(eavrop, createHoSPerson());
     	sendIntyg(eavrop);
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("7")));
     	assertEquals(EavropStateType.SENT, eavropRepository.findByArendeId(new ArendeId("7")).getEavropState().getEavropStateType());
 
     	//APPROVED
     	eavrop = createEavrop(new ArendeId("8"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet, createHoSPerson());
+    	eavrop = acceptEavrop(eavrop, createHoSPerson());
     	eavrop = sendIntyg(eavrop);
     	approveEavrop(eavrop);
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("8")));
@@ -762,8 +759,8 @@ public class ITRepositoryTest {
     	
     	//CLOSED
     	eavrop = createEavrop(new ArendeId("9"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet, createHoSPerson());
+    	eavrop = acceptEavrop(eavrop, createHoSPerson());
     	eavrop = sendIntyg(eavrop);
     	eavrop = approveEavrop(eavrop);
     	approveEavropCompensation(eavrop);
@@ -772,8 +769,8 @@ public class ITRepositoryTest {
 
     	//CLOSED
     	eavrop = createEavrop(new ArendeId("10"), landsting);
-    	eavrop = assignEavrop(eavrop, vardgivarenhet);
-    	eavrop = acceptEavrop(eavrop);
+    	eavrop = assignEavrop(eavrop, vardgivarenhet, createHoSPerson());
+    	eavrop = acceptEavrop(eavrop, createHoSPerson());
     	eavrop = sendIntyg(eavrop);
     	eavrop = approveEavrop(eavrop);
     	approveEavropCompensation(eavrop);
@@ -860,10 +857,10 @@ public class ITRepositoryTest {
         //assign
         Vardgivarenhet vardgivarenhet = vardgivarenhetRepository.findByHsaId(this.vardgivarenhetId);
         assertNotNull(vardgivarenhet);
-        eavrop.assignEavropToVardgivarenhet(vardgivarenhet);
+        eavrop.assignEavropToVardgivarenhet(vardgivarenhet, createHoSPerson());
         
         //accept
-        eavrop.acceptEavropAssignment();
+        eavrop.acceptEavropAssignment(createHoSPerson());
         
         //deviate
         Booking booking = createBooking();
@@ -875,18 +872,18 @@ public class ITRepositoryTest {
     }
 
     
-    private Eavrop assignEavrop(Eavrop eavrop, Vardgivarenhet vardgivarenhet){
-    	eavrop.assignEavropToVardgivarenhet(vardgivarenhet);
+    private Eavrop assignEavrop(Eavrop eavrop, Vardgivarenhet vardgivarenhet, HoSPerson assigningPerson){
+    	eavrop.assignEavropToVardgivarenhet(vardgivarenhet, assigningPerson);
     	return eavropRepository.save(eavrop);
     }
 
-    private Eavrop acceptEavrop(Eavrop eavrop){
-    	eavrop.acceptEavropAssignment();
+    private Eavrop acceptEavrop(Eavrop eavrop, HoSPerson acceptingPerson){
+    	eavrop.acceptEavropAssignment(acceptingPerson);
     	return eavropRepository.save(eavrop);
     }
 
-    private Eavrop rejectEavrop(Eavrop eavrop){
-    	eavrop.rejectEavropAssignment();
+    private Eavrop rejectEavrop(Eavrop eavrop, HoSPerson rejectingPerson){
+    	eavrop.rejectEavropAssignment(rejectingPerson);
     	return eavropRepository.saveAndFlush(eavrop);
     }
 
@@ -895,7 +892,7 @@ public class ITRepositoryTest {
     	//Booking booking =  createBooking();
     	Person person = new HoSPerson(null,"","","","");
     	
-    	Booking booking = new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime(), Boolean.FALSE, person, Boolean.FALSE);
+    	Booking booking = new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime().plusHours(1), Boolean.FALSE, person, Boolean.FALSE);
     	assertNotNull(booking.getPerson());
     	
     	eavrop.addBooking(booking);
@@ -946,12 +943,15 @@ public class ITRepositoryTest {
     	ReceivedDocument receivedDocument = new ReceivedDocument(today.minusDays(6), "Journal", new Bestallaradministrator("Ordny Ordnarsson", "Handläggare", "Försäkringskassan", "LFC Stockholm", "555-12345", "ordny@fk.se"), Boolean.TRUE);
     	eavrop.addReceivedDocument(receivedDocument);
 
-    	IntygSentInformation  intygSentInformation = new IntygSentInformation(today, new HoSPerson(new HsaId("SE160000000000-HAHAHHSBB"), "Dr Hudson", "Surgeon", "Danderyds sjukhus", "AVD fmu")); 
+    	IntygSentInformation  intygSentInformation = new IntygSentInformation(today, createHoSPerson()); 
     	eavrop.addIntygSentInformation(intygSentInformation);
     	
     	return eavropRepository.save(eavrop);
     }
 
+    private HoSPerson createHoSPerson(){
+    	return new HoSPerson(new HsaId("SE160000000000-HAHAHHSBB"), "Dr Hudson", "Surgeon", "Danderyds sjukhus", "AVD fmu");
+    }
     
     private Eavrop deviateRespondEavrop(Eavrop eavrop){
     	eavrop.addBookingDeviationResponse(eavrop.getBookings().iterator().next().getBookingId(),createBookingDeviationResponse());

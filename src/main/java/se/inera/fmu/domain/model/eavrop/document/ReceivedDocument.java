@@ -56,7 +56,7 @@ public class ReceivedDocument{
 	
 	public ReceivedDocument(final String documentName, final Person person, final Boolean isOriginExternal){
     	this.setId(UUID.randomUUID().toString());
-    	Validate.notNull(documentName);
+    	Validate.notEmpty(documentName, "Document name may not be blank");
     	this.setDocumentDateTime(new DateTime());
     	this.setDocumentName(documentName);
     	this.setPerson(person);

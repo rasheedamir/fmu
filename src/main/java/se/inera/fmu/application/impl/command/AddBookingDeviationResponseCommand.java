@@ -7,7 +7,9 @@ import lombok.NonNull;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.ArendeId;
+import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
+import se.inera.fmu.domain.model.person.Bestallaradministrator;
 
 /**
  * Created by Rickard on 11/12/14.
@@ -20,13 +22,8 @@ public class AddBookingDeviationResponseCommand {
 
     @NonNull private ArendeId arendeId;
     @NonNull private BookingId bookingId; 
-    @NonNull private String response;
+    @NonNull private BookingDeviationResponseType responseType;
     @NonNull private DateTime responseTimestamp;
     private String responseComment;
-    private String personName;
-    private String personRole;
-    private String personOrganisation;
-    private String personUnit;
-    private String personPhone; 
-    private String personEmail;
+    private Bestallaradministrator bestallaradministrator;
 }

@@ -7,6 +7,7 @@ import lombok.NonNull;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.ArendeId;
+import se.inera.fmu.domain.model.person.Bestallaradministrator;
 
 
 /**
@@ -19,10 +20,5 @@ import se.inera.fmu.domain.model.eavrop.ArendeId;
 public class AddIntygComplementRequestCommand {
 	@NonNull private ArendeId arendeId;
 	@NonNull private DateTime intygComplementRequestDateTime;
-	private String personName;
-    private String personRole;
-    private String personOrganisation;
-    private String personUnit;
-    private String personPhone;
-    private String personEmail;
+	private Bestallaradministrator bestallaradministrator;
 }

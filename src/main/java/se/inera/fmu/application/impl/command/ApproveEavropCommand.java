@@ -7,6 +7,7 @@ import lombok.NonNull;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.ArendeId;
+import se.inera.fmu.domain.model.person.Bestallaradministrator;
 /**
  * Created by Rickard on 11/12/14.
  *
@@ -17,12 +18,6 @@ import se.inera.fmu.domain.model.eavrop.ArendeId;
 public class ApproveEavropCommand {
 	@NonNull private ArendeId arendeId;
 	@NonNull private DateTime approveDateTime;
+	@NonNull private Bestallaradministrator bestallaradministrator;
 	private String comment;
-	private String personName;
-    private String personRole;
-    private String personOrganisation;
-    private String personUnit;
-    private String personPhone;
-    private String personEmail;
-
 }

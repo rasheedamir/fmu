@@ -54,7 +54,9 @@ import se.inera.fmu.domain.model.eavrop.note.NoteType;
 import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.landsting.Landsting;
+import se.inera.fmu.domain.model.landsting.Landstingssamordnare;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
+import se.inera.fmu.domain.model.person.HoSPerson;
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
@@ -130,15 +132,15 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	private EavropAssignment currentAssignment;
 
 	//The main character of the Eavrop
-	@OneToOne
 	@NotNull
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "INVANARE_ID")
 	private Invanare invanare;
 
 	// TODO: set as embeded object or create a relation to value object or only
 	// handle as event?
-	@OneToOne(cascade = CascadeType.ALL)
 	@NotNull
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "BESTALLAR_PERSON_ID")
 	private Bestallaradministrator bestallaradministrator;
 
@@ -353,8 +355,8 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	 * @param vardgivarenhet, the care giver unit that the eavrop should be assigned to
 	 * @see Vardgivarenhet
 	 */
-	public void assignEavropToVardgivarenhet(Vardgivarenhet vardgivarenhet) {
-		this.getEavropState().assignEavropToVardgivarenhet(this, vardgivarenhet);
+	public void assignEavropToVardgivarenhet(Vardgivarenhet vardgivarenhet, HoSPerson assigningPerson) {
+		this.getEavropState().assignEavropToVardgivarenhet(this, vardgivarenhet, assigningPerson);
 	}
 	
 	
@@ -363,8 +365,8 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	 * The currently assigned vardgivarenhet accepts the assigned Eavrop
 	 *
 	 */
-	public void acceptEavropAssignment() {
-		this.getEavropState().acceptEavropAssignment(this);
+	public void acceptEavropAssignment(HoSPerson acceptingPerson) {
+		this.getEavropState().acceptEavropAssignment(this , acceptingPerson);
 	}
 	
 		
@@ -551,8 +553,8 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	 * The currently assigned vardgivarenhet, rejects the assigned Eavrop
 	 *
 	 */
-	public void rejectEavropAssignment() {
-		this.getEavropState().rejectEavropAssignment(this);
+	public void rejectEavropAssignment(HoSPerson rejectingPerson) {
+		this.getEavropState().rejectEavropAssignment(this, rejectingPerson);
 	}
 
 	/**
@@ -907,22 +909,25 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.receivedDocuments.add(receivedDocument);
 		
 		if(receivedDocument.isDocumentOriginExternal()){
-			doDocumentsSentFromBestallare(receivedDocument);
+			doDocumentsSentFromBestallare(receivedDocument.getDocumentDateTime());
 		}
+	}
+	
+	protected void doDateTimeDocumentsSentFromBestallare(DateTime receivedDocumentDateTime) {
+		doDocumentsSentFromBestallare(receivedDocumentDateTime);
 	}
 
 	
-	private void doDocumentsSentFromBestallare(ReceivedDocument receivedDocument) {
-		if(getDateTimeDocumentsSentFromBestallare()==null && receivedDocument.getDocumentDateTime() !=null ){
-			this.documentsSentFromBestallareDateTime =  receivedDocument.getDocumentDateTime();
+	private void doDocumentsSentFromBestallare(DateTime receivedDocumentDateTime) {
+		if(getDateTimeDocumentsSentFromBestallare()==null && receivedDocumentDateTime !=null ){
+			this.documentsSentFromBestallareDateTime =  receivedDocumentDateTime;
 		}
-		if(getStartDate()==null && receivedDocument.getDocumentDateTime() !=null ){
+		if(getStartDate()==null && receivedDocumentDateTime !=null ){
 			
-			LocalDate tomorrow =  new LocalDate(receivedDocument.getDocumentDateTime()).plusDays(1);
+			LocalDate tomorrow =  new LocalDate(receivedDocumentDateTime).plusDays(1);
 			int startDateOffset = this.getEavropProperties().getStartDateOffset();
 			
 			//Since the should start the first business day after the offset we need to plus one on the offset
-			//TODO ????
 			startDateOffset++;
 			
 			LocalDate startDate = BusinessDaysUtil.calculateBusinessDayDate(tomorrow, startDateOffset);

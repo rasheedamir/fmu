@@ -4,12 +4,8 @@ import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -18,13 +14,11 @@ import javax.validation.constraints.NotNull;
 import lombok.ToString;
 
 import org.apache.commons.lang.Validate;
-import org.hibernate.annotations.DiscriminatorOptions;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
-import se.inera.fmu.domain.shared.IEntity;
 
 
 
@@ -64,7 +58,7 @@ public class RequestedDocument {
 	
 	public RequestedDocument(final String documentName, final Person person, final Note requestNote){
     	this.setId(UUID.randomUUID().toString());
-    	Validate.notNull(documentName);
+    	Validate.notEmpty(documentName, "Document name may not be blank");
     	this.setDocumentDateTime(new DateTime());
     	this.setDocumentName(documentName);
     	this.setPerson(person);

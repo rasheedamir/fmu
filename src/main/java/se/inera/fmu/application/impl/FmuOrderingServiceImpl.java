@@ -145,6 +145,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	 * @return arendeId
 	 */
 	@Override
+	@Transactional
 	public ArendeId createEavrop(CreateEavropCommand aCommand) {
 
 		EavropProperties props = getEavropProperties();
@@ -154,6 +155,10 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
             throw new IllegalArgumentException(String.format("Landsting with id %s does not exist", aCommand.getArendeId()));
         }
 
+        if(eavropRepository.findByArendeId(aCommand.getArendeId()) != null){
+            throw new IllegalArgumentException(String.format("Eavrop with arendeId %s already exist", aCommand.getArendeId()));
+        }
+        
 		Eavrop eavrop = EavropBuilder.eavrop()
                 .withArendeId(aCommand.getArendeId())
 				.withUtredningType(aCommand.getUtredningType())

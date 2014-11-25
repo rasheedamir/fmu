@@ -1,7 +1,9 @@
 package se.inera.fmu.domain.model.eavrop;
 
 import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 
+@Converter
 public class EavropStateConverter implements AttributeConverter<EavropState, String> {
 
 	@Override

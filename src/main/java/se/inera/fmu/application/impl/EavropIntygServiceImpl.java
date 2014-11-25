@@ -27,6 +27,7 @@ import se.inera.fmu.domain.model.eavrop.intyg.IntygComplemetsRequestedFromBestal
 import se.inera.fmu.domain.model.eavrop.intyg.IntygSentEvent;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygSentInformation;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
+import se.inera.fmu.domain.model.person.HoSPerson;
 
 /**
  * Service for handling eavrop assignments
@@ -60,11 +61,7 @@ public class EavropIntygServiceImpl implements EavropIntygService {
 	public void addIntygSentInformation(AddIntygSentCommand aCommand) {
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		
-		Bestallaradministrator person = null;
-		if(!StringUtils.isBlankOrNull(aCommand.getPersonName())){
-			person  = new Bestallaradministrator(aCommand.getPersonName(),  aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit(), aCommand.getPersonPhone(), aCommand.getPersonEmail());
-		}
-		
+		HoSPerson person = aCommand.getIntygSentBy();
 		IntygSentInformation intygSentInformation = new IntygSentInformation(aCommand.getIntygSentDateTime(),person);
 		
 		eavrop.addIntygSentInformation(intygSentInformation);
@@ -80,11 +77,7 @@ public class EavropIntygServiceImpl implements EavropIntygService {
 	public void addIntygComplementRequestInformation(AddIntygComplementRequestCommand aCommand) {
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		
-		Bestallaradministrator person = null;
-		if(!StringUtils.isBlankOrNull(aCommand.getPersonName())){
-			person  = new Bestallaradministrator(aCommand.getPersonName(),  aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit(), aCommand.getPersonPhone(), aCommand.getPersonEmail());
-		}
-		
+		Bestallaradministrator person = aCommand.getBestallaradministrator();
 		IntygComplementRequestInformation intygComplementRequestInformation = new IntygComplementRequestInformation(aCommand.getIntygComplementRequestDateTime(),person);
 		
 		eavrop.addIntygComplementRequestInformation(intygComplementRequestInformation);
@@ -100,11 +93,7 @@ public class EavropIntygServiceImpl implements EavropIntygService {
 	public void addIntygApprovedInformation(AddIntygApprovedCommand aCommand) {
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		
-		Bestallaradministrator person = null;
-		if(!StringUtils.isBlankOrNull(aCommand.getPersonName())){
-			person  = new Bestallaradministrator(aCommand.getPersonName(),  aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit(), aCommand.getPersonPhone(), aCommand.getPersonEmail());
-		}
-		
+		Bestallaradministrator person = aCommand.getBestallaradministrator();
 		IntygApprovedInformation intygApprovedInformation = new IntygApprovedInformation(aCommand.getIntygApprovedDateTime(),person);
 		
 		eavrop.addIntygApprovedInformation(intygApprovedInformation);

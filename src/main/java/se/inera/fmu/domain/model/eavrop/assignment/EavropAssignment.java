@@ -2,11 +2,13 @@ package se.inera.fmu.domain.model.eavrop.assignment;
 
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -18,6 +20,9 @@ import org.joda.time.DateTime;
 
 import se.inera.fmu.application.util.BusinessDaysUtil;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
+import se.inera.fmu.domain.model.landsting.Landstingssamordnare;
+import se.inera.fmu.domain.model.person.HoSPerson;
+import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
 
@@ -48,18 +53,30 @@ public class EavropAssignment extends AbstractBaseEntity implements
     @NotNull
     private EavropAssignmentStatusType assignmentStatus;
 
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="ASSIGN_PERSON_ID")
+    @NotNull
+	private HoSPerson assigningPerson;
+
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="RESPOND_PERSON_ID")
+    private HoSPerson respondingPerson;
+
+    
 	// ~ Constructors ===================================================================================================
 
 	EavropAssignment() {
 		// Needed by Hibernate
 	}
 
-	public EavropAssignment(Vardgivarenhet vardivareenhet) {
+	public EavropAssignment(Vardgivarenhet vardivareenhet, HoSPerson assigningPerson) {
 		this.setId(UUID.randomUUID().toString());
 		this.setCreatedDate(new DateTime());
 		setAssignmentStatus(this.assignmentStatus = EavropAssignmentStatusType.ASSIGNED);
 		Validate.notNull(vardivareenhet);
 		setVardgivarenhet(vardivareenhet);
+		Validate.notNull(assigningPerson);
+		setAssigningPerson(assigningPerson);
 	}
 
 	// ~ Property Methods ===============================================================================================
@@ -87,21 +104,43 @@ public class EavropAssignment extends AbstractBaseEntity implements
 	private void setAssignmentStatus(EavropAssignmentStatusType assignmentStatus) {
 		this.assignmentStatus = assignmentStatus;
 	}
-	
 
+	
+	public HoSPerson getAssigningPerson() {
+		return this.assigningPerson;
+	}
+
+	private void setAssigningPerson(HoSPerson assigningPerson) {
+		this.assigningPerson = assigningPerson;
+	}
+
+	public HoSPerson getRespondingPerson() {
+		return this.respondingPerson;
+	}
+
+	private void setRespondingPerson(HoSPerson respondingPerson) {
+		this.respondingPerson = respondingPerson;
+	}
+
+	
 	//TODO: Are these status transitions covered by LastModifiedBy and LastModfiedDate or should we assingn it explicitly, could last LastModfiedDate be changed bay system when changes are made to owner 
-	public void acceptAssignment(){
+	public void acceptAssignment(HoSPerson acceptingPerson){
 		if( EavropAssignmentStatusType.ASSIGNED.equals(this.getAssignmentStatus())){
 			this.setAssignmentStatus(EavropAssignmentStatusType.ACCEPTED);
+			this.setRespondingPerson(acceptingPerson);
 		}else{
+			throw new IllegalArgumentException(String.format("Cannot accept assignment with id: %s that is in state: %s ", this.getId().toString(), this.getAssignmentStatus().toString()));
 			//TODO: throw something
 		}
 	}
 
-	public void rejectAssignment(){
+	public void rejectAssignment(HoSPerson rejectingPerson){
 		if( EavropAssignmentStatusType.ASSIGNED.equals(this.getAssignmentStatus())){
 			this.setAssignmentStatus(EavropAssignmentStatusType.REJECTED);
+			this.setRespondingPerson(rejectingPerson);
+
 		}else{
+			throw new IllegalArgumentException(String.format("Cannot accept assignment with id: %s that is in state: %s ", this.getId().toString(), this.getAssignmentStatus().toString()));
 			//TODO: throw something
 		}
 	}

@@ -13,8 +13,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.joda.time.DateTime;
+
 import lombok.ToString;
 import se.inera.fmu.domain.model.person.Person;
+import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.shared.ValueObject;
 
 @Entity
@@ -56,6 +59,7 @@ public class PriorMedicalExamination implements ValueObject<PriorMedicalExaminat
 	     * @param medicalLeaveIssuedBy,  
 	     */
 	    public PriorMedicalExamination(String examinedAt, String medicalLeaveIssuedAt, Person medicalLeaveIssuedBy ) {
+	    	//this.id = DateTime.now().getMillis();
 	    	this.setExaminedAt(examinedAt);
 	    	this.setMedicalLeaveIssuedAt(medicalLeaveIssuedAt);
 	    	this.setMedicalLeaveIssuedBy(medicalLeaveIssuedBy);
@@ -95,26 +99,37 @@ public class PriorMedicalExamination implements ValueObject<PriorMedicalExaminat
 	     * @see #sameValueAs(PriorMedicalExamination)
 	     */
 	    @Override
-	    public boolean equals(final Object object) {
+	    public boolean equals(Object object) {
 	        if (this == object) return true;
 	        if (object == null || getClass() != object.getClass()) return false;
 
+
 	        final PriorMedicalExamination other = (PriorMedicalExamination) object;
-	        return sameValueAs(other);
+	        int result = examinedAt.hashCode();
+	        if (examinedAt != null ? !examinedAt.equals(other.examinedAt) : other.examinedAt != null) return false;
+	        if (medicalLeaveIssuedAt != null ? !medicalLeaveIssuedAt.equals(other.medicalLeaveIssuedAt) : other.medicalLeaveIssuedAt != null) return false;
+	        if (medicalLeaveIssuedBy != null ? !medicalLeaveIssuedBy.equals(other.medicalLeaveIssuedBy) : other.medicalLeaveIssuedBy != null) return false;
+
+	        return true;
 	    }
 
+	    
 		/**
-	     * @return Hash code of tracking id.
+	     * @return Hash code.
 	     */
 	    @Override
 	    public int hashCode() {
-	    	return this.id.hashCode() ;
+	        int result = examinedAt.hashCode();
+	        result = 31 * result + (medicalLeaveIssuedAt != null ?medicalLeaveIssuedAt.hashCode() : 0);
+	        result = 31 * result + (medicalLeaveIssuedBy != null ? medicalLeaveIssuedBy.hashCode() : 0);
+	        return result;
 	    }
 
+	    
 		@Override
-		//TODO:
 		public boolean sameValueAs(PriorMedicalExamination other) {
-			return other != null && this.id.equals(other.id);
+			return other != null && this.equals(other);
 		}
+		
 	}
 

@@ -1,6 +1,6 @@
 package se.inera.fmu.application;
 
-import se.inera.fmu.application.impl.command.AddReceivedExternalDocumentCommand;
+import se.inera.fmu.application.impl.command.AddReceivedExternalDocumentsCommand;
 import se.inera.fmu.application.impl.command.AddReceivedInternalDocumentCommand;
 import se.inera.fmu.application.impl.command.AddRequestedDocumentCommand;
 
@@ -11,7 +11,7 @@ public interface EavropDocumentService {
 	
 	//public void setDocumentsSentFromBestallareDateTime(Eavrop eavrop, DateTime documentsSentFromBestallareDateTime);
 	
-	public void addReceivedExternalDocument(AddReceivedExternalDocumentCommand aCommand);
+	public void addReceivedExternalDocument(AddReceivedExternalDocumentsCommand aCommand);
 
 	public void addReceivedInternalDocument(AddReceivedInternalDocumentCommand aCommand);
 	

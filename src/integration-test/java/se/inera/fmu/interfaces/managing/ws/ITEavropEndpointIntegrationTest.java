@@ -42,21 +42,47 @@ public class ITEavropEndpointIntegrationTest {
         mockClient = MockWebServiceClient.createClient(applicationContext);
     }
 
-    //https://github.com/kamaydeo/spring-ws-sample/blob/4a912d2e45c4af2d10081575f040480f8df7b71c/src/test/java/com/hbo/endpoint/EmployeeEndpointTest.java
+    	
 
     @Test
-    public void createEavrop_IfRequestIsValid_GeneratesSuccessResponse() throws Exception {
+    public void createEavrop_BothValidAndInvalidRequests_GeneratesSuccessAndErrorResponse() throws Exception {
 
-        Source requestPayload = new StreamSource(new ClassPathResource("ws/TST-123456.xml").getInputStream());
-        Source responsePayload = new StreamSource(new ClassPathResource("ws/TST-SUCCESS-RESPOSE.xml").getInputStream());
-
+    	//test valid request
+        Source requestPayload = new StreamSource(new ClassPathResource("ws/TST-CREATE_EAVROP.xml").getInputStream());
+        Source succesResponsePayload = new StreamSource(new ClassPathResource("ws/TST-CREATE_EAVROP-SUCCESS-RESPONSE.xml").getInputStream());
         mockClient.sendRequest(withPayload(requestPayload)).
-        andExpect(payload(responsePayload));
+        andExpect(payload(succesResponsePayload));
+        
+        //test invalid request by posting the same request again 
+        requestPayload = new StreamSource(new ClassPathResource("ws/TST-CREATE_EAVROP.xml").getInputStream());
+        Source errorResponsePayload = new StreamSource(new ClassPathResource("ws/TST-CREATE_EAVROP-ERROR-RESPONSE.xml").getInputStream());
+        mockClient.sendRequest(withPayload(requestPayload)).
+        andExpect(payload(errorResponsePayload));
+
+    }
+    
+
+    @Test
+    public void createSendDocumentsEavrop_BothValidAndInvalidRequests_GeneratesSuccessAndErrorResponse() throws Exception {
+
+    	//test valid request
+        Source requestPayload = new StreamSource(new ClassPathResource("ws/TST-CREATE_EAVROP.xml").getInputStream());
+        Source succesResponsePayload = new StreamSource(new ClassPathResource("ws/TST-CREATE_EAVROP-SUCCESS-RESPONSE.xml").getInputStream());
+        mockClient.sendRequest(withPayload(requestPayload)).
+        andExpect(payload(succesResponsePayload));
+        
+        //test invalid request by posting the same request again 
+        requestPayload = new StreamSource(new ClassPathResource("ws/TST-CREATE_EAVROP.xml").getInputStream());
+        Source errorResponsePayload = new StreamSource(new ClassPathResource("ws/TST-CREATE_EAVROP-ERROR-RESPONSE.xml").getInputStream());
+        mockClient.sendRequest(withPayload(requestPayload)).
+        andExpect(payload(errorResponsePayload));
+
     }
 
-    @Test
-    public void createEavrop_IfRequestIsInValid_GeneratesErrorResponse() {
+    
 
+    @Test
+    public void createEavrop_IfRequestIsInValid_GeneratesErrorResponse() throws Exception{
     }
 
     @Test

@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import se.inera.fmu.domain.model.hos.hsa.HsaId;
+import se.inera.fmu.domain.model.person.HoSPerson;
+
 
 public class AssignedEavropStateTest extends AbstractEavropStateTest{
 
@@ -12,7 +15,7 @@ public class AssignedEavropStateTest extends AbstractEavropStateTest{
 	public void testAcceptEavrop() {
 		Eavrop eavrop = getEavrop();
 		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.acceptEavropAssignment();
+		eavrop.acceptEavropAssignment(createHoSPerson());
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getEavropState().getEavropStateType());
 	}
 
@@ -21,7 +24,7 @@ public class AssignedEavropStateTest extends AbstractEavropStateTest{
 	public void testRejectEavropAssignment() {
 		Eavrop eavrop = getEavrop();
 		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.rejectEavropAssignment();
+		eavrop.rejectEavropAssignment(createHoSPerson());
 		assertEquals(EavropStateType.UNASSIGNED, eavrop.getEavropState().getEavropStateType());
 	}
 	
@@ -35,4 +38,5 @@ public class AssignedEavropStateTest extends AbstractEavropStateTest{
 		// TODO Auto-generated method stub
 		return EavropStateType.ASSIGNED;
 	}
+
 }
