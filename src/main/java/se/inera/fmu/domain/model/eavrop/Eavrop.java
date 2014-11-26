@@ -704,7 +704,11 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 			if(booking.hasInterpreterDeviation()){
 				deviationEvents.add(createInterpreterBookingDeviationEvent(booking));
 			}
-		} 
+		}
+		
+		if(isEavropAssessmentDaysDeviated()){
+			deviationEvents.add(createEavropAssessmentDaysDeviationEvent());
+		}
 		
 		if(this.isIntygComplementDaysDeviated()){
 			deviationEvents.addAll(createIntygComplementDaysDeviationEvents());
@@ -727,21 +731,21 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		if(this.isEavropAcceptDaysDeviated()){
 			LocalDate lastValidDay = getLastValidEavropAssignmentAcceptDay();
 			DateTime devationDateTime = lastValidDay.toDateTime(new LocalTime(0,0));
-			return new EavropDeviationEventDTO(EavropDeviationEventDTOType.EAVROP_ASSIGNMENT_ACCEPT_DEVIATION, devationDateTime);
+			return new EavropDeviationEventDTO(EavropDeviationEventDTOType.EAVROP_ASSIGNMENT_ACCEPT_DEVIATION, devationDateTime.getMillis());
 		}
 		return null;
 	}
 
 	private EavropDeviationEventDTO createBookingDeviationEvent(Booking booking) {
 		if(booking.hasDeviation()){
-			return new EavropDeviationEventDTO(EavropDeviationEventDTOType.convertToEavropDeviationEventDTOType(booking.getBookingStatus()), booking.getLastModifiedDate());
+			return new EavropDeviationEventDTO(EavropDeviationEventDTOType.convertToEavropDeviationEventDTOType(booking.getBookingStatus()), booking.getLastModifiedDate().getMillis());
 		}
 		return null;
 	}
 
 	private EavropDeviationEventDTO createInterpreterBookingDeviationEvent(Booking booking) {
 		if(booking.hasInterpreterDeviation()){
-			return new EavropDeviationEventDTO(EavropDeviationEventDTOType.INTERPRETER_NOT_PRESENT, booking.getLastModifiedDate());
+			return new EavropDeviationEventDTO(EavropDeviationEventDTOType.INTERPRETER_NOT_PRESENT, booking.getLastModifiedDate().getMillis());
 		}
 		return null;
 	}
@@ -756,7 +760,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 			LocalDate lastValidDay = getLastValidEavropAssessmentDay();
 			if(lastValidDay!=null){
 				DateTime devationDateTime = lastValidDay.plusDays(1).toDateTime(new LocalTime(0,0));
-				return new EavropDeviationEventDTO(EavropDeviationEventDTOType.EAVROP_ASSESSMENT_LENGHT_DEVIATION, devationDateTime);
+				return new EavropDeviationEventDTO(EavropDeviationEventDTOType.EAVROP_ASSESSMENT_LENGHT_DEVIATION, devationDateTime.getMillis());
 			}
 		}
 		return null;
@@ -803,7 +807,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 			
 			if(toDate.isAfter(lastValidDay)){
 				DateTime devationDateTime = lastValidDay.plusDays(1).toDateTime(new LocalTime(0,0));
-				deviations.add(new EavropDeviationEventDTO(EavropDeviationEventDTOType.INTYG_COMPLEMENT_RESPONSE_DEVIATION, devationDateTime)) ;
+				deviations.add(new EavropDeviationEventDTO(EavropDeviationEventDTOType.INTYG_COMPLEMENT_RESPONSE_DEVIATION, devationDateTime.getMillis())) ;
 			}
 		}
 		return deviations;

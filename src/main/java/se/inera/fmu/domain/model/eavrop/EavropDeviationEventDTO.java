@@ -1,20 +1,19 @@
 package se.inera.fmu.domain.model.eavrop;
 
-import org.joda.time.DateTime;
 
 public class EavropDeviationEventDTO implements Comparable<EavropDeviationEventDTO>{ 
 
 	private final EavropDeviationEventDTOType deviationType;
 	
-    private final DateTime eventTime;
+    private final long eventTime;
 
-    EavropDeviationEventDTO(EavropDeviationEventDTOType deviationType, DateTime eventTime){
+    EavropDeviationEventDTO(EavropDeviationEventDTOType deviationType, long eventTime){
     	this.deviationType = deviationType;
     	this.eventTime = eventTime;
     }
 
     
-	public DateTime getEventTime() {
+	private long getEventTime() {
 		return eventTime;
 	}
 
@@ -26,6 +25,6 @@ public class EavropDeviationEventDTO implements Comparable<EavropDeviationEventD
 
 	@Override
 	public int compareTo(EavropDeviationEventDTO o) {
-		return getEventTime().compareTo(o.getEventTime());
+		return Long.compare(getEventTime(), o.getEventTime());
 	}
 }
