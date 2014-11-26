@@ -72,4 +72,8 @@ public interface FmuOrderingService {
 
 	public void assignVardgivarenhet(EavropId eavropId, Long veId);
 
+	public void acceptRequest(EavropId eavropId);
+
+	public void rejectRequest(EavropId eavropId);
+
 }

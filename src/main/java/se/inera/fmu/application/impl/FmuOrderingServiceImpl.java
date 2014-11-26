@@ -573,4 +573,17 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		eavropForUser.assignEavropToVardgivarenhet(ve);
 	}
 
+	@Override
+	public void acceptRequest(EavropId eavropId) {
+		Eavrop eavropForUser = getEavropForUser(eavropId);
+		eavropForUser.acceptEavropAssignment();
+		
+	}
+
+	@Override
+	public void rejectRequest(EavropId eavropId) {
+		Eavrop eavropForUser = getEavropForUser(eavropId);
+		eavropForUser.rejectEavropAssignment();
+	}
+
 }

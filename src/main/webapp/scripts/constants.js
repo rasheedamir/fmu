@@ -12,6 +12,8 @@ angular.module('fmuClientApp')
         eavropPatient: 'app/rest/eavrop/:eavropId/patient',
         eavropVardgivarenheter: 'app/rest/eavrop/:eavropId/vardgivarenheter',
         eavropAssignment: 'app/rest/eavrop/:eavropId/assign',
+        eavropAccept: 'app/rest/eavrop/:eavropId/accept',
+        eavropReject: 'app/rest/eavrop/:eavropId/reject',
         userInfo: 'app/rest/user',
         changeRole: 'app/rest/user/changerole'
     })

@@ -154,6 +154,16 @@ public class EavropResource {
 	public void assignVardgivarenhet(@PathVariable("id") String id, @RequestParam Long veId) {
 		this.fmuOrderingService.assignVardgivarenhet(new EavropId(id), veId);
 	}	
+	
+	@RequestMapping(value = "/rest/eavrop/{id}/accept", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public void acceptRequest(@PathVariable("id") String id) {
+		this.fmuOrderingService.acceptRequest(new EavropId(id));
+	}	
+	
+	@RequestMapping(value = "/rest/eavrop/{id}/reject", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public void rejectRequest(@PathVariable("id") String id) {
+		this.fmuOrderingService.rejectRequest(new EavropId(id));
+	}		
 
 	@RequestMapping(value = "/rest/eavrop/utredning/create/booking", method = RequestMethod.POST)
 	@ResponseBody
