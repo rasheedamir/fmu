@@ -42,8 +42,7 @@ public class CompensationDTOMapper {
 			data.setAntalTimmar(booking.getBookingDuration());
 			data.setTolkBooked(booking.hasInterpreterBooking());
 			tillaggs.add(data);
-		}
-		;
+		};
 
 		dto.setTillaggTjanster(tillaggs);
 
