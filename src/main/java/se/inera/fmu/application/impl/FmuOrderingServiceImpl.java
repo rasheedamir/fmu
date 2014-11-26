@@ -625,7 +625,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		String personRole = currentUser.getActiveRole().toString();
 		String personOrganisation = ve.getVardgivare().getName();
 		String personUnit = currentUser.getUnit();
-		RejectEavropAssignmentCommand rejectCommand = new RejectEavropAssignmentCommand(eavropId, vardgivarenhetHsaId, personHsaId, personName, personRole, personOrganisation, personUnit);
+		RejectEavropAssignmentCommand rejectCommand = new RejectEavropAssignmentCommand(eavropId, vardgivarenhetHsaId, personHsaId, personName, personRole, personOrganisation, personUnit, "");
 		this.eavropAssignmentService.rejectEavropAssignment(rejectCommand);
 	}
 
