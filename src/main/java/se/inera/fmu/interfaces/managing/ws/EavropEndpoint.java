@@ -44,10 +44,10 @@ import se.inera.fmu.domain.model.shared.Name;
 import ws.inera.fmu.admin.eavrop.AccepteratFmuIntygRequest;
 import ws.inera.fmu.admin.eavrop.AccepteratFmuUtredningRequest;
 import ws.inera.fmu.admin.eavrop.BegartFmuIntygKompletteringRequest;
-import ws.inera.fmu.admin.eavrop.BestallEavropRequest;
 import ws.inera.fmu.admin.eavrop.FmuResponse;
 import ws.inera.fmu.admin.eavrop.GodkannandeErsattningFmuUtredningRequest;
 import ws.inera.fmu.admin.eavrop.Person;
+import ws.inera.fmu.admin.eavrop.SkapaFmuEavropRequest;
 import ws.inera.fmu.admin.eavrop.SkickatFmuHandlingarRequest;
 import ws.inera.fmu.admin.eavrop.SkickatFmuIntygRequest;
 import ws.inera.fmu.admin.eavrop.StatusCode;
@@ -75,14 +75,14 @@ public class EavropEndpoint {
     @Inject
     private EavropApprovalService eavropApprovalService;
     
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "bestallEavropRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "skapaFmuEavropRequest")
     @ResponsePayload
-    public FmuResponse createEavrop(@RequestPayload BestallEavropRequest request) {
+    public FmuResponse createEavrop(@RequestPayload SkapaFmuEavropRequest request) {
 
         FmuResponse fmuResponse = new FmuResponse();
 
         try {
-            CreateEavropCommand aCommand = mapCreateEavropRequestToCreateEavropCommand(request);
+            CreateEavropCommand aCommand = mapSkapaFmuEavropRequestToCreateEavropCommand(request);
             ArendeId arendeId = fmuOrderingService.createEavrop(aCommand);
             fmuResponse.setArendeId(arendeId.toString());
             fmuResponse.setStatusCode(StatusCode.OK);
@@ -282,7 +282,7 @@ public class EavropEndpoint {
      * @param request - CreateEavropRequest
      * @return
      */
-    private CreateEavropCommand mapCreateEavropRequestToCreateEavropCommand(BestallEavropRequest request) {
+    private CreateEavropCommand mapSkapaFmuEavropRequestToCreateEavropCommand(SkapaFmuEavropRequest request) {
         ArendeId arendeId = new ArendeId(request.getArendeId());
         UtredningType utredningType = UtredningType.valueOf(request.getUtredningType().toString());
         Interpreter interpreter = createInterpreter(request);
@@ -422,7 +422,7 @@ public class EavropEndpoint {
      * @param request
      * @return
      */
-    private Interpreter createInterpreter(BestallEavropRequest request) {
+    private Interpreter createInterpreter(SkapaFmuEavropRequest request) {
         String interpreterLanguages = null;
         if(request.isTolk()) {
             interpreterLanguages = request.getTolkSprak();
@@ -436,7 +436,7 @@ public class EavropEndpoint {
      * @param request
      * @return
      */
-    private Invanare createInvanare(BestallEavropRequest request) {
+    private Invanare createInvanare(SkapaFmuEavropRequest request) {
         PersonalNumber personalNumber = new PersonalNumber(request.getInvanare().getPersonnummer());
         Name name = new Name(request.getInvanare().getNamn().getFornamn(),
                              request.getInvanare().getNamn().getMellannamn(),
@@ -521,7 +521,7 @@ public class EavropEndpoint {
      * @param request
      * @return
      */
-    private PriorMedicalExamination createPriorMedicalExamination(BestallEavropRequest request) {
+    private PriorMedicalExamination createPriorMedicalExamination(SkapaFmuEavropRequest request) {
         String examinedAt = request.getTidigareUtredning().getUtreddVid();
         String medicalLeaveIssuedAt = request.getTidigareUtredning().getSjukskrivandeenhet();
         HoSPerson medicalLeaveIssuedBy = new HoSPerson(null, request.getTidigareUtredning().getSjukskrivenAv().getNamn(),
