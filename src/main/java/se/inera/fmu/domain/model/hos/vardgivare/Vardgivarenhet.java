@@ -85,7 +85,11 @@ public class Vardgivarenhet extends AbstractBaseEntity implements IEntity<Vardgi
     	return this.hsaId; 
     }
     
-    private void setHsaId(HsaId hsaId){
+    public Long getId() {
+		return Id;
+	}
+
+	private void setHsaId(HsaId hsaId){
     	this.hsaId = hsaId; 
     }
 

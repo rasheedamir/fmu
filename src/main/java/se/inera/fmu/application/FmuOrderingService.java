@@ -22,6 +22,7 @@ import se.inera.fmu.interfaces.managing.rest.dto.PatientDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.VardgivarenhetDTO;
 
 /**
  * Created by Rasheed on 7/7/14.
@@ -66,5 +67,9 @@ public interface FmuOrderingService {
 	public EavropDTO getEavrop(EavropId eavropId);
 
 	public void removeNote(String eavropId, String noteId);
+
+	public List<VardgivarenhetDTO> getVardgivarenheter(EavropId eavropId);
+
+	public void assignVardgivarenhet(EavropId eavropId, Long veId);
 
 }

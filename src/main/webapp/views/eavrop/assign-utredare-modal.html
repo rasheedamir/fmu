@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="modal-header">
+            <h1>Utse utredare</h1>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="assignment">Begär acceptans om utredning från:</label>
+                <select class="form-control" ng-model="model.selectedVardgivarenhet" ng-options="ve.unitName for ve in vardgivarenheter"></select>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <input class="btn btn-default" type="button" value="Skicka" ng-click="assign()">
+            <input class="btn btn-default" type="button" value="Avbryt" ng-click="close()">
+        </div>
+    </div>
+</div>

@@ -10,6 +10,8 @@ angular.module('fmuClientApp')
         eavropAllEvents: 'app/rest/eavrop/:eavropId/all-events',
         eavropOrder: 'app/rest/eavrop/:eavropId/order',
         eavropPatient: 'app/rest/eavrop/:eavropId/patient',
+        eavropVardgivarenheter: 'app/rest/eavrop/:eavropId/vardgivarenheter',
+        eavropAssignment: 'app/rest/eavrop/:eavropId/assign',
         userInfo: 'app/rest/user',
         changeRole: 'app/rest/user/changerole'
     })

@@ -6,6 +6,39 @@
     </div>
 </div>
 
+<div restricted role="ROLE_SAMORDNARE"> 
+	<div ng-controller="AssignmentCtrl" ng-switch="currentEavrop.status">
+		<div class="alert alert-info" ng-switch-when="UNASSIGNED">
+			<h3>Utse vårdleverantör</h2>
+			<hr />
+			
+			<p>Utse vårdleverantör genom att hämta in acceptans av denna förfrågan.</p>
+			<a class="btn btn-success" ng-click="openAssignUtredareDialog()">Utse utredare</a>
+		</div>
+		<div class="alert alert-warning" ng-switch-when="ASSIGNED">
+			<h3>Inväntar svar från vårdleverantör</h2>
+			<hr />
+			
+			<p>Förfrågan om acceptans för ärende med ID: <b>{{currentEavrop.arendeId}}</b> skickades till Danderyds sjukhus.</p>
+		</div>
+	</div>
+</div>
+
+<div restricted role="ROLE_UTREDARE"> 
+	<div ng-controller="AcceptanceCtrl" ng-switch="currentEavrop.status">
+		<div class="alert alert-info" ng-switch-when="ASSIGNED">
+			<h3>Förfrågan om acceptans</h2>
+			<hr />
+			
+			<p><b>Förfrågan ställd till:</b></p>
+			<p><b>Acceptans begärd av:</b></p>
+			
+			<a href="#" class="btn btn-success">Acceptera förfrågan</a>
+			<a href="#" class="btn btn-danger">Avslå förfrågan</a>
+		</div>
+	</div>
+</div>
+
 <div class="navbar navbar-default" style="margin-bottom: 1em" role="navigation">
     <div>
         <ul class="nav navbar-nav">

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,6 +47,7 @@ import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TimeDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.VardgivarenhetDTO;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidPageSize;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidateDate;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidatePageNumber;
@@ -133,6 +135,11 @@ public class EavropResource {
 		return this.fmuOrderingService.getRequestedDocuments(new EavropId(id));
 	}
 	
+	@RequestMapping(value = "/rest/eavrop/{id}/vardgivarenheter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<VardgivarenhetDTO> getVardgivarenheter(@PathVariable("id") String id) {
+		return this.fmuOrderingService.getVardgivarenheter(new EavropId(id));
+	}	
+	
 	@RequestMapping(value="/rest/eavrop/{id}/requested-documents", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void addReceivedDocuments(@PathVariable("id") String id, @RequestBody RequestedDocumentDTO doc){
 		this.fmuOrderingService.addRequestedDocuments(new EavropId(id), doc);
@@ -142,6 +149,11 @@ public class EavropResource {
 	public List<NoteDTO> getNotes(@PathVariable("id") String id) {
 		return this.fmuOrderingService.getNotes(new EavropId(id));
 	}
+	
+	@RequestMapping(value = "/rest/eavrop/{id}/assign", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public void assignVardgivarenhet(@PathVariable("id") String id, @RequestParam Long veId) {
+		this.fmuOrderingService.assignVardgivarenhet(new EavropId(id), veId);
+	}	
 
 	@RequestMapping(value = "/rest/eavrop/utredning/create/booking", method = RequestMethod.POST)
 	@ResponseBody
@@ -182,4 +194,5 @@ public class EavropResource {
 		this.fmuOrderingService.removeNote(eavropId, noteId);
 		return HttpStatus.OK;
 	}
+	
 }

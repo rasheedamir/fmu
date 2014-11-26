@@ -28,3 +28,14 @@ angular.module('fmuClientApp').factory('EavropOrder', ['$resource', 'RESTURL', f
 angular.module('fmuClientApp').factory('EavropPatient', ['$resource', 'RESTURL', function($resource, RESTURL){
     return $resource(RESTURL.eavropPatient, {eavropId: '@eavropId'});
 }]);
+
+angular.module('fmuClientApp').factory('EavropVardgivarenheter', ['$resource', 'RESTURL', function($resource, RESTURL){
+    return $resource(RESTURL.eavropVardgivarenheter, {eavropId: '@eavropId'});
+}]);
+
+angular.module('fmuClientApp').factory('EavropAssignment', ['$resource', 'RESTURL', function($resource, RESTURL){
+    return $resource(RESTURL.eavropAssignment, {eavropId: '@eavropId'}, 
+    		{
+    			'assign': {method: 'PUT'}
+    		});
+}]);

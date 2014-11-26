@@ -72,6 +72,7 @@ import se.inera.fmu.interfaces.managing.dtomapper.PatientDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.ReceivedDocumentDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.RequestedDocumentDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.UtredningDTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.VardgivarenhetDTOMapper;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
@@ -87,6 +88,7 @@ import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TimeDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.VardgivarenhetDTO;
 
 /**
  * Created by Rasheed on 7/7/14.
@@ -540,6 +542,35 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		EavropDTOMapper mapper = new EavropDTOMapper();
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		return mapper.map(eavropForUser, new EavropDTO());
+	}
+
+	@Override
+	public List<VardgivarenhetDTO> getVardgivarenheter(EavropId eavropId) {
+		Eavrop eavropForUser = getEavropForUser(eavropId);
+		Landsting landsting = eavropForUser.getLandsting();
+		VardgivarenhetDTOMapper mapper = new VardgivarenhetDTOMapper(); 
+		List<VardgivarenhetDTO> result = new ArrayList<>();
+		
+		for(Vardgivarenhet ve : landsting.getVardgivarenheter()){
+			result.add(mapper.map(ve));
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void assignVardgivarenhet(EavropId eavropId, Long veId) {
+		Eavrop eavropForUser = getEavropForUser(eavropId);
+		Vardgivarenhet ve = null;
+		
+		for(Vardgivarenhet v : eavropForUser.getLandsting().getVardgivarenheter()){
+			if(v.getId().equals(veId)){
+				ve = v;
+				break;
+			}
+		}
+		
+		eavropForUser.assignEavropToVardgivarenhet(ve);
 	}
 
 }
