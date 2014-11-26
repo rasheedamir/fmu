@@ -327,7 +327,7 @@
 			<column name="last_modified_date" type="datetime"/>
 			<column name="version" type="BIGINT"/>
 			<column name="TYPE" type="VARCHAR(40)"/>
-			<column name="TEXT" type="CLOB"/>
+			<column name="TEXT" type="TEXT"/>
 			<column name="PERSON_ID" type="BIGINT"/>
 		</createTable>
 	</changeSet>
