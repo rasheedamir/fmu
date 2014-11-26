@@ -19,12 +19,15 @@ import org.apache.commons.lang.Validate;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.application.util.BusinessDaysUtil;
+import se.inera.fmu.domain.model.eavrop.note.Note;
+import se.inera.fmu.domain.model.eavrop.note.NoteType;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.landsting.Landstingssamordnare;
 import se.inera.fmu.domain.model.person.HoSPerson;
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
+import static se.inera.fmu.application.util.StringUtils.isBlankOrNull;
 
 /**
  * 
@@ -61,6 +64,10 @@ public class EavropAssignment extends AbstractBaseEntity implements
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="RESPOND_PERSON_ID")
     private HoSPerson respondingPerson;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="REJECTION_NOTE_ID", nullable = true)
+	private Note rejectionNote;
 
     
 	// ~ Constructors ===================================================================================================
@@ -121,7 +128,14 @@ public class EavropAssignment extends AbstractBaseEntity implements
 	private void setRespondingPerson(HoSPerson respondingPerson) {
 		this.respondingPerson = respondingPerson;
 	}
+	
+	public Note getRejectionNote() {
+		return rejectionNote;
+	}
 
+	private void setRejectionNote(Note rejectionNote) {
+		this.rejectionNote = rejectionNote;
+	}
 	
 	//TODO: Are these status transitions covered by LastModifiedBy and LastModfiedDate or should we assingn it explicitly, could last LastModfiedDate be changed bay system when changes are made to owner 
 	public void acceptAssignment(HoSPerson acceptingPerson){
@@ -134,17 +148,24 @@ public class EavropAssignment extends AbstractBaseEntity implements
 		}
 	}
 
-	public void rejectAssignment(HoSPerson rejectingPerson){
+	public void rejectAssignment(HoSPerson rejectingPerson, String rejectionComment){
 		if( EavropAssignmentStatusType.ASSIGNED.equals(this.getAssignmentStatus())){
 			this.setAssignmentStatus(EavropAssignmentStatusType.REJECTED);
 			this.setRespondingPerson(rejectingPerson);
-
+			this.setRejectionNote(createRejectionNote(rejectingPerson, rejectionComment));
 		}else{
 			throw new IllegalArgumentException(String.format("Cannot accept assignment with id: %s that is in state: %s ", this.getId().toString(), this.getAssignmentStatus().toString()));
 			//TODO: throw something
 		}
 	}
 	
+	private Note createRejectionNote(HoSPerson rejectingPerson, String rejectionComment) {
+		if(!isBlankOrNull(rejectionComment)){
+			return new Note(NoteType.EAVROP_ASSIGNMENT_REJECTION, rejectionComment, rejectingPerson);
+		}
+		return null;
+	}
+
 	public boolean isAccepted(){
 		return EavropAssignmentStatusType.ACCEPTED.equals(this.getAssignmentStatus());
 	}

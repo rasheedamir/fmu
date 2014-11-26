@@ -553,8 +553,8 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	 * The currently assigned vardgivarenhet, rejects the assigned Eavrop
 	 *
 	 */
-	public void rejectEavropAssignment(HoSPerson rejectingPerson) {
-		this.getEavropState().rejectEavropAssignment(this, rejectingPerson);
+	public void rejectEavropAssignment(HoSPerson rejectingPerson, String rejectionComment) {
+		this.getEavropState().rejectEavropAssignment(this, rejectingPerson, rejectionComment);
 	}
 
 	/**
@@ -1369,6 +1369,12 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		if(getEavropCompensationApproval() != null && getEavropCompensationApproval().getNote() != null){
 			result.add(getEavropCompensationApproval().getNote());
 		}
+		
+		for (EavropAssignment assignment : getAssignments()) {
+			if(assignment.getRejectionNote()!=null){
+				result.add(assignment.getRejectionNote());
+			}
+		} 
 		
 		Collections.sort(result);
 		return result;

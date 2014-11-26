@@ -24,7 +24,7 @@ public class AssignedEavropStateTest extends AbstractEavropStateTest{
 	public void testRejectEavropAssignment() {
 		Eavrop eavrop = getEavrop();
 		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.rejectEavropAssignment(createHoSPerson());
+		eavrop.rejectEavropAssignment(createHoSPerson(), "TEST");
 		assertEquals(EavropStateType.UNASSIGNED, eavrop.getEavropState().getEavropStateType());
 	}
 	

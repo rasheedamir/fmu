@@ -66,7 +66,7 @@ public class ITEavropEndpointIntegrationTest {
     public void createSendDocumentsEavrop_BothValidAndInvalidRequests_GeneratesSuccessAndErrorResponse() throws Exception {
 
     	//test valid request
-        Source requestPayload = new StreamSource(new ClassPathResource("ws/TST-CREATE_EAVROP.xml").getInputStream());
+        Source requestPayload = new StreamSource(new ClassPathResource("ws/TST-DOCUMENTS_SENT_EAVROP.xml").getInputStream());
         Source succesResponsePayload = new StreamSource(new ClassPathResource("ws/TST-CREATE_EAVROP-SUCCESS-RESPONSE.xml").getInputStream());
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));

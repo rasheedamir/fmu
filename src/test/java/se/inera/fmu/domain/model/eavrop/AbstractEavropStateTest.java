@@ -146,7 +146,7 @@ public abstract class AbstractEavropStateTest {
 	public void testRejectEavropAssignment() {
 		Eavrop eavrop = getEavrop();
 		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		eavrop.rejectEavropAssignment(createHoSPerson());
+		eavrop.rejectEavropAssignment(createHoSPerson(), null);
 	}
 
 	@Test(expected=IllegalStateException.class)

@@ -107,7 +107,7 @@ public class EavropAssignmentServiceImpl implements EavropAssignmentService {
 			rejectingPerson = new HoSPerson(aCommand.getPersonHsaId(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
 		}
 
-		eavrop.rejectEavropAssignment(rejectingPerson);
+		eavrop.rejectEavropAssignment(rejectingPerson, null);
 		log.debug(String.format("Eavrop %s rejected  by :: %s", aCommand.getEavropId().toString(), aCommand.getVardgivarenhetHsaId().toString()));
 		
 		handleEavropRejected(aCommand.getEavropId(), aCommand.getVardgivarenhetHsaId());

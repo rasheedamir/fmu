@@ -33,7 +33,7 @@ public interface EavropState{
 	
 	public void acceptEavropAssignment(Eavrop eavrop, HoSPerson acceptingPerson);
 	
-	public void rejectEavropAssignment(Eavrop eavrop, HoSPerson rejectingPerson);
+	public void rejectEavropAssignment(Eavrop eavrop, HoSPerson rejectingPerson, String rejectionComment);
 	
 	//Documents
 	public void setDocumentsSentFromBestallareDateTime(Eavrop eavrop, DateTime documentsSentFromBestallareDateTime);

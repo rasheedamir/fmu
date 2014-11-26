@@ -41,7 +41,7 @@ public abstract class AbstractEavropState implements EavropState, Serializable {
 	}
 
 	@Override
-	public void rejectEavropAssignment(Eavrop eavrop, HoSPerson rejectingPerson) {
+	public void rejectEavropAssignment(Eavrop eavrop, HoSPerson rejectingPerson, String rejectionComment) {
 		throw new IllegalStateException(
 				"Method rejectEavropAssignment is not available in state "
 						+ getEavropStateType().name());

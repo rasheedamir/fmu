@@ -21,4 +21,5 @@ public class RejectEavropAssignmentCommand {
     @NonNull private String personRole;
     private String personOrganisation;
     private String personUnit;
+    private String rejectionComment;
 }

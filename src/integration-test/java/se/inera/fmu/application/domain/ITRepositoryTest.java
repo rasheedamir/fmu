@@ -883,7 +883,7 @@ public class ITRepositoryTest {
     }
 
     private Eavrop rejectEavrop(Eavrop eavrop, HoSPerson rejectingPerson){
-    	eavrop.rejectEavropAssignment(rejectingPerson);
+    	eavrop.rejectEavropAssignment(rejectingPerson, null);
     	return eavropRepository.saveAndFlush(eavrop);
     }
 

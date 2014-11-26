@@ -201,7 +201,7 @@ public class EavropTest extends TestCase {
 		
 		assertEquals(EavropStateType.ASSIGNED, eavrop.getStatus());
 
-		eavrop.rejectEavropAssignment(doctorPerson);;
+		eavrop.rejectEavropAssignment(doctorPerson, null);;
 
 		assertEquals(EavropStateType.UNASSIGNED, eavrop.getStatus());
 
@@ -783,7 +783,7 @@ private void acceptEavropAssignment(Eavrop eavrop, DateTime dateTime) {
 
 private void rejectEavropAssignment(Eavrop eavrop, DateTime dateTime) {
 	EavropAssignment assignment = eavrop.getCurrentAssignment();
-	eavrop.rejectEavropAssignment(new HoSPerson(new HsaId("SE160000000000-HAHAHHSAL"), "Petter Olovsson", "Läkare", "Stafettläkarna", "Ortopeden"));
+	eavrop.rejectEavropAssignment(new HoSPerson(new HsaId("SE160000000000-HAHAHHSAL"), "Petter Olovsson", "Läkare", "Stafettläkarna", "Ortopeden"), null);
 	assignment.setLastModifiedDate(dateTime);
 	
 }

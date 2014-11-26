@@ -25,10 +25,10 @@ public class AssignedEavropState extends AbstractEavropState {
 	}
 	
 	@Override
-	public void rejectEavropAssignment(Eavrop eavrop, HoSPerson rejectingPerson) {
+	public void rejectEavropAssignment(Eavrop eavrop, HoSPerson rejectingPerson, String rejectionComment) {
 		
 		EavropAssignment eavropAssignment = eavrop.getCurrentAssignment();
-		eavropAssignment.rejectAssignment(rejectingPerson);
+		eavropAssignment.rejectAssignment(rejectingPerson, rejectionComment);
 		
 		eavrop.setCurrentAssignment(null);
 		
