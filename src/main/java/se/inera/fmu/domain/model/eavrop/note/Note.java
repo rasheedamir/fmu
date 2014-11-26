@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 import lombok.ToString;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.person.HoSPerson;
@@ -31,10 +33,10 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>, Compa
 	private NoteId noteId;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "TYPE")
+	@Column(name = "TYPE", length = 40)
 	private NoteType noteType;
 	
-	@Column(name = "TEXT")
+	@Column(name = "TEXT", columnDefinition="TEXT")
 	private String text;
 
 	@OneToOne(cascade = CascadeType.ALL)

@@ -18,7 +18,7 @@ public final class EavropId implements ValueObject<EavropId>, Serializable {
 
     //~ Instance fields ================================================================================================
 
-	@Column(name = "EAVROP_ID", unique=true, updatable = false, nullable = false)
+	@Column(name = "EAVROP_ID", unique=true, updatable = false, nullable = false, columnDefinition="char(36)")
     protected String id;
 
     //~ Constructors ===================================================================================================

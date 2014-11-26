@@ -14,7 +14,7 @@ public class NoteId  implements ValueObject<NoteId>, Serializable {
 	
 	//~ Instance fields ================================================================================================
 
-	@Column(name = "NOTE_ID", nullable = false, updatable = false, unique = true)
+	@Column(name = "NOTE_ID", nullable = false, updatable = false, unique = true, columnDefinition="char(36)")
     private String id;
     
     //~ Constructors ===================================================================================================

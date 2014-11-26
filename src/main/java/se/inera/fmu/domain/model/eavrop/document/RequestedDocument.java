@@ -29,7 +29,7 @@ public class RequestedDocument {
 
     // database primary key
     @Id
-    @Column(name = "DOCUMENT_ID", updatable = false, nullable = false)
+    @Column(name = "DOCUMENT_ID", updatable = false, nullable = false, columnDefinition="char(36)")
     private String id;
     
 	@NotNull

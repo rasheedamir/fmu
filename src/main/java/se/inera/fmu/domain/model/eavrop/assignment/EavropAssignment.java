@@ -44,7 +44,7 @@ public class EavropAssignment extends AbstractBaseEntity implements
 
 	// database primary key, using UUID and not a Hibernate sequence
 	@Id
-	@Column(name = "ASSIGNMENT_ID", updatable = false, nullable = false)
+	@Column(name = "ASSIGNMENT_ID", updatable = false, nullable = false, columnDefinition="char(36)")
 	private String id;
 
 	// TODO:

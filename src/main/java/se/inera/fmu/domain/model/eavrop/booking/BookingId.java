@@ -18,7 +18,7 @@ public final class BookingId implements ValueObject<BookingId>, Serializable {
 
     //~ Instance fields ================================================================================================
 
-	@Column(name = "BOOKING_ID", unique=true, updatable = false, nullable = false)
+	@Column(name = "BOOKING_ID", unique=true, updatable = false, nullable = false, columnDefinition="char(36)")
     protected String id;
 
     //~ Constructors ===================================================================================================

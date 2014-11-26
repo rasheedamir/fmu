@@ -1,32 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Changelog created with liquibase 3.3.0-SNAPSHOT, the http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd schema location is not yet public so changed to 3.0 version  -->
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
-				   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
-				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 	<changeSet author="richjo (generated)" id="001-1">
 		<createTable tableName="R_EAVROP_ASSIGNMENT">
-			<column name="EAVROP_ID" type="VARCHAR(255)">
+			<column name="EAVROP_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="ASSIGNMENT_ID" type="VARCHAR(255)">
+			<column name="ASSIGNMENT_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
 		</createTable>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-2">
 		<createTable tableName="R_EAVROP_BOOKING">
-			<column name="EAVROP_ID" type="VARCHAR(255)">
+			<column name="EAVROP_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="BOOKING_ID" type="VARCHAR(255)">
+			<column name="BOOKING_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
 		</createTable>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-3">
 		<createTable tableName="R_EAVROP_INTYG">
-			<column name="EAVROP_ID" type="VARCHAR(255)">
+			<column name="EAVROP_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="INTYG_INFORMATION_ID" type="BIGINT">
@@ -36,30 +33,30 @@
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-4">
 		<createTable tableName="R_EAVROP_NOTE">
-			<column name="EAVROP_ID" type="VARCHAR(255)">
+			<column name="EAVROP_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="NOTE_ID" type="VARCHAR(255)">
+			<column name="NOTE_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
 		</createTable>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-5">
 		<createTable tableName="R_EAVROP_REC_DOCUMENT">
-			<column name="EAVROP_ID" type="VARCHAR(255)">
+			<column name="EAVROP_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="DOCUMENT_ID" type="VARCHAR(255)">
+			<column name="DOCUMENT_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
 		</createTable>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-6">
 		<createTable tableName="R_EAVROP_REQ_DOCUMENT">
-			<column name="EAVROP_ID" type="VARCHAR(255)">
+			<column name="EAVROP_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="DOCUMENT_ID" type="VARCHAR(255)">
+			<column name="DOCUMENT_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
 		</createTable>
@@ -96,7 +93,7 @@
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-10">
 		<createTable tableName="T_ASSIGNMENT">
-			<column name="ASSIGNMENT_ID" type="VARCHAR(255)">
+			<column name="ASSIGNMENT_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="created_by" type="VARCHAR(255)"/>
@@ -108,14 +105,14 @@
 				<constraints nullable="false"/>
 			</column>
 			<column name="ASSIGN_PERSON_ID" type="BIGINT"/>
-			<column name="REJECTION_NOTE_ID" type="VARCHAR(255)"/>
+			<column name="REJECTION_NOTE_ID" type="CHAR(36)"/>
 			<column name="RESPOND_PERSON_ID" type="BIGINT"/>
 			<column name="vardgivarenhet_VARDGIVARENHET_ID" type="BIGINT"/>
 		</createTable>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-11">
 		<createTable tableName="T_BOOKING">
-			<column name="BOOKING_ID" type="VARCHAR(255)">
+			<column name="BOOKING_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="created_by" type="VARCHAR(255)"/>
@@ -141,16 +138,16 @@
 			<column name="START_DATETIME" type="datetime">
 				<constraints nullable="false"/>
 			</column>
-			<column name="DEVIATION_RESPONSE_NOTE_ID" type="VARCHAR(255)"/>
+			<column name="DEVIATION_RESPONSE_NOTE_ID" type="CHAR(36)"/>
 			<column name="DEVIATION_RESPONSE_PERSON_ID" type="BIGINT"/>
-			<column name="DEVIATION_NOTE_ID" type="VARCHAR(255)"/>
-			<column name="INTERPRETER_DEVIATION_NOTE_ID" type="VARCHAR(255)"/>
+			<column name="DEVIATION_NOTE_ID" type="CHAR(36)"/>
+			<column name="INTERPRETER_DEVIATION_NOTE_ID" type="CHAR(36)"/>
 			<column name="BOOKING_PERSON_ID" type="BIGINT"/>
 		</createTable>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-12">
 		<createTable tableName="T_EAVROP">
-			<column name="EAVROP_ID" type="VARCHAR(255)">
+			<column name="EAVROP_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="created_by" type="VARCHAR(255)"/>
@@ -187,7 +184,7 @@
 				<constraints nullable="false"/>
 			</column>
 			<column name="BESTALLAR_PERSON_ID" type="BIGINT"/>
-			<column name="CURRENT_ASSIGNMENT_ID" type="VARCHAR(255)"/>
+			<column name="CURRENT_ASSIGNMENT_ID" type="CHAR(36)"/>
 			<column name="EAVROP_APPROVAL_ID" type="BIGINT"/>
 			<column name="EAVROP_COMP_APPROVAL_ID" type="BIGINT"/>
 			<column name="INVANARE_ID" type="BIGINT"/>
@@ -201,7 +198,7 @@
 				<constraints primaryKey="true" primaryKeyName="T_EAVROP_APPRPK"/>
 			</column>
 			<column name="APPROVAL_DATE_TIME" type="datetime"/>
-			<column name="NOTE_ID" type="VARCHAR(255)"/>
+			<column name="NOTE_ID" type="CHAR(36)"/>
 			<column name="PERSON_ID" type="BIGINT"/>
 		</createTable>
 	</changeSet>
@@ -212,7 +209,7 @@
 			</column>
 			<column name="APPROVED" type="VARCHAR(255)"/>
 			<column name="COMPENSATION_DATE_TIME" type="datetime"/>
-			<column name="NOTE_ID" type="VARCHAR(255)"/>
+			<column name="NOTE_ID" type="CHAR(36)"/>
 			<column name="PERSON_ID" type="BIGINT"/>
 		</createTable>
 	</changeSet>
@@ -321,7 +318,7 @@
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-19">
 		<createTable tableName="T_NOTE">
-			<column name="NOTE_ID" type="VARCHAR(255)">
+			<column name="NOTE_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="created_by" type="VARCHAR(255)"/>
@@ -329,8 +326,8 @@
 			<column name="last_modified_by" type="VARCHAR(255)"/>
 			<column name="last_modified_date" type="datetime"/>
 			<column name="version" type="BIGINT"/>
-			<column name="TYPE" type="VARCHAR(255)"/>
-			<column name="TEXT" type="VARCHAR(255)"/>
+			<column name="TYPE" type="VARCHAR(40)"/>
+			<column name="TEXT" type="CLOB"/>
 			<column name="PERSON_ID" type="BIGINT"/>
 		</createTable>
 	</changeSet>
@@ -386,7 +383,7 @@
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-24">
 		<createTable tableName="T_REC_DOCUMENT">
-			<column name="DOCUMENT_ID" type="VARCHAR(255)">
+			<column name="DOCUMENT_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="DOCUMENT_DATETIME" type="datetime">
@@ -401,7 +398,7 @@
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-25">
 		<createTable tableName="T_REQ_DOCUMENT">
-			<column name="DOCUMENT_ID" type="VARCHAR(255)">
+			<column name="DOCUMENT_ID" type="CHAR(36)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="DOCUMENT_DATETIME" type="datetime">
@@ -411,7 +408,7 @@
 				<constraints nullable="false"/>
 			</column>
 			<column name="PERSON_ID" type="BIGINT"/>
-			<column name="REQUEST_NOTE_ID" type="VARCHAR(255)"/>
+			<column name="REQUEST_NOTE_ID" type="CHAR(36)"/>
 		</createTable>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-26">
