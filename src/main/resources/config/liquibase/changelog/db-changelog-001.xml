@@ -108,6 +108,7 @@
 				<constraints nullable="false"/>
 			</column>
 			<column name="ASSIGN_PERSON_ID" type="BIGINT"/>
+			<column name="REJECTION_NOTE_ID" type="VARCHAR(255)"/>
 			<column name="RESPOND_PERSON_ID" type="BIGINT"/>
 			<column name="vardgivarenhet_VARDGIVARENHET_ID" type="BIGINT"/>
 		</createTable>
@@ -700,21 +701,24 @@
 		<addForeignKeyConstraint baseColumnNames="EAVROP_ID" baseTableName="R_EAVROP_BOOKING" constraintName="FK_qgu8xxijjypnhtn6f6d9rmcdr" deferrable="false" initiallyDeferred="false" referencedColumnNames="EAVROP_ID" referencedTableName="T_EAVROP"/>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-103">
-		<addForeignKeyConstraint baseColumnNames="DEVIATION_NOTE_ID" baseTableName="T_BOOKING" constraintName="FK_r1s7m9qr4soerp2eqn56opcua" deferrable="false" initiallyDeferred="false" referencedColumnNames="NOTE_ID" referencedTableName="T_NOTE"/>
+		<addForeignKeyConstraint baseColumnNames="REJECTION_NOTE_ID" baseTableName="T_ASSIGNMENT" constraintName="FK_qww2mt3tslvsoqfqinyf98q80" deferrable="false" initiallyDeferred="false" referencedColumnNames="NOTE_ID" referencedTableName="T_NOTE"/>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-104">
-		<addForeignKeyConstraint baseColumnNames="EAVROP_COMP_APPROVAL_ID" baseTableName="T_EAVROP" constraintName="FK_r76inwxr19cn9tlagiqfdkf87" deferrable="false" initiallyDeferred="false" referencedColumnNames="ID" referencedTableName="T_EAVROP_COMP_APPROVAL"/>
+		<addForeignKeyConstraint baseColumnNames="DEVIATION_NOTE_ID" baseTableName="T_BOOKING" constraintName="FK_r1s7m9qr4soerp2eqn56opcua" deferrable="false" initiallyDeferred="false" referencedColumnNames="NOTE_ID" referencedTableName="T_NOTE"/>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-105">
-		<addForeignKeyConstraint baseColumnNames="NOTE_ID" baseTableName="R_EAVROP_NOTE" constraintName="FK_s5bgxwdujk80rj6c1453cp225" deferrable="false" initiallyDeferred="false" referencedColumnNames="NOTE_ID" referencedTableName="T_NOTE"/>
+		<addForeignKeyConstraint baseColumnNames="EAVROP_COMP_APPROVAL_ID" baseTableName="T_EAVROP" constraintName="FK_r76inwxr19cn9tlagiqfdkf87" deferrable="false" initiallyDeferred="false" referencedColumnNames="ID" referencedTableName="T_EAVROP_COMP_APPROVAL"/>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-106">
-		<addForeignKeyConstraint baseColumnNames="PERSON_ID" baseTableName="T_INTYG_INFORMATION" constraintName="FK_s6w7m7nm7mt1dmdcrr4ko48gl" deferrable="false" initiallyDeferred="false" referencedColumnNames="PERSON_ID" referencedTableName="T_PERSON"/>
+		<addForeignKeyConstraint baseColumnNames="NOTE_ID" baseTableName="R_EAVROP_NOTE" constraintName="FK_s5bgxwdujk80rj6c1453cp225" deferrable="false" initiallyDeferred="false" referencedColumnNames="NOTE_ID" referencedTableName="T_NOTE"/>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-107">
-		<addForeignKeyConstraint baseColumnNames="ASSIGN_PERSON_ID" baseTableName="T_ASSIGNMENT" constraintName="FK_skn9q8upfbheyug97rotomu8x" deferrable="false" initiallyDeferred="false" referencedColumnNames="PERSON_ID" referencedTableName="T_PERSON"/>
+		<addForeignKeyConstraint baseColumnNames="PERSON_ID" baseTableName="T_INTYG_INFORMATION" constraintName="FK_s6w7m7nm7mt1dmdcrr4ko48gl" deferrable="false" initiallyDeferred="false" referencedColumnNames="PERSON_ID" referencedTableName="T_PERSON"/>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-108">
+		<addForeignKeyConstraint baseColumnNames="ASSIGN_PERSON_ID" baseTableName="T_ASSIGNMENT" constraintName="FK_skn9q8upfbheyug97rotomu8x" deferrable="false" initiallyDeferred="false" referencedColumnNames="PERSON_ID" referencedTableName="T_PERSON"/>
+	</changeSet>
+	<changeSet author="richjo (generated)" id="001-109">
 		<addForeignKeyConstraint baseColumnNames="DEVIATION_RESPONSE_PERSON_ID" baseTableName="T_BOOKING" constraintName="FK_slpdct9cyw40qec1p8se5d7kk" deferrable="false" initiallyDeferred="false" referencedColumnNames="PERSON_ID" referencedTableName="T_PERSON"/>
 	</changeSet>
 </databaseChangeLog>
