@@ -30,7 +30,8 @@ import java.util.Map;
 @SuppressWarnings("all")
 @Configuration
 @AutoConfigureAfter(CacheConfiguration.class)
-@ImportResource({"classpath:/security/securityContext.xml", "classpath:/restErrorHandler/errorHandlingContext.xml"})
+//@ImportResource({"classpath:/security/securityContext.xml", "classpath:/restErrorHandler/errorHandlingContext.xml"})
+@ImportResource({"classpath:/restErrorHandler/errorHandlingContext.xml"})
 public class WebConfigurer implements ServletContextInitializer {
 
     private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);

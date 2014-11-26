@@ -26,7 +26,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformWsdlLocations(true);
         return new ServletRegistrationBean(servlet, "/ws/*");
-    }
+    }*/
 
     @Bean(name = "eavrop-ws")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema eavropSchema) {
@@ -41,5 +41,5 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     @Bean
     public XsdSchema eavropSchema() {
         return new SimpleXsdSchema(new ClassPathResource("ws/eavrop.xsd"));
-    }*/
+    }
 }
