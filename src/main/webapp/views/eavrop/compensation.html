@@ -1,96 +1,29 @@
 <div ng-cloak class="container-fluid">
-    <div class="row">
-        <div class="col-md-10">
-            <h1>Underlag för ersättning</h1>
+    <div class="col-md-12">
+        <h1>Underlag för ersättning</h1>
 
-            <h2>Ärende</h2>
-            <div class="fmu-table-k">
-                <table>
-                    <tr>
-                        <td>Ärende-ID</td>
-                        <td>Typ</td>
-                        <td>Utredningen genomfördes på, antal dagar</td>
-                        <td>Antal dagar efter komplettering</td>
-                        <td>Antal avvikelser</td>
-                        <td>Vårdleverantör, organisation</td>
-                        <td>Vårdleverantör, namn</td>
-                        <td>Godkänd för ersättning</td>
-                    </tr>
-                    <tr>
-                        <td>{{currentEavrop.arendeId}}</td>
-                        <td>{{currentEavrop.type}}</td>
-                        <td>{{currentEavrop.arendeId}}</td>
-                        <td>{{currentEavrop.arendeId}}</td>
-                        <td>{{currentEavrop.arendeId}}</td>
-                        <td>{{currentEavrop.arendeId}}</td>
-                        <td>{{currentEavrop.arendeId}}</td>
-                        <td>{{currentEavrop.arendeId}}</td>
-                    </tr>
-                </table>
-            </div>
-            <h2>Specifikation - avvikelser</h2>
-            <div class="fmu-table-k">
-                <table>
-                    <tr>
-                        <td>Avvikelse</td>
-                        <td>Ersättningsbar avvikelse?</td>
-                        <td>Godkänd avvikelse?</td>
-                        <td>Timmar (för tolk/läkare)</td>
-                    </tr>
-                    <tr>
-                        <td>Tolk</td>
-                        <td>Ja</td>
-                        <td>Nej</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>Avbokning, patient, innan 48 timmar</td>
-                        <td>Ja</td>
-                        <td>Ja</td>
-                    </tr>
-                    <tr>
-                        <td>Avbokning, patient, inom 48 timmar</td>
-                        <td>Ja</td>
-                        <td>Ja</td>
-                    </tr>
-                    <tr>
-                        <td>Avbokning, patient, inom 48 timmar</td>
-                        <td>Nej</td>
-                        <td>Ja</td>
-                    </tr>
-                    <tr>
-                        <td>Patient uteblev</td>
-                        <td>Ja</td>
-                        <td>Ja</td>
-                    </tr>
-                    <tr>
-                        <td>Inställt besök (av utförare)</td>
-                        <td>Ja</td>
-                        <td>Ja</td>
-                        <td>1,5</td>
-                    </tr>
-                    <tr>
-                        <td>Sen komplettering av intyg</td>
-                        <td>Ja</td>
-                        <td>Ja</td>
-                    </tr>
+        <!--Eavrop Test fmu68-->
+        <h2>Ärende</h2>
+        <fmu-simple-table
+                header-fields="arendeHeaderFields"
+                access-data-callback="getArendeTableCellValue"
+                show-all-rows="true">
+        </fmu-simple-table>
 
-                </table>
-            </div>
+        <h2>Specifikation - avvikelser</h2>
+        <fmu-simple-table
+                header-fields="specificationHeaderFields"
+                access-data-callback="getArendeTableCellValue"
+                show-all-rows="true">
+        </fmu-simple-table>
+
+        <div ng-show="tillaggtjanstHeaderFields">
             <h2>Tillägstjänster</h2>
-            <div class="fmu-table-k">
-                <table>
-                    <tr>
-                        <td>Tillägstjänst</td>
-                        <td>Timmar</td>
-                    </tr>
-                    <tr>
-                        <td>Psykolog</td>
-                        <td>2</td>
-                    </tr>
-                </table>
-            </div>
+            <fmu-simple-table
+                    header-fields="tillaggtjanstHeaderFields"
+                    access-data-callback="getArendeTableCellValue"
+                    show-all-rows="true">
+            </fmu-simple-table>
         </div>
     </div>
-
 </div>

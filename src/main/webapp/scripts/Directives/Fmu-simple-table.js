@@ -1,23 +1,25 @@
 'use strict';
 angular.module('fmuClientApp')
-    .directive('fmuTable', ['ngTableParams','$state', '$filter', 'EavropService', 'EAVROP_TABLE',
-        function (ngTableParams, $state, $filter, EavropService, EAVROP_TABLE) {
+    .directive('fmuSimpleTable', ['ngTableParams',
+        function (ngTableParams) {
             return {
                 restrict: 'E',
                 scope: {
                     tableParams: '=tableParameters',
                     headerGroups: '=?',
                     headerFields: '=?',
-                    dateKey: '@',
-                    footerHints: '=?',
-                    startDate: '=?',
-                    endDate: '=?',
-                    eavropStatus: '=?',
-                    accessDataCallback: '&'
+                    accessDataCallback: '&',
+                    showAllRows: '=?',
+                    restDataCallback: '&'
+                },
+                compile: function(element, attrs){
+                    if(!attrs.showAllRows){
+                        attrs.showAllRows = false;
+                    }
                 },
                 controller: function ($scope) {
                     $scope.isSortable = function (key) {
-                        return EAVROP_TABLE.sortKeyMap.hasOwnProperty(key);
+                        return false;
                     };
                     $scope.sort = function (key) {
                         if(!$scope.isSortable(key)){
@@ -40,18 +42,16 @@ angular.module('fmuClientApp')
                                 },
                                 {
                                     getData: function ($defer, params) {
-                                        var promise = EavropService.getEavrops(
-                                            $scope.startDate ? $scope.startDate : null,
-                                            $scope.endDate ? $scope.endDate : null,
-                                            $scope.eavropStatus ? $scope.eavropStatus : null,
-                                                params.page() - 1,
-                                            params.count(),
-                                            $scope.currentSortKey ? EAVROP_TABLE.sortKeyMap [$scope.currentSortKey] : 'arendeId',
-                                            params.sorting()[$scope.currentSortKey] ? params.sorting()[$scope.currentSortKey].toUpperCase() : 'ASC'
-                                        );
+                                        var promise = $scope.getRestData();
+                                        if(promise == null){
+                                            return;
+                                        }
 
                                         promise.then(function (serverResponse) {
-                                            params.total(serverResponse.totalElements);
+                                            if($scope.showAllRows){
+                                                params.total(serverResponse.totalElements);
+                                            }
+
                                             $defer.resolve(serverResponse.eavrops);
                                         });
 
@@ -67,12 +67,12 @@ angular.module('fmuClientApp')
                         return scope.accessDataCallback() ? scope.accessDataCallback()(key, row) : row[key];
                     };
 
-                    scope.rowClicked = function (row) {
-                        $state.go('eavrop.order.contents', {eavropId: row.eavropId});
+                    scope.getRestData = function () {
+                        return scope.restDataCallback() ? scope.restDataCallback()() : null;
                     };
 
                     scope.initTableParameters();
                 },
-                templateUrl: 'views/templates/fmu-table.html'
+                templateUrl: 'views/templates/fmu-simple-table.html'
             };
         }]);

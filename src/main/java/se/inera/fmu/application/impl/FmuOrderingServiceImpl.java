@@ -69,6 +69,7 @@ import se.inera.fmu.domain.model.shared.Name;
 import se.inera.fmu.domain.model.systemparameter.Configuration;
 import se.inera.fmu.interfaces.managing.dtomapper.AllEventsDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.BestallningDTOMapper;
+import se.inera.fmu.interfaces.managing.dtomapper.CompensationDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.CompletedEavropDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.EavropDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.NoteDTOMapper;
@@ -84,6 +85,7 @@ import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.CompensationDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
@@ -134,7 +136,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 			final LandstingRepository landstingRepository, final CurrentUserService currentUser,
 			final VardgivarenhetRepository vardgivarEnhetRepository,
 			final FmuListService fmuListService, final EavropBookingService bookingService,
-			final EavropNoteService noteService, final HoSPersonalRepository hosPersonalRepository, final EavropAssignmentService eavropAssignmentService) {
+			final EavropNoteService noteService, final HoSPersonalRepository hosPersonalRepository,
+			final EavropAssignmentService eavropAssignmentService) {
 		this.eavropRepository = eavropRepository;
 		this.invanareRepository = invanareRepository;
 		this.configuration = configuration;
@@ -162,27 +165,26 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 		EavropProperties props = getEavropProperties();
 
-        Landsting landsting = landstingRepository.findByLandstingCode(aCommand.getLandstingCode());
-        if(landsting == null){
-            throw new IllegalArgumentException(String.format("Landsting with id %s does not exist", aCommand.getArendeId()));
-        }
+		Landsting landsting = landstingRepository.findByLandstingCode(aCommand.getLandstingCode());
+		if (landsting == null) {
+			throw new IllegalArgumentException(String.format("Landsting with id %s does not exist",
+					aCommand.getArendeId()));
+		}
 
-        if(eavropRepository.findByArendeId(aCommand.getArendeId()) != null){
-            throw new IllegalArgumentException(String.format("Eavrop with arendeId %s already exist", aCommand.getArendeId()));
-        }
-        
-		Eavrop eavrop = EavropBuilder.eavrop()
-                .withArendeId(aCommand.getArendeId())
+		if (eavropRepository.findByArendeId(aCommand.getArendeId()) != null) {
+			throw new IllegalArgumentException(String.format(
+					"Eavrop with arendeId %s already exist", aCommand.getArendeId()));
+		}
+
+		Eavrop eavrop = EavropBuilder.eavrop().withArendeId(aCommand.getArendeId())
 				.withUtredningType(aCommand.getUtredningType())
-                .withInvanare(aCommand.getInvanare())
-				.withLandsting(landsting)
+				.withInvanare(aCommand.getInvanare()).withLandsting(landsting)
 				.withBestallaradministrator(aCommand.getBestallaradministrator())
-                .withInterpreter(aCommand.getInterpreter())
-				.withEavropProperties(props).withDescription(aCommand.getDescription())
+				.withInterpreter(aCommand.getInterpreter()).withEavropProperties(props)
+				.withDescription(aCommand.getDescription())
 				.withUtredningFocus(aCommand.getUtredningFocus())
 				.withAdditionalInformation(aCommand.getAdditionalInformation())
-				.withPriorMedicalExamination(aCommand.getPriorMedicalExamination())
-                .build();
+				.withPriorMedicalExamination(aCommand.getPriorMedicalExamination()).build();
 
 		eavrop = eavropRepository.save(eavrop);
 
@@ -229,18 +231,20 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 			switch (state) {
 			case NOT_ACCEPTED:
-				return constructOverviewDTO(this.fmuListService
-						.findAllNotAcceptedEavropByLandstingAndDateTimeOrdered(landsting,
-								startDate, endDate, paginationSpecs), new BestallningDTOMapper());
+				return constructOverviewDTO(
+						this.fmuListService.findAllNotAcceptedEavropByLandstingAndDateTimeOrdered(
+								landsting, startDate, endDate, paginationSpecs),
+						new BestallningDTOMapper());
 			case ACCEPTED:
-				return constructOverviewDTO(this.fmuListService
-						.findAllOngoingEavropByLandstingAndDateTimeStarted(landsting,
-								startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs), 
-								new PagaendeDTOMapper());
+				return constructOverviewDTO(
+						this.fmuListService.findAllOngoingEavropByLandstingAndDateTimeStarted(
+								landsting, startDate.toLocalDate(), endDate.toLocalDate(),
+								paginationSpecs), new PagaendeDTOMapper());
 			case COMPLETED:
-				return constructOverviewDTO(this.fmuListService
-						.findAllCompletedEavropByLandstingAndDateTimeSent(landsting, startDate,
-								endDate, paginationSpecs), new CompletedEavropDTOMapper());
+				return constructOverviewDTO(
+						this.fmuListService.findAllCompletedEavropByLandstingAndDateTimeSent(
+								landsting, startDate, endDate, paginationSpecs),
+						new CompletedEavropDTOMapper());
 			default:
 				return null;
 			}
@@ -253,18 +257,20 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 			switch (state) {
 			case NOT_ACCEPTED:
-				return constructOverviewDTO(this.fmuListService
-						.findAllNotAcceptedEavropByVardgivarenhetAndDateTimeOrdered(vardgivarenhet,
-								startDate, endDate, paginationSpecs), new BestallningDTOMapper());
+				return constructOverviewDTO(
+						this.fmuListService.findAllNotAcceptedEavropByVardgivarenhetAndDateTimeOrdered(
+								vardgivarenhet, startDate, endDate, paginationSpecs),
+						new BestallningDTOMapper());
 			case ACCEPTED:
-				return constructOverviewDTO(this.fmuListService
-						.findAllOngoingEavropByVardgivarenhetAndDateTimeStarted(vardgivarenhet,
-								startDate.toLocalDate(), endDate.toLocalDate(), paginationSpecs), 
-								new PagaendeDTOMapper());
+				return constructOverviewDTO(
+						this.fmuListService.findAllOngoingEavropByVardgivarenhetAndDateTimeStarted(
+								vardgivarenhet, startDate.toLocalDate(), endDate.toLocalDate(),
+								paginationSpecs), new PagaendeDTOMapper());
 			case COMPLETED:
-				return constructOverviewDTO(this.fmuListService
-						.findAllCompletedEavropByVardgivarenhetAndDateTimeSent(vardgivarenhet,
-								startDate, endDate, paginationSpecs), new CompletedEavropDTOMapper());
+				return constructOverviewDTO(
+						this.fmuListService.findAllCompletedEavropByVardgivarenhetAndDateTimeSent(
+								vardgivarenhet, startDate, endDate, paginationSpecs),
+						new CompletedEavropDTOMapper());
 			default:
 				return null;
 			}
@@ -372,8 +378,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		User currentUser = currentUserService.getCurrentUser();
 		String name = String.format("%s %s", currentUser.getFirstName(),
 				currentUser.getMiddleAndLastName());
-		HoSPerson p = new HoSPerson(getHsaId(currentUser), name, currentUser.getActiveRole().toString(),
-				currentUser.getOrganization(), currentUser.getUnit());
+		HoSPerson p = new HoSPerson(getHsaId(currentUser), name, currentUser.getActiveRole()
+				.toString(), currentUser.getOrganization(), currentUser.getUnit());
 
 		return p;
 	}
@@ -424,9 +430,9 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		ChangeBookingStatusCommand command = new ChangeBookingStatusCommand(new EavropId(
 				changeRequestData.getEavropId()), new BookingId(changeRequestData.getBookingId()),
 				changeRequestData.getBookingStatus(), changeRequestData.getComment(),
-				getHsaId(currentUser), currentUser.getFirstName() + " " + currentUser.getMiddleAndLastName(), currentUser
-						.getActiveRole().name(), getUserOrganisation(currentUser),
-				getUserUnit(currentUser));
+				getHsaId(currentUser), currentUser.getFirstName() + " "
+						+ currentUser.getMiddleAndLastName(), currentUser.getActiveRole().name(),
+				getUserOrganisation(currentUser), getUserUnit(currentUser));
 		this.bookingService.changeBookingStatus(command);
 	}
 
@@ -436,8 +442,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		ChangeInterpreterBookingStatusCommand command = new ChangeInterpreterBookingStatusCommand(
 				new EavropId(changeRequestData.getEavropId()), new BookingId(
 						changeRequestData.getBookingId()), changeRequestData.getBookingStatus(),
-				changeRequestData.getComment(), getHsaId(currentUser), getUserName(currentUser), currentUser
-						.getActiveRole().name(), getUserOrganisation(currentUser),
+				changeRequestData.getComment(), getHsaId(currentUser), getUserName(currentUser),
+				currentUser.getActiveRole().name(), getUserOrganisation(currentUser),
 				getUserUnit(currentUser));
 		this.bookingService.changeInterpreterBookingStatus(command);
 	}
@@ -446,43 +452,43 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	public void addNote(AddNoteRequestDTO addRequest) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		AddNoteCommand command = new AddNoteCommand(new EavropId(addRequest.getEavropId()),
-				addRequest.getText(), getHsaId(currentUser), getUserName(currentUser), 
-				currentUser.getActiveRole().name().toLowerCase(), 
-				getUserOrganisation(currentUser),
+				addRequest.getText(), getHsaId(currentUser), getUserName(currentUser), currentUser
+						.getActiveRole().name().toLowerCase(), getUserOrganisation(currentUser),
 				getUserUnit(currentUser));
 		this.noteService.addNote(command);
 	}
-	
+
 	@Override
 	public void removeNote(String eavropId, String noteId) {
 		User currentUser = this.currentUserService.getCurrentUser();
-		RemoveNoteCommand command = new RemoveNoteCommand(
-				new EavropId(eavropId), 
-				new NoteId(noteId), 
-				new HsaId(currentUser.getHsaId()));
+		RemoveNoteCommand command = new RemoveNoteCommand(new EavropId(eavropId),
+				new NoteId(noteId), new HsaId(currentUser.getHsaId()));
 		this.noteService.removeNote(command);
 	}
 
 	/**
 	 * Get the HsaId of the user
-	 * @param currentUser The currently logged in user
+	 * 
+	 * @param currentUser
+	 *            The currently logged in user
 	 * @return The user's HsaId
 	 */
 	private HsaId getHsaId(User currentUser) {
-		if(!StringUtils.isBlankOrNull(currentUser.getHsaId())){
-			return  new HsaId(currentUser.getHsaId());
+		if (!StringUtils.isBlankOrNull(currentUser.getHsaId())) {
+			return new HsaId(currentUser.getHsaId());
 		}
 		return null;
 	}
 
 	/**
 	 * Get the name of the user
-	 * @param currentUser The currently logged in user
+	 * 
+	 * @param currentUser
+	 *            The currently logged in user
 	 * @return The user's name
 	 */
 	private String getUserName(User currentUser) {
-		return currentUser.getFirstName() + " "
-				+ currentUser.getMiddleAndLastName();
+		return currentUser.getFirstName() + " " + currentUser.getMiddleAndLastName();
 	}
 
 	/**
@@ -496,18 +502,19 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		String retval = null;
 		switch (user.getActiveRole()) {
 		case ROLE_SAMORDNARE:
-			Landsting landsting = this.landstingRepository
-					.findByLandstingCode(new LandstingCode(user.getLandstingCode()));
+			Landsting landsting = this.landstingRepository.findByLandstingCode(new LandstingCode(
+					user.getLandstingCode()));
 			retval = landsting.getName();
 			break;
 		case ROLE_UTREDARE:
-			Vardgivarenhet vEnhet = this.vardgivarEnhetRepository.findByHsaId(new HsaId(user.getVardenhetHsaId()));
+			Vardgivarenhet vEnhet = this.vardgivarEnhetRepository.findByHsaId(new HsaId(user
+					.getVardenhetHsaId()));
 			retval = vEnhet.getVardgivare().getName();
 			break;
 		default:
 			break;
 		}
-		
+
 		return retval;
 	}
 
@@ -524,13 +531,14 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 			retval = null;
 			break;
 		case ROLE_UTREDARE:
-			Vardgivarenhet vEnhet = this.vardgivarEnhetRepository.findByHsaId(new HsaId(user.getVardenhetHsaId()));
+			Vardgivarenhet vEnhet = this.vardgivarEnhetRepository.findByHsaId(new HsaId(user
+					.getVardenhetHsaId()));
 			retval = vEnhet.getUnitName();
 			break;
 		default:
 			break;
 		}
-		
+
 		return retval;
 	}
 
@@ -538,10 +546,11 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	public PatientDTO getPatientInfo(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		Invanare invanare = eavropForUser.getInvanare();
-		
+
 		PatientDTOMapper mapper = new PatientDTOMapper();
-		PatientDTO dto = mapper.map(eavropForUser, currentUserService.getCurrentUser().getActiveRole() == Role.ROLE_UTREDARE);
-		
+		PatientDTO dto = mapper.map(eavropForUser, currentUserService.getCurrentUser()
+				.getActiveRole() == Role.ROLE_UTREDARE);
+
 		return dto;
 	}
 
@@ -556,13 +565,13 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	public List<VardgivarenhetDTO> getVardgivarenheter(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		Landsting landsting = eavropForUser.getLandsting();
-		VardgivarenhetDTOMapper mapper = new VardgivarenhetDTOMapper(); 
+		VardgivarenhetDTOMapper mapper = new VardgivarenhetDTOMapper();
 		List<VardgivarenhetDTO> result = new ArrayList<>();
-		
-		for(Vardgivarenhet ve : landsting.getVardgivarenheter()){
+
+		for (Vardgivarenhet ve : landsting.getVardgivarenheter()) {
 			result.add(mapper.map(ve));
 		}
-		
+
 		return result;
 	}
 
@@ -571,28 +580,31 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		Vardgivarenhet ve = null;
 		User currentUser = currentUserService.getCurrentUser();
-		
-		for(Vardgivarenhet v : eavropForUser.getLandsting().getVardgivarenheter()){
-			if(v.getId().equals(veId)){
+
+		for (Vardgivarenhet v : eavropForUser.getLandsting().getVardgivarenheter()) {
+			if (v.getId().equals(veId)) {
 				ve = v;
 				break;
 			}
 		}
-		
+
 		HsaId vardgivarenhetHsaId = ve.getHsaId();
 		HsaId personHsaId = new HsaId(currentUser.getHsaId());
 		String personName = currentUser.getFirstName() + " " + currentUser.getMiddleAndLastName();
 		String personRole = currentUser.getActiveRole().toString();
 		String personOrganisation = ve.getVardgivare().getName();
 		String personUnit = currentUser.getUnit();
-		AssignEavropCommand cmd = new AssignEavropCommand(eavropForUser.getEavropId(), vardgivarenhetHsaId, personHsaId, personName, personRole, personOrganisation, personUnit);
-		
+		AssignEavropCommand cmd = new AssignEavropCommand(eavropForUser.getEavropId(),
+				vardgivarenhetHsaId, personHsaId, personName, personRole, personOrganisation,
+				personUnit);
+
 		this.eavropAssignmentService.assignEavropToVardgivarenhet(cmd);
 	}
-	
-	private Vardgivarenhet getVardgivarenhetFromUser(){
+
+	private Vardgivarenhet getVardgivarenhetFromUser() {
 		User currentUser = currentUserService.getCurrentUser();
-		return this.vardgivarEnhetRepository.findByHsaId(new HsaId(currentUser.getVardenhetHsaId()));
+		return this.vardgivarEnhetRepository
+				.findByHsaId(new HsaId(currentUser.getVardenhetHsaId()));
 	}
 
 	@Override
@@ -607,7 +619,9 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		String personRole = currentUser.getActiveRole().toString();
 		String personOrganisation = ve.getVardgivare().getName();
 		String personUnit = currentUser.getUnit();
-		AcceptEavropAssignmentCommand assignCommand = new AcceptEavropAssignmentCommand(eavropId, vardgivarenhetHsaId, personHsaId, personName, personRole, personOrganisation, personUnit);
+		AcceptEavropAssignmentCommand assignCommand = new AcceptEavropAssignmentCommand(eavropId,
+				vardgivarenhetHsaId, personHsaId, personName, personRole, personOrganisation,
+				personUnit);
 		this.eavropAssignmentService.acceptEavropAssignment(assignCommand);
 	}
 
@@ -623,8 +637,17 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		String personRole = currentUser.getActiveRole().toString();
 		String personOrganisation = ve.getVardgivare().getName();
 		String personUnit = currentUser.getUnit();
-		RejectEavropAssignmentCommand rejectCommand = new RejectEavropAssignmentCommand(eavropId, vardgivarenhetHsaId, personHsaId, personName, personRole, personOrganisation, personUnit, "");
+		RejectEavropAssignmentCommand rejectCommand = new RejectEavropAssignmentCommand(eavropId,
+				vardgivarenhetHsaId, personHsaId, personName, personRole, personOrganisation,
+				personUnit, "");
 		this.eavropAssignmentService.rejectEavropAssignment(rejectCommand);
 	}
 
+	@Override
+	public CompensationDTO getCompensations(EavropId eavropId) {
+		Eavrop eavrop = this.eavropRepository.findByEavropId(eavropId);
+		CompensationDTOMapper mapper = new CompensationDTOMapper();
+
+		return mapper.map(eavrop);
+	}
 }

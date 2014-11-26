@@ -387,6 +387,21 @@ public class ITEavropRestControllerTest {
 						.andExpect(status().isOk())
 						.andExpect(jsonPath("$", hasSize(0)));
 	}
+	
+	@Test
+	public void getCompensationsTest() throws Exception {
+		this.currentUserService.getCurrentUser().setActiveRole(
+				Role.ROLE_SAMORDNARE);
+		this.currentUserService.getCurrentUser().setLandstingCode(1);
+
+		MvcResult result = restMock
+				.perform(get("/app/rest/eavrop/16/compensations").accept(
+								MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andReturn();
+		result.getResponse().setCharacterEncoding("UTF-8");
+		log.debug(result.getResponse().getContentAsString());
+	}
 
 	public static String convertObjectToJsonBytes(Object object)
 			throws IOException {

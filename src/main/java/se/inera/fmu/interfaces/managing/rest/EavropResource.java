@@ -6,7 +6,6 @@ import javax.inject.Inject;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.joda.time.DateTime;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,18 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.FmuOrderingService;
-import se.inera.fmu.application.impl.command.ChangeBookingStatusCommand;
-import se.inera.fmu.application.impl.command.ChangeInterpreterBookingStatusCommand;
-import se.inera.fmu.application.impl.command.CreateBookingCommand;
-import se.inera.fmu.application.impl.command.RemoveNoteCommand;
 import se.inera.fmu.domain.model.eavrop.EavropId;
-import se.inera.fmu.domain.model.eavrop.booking.BookingId;
-import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
-import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.CompensationDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
@@ -45,7 +38,6 @@ import se.inera.fmu.interfaces.managing.rest.dto.OrderDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.PatientDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.ReceivedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
-import se.inera.fmu.interfaces.managing.rest.dto.TimeDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.VardgivarenhetDTO;
 import se.inera.fmu.interfaces.managing.rest.validation.ValidPageSize;
@@ -203,6 +195,12 @@ public class EavropResource {
 	public HttpStatus removeNote(@PathVariable String eavropId, @PathVariable String noteId) throws Exception {
 		this.fmuOrderingService.removeNote(eavropId, noteId);
 		return HttpStatus.OK;
+	}
+	
+
+	@RequestMapping(value = "/rest/eavrop/{id}/compensations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public CompensationDTO getCompensations(@PathVariable("id") String id) {
+		return this.fmuOrderingService.getCompensations(new EavropId(id));
 	}
 	
 }
