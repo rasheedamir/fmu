@@ -411,10 +411,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 				endTime.getMinute(), 0, 0);
 
 		CreateBookingCommand command = new CreateBookingCommand(new EavropId(
-				changeRequestDto.getEavropId()), type, sDateTime, eDateTime, getHsaId(currentUser),
+				changeRequestDto.getEavropId()), type, sDateTime, eDateTime, 
 				changeRequestDto.getPersonName(), changeRequestDto.getPersonRole(),
-				changeRequestDto.getPersonOrganisation(), // TODO Where does this info comes from ?
-				changeRequestDto.getPersonUnit(), // TODO Where does this infocomes from ?
 				changeRequestDto.getAdditionalService(), changeRequestDto.getUseInterpreter());
 
 		this.bookingService.createBooking(command);

@@ -10,6 +10,7 @@ import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropApproval;
 import se.inera.fmu.domain.model.eavrop.EavropCompensationApproval;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
+import se.inera.fmu.domain.model.eavrop.booking.BookingResource;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBooking;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
@@ -117,15 +118,15 @@ public class UtredningDTOMapper {
 			HandelseDTO dto = new HandelseDTO();
 			DateTime startDateTime = booking.getStartDateTime();
 			DateTime endDateTime = booking.getEndDateTime();
-			Person person = booking.getPerson();
+			BookingResource bookingResource = booking.getBookingResource();
 			dto.setHandelse(booking.getBookingType())
 					.setBookingId(booking.getBookingId().getId())
 					.setDateOfEvent(
 							startDateTime != null ? startDateTime.getMillis() : null)
 					.setTimeOfEvent(startDateTime != null ? startDateTime : null)
 					.setTimeOfEventEnd(endDateTime != null ? endDateTime: null)
-					.setUtredaPerson(person != null ? person.getName() : null)
-					.setRole(person != null ? person.getRole() : null);
+					.setUtredaPerson(bookingResource != null ? bookingResource.getName() : null)
+					.setRole(bookingResource != null ? bookingResource.getRole() : null);
 			;
 
 			StatusDTO tolkstatus = new StatusDTO();

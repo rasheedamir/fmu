@@ -67,10 +67,9 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 	@Override
 	public void createBooking(CreateBookingCommand aCommand){
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
-		Person hosPerson = new HoSPerson(aCommand.getPersonHsaId(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
 		
 		//Create booking
-		Booking booking = new Booking(aCommand.getBookingType(), aCommand.getBookingStartDateTime(), aCommand.getBookingEndDateTime(), aCommand.getAdditionalService(), hosPerson, aCommand.getUseInterpreter());
+		Booking booking = new Booking(aCommand.getBookingType(), aCommand.getBookingStartDateTime(), aCommand.getBookingEndDateTime(), aCommand.getAdditionalService(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getUseInterpreter());
 		//Add booking to eavrop
 		eavrop.addBooking(booking);
 
