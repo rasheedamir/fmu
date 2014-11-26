@@ -16,15 +16,19 @@ import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.DomainEventPublisher;
+import se.inera.fmu.application.EavropAssignmentService;
 import se.inera.fmu.application.EavropBookingService;
 import se.inera.fmu.application.EavropNoteService;
 import se.inera.fmu.application.FmuListService;
 import se.inera.fmu.application.FmuOrderingService;
+import se.inera.fmu.application.impl.command.AcceptEavropAssignmentCommand;
 import se.inera.fmu.application.impl.command.AddNoteCommand;
+import se.inera.fmu.application.impl.command.AssignEavropCommand;
 import se.inera.fmu.application.impl.command.ChangeBookingStatusCommand;
 import se.inera.fmu.application.impl.command.ChangeInterpreterBookingStatusCommand;
 import se.inera.fmu.application.impl.command.CreateBookingCommand;
 import se.inera.fmu.application.impl.command.CreateEavropCommand;
+import se.inera.fmu.application.impl.command.RejectEavropAssignmentCommand;
 import se.inera.fmu.application.impl.command.RemoveNoteCommand;
 import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.authentication.Role;
@@ -49,6 +53,8 @@ import se.inera.fmu.domain.model.eavrop.note.NoteId;
 import se.inera.fmu.domain.model.eavrop.note.NoteType;
 import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
+import se.inera.fmu.domain.model.hos.personal.HoSPersonal;
+import se.inera.fmu.domain.model.hos.personal.HoSPersonalRepository;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.hos.vardgivare.VardgivarenhetRepository;
 import se.inera.fmu.domain.model.landsting.Landsting;
@@ -112,6 +118,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	private final FmuListService fmuListService;
 	private final EavropBookingService bookingService;
 	private final EavropNoteService noteService;
+	private final HoSPersonalRepository hosPersonalRepository;
+	private final EavropAssignmentService eavropAssignmentService;
 
 	/**
 	 *
@@ -126,7 +134,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 			final LandstingRepository landstingRepository, final CurrentUserService currentUser,
 			final VardgivarenhetRepository vardgivarEnhetRepository,
 			final FmuListService fmuListService, final EavropBookingService bookingService,
-			final EavropNoteService noteService) {
+			final EavropNoteService noteService, final HoSPersonalRepository hosPersonalRepository, final EavropAssignmentService eavropAssignmentService) {
 		this.eavropRepository = eavropRepository;
 		this.invanareRepository = invanareRepository;
 		this.configuration = configuration;
@@ -137,6 +145,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		this.fmuListService = fmuListService;
 		this.bookingService = bookingService;
 		this.noteService = noteService;
+		this.hosPersonalRepository = hosPersonalRepository;
+		this.eavropAssignmentService = eavropAssignmentService;
 	}
 
 	/**
@@ -562,6 +572,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	public void assignVardgivarenhet(EavropId eavropId, Long veId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		Vardgivarenhet ve = null;
+		User currentUser = currentUserService.getCurrentUser();
 		
 		for(Vardgivarenhet v : eavropForUser.getLandsting().getVardgivarenheter()){
 			if(v.getId().equals(veId)){
@@ -570,20 +581,52 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 			}
 		}
 		
-		eavropForUser.assignEavropToVardgivarenhet(ve);
+		HsaId vardgivarenhetHsaId = ve.getHsaId();
+		HsaId personHsaId = new HsaId(currentUser.getHsaId());
+		String personName = currentUser.getFirstName() + " " + currentUser.getMiddleAndLastName();
+		String personRole = currentUser.getActiveRole().toString();
+		String personOrganisation = ve.getVardgivare().getName();
+		String personUnit = currentUser.getUnit();
+		AssignEavropCommand cmd = new AssignEavropCommand(eavropForUser.getEavropId(), vardgivarenhetHsaId, personHsaId, personName, personRole, personOrganisation, personUnit);
+		
+		this.eavropAssignmentService.assignEavropToVardgivarenhet(cmd);
+	}
+	
+	private Vardgivarenhet getVardgivarenhetFromUser(){
+		User currentUser = currentUserService.getCurrentUser();
+		return this.vardgivarEnhetRepository.findByHsaId(new HsaId(currentUser.getVardenhetHsaId()));
 	}
 
 	@Override
 	public void acceptRequest(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
-		eavropForUser.acceptEavropAssignment();
-		
+		User currentUser = currentUserService.getCurrentUser();
+		Vardgivarenhet ve = getVardgivarenhetFromUser();
+
+		HsaId vardgivarenhetHsaId = ve.getHsaId();
+		HsaId personHsaId = new HsaId(currentUser.getHsaId());
+		String personName = currentUser.getFirstName() + " " + currentUser.getMiddleAndLastName();
+		String personRole = currentUser.getActiveRole().toString();
+		String personOrganisation = ve.getVardgivare().getName();
+		String personUnit = currentUser.getUnit();
+		AcceptEavropAssignmentCommand assignCommand = new AcceptEavropAssignmentCommand(eavropId, vardgivarenhetHsaId, personHsaId, personName, personRole, personOrganisation, personUnit);
+		this.eavropAssignmentService.acceptEavropAssignment(assignCommand);
 	}
 
 	@Override
 	public void rejectRequest(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
-		eavropForUser.rejectEavropAssignment();
+		User currentUser = currentUserService.getCurrentUser();
+		Vardgivarenhet ve = getVardgivarenhetFromUser();
+
+		HsaId vardgivarenhetHsaId = ve.getHsaId();
+		HsaId personHsaId = new HsaId(currentUser.getHsaId());
+		String personName = currentUser.getFirstName() + " " + currentUser.getMiddleAndLastName();
+		String personRole = currentUser.getActiveRole().toString();
+		String personOrganisation = ve.getVardgivare().getName();
+		String personUnit = currentUser.getUnit();
+		RejectEavropAssignmentCommand rejectCommand = new RejectEavropAssignmentCommand(eavropId, vardgivarenhetHsaId, personHsaId, personName, personRole, personOrganisation, personUnit);
+		this.eavropAssignmentService.rejectEavropAssignment(rejectCommand);
 	}
 
 }
