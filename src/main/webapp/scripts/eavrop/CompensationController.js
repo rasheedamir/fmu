@@ -8,13 +8,14 @@ angular.module('fmuClientApp')
 
             $scope.getArendeData = function (key, data) {
                 var value = data ? data[key] : '-';
-                switch (key){
+                switch (key) {
                     case 'tolkBooked':
                     case 'isCompletedAndApproved':
                         return EAVROP_COMPENSATION.jaNejMapping[value];
                     default :
                         return value ? value : '-';
-                };
+                }
+                ;
             };
 
             $scope.getAvikelserData = function (key, data) {
@@ -23,25 +24,29 @@ angular.module('fmuClientApp')
 
             $scope.getTillaggData = function (key, data) {
                 var value = data ? data[key] : '-';
-                switch (key){
+                switch (key) {
                     case 'antalTimmar':
-                        return millisToHours(value);
+                        return millisToHHMM(value);
                     case 'tolkBooked':
                         return EAVROP_COMPENSATION.jaNejMapping[value];
                     default :
                         return value ? value : '-';
-                };
+                }
+                ;
             };
 
-            function millisToHours(milliseconds) {
-                return ((milliseconds / (1000*60*60)) % 24);
+            function millisToHHMM(milliseconds) {
+                var minutes = Math.floor(milliseconds / (1000 * 60));
+                var hours = Math.floor(milliseconds / (1000 * 60 * 60));
+                var bookingMinutes = (minutes - hours*60);
+                return (hours < 10 ? '0' + hours : hours) + ' : ' + (bookingMinutes < 10 ? '0' + bookingMinutes: bookingMinutes);
             }
 
-            var initData = function() {
+            var initData = function () {
                 return currentEavrop.$promise.then(
                     function () {
                         // Init table fields
-                        if(!$scope.arendeHeaderFields){
+                        if (!$scope.arendeHeaderFields) {
                             $scope.arendeHeaderFields = [
                                 {
                                     key: 'arendeId',
@@ -87,7 +92,7 @@ angular.module('fmuClientApp')
                             ];
                         }
 
-                        if(!$scope.specificationHeaderFields){
+                        if (!$scope.specificationHeaderFields) {
                             $scope.specificationHeaderFields = [
                                 {
                                     key: 'deviationType',
