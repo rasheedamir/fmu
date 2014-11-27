@@ -3,6 +3,8 @@ package se.inera.fmu.domain.model.person;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +18,7 @@ import org.hibernate.validator.constraints.Email;
 @Entity
 @Table(name = "T_PERSON")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="DISC", discriminatorType=DiscriminatorType.STRING, length=3)
 public abstract class Person implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

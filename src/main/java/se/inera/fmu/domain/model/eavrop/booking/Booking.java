@@ -44,7 +44,7 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	@EmbeddedId
 	private BookingId bookingId;
 
-	@Column(name = "BOOKING_TYPE", nullable = false, updatable = false)
+	@Column(name = "BOOKING_TYPE", nullable = false, updatable = false, length = 32)
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private BookingType bookingType;
@@ -70,7 +70,7 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	@Embedded
 	private BookingResource bookingResource;
 	
-	@Column(name = "BOOKING_STATUS_TYPE", nullable = false, updatable = true)
+	@Column(name = "BOOKING_STATUS_TYPE", nullable = false, updatable = true, length = 32)
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private BookingStatusType bookingStatusType;
@@ -101,8 +101,8 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 		Validate.notNull(startDateTime);
 		Validate.notNull(endDateTime);
 		Validate.isTrue(endDateTime.isAfter(startDateTime), "Start time of booking need to be before its end time");
-		Validate.notNull(name); //TODO: Change from person to String of name and String of profession instead of Person since we dont have unit and organisation from GUI  
-		Validate.notNull(role); //TODO: Change from person to String of name and String of profession instead of Person since we dont have unit and organisation from GUI  
+		Validate.notNull(name);   
+		Validate.notNull(role);   
 		this.setBookingType(type);
 		this.setStartDateTime(startDateTime);
 		this.setEndDateTime(endDateTime);
@@ -140,8 +140,8 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 		this.bookingStatusType = bookingStatusType;
 	}
 
-	public Boolean isAdditionalService() {
-		return additionalService;
+	public boolean isAdditionalService() {
+		return (additionalService!=null)?additionalService.booleanValue():Boolean.FALSE;
 	}
 
 	private void setAdditionalService(Boolean additionalService) {
@@ -175,7 +175,7 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	
 	public long getBookingDuration(){
 		if(getStartDateTime() !=null && getEndDateTime() !=null && getStartDateTime().isBefore(getEndDateTime())){
-			return getEndDateTime().getMillis() - getStartDateTime().getMillis();
+			return getEndDateTime().getMillis() - getStartDateTime().getMillis() ;
 		}
 		return 0L;
 	}

@@ -93,12 +93,12 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	private String description;
 
 	@NotNull
-	@Column(name = "STATE", nullable = false)
+	@Column(name = "STATE", nullable = false, length = 16)
 	@Convert(converter = EavropStateConverter.class)
 	private EavropState eavropState; 
 
 	// Type of utredning. An utredning can be one of tree types
-	@Column(name = "UTREDNING_TYPE", nullable = false, updatable = false)
+	@Column(name = "UTREDNING_TYPE", nullable = false, updatable = false, length = 8)
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private UtredningType utredningType;
@@ -128,7 +128,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 
 	// Maps the current assignment of the eavrop
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "CURRENT_ASSIGNMENT_ID")
+	@JoinColumn(name = "CURRENT_ASSIGNMENT_ID", unique= true, nullable=true)
 	private EavropAssignment currentAssignment;
 
 	//The main character of the Eavrop

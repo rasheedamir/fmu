@@ -51,7 +51,7 @@ public class EavropAssignment extends AbstractBaseEntity implements
 	@OneToOne 
 	private Vardgivarenhet vardgivarenhet;
 	
-    @Column(name = "STATUS", nullable = false)
+    @Column(name = "STATUS", nullable = false, length = 8)
     @Enumerated(EnumType.STRING)
     @NotNull
     private EavropAssignmentStatusType assignmentStatus;
@@ -154,7 +154,7 @@ public class EavropAssignment extends AbstractBaseEntity implements
 			this.setRespondingPerson(rejectingPerson);
 			this.setRejectionNote(createRejectionNote(rejectingPerson, rejectionComment));
 		}else{
-			throw new IllegalArgumentException(String.format("Cannot accept assignment with id: %s that is in state: %s ", this.getId().toString(), this.getAssignmentStatus().toString()));
+			throw new IllegalArgumentException(String.format("Cannot reject assignment with id: %s that is in state: %s ", this.getId().toString(), this.getAssignmentStatus().toString()));
 			//TODO: throw something
 		}
 	}

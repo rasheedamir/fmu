@@ -33,6 +33,7 @@ public final class BookingResource implements ValueObject<BookingResource>, Seri
 
     public BookingResource(final String name, final String role) {
         this.setName(name);
+        this.setRole(role);
     }
 
     //~ Property Methods ===============================================================================================

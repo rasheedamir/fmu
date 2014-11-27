@@ -1,5 +1,6 @@
 package se.inera.fmu.domain.model.person;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import lombok.ToString;
@@ -8,6 +9,7 @@ import org.apache.commons.lang.Validate;
 
 @Entity
 @ToString
+@DiscriminatorValue("ADM")
 public class Bestallaradministrator extends Person {
     
 
