@@ -33,7 +33,7 @@ angular.module('fmuClientApp')
                         $scope.handelseEndTime = new Date();
                         $scope.handelseEndTime.setMinutes(0);
                         $scope.createBookingErrors = [];
-                        $scope.tillaggRadio = false;
+                        $scope.tillaggRadio = {value: false};
                         $scope.tolkRadio = false;
 
                         $scope.handelseTypes = [
@@ -63,7 +63,7 @@ angular.module('fmuClientApp')
                                     hour: $scope.handelseStartTime.getHours(),
                                     minute: $scope.handelseStartTime.getMinutes()
                                 },
-                                additionalService: $scope.tillaggRadio,
+                                additionalService: $scope.tillaggRadio.value,
                                 bookingEndTime: {
                                     hour: $scope.handelseEndTime.getHours(),
                                     minute: $scope.handelseEndTime.getMinutes()
@@ -76,6 +76,7 @@ angular.module('fmuClientApp')
 
                         $scope.saveHandelse = function () {
                             var dataPackage = constructBookingObject();
+                            console.log(dataPackage);
                             var promise = UtredningService.createBooking(dataPackage);
                             promise.then(function () {
                                 modal.close();

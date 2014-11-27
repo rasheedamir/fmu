@@ -50,14 +50,14 @@
         </div>
 
         <div ng-if="isAFU()">
-            <label>Tilläggstjänst</label>
+            <label>Tilläggstjänst : {{tillaggRadio}}</label>
             <div class="radio">
                 <label>
-                    <input ng-model="tillaggRadio" type="radio" ng-value="true"> Ja
+                    <input ng-model="tillaggRadio.value" type="radio" ng-value="true"> Ja
                 </label>
 
                 <label>
-                    <input ng-model="tillaggRadio" type="radio" ng-value="false"> Nej
+                    <input ng-model="tillaggRadio.value" type="radio" ng-value="false"> Nej
                 </label>
             </div>
         </div>
