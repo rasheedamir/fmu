@@ -13,7 +13,7 @@ angular.module('fmuClientApp')
                     case 'isCompletedAndApproved':
                         return EAVROP_COMPENSATION.jaNejMapping[value];
                     default :
-                        return value;
+                        return value ? value : '-';
                 };
             };
 

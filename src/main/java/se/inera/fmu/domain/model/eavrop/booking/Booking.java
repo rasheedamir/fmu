@@ -30,7 +30,6 @@ import se.inera.fmu.domain.model.eavrop.InterpreterBookingEventDTO;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBooking;
 import se.inera.fmu.domain.model.eavrop.note.Note;
-import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
 
@@ -176,7 +175,7 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	
 	public long getBookingDuration(){
 		if(getStartDateTime() !=null && getEndDateTime() !=null && getStartDateTime().isBefore(getEndDateTime())){
-			return getStartDateTime().getMillis() - getEndDateTime().getMillis();
+			return getEndDateTime().getMillis() - getStartDateTime().getMillis();
 		}
 		return 0L;
 	}

@@ -38,7 +38,7 @@ public class CompensationDTOMapper {
 		ArrayList<AdditionalServicesDTO> tillaggs = new ArrayList<AdditionalServicesDTO>();
 		for (Booking booking : tillaggTjanster) {
 			AdditionalServicesDTO data = new AdditionalServicesDTO();
-			data.setName(booking.getBookingType());
+			data.setName(booking.getBookingResource() != null ? booking.getBookingResource().getRole() : null);
 			data.setAntalTimmar(booking.getBookingDuration());
 			data.setTolkBooked(booking.hasInterpreterBooking());
 			tillaggs.add(data);

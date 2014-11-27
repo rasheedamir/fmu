@@ -76,7 +76,6 @@ angular.module('fmuClientApp')
 
                         $scope.saveHandelse = function () {
                             var dataPackage = constructBookingObject();
-                            console.log(dataPackage);
                             var promise = UtredningService.createBooking(dataPackage);
                             promise.then(function () {
                                 modal.close();

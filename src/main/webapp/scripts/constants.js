@@ -56,7 +56,7 @@ angular.module('fmuClientApp')
             EAVROP_APPROVED: 'Utredningen godkänts',
             EAVROP_COMPENSATION_APPROVED: 'Utredningens godkänts för utbetalning',
             UNKNOWN: 'Okänt handelse',
-            EXAMINATION: 'Examination',
+            EXAMINATION: 'Besök',
             BREIFING_WITH_CITIZEN: 'Möte med patient',
             INTERNAL_WORK: 'Internt arbete'
         },

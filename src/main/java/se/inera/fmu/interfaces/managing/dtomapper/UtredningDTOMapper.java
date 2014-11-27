@@ -127,7 +127,6 @@ public class UtredningDTOMapper {
 					.setTimeOfEventEnd(endDateTime != null ? endDateTime: null)
 					.setUtredaPerson(bookingResource != null ? bookingResource.getName() : null)
 					.setRole(bookingResource != null ? bookingResource.getRole() : null);
-			;
 
 			StatusDTO tolkstatus = new StatusDTO();
 			StatusDTO handelseStatus = new StatusDTO();
