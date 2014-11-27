@@ -37,7 +37,7 @@ angular.module('fmuClientApp')
                         $scope.tolkRadio = false;
 
                         $scope.handelseTypes = [
-                            {type: UTREDNING.editableEvents.examination, name: 'Undersökning'},
+                            {type: UTREDNING.editableEvents.examination, name: 'Besök'},
                             {type: UTREDNING.editableEvents.briefing, name: 'Genomgång med patient'},
                             {type: UTREDNING.editableEvents.internalWork, name: 'Internt arbete'}
                         ];

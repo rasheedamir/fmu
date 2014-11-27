@@ -22,8 +22,20 @@ angular.module('fmuClientApp')
             };
 
             $scope.getTillaggData = function (key, data) {
-                return data ? data[key] : '-';
+                var value = data ? data[key] : '-';
+                switch (key){
+                    case 'antalTimmar':
+                        return millisToHours(value);
+                    case 'tolkBooked':
+                        return EAVROP_COMPENSATION.jaNejMapping[value];
+                    default :
+                        return value ? value : '-';
+                };
             };
+
+            function millisToHours(milliseconds) {
+                return ((milliseconds / (1000*60*60)) % 24);
+            }
 
             var initData = function() {
                 return currentEavrop.$promise.then(
