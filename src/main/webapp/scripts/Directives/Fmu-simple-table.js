@@ -10,19 +10,15 @@ angular.module('fmuClientApp')
                     headerFields: '=?',
                     accessDataCallback: '&',
                     showAllRows: '=?',
-                    restDataCallback: '&'
-                },
-                compile: function(element, attrs){
-                    if(!attrs.showAllRows){
-                        attrs.showAllRows = false;
-                    }
+                    tabularData: '='
                 },
                 controller: function ($scope) {
                     $scope.isSortable = function (key) {
                         return false;
                     };
+
                     $scope.sort = function (key) {
-                        if(!$scope.isSortable(key)){
+                        if (!$scope.isSortable(key)) {
                             return;
                         }
 
@@ -42,19 +38,8 @@ angular.module('fmuClientApp')
                                 },
                                 {
                                     getData: function ($defer, params) {
-                                        var promise = $scope.getRestData();
-                                        if(promise == null){
-                                            return;
-                                        }
-
-                                        promise.then(function (serverResponse) {
-                                            if($scope.showAllRows){
-                                                params.total(serverResponse.totalElements);
-                                            }
-
-                                            $defer.resolve(serverResponse.eavrops);
-                                        });
-
+                                        console.log($scope.tabularData);
+                                        $defer.resolve($scope.tabularData);
                                     },
                                     $scope: $scope
                                 });
@@ -64,12 +49,8 @@ angular.module('fmuClientApp')
                 },
                 link: function (scope) {
                     scope.getValue = function (key, row) {
-                        return scope.accessDataCallback() ? scope.accessDataCallback()(key, row) : row[key];
-                    };
-
-                    scope.getRestData = function () {
-                        return scope.restDataCallback() ? scope.restDataCallback()() : null;
-                    };
+                     return scope.accessDataCallback() ? scope.accessDataCallback()(key, row) : row[key];
+                     };
 
                     scope.initTableParameters();
                 },

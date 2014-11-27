@@ -42,6 +42,16 @@ angular.module('fmuClientApp').factory('EavropService', ['$q', '$http', 'RestUrl
                         // Failed to retrieve data
                         return $q.reject(err.data);
                     });
+            },
+            getCompensation: function (eavropId) {
+                return $http.get(RestUrlBuilderService.buildCompensationRestUrl(eavropId))
+                    .then(function(data) {
+                        // Success
+                        return data.data;
+                    }, function(err) {
+                        // Failed to retrieve data
+                        return $q.reject(err.data);
+                    });
             }
         };
 

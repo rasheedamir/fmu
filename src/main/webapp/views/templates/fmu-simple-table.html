@@ -21,9 +21,9 @@
         </thead>
 
         <tbody>
-        <tr ng-repeat="row in tableParams.data" ng-class="row.color" ng-click="rowClicked(row)">
+        <tr ng-repeat="row in tabularData" ng-class="row.color" ng-click="rowClicked(row)">
             <td ng-repeat="column in headerFields"
-                sortable="{{column.key}}" class="text-capitalize">
+                sortable="{{column.key}}">
                 <span ng-bind="getValue(column.key, row)"></span>
             </td>
         </tr>

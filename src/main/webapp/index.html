@@ -57,18 +57,6 @@
 <!-- Add your site or application content here -->
 <div ui-view></div>
 
-
-<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
- (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
- m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
- })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-XXXXX-X');
-ga('send', 'pageview');
-</script>
-
 <!-- build:js scripts/oldieshim.js -->
 <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -107,20 +95,20 @@ ga('send', 'pageview');
 <script src="scripts/authentication/AuthService.js"></script>
 <script src="scripts/authentication/RestrictedDirective.js"></script>
 <script src="scripts/authentication/FakeRoleCtrl.js"></script>
-<script src="scripts/overview/CompletedController.js"></script>
-<script src="scripts/overview/OngoingController.js"></script>
-<script src="scripts/overview/OrderController.js"></script>
 <script src="scripts/constants.js"></script>
 <script src="scripts/overview/EavropService.js"></script>
 <script src="scripts/overview/RestUrlBuilderService.js"></script>
 <script src="scripts/eavrop/UtredningService.js"></script>
-<script src="scripts/eavrop/UtredningController.js"></script>
-<script src="scripts/eavrop/CompensationController.js"></script>
 <script src="scripts/Directives/Fmu-utredning-table.js"></script>
 <script src="scripts/Directives/Fmu-datepicker.js"></script>
 <script src="scripts/Directives/Fmu-table.js"></script>
 <script src="scripts/Directives/Fmu-simple-table.js"></script>
 <script src="scripts/Directives/FMU-errorField.js"></script>
+<script src="scripts/eavrop/UtredningController.js"></script>
+<script src="scripts/eavrop/CompensationController.js"></script>
+<script src="scripts/overview/CompletedController.js"></script>
+<script src="scripts/overview/OngoingController.js"></script>
+<script src="scripts/overview/OrderController.js"></script>
 <!-- endbuild -->
 </body>
 </html>

@@ -241,10 +241,8 @@ public class ITEavropRestControllerTest {
 		booking.setBookingStartTime(new TimeDTO().setHour(12).setMinute(30));
 		booking.setBookingEndTime(new TimeDTO().setHour(13).setMinute(30));
 		booking.setPersonName("Åsa Andersson");
-		booking.setPersonOrganisation("Karolinska Sjukhuset");
 		booking.setAdditionalService(true);
 		booking.setPersonRole("Läkare");
-		booking.setPersonUnit("Unit 3");
 		booking.setUseInterpreter(true);
 
 		restMock.perform(
@@ -278,9 +276,7 @@ public class ITEavropRestControllerTest {
 		booking.setBookingEndTime(new TimeDTO().setHour(13).setMinute(30));
 		booking.setPersonName("Åsa Andersson");
 		booking.setAdditionalService(true);
-		booking.setPersonOrganisation("Karolinska Sjukhuset");
 		booking.setPersonRole("Läkare");
-		booking.setPersonUnit("Unit 3");
 		booking.setUseInterpreter(true);
 
 		restMock.perform(

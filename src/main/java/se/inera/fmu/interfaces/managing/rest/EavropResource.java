@@ -196,7 +196,6 @@ public class EavropResource {
 		this.fmuOrderingService.removeNote(eavropId, noteId);
 		return HttpStatus.OK;
 	}
-	
 
 	@RequestMapping(value = "/rest/eavrop/{id}/compensations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public CompensationDTO getCompensations(@PathVariable("id") String id) {

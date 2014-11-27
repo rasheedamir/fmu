@@ -1,84 +1,120 @@
 'use strict';
 
 angular.module('fmuClientApp')
-    .controller('CompensationController', ['$scope', '$filter', 'AuthService', 'currentEavrop',
-        function ($scope, $filter, AuthService, currentEavrop) {
+    .controller('CompensationController', ['$scope', '$filter', 'AuthService', 'currentEavrop', 'EavropService', 'EAVROP_COMPENSATION',
+        function ($scope, $filter, AuthService, currentEavrop, EavropService, EAVROP_COMPENSATION) {
             $scope.authService = AuthService;
             $scope.currentEavrop = currentEavrop;
-            function initFields() {
-                currentEavrop.$promise.then(function () {
-                    $scope.arendeHeaderFields = [
-                        {
-                            key: 'arendeId',
-                            name: 'Ärende-ID'
-                        },
-                        {
-                            key: 'utredningType',
-                            name: 'Typ'
-                        },
-                        {
-                            key: 'vardenhet',
-                            name: 'Utförare, organisation'
-                        },
-                        {
-                            key: 'utredareName',
-                            name: 'Utförare, namn'
-                        },
-                        {
-                            key: 'utredningType',
-                            name: 'Tolk anlitad?'
-                        },
-                        {
-                            key: 'bestallareOrganisation',
-                            name: 'Utredningen genomfördes på, antal dagar'
-                        },
-                        {
-                            key: 'bestallareEnhet',
-                            name: 'Antal dagar efter komplettering'
-                        },
-                        {
-                            key: 'bestallareEnhet',
-                            name: 'Antal avikelser'
-                        },
-                        {
-                            key: 'bestallareEnhet',
-                            name: 'Antal utredningsstarter'
-                        },
-                        {
-                            key: 'utredareOrganisation',
-                            name: 'Utredning är komplett och godkänd?'
+
+            $scope.getArendeData = function (key, data) {
+                var value = data ? data[key] : '-';
+                switch (key){
+                    case 'tolkBooked':
+                    case 'isCompletedAndApproved':
+                        return EAVROP_COMPENSATION.jaNejMapping[value];
+                    default :
+                        return value;
+                };
+            };
+
+            $scope.getAvikelserData = function (key, data) {
+                return data ? EAVROP_COMPENSATION.statusMapping[data[key]] : '-';
+            };
+
+            $scope.getTillaggData = function (key, data) {
+                return data ? data[key] : '-';
+            };
+
+            var initData = function() {
+                return currentEavrop.$promise.then(
+                    function () {
+                        // Init table fields
+                        if(!$scope.arendeHeaderFields){
+                            $scope.arendeHeaderFields = [
+                                {
+                                    key: 'arendeId',
+                                    name: 'Ärende-ID'
+                                },
+                                {
+                                    key: 'utredningType',
+                                    name: 'Typ'
+                                },
+                                {
+                                    key: 'utforareOrganisation',
+                                    name: 'Utförare, organisation'
+                                },
+                                {
+                                    key: 'utforareNamn',
+                                    name: 'Utförare, namn'
+                                },
+                                {
+                                    key: 'tolkBooked',
+                                    name: 'Tolk anlitad?'
+                                },
+                                {
+                                    key: 'utredningDuration',
+                                    name: 'Utredningen genomfördes på, antal dagar'
+                                },
+                                {
+                                    key: 'nrDaysAfterCompletetion',
+                                    name: 'Antal dagar efter komplettering'
+                                },
+                                {
+                                    key: 'nrAvikelser',
+                                    name: 'Antal avikelser'
+                                },
+                                {
+                                    key: 'nrUtredningstarts',
+                                    name: 'Antal utredningsstarter'
+                                },
+                                {
+                                    key: 'isCompletedAndApproved',
+                                    name: 'Utredning är komplett och godkänd?'
+                                }
+
+                            ];
                         }
 
-                    ];
+                        if(!$scope.specificationHeaderFields){
+                            $scope.specificationHeaderFields = [
+                                {
+                                    key: 'deviationType',
+                                    name: 'Avvikelse'
+                                }
 
-                    $scope.specificationHeaderFields = [
-                        {
-                            key: 'arendeId',
-                            name: 'Avvikelse'
+                            ];
                         }
 
-                    ];
+                        if (!$scope.tillaggtjanstHeaderFields && currentEavrop.utredningType == 'AFU') {
+                            $scope.tillaggtjanstHeaderFields = [
+                                {
+                                    key: 'name',
+                                    name: 'Tillägstjänst'
+                                },
+                                {
+                                    key: 'antalTimmar',
+                                    name: 'Timmar'
+                                },
+                                {
+                                    key: 'tolkBooked',
+                                    name: 'Tolk'
+                                }
+                            ];
+                        }
 
-                    if(currentEavrop.utredningType == 'AFU'){
-                        $scope.tillaggtjanstHeaderFields = [
-                            {
-                                key: 'arendeId',
-                                name: 'Tillägstjänst'
-                            },
-                            {
-                                key: 'utredningType',
-                                name: 'Timmar'
-                            },
-                            {
-                                key: 'utredningType',
-                                name: 'Tolk'
-                            }
-                        ];
+                        return currentEavrop.eavropId;
                     }
+                );
+            }, fetchRestData = function (eavropId) {
+                return EavropService.getCompensation(eavropId).then(function (serverData) {
+                    $scope.tableData = [serverData];
+                    $scope.specifications = serverData.avikelser;
+                    $scope.tillaggTjanster = serverData.tillaggTjanster;
+                    return serverData;
                 });
-            }
+            };
 
-            initFields();
+            initData().then(fetchRestData);
         }
-    ])
-;
+
+    ]);

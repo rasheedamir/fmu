@@ -70,8 +70,6 @@ angular.module('fmuClientApp')
                                 },
                                 personName: $scope.personName,
                                 personRole: $scope.choosenRole ? $scope.choosenRole.name : null,
-                                personOrganisation: 'Implement this',
-                                personUnit: 'Implement this',
                                 useInterpreter: $scope.tolkRadio
                             };
                         }

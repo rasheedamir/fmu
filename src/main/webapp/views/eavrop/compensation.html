@@ -5,23 +5,29 @@
         <!--Eavrop Test fmu68-->
         <h2>Ärende</h2>
         <fmu-simple-table
+                table-parameters="tableParameters"
                 header-fields="arendeHeaderFields"
-                access-data-callback="getArendeTableCellValue"
+                access-data-callback="getArendeData"
+                tabular-data="tableData"
                 show-all-rows="true">
         </fmu-simple-table>
 
         <h2>Specifikation - avvikelser</h2>
         <fmu-simple-table
+                table-parameters="tableParameters"
                 header-fields="specificationHeaderFields"
-                access-data-callback="getArendeTableCellValue"
+                access-data-callback="getAvikelserData"
+                tabular-data="specifications"
                 show-all-rows="true">
         </fmu-simple-table>
 
         <div ng-show="tillaggtjanstHeaderFields">
             <h2>Tillägstjänster</h2>
             <fmu-simple-table
+                    table-parameters="tableParameters"
                     header-fields="tillaggtjanstHeaderFields"
-                    access-data-callback="getArendeTableCellValue"
+                    access-data-callback="getTillaggData"
+                    tabular-data="tillaggTjanster"
                     show-all-rows="true">
             </fmu-simple-table>
         </div>

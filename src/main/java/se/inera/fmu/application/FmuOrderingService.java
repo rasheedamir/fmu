@@ -14,7 +14,6 @@ import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.CompensationDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
-import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.NoteDTO;
