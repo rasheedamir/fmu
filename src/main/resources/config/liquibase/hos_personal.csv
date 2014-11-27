@@ -1,2 +1,2 @@
-DTYPE;HOSPERSONAL_ID;created_by;created_date;last_modified_by;last_modified_date;version;BEFATTNINGSKOD;BEFATTNINGSBESKRIVNING;HSA_ID;FIRST_NAME;LAST_NAME;MIDDLE_NAME;VARDGIVARENHET_ID;LANDSTING_ID
-Landstingssamordnare;1;system;2014-11-20;null;null;1;1;asasdasd;IFV1239877878-104B;Asa;Andersson;null;null;1
+DISC;HOSPERSONAL_ID;created_by;created_date;last_modified_by;last_modified_date;version;BEFATTNINGSKOD;BEFATTNINGSBESKRIVNING;HSA_ID;FIRST_NAME;LAST_NAME;MIDDLE_NAME;VARDGIVARENHET_ID;LANDSTING_ID
+HOS;1;system;2014-11-20;null;null;1;1;asasdasd;IFV1239877878-104B;Asa;Andersson;null;null;1

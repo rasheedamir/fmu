@@ -10,7 +10,7 @@ angular.module('fmuClientApp')
                     headerFields: '=',
                     footerHints: '=?',
                     eavropid: '=',
-                    getDataCallback: '&',
+                    accessDataCallback: '&',
                     rowModifiable: '=?'
                 },
                 controller: function ($scope) {
@@ -112,7 +112,7 @@ angular.module('fmuClientApp')
                 },
                 link: function (scope) {
                     scope.getValue = function (key, row) {
-                        return scope.getDataCallback() ? scope.getDataCallback()(key, row) : row[key];
+                        return scope.accessDataCallback() ? scope.accessDataCallback()(key, row) : row[key];
                     };
 
                     scope.initTableParameters();

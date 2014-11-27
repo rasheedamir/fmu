@@ -24,7 +24,7 @@ import se.inera.fmu.domain.model.person.Person;
 @ToString
 public class BookingDeviationResponse {
 	
-	@Column(name = "DEVIATION_RESPONSE_TYPE")
+	@Column(name = "DEVIATION_RESPONSE_TYPE", length = 8)
     @Enumerated(EnumType.STRING)
     @NotNull
     private BookingDeviationResponseType responseType;

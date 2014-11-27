@@ -33,11 +33,11 @@ angular.module('fmuClientApp')
                         $scope.handelseEndTime = new Date();
                         $scope.handelseEndTime.setMinutes(0);
                         $scope.createBookingErrors = [];
-                        $scope.tillaggRadio = false;
+                        $scope.tillaggRadio = {value: false};
                         $scope.tolkRadio = false;
 
                         $scope.handelseTypes = [
-                            {type: UTREDNING.editableEvents.examination, name: 'Undersökning'},
+                            {type: UTREDNING.editableEvents.examination, name: 'Besök'},
                             {type: UTREDNING.editableEvents.briefing, name: 'Genomgång med patient'},
                             {type: UTREDNING.editableEvents.internalWork, name: 'Internt arbete'}
                         ];
@@ -63,15 +63,13 @@ angular.module('fmuClientApp')
                                     hour: $scope.handelseStartTime.getHours(),
                                     minute: $scope.handelseStartTime.getMinutes()
                                 },
-                                additionalService: $scope.tillaggRadio,
+                                additionalService: $scope.tillaggRadio.value,
                                 bookingEndTime: {
                                     hour: $scope.handelseEndTime.getHours(),
                                     minute: $scope.handelseEndTime.getMinutes()
                                 },
                                 personName: $scope.personName,
                                 personRole: $scope.choosenRole ? $scope.choosenRole.name : null,
-                                personOrganisation: 'Implement this',
-                                personUnit: 'Implement this',
                                 useInterpreter: $scope.tolkRadio
                             };
                         }

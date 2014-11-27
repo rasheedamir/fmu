@@ -30,7 +30,6 @@ import se.inera.fmu.domain.model.eavrop.InterpreterBookingEventDTO;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBooking;
 import se.inera.fmu.domain.model.eavrop.note.Note;
-import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
 
@@ -45,7 +44,7 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	@EmbeddedId
 	private BookingId bookingId;
 
-	@Column(name = "BOOKING_TYPE", nullable = false, updatable = false)
+	@Column(name = "BOOKING_TYPE", nullable = false, updatable = false, length = 32)
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private BookingType bookingType;
@@ -63,12 +62,15 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	@Column(name = "ADDITIONAL_SERVICE", nullable = false, updatable = false)
 	@Convert(converter=BooleanToStringConverter.class)
 	private Boolean additionalService;
+//	
+//	@OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name="BOOKING_PERSON_ID")
+//	private Person person;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="BOOKING_PERSON_ID")
-	private Person person;
-
-	@Column(name = "BOOKING_STATUS_TYPE", nullable = false, updatable = true)
+	@Embedded
+	private BookingResource bookingResource;
+	
+	@Column(name = "BOOKING_STATUS_TYPE", nullable = false, updatable = true, length = 32)
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private BookingStatusType bookingStatusType;
@@ -92,19 +94,20 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 
 	public Booking(BookingType type, DateTime startDateTime,
 			DateTime endDateTime, boolean additionalService, 
-			Person person, boolean useInterpreter) {
+			String name, String role, boolean useInterpreter) {
 		this.setBookingId(new BookingId(UUID.randomUUID().toString()));
 		this.setBookingStatus(BookingStatusType.BOOKED);
 		Validate.notNull(type);
 		Validate.notNull(startDateTime);
 		Validate.notNull(endDateTime);
 		Validate.isTrue(endDateTime.isAfter(startDateTime), "Start time of booking need to be before its end time");
-		Validate.notNull(person); //TODO: Change from person to String of name and String of profession instead of Person since we dont have unit and organisation from GUI  
+		Validate.notNull(name);   
+		Validate.notNull(role);   
 		this.setBookingType(type);
 		this.setStartDateTime(startDateTime);
 		this.setEndDateTime(endDateTime);
 		this.setAdditionalService(additionalService);
-		this.setPerson(person);
+		this.setBookingResource(new BookingResource(name, role));
 		if (useInterpreter) {
 			this.setInterpreterBooking(new InterpreterBooking());
 		}
@@ -137,8 +140,8 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 		this.bookingStatusType = bookingStatusType;
 	}
 
-	public Boolean isAdditionalService() {
-		return additionalService;
+	public boolean isAdditionalService() {
+		return (additionalService!=null)?additionalService.booleanValue():Boolean.FALSE;
 	}
 
 	private void setAdditionalService(Boolean additionalService) {
@@ -172,17 +175,17 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	
 	public long getBookingDuration(){
 		if(getStartDateTime() !=null && getEndDateTime() !=null && getStartDateTime().isBefore(getEndDateTime())){
-			return getStartDateTime().getMillis() - getEndDateTime().getMillis();
+			return getEndDateTime().getMillis() - getStartDateTime().getMillis() ;
 		}
 		return 0L;
 	}
 
-	public Person getPerson() {
-		return this.person;
+	public BookingResource getBookingResource() {
+		return this.bookingResource;
 	}
 
-	private void setPerson(Person person) {
-		this.person = person;
+	private void setBookingResource(BookingResource bookingResource) {
+		this.bookingResource = bookingResource;
 	}
 
 
@@ -231,8 +234,8 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 		List<BookingStatusType> validBookingStatuses =  BookingStatusType.getValidBookingStatuses(utredningType, getBookingType());
 		InterpreterBookingEventDTO interpreterBookingEventDTO = (getInterpreterBooking()!=null)?getInterpreterBooking().getAsInterpreterBookingEventDTO():null; 
 		
-		return (this.getPerson()!=null)?
-			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType, comment, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit(),validBookingStatuses,interpreterBookingEventDTO):
+		return (this.getBookingResource()!=null)?
+			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType, comment, getBookingResource().getName(), getBookingResource().getRole(), null, null,validBookingStatuses,interpreterBookingEventDTO):
 			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType, comment, null, null, null, null,validBookingStatuses,interpreterBookingEventDTO);
 	}
 	

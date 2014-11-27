@@ -47,7 +47,7 @@ public class Invanare extends AbstractBaseEntity implements IEntity<Invanare> {
     @Embedded
     private Name name;
 
-    @Column(name = "GENDER", nullable = false)
+    @Column(name = "GENDER", nullable = false, length = 40)
     @Enumerated(EnumType.STRING)
     @NotNull
     private Gender gender;

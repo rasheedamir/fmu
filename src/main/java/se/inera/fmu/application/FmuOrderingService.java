@@ -12,7 +12,7 @@ import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
-import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
+import se.inera.fmu.interfaces.managing.rest.dto.CompensationDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.HandelseDTO;
@@ -75,5 +75,7 @@ public interface FmuOrderingService {
 	public void acceptRequest(EavropId eavropId);
 
 	public void rejectRequest(EavropId eavropId);
+
+	public CompensationDTO getCompensations(EavropId eavropId);
 
 }

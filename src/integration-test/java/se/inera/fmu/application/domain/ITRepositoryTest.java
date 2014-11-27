@@ -219,7 +219,7 @@ public class ITRepositoryTest {
         assertEquals(1, eavrop.getBookings().size());
 
         for (Booking booking : eavrop.getBookings()) {
-        	assertNotNull(booking.getPerson());
+        	assertNotNull(booking.getBookingResource());
         	assertEquals(Boolean.TRUE, booking.getBookingStatus().isDeviant());
         	assertNull(booking.getBookingDeviationResponse());
     	}
@@ -231,7 +231,7 @@ public class ITRepositoryTest {
         assertEquals(EavropStateType.ACCEPTED, eavrop.getEavropState().getEavropStateType());
 
         for (Booking booking : eavrop.getBookings()) {
-        	assertNotNull(booking.getPerson());
+        	assertNotNull(booking.getBookingResource());
         	assertEquals(Boolean.TRUE, booking.getBookingStatus().isDeviant());
         	assertNotNull(booking.getBookingDeviationResponse());
     	}
@@ -360,7 +360,7 @@ public class ITRepositoryTest {
         	assertEquals(1, e.getBookings().size());
 
         	for (Booking booking : e.getBookings()) {
-        		assertNotNull(booking.getPerson());
+        		assertNotNull(booking.getBookingResource());
     		}
 		}
     }
@@ -892,13 +892,13 @@ public class ITRepositoryTest {
     	//Booking booking =  createBooking();
     	Person person = new HoSPerson(null,"","","","");
     	
-    	Booking booking = new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime().plusHours(1), Boolean.FALSE, person, Boolean.FALSE);
-    	assertNotNull(booking.getPerson());
+    	Booking booking = new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime().plusHours(1), Boolean.FALSE, person.getName(), person.getRole(), Boolean.FALSE);
+    	assertNotNull(booking.getBookingResource());
     	
     	eavrop.addBooking(booking);
     	
     	for (Booking b : eavrop.getBookings()) {
-    		assertNotNull(b.getPerson());
+    		assertNotNull(b.getBookingResource());
 		}
     	
     	eavrop.setBookingStatus(booking.getBookingId(), BookingStatusType.CANCELLED_LT_48_H, createNote());
@@ -995,7 +995,7 @@ public class ITRepositoryTest {
     	DateTime start = new DateTime();
     	DateTime end = start.plusHours(1);
     	Person person = new HoSPerson(new HsaId("SE160000000000-HAHAHHSBB"), "Dr Hudson", "Surgeon", "Danderyds sjukhus", "AVD fmu");
-    	Booking booking = new Booking(BookingType.EXAMINATION, start,end, Boolean.FALSE, person, Boolean.FALSE);
+    	Booking booking = new Booking(BookingType.EXAMINATION, start,end, Boolean.FALSE, person.getName(), person.getRole(), Boolean.FALSE);
 
     	return booking;
     }

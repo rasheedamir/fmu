@@ -20,6 +20,7 @@ public class EavropEventDTO implements Comparable<EavropEventDTO>{
     private List<BookingStatusType> validBookingStatuses;
     private InterpreterBookingEventDTO interpreterBookingEventDTO;
     
+    //TODO: Remove DTO?
     
 	public EavropEventDTO(EavropEventDTOType eventType, DateTime eventTime, BookingStatusType eventStatus, String comment, String personName,
 			String personRole, String personOrganistation, String personUnit) {
@@ -71,7 +72,7 @@ public class EavropEventDTO implements Comparable<EavropEventDTO>{
 	public String getPersonRole() {
 		return personRole;
 	}
-
+	
 	public String getPersonOrganistation() {
 		return personOrganistation;
 	}

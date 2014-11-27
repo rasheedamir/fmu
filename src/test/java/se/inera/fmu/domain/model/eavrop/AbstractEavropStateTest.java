@@ -231,7 +231,7 @@ public abstract class AbstractEavropStateTest {
 		//persons.add(createPerson());
 		DateTime now = DateTime.now();
 		DateTime to = now.plusHours(1);
-		return new Booking(BookingType.EXAMINATION, now, to, Boolean.FALSE, createHoSPerson(), Boolean.FALSE);
+		return new Booking(BookingType.EXAMINATION, now, to, Boolean.FALSE, createHoSPerson().getName(), createHoSPerson().getRole(), Boolean.FALSE);
 	}
 	
 	protected ReceivedDocument createReceivedDocument(){

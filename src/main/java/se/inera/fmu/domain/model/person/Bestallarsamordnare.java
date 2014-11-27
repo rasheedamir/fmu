@@ -1,11 +1,13 @@
 package se.inera.fmu.domain.model.person;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import lombok.ToString;
 
 @Entity
 @ToString
+@DiscriminatorValue("SAM")
 public class Bestallarsamordnare extends Person {
 	
 	Bestallarsamordnare() {

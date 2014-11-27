@@ -198,7 +198,8 @@ angular.module('fmuClientApp', [
     })
     .state('eavrop.compensation', {
         url: '/compensation',
-        templateUrl: 'views/eavrop/compensation.html'
+        templateUrl: 'views/eavrop/compensation.html',
+        controller: 'CompensationController'
     })
     .state('eavrop.investigation', {
         url: '/investigation',
