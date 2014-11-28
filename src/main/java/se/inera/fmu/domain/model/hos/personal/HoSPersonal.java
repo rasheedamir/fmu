@@ -1,6 +1,9 @@
 package se.inera.fmu.domain.model.hos.personal;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,6 +31,8 @@ import se.inera.fmu.domain.shared.IEntity;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="DISC", discriminatorType=DiscriminatorType.STRING, length=4)
+@DiscriminatorValue("HOS")
 @Table(name = "T_HOSPERSONAL",  uniqueConstraints=@UniqueConstraint(columnNames="HSA_ID"))
 @ToString
 public class HoSPersonal extends AbstractBaseEntity implements IEntity<HoSPersonal> {

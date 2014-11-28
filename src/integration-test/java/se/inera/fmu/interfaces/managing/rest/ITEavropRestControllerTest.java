@@ -241,10 +241,8 @@ public class ITEavropRestControllerTest {
 		booking.setBookingStartTime(new TimeDTO().setHour(12).setMinute(30));
 		booking.setBookingEndTime(new TimeDTO().setHour(13).setMinute(30));
 		booking.setPersonName("Åsa Andersson");
-		booking.setPersonOrganisation("Karolinska Sjukhuset");
 		booking.setAdditionalService(true);
 		booking.setPersonRole("Läkare");
-		booking.setPersonUnit("Unit 3");
 		booking.setUseInterpreter(true);
 
 		restMock.perform(
@@ -278,9 +276,7 @@ public class ITEavropRestControllerTest {
 		booking.setBookingEndTime(new TimeDTO().setHour(13).setMinute(30));
 		booking.setPersonName("Åsa Andersson");
 		booking.setAdditionalService(true);
-		booking.setPersonOrganisation("Karolinska Sjukhuset");
 		booking.setPersonRole("Läkare");
-		booking.setPersonUnit("Unit 3");
 		booking.setUseInterpreter(true);
 
 		restMock.perform(
@@ -386,6 +382,21 @@ public class ITEavropRestControllerTest {
 				.contentType(MediaType.APPLICATION_JSON))
 						.andExpect(status().isOk())
 						.andExpect(jsonPath("$", hasSize(0)));
+	}
+	
+	@Test
+	public void getCompensationsTest() throws Exception {
+		this.currentUserService.getCurrentUser().setActiveRole(
+				Role.ROLE_SAMORDNARE);
+		this.currentUserService.getCurrentUser().setLandstingCode(1);
+
+		MvcResult result = restMock
+				.perform(get("/app/rest/eavrop/16/compensations").accept(
+								MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andReturn();
+		result.getResponse().setCharacterEncoding("UTF-8");
+		log.debug(result.getResponse().getContentAsString());
 	}
 
 	public static String convertObjectToJsonBytes(Object object)

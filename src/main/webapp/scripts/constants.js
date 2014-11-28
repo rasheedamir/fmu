@@ -56,7 +56,7 @@ angular.module('fmuClientApp')
             EAVROP_APPROVED: 'Utredningen godkänts',
             EAVROP_COMPENSATION_APPROVED: 'Utredningens godkänts för utbetalning',
             UNKNOWN: 'Okänt handelse',
-            EXAMINATION: 'Examination',
+            EXAMINATION: 'Besök',
             BREIFING_WITH_CITIZEN: 'Möte med patient',
             INTERNAL_WORK: 'Internt arbete'
         },
@@ -94,6 +94,25 @@ angular.module('fmuClientApp')
         notAccepted: 'NOT_ACCEPTED',
         accepted: 'ACCEPTED',
         completed: 'COMPLETED'
+    })
+    .constant('EAVROP_COMPENSATION', {
+        statusMapping: {
+            CANCELLED_NOT_PRESENT: 'Patient uteblev',
+            CANCELLED_BY_CAREGIVER: 'Besök avbokat av utförare',
+            CANCELLED_LT_48_H: 'Besök avbokat <48h',
+            CANCELLED_GT_48_H: 'Besök avbokat >48h',
+            CANCELLED_LT_96_H: 'Besök avbokat <96h',
+            CANCELLED_GT_96_H: 'Besök avbokat >96h',
+            INTERPRETER_NOT_PRESENT: 'Tolk uteblev',
+            INTYG_COMPLEMENT_RESPONSE_DEVIATION: 'Antal dagar för komplettering har överskridits',
+            EAVROP_ASSIGNMENT_ACCEPT_DEVIATION: 'Antal dagar för acceptans av förfrågan om utredning har överskridits',
+            EAVROP_ASSESSMENT_LENGHT_DEVIATION: 'Antal dagar för utredning har överskridits',
+            UNKNOWN: 'Ops detta ska inte hända'
+        },
+        jaNejMapping: {
+            true: 'Ja',
+            false: 'Nej'
+        }
     })
     .constant('EAVROP_NOTES', {
         cannotAdd: 'Anteckningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda',

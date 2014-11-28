@@ -13,7 +13,7 @@ angular.module('fmuClientApp')
                     startDate: '=?',
                     endDate: '=?',
                     eavropStatus: '=?',
-                    getDataCallback: '&'
+                    accessDataCallback: '&'
                 },
                 controller: function ($scope) {
                     $scope.isSortable = function (key) {
@@ -64,7 +64,7 @@ angular.module('fmuClientApp')
                 },
                 link: function (scope) {
                     scope.getValue = function (key, row) {
-                        return scope.getDataCallback() ? scope.getDataCallback()(key, row) : row[key];
+                        return scope.accessDataCallback() ? scope.accessDataCallback()(key, row) : row[key];
                     };
 
                     scope.rowClicked = function (row) {

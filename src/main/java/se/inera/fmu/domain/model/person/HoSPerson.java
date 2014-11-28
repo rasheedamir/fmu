@@ -2,6 +2,7 @@ package se.inera.fmu.domain.model.person;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
@@ -10,6 +11,7 @@ import se.inera.fmu.domain.model.hos.hsa.HsaId;
 
 @Entity
 @ToString
+@DiscriminatorValue("HOS")
 public class HoSPerson extends Person {
 	
 	@Embedded

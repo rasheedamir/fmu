@@ -1,6 +1,6 @@
-DTYPE;PERSON_ID;NAME;ORGANISATION;ROLE;UNIT;EMAIL;PHONE
-Bestallaradministrator;1;Håsa;Försäkrings kassan;Handläggare;Unit 1;asa@test.se;076223433
-Bestallaradministrator;2;Usa;Vårdenhet 1;Utredare;Unit 2;asa@test.se;0762033233
-Bestallaradministrator;3;Båsa;Försäkrings kassan;Beställare;Unit 3;asa@test.se;07620543333
-HoSPerson;4;Karolina M;Karolinska;Läkare;FMU enheten;null;null
-HoSPerson;5;Sam Ordnarsson;Stockholms läns landsting;Samordnare;Landsting FMU;null;null
+DISC;PERSON_ID;NAME;ORGANISATION;ROLE;UNIT;EMAIL;PHONE
+ADM;1;Håsa;Försäkrings kassan;Handläggare;Unit 1;asa@test.se;076223433
+ADM;2;Usa;Vårdenhet 1;Utredare;Unit 2;asa@test.se;0762033233
+ADM;3;Båsa;Försäkrings kassan;Beställare;Unit 3;asa@test.se;07620543333
+HOS;4;Karolina M;Karolinska;Läkare;FMU enheten;null;null
+HOS;5;Sam Ordnarsson;Stockholms läns landsting;Samordnare;Landsting FMU;null;null

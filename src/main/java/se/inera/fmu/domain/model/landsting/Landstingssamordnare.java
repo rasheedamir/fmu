@@ -1,5 +1,6 @@
 package se.inera.fmu.domain.model.landsting;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,6 +13,7 @@ import se.inera.fmu.domain.model.hos.personal.HoSPersonal;
 import se.inera.fmu.domain.model.shared.Name;
 
 @Entity
+@DiscriminatorValue("LSAM")
 public class Landstingssamordnare extends HoSPersonal {
 
 	@ManyToOne

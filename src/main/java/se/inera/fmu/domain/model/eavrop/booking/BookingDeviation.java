@@ -17,7 +17,7 @@ import se.inera.fmu.domain.model.eavrop.note.Note;
 @ToString
 public class BookingDeviation  {
 	
-	@Column(name = "DEVIATION_TYPE", nullable = true, updatable = true)
+	@Column(name = "DEVIATION_TYPE", nullable = true, updatable = true, length = 32)
     @Enumerated(EnumType.STRING)
     @NotNull
 	private BookingDeviationType deviationType;

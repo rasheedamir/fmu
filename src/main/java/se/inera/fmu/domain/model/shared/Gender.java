@@ -5,5 +5,6 @@ package se.inera.fmu.domain.model.shared;
  */
 public enum Gender {
     MALE,
-    FEMALE;
+    FEMALE,
+    UNKNOWN;
 }
