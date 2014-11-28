@@ -20,8 +20,8 @@ import org.springframework.xml.xsd.XsdSchema;
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
 
-    /*@Bean
-    public ServletRegistrationBean dispatcherServlet(ApplicationContext applicationContext) {
+    @Bean
+    public ServletRegistrationBean webServiceDispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformWsdlLocations(true);
@@ -41,5 +41,5 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     @Bean
     public XsdSchema eavropSchema() {
         return new SimpleXsdSchema(new ClassPathResource("ws/eavrop.xsd"));
-    }*/
+    }
 }
