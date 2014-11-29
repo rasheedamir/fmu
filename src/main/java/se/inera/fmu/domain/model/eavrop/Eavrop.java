@@ -151,7 +151,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	private Landsting landsting;
 
 	// The bookings made
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "R_EAVROP_BOOKING", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "BOOKING_ID"))
 	private Set<Booking> bookings;
 

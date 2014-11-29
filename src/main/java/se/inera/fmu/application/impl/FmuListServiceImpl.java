@@ -106,4 +106,16 @@ public class FmuListServiceImpl implements FmuListService {
 		return this.eavropRepository.findByVardgivarenhetAndIntygSentDateAndEavropStateIn(vardgivarenhet, fromDate, toDate,Arrays.asList(EavropState.COMPLETED_STATES), pageable);
 	}
 
+	@Override
+	@Deprecated
+	public Eavrop findByArendeIdInitialized(ArendeId arendeId) {
+		Eavrop eavrop = findByArendeId(arendeId);
+		if(eavrop != null){
+			Hibernate.initialize(eavrop.getBookings());
+			Hibernate.initialize(eavrop.getBookings().size());
+			
+		}
+		return eavrop;
+	}
+
 }

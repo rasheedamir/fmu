@@ -419,11 +419,50 @@ public class ITEavropEndpointIntegrationTest {
     	Eavrop eavrop = fmuListService.findByArendeId(arendeId);
     	assertNotEquals(eavrop, null);
     	
-    	assertEquals(eavrop.getArendeId().toString(), eavropRequest.getArendeId());
-    	assertEquals(eavrop.getAdditionalInformation().toString(), eavropRequest.getYtterligareInformation());
-    	assertEquals(eavrop.getDescription().toString(), eavropRequest.getBeskrivning());
+    	assertEquals(eavropRequest.getArendeId(), eavrop.getArendeId().toString());
+    	
+    	assertEquals(eavropRequest.getAdministrator().getNamn(), eavrop.getBestallaradministrator().getName());
+    	assertEquals(eavropRequest.getAdministrator().getBefattning(), eavrop.getBestallaradministrator().getRole());
+    	//assertEquals(eavropRequest.getAdministrator().getId(), eavrop.getBestallaradministrator().);
+    	assertEquals(eavropRequest.getAdministrator().getEnhet(), eavrop.getBestallaradministrator().getUnit());
+    	assertEquals(eavropRequest.getAdministrator().getOrganisation(), eavrop.getBestallaradministrator().getOrganisation());
+    	assertEquals(eavropRequest.getAdministrator().getTelefon(), eavrop.getBestallaradministrator().getPhone());
+    	assertEquals(eavropRequest.getAdministrator().getEpost(), eavrop.getBestallaradministrator().getEmail());
 
-    	//TODO:
+    	assertEquals(eavropRequest.getBeskrivning(), eavrop.getDescription().toString());
+
+    	assertEquals(eavropRequest.getInvanare().getNamn().getFornamn(), eavrop.getInvanare().getName().getFirstName());
+    	assertEquals(eavropRequest.getInvanare().getNamn().getMellannamn(), eavrop.getInvanare().getName().getMiddleName());
+    	assertEquals(eavropRequest.getInvanare().getNamn().getEfternamn(), eavrop.getInvanare().getName().getLastName());
+    	assertEquals(eavropRequest.getInvanare().getKon().name(), eavrop.getInvanare().getGender().name());
+    	assertEquals(eavropRequest.getInvanare().getPersonnummer(), eavrop.getInvanare().getPersonalNumber().getPersonalNumber());
+    	assertEquals(eavropRequest.getInvanare().getAdress().getPostadress(), eavrop.getInvanare().getHomeAddress().getAddress1());
+    	assertEquals(eavropRequest.getInvanare().getAdress().getPostnummer(), eavrop.getInvanare().getHomeAddress().getPostalCode());
+    	assertEquals(eavropRequest.getInvanare().getAdress().getStad(), eavrop.getInvanare().getHomeAddress().getCity());
+    	assertEquals(eavropRequest.getInvanare().getAdress().getLand(), eavrop.getInvanare().getHomeAddress().getCountry());
+    	assertEquals(eavropRequest.getInvanare().getTelefon(), eavrop.getInvanare().getPhone());
+    	assertEquals(eavropRequest.getInvanare().getEpost(), eavrop.getInvanare().getEmail());
+    	assertEquals(eavropRequest.getInvanare().getSarskildaBehov(), eavrop.getInvanare().getSpecialNeeds());
+    	
+    	assertEquals(new LandstingCode(eavropRequest.getLandstingId()), eavrop.getLandsting().getLandstingCode());
+      	
+    	assertEquals(eavropRequest.getTidigareUtredning().getUtreddVid(), eavrop.getPriorMedicalExamination().getExaminedAt());
+    	assertEquals(eavropRequest.getTidigareUtredning().getSjukskrivandeenhet(), eavrop.getPriorMedicalExamination().getMedicalLeaveIssuedAt());  	
+    	assertEquals(eavropRequest.getTidigareUtredning().getSjukskrivenAv().getNamn(), eavrop.getPriorMedicalExamination().getMedicalLeaveIssuedBy().getName());
+    	//assertEquals(eavropRequest.getTidigareUtredning().getSjukskrivenAv().getId(), eavrop.getPriorMedicalExamination().getMedicalLeaveIssuedBy().);
+    	assertEquals(eavropRequest.getTidigareUtredning().getSjukskrivenAv().getBefattning(), eavrop.getPriorMedicalExamination().getMedicalLeaveIssuedBy().getRole());
+    	assertEquals(eavropRequest.getTidigareUtredning().getSjukskrivenAv().getEnhet(), eavrop.getPriorMedicalExamination().getMedicalLeaveIssuedBy().getUnit());
+    	assertEquals(eavropRequest.getTidigareUtredning().getSjukskrivenAv().getOrganisation(), eavrop.getPriorMedicalExamination().getMedicalLeaveIssuedBy().getOrganisation());
+    	assertEquals(eavropRequest.getTidigareUtredning().getSjukskrivenAv().getTelefon(), eavrop.getPriorMedicalExamination().getMedicalLeaveIssuedBy().getPhone());
+    	assertEquals(eavropRequest.getTidigareUtredning().getSjukskrivenAv().getEpost(), eavrop.getPriorMedicalExamination().getMedicalLeaveIssuedBy().getEmail());
+
+    	assertEquals(eavropRequest.getTolkSprak(), eavrop.getIterpreterDescription());
+    	assertEquals(eavropRequest.getUtredningFokus(), eavrop.getUtredningFocus());
+    	assertEquals(eavropRequest.getUtredningType().name(), eavrop.getUtredningType().name());
+    	assertEquals(eavropRequest.getTolkSprak(), eavrop.getIterpreterDescription());
+
+    	assertEquals(eavropRequest.getYtterligareInformation(), eavrop.getAdditionalInformation().toString());
+
     	
     	
     }
@@ -498,7 +537,7 @@ public class ITEavropEndpointIntegrationTest {
     	
      	
 		eavropBookingService.createBooking(createBookingCommand);
-		eavrop = fmuListService.findByArendeId(arendeId);
+		eavrop = fmuListService.findByArendeIdInitialized(arendeId);
 		assertTrue(EavropStateType.ACCEPTED.equals(eavrop.getStatus()));
 		assertNotEquals(eavrop.getBookings(), null);
 		assertNotEquals(eavrop.getBookings().isEmpty(), true);

@@ -79,7 +79,6 @@ public class Invanare extends AbstractBaseEntity implements IEntity<Invanare> {
         this.setHomeAddress(homeAddress);
         this.setPhone(phone);
         this.setEmail(email);
-        this.setPhone(specialNeeds);
         this.setSpecialNeeds(specialNeeds);
     }
 
