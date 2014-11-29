@@ -160,7 +160,6 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	 * @return arendeId
 	 */
 	@Override
-	@Transactional
 	public ArendeId createEavrop(CreateEavropCommand aCommand) {
 
 		EavropProperties props = getEavropProperties();
