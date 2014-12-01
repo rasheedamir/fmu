@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skickatFmuIntygRequest xmlns="http://inera.ws/fmu/admin/eavrop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://inera.ws/fmu/admin/eavrop WS-4.xsd">
+	<arendeId>${ARENDE_ID}</arendeId>
+	<intygSkickatDateTime>${DATE_TIME}</intygSkickatDateTime>
+	<intygSkickatAv>
+		<namn>Sven Duva</namn>
+		<hsaId>SE2222223333-BBBB</hsaId>
+		<befattning>Läkare</befattning>
+		<enhet>Fmu enheten</enhet>
+		<organisation>Karolinska universitetssjukhuset</organisation>
+		<telefon>08-1131331</telefon>
+		<epost>sven.duva@ks.se</epost>
+	</intygSkickatAv>
+</skickatFmuIntygRequest>

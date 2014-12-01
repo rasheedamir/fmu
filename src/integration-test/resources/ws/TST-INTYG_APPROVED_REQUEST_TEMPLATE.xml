@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<accepteratFmuIntygRequest xmlns="http://inera.ws/fmu/admin/eavrop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://inera.ws/fmu/admin/eavrop WS-4.xsd">
+	<arendeId>${ARENDE_ID}</arendeId>
+	<intygAccepteratDateTime>${DATE_TIME}</intygAccepteratDateTime>
+	<intygAccepteratAv>
+		<namn>Hans Hansson</namn>
+		<id>1234567</id>
+		<befattning>Handläggare</befattning>
+		<enhet>LFC Stockholm city</enhet>
+		<organisation>Försäkringskassan</organisation>
+		<telefon>555-131313</telefon>
+		<epost>hans.hansson@fk.se</epost>
+	</intygAccepteratAv>
+</accepteratFmuIntygRequest>
+

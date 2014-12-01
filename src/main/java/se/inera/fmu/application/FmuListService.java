@@ -40,6 +40,15 @@ public interface FmuListService {
     public Eavrop findByArendeId(ArendeId arendeId);
 
 
+	/**
+	 * Finds a Eavrop entity by its ArendeId  
+	 * 
+	 * * @param arendeId
+	 * */
+    @Deprecated
+    public Eavrop findByArendeIdInitialized(ArendeId arendeId);
+
+    
     /**
 	 *  Finds all, by a care giver, not accepted Eavrop connected to a Landsting 
 	 *  i.e. Eavrop that are in state UNASSIGNED and ASSIGNED and that have been created/ordered in the specified timespan

@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import javax.inject.Inject;
 
+import org.hibernate.Hibernate;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
@@ -58,7 +59,11 @@ public class FmuListServiceImpl implements FmuListService {
     
     @Override
     public Landsting findLandstingByLandstingCode(LandstingCode landstingCode){
-    	return this.landstingRepository.findByLandstingCode(landstingCode);
+    	Landsting landsting = landstingRepository.findByLandstingCode(landstingCode);
+    	
+    	Hibernate.initialize(landsting.getVardgivarenheter());
+    	
+    	return landsting;
     }
 
     @Override
@@ -99,6 +104,18 @@ public class FmuListServiceImpl implements FmuListService {
 	@Override
 	public Page<Eavrop> findAllCompletedEavropByVardgivarenhetAndDateTimeSent(Vardgivarenhet vardgivarenhet, DateTime fromDate, DateTime toDate, Pageable pageable) {
 		return this.eavropRepository.findByVardgivarenhetAndIntygSentDateAndEavropStateIn(vardgivarenhet, fromDate, toDate,Arrays.asList(EavropState.COMPLETED_STATES), pageable);
+	}
+
+	@Override
+	@Deprecated
+	public Eavrop findByArendeIdInitialized(ArendeId arendeId) {
+		Eavrop eavrop = findByArendeId(arendeId);
+		if(eavrop != null){
+			Hibernate.initialize(eavrop.getBookings());
+			Hibernate.initialize(eavrop.getBookings().size());
+			
+		}
+		return eavrop;
 	}
 
 }

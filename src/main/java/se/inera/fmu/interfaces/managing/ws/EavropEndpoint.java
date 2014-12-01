@@ -522,13 +522,27 @@ public class EavropEndpoint {
      * @return
      */
     private PriorMedicalExamination createPriorMedicalExamination(SkapaFmuEavropRequest request) {
-        String examinedAt = request.getTidigareUtredning().getUtreddVid();
-        String medicalLeaveIssuedAt = request.getTidigareUtredning().getSjukskrivandeenhet();
-        HoSPerson medicalLeaveIssuedBy = new HoSPerson(null, request.getTidigareUtredning().getSjukskrivenAv().getNamn(),
-                request.getTidigareUtredning().getSjukskrivenAv().getBefattning(),
-                request.getTidigareUtredning().getSjukskrivenAv().getOrganisation(),
-                request.getTidigareUtredning().getSjukskrivenAv().getEnhet());
-        return new PriorMedicalExamination(examinedAt, medicalLeaveIssuedAt, medicalLeaveIssuedBy);
+        if(request.getTidigareUtredning()!=null){
+        	
+	        String examinedAt = request.getTidigareUtredning().getUtreddVid();
+	        String medicalLeaveIssuedAt = request.getTidigareUtredning().getSjukskrivandeenhet();
+	        HoSPerson medicalLeaveIssuedBy = null;
+	        if(request.getTidigareUtredning().getSjukskrivenAv()!=null){
+	            HsaId hsaId = (isBlankOrNull(request.getTidigareUtredning().getSjukskrivenAv().getId()))?null: new HsaId(request.getTidigareUtredning().getSjukskrivenAv().getId());
+	            
+	            medicalLeaveIssuedBy = new HoSPerson(hsaId, 
+	            		request.getTidigareUtredning().getSjukskrivenAv().getNamn(),
+	                    request.getTidigareUtredning().getSjukskrivenAv().getBefattning(),
+	                    request.getTidigareUtredning().getSjukskrivenAv().getOrganisation(),
+	                    request.getTidigareUtredning().getSjukskrivenAv().getEnhet(),
+	                    request.getTidigareUtredning().getSjukskrivenAv().getTelefon(),
+	                    request.getTidigareUtredning().getSjukskrivenAv().getEpost());
+	        	
+	        }
+	        
+	        return new PriorMedicalExamination(examinedAt, medicalLeaveIssuedAt, medicalLeaveIssuedBy);
+        }
+    	return null;
     }
 
     //handlingarSkickade or initialDocumentsSent
