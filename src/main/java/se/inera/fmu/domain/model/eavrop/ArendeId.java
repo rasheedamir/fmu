@@ -17,7 +17,6 @@ import se.inera.fmu.domain.shared.ValueObject;
  * A key that uniquely identifies a particular Eavrop between Inera & FK Systems.
  *
  */
-@ToString
 @Embeddable
 public final class ArendeId implements ValueObject<ArendeId> {
 
