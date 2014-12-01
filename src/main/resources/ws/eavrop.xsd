@@ -1,4 +1,5 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://inera.ws/fmu/admin/eavrop" targetNamespace="http://inera.ws/fmu/admin/eavrop" elementFormDefault="qualified">
+
 	<!-- -->
 	<xs:element name="skapaFmuEavropRequest">
 		<xs:complexType>
@@ -17,16 +18,16 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<!-- -->
-	<xs:element name="fmuResponse">
+	<xs:element name="skapaFmuEavropResponse">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="arendeId" type="tns:arendeId"/>
-				<xs:element name="statusCode" type="tns:statusCode"/>
-				<xs:element name="errorMessage" type="tns:errorMessage" minOccurs="0"/>
+				<xs:element name="fmuResponse" type="tns:fmuResponse"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+    <!-- -->
+
+    <!-- -->
 	<xs:element name="skickatFmuHandlingarRequest">
 		<xs:complexType>
 			<xs:sequence>
@@ -37,6 +38,15 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+    <xs:element name="skickatFmuHandlingarResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- -->
+
 	<!-- -->
 	<xs:element name="begarKompletteringFmuHandlingRequest">
 		<xs:complexType>
@@ -48,6 +58,15 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+    <xs:element name="begarKompletteringFmuHandlingResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- -->
+
 	<!-- -->
 	<xs:element name="svarBokningsavvikelseRequest">
 		<xs:complexType>
@@ -60,6 +79,15 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+    <xs:element name="svarBokningsavvikelseResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- -->
+
 	<!-- -->
 	<xs:element name="skickatFmuIntygRequest">
 		<xs:complexType>
@@ -70,6 +98,15 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+    <xs:element name="skickatFmuIntygResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- -->
+
 	<!-- -->
 	<xs:element name="begartFmuIntygKompletteringRequest">
 		<xs:complexType>
@@ -80,6 +117,15 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+    <xs:element name="begartFmuIntygKompletteringResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- -->
+
 	<!-- Ta bort, samma som skickatFmuIntygRequest -->
 	<xs:element name="skickatFmuIntygKompletteringRequest">
 		<xs:complexType>
@@ -90,6 +136,15 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+    <xs:element name="skickatFmuIntygKompletteringResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- -->
+
 	<!-- -->
 	<xs:element name="accepteratFmuIntygRequest">
 		<xs:complexType>
@@ -100,6 +155,15 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+    <xs:element name="accepteratFmuIntygResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- -->
+
 	<!-- -->
 	<xs:element name="accepteratFmuUtredningRequest">
 		<xs:complexType>
@@ -111,6 +175,15 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+    <xs:element name="accepteratFmuUtredningResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- -->
+
 	<!-- -->
 	<xs:element name="godkannandeErsattningFmuUtredningRequest">
 		<xs:complexType>
@@ -123,7 +196,22 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+    <xs:element name="godkannandeErsattningFmuUtredningResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 	<!-- -->
+
+    <xs:complexType name="fmuResponse">
+        <xs:sequence>
+            <xs:element name="arendeId" type="tns:arendeId"/>
+            <xs:element name="statusCode" type="tns:statusCode"/>
+            <xs:element name="errorMessage" type="tns:errorMessage" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 	<xs:complexType name="adress">
 		<xs:sequence>
 			<xs:element name="postadress" type="xs:string"/>
