@@ -41,17 +41,8 @@ import se.inera.fmu.domain.model.person.HoSPerson;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
-import ws.inera.fmu.admin.eavrop.AccepteratFmuIntygRequest;
-import ws.inera.fmu.admin.eavrop.AccepteratFmuUtredningRequest;
-import ws.inera.fmu.admin.eavrop.BegartFmuIntygKompletteringRequest;
-import ws.inera.fmu.admin.eavrop.FmuResponse;
-import ws.inera.fmu.admin.eavrop.GodkannandeErsattningFmuUtredningRequest;
-import ws.inera.fmu.admin.eavrop.Person;
-import ws.inera.fmu.admin.eavrop.SkapaFmuEavropRequest;
-import ws.inera.fmu.admin.eavrop.SkickatFmuHandlingarRequest;
-import ws.inera.fmu.admin.eavrop.SkickatFmuIntygRequest;
-import ws.inera.fmu.admin.eavrop.StatusCode;
-import ws.inera.fmu.admin.eavrop.SvarBokningsavvikelseRequest;
+import ws.inera.fmu.admin.eavrop.*;
+
 import static se.inera.fmu.application.util.StringUtils.isBlankOrNull;
 
 /**
@@ -74,12 +65,18 @@ public class EavropEndpoint {
     private EavropIntygService eavropIntygService;
     @Inject
     private EavropApprovalService eavropApprovalService;
-    
+
+    /**
+     *
+     * @param request
+     * @return
+     */
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "skapaFmuEavropRequest")
     @ResponsePayload
-    public FmuResponse createEavrop(@RequestPayload SkapaFmuEavropRequest request) {
+    public SkapaFmuEavropResponse createEavrop(@RequestPayload SkapaFmuEavropRequest request) {
 
         FmuResponse fmuResponse = new FmuResponse();
+        SkapaFmuEavropResponse skapaFmuEavropResponse = new SkapaFmuEavropResponse();
 
         try {
             CreateEavropCommand aCommand = mapSkapaFmuEavropRequestToCreateEavropCommand(request);
@@ -98,13 +95,22 @@ public class EavropEndpoint {
             fmuResponse.setErrorMessage(exception.toString());
         }
 
-        return fmuResponse;
+        skapaFmuEavropResponse.setFmuResponse(fmuResponse);
+
+        return skapaFmuEavropResponse;
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "skickatFmuHandlingarRequest")
     @ResponsePayload
-    public FmuResponse documentsSent(@RequestPayload SkickatFmuHandlingarRequest request) {
+    public SkickatFmuHandlingarResponse documentsSent(@RequestPayload SkickatFmuHandlingarRequest request) {
+
         FmuResponse fmuResponse = new FmuResponse();
+        SkickatFmuHandlingarResponse skickatFmuHandlingarResponse = new SkickatFmuHandlingarResponse();
 
         try {
         	AddReceivedExternalDocumentsCommand aCommand = mapSkickatFmuHandlingarRequestToAddReceivedExternalDocumentCommand(request);
@@ -123,13 +129,22 @@ public class EavropEndpoint {
             fmuResponse.setErrorMessage(exception.toString());
         }
 
-        return fmuResponse;
+        skickatFmuHandlingarResponse.setFmuResponse(fmuResponse);
+
+        return skickatFmuHandlingarResponse;
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "svarBokningsavvikelseRequest")
     @ResponsePayload
-    public FmuResponse bookingDeviationResponse(@RequestPayload SvarBokningsavvikelseRequest request) {
+    public SvarBokningsavvikelseResponse bookingDeviationResponse(@RequestPayload SvarBokningsavvikelseRequest request) {
+
         FmuResponse fmuResponse = new FmuResponse();
+        SvarBokningsavvikelseResponse svarBokningsavvikelseResponse = new SvarBokningsavvikelseResponse();
 
         try {
         	AddBookingDeviationResponseCommand aCommand = mapSvarBokningsavvikelseRequestToAddBookingDeviationResponseCommand (request);
@@ -148,13 +163,22 @@ public class EavropEndpoint {
             fmuResponse.setErrorMessage(exception.toString());
         }
 
-        return fmuResponse;
+        svarBokningsavvikelseResponse.setFmuResponse(fmuResponse);
+
+        return svarBokningsavvikelseResponse;
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "skickatFmuIntygRequest")
     @ResponsePayload
-    public FmuResponse intygSent(@RequestPayload SkickatFmuIntygRequest request) {
+    public SkickatFmuHandlingarResponse intygSent(@RequestPayload SkickatFmuIntygRequest request) {
+
         FmuResponse fmuResponse = new FmuResponse();
+        SkickatFmuHandlingarResponse skickatFmuHandlingarResponse = new SkickatFmuHandlingarResponse();
 
         try {
         	AddIntygSentCommand aCommand = mapSkickatFmuIntygRequestToAddIntygSentCommand (request);
@@ -173,13 +197,22 @@ public class EavropEndpoint {
             fmuResponse.setErrorMessage(exception.toString());
         }
 
-        return fmuResponse;
+        skickatFmuHandlingarResponse.setFmuResponse(fmuResponse);
+
+        return skickatFmuHandlingarResponse;
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "begartFmuIntygKompletteringRequest")
     @ResponsePayload
-    public FmuResponse intygCompletionRequest(@RequestPayload BegartFmuIntygKompletteringRequest request) {
+    public BegarKompletteringFmuHandlingResponse intygCompletionRequest(@RequestPayload BegartFmuIntygKompletteringRequest request) {
+
         FmuResponse fmuResponse = new FmuResponse();
+        BegarKompletteringFmuHandlingResponse begarKompletteringFmuHandlingResponse = new BegarKompletteringFmuHandlingResponse();
 
         try {
         	AddIntygComplementRequestCommand aCommand = mapBegartFmuIntygKompletteringRequestToAddIntygComplementRequestCommand (request);
@@ -198,14 +231,22 @@ public class EavropEndpoint {
             fmuResponse.setErrorMessage(exception.toString());
         }
 
-        return fmuResponse;
+        begarKompletteringFmuHandlingResponse.setFmuResponse(fmuResponse);
+
+        return begarKompletteringFmuHandlingResponse;
     }
 
-    
+    /**
+     *
+     * @param request
+     * @return
+     */
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "accepteratFmuIntygRequest")
     @ResponsePayload
-    public FmuResponse intygApproved(@RequestPayload AccepteratFmuIntygRequest request) {
+    public AccepteratFmuIntygResponse intygApproved(@RequestPayload AccepteratFmuIntygRequest request) {
+
         FmuResponse fmuResponse = new FmuResponse();
+        AccepteratFmuIntygResponse accepteratFmuIntygResponse = new AccepteratFmuIntygResponse();
 
         try {
         	AddIntygApprovedCommand aCommand = mapAccepteratFmuIntygRequestToAddIntygApprovedCommand(request);
@@ -224,13 +265,22 @@ public class EavropEndpoint {
             fmuResponse.setErrorMessage(exception.toString());
         }
 
-        return fmuResponse;
+        accepteratFmuIntygResponse.setFmuResponse(fmuResponse);
+
+        return accepteratFmuIntygResponse;
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "accepteratFmuUtredningRequest")
     @ResponsePayload
-    public FmuResponse approveEavrop(@RequestPayload AccepteratFmuUtredningRequest request) {
+    public AccepteratFmuUtredningResponse approveEavrop(@RequestPayload AccepteratFmuUtredningRequest request) {
+
         FmuResponse fmuResponse = new FmuResponse();
+        AccepteratFmuUtredningResponse accepteratFmuUtredningResponse = new AccepteratFmuUtredningResponse();
 
         try {
         	ApproveEavropCommand aCommand = mapAccepteratFmuUtredningRequestToApproveEavropCommand(request);
@@ -249,13 +299,22 @@ public class EavropEndpoint {
             fmuResponse.setErrorMessage(exception.toString());
         }
 
-        return fmuResponse;
+        accepteratFmuUtredningResponse.setFmuResponse(fmuResponse);
+
+        return accepteratFmuUtredningResponse;
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "godkannandeErsattningFmuUtredningRequest")
     @ResponsePayload
-    public FmuResponse approveEavropCompensation(@RequestPayload GodkannandeErsattningFmuUtredningRequest request) {
+    public GodkannandeErsattningFmuUtredningResponse approveEavropCompensation(@RequestPayload GodkannandeErsattningFmuUtredningRequest request) {
+
         FmuResponse fmuResponse = new FmuResponse();
+        GodkannandeErsattningFmuUtredningResponse godkannandeErsattningFmuUtredningResponse = new GodkannandeErsattningFmuUtredningResponse();
 
         try {
         	ApproveEavropCompensationCommand aCommand = mapGodkannandeErsattningFmuUtredningRequestToApproveEavropCompensationCommand(request);
@@ -274,7 +333,9 @@ public class EavropEndpoint {
             fmuResponse.setErrorMessage(exception.toString());
         }
 
-        return fmuResponse;
+        godkannandeErsattningFmuUtredningResponse.setFmuResponse(fmuResponse);
+
+        return godkannandeErsattningFmuUtredningResponse;
     }
     
 	/**
