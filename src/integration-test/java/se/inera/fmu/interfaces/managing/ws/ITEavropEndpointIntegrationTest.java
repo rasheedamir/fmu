@@ -77,7 +77,16 @@ import static org.springframework.ws.test.server.ResponseMatchers.*;
 @IntegrationTest("server.port:0")
 @Slf4j
 public class ITEavropEndpointIntegrationTest {
-
+	
+	private static final String CREATE_EAVROP_RESPONSE = "skapaFmuEavropResponse";
+	private static final String SENT_FMU_DOCUMENTS_RESPONSE = "skickatFmuHandlingarResponse";
+	private static final String BOOKING_DEVIATION_RESPONSE_RESPONSE = "svarBokningsavvikelseResponse";
+	private static final String SENT_INTYG_RESPONSE = "skickatFmuIntygResponse";
+	private static final String INTYG_COMPLEMENT_REQUEST_RESPONSE = "begartFmuIntygKompletteringResponse";
+	private static final String INTYG_APPROVED_RESPONSE = "accepteratFmuIntygResponse";
+	private static final String EAVROP_APPROVED_RESPONSE = "accepteratFmuUtredningResponse";
+	private static final String EAVROP_COMPENSATION_APPROVED_RESPONSE = "godkannandeErsattningFmuUtredningResponse";
+	
     @Inject
     private ApplicationContext applicationContext;
 
@@ -107,7 +116,7 @@ public class ITEavropEndpointIntegrationTest {
     	
     	//test valid request
         Source requestPayload = new StreamSource(createCreateEavropRequest(arendeId, landstingCode));
-        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(CREATE_EAVROP_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
         
@@ -115,7 +124,7 @@ public class ITEavropEndpointIntegrationTest {
         
         //test invalid request by posting the same request again 
         requestPayload = new StreamSource(createCreateEavropRequest(arendeId, landstingCode));
-        Source errorResponsePayload = new StreamSource(createCreateEavropErrorResponse(arendeId));
+        Source errorResponsePayload = new StreamSource(createCreateEavropErrorResponse(CREATE_EAVROP_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(errorResponsePayload));
 
@@ -130,7 +139,7 @@ public class ITEavropEndpointIntegrationTest {
 
     	//Receive the eavrop request
         Source requestPayload = new StreamSource(createCreateEavropRequest(arendeId, landstingCode));
-        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(CREATE_EAVROP_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
         
@@ -142,7 +151,7 @@ public class ITEavropEndpointIntegrationTest {
         
         //Receive documents sent request
         requestPayload = new StreamSource(createFMUDocumentsSentRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(SENT_FMU_DOCUMENTS_RESPONSE,arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
     }
@@ -155,7 +164,7 @@ public class ITEavropEndpointIntegrationTest {
 
     	//Receive the eavrop request
         Source requestPayload = new StreamSource(createCreateEavropRequest(arendeId, landstingCode));
-        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(CREATE_EAVROP_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
         
@@ -167,7 +176,7 @@ public class ITEavropEndpointIntegrationTest {
         
         //Receive documents sent request
         requestPayload = new StreamSource(createFMUDocumentsSentRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(SENT_FMU_DOCUMENTS_RESPONSE,arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
         
@@ -178,7 +187,7 @@ public class ITEavropEndpointIntegrationTest {
         
         //Receive booking deviation response
         requestPayload = new StreamSource(createBookingDeviationResponseRequest(arendeId,bookingId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(BOOKING_DEVIATION_RESPONSE_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
 
@@ -193,7 +202,7 @@ public class ITEavropEndpointIntegrationTest {
 
     	//Receive the eavrop request
         Source requestPayload = new StreamSource(createCreateEavropRequest(arendeId, landstingCode));
-        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(CREATE_EAVROP_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
         
@@ -205,13 +214,13 @@ public class ITEavropEndpointIntegrationTest {
         
         //Receive documents sent request
         requestPayload = new StreamSource(createFMUDocumentsSentRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(SENT_FMU_DOCUMENTS_RESPONSE,arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
 
         //Receive information about intyg that have been sent
         requestPayload = new StreamSource(createIntygSentRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(SENT_INTYG_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
 
@@ -225,7 +234,7 @@ public class ITEavropEndpointIntegrationTest {
 
     	//Receive the eavrop request
         Source requestPayload = new StreamSource(createCreateEavropRequest(arendeId, landstingCode));
-        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(CREATE_EAVROP_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
         
@@ -237,19 +246,19 @@ public class ITEavropEndpointIntegrationTest {
         
         //Receive documents sent request
         requestPayload = new StreamSource(createFMUDocumentsSentRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(SENT_FMU_DOCUMENTS_RESPONSE,arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
 
         //Receive information about intyg that have been sent
         requestPayload = new StreamSource(createIntygSentRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(SENT_INTYG_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
 
         //Receive information about intyg need complements 
         requestPayload = new StreamSource(createIntygComplementRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(INTYG_COMPLEMENT_REQUEST_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
 
@@ -264,7 +273,7 @@ public class ITEavropEndpointIntegrationTest {
 
     	//Receive the eavrop request
         Source requestPayload = new StreamSource(createCreateEavropRequest(arendeId, landstingCode));
-        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(CREATE_EAVROP_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
         
@@ -276,19 +285,19 @@ public class ITEavropEndpointIntegrationTest {
         
         //Receive documents sent request
         requestPayload = new StreamSource(createFMUDocumentsSentRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(SENT_FMU_DOCUMENTS_RESPONSE,arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
 
         //Receive information about intyg that have been sent
         requestPayload = new StreamSource(createIntygSentRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(SENT_INTYG_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
 
         //Receive information about intyg having been approved 
         requestPayload = new StreamSource(createIntygApprovedRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(INTYG_APPROVED_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
 
@@ -304,7 +313,7 @@ public class ITEavropEndpointIntegrationTest {
 
     	//Receive the eavrop request
         Source requestPayload = new StreamSource(createCreateEavropRequest(arendeId, landstingCode));
-        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(CREATE_EAVROP_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
         
@@ -316,25 +325,25 @@ public class ITEavropEndpointIntegrationTest {
         
         //Receive documents sent request
         requestPayload = new StreamSource(createFMUDocumentsSentRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(SENT_FMU_DOCUMENTS_RESPONSE,arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
 
         //Receive information about intyg that have been sent
         requestPayload = new StreamSource(createIntygSentRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(SENT_INTYG_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
 
         //Receive information about intyg having been approved 
         requestPayload = new StreamSource(createIntygApprovedRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(INTYG_APPROVED_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
 
         //Eavrop have been approved 
         requestPayload = new StreamSource(createEavropApprovedRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(EAVROP_APPROVED_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
     }
@@ -348,7 +357,7 @@ public class ITEavropEndpointIntegrationTest {
 
     	//Receive the eavrop request
         Source requestPayload = new StreamSource(createCreateEavropRequest(arendeId, landstingCode));
-        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(CREATE_EAVROP_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
         
@@ -360,31 +369,31 @@ public class ITEavropEndpointIntegrationTest {
         
         //Receive documents sent request
         requestPayload = new StreamSource(createFMUDocumentsSentRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(SENT_FMU_DOCUMENTS_RESPONSE,arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
 
         //Receive information about intyg that have been sent
         requestPayload = new StreamSource(createIntygSentRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(SENT_INTYG_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
 
         //Receive information about intyg having been approved 
         requestPayload = new StreamSource(createIntygApprovedRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(INTYG_APPROVED_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
 
         //Eavrop have been approved 
         requestPayload = new StreamSource(createEavropApprovedRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(EAVROP_APPROVED_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
 
         //Eavrop compensation been approved 
         requestPayload = new StreamSource(createEavropCompensationApprovedRequest(arendeId, DateTime.now()));
-        succesResponsePayload = new StreamSource(createFMUSuccesResponse(arendeId));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(EAVROP_COMPENSATION_APPROVED_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
     }
@@ -572,23 +581,25 @@ public class ITEavropEndpointIntegrationTest {
     	return substitute(templateFilename, valueMap);
     }
 
-    private InputStream createCreateEavropErrorResponse(ArendeId arendeId){
+    private InputStream createCreateEavropErrorResponse(String responseType, ArendeId arendeId){
     	String templateFilename = "ws/TST-CREATE_EAVROP-ERROR-RESPONSE_TEMPLATE.xml";
 
     	final Map<String, String> valueMap = new HashMap<String, String>();
     	valueMap.put("ARENDE_ID", arendeId.toString());
+    	valueMap.put("RESPONSE_TYPE", responseType);
     	
     	return substitute(templateFilename, valueMap);
     }
 
     
     
-    private InputStream createFMUSuccesResponse(ArendeId arendeId){
+    private InputStream createFMUSuccesResponse(String responseType, ArendeId arendeId){
     	String templateFilename = "ws/TST-FMU-SUCCESS-RESPONSE_TEMPLATE.xml";
 
     	final Map<String, String> valueMap = new HashMap<String, String>();
-    	valueMap.put("ARENDE_ID", arendeId.toString());		
-    	
+    	valueMap.put("ARENDE_ID", arendeId.toString());	
+    	valueMap.put("RESPONSE_TYPE", responseType);
+    	    	
     	return substitute(templateFilename, valueMap);
     }
 

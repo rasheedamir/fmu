@@ -47,27 +47,7 @@
     </xs:element>
     <!-- -->
 
-	<!-- -->
-	<xs:element name="begarKompletteringFmuHandlingRequest">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="arendeId" type="tns:arendeId"/>
-				<xs:element name="handlingBegardDateTime" type="xs:dateTime"/>
-				<xs:element name="handlingBegardAv" type="tns:person"/>
-				<xs:element name="handling" type="xs:string"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-    <xs:element name="begarKompletteringFmuHandlingResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <!-- -->
-
-	<!-- -->
+	<!-- Booking deviation response request-->
 	<xs:element name="svarBokningsavvikelseRequest">
 		<xs:complexType>
 			<xs:sequence>
@@ -118,25 +98,6 @@
 		</xs:complexType>
 	</xs:element>
     <xs:element name="begartFmuIntygKompletteringResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <!-- -->
-
-	<!-- Ta bort, samma som skickatFmuIntygRequest -->
-	<xs:element name="skickatFmuIntygKompletteringRequest">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="arendeId" type="tns:arendeId"/>
-				<xs:element name="intygSkickatDateTime" type="xs:dateTime"/>
-				<xs:element name="intygSkickatAv" type="tns:person"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-    <xs:element name="skickatFmuIntygKompletteringResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="fmuResponse" type="tns:fmuResponse"/>

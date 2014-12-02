@@ -175,10 +175,10 @@ public class EavropEndpoint {
      */
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "skickatFmuIntygRequest")
     @ResponsePayload
-    public SkickatFmuHandlingarResponse intygSent(@RequestPayload SkickatFmuIntygRequest request) {
+    public SkickatFmuIntygResponse intygSent(@RequestPayload SkickatFmuIntygRequest request) {
 
         FmuResponse fmuResponse = new FmuResponse();
-        SkickatFmuHandlingarResponse skickatFmuHandlingarResponse = new SkickatFmuHandlingarResponse();
+        SkickatFmuIntygResponse skickatFmuIntygResponse = new SkickatFmuIntygResponse();
 
         try {
         	AddIntygSentCommand aCommand = mapSkickatFmuIntygRequestToAddIntygSentCommand (request);
@@ -197,9 +197,9 @@ public class EavropEndpoint {
             fmuResponse.setErrorMessage(exception.toString());
         }
 
-        skickatFmuHandlingarResponse.setFmuResponse(fmuResponse);
+        skickatFmuIntygResponse.setFmuResponse(fmuResponse);
 
-        return skickatFmuHandlingarResponse;
+        return skickatFmuIntygResponse;
     }
 
     /**
@@ -209,10 +209,10 @@ public class EavropEndpoint {
      */
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "begartFmuIntygKompletteringRequest")
     @ResponsePayload
-    public BegarKompletteringFmuHandlingResponse intygCompletionRequest(@RequestPayload BegartFmuIntygKompletteringRequest request) {
+    public BegartFmuIntygKompletteringResponse intygCompletionRequest(@RequestPayload BegartFmuIntygKompletteringRequest request) {
 
         FmuResponse fmuResponse = new FmuResponse();
-        BegarKompletteringFmuHandlingResponse begarKompletteringFmuHandlingResponse = new BegarKompletteringFmuHandlingResponse();
+        BegartFmuIntygKompletteringResponse begarKompletteringFmuHandlingResponse = new BegartFmuIntygKompletteringResponse();
 
         try {
         	AddIntygComplementRequestCommand aCommand = mapBegartFmuIntygKompletteringRequestToAddIntygComplementRequestCommand (request);
@@ -485,7 +485,7 @@ public class EavropEndpoint {
      */
     private Interpreter createInterpreter(SkapaFmuEavropRequest request) {
         String interpreterLanguages = null;
-        if(request.isTolk()) {
+        if(request.isTolk() != null && request.isTolk()) {
             interpreterLanguages = request.getTolkSprak();
         }
         return new Interpreter(interpreterLanguages);
