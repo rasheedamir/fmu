@@ -188,7 +188,7 @@
 			<xs:element name="kon" type="tns:gender"/>
 			<xs:element name="adress" type="tns:adress"/>
 			<xs:element name="telefon" type="xs:string"/>
-			<xs:element name="epost" type="tns:epostAdress"/>
+			<xs:element name="epost" type="tns:epostAdress" minOccurs="0"/>
 			<xs:element name="sarskildaBehov" type="xs:string" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
@@ -200,7 +200,7 @@
 			<xs:element name="enhet" type="xs:string"/>
 			<xs:element name="organisation" type="xs:string"/>
 			<xs:element name="telefon" type="xs:string"/>
-			<xs:element name="epost" type="tns:epostAdress"/>
+			<xs:element name="epost" type="tns:epostAdress"  minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="hoSPerson">
@@ -211,7 +211,7 @@
 			<xs:element name="enhet" type="xs:string"/>
 			<xs:element name="organisation" type="xs:string"/>
 			<xs:element name="telefon" type="xs:string"/>
-			<xs:element name="epost" type="tns:epostAdress"/>
+			<xs:element name="epost" type="tns:epostAdress" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="namn">
