@@ -158,7 +158,7 @@ public abstract class AbstractEavropStateTest {
 	
 	protected Eavrop createUnassignedEavrop(){
 		return 	EavropBuilder.eavrop()
-				.withArendeId(new ArendeId("TEST"))
+				.withArendeId(new ArendeId("990000000101"))
 				.withUtredningType(UtredningType.AFU) 
 				.withInvanare(createInvanare())
 				.withLandsting(new Landsting(new LandstingCode(99) ,"Testlän"))

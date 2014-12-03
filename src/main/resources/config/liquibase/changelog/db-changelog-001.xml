@@ -279,7 +279,6 @@
 				<constraints nullable="false"/>
 			</column>
 			<column name="country" type="VARCHAR(255)">
-				<constraints nullable="false"/>
 			</column>
 			<column name="postal_code" type="VARCHAR(255)">
 				<constraints nullable="false"/>
@@ -463,7 +462,6 @@
 			<column name="postal_code" type="VARCHAR(255)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="state" type="VARCHAR(255)"/>
 			<column name="HSA_ID" type="VARCHAR(255)">
 				<constraints nullable="false"/>
 			</column>
