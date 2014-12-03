@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 import lombok.ToString;
 
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import se.inera.fmu.domain.shared.ValueObject;
 
@@ -22,10 +23,10 @@ public final class ArendeId implements ValueObject<ArendeId> {
 
     //~ Instance fields ================================================================================================
 
-	@Column(name = "ARENDE_ID", nullable = false, updatable = false, unique = true)
+	@Column(name = "ARENDE_ID", nullable = false, updatable = false, unique = true, columnDefinition="char(12)")
     @NotNull
     //TODO Should we really limit the size of a business key that we don't own ourselves. If so then we could also add the ' length = 24' attribute to the @Column 
-    @Size(max = 24)
+    @Size(max = 12)
     private String arendeId;
 
     //~ Constructors ===================================================================================================
@@ -40,12 +41,20 @@ public final class ArendeId implements ValueObject<ArendeId> {
      * @param arendeId Id string.
      */
     public ArendeId(final String arendeId) {
-        Validate.notNull(arendeId);
+    	validate(arendeId); 
         this.arendeId = arendeId;
     }
 
     //~ Other Methods ==================================================================================================
 
+    private void validate(String arendeIdStr){
+    	Validate.notNull(arendeIdStr);
+    	if(!NumberUtils.isDigits(arendeIdStr) || !(arendeIdStr.length() == 12)){
+        	throw new IllegalArgumentException(String.format("Invalid ÄrendeId: %s, an ÄrendeId need to be a 12 character numeric String", arendeIdStr));
+        }
+    }
+    
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -70,4 +79,6 @@ public final class ArendeId implements ValueObject<ArendeId> {
     public String toString() {
     	return arendeId;
     }
+    
+    
 }

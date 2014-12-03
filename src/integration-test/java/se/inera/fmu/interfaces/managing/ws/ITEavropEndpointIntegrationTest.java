@@ -111,7 +111,7 @@ public class ITEavropEndpointIntegrationTest {
     @Test
     public void createEavrop_BothValidAndInvalidRequests_GeneratesSuccessAndErrorResponse() throws Exception {
 
-    	ArendeId arendeId = new ArendeId("CREATE_TEST");
+    	ArendeId arendeId = new ArendeId("140000000001");
     	LandstingCode landstingCode = new LandstingCode(1);
     	
     	//test valid request
@@ -129,12 +129,28 @@ public class ITEavropEndpointIntegrationTest {
         andExpect(payload(errorResponsePayload));
 
     }
-    
 
     @Test
+    public void createEavrop_onlyMandatoryFields() throws Exception {
+
+    	ArendeId arendeId = new ArendeId("140000000002");
+    	LandstingCode landstingCode = new LandstingCode(1);
+    	
+    	//test valid request
+        Source requestPayload = new StreamSource(createCreateEavropOnlyMandatoryRequest(arendeId, landstingCode));
+        Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(CREATE_EAVROP_RESPONSE, arendeId));
+        mockClient.sendRequest(withPayload(requestPayload)).
+        andExpect(payload(succesResponsePayload));
+        
+        //validateMandatoryEavrop(arendeId, landstingCode);
+        
+
+    }
+
+	@Test
     public void createSendDocumentsRequest() throws Exception {
 
-    	ArendeId arendeId = new ArendeId("SEND_DOCUMENT_TEST");
+    	ArendeId arendeId = new ArendeId("140000000003");
     	LandstingCode landstingCode = new LandstingCode(1);
 
     	//Receive the eavrop request
@@ -159,7 +175,7 @@ public class ITEavropEndpointIntegrationTest {
     @Test
     public void bookingDeviationsRequest() throws Exception {
 
-    	ArendeId arendeId = new ArendeId("BOOKING_DEVIATION_RESPONSE_TEST");
+    	ArendeId arendeId = new ArendeId("140000000004");
     	LandstingCode landstingCode = new LandstingCode(1);
 
     	//Receive the eavrop request
@@ -197,7 +213,7 @@ public class ITEavropEndpointIntegrationTest {
     @Test
     public void sentIntygInformationRequest() throws Exception {
 
-    	ArendeId arendeId = new ArendeId("SENT_INTYG_INFORMATION");
+    	ArendeId arendeId = new ArendeId("140000000005");
     	LandstingCode landstingCode = new LandstingCode(1);
 
     	//Receive the eavrop request
@@ -229,7 +245,7 @@ public class ITEavropEndpointIntegrationTest {
     @Test
     public void intygComplementInformationRequest() throws Exception {
 
-    	ArendeId arendeId = new ArendeId("INTYG_COMPLEMENT_INFORMATION");
+    	ArendeId arendeId = new ArendeId("140000000006");
     	LandstingCode landstingCode = new LandstingCode(1);
 
     	//Receive the eavrop request
@@ -268,7 +284,7 @@ public class ITEavropEndpointIntegrationTest {
     @Test
     public void intygApprovedInformationRequest() throws Exception {
 
-    	ArendeId arendeId = new ArendeId("INTYG_APPROVED_INFORMATION");
+    	ArendeId arendeId = new ArendeId("140000000007");
     	LandstingCode landstingCode = new LandstingCode(1);
 
     	//Receive the eavrop request
@@ -308,7 +324,7 @@ public class ITEavropEndpointIntegrationTest {
     @Test
     public void eavropApprovedInformationRequest() throws Exception {
 
-    	ArendeId arendeId = new ArendeId("EAVROP_APPROVED_INFORMATION");
+    	ArendeId arendeId = new ArendeId("140000000008");
     	LandstingCode landstingCode = new LandstingCode(1);
 
     	//Receive the eavrop request
@@ -352,7 +368,7 @@ public class ITEavropEndpointIntegrationTest {
     @Test
     public void eavropCompensationApprovedInformationRequest() throws Exception {
 
-    	ArendeId arendeId = new ArendeId("EAVROP_COMPENSATION_APPROVED_INFORMATION");
+    	ArendeId arendeId = new ArendeId("140000000009");
     	LandstingCode landstingCode = new LandstingCode(1);
 
     	//Receive the eavrop request
@@ -476,6 +492,8 @@ public class ITEavropEndpointIntegrationTest {
     	
     }
     
+    
+    
     private SkapaFmuEavropRequest getSkapaFmuEavropRequest(ArendeId arendeId, LandstingCode landstingCode){
         
     	try{
@@ -573,6 +591,17 @@ public class ITEavropEndpointIntegrationTest {
 
     private InputStream createCreateEavropRequest(ArendeId arendeId, LandstingCode landstingCode){
     	String templateFilename = "ws/TST-CREATE_EAVROP_REQUEST_TEMPLATE.xml";
+
+    	final Map<String, String> valueMap = new HashMap<String, String>();
+    	valueMap.put("ARENDE_ID", arendeId.toString());
+    	valueMap.put("LANDSTING_ID", landstingCode.toString());
+    	
+    	return substitute(templateFilename, valueMap);
+    }
+
+    
+    private InputStream createCreateEavropOnlyMandatoryRequest(ArendeId arendeId, LandstingCode landstingCode){
+    	String templateFilename = "ws/TST-CREATE_EAVROP_REQUEST_ONLY_MANDATORY.xml";
 
     	final Map<String, String> valueMap = new HashMap<String, String>();
     	valueMap.put("ARENDE_ID", arendeId.toString());

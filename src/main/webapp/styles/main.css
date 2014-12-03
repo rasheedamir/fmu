@@ -9,7 +9,9 @@
     margin-bottom: 0;
 }
 body {
+/*
     background: #fafafa;
+*/
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
 }
@@ -142,12 +144,12 @@ ul#strength {
 .table-wrapper {
     overflow-x: auto;
     margin-top: 1em;
-    padding: 2em;
+/*    padding: 2em;
     -webkit-box-shadow: 0.5px 0.5px 1px 1px #999;
     -moz-box-shadow: 0.5px 0.5px 1px 1px #999;
     box-shadow: 0.5px 0.5px 1px 1px #999;
     box-shadow: 0.5px 0.5px 1px 1px #999;
-    border-radius: 2px;
+    border-radius: 2px;*/
 }
 
 
@@ -211,8 +213,11 @@ ul#strength {
     box-shadow: 0px 0px 1px 1px #000;
 }
 
+.table-legend {
+    margin-left: 2px;
+}
 
-.table-legend p {
+.table-legend > p {
     float: left;
     padding-right: 10px;
     margin-left: 10px;

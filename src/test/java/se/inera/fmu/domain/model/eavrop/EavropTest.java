@@ -108,7 +108,7 @@ public class EavropTest extends TestCase {
 		personalNumber = new PersonalNumber("6677665577");
 		gender = Gender.MALE;
 		invanare = new Invanare(personalNumber, name, gender, address, phone, email, specialNeeds);
-		arendeId = new ArendeId("1312421532151");
+		arendeId = new ArendeId("131242153215");
 		utredningType = UtredningType.SLU;
 		tolk = "Swedish";
 		landsting = new Landsting (new LandstingCode(1), "Stockholms läns landsting");
@@ -136,7 +136,6 @@ public class EavropTest extends TestCase {
 		assertEquals(city, address.getCity());
 		assertEquals(country, address.getCountry());
 		assertEquals(postalCode, address.getPostalCode());
-		assertEquals(null, address.getState());
 	}
 	
 	@Test
@@ -147,7 +146,6 @@ public class EavropTest extends TestCase {
 		assertEquals(city, address.getCity());
 		assertEquals(country, address.getCountry());
 		assertEquals(postalCode, address.getPostalCode());
-		assertEquals(state, address.getState());
 	}
 	
 	@Test
