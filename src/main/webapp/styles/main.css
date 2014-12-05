@@ -626,6 +626,7 @@ h2{
     padding: 1em;
     background-color: #E6F3F4;
     border: 1px solid #9cd7e3;
+    
 }
 
 .fmu-name-banner {
@@ -646,4 +647,10 @@ h2{
     .nav-tabs > li {
         float:none;
     }
+}
+
+.menu-shadow{
+	-webkit-box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
 }
