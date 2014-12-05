@@ -14,6 +14,8 @@ import java.lang.reflect.Method;
 /**
  * Created by Rasheed on 9/29/14.
  *
+ * EventBusPostProcessor registers Spring beans with EventBus. All beans
+ * containing Guava's @Subscribe annotation are registered.
  */
 @Component
 @Slf4j

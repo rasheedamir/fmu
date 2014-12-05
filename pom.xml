@@ -159,6 +159,8 @@
 							</filesets>
 						</configuration>
 					</plugin>
+                    <!--
+                    -->
 					<plugin>
 						<groupId>org.springframework.boot</groupId>
 						<artifactId>spring-boot-maven-plugin</artifactId>
@@ -224,6 +226,32 @@
 							</dependency>
 						</dependencies>
 					</plugin>
+                    <!-- To generate Java classes from the WSDL; this plugin will generate classes for the WSDL found at the
+                        specified URL, putting those classes in the fk.wsdl package.
+                    -->
+                    <plugin>
+                        <groupId>org.jvnet.jaxb2.maven2</groupId>
+                        <artifactId>maven-jaxb2-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <schemaLanguage>WSDL</schemaLanguage>
+                            <generatePackage>fk.wsdl</generatePackage>
+                            <forceRegenerate>true</forceRegenerate>
+                            <schemas>
+                                <schema>
+                                    <!-- ToDo: This must be read from resources
+                                    -->
+                                    <url>http://localhost:9090/ws/bestallare-ws.wsdl</url>
+                                </schema>
+                            </schemas>
+                        </configuration>
+                    </plugin>
 				</plugins>
 			</build>
 		</profile>
@@ -770,7 +798,6 @@
                     <clearOutputDir>false</clearOutputDir>
                 </configuration>
             </plugin>
-
 		</plugins>
 		<pluginManagement>
 			<plugins>
