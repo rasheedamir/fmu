@@ -1,20 +1,14 @@
 package se.inera.fmu.domain.model.eavrop;
 
 import java.text.SimpleDateFormat;
-import java.util.Iterator;
-import java.util.Random;
-import java.util.Set;
-import java.util.concurrent.Executors;
+
+import junit.framework.TestCase;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
 
-import com.google.common.eventbus.AsyncEventBus;
-
-import junit.framework.TestCase;
 import se.inera.fmu.application.DomainEventPublisher;
 import se.inera.fmu.application.impl.DomainEventPublisherImpl;
-import se.inera.fmu.application.impl.command.AcceptEavropAssignmentCommand;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
@@ -39,10 +33,8 @@ import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
-import se.inera.fmu.domain.model.landsting.Landstingssamordnare;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.HoSPerson;
-import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;

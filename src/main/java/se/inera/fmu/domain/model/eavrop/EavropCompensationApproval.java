@@ -34,7 +34,7 @@ public class EavropCompensationApproval implements ValueObject<EavropCompensatio
 	private Long id;
 	
 	@NotNull
-	@Column(name = "APPROVED")
+	@Column(name = "APPROVED", columnDefinition="char(1)")
 	@Convert(converter=BooleanToStringConverter.class)
 	private Boolean approved;
 	

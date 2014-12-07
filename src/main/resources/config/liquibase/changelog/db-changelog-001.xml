@@ -241,6 +241,7 @@
 			<column name="MIDDLE_NAME" type="VARCHAR(255)"/>
 			<column name="VARDGIVARENHET_ID" type="BIGINT"/>
 			<column name="LANDSTING_ID" type="BIGINT"/>
+			<column name="EMAIL" type="VARCHAR(255)"/>
 		</createTable>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-16">

@@ -70,7 +70,7 @@ public class ITLandstingRepositoryTest {
 		Landsting landsting = createLandsting(this.landstingCode, "Stockholms Läns Landsting");
 
 		this.landstingssamordnarId = new HsaId("SE160000000000-00000000A");
-		Landstingssamordnare landstingssamordnare = createLandstingssamordnare(this.landstingssamordnarId, new Name("Sam", null, "Ordnarsson"), new HsaBefattning("S3", "Samordnare"), landsting);
+		Landstingssamordnare landstingssamordnare = createLandstingssamordnare(this.landstingssamordnarId, new Name("Sam", null, "Ordnarsson"), new HsaBefattning("S3", "Samordnare"), landsting, "sam@land.se");
 
 		this.vardgivareId = new HsaId("SE160000000000-00000000B");
 		Vardgivare vardgivare = createVardgivare(this.vardgivareId, "Personal Care AB");
@@ -143,8 +143,8 @@ public class ITLandstingRepositoryTest {
     	assertNotNull(vardgivare);
     }
 
-    private Landstingssamordnare createLandstingssamordnare(HsaId hsaId, Name name, HsaBefattning hsaBefattning, Landsting landsting){
-    	Landstingssamordnare landstingssamordnare = new Landstingssamordnare(hsaId, name, hsaBefattning, landsting);
+    private Landstingssamordnare createLandstingssamordnare(HsaId hsaId, Name name, HsaBefattning hsaBefattning, Landsting landsting, String email){
+    	Landstingssamordnare landstingssamordnare = new Landstingssamordnare(hsaId, name, hsaBefattning, landsting, email);
     	if(landsting != null ){
     		landsting.addLandstingssamordnare(landstingssamordnare);
     	}

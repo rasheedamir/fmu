@@ -55,6 +55,7 @@
 				<xs:element name="bokningsId" type="tns:uuIdType"/>
 				<xs:element name="svar" type="tns:bookingDeviationResponseType"/>
 				<xs:element name="svarDateTime" type="xs:dateTime"/>
+				<xs:element name="svarSkickatAv" type="tns:personType"/>
 				<xs:element name="notering" type="tns:noteringType" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
