@@ -15,6 +15,7 @@ import se.inera.fmu.application.impl.command.AcceptEavropAssignmentCommand;
 import se.inera.fmu.application.impl.command.AssignEavropCommand;
 import se.inera.fmu.application.impl.command.RejectEavropAssignmentCommand;
 import se.inera.fmu.application.util.StringUtils;
+import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
@@ -90,7 +91,7 @@ public class EavropAssignmentServiceImpl implements EavropAssignmentService {
 		eavrop.acceptEavropAssignment(acceptingPerson);
 		log.debug(String.format("Eavrop %s accepted  by :: %s", aCommand.getEavropId().toString(), aCommand.getVardgivarenhetHsaId().toString()));
 		
-		handleEavropAccepted(aCommand.getEavropId(), aCommand.getVardgivarenhetHsaId());
+		handleEavropAccepted(aCommand.getEavropId(), eavrop.getArendeId(), aCommand.getVardgivarenhetHsaId());
 	}
 
 	@Override
@@ -110,7 +111,7 @@ public class EavropAssignmentServiceImpl implements EavropAssignmentService {
 		eavrop.rejectEavropAssignment(rejectingPerson, null);
 		log.debug(String.format("Eavrop %s rejected  by :: %s", aCommand.getEavropId().toString(), aCommand.getVardgivarenhetHsaId().toString()));
 		
-		handleEavropRejected(aCommand.getEavropId(), aCommand.getVardgivarenhetHsaId());
+		handleEavropRejected(aCommand.getEavropId(), eavrop.getArendeId(), aCommand.getVardgivarenhetHsaId());
 	}
 
 	private Eavrop getEavropByEavropId(EavropId eavropId) throws EntityNotFoundException{
@@ -141,16 +142,16 @@ public class EavropAssignmentServiceImpl implements EavropAssignmentService {
 		getDomainEventPublisher().post(event);
 	}
 
-	private void handleEavropAccepted(EavropId eavropId, HsaId vardgivarenhetId){
-		EavropAcceptedByVardgivarenhetEvent event = new EavropAcceptedByVardgivarenhetEvent(eavropId, vardgivarenhetId);
+	private void handleEavropAccepted(EavropId eavropId, ArendeId arendeId, HsaId vardgivarenhetId){
+		EavropAcceptedByVardgivarenhetEvent event = new EavropAcceptedByVardgivarenhetEvent(eavropId, arendeId, vardgivarenhetId);
         if(log.isDebugEnabled()){
         	log.debug(String.format("EavropAcceptedByVardgivarenhetEvent created :: %s", event.toString()));
         }
 		getDomainEventPublisher().post(event);
 	}
 
-	private void handleEavropRejected(EavropId eavropId, HsaId vardgivarenhetId){
-		EavropRejectedByVardgivarenhetEvent event = new EavropRejectedByVardgivarenhetEvent(eavropId, vardgivarenhetId);
+	private void handleEavropRejected(EavropId eavropId,  ArendeId arendeId, HsaId vardgivarenhetId){
+		EavropRejectedByVardgivarenhetEvent event = new EavropRejectedByVardgivarenhetEvent(eavropId, arendeId, vardgivarenhetId);
         if(log.isDebugEnabled()){
         	log.debug(String.format("EavropRejectedByVardgivarenhetEvent created :: %s", event.toString()));
         }

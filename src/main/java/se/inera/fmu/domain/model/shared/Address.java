@@ -23,7 +23,7 @@ public final class Address implements ValueObject<Address> {
     @Column(name = "address_2")
     private String address2;
 
-    @Column(name = "postal_code", nullable = false)
+    @Column(name = "postal_code", nullable = false )
     @NotNull
     private String postalCode;
 
@@ -31,7 +31,7 @@ public final class Address implements ValueObject<Address> {
     @NotNull
     private String city;
 
-    @Column(name = "country")
+    @Column(name = "country", length=50)
     private String country;
 
     //~ Constructors ===================================================================================================

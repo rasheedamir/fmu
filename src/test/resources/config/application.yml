@@ -44,6 +44,7 @@ spring:
         protocol: smtp
         tls: false
         auth: false
+        from: noreply@inera.se
 
 metrics:
     jmx.enabled: false

@@ -86,8 +86,8 @@ public class ITFmuAssignmentServiceImplTest {
 	public void testAssignment(){
 		User currentUser = this.currentUserService.getCurrentUser();
 		
-		ArendeId TST_1 = new ArendeId("TST_1");
-		ArendeId TST_2 = new ArendeId("TST_2");
+		ArendeId TST_1 = new ArendeId("010000000001");
+		ArendeId TST_2 = new ArendeId("010000000002");
 		
 		Landsting landsting =  fmuListService.findLandstingByLandstingCode(new LandstingCode(1));
 		assertNotEquals(landsting.getVardgivarenheter(), null);

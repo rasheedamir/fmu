@@ -1,6 +1,9 @@
 package se.inera.fmu.config;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +16,7 @@ import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
+
 import se.inera.fmu.interfaces.managing.ws.BestallareClient;
 
 /**
@@ -61,11 +65,18 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean
     public BestallareClient bestallareClient(Jaxb2Marshaller marshaller) {
-        BestallareClient bestallareClient = new BestallareClient();
-        // ToDo: This must be read from resources
-        bestallareClient.setDefaultUri("http://localhost:9090/ws/bestallare-ws");
-        bestallareClient.setMarshaller(marshaller);
-        bestallareClient.setUnmarshaller(marshaller);
+        BestallareClient bestallareClient = null;
+        
+        try {
+			bestallareClient = new BestallareClient();
+		
+	        // ToDo: This must be read from resources
+	        bestallareClient.setDefaultUri("http://localhost:9090/ws/bestallare-ws");
+	        bestallareClient.setMarshaller(marshaller);
+	        bestallareClient.setUnmarshaller(marshaller);
+        } catch (DatatypeConfigurationException e) {
+			throw new RuntimeException(e);
+		}
         return bestallareClient;
     }
 

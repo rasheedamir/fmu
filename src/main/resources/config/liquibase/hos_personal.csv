@@ -1,2 +1,3 @@
-DISC;HOSPERSONAL_ID;created_by;created_date;last_modified_by;last_modified_date;version;BEFATTNINGSKOD;BEFATTNINGSBESKRIVNING;HSA_ID;FIRST_NAME;LAST_NAME;MIDDLE_NAME;VARDGIVARENHET_ID;LANDSTING_ID
-HOS;1;system;2014-11-20;null;null;1;1;asasdasd;IFV1239877878-104B;Asa;Andersson;null;null;1
+DISC;HOSPERSONAL_ID;created_by;created_date;last_modified_by;last_modified_date;version;BEFATTNINGSKOD;BEFATTNINGSBESKRIVNING;HSA_ID;FIRST_NAME;LAST_NAME;MIDDLE_NAME;VARDGIVARENHET_ID;LANDSTING_ID;EMAIL
+HOS;1;system;2014-11-20;null;null;1;1;asasdasd;IFV1239877878-104B;Asa;Andersson;null;null;1;null
+LSAM;2;system;2014-11-20;null;null;1;1;asasdasd;IFV1239877878-LSAM;Sam;Ordnarsson;null;null;1;sam.ordnarsson@mail.com
