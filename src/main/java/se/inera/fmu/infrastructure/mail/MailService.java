@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.lang.CharEncoding;
-import org.apache.commons.validator.EmailValidator;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;

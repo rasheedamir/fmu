@@ -7,7 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.validator.EmailValidator;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.hibernate.validator.constraints.Email;
 
 import se.inera.fmu.application.util.StringUtils;
