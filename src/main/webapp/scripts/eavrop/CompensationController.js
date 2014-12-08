@@ -6,6 +6,50 @@ angular.module('fmuClientApp')
             $scope.authService = AuthService;
             $scope.currentEavrop = currentEavrop;
 
+                $scope.arendeHeaderFields = [
+                    {
+                        key: 'arendeId',
+                        name: 'Ärende-ID'
+                    },
+                    {
+                        key: 'utredningType',
+                        name: 'Typ'
+                    },
+                    {
+                        key: 'utforareOrganisation',
+                        name: 'Utförare, organisation'
+                    },
+                    {
+                        key: 'utforareNamn',
+                        name: 'Utförare, namn'
+                    },
+                    {
+                        key: 'tolkBooked',
+                        name: 'Tolk anlitad?'
+                    },
+                    {
+                        key: 'utredningDuration',
+                        name: 'Utredningen genomfördes på, antal dagar'
+                    },
+                    {
+                        key: 'nrDaysAfterCompletetion',
+                        name: 'Antal dagar efter komplettering'
+                    },
+                    {
+                        key: 'nrAvikelser',
+                        name: 'Antal avikelser'
+                    },
+                    {
+                        key: 'nrUtredningstarts',
+                        name: 'Antal utredningsstarter'
+                    },
+                    {
+                        key: 'isCompletedAndApproved',
+                        name: 'Utredning är komplett och godkänd?'
+                    }
+
+                ];
+
             $scope.getArendeData = function (key, data) {
                 var value = data ? data[key] : '-';
                 switch (key) {
@@ -15,7 +59,6 @@ angular.module('fmuClientApp')
                     default :
                         return value ? value : '-';
                 }
-                ;
             };
 
             $scope.getAvikelserData = function (key, data) {
@@ -32,7 +75,6 @@ angular.module('fmuClientApp')
                     default :
                         return value ? value : '-';
                 }
-                ;
             };
 
             function millisToHHMM(milliseconds) {
@@ -46,52 +88,6 @@ angular.module('fmuClientApp')
                 return currentEavrop.$promise.then(
                     function () {
                         // Init table fields
-                        if (!$scope.arendeHeaderFields) {
-                            $scope.arendeHeaderFields = [
-                                {
-                                    key: 'arendeId',
-                                    name: 'Ärende-ID'
-                                },
-                                {
-                                    key: 'utredningType',
-                                    name: 'Typ'
-                                },
-                                {
-                                    key: 'utforareOrganisation',
-                                    name: 'Utförare, organisation'
-                                },
-                                {
-                                    key: 'utforareNamn',
-                                    name: 'Utförare, namn'
-                                },
-                                {
-                                    key: 'tolkBooked',
-                                    name: 'Tolk anlitad?'
-                                },
-                                {
-                                    key: 'utredningDuration',
-                                    name: 'Utredningen genomfördes på, antal dagar'
-                                },
-                                {
-                                    key: 'nrDaysAfterCompletetion',
-                                    name: 'Antal dagar efter komplettering'
-                                },
-                                {
-                                    key: 'nrAvikelser',
-                                    name: 'Antal avikelser'
-                                },
-                                {
-                                    key: 'nrUtredningstarts',
-                                    name: 'Antal utredningsstarter'
-                                },
-                                {
-                                    key: 'isCompletedAndApproved',
-                                    name: 'Utredning är komplett och godkänd?'
-                                }
-
-                            ];
-                        }
-
                         if (!$scope.specificationHeaderFields) {
                             $scope.specificationHeaderFields = [
                                 {

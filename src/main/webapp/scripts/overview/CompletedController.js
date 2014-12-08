@@ -65,6 +65,10 @@ angular.module('fmuClientApp')
 
             $scope.footerHints = [
                 {
+                    description: 'Invänta acceptans av intyg och godkännande för ersättning',
+                    colorClass: null
+                },
+                {
                     description: 'Utredningen är ej komplett, ej godkänd, försenad eller innehåller ersättningsbara avvikelser',
                     colorClass: 'bg-danger'
                 },

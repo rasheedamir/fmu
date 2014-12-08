@@ -16,14 +16,14 @@
 <div restricted role="ROLE_SAMORDNARE"> 
 	<div ng-controller="AssignmentCtrl" ng-switch="currentEavrop.status">
 		<div class="alert alert-info" ng-switch-when="UNASSIGNED">
-			<h3>Utse vårdleverantör</h2>
+			<h3>Utse vårdleverantör</h3>
 			<hr />
 			
 			<p>Utse vårdleverantör genom att hämta in acceptans av denna förfrågan.</p>
 			<a class="btn btn-success" ng-click="openAssignUtredareDialog()">Utse utredare</a>
 		</div>
 		<div class="alert alert-warning" ng-switch-when="ASSIGNED">
-			<h3>Inväntar svar från vårdleverantör</h2>
+			<h3>Inväntar svar från vårdleverantör</h3>
 			<hr />
 			
 			<p>Förfrågan om acceptans för ärende med ID: <b>{{currentEavrop.arendeId}}</b> skickades till Danderyds sjukhus.</p>
@@ -50,7 +50,7 @@
 <div restricted role="ROLE_UTREDARE"> 
 	<div ng-controller="AcceptanceCtrl" ng-switch="currentEavrop.status">
 		<div class="alert alert-info" ng-switch-when="ASSIGNED">
-			<h3>Förfrågan om acceptans</h2>
+			<h3>Förfrågan om acceptans</h3>
 			<hr />
 			
 			<p><b>Förfrågan ställd till:</b></p>
@@ -62,7 +62,7 @@
 	</div>
 </div>
 
-<div id="fmu-nav" class="navbar navbar-default" style="margin-bottom: 0em" role="navigation">
+<div id="fmu-nav" class="navbar navbar-default" style="margin-bottom: 0em; border-top: none" role="navigation">
     <div>
         <ul class="nav navbar-nav">
             <li ng-class="{active: $state.includes('eavrop.order')}"><a ui-sref=".order.contents"><span class="glyphicon glyphicon-save">&nbsp;</span>Beställning</a></li>
@@ -79,7 +79,7 @@
 		$('#fmu-nav').scrollToFixed({
 			marginTop: $('.fmu-header').outerHeight(true),
 			preFixed: function(){$(this).addClass('menu-shadow')},
-			postFixed: function(){$(this).removeClass('menu-shadow')},
+			postFixed: function(){$(this).removeClass('menu-shadow')}
 		});
 	});
 </script>

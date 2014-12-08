@@ -2,7 +2,6 @@
     <div class="col-md-12">
         <h1>Underlag för ersättning</h1>
 
-        <!--Eavrop Test fmu68-->
         <h2>Ärende</h2>
         <fmu-simple-table
                 table-parameters="tableParameters"
@@ -12,7 +11,7 @@
                 show-all-rows="true">
         </fmu-simple-table>
 
-        <h2>Specifikation - avvikelser</h2>
+        <h2 ng-if="specificationHeaderFields">Specifikation - avvikelser</h2>
         <fmu-simple-table
                 table-parameters="tableParameters"
                 header-fields="specificationHeaderFields"
