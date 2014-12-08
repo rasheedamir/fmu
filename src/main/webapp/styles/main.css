@@ -671,3 +671,7 @@ h2{
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
 }
+
+.container-fluid h1:first-child {
+    margin-top: 1em;
+}
