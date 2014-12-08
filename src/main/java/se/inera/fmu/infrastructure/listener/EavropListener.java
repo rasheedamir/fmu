@@ -1,19 +1,11 @@
 package se.inera.fmu.infrastructure.listener;
 
-import javax.inject.Inject;
-import javax.persistence.EntityNotFoundException;
-
 import com.google.common.eventbus.AllowConcurrentEvents;
 import com.google.common.eventbus.Subscribe;
-
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropCreatedEvent;
-import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.EavropRestartedByBestallareEvent;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAcceptedByVardgivarenhetEvent;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignedToVardgivarenhetEvent;
@@ -36,26 +28,32 @@ import se.inera.fmu.interfaces.managing.command.PublishFmuBookingDeviationComman
 import se.inera.fmu.interfaces.managing.command.PublishFmuDocumentRequestedCommand;
 import se.inera.fmu.interfaces.managing.ws.BestallareClient;
 
+import javax.inject.Inject;
+import javax.persistence.EntityNotFoundException;
+
 /**
  * Created by Rasheed on 9/30/14.
  */
+@SuppressWarnings("ALL")
 @Component
 @Slf4j
 public class EavropListener implements EventBusListener {
 
     @Inject
-    MailService mailService;
+    private MailService mailService;
 
     @Inject
-    BestallareClient bestallareWebserviceClient;
+    private BestallareClient bestallareWebserviceClient;
 
     @Inject
-    VardgivarenhetRepository vardgivarenhetRepository;
+    private VardgivarenhetRepository vardgivarenhetRepository;
 
-    
+    /**
+     *
+     * @param event: EavropAcceptedByVardgivarenhetEvent
+     */
     @Subscribe
     @AllowConcurrentEvents
-    @Transactional
     public void handleEavropAcceptedByVardgivarenhetEvent(final EavropAcceptedByVardgivarenhetEvent event) {
         log.debug("EavropAcceptedByVardgivarenhetEvent received : " + event);
         
@@ -68,13 +66,21 @@ public class EavropListener implements EventBusListener {
         bestallareWebserviceClient.publishFmuAssignmentResponse(assignmentResponseCommand);
         log.debug("PublishFmuAssignmentResponseCommand  published : " + event);
     }
-    
+
+    /**
+     *
+     * @param event: EavropAssignedToVardgivarenhetEvent
+     */
     @Subscribe
     @AllowConcurrentEvents
     public void handleEavropAssignedToVardgivarenhetEvent(final EavropAssignedToVardgivarenhetEvent event) {
         log.debug("Event received : " + event);
     }
 
+    /**
+     *
+     * @param event: EavropRejectedByVardgivarenhetEvent
+     */
     @Subscribe
     @AllowConcurrentEvents
     @Transactional
@@ -86,7 +92,6 @@ public class EavropListener implements EventBusListener {
         		new PublishFmuAssignmentResponseCommand(event.getArendeId(), Boolean.FALSE, vardgivarenhet.getUnitName(), vardgivarenhet.getVardgivare().getName() , vardgivarenhet.getAddress().getAddress1(), vardgivarenhet.getAddress().getPostalCode(), vardgivarenhet.getAddress().getCity(), vardgivarenhet.getAddress().getCountry(), null, null);
         
         bestallareWebserviceClient.publishFmuAssignmentResponse(assignmentResponseCommand);
-
     }
 
     @Subscribe
@@ -167,10 +172,8 @@ public class EavropListener implements EventBusListener {
     public void handleEavropRestartedByBestallareEvent(final EavropRestartedByBestallareEvent event) {
         log.debug("Event received : " + event);
         //Mail someone?
-        
     }
-    
-    
+
     private Vardgivarenhet getVardgivarenhet(HsaId hsaId){
     	Vardgivarenhet vardgivarenhet = vardgivarenhetRepository.findByHsaId(hsaId);
     	if(vardgivarenhet == null){
