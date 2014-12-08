@@ -180,6 +180,7 @@ ul#strength {
 
 /* Group headers */
 .fmu-table > thead > tr:first-child > th {
+    padding: 5px 10px;
     empty-cells: hide;
     border-radius: 10px 10px 0 0;
     box-shadow: 1px 3px 3px 2px #999;
@@ -281,15 +282,15 @@ ul#strength {
 }
 
 .bg-head-danger {
-    background-color: rgba(255, 75, 73, 0.8);
+    background-color: rgba(255, 75, 73, 0.5);
 }
 
 .bg-head-warning {
-    background-color: rgba(250, 206, 65, 0.8);
+    background-color: rgba(250, 206, 65, 0.5);
 }
 
 .bg-head-success {
-    background-color: rgba(153, 219, 102, 0.8);
+    background-color: rgba(153, 219, 102, 0.5);
 }
 
 .bg-danger {
@@ -560,6 +561,10 @@ h2{
     padding-left: 1em;
     padding-right: 1em;
     border-bottom: 1px solid #ddd;
+}
+
+.fmu-form-header h1 {
+    font-size: 14pt;
 }
 
 .fmu-form-body {

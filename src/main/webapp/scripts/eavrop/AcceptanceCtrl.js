@@ -11,7 +11,7 @@ angular.module('fmuClientApp').controller('AcceptanceCtrl', ['$scope', '$modal',
             	
             	$scope.close = function(){
             		$modalInstance.dismiss('cancel');
-            	}
+            	};
             	
             	$scope.accept = function(){
             		var res = new EavropAccept({eavropId: $stateParams.eavropId});
@@ -25,10 +25,10 @@ angular.module('fmuClientApp').controller('AcceptanceCtrl', ['$scope', '$modal',
             			
             			$modalInstance.close();
             		});
-            	}
+            	};
             }
         });
-	}
+	};
 	
 	$scope.rejectDialog = function(){
         var assignModal = $modal.open({
@@ -40,7 +40,7 @@ angular.module('fmuClientApp').controller('AcceptanceCtrl', ['$scope', '$modal',
             	
             	$scope.close = function(){
             		$modalInstance.dismiss('cancel');
-            	}
+            	};
             	
             	$scope.reject = function(){
             		var res = new EavropReject({eavropId: $stateParams.eavropId});
@@ -54,8 +54,8 @@ angular.module('fmuClientApp').controller('AcceptanceCtrl', ['$scope', '$modal',
             			
             			$modalInstance.close();
             		});
-            	}
+            	};
             }
         });
-	}	
+	};
 }]);
