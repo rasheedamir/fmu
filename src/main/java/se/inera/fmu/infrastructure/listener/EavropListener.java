@@ -54,6 +54,7 @@ public class EavropListener implements EventBusListener {
      */
     @Subscribe
     @AllowConcurrentEvents
+    @Transactional
     public void handleEavropAcceptedByVardgivarenhetEvent(final EavropAcceptedByVardgivarenhetEvent event) {
         log.debug("EavropAcceptedByVardgivarenhetEvent received : " + event);
         
