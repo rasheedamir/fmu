@@ -402,7 +402,9 @@ ul#strength {
 	-webkit-border-top-left-radius:5px;
 	border-top-left-radius:5px;
 
-}.fmu-table-k table{
+}
+
+.fmu-table-k table{
     border-collapse: collapse;
     border-spacing: 0;
 	width:100%;
@@ -641,7 +643,7 @@ h2{
     border-radius: 10px 10px 10px 10px;
     -moz-border-radius: 10px 10px 10px 10px;
     -webkit-border-radius: 10px 10px 10px 10px;
-    border: 0px solid #000000;
+    border: 2px solid lightgrey;
 }
 
 .fmu-name-banner b{
@@ -663,4 +665,9 @@ h2{
 .fast {
     -webkit-animation-duration: .5s;
     animation-duration: .5s;
+}
+
+.normal {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
 }
