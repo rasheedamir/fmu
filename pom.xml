@@ -226,32 +226,6 @@
 							</dependency>
 						</dependencies>
 					</plugin>
-                    <!-- To generate Java classes from the WSDL; this plugin will generate classes for the WSDL found at the
-                        specified URL, putting those classes in the fk.wsdl package.
-                    -->
-                    <plugin>
-                        <groupId>org.jvnet.jaxb2.maven2</groupId>
-                        <artifactId>maven-jaxb2-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>generate</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <schemaLanguage>WSDL</schemaLanguage>
-                            <generatePackage>fk.wsdl</generatePackage>
-                            <forceRegenerate>true</forceRegenerate>
-                            <schemas>
-                                <schema>
-                                    <!-- ToDo: This must be read from resources
-                                    -->
-                                    <url>http://localhost:9090/ws/bestallare-ws.wsdl</url>
-                                </schema>
-                            </schemas>
-                        </configuration>
-                    </plugin>
 				</plugins>
 			</build>
 		</profile>
@@ -806,6 +780,32 @@
                     <schemaDirectory>${project.basedir}/src/main/resources/ws/</schemaDirectory>
                     <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
                     <clearOutputDir>false</clearOutputDir>
+                </configuration>
+            </plugin>
+            <!-- To generate Java classes from the WSDL; this plugin will generate classes for the WSDL found at the
+                specified URL, putting those classes in the fk.wsdl package.
+            -->
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <schemaLanguage>WSDL</schemaLanguage>
+                    <generatePackage>fk.wsdl</generatePackage>
+                    <forceRegenerate>true</forceRegenerate>
+                    <schemas>
+                        <schema>
+                            <!-- ToDo: This must be read from resources
+                            -->
+                            <url>http://ec2-54-76-142-198.eu-west-1.compute.amazonaws.com:9090/ws/bestallare-ws.wsdl</url>
+                        </schema>
+                    </schemas>
                 </configuration>
             </plugin>
 		</plugins>
