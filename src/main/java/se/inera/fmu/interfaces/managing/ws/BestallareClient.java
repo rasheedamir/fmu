@@ -4,6 +4,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import fk.wsdl.*;
 import lombok.extern.slf4j.Slf4j;
 
 import org.joda.time.DateTime;
@@ -14,20 +15,7 @@ import se.inera.fmu.interfaces.managing.command.PublishFmuAssignmentResponseComm
 import se.inera.fmu.interfaces.managing.command.PublishFmuBookingCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuBookingDeviationCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuDocumentRequestedCommand;
-import ws.fk.fmu.admin.eavrop.AdressType;
-import ws.fk.fmu.admin.eavrop.BegarKompletteringFmuHandlingRequest;
-import ws.fk.fmu.admin.eavrop.BegarKompletteringFmuHandlingResponse;
-import ws.fk.fmu.admin.eavrop.BookingDeviationType;
-import ws.fk.fmu.admin.eavrop.FmuBokningRequest;
-import ws.fk.fmu.admin.eavrop.FmuBokningResponse;
-import ws.fk.fmu.admin.eavrop.FmuBokningsavvikelseRequest;
-import ws.fk.fmu.admin.eavrop.FmuBokningsavvikelseResponse;
-import ws.fk.fmu.admin.eavrop.FmuVardgivarenhetTilldelningRequest;
-import ws.fk.fmu.admin.eavrop.FmuVardgivarenhetTilldelningResponse;
-import ws.fk.fmu.admin.eavrop.Notering;
-import ws.fk.fmu.admin.eavrop.Person;
-import ws.fk.fmu.admin.eavrop.StatusCode;
-import ws.fk.fmu.admin.eavrop.VardgivarenhetType;
+
 
 /**
  * Created by Rasheed on 12/3/14.
@@ -76,6 +64,8 @@ public class BestallareClient extends WebServiceGatewaySupport {
 		    if(response == null ||
 		    		response.getServiceResponse() == null ||!StatusCode.OK.equals(response.getServiceResponse().getStatusCode())){
 		    	log.error("Assignment response on eavrop with arendeId:{} not sent to customer, message: {} ", aCommand.getArendeId().toString(),  (response!=null && response.getServiceResponse()!=null)?response.getServiceResponse().getErrorMessage():"");
+		    }else{
+		    	log.debug("Assignment response on eavrop with arendeId:{}  sent to customer ", aCommand.getArendeId().toString());
 		    }
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -91,7 +81,7 @@ public class BestallareClient extends WebServiceGatewaySupport {
 		FmuBokningRequest request = new FmuBokningRequest();
 	    request.setArendeId(aCommand.getArendeId().toString());
 	    request.setBokningsId(aCommand.getBookingId().getId());
-	    request.setBokningsType(ws.fk.fmu.admin.eavrop.BookingType.valueOf(aCommand.getBookingType().toString()));
+	    request.setBokningsType(fk.wsdl.BookingType.valueOf(aCommand.getBookingType().toString()));
 	    request.setStartDateTime(getDateTime(aCommand.getStartDateTime()));
 	    request.setSlutDateTime(getDateTime(aCommand.getEndDateTime()));
 	    request.setNamn(aCommand.getResourceName());
@@ -116,7 +106,7 @@ public class BestallareClient extends WebServiceGatewaySupport {
 	 * 
 	 * @param aCommand
 	 */
-	public void publishFmuDocumentRequested(PublishFmuBookingDeviationCommand aCommand) {
+	public void publishFmuBookingDeviation(PublishFmuBookingDeviationCommand aCommand) {
 		//Create request
 		FmuBokningsavvikelseRequest request = new FmuBokningsavvikelseRequest();
 		request.setArendeId(aCommand.getArendeId().toString());

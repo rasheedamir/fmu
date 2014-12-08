@@ -238,7 +238,7 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 			return;
 		}
 		BookingId bookingId = booking.getBookingId();
-		BookingDeviationType bookingDeviationType = BookingDeviationType.valueOf(booking.getBookingStatus().toString());
+		BookingDeviationType bookingDeviationType = BookingDeviationType.convert(booking.getBookingStatus());
 		Note deviationNote = booking.getDeviationNote();
 		
 		boolean isReasonForOnhold = BookingDeviationTypeUtil.isBookingStatusReasonForOnHold(booking.getBookingStatus(), utredningType);

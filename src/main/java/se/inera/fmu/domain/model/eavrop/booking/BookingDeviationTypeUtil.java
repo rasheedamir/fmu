@@ -21,13 +21,13 @@ public class BookingDeviationTypeUtil {
 	
 	private static final BookingDeviationType[] DEVIATION_AFU_ON_HOLD_STATUSES = {
 		BookingDeviationType.INVANARE_ABSENT, 
-		BookingDeviationType.INVANARE_CANCELLED_LT_96,
-		BookingDeviationType.INVANARE_CANCELLED_GT_96};
+		BookingDeviationType.CANCELLED_BY_INVANARE_LT_96,
+		BookingDeviationType.CANCELLED_BY_INVANARE_GT_96};
 
 	private static final BookingDeviationType[] DEFAULT_DEVIATION_ON_HOLD_STATUSES = {
 		BookingDeviationType.INVANARE_ABSENT,
-		BookingDeviationType.INVANARE_CANCELLED_LT_48,
-		BookingDeviationType.INVANARE_CANCELLED_GT_48};
+		BookingDeviationType.CANCELLED_BY_INVANARE_LT_48,
+		BookingDeviationType.CANCELLED_BY_INVANARE_GT_48};
 
 	
 	

@@ -1,6 +1,7 @@
 package se.inera.fmu.infrastructure.listener;
 
 import javax.inject.Inject;
+import javax.persistence.EntityNotFoundException;
 
 import com.google.common.eventbus.AllowConcurrentEvents;
 import com.google.common.eventbus.Subscribe;
@@ -30,6 +31,9 @@ import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.hos.vardgivare.VardgivarenhetRepository;
 import se.inera.fmu.infrastructure.mail.MailService;
 import se.inera.fmu.interfaces.managing.command.PublishFmuAssignmentResponseCommand;
+import se.inera.fmu.interfaces.managing.command.PublishFmuBookingCommand;
+import se.inera.fmu.interfaces.managing.command.PublishFmuBookingDeviationCommand;
+import se.inera.fmu.interfaces.managing.command.PublishFmuDocumentRequestedCommand;
 import se.inera.fmu.interfaces.managing.ws.BestallareClient;
 
 /**
@@ -51,26 +55,19 @@ public class EavropListener implements EventBusListener {
     
     @Subscribe
     @AllowConcurrentEvents
-    //@Transactional
+    @Transactional
     public void handleEavropAcceptedByVardgivarenhetEvent(final EavropAcceptedByVardgivarenhetEvent event) {
-        log.debug("Event received : " + event);
-        //Web service call to customer
+        log.debug("EavropAcceptedByVardgivarenhetEvent received : " + event);
         
         Vardgivarenhet vardgivarenhet = getVardgivarenhet(event.getHsaId());
 
         //TODO: Add phone and email to vardgivarenhet entity?
-
-//WORK IN PROGRESS         
-//        PublishFmuAssignmentResponseCommand assignmentResponseCommand = 
-//        		new PublishFmuAssignmentResponseCommand(event.getArendeId(), Boolean.TRUE, vardgivarenhet.getUnitName(), vardgivarenhet.getVardgivare().getName() , vardgivarenhet.getAddress().getAddress1(), vardgivarenhet.getAddress().getPostalCode(), vardgivarenhet.getAddress().getCity(), vardgivarenhet.getAddress().getCountry(), null, null);
-//        
-//        bestallareWebserviceClient.publishFmuAssignmentResponse(assignmentResponseCommand);
+        PublishFmuAssignmentResponseCommand assignmentResponseCommand = 
+        		new PublishFmuAssignmentResponseCommand(event.getArendeId(), Boolean.TRUE, vardgivarenhet.getUnitName(), vardgivarenhet.getVardgivare().getName() , vardgivarenhet.getAddress().getAddress1(), vardgivarenhet.getAddress().getPostalCode(), vardgivarenhet.getAddress().getCity(), vardgivarenhet.getAddress().getCountry(), null, null);
+        
+        bestallareWebserviceClient.publishFmuAssignmentResponse(assignmentResponseCommand);
+        log.debug("PublishFmuAssignmentResponseCommand  published : " + event);
     }
-    
-    private Vardgivarenhet getVardgivarenhet(HsaId hsaId){
-    	return vardgivarenhetRepository.findByHsaId(hsaId);
-    }
-
     
     @Subscribe
     @AllowConcurrentEvents
@@ -80,22 +77,34 @@ public class EavropListener implements EventBusListener {
 
     @Subscribe
     @AllowConcurrentEvents
+    @Transactional
     public void handleEavropRejectedByVardgivarenhetEvent(final EavropRejectedByVardgivarenhetEvent event) {
-        log.debug("Event received : " + event);
+        log.debug("EavropRejectedByVardgivarenhetEvent received : " + event);
+        
+        Vardgivarenhet vardgivarenhet = getVardgivarenhet(event.getHsaId());
+        PublishFmuAssignmentResponseCommand assignmentResponseCommand = 
+        		new PublishFmuAssignmentResponseCommand(event.getArendeId(), Boolean.FALSE, vardgivarenhet.getUnitName(), vardgivarenhet.getVardgivare().getName() , vardgivarenhet.getAddress().getAddress1(), vardgivarenhet.getAddress().getPostalCode(), vardgivarenhet.getAddress().getCity(), vardgivarenhet.getAddress().getCountry(), null, null);
+        
+        bestallareWebserviceClient.publishFmuAssignmentResponse(assignmentResponseCommand);
+
     }
 
     @Subscribe
     @AllowConcurrentEvents
     public void handleBookingCreatedEvent(final BookingCreatedEvent event) {
-        log.debug("Event received : " + event);
-        //Web service call to customer
+        log.debug("BookingCreatedEvent received : " + event);
+        
+        PublishFmuBookingCommand publishFmuBookingCommand = new PublishFmuBookingCommand(event.getArendeId(), event.getBookingId(), event.getBookingType(), event.getStartDateTime(), event.getEndDateTime(), event.getResourceName(), event.getResourceRole(), event.isInterpreter());
+        bestallareWebserviceClient.publishFmuBooking(publishFmuBookingCommand);
     }
 
     @Subscribe
     @AllowConcurrentEvents
     public void handleBookingDeviationEvent(final BookingDeviationEvent event) {
-        log.debug("Event received : " + event);
-        //Web service call to customer
+        log.debug("BookingDeviationEvent received : " + event);
+        
+        PublishFmuBookingDeviationCommand publishFmuBookingDeviationCommand = new PublishFmuBookingDeviationCommand(event.getArendeId(), event.getBookingId(), event.getBookingDeviationType(), event.isBookingDeviationResponseRequired(), event.getBookingDeviationNote());
+        bestallareWebserviceClient.publishFmuBookingDeviation(publishFmuBookingDeviationCommand);
     }
 
     @Subscribe
@@ -108,8 +117,9 @@ public class EavropListener implements EventBusListener {
     @Subscribe
     @AllowConcurrentEvents
     public void handleDocumentRequestedEvent(final DocumentRequestedEvent event) {
-        log.debug("Event received : " + event);
-      //Web service call to customer
+        log.debug("DocumentRequestedEvent received : " + event);
+        PublishFmuDocumentRequestedCommand publishFmuDocumentRequestedCommand = new PublishFmuDocumentRequestedCommand(event.getArendeId(), event.getDocumentName(), event.getDocumentDateTime(), event.getRequestPerson(), event.getRequestNote());
+        bestallareWebserviceClient.publishFmuDocumentRequested(publishFmuDocumentRequestedCommand);	
     }
 
     @Subscribe
@@ -159,4 +169,14 @@ public class EavropListener implements EventBusListener {
         //Mail someone?
         
     }
+    
+    
+    private Vardgivarenhet getVardgivarenhet(HsaId hsaId){
+    	Vardgivarenhet vardgivarenhet = vardgivarenhetRepository.findByHsaId(hsaId);
+    	if(vardgivarenhet == null){
+    		throw new EntityNotFoundException(String.format("Vargivarenhet with hsaId: %s could not be found", hsaId.toString()));
+    	}
+    	return vardgivarenhet;
+    }
+
 }

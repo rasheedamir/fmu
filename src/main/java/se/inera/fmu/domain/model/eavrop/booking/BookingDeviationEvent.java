@@ -36,7 +36,7 @@ public class BookingDeviationEvent extends EavropEvent{
 		return this.bookingId;
 	}
 
-	public BookingDeviationType getBookingDeviationTyoe() {
+	public BookingDeviationType getBookingDeviationType() {
 		return bookingDeviationTyoe;
 	}
 

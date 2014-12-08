@@ -890,7 +890,7 @@ private void rejectEavropAssignment(Eavrop eavrop, DateTime dateTime) {
 	}
 	
     private BookingDeviation createBookingDeviation(){
-    	return new BookingDeviation(BookingDeviationType.INVANARE_CANCELLED_LT_48, new Note(NoteType.BOOKING_DEVIATION, "No Show", doctorPerson));
+    	return new BookingDeviation(BookingDeviationType.CANCELLED_BY_INVANARE_LT_48, new Note(NoteType.BOOKING_DEVIATION, "No Show", doctorPerson));
     }
     
     private BookingDeviationResponse createBookingDeviationResponse(DateTime dateTime){

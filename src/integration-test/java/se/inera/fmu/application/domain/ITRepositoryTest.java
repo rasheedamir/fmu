@@ -1002,7 +1002,7 @@ public class ITRepositoryTest {
     
     private BookingDeviation createBookingDeviation(){
     	
-    	BookingDeviation deviation = new BookingDeviation(BookingDeviationType.INVANARE_CANCELLED_LT_48, new Note(NoteType.BOOKING_DEVIATION, "No Show", new HoSPerson(new HsaId("SE160000000000-HAHAHHSLC"), "Lasse Kongo", "Läkare", "Danderydssjukhus", "AVD fmu")));
+    	BookingDeviation deviation = new BookingDeviation(BookingDeviationType.CANCELLED_BY_INVANARE_LT_48, new Note(NoteType.BOOKING_DEVIATION, "No Show", new HoSPerson(new HsaId("SE160000000000-HAHAHHSLC"), "Lasse Kongo", "Läkare", "Danderydssjukhus", "AVD fmu")));
     	return deviation;
     }
 
