@@ -1,4 +1,4 @@
-<table ng-table="tableParams" template-pagination="custom/pager" class="fmu-table fadeIn fast">
+<table ng-table="tableParams" template-pagination="custom/pager" class="fmu-table fadeIn fast table-striped">
 
     <thead>
     <tr>
@@ -37,8 +37,8 @@
         </td>
     </tr>
 
-    <tr ng-repeat-end>
-        <td colspan="{{headerFields.length}}" ng-if="row.isEditExpanded">
+    <tr ng-repeat-end ng-if="row.isEditExpanded">
+        <td colspan="{{headerFields.length}}">
             <div class="utredning-edit-row">
                 <tabset justified="false">
                     <tab ng-if="row.selectedTolkStatus" heading="Tolk">

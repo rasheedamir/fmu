@@ -157,7 +157,7 @@ ul#strength {
   width: 100%;
   max-width: 100%;
   margin-bottom: 20px;
-  border-collapse: separate;
+  border-collapse: collapse;
   border-spacing: 0 0;
 }
 
@@ -174,12 +174,20 @@ ul#strength {
 .fmu-table > tbody > tr > th,
 .fmu-table > tbody > tr > td {
     padding: 10px 10px;
-    border: 0;
     vertical-align: middle;
+}
+
+.fmu-table > tbody > tr {
+    cursor: pointer;
+}
+
+.fmu-table > tbody > tr > td{
+    border: 1px solid #DDDDDD;
 }
 
 /* Group headers */
 .fmu-table > thead > tr:first-child > th {
+    border: none;
     padding: 5px 10px;
     empty-cells: hide;
     border-radius: 10px 10px 0 0;
@@ -410,11 +418,14 @@ ul#strength {
 	width:100%;
 	height:100%;
 	margin:0px;padding:0px;
-}.fmu-table-k tr:last-child td:last-child {
+}
+
+.fmu-table-k tr:last-child td:last-child {
 	-moz-border-radius-bottomright:5px;
 	-webkit-border-bottom-right-radius:5px;
 	border-bottom-right-radius:5px;
 }
+
 .fmu-table-k table tr:first-child td:first-child {
 	-moz-border-radius-topleft:5px;
 	-webkit-border-top-left-radius:5px;
