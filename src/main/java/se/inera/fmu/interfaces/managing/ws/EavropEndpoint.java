@@ -589,7 +589,7 @@ public class EavropEndpoint {
 	        String medicalLeaveIssuedAt = request.getTidigareUtredning().getSjukskrivandeenhet();
 	        HoSPerson medicalLeaveIssuedBy = null;
 	        if(request.getTidigareUtredning().getSjukskrivenAv()!=null){
-	            HsaId hsaId = (isBlankOrNull(request.getTidigareUtredning().getSjukskrivenAv().getId()))?null: new HsaId(request.getTidigareUtredning().getSjukskrivenAv().getId());
+	            HsaId hsaId = (isBlankOrNull(request.getTidigareUtredning().getSjukskrivenAv().getPersonalId()))?null: new HsaId(request.getTidigareUtredning().getSjukskrivenAv().getPersonalId());
 	            
 	            medicalLeaveIssuedBy = new HoSPerson(hsaId, 
 	            		request.getTidigareUtredning().getSjukskrivenAv().getNamn(),
