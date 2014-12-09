@@ -204,6 +204,15 @@ ul#strength {
     box-shadow: 1px 3px 3px 2px #999;
 }
 
+/* Data fields */
+.fmu-table > tbody > tr:first-child > td{
+    border-top: none;
+}
+
+.fmu-table > thead > tr > th{
+    border: none;
+}
+
 .dateDescription {
     margin-top: 10px;
 }
