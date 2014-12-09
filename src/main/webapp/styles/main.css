@@ -245,7 +245,7 @@ ul#strength {
     opacity: 0.6;
 }
 
-.fmu-table > tbody > tr:hover > td{
+.fmu-table > tbody > tr:hover > td {
     background-color: inherit;
     opacity: 1;
     filter: alpha(opacity=100);
@@ -720,4 +720,8 @@ h2{
 .navbar-default .navbar-nav > .active > a:focus {
     color: #ffffff;
     background-color: #3C4E57;
+}
+
+.greyed-hover > tbody > tr:hover > td {
+    background-color: rgba(216, 216, 216, 0.5);
 }

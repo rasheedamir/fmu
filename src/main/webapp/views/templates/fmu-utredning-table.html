@@ -1,4 +1,4 @@
-<table ng-table="tableParams" template-pagination="custom/pager" class="fmu-table fadeIn fast table-striped">
+<table ng-table="tableParams" template-pagination="custom/pager" class="table fmu-table fadeIn fast greyed-hover">
 
     <thead>
     <tr>
@@ -24,7 +24,7 @@
     </thead>
 
     <tbody>
-    <tr ng-repeat-start="row in tableParams.data" ng-class="row.colorClass ? row.colorClass : 'fmu-table-color-inactive'"
+    <tr ng-repeat-start="row in tableParams.data"
         ng-click="rowClicked(row)">
         <td ng-repeat="column in headerFields"
             ng-if="!isEditColumn(column.key)"
