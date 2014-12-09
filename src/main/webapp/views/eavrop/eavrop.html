@@ -62,10 +62,14 @@
 	</div>
 </div>
 
-<div id="fmu-nav" class="navbar navbar-default" style="margin-bottom: 0em; border-top: none" role="navigation">
+<div id="fmu-nav" class="navbar navbar-default fmu-nav" role="navigation">
     <div>
         <ul class="nav navbar-nav">
-            <li ng-class="{active: $state.includes('eavrop.order')}"><a ui-sref=".order.contents"><span class="glyphicon glyphicon-save">&nbsp;</span>Beställning</a></li>
+            <li ng-class="{active: $state.includes('eavrop.order')}">
+                <a ui-sref=".order.contents">
+                    <span class="glyphicon glyphicon-save">&nbsp;</span>Beställning
+                </a>
+            </li>
             <li ui-sref-active="active"><a ui-sref=".investigation"><span class="glyphicon glyphicon-search">&nbsp;</span>Utredning</a></li>
             <li ui-sref-active="active"><a ui-sref=".allevents"><span class="glyphicon glyphicon-random">&nbsp;</span>Alla händelser</a></li>
             <li ui-sref-active="active"><a ui-sref=".notes"><span class="glyphicon glyphicon-pencil">&nbsp;</span>Anteckningar</a></li>

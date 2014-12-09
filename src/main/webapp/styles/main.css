@@ -643,8 +643,7 @@ h2{
     margin: 0;
     padding: 1em;
     background-color: #E6F3F4;
-    border: 1px solid #9cd7e3;
-    
+    opacity: 1;
 }
 
 .fmu-name-banner {
@@ -654,7 +653,6 @@ h2{
     border-radius: 10px 10px 10px 10px;
     -moz-border-radius: 10px 10px 10px 10px;
     -webkit-border-radius: 10px 10px 10px 10px;
-    border: 2px solid lightgrey;
 }
 
 .fmu-name-banner b{
@@ -685,4 +683,44 @@ h2{
 
 .container-fluid h1:first-child {
     margin-top: 1em;
+}
+
+.fmu-nav {
+    background-color: #9DA6AB;
+    border: none;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.055);
+    color: #ffffff;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #ffffff;
+}
+
+.fmu-nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+.fmu-nav .nav li > a {
+    margin: 0.5em;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 1px 1px #52626A;
+    -moz-box-shadow: inset 0 0 1px 1px #52626A;
+    box-shadow: inset 0 0 1px 1px #52626A;
+    background-color: #8B959A;
+}
+
+.navbar .nav > li {
+    border: none;
+}
+
+.navbar .nav > li:first-child {
+    border: none;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #ffffff;
+    background-color: #3C4E57;
 }
