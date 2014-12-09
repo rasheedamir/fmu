@@ -33,8 +33,8 @@
         </td>
     </tr>
 
-    <tr ng-repeat-end ng-if="row.isEditExpanded">
-        <td colspan="{{headerFields.length}}">
+    <tr ng-repeat-end ng-if="row.isEditExpanded" class="no-hover">
+        <td colspan="{{headerFields.length + 1}}">
             <div class="utredning-edit-row">
                 <tabset justified="false">
                     <tab ng-if="row.selectedTolkStatus" heading="Tolk">

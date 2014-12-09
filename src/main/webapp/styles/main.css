@@ -822,3 +822,7 @@ h2{
     float: right;
     min-width: 10em;
 }
+
+.greyed-hover .no-hover:hover > td{
+    background-color: #ffffff;
+}
