@@ -3,6 +3,27 @@
 <configuration scan="true">
     <include resource="org/springframework/boot/logging/logback/base.xml" />
 
+    <appender name="JSON" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logback.loglevel}</level>
+        </filter>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>${LOG_FILE}.json</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOG_FILE}.%i</fileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>1MB</MaxFileSize>
+        </triggeringPolicy>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeCallerInfo>true</includeCallerInfo>
+            <customFields>{"appname":"${pom.artifactId}","version":"${pom.version}"}</customFields>
+        </encoder>
+    </appender>
+
     <logger name="javax.activation" level="warn"/>
     <logger name="se.inera.fmu" level="${logback.loglevel}"/>
     <logger name="ch.qos.logback" level="WARN"/>
@@ -38,7 +59,9 @@
     </contextListener>
 
     <root level="${logback.loglevel}">
-        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="JSON" />
     </root>
 
 </configuration>

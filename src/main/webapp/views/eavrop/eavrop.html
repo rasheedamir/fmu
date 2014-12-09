@@ -1,6 +1,6 @@
 <div class="fmu-header">
     <a class="fmu-backlink" ui-sref="overview.orders">Till översikten</a>
-    <div class="pull-right fmu-name-banner flipInX normal" style="font-size: 120%">
+    <div class="pull-right fmu-name-banner flipInX normal">
         <span>Invånare: <b>{{patientInfo.label}}</b></span>
         <span style="margin-left: 2em;">Ärende-ID: <b>{{currentEavrop.arendeId}}</b></span>
     </div>
@@ -49,10 +49,9 @@
 
 <div restricted role="ROLE_UTREDARE"> 
 	<div ng-controller="AcceptanceCtrl" ng-switch="currentEavrop.status">
-		<div class="alert alert-info" ng-switch-when="ASSIGNED" style="margin-bottom: 0">
+		<div class="fmu-assign-banner" ng-switch-when="ASSIGNED">
 			<h3>Förfrågan om acceptans</h3>
-			<hr />
-			
+
 			<p><b>Förfrågan ställd till:</b></p>
 			<p><b>Acceptans begärd av:</b></p>
 			
@@ -88,6 +87,6 @@
 	});
 </script>
 
-<div class="container-fluid">
+<div>
     <div ui-view></div>
 </div>

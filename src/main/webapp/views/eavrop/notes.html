@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div ng-cloak class="container-fluid fadeIn fast">
     <h1>
         Anteckningar
     </h1>
@@ -6,37 +6,11 @@
     <div class="table-wrapper">
         <fmu-error-field errors="noteError"></fmu-error-field>
 
-        <div>
-            <table class="fmu-table greyed-hover">
-                <thead>
-                <tr></tr>
-                <tr>
-                    <th>
-                        Innehåll
-                    </th>
-                    <th>
-                        Skapad av
-                    </th>
-                    <th>
-                        Datum
-                    </th>
-                    <th>
-                        Tabort
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="note in notes">
-                    <td class="text-capitalize">{{note.contents}}</td>
-                    <td class="text-capitalize">{{note.createdBy}}</td>
-                    <td>{{toYYMMDD(note.date)}}</td>
-                    <td align="middle">
-                        <span ng-if="note.removable" class="btn btn-danger btn-sm" ng-click="openRemoveNote(note)"><i
-                                class="glyphicon glyphicon-remove"></i></span>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="table-wrapper">
+            <fmu-anteckningar-table
+                    anteckningar="notes"
+                    row-removable="true"
+                    remove-func="openRemoveNote"></fmu-anteckningar-table>
         </div>
 
         <div class="fmu-form-footer" style="border: none">

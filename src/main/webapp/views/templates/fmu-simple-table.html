@@ -21,6 +21,10 @@
         </thead>
 
         <tbody>
+        <tr ng-if="!tabularData || tabularData.length == 0" class="blank-row">
+            <td colspan="100"></td>
+        </tr>
+
         <tr ng-repeat="row in tabularData" ng-class="row.color" ng-click="rowClicked(row)">
             <td ng-repeat="column in headerFields"
                 sortable="{{column.key}}">

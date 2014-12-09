@@ -1,59 +1,51 @@
-<div class="row"><div class="col-md-12"><h2>Invånaren</h2></div></div>
-<div class="row">
-    <div class="col-md-3">
-        <div class="fmu-table-v">
-            <table>
-                <tr>
-                    <td>Initialer:</th>
-                    <td>{{patient.initials}}</td>
-                </tr>
-                <tr>
-                    <td>Kön:</th>
-                    <td>{{patient.gender}}</td>
-                </tr>
-                <tr>
-                    <td>Födelseår:</th>
-                    <td>{{patient.dobYear}}</td>
-                </tr>
-                <tr>
-                    <td>Bostadsort:</th>
-                    <td>{{patient.residenceCity}}</td>
-                </tr>
-            </table>
-        </div>
+<div class="container-fluid">
+    <div class="col-md-12 table-wrapper">
+        <h2>Invånaren</h2>
+        <table class="fmu-table">
+            <thead>
+            <tr>
+                <th>Initialer</th>
+                <th>Kön</th>
+                <th>Födelseår</th>
+                <th>Bostadsort</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>{{patient.initials}}</td>
+                <td>{{patient.gender}}</td>
+                <td>{{patient.dobYear}}</td>
+                <td>{{patient.residenceCity}}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <div restricted role="ROLE_UTREDARE" class="col-md-3">
-        <div class="fmu-table-v">
-            <table>
-                <tr>
-                    <td>Personnummer:</th>
-                    <td>{{patient.details.socSecNo}}</td>
-                </tr>
-                <tr>
-                    <td>Namn:</th>
-                    <td>{{patient.details.name}}</td>
-                </tr>
-                <tr>
-                    <td>Telefonnummer:</th>
-                    <td>{{patient.details.phone}}</td>
-                </tr>
-                <tr>
-                    <td>Tidigare utredd vid:</th>
-                    <td>{{patient.details.prevAssesment}}</td>
-                </tr>
-                <tr>
-                    <td>Sjukskrivande vårdcentral/klinik</th>
-                    <td>{{patient.details.sjukskrivandeVk}}</td>
-                </tr>
-                <tr>
-                    <td>Sjukskrivande läkare:</th>
-                    <td>{{patient.details.sjukskrivandeLakare}}</td>
-                </tr>
-                <tr>
-                    <td>Särskilda behov</th>
-                    <td>{{patient.details.specialNeeds}}</td>
-                </tr>
-            </table>
-        </div>
+    <div class="col-md-12 table-wrapper">
+        <table class="fmu-table">
+            <thead>
+            <tr>
+                <th>Personnummer</th>
+                <th>Namn</th>
+                <th>Telefonnummer</th>
+                <th>Tidigare utredd vid</th>
+                <th>Sjukskrivande vårdcentral/klinik</th>
+                <th>Sjukskrivande läkare</th>
+                <th>Särskilda behov</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>{{patient.details.socSecNo}}</td>
+                <td>{{patient.details.name}}</td>
+                <td>{{patient.details.phone}}</td>
+                <td>{{patient.details.prevAssesment}}</td>
+                <td>{{patient.details.sjukskrivandeVk}}</td>
+                <td>{{patient.details.sjukskrivandeLakare}}</td>
+                <td>{{patient.details.specialNeeds}}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>

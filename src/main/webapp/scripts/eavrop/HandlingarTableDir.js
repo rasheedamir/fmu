@@ -6,27 +6,26 @@ angular.module('fmuClientApp')
             handlingar: '=handlingar'
         },
         restrict: 'E',
-        template: '\
-        <div class="fmu-table-k">\
-        <table>\
-            <tr>\
-                <td>\
-                    Handling\
-                </td>\
-                <td>\
-                    Registrerad av\
-                </td>\
-                <td>\
-                    Registrerad, datum\
-                </td>\
-            </tr>\
-            <tr ng-repeat="doc in handlingar">\
-                <td>{{doc.name}}</td>\
-                <td>{{doc.regBy}}</td>\
-                <td>{{doc.regDate | date:\'yyyy-MM-dd\'}}</td>\
-            </tr>\
-        </table>\
-        </div>'
+        template:'<table class="fmu-table"> ' +
+            '<thead> ' +
+                '<tr> ' +
+                    '<th>Handling</th> ' +
+                    '<th>Registrerad av</th> ' +
+                    '<th>Registrerad, datum</th> ' +
+                    '</tr> ' +
+            '</thead> ' +
+            '<tbody> ' +
+                '<tr class="blank-row" ng-if="!handlingar || handlingar.length == 0">' +
+                    '<td colspan="1000"></td>' +
+                '</tr>'+
+
+                '<tr ng-repeat="doc in handlingar"> ' +
+                    '<td>{{doc.name}}</td> ' +
+                    '<td>{{doc.regBy}}</td> ' +
+                    '<td>{{doc.regDate | date:\'yyyy-MM-dd\'}}</td> ' +
+                    '</tr> ' +
+            '</tbody> ' +
+        '</table> '
     };
 })
 .directive('fmuTillaggTable', function(){
@@ -35,26 +34,78 @@ angular.module('fmuClientApp')
             tillagg: '=tillagg'
         },
         restrict: 'E',
-        template: '\
-        <div class="fmu-table-k">\
-        <table>\
-            <tr>\
-                <td>\
-                    Handling\
-                </td>\
-                <td>Begäran skickad, av</th>\
-                <td>Begäran skickad, datum</th>\
-                <td>Kommentar</th>\
-                <td>Begäran skickad till:</th>\
-            </tr>\
-            <tr ng-repeat="am in tillagg">\
-                <td>{{am.name}}</td>\
-                <td>{{am.sentBy}}</td>\
-                <td>{{am.sentDate | date: \'yyyy-MM-dd\'}}</td>\
-                <td>{{am.comment}}</td>\
-                <td>{{am.sentTo}}</td>\
-            </tr>\
-        </table>\
-        </div>'
+        template:
+            '<table class="fmu-table"> ' +
+                '<thead> ' +
+                    '<tr> ' +
+                        '<th>Handling</th> ' +
+                        '<th>Begäran skickad, av</th> ' +
+                        '<th>Begäran skickad, datum</th> ' +
+                        '<th>Kommentar</th> ' +
+                        '<th>Begäran skickad till</th> ' +
+                    '</tr> ' +
+                '</thead> ' +
+                '<tbody> ' +
+                    '<tr class="blank-row" ng-if="!tillagg || tillagg.length == 0">' +
+                        '<td colspan="1000"></td>' +
+                    '</tr>'+
+
+                    '<tr ng-repeat="am in tillagg"> ' +
+                        '<td>{{am.name}}</td> ' +
+                        '<td>{{am.sentBy}}</td> ' +
+                        '<td>{{am.sentDate | date: \'yyyy-MM-dd\'}}</td> ' +
+                        '<td>{{am.comment}}</td> ' +
+                        '<td>{{am.sentTo}}</td> ' +
+                    '</tr> ' +
+                '</tbody> ' +
+            '</table>'
+    };
+})
+.directive('fmuAnteckningarTable', function($filter){
+    return {
+        scope: {
+            anteckningar: '=',
+            rowRemovable: '=?',
+            removeFunc: '&'
+        },
+        restrict: 'E',
+        controller: function ($scope) {
+            $scope.toYYMMDD = function (date) {
+                return $filter('date')(date, 'yyyy-MM-dd');
+            };
+        },
+
+        link: function (scope) {
+            scope.remove = function (note) {
+                return scope.rowRemovable && scope.removeFunc() ? scope.removeFunc()(note) : null;
+            };
+        },
+        template:
+            '<table class="fmu-table greyed-hover"> ' +
+            '<thead> ' +
+                '<tr> ' +
+                        '<th> Innehåll </th> ' +
+                        '<th> Skapad av </th> ' +
+                        '<th> Datum </th> ' +
+                        '<th ng-if="rowRemovable"> Tabort </th> ' +
+                '</tr> ' +
+            '</thead> ' +
+            '<tbody> ' +
+                '<tr class="blank-row" ng-if="!anteckningar || anteckningar.length == 0">' +
+                    '<td colspan="1000"></td>' +
+                '</tr>'+
+                '<tr ng-repeat="note in anteckningar"> ' +
+                    '<td class="text-capitalize">{{note.contents}}</td> ' +
+                    '<td class="text-capitalize">{{note.createdBy}}</td> ' +
+                    '<td>{{toYYMMDD(note.date)}}</td> ' +
+                    '<td align="middle" ng-if="rowRemovable"> ' +
+                        '<span ng-if="note.removable" class="btn btn-danger btn-sm" ng-click="remove(note)">' +
+                        '<i class="glyphicon glyphicon-remove"></i>' +
+                        '</span> ' +
+                    '</td> ' +
+                    '<td ng-if="rowRemovable && !note.removable"></td> ' +
+                '</tr> ' +
+            '</tbody> ' +
+        '</table>'
     };
 });

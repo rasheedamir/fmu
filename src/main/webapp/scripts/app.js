@@ -210,9 +210,6 @@ angular.module('fmuClientApp', [
         url: '/notes',
         templateUrl: 'views/eavrop/notes.html',
         controller: function($scope, $modal, $filter, $stateParams, EavropNotes, EavropService, EAVROP_NOTES){
-            $scope.toYYMMDD = function (date) {
-                return $filter('date')(date, 'yyyy-MM-dd');
-            };
 
             $scope.openRemoveNote = function (noteData) {
                 var confirmModal = $modal.open({
