@@ -1,4 +1,4 @@
-<table ng-table="tableParams" template-pagination="custom/pager" class="fmu-table fadeIn fast">
+<table ng-table="tableParams" template-pagination="custom/pager" class="table fmu-table fadeIn fast greyed-hover">
 
     <thead>
     <tr>
@@ -24,7 +24,7 @@
     </thead>
 
     <tbody>
-    <tr ng-repeat-start="row in tableParams.data" ng-class="row.colorClass ? row.colorClass : 'fmu-table-color-inactive'"
+    <tr ng-repeat-start="row in tableParams.data"
         ng-click="rowClicked(row)">
         <td ng-repeat="column in headerFields"
             ng-if="!isEditColumn(column.key)"
@@ -37,8 +37,8 @@
         </td>
     </tr>
 
-    <tr ng-repeat-end>
-        <td colspan="{{headerFields.length}}" ng-if="row.isEditExpanded">
+    <tr ng-repeat-end ng-if="row.isEditExpanded">
+        <td colspan="{{headerFields.length}}">
             <div class="utredning-edit-row">
                 <tabset justified="false">
                     <tab ng-if="row.selectedTolkStatus" heading="Tolk">
