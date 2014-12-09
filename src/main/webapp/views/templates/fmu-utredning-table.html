@@ -1,14 +1,6 @@
 <table ng-table="tableParams" template-pagination="custom/pager" class="table fmu-table fadeIn fast greyed-hover">
 
     <thead>
-    <tr>
-        <th class="text-capitalize"
-            ng-repeat="group in headerGroups" colspan="{{group.colspan}}"
-            ng-class="group.colorClass == null || group.name == null ? 'invisible-header' : group.colorClass">
-            {{group.name}}
-        </th>
-    </tr>
-
     <tr class="header">
         <th ng-repeat="field in headerFields" class="sortable text-capitalize"
             ng-class="{'sort-asc': tableParams.isSortBy(field.key, 'asc'),'sort-desc': tableParams.isSortBy(field.key, 'desc')}"
