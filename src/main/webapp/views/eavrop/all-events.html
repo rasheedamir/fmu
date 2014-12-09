@@ -1,158 +1,166 @@
-<div ng-cloak class="container-fluid">
-    <h1>Alla händelser</h1>
+<div ng-cloak>
+    <div class="container-fluid fmu-badge-container">
+        <h1>Alla händelser</h1>
+        <h2>Sammanfattning</h2>
 
-    <h2>Sammanfattning</h2>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="panel panel-default text-center summary-badge">
-                        <div class="panel-heading"><strong>Förfrågan om utredning</strong></div>
-                        <div class="panel-body"><span class="summary-badge-text">{{allevents.dateInquiry | date:'yyyy-MM-dd'}}</span>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="summary-badge text-center">
+                            <div class="panel-heading"><strong>Förfrågan om utredning</strong></div>
+                            <div class="panel-body"><span class="summary-badge-text">{{allevents.dateInquiry | date:'yyyy-MM-dd'}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center summary-badge">
+                            <div class="panel-heading"><strong>Handlingar översändes</strong></div>
+                            <div class="panel-body"><span class="summary-badge-text">{{allevents.documentsSent | date:'yyyy-MM-dd'}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center summary-badge">
+                            <div class="panel-heading"><strong>Utredning antal dagar</strong></div>
+                            <div class="panel-body"><span
+                                    class="summary-badge-text">{{allevents.investigationNoDays}}</span></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center summary-badge">
+                            <div class="panel-heading"><strong>Begärda tillägg, handlingar</strong></div>
+                            <div class="panel-body"><span
+                                    class="summary-badge-text">{{allevents.reqAmendmentsDocuments}}</span></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="panel panel-default text-center summary-badge">
-                        <div class="panel-heading"><strong>Handlingar översändes</strong></div>
-                        <div class="panel-body"><span class="summary-badge-text">{{allevents.documentsSent | date:'yyyy-MM-dd'}}</span>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="text-center summary-badge">
+                            <div class="panel-heading"><strong>Acceptans av utredningen</strong></div>
+                            <div class="panel-body"><span class="summary-badge-text">{{allevents.acceptanceDate | date:'yyyy-MM-dd'}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center summary-badge">
+                            <div class="panel-heading"><strong>Intyg skickat till beställaren</strong></div>
+                            <div class="panel-body"><span class="summary-badge-text">{{allevents.certSentToOrdererDate |  date:'yyyy-MM-dd'}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center summary-badge">
+                            <div class="panel-heading"><strong>Antal avvikelser</strong></div>
+                            <div class="panel-body"><span class="summary-badge-text">{{allevents.noDeviations}}</span></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center summary-badge">
+                            <div class="panel-heading"><strong>Begärda kompletteringar till utredning</strong></div>
+                            <div class="panel-body"><span class="summary-badge-text">{{allevents.reqAmendmentsInvestigation}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="panel panel-default text-center summary-badge">
-                        <div class="panel-heading"><strong>Utredning antal dagar</strong></div>
-                        <div class="panel-body"><span
-                                class="summary-badge-text">{{allevents.investigationNoDays}}</span></div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="panel panel-default text-center summary-badge">
-                        <div class="panel-heading"><strong>Begärda tillägg, handlingar</strong></div>
-                        <div class="panel-body"><span
-                                class="summary-badge-text">{{allevents.reqAmendmentsDocuments}}</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="panel panel-default text-center summary-badge">
-                        <div class="panel-heading"><strong>Acceptans av utredningen</strong></div>
-                        <div class="panel-body"><span class="summary-badge-text">{{allevents.acceptanceDate | date:'yyyy-MM-dd'}}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="panel panel-default text-center summary-badge">
-                        <div class="panel-heading"><strong>Intyg skickat till beställaren</strong></div>
-                        <div class="panel-body"><span class="summary-badge-text">{{allevents.certSentToOrdererDate |  date:'yyyy-MM-dd'}}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="panel panel-default text-center summary-badge">
-                        <div class="panel-heading"><strong>Antal avvikelser</strong></div>
-                        <div class="panel-body"><span class="summary-badge-text">{{allevents.noDeviations}}</span></div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="panel panel-default text-center summary-badge">
-                        <div class="panel-heading"><strong>Begärda kompletteringar till utredning</strong></div>
-                        <div class="panel-body"><span class="summary-badge-text">{{allevents.reqAmendmentsInvestigation}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <h2>Beställning</h2>
-
-            <div class="fmu-table-k">
-                <table>
-                    <tr>
-                        <td>
-                            Ärende-ID
-                        </td>
-                        <td>
-                            Typ
-                        </td>
-                        <td>
-                            Organisation
-                        </td>
-                        <td>
-                            Enhet/Avdelning
-                        </td>
-                        <td>
-                            Förfrågan skickad, datum
-                        </td>
-                        <td>
-                            Patientens bostadsort
-                        </td>
-                        <td>
-                            Organisation
-                        </td>
-                        <td>
-                            Utredare, enhet
-                        </td>
-                        <td>
-                            Acceptans av utredning
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{{order.arendeId}}</td>
-                        <td>{{order.type}}</td>
-                        <td>{{order.ordererOrganization}}</td>
-                        <td>{{order.ordererUnit}}</td>
-                        <td>{{order.inquiryDate | date:'yyyy-MM-dd'}}</td>
-                        <td>{{order.patientResidence}}</td>
-                        <td>{{order.investigatorOrganization}}</td>
-                        <td>{{order.investigatorUnit}}</td>
-                        <td>{{order.acceptanceDate | date:'yyyy-MM-dd'}}</td>
-                    </tr>
-
-                </table>
-            </div>
-            <h2>Handlingar</h2>
-            <fmu-handlingar-table handlingar="documents"></fmu-handlingar-table>
-            <h2>Tillägg</h2>
-            <fmu-tillagg-table tillagg="requestedDocuments"></fmu-tillagg-table>
-
-            <h2>Utredning</h2>
-
-            <div>
-                <fmu-utredning-table
-                        table-parameters="tableParameters"
-                        header-fields="headerFields"
-                        eavropid="currentEavropId"
-                        row-modifiable="false"
-                        access-data-callback="getTableCellValue">
-                </fmu-utredning-table>
-            </div>
-
-            <h2>Anteckningar</h2>
-
-            <div class="fmu-table-k">
-                <table>
-                    <tr>
-                        <td>
-                            Innehåll
-                        </td>
-                        <td>
-                            Skapad av
-                        </td>
-                        <td>
-                            Datum
-                        </td>
-                    </tr>
-                    <tr ng-repeat="note in notes">
-                        <td>{{note.contents}}</td>
-                        <td>{{note.createdBy}}</td>
-                        <td>{{note.date | date: 'yyyy-MM-dd'}}</td>
-                    </tr>
-                </table>
             </div>
         </div>
     </div>
 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Beställning</h2>
 
+                <div class="fmu-table-k table-wrapper">
+                    <table>
+                        <tr>
+                            <td>
+                                Ärende-ID
+                            </td>
+                            <td>
+                                Typ
+                            </td>
+                            <td>
+                                Organisation
+                            </td>
+                            <td>
+                                Enhet/Avdelning
+                            </td>
+                            <td>
+                                Förfrågan skickad, datum
+                            </td>
+                            <td>
+                                Patientens bostadsort
+                            </td>
+                            <td>
+                                Organisation
+                            </td>
+                            <td>
+                                Utredare, enhet
+                            </td>
+                            <td>
+                                Acceptans av utredning
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{order.arendeId}}</td>
+                            <td>{{order.type}}</td>
+                            <td>{{order.ordererOrganization}}</td>
+                            <td>{{order.ordererUnit}}</td>
+                            <td>{{order.inquiryDate | date:'yyyy-MM-dd'}}</td>
+                            <td>{{order.patientResidence}}</td>
+                            <td>{{order.investigatorOrganization}}</td>
+                            <td>{{order.investigatorUnit}}</td>
+                            <td>{{order.acceptanceDate | date:'yyyy-MM-dd'}}</td>
+                        </tr>
+
+                    </table>
+                </div>
+                <h2>Handlingar</h2>
+                <fmu-handlingar-table handlingar="documents"></fmu-handlingar-table>
+                <h2>Tillägg</h2>
+                <fmu-tillagg-table tillagg="requestedDocuments"></fmu-tillagg-table>
+
+                <h2>Utredning</h2>
+
+                <div class="table-wrapper">
+                    <fmu-utredning-table
+                            table-parameters="tableParameters"
+                            header-fields="headerFields"
+                            eavropid="currentEavropId"
+                            row-modifiable="false"
+                            access-data-callback="getTableCellValue">
+                    </fmu-utredning-table>
+                </div>
+
+                <h2>Anteckningar</h2>
+
+                <div class="fmu-table-k">
+                    <table>
+                        <tr>
+                            <td>
+                                Innehåll
+                            </td>
+                            <td>
+                                Skapad av
+                            </td>
+                            <td>
+                                Datum
+                            </td>
+                        </tr>
+                        <tr ng-repeat="note in notes">
+                            <td>{{note.contents}}</td>
+                            <td>{{note.createdBy}}</td>
+                            <td>{{note.date | date: 'yyyy-MM-dd'}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 </div>

@@ -9,11 +9,13 @@
     margin-bottom: 0;
 }
 body {
-/*
-    background: #fafafa;
-*/
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
+}
+
+body .container-fluid {
+    padding-left: 2em;
+    padding-right: 2em;
 }
 
 .development {
@@ -319,13 +321,50 @@ ul#strength {
 }
 
 .summary-badge-text {
-    font-size: 150%;
+    font-size: 30pt;
+    font-weight: bold;
+    color: #ffffff;
     margin-top: auto;
     margin-bottom: auto;
+    text-shadow: 1px 1px black;;
 }
-.summary-badge{
+.summary-badge {
     min-height: 9em;
+    margin-bottom: 3em;
 }
+
+.summary-badge .panel-heading {
+    -moz-border-radius-topright:5px;
+    -webkit-border-top-right-radius:5px;
+    border-top-right-radius:5px;
+
+    -moz-border-radius-topleft:5px;
+    -webkit-border-top-left-radius:5px;
+    border-top-left-radius:5px;
+
+    -webkit-box-shadow: 0 0 1px 1px lightgray;
+    -moz-box-shadow: 0 0 1px 1px lightgray;
+    box-shadow: 0 0 1px 1px lightgray;
+}
+
+.summary-badge .panel-body {
+    background-color: #A8B0B5;
+    margin-left: auto;
+    margin-right: auto;
+
+    -moz-border-radius-bottomleft:5px;
+    -webkit-border-bottom-left-radius:5px;
+    border-bottom-left-radius:5px;
+
+    -moz-border-radius-bottomright:5px;
+    -webkit-border-bottom-right-radius:5px;
+    border-bottom-right-radius:5px;
+
+    -webkit-box-shadow: 0 0 1px 1px lightgray;
+    -moz-box-shadow: 0 0 1px 1px lightgray;
+    box-shadow: 0 0 1px 1px lightgray;
+}
+
 .fmu-table-v{
 	margin:0px;padding:0px;
     margin-bottom: 1em;
@@ -733,4 +772,16 @@ h2{
 
 .greyed-hover > tbody > tr:hover > td {
     background-color: rgba(216, 216, 216, 0.5);
+}
+
+.fmu-assign-banner {
+    padding: 1em 2em;
+    background-color: #FDF2DD;
+}
+
+.fmu-badge-container {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #fafafa;
 }
