@@ -36,7 +36,7 @@ swagger:
     licenseUrl:
 
 logging:
-    file: logs/fmu.log
+    file: /tmp/fmu-admin/fmu.log
 
 tomcat:
     accessLogEnabled: false
