@@ -23,6 +23,7 @@ import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
+import se.inera.fmu.domain.model.eavrop.EavropStartEvent;
 import se.inera.fmu.domain.model.eavrop.document.DocumentRequestedEvent;
 import se.inera.fmu.domain.model.eavrop.document.DocumentSentByBestallareEvent;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
@@ -84,8 +85,10 @@ public class EavropDocumentServiceImpl implements EavropDocumentService {
 			}
 		}
 		
+		handleDocumentsSentByBestallare(eavrop.getEavropId(), eavrop.getArendeId(), documentsSentFromBestallareDateTime);
+		
 		if(eavrop.getStartDate() != null && !eavrop.getStartDate().equals(startDate)){
-			handleDocumentsSentByBestallare(eavrop.getEavropId(), documentsSentFromBestallareDateTime);
+			handleEavropStart(eavrop.getEavropId(), eavrop.getArendeId(), eavrop.getStartDate().toDateTimeAtStartOfDay());	
 		}
 	}
 
@@ -145,14 +148,24 @@ public class EavropDocumentServiceImpl implements EavropDocumentService {
 		return this.domainEventPublisher;
 	}
 
-	private void handleDocumentsSentByBestallare(EavropId eavropId, DateTime dateTimeDocumentsSent){
+	private void handleDocumentsSentByBestallare(EavropId eavropId, ArendeId arendeId, DateTime dateTimeDocumentsSent){
 		//TODO: dont know if this event should be created... 
-		DocumentSentByBestallareEvent event = new DocumentSentByBestallareEvent(eavropId, dateTimeDocumentsSent);
+		DocumentSentByBestallareEvent event = new DocumentSentByBestallareEvent(eavropId, arendeId, dateTimeDocumentsSent);
         if(log.isDebugEnabled()){
         	log.debug(String.format("DocumentSentByBestallareEvent created :: %s", event.toString()));
         }
 		getDomainEventPublisher().post(event);
 	}
+
+	private void handleEavropStart(EavropId eavropId, ArendeId arendeId, DateTime eavropStartDate){
+		//TODO: dont know if this event should be created... 
+		EavropStartEvent event = new EavropStartEvent(eavropId, arendeId, eavropStartDate);
+        if(log.isDebugEnabled()){
+        	log.debug(String.format("EavropStartEvent created :: %s", event.toString()));
+        }
+		getDomainEventPublisher().post(event);
+	}
+
 	
 	private void handleDocumentRequested(EavropId eavropId, ArendeId arendeId, String documentId, String documentName, DateTime documentDateTime, HoSPerson person, Note requestNote) {
 		DocumentRequestedEvent event = new DocumentRequestedEvent(eavropId, arendeId, documentId, documentName, documentDateTime, person, requestNote);

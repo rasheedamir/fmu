@@ -196,7 +196,7 @@
 	<xs:complexType name="personType">
 		<xs:sequence>
 			<xs:element name="namn" type="xs:string"/>
-			<xs:element name="id" type="xs:string" minOccurs="0"/>
+			<xs:element name="personalId" type="xs:string" minOccurs="0"/>
 			<xs:element name="befattning" type="xs:string"/>
 			<xs:element name="enhet" type="xs:string"/>
 			<xs:element name="organisation" type="xs:string"/>

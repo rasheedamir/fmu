@@ -15,6 +15,7 @@ import se.inera.fmu.interfaces.managing.command.PublishFmuAssignmentResponseComm
 import se.inera.fmu.interfaces.managing.command.PublishFmuBookingCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuBookingDeviationCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuDocumentRequestedCommand;
+import se.inera.fmu.interfaces.managing.command.PublishFmuStartDate;
 
 
 /**
@@ -32,11 +33,14 @@ public class BestallareClient extends WebServiceGatewaySupport {
 	}
 	
 	/**
+	 * Publishes web service message to bestallare with information about fmu assingnment responses
+	 * Bestallare can be told about both accepted and rejected assignments
 	 * 
-	 * @param aCommand
+	 * @param aCommand, a PublishFmuAssignmentResponseCommand with information about the Assignment response
 	 */
 	public void publishFmuAssignmentResponse(final PublishFmuAssignmentResponseCommand aCommand){
 		
+		//Set up request
 		FmuVardgivarenhetTilldelningRequest request = new FmuVardgivarenhetTilldelningRequest();
 		
 		request.setArendeId(aCommand.getArendeId().toString());
@@ -62,22 +66,51 @@ public class BestallareClient extends WebServiceGatewaySupport {
 	    	FmuVardgivarenhetTilldelningResponse response =
 		  	      (FmuVardgivarenhetTilldelningResponse) getWebServiceTemplate().marshalSendAndReceive(request);
 		    if(response == null ||
-		    		response.getServiceResponse() == null ||!StatusCode.OK.equals(response.getServiceResponse().getStatusCode())){
-		    	log.error("Assignment response on eavrop with arendeId:{} not sent to customer, message: {} ", aCommand.getArendeId().toString(),  (response!=null && response.getServiceResponse()!=null)?response.getServiceResponse().getErrorMessage():"");
+		    		response.getServiceResponse() == null ||!StatusCodeType.OK.equals(response.getServiceResponse().getStatusCode())){
+		    	log.error("Assignment response on eavrop with arendeId:{} not published, message: {} ", aCommand.getArendeId().toString(),  (response!=null && response.getServiceResponse()!=null)?response.getServiceResponse().getErrorMessage():"");
 		    }else{
-		    	log.debug("Assignment response on eavrop with arendeId:{}  sent to customer ", aCommand.getArendeId().toString());
+		    	log.debug("Assignment response on eavrop with arendeId:{} published ", aCommand.getArendeId().toString());
 		    }
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
 	}
+
+	/**
+	 * Method publishes a web service message to bestallare with information about when the FMU will be considered started
+	 * 
+	 * @param aCommand, a PublishFmuStartDate with startDate information
+	 */
+	public void publishFmuStartDate(final PublishFmuStartDate aCommand){
+		
+		//Set up request
+		FmuStartRequest request = new FmuStartRequest();
+		request.setArendeId(aCommand.getArendeId().toString());
+		request.setStartDateTime(getDateTime(aCommand.getStartDate()));
+		
+	    //Send request and receive response
+	    try {
+	    	FmuStartResponse response =
+		  	      (FmuStartResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+		    if(response == null ||
+		    		response.getServiceResponse() == null ||!StatusCodeType.OK.equals(response.getServiceResponse().getStatusCode())){
+		    	log.error("FMU start date on eavrop with arendeId:{} not published to customer, message: {} ", aCommand.getArendeId().toString(),  (response!=null && response.getServiceResponse()!=null)?response.getServiceResponse().getErrorMessage():"");
+		    }else{
+		    	log.debug("FMU start date on eavrop on eavrop with arendeId:{} published to customer ", aCommand.getArendeId().toString());
+		    }
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+	}
+
 	
 	/**
+	 * Method publishes a web service message to bestallare with information a booking added to the FMU Eavrop
 	 * 
-	 * @param aCommand
+	 * @param aCommand, a PublishFmuBookingCommand with booking information
 	 */
 	public void publishFmuBooking(PublishFmuBookingCommand aCommand) {
-	    //Create request
+	    //Set up request
 		FmuBokningRequest request = new FmuBokningRequest();
 	    request.setArendeId(aCommand.getArendeId().toString());
 	    request.setBokningsId(aCommand.getBookingId().getId());
@@ -90,12 +123,12 @@ public class BestallareClient extends WebServiceGatewaySupport {
 	    
 	    //Send request and receive response
 	    try {
-		    FmuBokningResponse response =
-		  	      (FmuBokningResponse) getWebServiceTemplate().marshalSendAndReceive(request);
-		    
+		    FmuBokningResponse response = (FmuBokningResponse) getWebServiceTemplate().marshalSendAndReceive(request);
 		    if(response == null ||
-		    		response.getServiceResponse() == null ||!StatusCode.OK.equals(response.getServiceResponse().getStatusCode())){
-		    	log.error("Booking with id:{} on eavrop with ArendeId {} not sent to customer, message: {} ", aCommand.getBookingId().getId(), aCommand.getArendeId().toString(), (response!=null && response.getServiceResponse()!=null)?response.getServiceResponse().getErrorMessage():"");
+		    		response.getServiceResponse() == null ||!StatusCodeType.OK.equals(response.getServiceResponse().getStatusCode())){
+		    	log.error("Booking with id:{} on eavrop with ArendeId {} not published to customer, message: {} ", aCommand.getBookingId().getId(), aCommand.getArendeId().toString(), (response!=null && response.getServiceResponse()!=null)?response.getServiceResponse().getErrorMessage():"");
+		    }else{
+		    	log.debug("Booking with id:{} on eavrop with ArendeId {} not published to customer", aCommand.getBookingId().getId(), aCommand.getArendeId().toString());
 		    }
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -103,11 +136,12 @@ public class BestallareClient extends WebServiceGatewaySupport {
 	  }
 
 	/**
+	 * Method publishes a web service message to bestallare with information about deviation on a booking added a FMU Eavrop
 	 * 
-	 * @param aCommand
+	 * @param aCommand, a PublishFmuBookingDeviationCommand with booking deviation information
 	 */
 	public void publishFmuBookingDeviation(PublishFmuBookingDeviationCommand aCommand) {
-		//Create request
+		//Set up request
 		FmuBokningsavvikelseRequest request = new FmuBokningsavvikelseRequest();
 		request.setArendeId(aCommand.getArendeId().toString());
 	    request.setBokningsId(aCommand.getBookingId().getId());
@@ -119,20 +153,21 @@ public class BestallareClient extends WebServiceGatewaySupport {
 	    try {
 	    	FmuBokningsavvikelseResponse response =
 		  	      (FmuBokningsavvikelseResponse) getWebServiceTemplate().marshalSendAndReceive(request);
-		    
 		    if(response == null ||
-		    		response.getServiceResponse() == null ||!StatusCode.OK.equals(response.getServiceResponse().getStatusCode())){
-		    	log.error("Booking devation on booking with id:{} on eavrop with ArendeId {} not sent to customer, message: {} ", aCommand.getBookingId().getId(), aCommand.getArendeId().toString(), (response!=null && response.getServiceResponse()!=null)?response.getServiceResponse().getErrorMessage():"");
+		    		response.getServiceResponse() == null ||!StatusCodeType.OK.equals(response.getServiceResponse().getStatusCode())){
+		    	log.error("Booking devation on booking with id:{} on eavrop with ArendeId {} not published to customer, message: {} ", aCommand.getBookingId().getId(), aCommand.getArendeId().toString(), (response!=null && response.getServiceResponse()!=null)?response.getServiceResponse().getErrorMessage():"");
+		    }else{
+		    	log.debug("Booking devation on booking with id:{} on eavrop with ArendeId {} published to customer", aCommand.getBookingId().getId(), aCommand.getArendeId().toString());
 		    }
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
 	}
-
 	
 	/**
+	 * Method publishes a web service message to bestallare with to request documents missing on a a FMU Eavrop
 	 * 
-	 * @param aCommand
+	 * @param aCommand, a PublishFmuDocumentRequestedCommand with booking deviation information
 	 */
 	public void publishFmuDocumentRequested(PublishFmuDocumentRequestedCommand aCommand) {
 		//Create request
@@ -147,19 +182,21 @@ public class BestallareClient extends WebServiceGatewaySupport {
 		  	      (BegarKompletteringFmuHandlingResponse) getWebServiceTemplate().marshalSendAndReceive(request);
 		    
 		    if(response == null ||
-		    		response.getServiceResponse() == null ||!StatusCode.OK.equals(response.getServiceResponse().getStatusCode())){
-		    	log.error("Document request on eavrop with arendeId:{} not sent to customer, message: {} ", aCommand.getArendeId().toString(),  (response!=null && response.getServiceResponse()!=null)?response.getServiceResponse().getErrorMessage():"");
+		    		response.getServiceResponse() == null ||!StatusCodeType.OK.equals(response.getServiceResponse().getStatusCode())){
+		    	log.error("Document request on eavrop with arendeId:{} not published to customer, message: {} ", aCommand.getArendeId().toString(),  (response!=null && response.getServiceResponse()!=null)?response.getServiceResponse().getErrorMessage():"");
+		    }else{
+		    	log.debug("Document request on eavrop with arendeId:{} published to customer", aCommand.getArendeId().toString());
 		    }
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
 	}
 	
-	private Notering getNoteType(Note requestNote) {
-		Notering notering= null;
+	private NoteringType getNoteType(Note requestNote) {
+		NoteringType notering= null;
 		
 		if(requestNote!=null){
-			notering= new Notering();
+			notering= new NoteringType();
 			notering.setNotering(requestNote.getText());
 			notering.setNoteradAv(getPersonType(requestNote.getPerson()));
 		}
@@ -167,10 +204,10 @@ public class BestallareClient extends WebServiceGatewaySupport {
 		return notering;
 	}
 
-	private Person getPersonType(se.inera.fmu.domain.model.person.Person person){
-		Person personType = null;
+	private PersonType getPersonType(se.inera.fmu.domain.model.person.Person person){
+		PersonType personType = null;
 		if(person != null){
-			personType = new Person();
+			personType = new PersonType();
 			personType.setNamn(person.getName());
 			personType.setBefattning(person.getRole());
 			personType.setEnhet(person.getUnit());

@@ -2,11 +2,15 @@ package se.inera.fmu.infrastructure.listener;
 
 import com.google.common.eventbus.AllowConcurrentEvents;
 import com.google.common.eventbus.Subscribe;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 import se.inera.fmu.domain.model.eavrop.EavropCreatedEvent;
 import se.inera.fmu.domain.model.eavrop.EavropRestartedByBestallareEvent;
+import se.inera.fmu.domain.model.eavrop.EavropStartEvent;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAcceptedByVardgivarenhetEvent;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignedToVardgivarenhetEvent;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropRejectedByVardgivarenhetEvent;
@@ -26,6 +30,7 @@ import se.inera.fmu.interfaces.managing.command.PublishFmuAssignmentResponseComm
 import se.inera.fmu.interfaces.managing.command.PublishFmuBookingCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuBookingDeviationCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuDocumentRequestedCommand;
+import se.inera.fmu.interfaces.managing.command.PublishFmuStartDate;
 import se.inera.fmu.interfaces.managing.ws.BestallareClient;
 
 import javax.inject.Inject;
@@ -49,7 +54,9 @@ public class EavropListener implements EventBusListener {
     private VardgivarenhetRepository vardgivarenhetRepository;
 
     /**
-     *
+     * Handles EavropAcceptedByVardgivarenhetEvent
+     * A web service call is made to the bestallare to communicate that the Eavrop FMU assignment have been accepted and by 
+     * which vardgivarenhet  
      * @param event: EavropAcceptedByVardgivarenhetEvent
      */
     @Subscribe
@@ -72,14 +79,18 @@ public class EavropListener implements EventBusListener {
      *
      * @param event: EavropAssignedToVardgivarenhetEvent
      */
+
     @Subscribe
     @AllowConcurrentEvents
     public void handleEavropAssignedToVardgivarenhetEvent(final EavropAssignedToVardgivarenhetEvent event) {
         log.debug("Event received : " + event);
     }
 
+
     /**
-     *
+     * Handles EavropRejectedByVardgivarenhetEvent
+     * A web service call is made to the bestallare to communicate that the Eavrop FMU assignment rejected and by 
+     * which vardgivarenhet  
      * @param event: EavropRejectedByVardgivarenhetEvent
      */
     @Subscribe
@@ -93,8 +104,14 @@ public class EavropListener implements EventBusListener {
         		new PublishFmuAssignmentResponseCommand(event.getArendeId(), Boolean.FALSE, vardgivarenhet.getUnitName(), vardgivarenhet.getVardgivare().getName() , vardgivarenhet.getAddress().getAddress1(), vardgivarenhet.getAddress().getPostalCode(), vardgivarenhet.getAddress().getCity(), vardgivarenhet.getAddress().getCountry(), null, null);
         
         bestallareWebserviceClient.publishFmuAssignmentResponse(assignmentResponseCommand);
+        log.debug("PublishFmuAssignmentResponseCommand  published : " + event);
     }
 
+    /**
+     * Handles EavropBookingCreatedEvent
+     * A web service call is made to the bestallare to communicate that a booking have been added to the Eavrop FMU 
+     * @param event: BookingCreatedEvent
+     */
     @Subscribe
     @AllowConcurrentEvents
     public void handleBookingCreatedEvent(final BookingCreatedEvent event) {
@@ -104,6 +121,11 @@ public class EavropListener implements EventBusListener {
         bestallareWebserviceClient.publishFmuBooking(publishFmuBookingCommand);
     }
 
+    /**
+     * Handles EavropBookingDeviationEvent
+     * A web service call is made to the bestallare to communicate that a booking deviation have occured on the Eavrop FMU 
+     * @param event: BookingDeviationEvent
+     */
     @Subscribe
     @AllowConcurrentEvents
     public void handleBookingDeviationEvent(final BookingDeviationEvent event) {
@@ -113,6 +135,10 @@ public class EavropListener implements EventBusListener {
         bestallareWebserviceClient.publishFmuBookingDeviation(publishFmuBookingDeviationCommand);
     }
 
+    /**
+     * Handles BookingDeviationResponseEvent
+     * @param event
+     */
     @Subscribe
     @AllowConcurrentEvents
     public void handleBookingDeviationResponseEvent(final BookingDeviationResponseEvent event) {
@@ -120,6 +146,12 @@ public class EavropListener implements EventBusListener {
         //Mail someone?
     }
 
+    /**
+     * Handles DocumentRequestedEvent
+     * A web service call is made to the bestallare to communicate that a document have been requested on a Eavrop FMU 
+	 *
+     * @param event DocumentRequestedEvent
+     */
     @Subscribe
     @AllowConcurrentEvents
     public void handleDocumentRequestedEvent(final DocumentRequestedEvent event) {
@@ -133,8 +165,27 @@ public class EavropListener implements EventBusListener {
     public void handleDocumentsSentFromBestallareEvent(final DocumentSentByBestallareEvent event) {
         log.debug("Event received : " + event);
         //Mail someone?
-        //web service  call to customer with start date
     }
+    
+    /**
+     * Handles EavropStartEvent
+     * A web service call is made to the bestallare to communicate the calculated start date of the Eavrop FMU 
+	 *
+     * @param event EavropStartEvent
+     */
+    @Subscribe
+    @AllowConcurrentEvents
+    public void handleEavropStartEvent(final EavropStartEvent event) {
+        log.debug("EavropStartEvent received : " + event);
+        
+        //Mail someone?
+        
+        //web service  call to customer with start date
+        PublishFmuStartDate publishFmuStartDate = new PublishFmuStartDate(event.getArendeId(), event.getEavropStartDate());
+        bestallareWebserviceClient.publishFmuStartDate(publishFmuStartDate);
+        
+    }
+
 
     @Subscribe
     @AllowConcurrentEvents
@@ -168,6 +219,8 @@ public class EavropListener implements EventBusListener {
         this.mailService.sendEavropCreatedEmail(event.getEavropId(), event.getArendeId(), event.getLandstingCode());
 
     }
+    
+    
     @Subscribe
     @AllowConcurrentEvents
     public void handleEavropRestartedByBestallareEvent(final EavropRestartedByBestallareEvent event) {

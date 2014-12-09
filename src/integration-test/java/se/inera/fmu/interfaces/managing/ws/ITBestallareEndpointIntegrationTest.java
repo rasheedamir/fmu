@@ -43,11 +43,14 @@ import com.google.common.io.CharStreams;
 import se.inera.fmu.Application;
 import se.inera.fmu.application.EavropAssignmentService;
 import se.inera.fmu.application.EavropBookingService;
+import se.inera.fmu.application.EavropDocumentService;
 import se.inera.fmu.application.FmuListService;
 import se.inera.fmu.application.impl.command.AcceptEavropAssignmentCommand;
+import se.inera.fmu.application.impl.command.AddRequestedDocumentCommand;
 import se.inera.fmu.application.impl.command.AssignEavropCommand;
 import se.inera.fmu.application.impl.command.ChangeBookingStatusCommand;
 import se.inera.fmu.application.impl.command.CreateBookingCommand;
+import se.inera.fmu.application.impl.command.RejectEavropAssignmentCommand;
 import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
@@ -56,6 +59,9 @@ import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
+import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
+import se.inera.fmu.domain.model.eavrop.note.Note;
+import se.inera.fmu.domain.model.eavrop.note.NoteType;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.landsting.Landsting;
@@ -99,6 +105,9 @@ public class ITBestallareEndpointIntegrationTest {
     @Inject
     private EavropBookingService eavropBookingService;
 
+    @Inject
+    private EavropDocumentService eavropDocumentService;
+    
     private MockWebServiceClient mockClient;
 
     @Before
@@ -120,6 +129,12 @@ public class ITBestallareEndpointIntegrationTest {
         Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(CREATE_EAVROP_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
+
+        //Assigning the eavrop
+        this.assignEavrop(arendeId, landstingCode);
+
+        //Rejecting the eavrop
+        this.rejectEavrop(arendeId);
         
         //Assigning the eavrop
         this.assignEavrop(arendeId, landstingCode);
@@ -130,6 +145,47 @@ public class ITBestallareEndpointIntegrationTest {
         //Receive documents sent request
         requestPayload = new StreamSource(createFMUDocumentsSentRequest(arendeId, DateTime.now()));
         succesResponsePayload = new StreamSource(createFMUSuccesResponse(SENT_FMU_DOCUMENTS_RESPONSE,arendeId));
+        mockClient.sendRequest(withPayload(requestPayload)).
+        andExpect(payload(succesResponsePayload));
+        
+        //
+        this.requestDocument(arendeId);
+        
+        //
+        BookingId bookingId = this.addBookingToEavrop(arendeId);
+        //
+        this.deviateBookingPutEavropOnHold(arendeId, bookingId);
+        
+        //Receive booking deviation response
+        requestPayload = new StreamSource(createBookingDeviationResponseRequest(arendeId,bookingId, DateTime.now()));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(BOOKING_DEVIATION_RESPONSE_RESPONSE, arendeId));
+        mockClient.sendRequest(withPayload(requestPayload)).
+        andExpect(payload(succesResponsePayload));
+
+        //
+        bookingId = this.addBookingToEavrop(arendeId);
+        
+        //Receive information about intyg that have been sent
+        requestPayload = new StreamSource(createIntygSentRequest(arendeId, DateTime.now()));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(SENT_INTYG_RESPONSE, arendeId));
+        mockClient.sendRequest(withPayload(requestPayload)).
+        andExpect(payload(succesResponsePayload));
+
+        //Receive information about intyg having been approved 
+        requestPayload = new StreamSource(createIntygApprovedRequest(arendeId, DateTime.now()));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(INTYG_APPROVED_RESPONSE, arendeId));
+        mockClient.sendRequest(withPayload(requestPayload)).
+        andExpect(payload(succesResponsePayload));
+
+        //Eavrop have been approved 
+        requestPayload = new StreamSource(createEavropApprovedRequest(arendeId, DateTime.now()));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(EAVROP_APPROVED_RESPONSE, arendeId));
+        mockClient.sendRequest(withPayload(requestPayload)).
+        andExpect(payload(succesResponsePayload));
+
+        //Eavrop compensation been approved 
+        requestPayload = new StreamSource(createEavropCompensationApprovedRequest(arendeId, DateTime.now()));
+        succesResponsePayload = new StreamSource(createFMUSuccesResponse(EAVROP_COMPENSATION_APPROVED_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
     }
@@ -229,7 +285,25 @@ public class ITBestallareEndpointIntegrationTest {
 		assertTrue(EavropStateType.ASSIGNED.equals(eavrop.getStatus()));
     }
 
-    private void acceptEavrop(ArendeId arendeId){
+    private void rejectEavrop(ArendeId arendeId){
+    	log.debug(String.format("Rejecting eavrop with ArendeId: %s ", arendeId.toString()));
+    	
+    	Eavrop eavrop = fmuListService.findByArendeId(arendeId);
+    	assertNotEquals(eavrop, null);
+    	assertNotEquals(eavrop.getCurrentAssignedVardgivarenhet(), null);
+    	assertNotEquals(eavrop.getCurrentAssignedVardgivarenhet().getHsaId(), null);
+
+    	RejectEavropAssignmentCommand rejectEavropAssignmentCommand = 
+    			new RejectEavropAssignmentCommand(eavrop.getEavropId(),
+    					eavrop.getCurrentAssignedVardgivarenhet().getHsaId(),
+    					new HsaId("SE2222223333-BBBB"),"A", "B", "C","D", "Tidsbrist");
+    	
+		eavropAssignmentService.rejectEavropAssignment(rejectEavropAssignmentCommand);
+		eavrop = fmuListService.findByArendeId(arendeId);
+		assertTrue(EavropStateType.UNASSIGNED.equals(eavrop.getStatus()));
+    }
+
+	private void acceptEavrop(ArendeId arendeId){
     	log.debug(String.format("Accepting eavrop with ArendeId: %s ", arendeId.toString()));
     	
     	Eavrop eavrop = fmuListService.findByArendeId(arendeId);
@@ -285,6 +359,19 @@ public class ITBestallareEndpointIntegrationTest {
 		assertTrue(EavropStateType.ON_HOLD.equals(eavrop.getStatus()));
 
 	}
+    
+    private void requestDocument(ArendeId arendeId) {
+	log.debug(String.format("requestDocument to eavrop with ArendeId: %s ", arendeId.toString()));
+	
+	Eavrop eavrop = fmuListService.findByArendeId(arendeId);
+	assertNotEquals(eavrop, null);
+	
+	eavropDocumentService.addRequestedDocument(new AddRequestedDocumentCommand(eavrop.getEavropId(), "Journal",new HsaId("SE2222223333-BBBB"),"A","B","C","D", "Saknar journal"));
+	
+	eavrop = fmuListService.findByArendeId(arendeId);
+	assertTrue(EavropStateType.ACCEPTED.equals(eavrop.getStatus()));
+    }
+    
 
     private InputStream createCreateEavropRequest(ArendeId arendeId, LandstingCode landstingCode){
     	String templateFilename = "ws/TST-CREATE_EAVROP_REQUEST_TEMPLATE.xml";
