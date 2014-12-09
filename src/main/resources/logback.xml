@@ -28,6 +28,10 @@
     <logger name="sun.rmi.transport." level="info"/>
     <logger name="org.opensaml.DefaultBootstrap" level="warn"/>
     <logger name="org.opensaml.xml" level="warn"/>
+    <logger name="org.springframework.ws.client.MessageTracing" level="trace"/>
+    <logger name="org.springframework.ws.server.MessageTracing" level="trace"/>
+    <logger name="com.sun.xml.internal.bind.v2.runtime.reflect.opt.OptimizedAccessorFactory" level="info"/>
+    <logger name="javax.xml.bind" level="info"/>
 
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
         <resetJUL>true</resetJUL>

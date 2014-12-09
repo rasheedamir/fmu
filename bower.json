@@ -15,7 +15,9 @@
     "angular-mocks": "~1.2.0",
     "ng-table": "0.3.3",
     "underscore": "^1.7.0",
-    "angular-bootstrap": "latest"
+    "angular-bootstrap": "latest",
+    "animate.css": "latest",
+    "ScrollToFixed": "https://github.com/bigspotteddog/ScrollToFixed.git#~1.0.6"
   },
   "devDependencies": {
     "angular-scenario": "~1.2.0"

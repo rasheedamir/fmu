@@ -89,7 +89,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	@Embedded
 	private ArendeId arendeId;
 
-	// TODO:remove? in DIM but not in prototype, ask FK or Mattias about it
+	// TODO:remove!!!!! in DIM but not in prototype, ask FK or Mattias about it
 	@Column(name = "DESCRIPTION")
 	private String description;
 

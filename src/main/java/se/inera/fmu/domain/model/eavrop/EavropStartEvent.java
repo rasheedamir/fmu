@@ -1,19 +1,18 @@
 package se.inera.fmu.domain.model.eavrop;
 
-import se.inera.fmu.domain.model.landsting.LandstingCode;
+import org.joda.time.DateTime;
 
-
-public class EavropCreatedEvent extends EavropEvent {
+public class EavropStartEvent extends EavropEvent {
 	
 	private final ArendeId arendeid;
-	private final LandstingCode landstingCode;
+	private final DateTime eavropStartDateTime;
 	
 	//~ Constructors ===================================================================================================
     
-	public EavropCreatedEvent(final EavropId eavropId, final ArendeId arendeid,  final LandstingCode landstingCode) {
+	public EavropStartEvent(final EavropId eavropId, final ArendeId arendeid,  final DateTime eavropStartDate) {
 		super(eavropId);
 		this.arendeid = arendeid;
-		this.landstingCode = landstingCode;
+		this.eavropStartDateTime = eavropStartDate;
 		
 	}
 
@@ -23,8 +22,8 @@ public class EavropCreatedEvent extends EavropEvent {
 		return this.arendeid;
 	}
 
-	public LandstingCode getLandstingCode() {
-		return this.landstingCode;
+	public DateTime getEavropStartDate() {
+		return this.eavropStartDateTime;
 	}
 
 	//~ Other Methods ==================================================================================================

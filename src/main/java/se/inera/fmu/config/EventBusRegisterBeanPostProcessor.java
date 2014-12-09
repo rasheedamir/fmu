@@ -1,48 +1,68 @@
 package se.inera.fmu.config;
 
-import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.AsyncEventBus;
+import com.google.common.eventbus.Subscribe;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
+import se.inera.fmu.infrastructure.listener.EavropListener;
 import se.inera.fmu.infrastructure.listener.EventBusListener;
 
 import javax.inject.Inject;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 
 /**
  * Created by Rasheed on 9/29/14.
  *
+ * EventBusPostProcessor registers Spring beans with EventBus. All beans
+ * containing Guava's @Subscribe annotation are registered.
  */
-public class EventBusRegisterBeanPostProcessor implements BeanPostProcessor,
-        ApplicationContextAware {
-
-    private ApplicationContext context;
+@Component
+@Slf4j
+public class EventBusRegisterBeanPostProcessor implements BeanPostProcessor {
 
     @Inject
-    private EventBus eventBus; // The only event bus i assume...
+    private AsyncEventBus asyncEventBus; // The only event bus i assume...
 
-    public Object postProcessBeforeInitialization(Object bean, String beanName)
-            throws BeansException {
-
+    @Override
+    public Object postProcessBeforeInitialization(final Object bean, final String beanName) throws BeansException {
         return bean;
     }
 
-    public Object postProcessAfterInitialization(Object bean, String beanName)
-            throws BeansException {
+    @Override
+    public Object postProcessAfterInitialization(final Object bean, final String beanName) throws BeansException {
 
-        if (bean instanceof EventBusListener) {
-            registerToEventBus(bean);
+        final Class<? extends Object> clazz = bean.getClass();
+
+        // ToDo: This is a hack and should be removed when the lower comment is fixed!
+        if(beanName.equals("eavropListener")) {
+            asyncEventBus.register(bean);
+            log.info(beanName + " - Registered with AsyncEventBus!");
+            return bean;
+        }
+
+        final Method[] methods = clazz.getMethods();
+
+        for (final Method method : methods) {
+
+            final Annotation[] annotations = method.getAnnotations();
+
+            // ToDo: Somehow list of annotations is empty and therefore bean is not registered!
+            for (final Annotation annotation : annotations) {
+                final Class<? extends Annotation> annotationType = annotation.annotationType();
+
+                final boolean subscriber = annotationType.equals(Subscribe.class);
+                if (subscriber) {
+                    asyncEventBus.register(bean);
+                    log.info(beanName + " - Registered with AsyncEventBus!");
+                    return bean;
+                }
+            }
         }
 
         return bean;
     }
 
-    private void registerToEventBus(Object bean) {
-        this.eventBus.register(bean);
-    }
-
-    public void setApplicationContext(ApplicationContext applicationContext)
-            throws BeansException {
-        this.context = applicationContext;
-    }
 }

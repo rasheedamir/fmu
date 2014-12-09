@@ -59,7 +59,7 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime endDateTime;
 
-	@Column(name = "ADDITIONAL_SERVICE", nullable = false, updatable = false)
+	@Column(name = "ADDITIONAL_SERVICE", nullable = false, updatable = false, columnDefinition="char(1)")
 	@Convert(converter=BooleanToStringConverter.class)
 	private Boolean additionalService;
 //	

@@ -1,27 +1,29 @@
 <div ng-cloak class="container-fluid">
-    <div class="col-md-12">
         <h1>Underlag för ersättning</h1>
 
-        <!--Eavrop Test fmu68-->
-        <h2>Ärende</h2>
-        <fmu-simple-table
-                table-parameters="tableParameters"
-                header-fields="arendeHeaderFields"
-                access-data-callback="getArendeData"
-                tabular-data="tableData"
-                show-all-rows="true">
-        </fmu-simple-table>
+        <div ng-show="arendeHeaderFields && tableData">
+            <h2>Ärende</h2>
+            <fmu-simple-table
+                    table-parameters="tableParameters"
+                    header-fields="arendeHeaderFields"
+                    access-data-callback="getArendeData"
+                    tabular-data="tableData"
+                    show-all-rows="true">
+            </fmu-simple-table>
+        </div>
 
-        <h2>Specifikation - avvikelser</h2>
-        <fmu-simple-table
-                table-parameters="tableParameters"
-                header-fields="specificationHeaderFields"
-                access-data-callback="getAvikelserData"
-                tabular-data="specifications"
-                show-all-rows="true">
-        </fmu-simple-table>
+        <div ng-show="specificationHeaderFields && specifications">
+            <h2 >Specifikation - avvikelser</h2>
+            <fmu-simple-table
+                    table-parameters="tableParameters"
+                    header-fields="specificationHeaderFields"
+                    access-data-callback="getAvikelserData"
+                    tabular-data="specifications"
+                    show-all-rows="true">
+            </fmu-simple-table>
+        </div>
 
-        <div ng-show="tillaggtjanstHeaderFields">
+        <div ng-if="tillaggTjanster">
             <h2>Tillägstjänster</h2>
             <fmu-simple-table
                     table-parameters="tableParameters"
@@ -31,5 +33,4 @@
                     show-all-rows="true">
             </fmu-simple-table>
         </div>
-    </div>
 </div>

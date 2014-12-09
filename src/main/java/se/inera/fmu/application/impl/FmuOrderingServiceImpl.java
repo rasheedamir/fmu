@@ -186,12 +186,12 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 				.withPriorMedicalExamination(aCommand.getPriorMedicalExamination()).build();
 
 		eavrop = eavropRepository.save(eavrop);
-
+		
 		log.debug(String.format("eavrop created :: %s", eavrop));
 
 		// Publish an event to notify the interested listeners/subscribers that
 		// an eavrop has been created.
-		domainEventPublisher.post(new EavropCreatedEvent(eavrop.getEavropId()));
+		domainEventPublisher.post(new EavropCreatedEvent(eavrop.getEavropId(), eavrop.getArendeId(), eavrop.getLandsting().getLandstingCode()));
 
 		return eavrop.getArendeId();
 	}

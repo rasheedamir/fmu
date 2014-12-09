@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+	<p th:text="#{email.eavrop.order(${arendeId})}">A new FMU Eavrop
+		have been ordered in the FMU application :</p>
+	<p>
+		<span th:text="#{email.eavrop.created.greeting}">Regards, </span> <br />
+		<em th:text="#{email.signature}">FMU application.</em>
+	</p>
+</body>
+</html>

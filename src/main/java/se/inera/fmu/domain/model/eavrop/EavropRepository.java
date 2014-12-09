@@ -19,6 +19,12 @@ import se.inera.fmu.domain.model.landsting.Landsting;
 public interface EavropRepository extends JpaRepository<Eavrop, Long> {
 
 	Eavrop findByEavropId(EavropId eavropId);
+	
+	@Query("SELECT e FROM Eavrop e "
+		+ " JOIN FETCH e.landsting l"
+		+ " LEFT OUTER JOIN FETCH l.landstingssamordnare"
+		+ " WHERE e.eavropId = :eavropId ")
+	Eavrop findByEavropIdAndFetchLandstingsamordnareEagerly(@Param("eavropId") EavropId eavropId);
 
 	Eavrop findByArendeId(ArendeId arendeId);
 

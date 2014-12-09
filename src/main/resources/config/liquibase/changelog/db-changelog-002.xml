@@ -97,5 +97,8 @@
 		<loadData encoding="UTF-8" file="config/liquibase/landsting_vardgivarenhet.csv"
  			separator=";" tableName="R_LANDSTING_VARDGIVARENHET">
 		</loadData>
+		<loadData encoding="UTF-8" file="config/liquibase/landsting_hospersonal.csv"
+ 			separator=";" tableName="R_LANDSTING_HOSPERSONAL">
+		</loadData>
 	</changeSet>
 </databaseChangeLog>

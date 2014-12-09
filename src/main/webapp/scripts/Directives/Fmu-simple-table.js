@@ -13,6 +13,7 @@ angular.module('fmuClientApp')
                     tabularData: '='
                 },
                 controller: function ($scope) {
+                    // Todo enable sortable fields
                     $scope.isSortable = function (key) {
                         return false;
                     };
@@ -38,7 +39,6 @@ angular.module('fmuClientApp')
                                 },
                                 {
                                     getData: function ($defer, params) {
-                                        console.log($scope.tabularData);
                                         $defer.resolve($scope.tabularData);
                                     },
                                     $scope: $scope

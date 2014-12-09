@@ -23,13 +23,17 @@ import se.inera.fmu.domain.model.eavrop.EavropClosedByBestallareEvent;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.EavropRestartedByBestallareEvent;
+import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingCreatedEvent;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationEvent;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
+import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationType;
+import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationTypeUtil;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
+import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingDeviationEvent;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 import se.inera.fmu.domain.model.eavrop.note.Note;
@@ -77,7 +81,7 @@ public class EavropBookingServiceImpl implements EavropBookingService {
         	log.debug(String.format("booking created :: %s", booking.toString()));
         }
 		//handle the booking
-		handleBookingAdded(eavrop.getEavropId(), booking.getBookingId());
+		handleBookingAdded(eavrop.getEavropId(), eavrop.getArendeId(), booking);
 	}
 	
 	/**
@@ -86,7 +90,7 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 	@Override
 	public void changeBookingStatus(ChangeBookingStatusCommand aCommand){
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
-		BookingStatusType bookingStatus =aCommand.getBookingStatus();
+		BookingStatusType bookingStatus = aCommand.getBookingStatus();
 		
 		Note deviationNote = createDeviationNote(aCommand.getComment(), aCommand.getPersonHsaId(), aCommand.getPersonName(), aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
 		
@@ -97,7 +101,7 @@ public class EavropBookingServiceImpl implements EavropBookingService {
         }
 		
 		if(bookingStatus.isDeviant()){
-			handleBookingDeviation(eavrop.getEavropId(), aCommand.getBookingId());
+			handleBookingDeviation(eavrop.getEavropId(), eavrop.getArendeId(), eavrop.getUtredningType(), eavrop.getBooking(aCommand.getBookingId()));
 		}
 	}
 
@@ -211,8 +215,17 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 	}
 	
 	//Event handling methods
-	private void handleBookingAdded(EavropId eavropId, BookingId bookingId){
-		BookingCreatedEvent event = new BookingCreatedEvent(eavropId, bookingId);
+	private void handleBookingAdded(EavropId eavropId, ArendeId arendeId, Booking booking){
+		BookingId bookingId = booking.getBookingId();
+		BookingType bookingType = booking.getBookingType();
+		DateTime bookingStart = booking.getStartDateTime();
+		DateTime bookingEnd = booking.getEndDateTime();
+		String resourceName = (booking.getBookingResource()!=null)?booking.getBookingResource().getName():null;
+		String resourceRole = (booking.getBookingResource()!=null)?booking.getBookingResource().getRole():null;
+		boolean isInterpreter = (booking.getInterpreterBooking()!=null)?Boolean.TRUE:Boolean.FALSE;
+		
+		BookingCreatedEvent event = new BookingCreatedEvent(eavropId, arendeId, bookingId, bookingType, 
+				bookingStart, bookingEnd, resourceName, resourceRole,  isInterpreter);
         if(log.isDebugEnabled()){
         	log.debug(String.format("BookingCreatedEvent created :: %s", event.toString()));
         }
@@ -220,8 +233,17 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 		getDomainEventPublisher().post(event);
 	}
 
-	private void handleBookingDeviation(EavropId eavropId, BookingId bookingId){
-		BookingDeviationEvent event = new BookingDeviationEvent(eavropId, bookingId);
+	private void handleBookingDeviation(EavropId eavropId, ArendeId arendeId, UtredningType utredningType, Booking booking){
+		if(booking == null){
+			return;
+		}
+		BookingId bookingId = booking.getBookingId();
+		BookingDeviationType bookingDeviationType = BookingDeviationType.convert(booking.getBookingStatus());
+		Note deviationNote = booking.getDeviationNote();
+		
+		boolean isReasonForOnhold = BookingDeviationTypeUtil.isBookingStatusReasonForOnHold(booking.getBookingStatus(), utredningType);
+
+		BookingDeviationEvent event = new BookingDeviationEvent(eavropId, arendeId, bookingId, bookingDeviationType, isReasonForOnhold, deviationNote);
         if(log.isDebugEnabled()){
         	log.debug(String.format("BookingDeviationEvent created :: %s", event.toString()));
         }

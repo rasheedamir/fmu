@@ -44,7 +44,7 @@ public class ReceivedDocument{
     @JoinColumn(name="PERSON_ID")
 	private Person person;
 	
-	@Column(name = "EXTERNAL")
+	@Column(name = "EXTERNAL", columnDefinition="char(1)")
 	@Convert(converter=BooleanToStringConverter.class)
 	private Boolean originExternal;
 	

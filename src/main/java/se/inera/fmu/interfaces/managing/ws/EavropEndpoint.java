@@ -3,6 +3,7 @@ package se.inera.fmu.interfaces.managing.ws;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.EntityNotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,7 +43,6 @@ import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
 import ws.inera.fmu.admin.eavrop.*;
-
 import static se.inera.fmu.application.util.StringUtils.isBlankOrNull;
 
 /**
@@ -75,23 +75,23 @@ public class EavropEndpoint {
     @ResponsePayload
     public SkapaFmuEavropResponse createEavrop(@RequestPayload SkapaFmuEavropRequest request) {
 
-        FmuResponse fmuResponse = new FmuResponse();
+        FmuResponseType fmuResponse = new FmuResponseType();
         SkapaFmuEavropResponse skapaFmuEavropResponse = new SkapaFmuEavropResponse();
 
         try {
             CreateEavropCommand aCommand = mapSkapaFmuEavropRequestToCreateEavropCommand(request);
             ArendeId arendeId = fmuOrderingService.createEavrop(aCommand);
             fmuResponse.setArendeId(arendeId.toString());
-            fmuResponse.setStatusCode(StatusCode.OK);
-        } catch (IllegalArgumentException exception) {
+            fmuResponse.setStatusCode(StatusCodeType.OK);
+        } catch (IllegalArgumentException | EntityNotFoundException exception) {
             log.error("IllegalArgumentException occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.INVALID_REQUEST);
+            fmuResponse.setStatusCode(StatusCodeType.INVALID_REQUEST);
             fmuResponse.setErrorMessage(exception.toString());
         } catch (Exception exception) {
             log.error("Exception occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.UNKNOWN_ERROR);
+            fmuResponse.setStatusCode(StatusCodeType.UNKNOWN_ERROR);
             fmuResponse.setErrorMessage(exception.toString());
         }
 
@@ -109,23 +109,23 @@ public class EavropEndpoint {
     @ResponsePayload
     public SkickatFmuHandlingarResponse documentsSent(@RequestPayload SkickatFmuHandlingarRequest request) {
 
-        FmuResponse fmuResponse = new FmuResponse();
+    	FmuResponseType fmuResponse = new FmuResponseType();
         SkickatFmuHandlingarResponse skickatFmuHandlingarResponse = new SkickatFmuHandlingarResponse();
 
         try {
         	AddReceivedExternalDocumentsCommand aCommand = mapSkickatFmuHandlingarRequestToAddReceivedExternalDocumentCommand(request);
             eavropDocumentService.addReceivedExternalDocument(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.OK);
-        } catch (IllegalArgumentException exception) {
+            fmuResponse.setStatusCode(StatusCodeType.OK);
+        } catch (IllegalArgumentException | EntityNotFoundException exception) {
             log.error("IllegalArgumentException occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.INVALID_REQUEST);
+            fmuResponse.setStatusCode(StatusCodeType.INVALID_REQUEST);
             fmuResponse.setErrorMessage(exception.toString());
         } catch (Exception exception) {
             log.error("Exception occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.UNKNOWN_ERROR);
+            fmuResponse.setStatusCode(StatusCodeType.UNKNOWN_ERROR);
             fmuResponse.setErrorMessage(exception.toString());
         }
 
@@ -143,23 +143,23 @@ public class EavropEndpoint {
     @ResponsePayload
     public SvarBokningsavvikelseResponse bookingDeviationResponse(@RequestPayload SvarBokningsavvikelseRequest request) {
 
-        FmuResponse fmuResponse = new FmuResponse();
+        FmuResponseType fmuResponse = new FmuResponseType();
         SvarBokningsavvikelseResponse svarBokningsavvikelseResponse = new SvarBokningsavvikelseResponse();
 
         try {
         	AddBookingDeviationResponseCommand aCommand = mapSvarBokningsavvikelseRequestToAddBookingDeviationResponseCommand (request);
             eavropBookingService.addBookingDeviationResponse(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.OK);
-        } catch (IllegalArgumentException exception) {
+            fmuResponse.setStatusCode(StatusCodeType.OK);
+        } catch (IllegalArgumentException | EntityNotFoundException exception) {
             log.error("IllegalArgumentException occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.INVALID_REQUEST);
+            fmuResponse.setStatusCode(StatusCodeType.INVALID_REQUEST);
             fmuResponse.setErrorMessage(exception.toString());
         } catch (Exception exception) {
             log.error("Exception occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.UNKNOWN_ERROR);
+            fmuResponse.setStatusCode(StatusCodeType.UNKNOWN_ERROR);
             fmuResponse.setErrorMessage(exception.toString());
         }
 
@@ -175,31 +175,31 @@ public class EavropEndpoint {
      */
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "skickatFmuIntygRequest")
     @ResponsePayload
-    public SkickatFmuHandlingarResponse intygSent(@RequestPayload SkickatFmuIntygRequest request) {
+    public SkickatFmuIntygResponse intygSent(@RequestPayload SkickatFmuIntygRequest request) {
 
-        FmuResponse fmuResponse = new FmuResponse();
-        SkickatFmuHandlingarResponse skickatFmuHandlingarResponse = new SkickatFmuHandlingarResponse();
+        FmuResponseType fmuResponse = new FmuResponseType();
+        SkickatFmuIntygResponse skickatFmuIntygResponse = new SkickatFmuIntygResponse();
 
         try {
         	AddIntygSentCommand aCommand = mapSkickatFmuIntygRequestToAddIntygSentCommand (request);
             eavropIntygService.addIntygSentInformation(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.OK);
-        } catch (IllegalArgumentException exception) {
+            fmuResponse.setStatusCode(StatusCodeType.OK);
+        } catch (IllegalArgumentException | EntityNotFoundException exception) {
             log.error("IllegalArgumentException occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.INVALID_REQUEST);
+            fmuResponse.setStatusCode(StatusCodeType.INVALID_REQUEST);
             fmuResponse.setErrorMessage(exception.toString());
         } catch (Exception exception) {
             log.error("Exception occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.UNKNOWN_ERROR);
+            fmuResponse.setStatusCode(StatusCodeType.UNKNOWN_ERROR);
             fmuResponse.setErrorMessage(exception.toString());
         }
 
-        skickatFmuHandlingarResponse.setFmuResponse(fmuResponse);
+        skickatFmuIntygResponse.setFmuResponse(fmuResponse);
 
-        return skickatFmuHandlingarResponse;
+        return skickatFmuIntygResponse;
     }
 
     /**
@@ -209,25 +209,25 @@ public class EavropEndpoint {
      */
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "begartFmuIntygKompletteringRequest")
     @ResponsePayload
-    public BegarKompletteringFmuHandlingResponse intygCompletionRequest(@RequestPayload BegartFmuIntygKompletteringRequest request) {
+    public BegartFmuIntygKompletteringResponse intygCompletionRequest(@RequestPayload BegartFmuIntygKompletteringRequest request) {
 
-        FmuResponse fmuResponse = new FmuResponse();
-        BegarKompletteringFmuHandlingResponse begarKompletteringFmuHandlingResponse = new BegarKompletteringFmuHandlingResponse();
+        FmuResponseType fmuResponse = new FmuResponseType();
+        BegartFmuIntygKompletteringResponse begarKompletteringFmuHandlingResponse = new BegartFmuIntygKompletteringResponse();
 
         try {
         	AddIntygComplementRequestCommand aCommand = mapBegartFmuIntygKompletteringRequestToAddIntygComplementRequestCommand (request);
             eavropIntygService.addIntygComplementRequestInformation(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.OK);
-        } catch (IllegalArgumentException exception) {
+            fmuResponse.setStatusCode(StatusCodeType.OK);
+        } catch (IllegalArgumentException | EntityNotFoundException exception) {
             log.error("IllegalArgumentException occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.INVALID_REQUEST);
+            fmuResponse.setStatusCode(StatusCodeType.INVALID_REQUEST);
             fmuResponse.setErrorMessage(exception.toString());
         } catch (Exception exception) {
             log.error("Exception occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.UNKNOWN_ERROR);
+            fmuResponse.setStatusCode(StatusCodeType.UNKNOWN_ERROR);
             fmuResponse.setErrorMessage(exception.toString());
         }
 
@@ -245,23 +245,23 @@ public class EavropEndpoint {
     @ResponsePayload
     public AccepteratFmuIntygResponse intygApproved(@RequestPayload AccepteratFmuIntygRequest request) {
 
-        FmuResponse fmuResponse = new FmuResponse();
+        FmuResponseType fmuResponse = new FmuResponseType();
         AccepteratFmuIntygResponse accepteratFmuIntygResponse = new AccepteratFmuIntygResponse();
 
         try {
         	AddIntygApprovedCommand aCommand = mapAccepteratFmuIntygRequestToAddIntygApprovedCommand(request);
             eavropIntygService.addIntygApprovedInformation(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.OK);
-        } catch (IllegalArgumentException exception) {
+            fmuResponse.setStatusCode(StatusCodeType.OK);
+        } catch (IllegalArgumentException | EntityNotFoundException exception) {
             log.error("IllegalArgumentException occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.INVALID_REQUEST);
+            fmuResponse.setStatusCode(StatusCodeType.INVALID_REQUEST);
             fmuResponse.setErrorMessage(exception.toString());
         } catch (Exception exception) {
             log.error("Exception occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.UNKNOWN_ERROR);
+            fmuResponse.setStatusCode(StatusCodeType.UNKNOWN_ERROR);
             fmuResponse.setErrorMessage(exception.toString());
         }
 
@@ -279,23 +279,23 @@ public class EavropEndpoint {
     @ResponsePayload
     public AccepteratFmuUtredningResponse approveEavrop(@RequestPayload AccepteratFmuUtredningRequest request) {
 
-        FmuResponse fmuResponse = new FmuResponse();
+        FmuResponseType fmuResponse = new FmuResponseType();
         AccepteratFmuUtredningResponse accepteratFmuUtredningResponse = new AccepteratFmuUtredningResponse();
 
         try {
         	ApproveEavropCommand aCommand = mapAccepteratFmuUtredningRequestToApproveEavropCommand(request);
             eavropApprovalService.approveEavrop(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.OK);
-        } catch (IllegalArgumentException exception) {
+            fmuResponse.setStatusCode(StatusCodeType.OK);
+        } catch (IllegalArgumentException | EntityNotFoundException exception) {
             log.error("IllegalArgumentException occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.INVALID_REQUEST);
+            fmuResponse.setStatusCode(StatusCodeType.INVALID_REQUEST);
             fmuResponse.setErrorMessage(exception.toString());
         } catch (Exception exception) {
             log.error("Exception occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.UNKNOWN_ERROR);
+            fmuResponse.setStatusCode(StatusCodeType.UNKNOWN_ERROR);
             fmuResponse.setErrorMessage(exception.toString());
         }
 
@@ -313,23 +313,23 @@ public class EavropEndpoint {
     @ResponsePayload
     public GodkannandeErsattningFmuUtredningResponse approveEavropCompensation(@RequestPayload GodkannandeErsattningFmuUtredningRequest request) {
 
-        FmuResponse fmuResponse = new FmuResponse();
+        FmuResponseType fmuResponse = new FmuResponseType();
         GodkannandeErsattningFmuUtredningResponse godkannandeErsattningFmuUtredningResponse = new GodkannandeErsattningFmuUtredningResponse();
 
         try {
         	ApproveEavropCompensationCommand aCommand = mapGodkannandeErsattningFmuUtredningRequestToApproveEavropCompensationCommand(request);
             eavropApprovalService.approveEavropCompensation(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.OK);
-        } catch (IllegalArgumentException exception) {
+            fmuResponse.setStatusCode(StatusCodeType.OK);
+        } catch (IllegalArgumentException | EntityNotFoundException exception) {
             log.error("IllegalArgumentException occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.INVALID_REQUEST);
+            fmuResponse.setStatusCode(StatusCodeType.INVALID_REQUEST);
             fmuResponse.setErrorMessage(exception.toString());
         } catch (Exception exception) {
             log.error("Exception occured : ", exception);
             fmuResponse.setArendeId(request.getArendeId());
-            fmuResponse.setStatusCode(StatusCode.UNKNOWN_ERROR);
+            fmuResponse.setStatusCode(StatusCodeType.UNKNOWN_ERROR);
             fmuResponse.setErrorMessage(exception.toString());
         }
 
@@ -485,7 +485,7 @@ public class EavropEndpoint {
      */
     private Interpreter createInterpreter(SkapaFmuEavropRequest request) {
         String interpreterLanguages = null;
-        if(request.isTolk()) {
+        if(request.isTolk() != null && request.isTolk()) {
             interpreterLanguages = request.getTolkSprak();
         }
         return new Interpreter(interpreterLanguages);
@@ -519,7 +519,7 @@ public class EavropEndpoint {
      * @param request
      * @return
      */
-    private Bestallaradministrator createBestallaradministrator(Person person) {
+    private Bestallaradministrator createBestallaradministrator(PersonType person) {
         if(person!=null){
         	String name = person.getNamn();
             String befattning = person.getBefattning();
@@ -540,7 +540,7 @@ public class EavropEndpoint {
      * @param request
      * @return
      */
-    private Bestallarsamordnare createBestallarsamordnare(Person person) {
+    private Bestallarsamordnare createBestallarsamordnare(PersonType person) {
         if(person!=null){
         	String name = person.getNamn();
             String befattning = person.getBefattning();
@@ -561,7 +561,7 @@ public class EavropEndpoint {
      * @param request
      * @return
      */
-    private HoSPerson createHoSPerson(ws.inera.fmu.admin.eavrop.HoSPerson person) {
+    private HoSPerson createHoSPerson(HoSPersonType person) {
         if(person!=null){
         	HsaId hsaId = (isBlankOrNull(person.getHsaId()))?new HsaId(person.getHsaId()):null;
         	String name = person.getNamn();
@@ -589,7 +589,7 @@ public class EavropEndpoint {
 	        String medicalLeaveIssuedAt = request.getTidigareUtredning().getSjukskrivandeenhet();
 	        HoSPerson medicalLeaveIssuedBy = null;
 	        if(request.getTidigareUtredning().getSjukskrivenAv()!=null){
-	            HsaId hsaId = (isBlankOrNull(request.getTidigareUtredning().getSjukskrivenAv().getId()))?null: new HsaId(request.getTidigareUtredning().getSjukskrivenAv().getId());
+	            HsaId hsaId = (isBlankOrNull(request.getTidigareUtredning().getSjukskrivenAv().getPersonalId()))?null: new HsaId(request.getTidigareUtredning().getSjukskrivenAv().getPersonalId());
 	            
 	            medicalLeaveIssuedBy = new HoSPerson(hsaId, 
 	            		request.getTidigareUtredning().getSjukskrivenAv().getNamn(),

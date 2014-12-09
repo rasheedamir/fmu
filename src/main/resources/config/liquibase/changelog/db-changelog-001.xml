@@ -241,6 +241,7 @@
 			<column name="MIDDLE_NAME" type="VARCHAR(255)"/>
 			<column name="VARDGIVARENHET_ID" type="BIGINT"/>
 			<column name="LANDSTING_ID" type="BIGINT"/>
+			<column name="EMAIL" type="VARCHAR(255)"/>
 		</createTable>
 	</changeSet>
 	<changeSet author="richjo (generated)" id="001-16">
@@ -279,7 +280,6 @@
 				<constraints nullable="false"/>
 			</column>
 			<column name="country" type="VARCHAR(255)">
-				<constraints nullable="false"/>
 			</column>
 			<column name="postal_code" type="VARCHAR(255)">
 				<constraints nullable="false"/>
@@ -463,7 +463,6 @@
 			<column name="postal_code" type="VARCHAR(255)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="state" type="VARCHAR(255)"/>
 			<column name="HSA_ID" type="VARCHAR(255)">
 				<constraints nullable="false"/>
 			</column>

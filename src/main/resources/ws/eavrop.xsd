@@ -4,12 +4,12 @@
 	<xs:element name="skapaFmuEavropRequest">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="arendeId" type="tns:arendeId"/>
+				<xs:element name="arendeId" type="tns:arendeIdType"/>
 				<xs:element name="landstingId" type="xs:int"/>
 				<xs:element name="utredningType" type="tns:utredningType"/>
 				<xs:element name="beskrivning" type="xs:string" minOccurs="0"/>
-				<xs:element name="invanare" type="tns:invanare"/>
-				<xs:element name="administrator" type="tns:person"/>
+				<xs:element name="invanare" type="tns:invanareType"/>
+				<xs:element name="administrator" type="tns:personType"/>
 				<xs:element name="tolk" type="xs:boolean" minOccurs="0"/>
 				<xs:element name="tolkSprak" type="xs:string" minOccurs="0"/>
 				<xs:element name="utredningFokus" type="xs:string" minOccurs="0"/>
@@ -21,7 +21,7 @@
 	<xs:element name="skapaFmuEavropResponse">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="fmuResponse" type="tns:fmuResponse"/>
+				<xs:element name="fmuResponse" type="tns:fmuResponseType"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -31,9 +31,9 @@
 	<xs:element name="skickatFmuHandlingarRequest">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="arendeId" type="tns:arendeId"/>
+				<xs:element name="arendeId" type="tns:arendeIdType"/>
 				<xs:element name="handlingarSkickadeDateTime" type="xs:dateTime"/>
-				<xs:element name="handlingarSkickadeAv" type="tns:person"/>
+				<xs:element name="handlingarSkickadeAv" type="tns:personType"/>
 				<xs:element name="handlingar" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
@@ -41,48 +41,29 @@
     <xs:element name="skickatFmuHandlingarResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
+                <xs:element name="fmuResponse" type="tns:fmuResponseType"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <!-- -->
 
-	<!-- -->
-	<xs:element name="begarKompletteringFmuHandlingRequest">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="arendeId" type="tns:arendeId"/>
-				<xs:element name="handlingBegardDateTime" type="xs:dateTime"/>
-				<xs:element name="handlingBegardAv" type="tns:person"/>
-				<xs:element name="handling" type="xs:string"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-    <xs:element name="begarKompletteringFmuHandlingResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <!-- -->
-
-	<!-- -->
+	<!-- Booking deviation response request-->
 	<xs:element name="svarBokningsavvikelseRequest">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="arendeId" type="tns:arendeId"/>
-				<xs:element name="bokningsId" type="tns:bokningsId"/>
-				<xs:element name="svar" type="tns:bookingDeviationResponse"/>
+				<xs:element name="arendeId" type="tns:arendeIdType"/>
+				<xs:element name="bokningsId" type="tns:uuIdType"/>
+				<xs:element name="svar" type="tns:bookingDeviationResponseType"/>
 				<xs:element name="svarDateTime" type="xs:dateTime"/>
-				<xs:element name="notering" type="tns:notering" minOccurs="0"/>
+				<xs:element name="svarSkickatAv" type="tns:personType"/>
+				<xs:element name="notering" type="tns:noteringType" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
     <xs:element name="svarBokningsavvikelseResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
+                <xs:element name="fmuResponse" type="tns:fmuResponseType"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -92,16 +73,16 @@
 	<xs:element name="skickatFmuIntygRequest">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="arendeId" type="tns:arendeId"/>
+				<xs:element name="arendeId" type="tns:arendeIdType"/>
 				<xs:element name="intygSkickatDateTime" type="xs:dateTime"/>
-				<xs:element name="intygSkickatAv" type="tns:hoSPerson"/>
+				<xs:element name="intygSkickatAv" type="tns:hoSPersonType"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
     <xs:element name="skickatFmuIntygResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
+                <xs:element name="fmuResponse" type="tns:fmuResponseType"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -111,35 +92,16 @@
 	<xs:element name="begartFmuIntygKompletteringRequest">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="arendeId" type="tns:arendeId"/>
+				<xs:element name="arendeId" type="tns:arendeIdType"/>
 				<xs:element name="intygKompletteringBegardDateTime" type="xs:dateTime"/>
-				<xs:element name="intygKompletteringBegardAv" type="tns:person"/>
+				<xs:element name="intygKompletteringBegardAv" type="tns:personType"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
     <xs:element name="begartFmuIntygKompletteringResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <!-- -->
-
-	<!-- Ta bort, samma som skickatFmuIntygRequest -->
-	<xs:element name="skickatFmuIntygKompletteringRequest">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="arendeId" type="tns:arendeId"/>
-				<xs:element name="intygSkickatDateTime" type="xs:dateTime"/>
-				<xs:element name="intygSkickatAv" type="tns:person"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-    <xs:element name="skickatFmuIntygKompletteringResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
+                <xs:element name="fmuResponse" type="tns:fmuResponseType"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -149,16 +111,16 @@
 	<xs:element name="accepteratFmuIntygRequest">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="arendeId" type="tns:arendeId"/>
+				<xs:element name="arendeId" type="tns:arendeIdType"/>
 				<xs:element name="intygAccepteratDateTime" type="xs:dateTime"/>
-				<xs:element name="intygAccepteratAv" type="tns:person"/>
+				<xs:element name="intygAccepteratAv" type="tns:personType"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
     <xs:element name="accepteratFmuIntygResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
+                <xs:element name="fmuResponse" type="tns:fmuResponseType"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -168,17 +130,17 @@
 	<xs:element name="accepteratFmuUtredningRequest">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="arendeId" type="tns:arendeId"/>
+				<xs:element name="arendeId" type="tns:arendeIdType"/>
 				<xs:element name="utredningAccepteradDateTime" type="xs:dateTime"/>
-				<xs:element name="utredningAccepteradAv" type="tns:person"/>
-				<xs:element name="notering" type="tns:notering" minOccurs="0"/>
+				<xs:element name="utredningAccepteradAv" type="tns:personType"/>
+				<xs:element name="notering" type="tns:noteringType" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
     <xs:element name="accepteratFmuUtredningResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
+                <xs:element name="fmuResponse" type="tns:fmuResponseType"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -188,31 +150,31 @@
 	<xs:element name="godkannandeErsattningFmuUtredningRequest">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="arendeId" type="tns:arendeId"/>
+				<xs:element name="arendeId" type="tns:arendeIdType"/>
 				<xs:element name="godkand" type="xs:boolean"/>
 				<xs:element name="utredningErsattningGodkandDateTime" type="xs:dateTime"/>
-				<xs:element name="utredningErsattningGodkandAv" type="tns:person"/>
-				<xs:element name="notering" type="tns:notering" minOccurs="0"/>
+				<xs:element name="utredningErsattningGodkandAv" type="tns:personType"/>
+				<xs:element name="notering" type="tns:noteringType" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
     <xs:element name="godkannandeErsattningFmuUtredningResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="fmuResponse" type="tns:fmuResponse"/>
+                <xs:element name="fmuResponse" type="tns:fmuResponseType"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 	<!-- -->
 
-    <xs:complexType name="fmuResponse">
+    <xs:complexType name="fmuResponseType">
         <xs:sequence>
-            <xs:element name="arendeId" type="tns:arendeId"/>
-            <xs:element name="statusCode" type="tns:statusCode"/>
+            <xs:element name="arendeId" type="tns:arendeIdType"/>
+            <xs:element name="statusCode" type="tns:statusCodeType"/>
             <xs:element name="errorMessage" type="tns:errorMessage" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
-	<xs:complexType name="adress">
+	<xs:complexType name="adressType">
 		<xs:sequence>
 			<xs:element name="postadress" type="xs:string"/>
 			<xs:element name="postnummer" type="xs:string"/>
@@ -220,40 +182,40 @@
 			<xs:element name="land" type="xs:string" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="invanare">
+	<xs:complexType name="invanareType">
 		<xs:sequence>
-			<xs:element name="personnummer" type="xs:string"/>
-			<xs:element name="namn" type="tns:namn"/>
-			<xs:element name="kon" type="tns:gender"/>
-			<xs:element name="adress" type="tns:adress"/>
+			<xs:element name="personnummer" type="tns:personnummerType"/>
+			<xs:element name="namn" type="tns:namnType"/>
+			<xs:element name="kon" type="tns:genderType"/>
+			<xs:element name="adress" type="tns:adressType"/>
 			<xs:element name="telefon" type="xs:string"/>
-			<xs:element name="epost" type="tns:epostAdress"/>
+			<xs:element name="epost" type="tns:epostAdressType" minOccurs="0"/>
 			<xs:element name="sarskildaBehov" type="xs:string" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="person">
+	<xs:complexType name="personType">
 		<xs:sequence>
 			<xs:element name="namn" type="xs:string"/>
-			<xs:element name="id" type="xs:string" minOccurs="0"/>
+			<xs:element name="personalId" type="xs:string" minOccurs="0"/>
 			<xs:element name="befattning" type="xs:string"/>
 			<xs:element name="enhet" type="xs:string"/>
 			<xs:element name="organisation" type="xs:string"/>
 			<xs:element name="telefon" type="xs:string"/>
-			<xs:element name="epost" type="tns:epostAdress"/>
+			<xs:element name="epost" type="tns:epostAdressType"  minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="hoSPerson">
+	<xs:complexType name="hoSPersonType">
 		<xs:sequence>
 			<xs:element name="namn" type="xs:string"/>
 			<xs:element name="hsaId" type="xs:string"/>
-			<xs:element name="befattning" type="xs:string"/>
+			<xs:element name="befattning" type="xs:string" minOccurs="0"/>
 			<xs:element name="enhet" type="xs:string"/>
 			<xs:element name="organisation" type="xs:string"/>
 			<xs:element name="telefon" type="xs:string"/>
-			<xs:element name="epost" type="tns:epostAdress"/>
+			<xs:element name="epost" type="tns:epostAdressType" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="namn">
+	<xs:complexType name="namnType">
 		<xs:sequence>
 			<xs:element name="fornamn" type="xs:string"/>
 			<xs:element name="mellannamn" type="xs:string" minOccurs="0"/>
@@ -264,13 +226,13 @@
 		<xs:sequence>
 			<xs:element name="utreddVid" type="xs:string"/>
 			<xs:element name="sjukskrivandeenhet" type="xs:string"/>
-			<xs:element name="sjukskrivenAv" type="tns:person"/>
+			<xs:element name="sjukskrivenAv" type="tns:personType"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="notering">
+	<xs:complexType name="noteringType">
 		<xs:sequence>
 			<xs:element name="notering" type="xs:string"/>
-			<xs:element name="noteradAv" type="tns:person"/>
+			<xs:element name="noteradAv" type="tns:personType"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:simpleType name="utredningType">
@@ -280,31 +242,40 @@
 			<xs:enumeration value="SLU"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="gender">
+	<xs:simpleType name="personnummerType">
+		<xs:restriction base="xs:string">
+			 <xs:pattern value="(19|20)[0-9]{6}-[0-9]{4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="genderType">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="MALE"/>
 			<xs:enumeration value="FEMALE"/>
 			<xs:enumeration value="OTHER"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="bookingDeviationResponse">
+	<xs:simpleType name="bookingDeviationResponseType">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="STOP"/>
 			<xs:enumeration value="RESTART"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="epostAdress">
+	<xs:simpleType name="epostAdressType">
 		<xs:restriction base="xs:string">
 			<xs:pattern value="[^@]+@[^\.]+\..+"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="arendeId">
-		<xs:restriction base="xs:string"/>
+	<xs:simpleType name="arendeIdType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{12}"/>
+		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="bokningsId">
-		<xs:restriction base="xs:string"/>
+	<xs:simpleType name="uuIdType">
+		<xs:restriction base="xs:string">
+			<xs:length value="36"/>
+		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="statusCode">
+	<xs:simpleType name="statusCodeType">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="OK"/>
 			<xs:enumeration value="INVALID_REQUEST"/>

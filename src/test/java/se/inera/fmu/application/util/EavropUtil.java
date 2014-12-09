@@ -15,7 +15,7 @@ import se.inera.fmu.domain.model.person.Bestallaradministrator;
  */
 public final class EavropUtil {
 
-    public static final ArendeId ARENDE_ID = new ArendeId("112233");
+    public static final ArendeId ARENDE_ID = new ArendeId("000000112233");
     public static final UtredningType UTREDNING_TYPE = UtredningType.AFU;
     public static final String TOLK = "ENGLISH";
     public static final Landsting LANDSTING = new Landsting(new LandstingCode(1), "Stockholms läns landsting"); 

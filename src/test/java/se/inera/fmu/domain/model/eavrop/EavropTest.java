@@ -1,20 +1,14 @@
 package se.inera.fmu.domain.model.eavrop;
 
 import java.text.SimpleDateFormat;
-import java.util.Iterator;
-import java.util.Random;
-import java.util.Set;
-import java.util.concurrent.Executors;
+
+import junit.framework.TestCase;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
 
-import com.google.common.eventbus.AsyncEventBus;
-
-import junit.framework.TestCase;
 import se.inera.fmu.application.DomainEventPublisher;
 import se.inera.fmu.application.impl.DomainEventPublisherImpl;
-import se.inera.fmu.application.impl.command.AcceptEavropAssignmentCommand;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
@@ -39,10 +33,8 @@ import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
-import se.inera.fmu.domain.model.landsting.Landstingssamordnare;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.HoSPerson;
-import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
@@ -108,7 +100,7 @@ public class EavropTest extends TestCase {
 		personalNumber = new PersonalNumber("6677665577");
 		gender = Gender.MALE;
 		invanare = new Invanare(personalNumber, name, gender, address, phone, email, specialNeeds);
-		arendeId = new ArendeId("1312421532151");
+		arendeId = new ArendeId("131242153215");
 		utredningType = UtredningType.SLU;
 		tolk = "Swedish";
 		landsting = new Landsting (new LandstingCode(1), "Stockholms läns landsting");
@@ -136,7 +128,6 @@ public class EavropTest extends TestCase {
 		assertEquals(city, address.getCity());
 		assertEquals(country, address.getCountry());
 		assertEquals(postalCode, address.getPostalCode());
-		assertEquals(null, address.getState());
 	}
 	
 	@Test
@@ -147,7 +138,6 @@ public class EavropTest extends TestCase {
 		assertEquals(city, address.getCity());
 		assertEquals(country, address.getCountry());
 		assertEquals(postalCode, address.getPostalCode());
-		assertEquals(state, address.getState());
 	}
 	
 	@Test
@@ -900,7 +890,7 @@ private void rejectEavropAssignment(Eavrop eavrop, DateTime dateTime) {
 	}
 	
     private BookingDeviation createBookingDeviation(){
-    	return new BookingDeviation(BookingDeviationType.INVANARE_CANCELLED_LT_48, new Note(NoteType.BOOKING_DEVIATION, "No Show", doctorPerson));
+    	return new BookingDeviation(BookingDeviationType.CANCELLED_BY_INVANARE_LT_48, new Note(NoteType.BOOKING_DEVIATION, "No Show", doctorPerson));
     }
     
     private BookingDeviationResponse createBookingDeviationResponse(DateTime dateTime){

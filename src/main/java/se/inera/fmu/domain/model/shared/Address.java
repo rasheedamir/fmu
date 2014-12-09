@@ -23,19 +23,15 @@ public final class Address implements ValueObject<Address> {
     @Column(name = "address_2")
     private String address2;
 
-    @Column(name = "postal_code", nullable = false)
+    @Column(name = "postal_code", nullable = false )
     @NotNull
     private String postalCode;
-
-    @Column(name = "state")
-    private String state;
 
     @Column(name = "city", nullable = false)
     @NotNull
     private String city;
 
-    @Column(name = "country", nullable = false)
-    @NotNull
+    @Column(name = "country", length=50)
     private String country;
 
     //~ Constructors ===================================================================================================
@@ -78,7 +74,6 @@ public final class Address implements ValueObject<Address> {
         setAddress1(address1);
         setAddress2(address2);
         setPostalCode(postalCode);
-        setState(state);
         setCity(city);
         setCountry(country);
     }
@@ -95,10 +90,6 @@ public final class Address implements ValueObject<Address> {
 
     public String getPostalCode() {
         return postalCode;
-    }
-
-    public String getState() {
-        return state;
     }
 
     public String getCity() {
@@ -119,10 +110,6 @@ public final class Address implements ValueObject<Address> {
 
     private void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
-    }
-
-    private void setState(String state) {
-        this.state = state;
     }
 
     private void setCity(String city) {
@@ -152,7 +139,6 @@ public final class Address implements ValueObject<Address> {
         if (!city.equals(address.city)) return false;
         if (!country.equals(address.country)) return false;
         if (!postalCode.equals(address.postalCode)) return false;
-        if (state != null ? !state.equals(address.state) : address.state != null) return false;
 
         return true;
     }
@@ -162,7 +148,6 @@ public final class Address implements ValueObject<Address> {
         int result = address1.hashCode();
         result = 31 * result + (address2 != null ? address2.hashCode() : 0);
         result = 31 * result + postalCode.hashCode();
-        result = 31 * result + (state != null ? state.hashCode() : 0);
         result = 31 * result + city.hashCode();
         result = 31 * result + country.hashCode();
         return result;
