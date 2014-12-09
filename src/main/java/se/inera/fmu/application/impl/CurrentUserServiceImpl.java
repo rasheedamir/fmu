@@ -19,9 +19,11 @@ import java.util.List;
 @Service
 public class CurrentUserServiceImpl implements CurrentUserService {
 
-	@Override
-	public User getCurrentUser() {
-        User user = new User();
+    private User user;
+
+    public CurrentUserServiceImpl() {
+        user = new User();
+
         user.setFirstName("Åsa");
         List<Role> roles = new ArrayList<Role>();
         roles.add(Role.ROLE_SAMORDNARE);
@@ -32,22 +34,16 @@ public class CurrentUserServiceImpl implements CurrentUserService {
         user.setHsaId("IFV1239877878-1042");
         user.setActiveRole(Role.ROLE_SAMORDNARE);
         user.setLandstingCode(1);
+    }
+
+	@Override
+	public User getCurrentUser() {
 		return user;
 	}
 
 	@Override
 	public void changeRole(Role role) {
-		SecurityContext context = SecurityContextHolder.getContext();
-		Authentication authentication = context.getAuthentication();
-		ExpiringUsernameAuthenticationToken token = (ExpiringUsernameAuthenticationToken) authentication;
-		
-		FmuUserDetails details = (FmuUserDetails) token.getPrincipal();
-		User user = details.getUser();
-		user.setActiveRole(role);
-		
-		ExpiringUsernameAuthenticationToken newToken = new ExpiringUsernameAuthenticationToken(token.getTokenExpiration(), details, token.getCredentials(), details.getAuthorities());
-		
-		context.setAuthentication(newToken);
+        user.setActiveRole(role);
 	}
 
 }
