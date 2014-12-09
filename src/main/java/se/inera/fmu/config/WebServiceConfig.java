@@ -71,7 +71,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 			bestallareClient = new BestallareClient();
 		
 	        // ToDo: This must be read from resources
-	        bestallareClient.setDefaultUri("http://localhost:9090/ws/bestallare-ws");
+	        bestallareClient.setDefaultUri("http://ec2-54-76-142-198.eu-west-1.compute.amazonaws.com:9191/ws/bestallare-ws.wsdl");
 	        bestallareClient.setMarshaller(marshaller);
 	        bestallareClient.setUnmarshaller(marshaller);
         } catch (DatatypeConfigurationException e) {
