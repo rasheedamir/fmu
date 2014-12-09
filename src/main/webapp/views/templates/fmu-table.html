@@ -21,13 +21,16 @@
         </thead>
 
         <tbody>
+        <tr ng-if="!tableParams.data || tableParams.data.length == 0" class="blank-row">
+            <td colspan="100"></td>
+        </tr>
+
         <tr ng-repeat="row in tableParams.data" ng-class="row.color" ng-click="rowClicked(row)">
             <td ng-repeat="column in headerFields"
                 sortable="{{column.key}}" class="text-capitalize">
                 <span ng-bind="getValue(column.key, row)"></span>
             </td>
         </tr>
-
         </tbody>
     </table>
     <script type="text/ng-template" id="custom/pager">

@@ -153,6 +153,7 @@ ul#strength {
 .fmu-table {
   width: 100%;
   max-width: 100%;
+  min-height: 1em;
   margin-bottom: 20px;
   border-collapse: collapse;
   border-spacing: 0 0;
@@ -194,6 +195,7 @@ ul#strength {
 
 /* Data headers */
 .fmu-table > thead > tr:only-child > th {
+    text-align: left;
     border-radius: 0;
 }
 
@@ -221,8 +223,12 @@ ul#strength {
     border-top: none;
 }
 
-.fmu-table > thead > tr > th{
+.fmu-table > thead > tr > th {
     border: none;
+}
+
+.blank-row {
+    height: 2.5em !important;
 }
 
 .dateDescription {
@@ -710,6 +716,11 @@ h2{
     opacity: 1;
 }
 
+.fmu-header .fmu-backlink,
+.fmu-header .fmu-name-banner {
+    font-size: 12pt;
+}
+
 .fmu-name-banner {
     background-color: #ffffff;
     padding-left: 10px;
@@ -805,4 +816,9 @@ h2{
     margin: 0;
     box-sizing: border-box;
     background-color: #fafafa;
+}
+
+.btn-handlingar {
+    float: right;
+    min-width: 10em;
 }
