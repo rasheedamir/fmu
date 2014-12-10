@@ -73,7 +73,7 @@ angular.module('fmuClientApp')
 
                                 $scope.cancel = function () {
                                     confirmModal.close();
-                                }
+                                };
                             }
                         });
                     };
@@ -106,6 +106,14 @@ angular.module('fmuClientApp')
 
                                 $scope.cancel = function () {
                                     confirmModal.close();
+                                };
+
+                                $scope.getAdditionalExplaination = function () {
+                                    if(!rowData){
+                                        return null;
+                                    }
+
+                                    return UTREDNING.eventsRequireConfirmation[rowData.selectedHandelseStatus.name];
                                 }
                             }
                         });

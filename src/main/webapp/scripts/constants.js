@@ -86,6 +86,13 @@ angular.module('fmuClientApp')
             internalWork: 'INTERNAL_WORK'
         },
 
+        eventsRequireConfirmation: {
+            CANCELLED_GT_48_H: 'Besök avbokat >48h',
+            CANCELLED_NOT_PRESENT: 'Patient uteblev',
+            CANCELLED_LT_96_H: 'Besök avbokat <96h',
+            CANCELLED_GT_96_H: 'Besök avbokat >96h'
+        },
+
         errors: {
             cannotCreateBooking: 'Bookningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda'
         }
