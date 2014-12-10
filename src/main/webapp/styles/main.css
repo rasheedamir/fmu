@@ -145,7 +145,7 @@ ul#strength {
 
 .table-wrapper {
     overflow-x: auto;
-    margin-top: 1em;
+    margin-top: 0;
     padding: 2px;
 }
 
@@ -221,6 +221,10 @@ ul#strength {
 /* Data fields */
 .fmu-table > tbody > tr:first-child > td{
     border-top: none;
+}
+
+.fmu-table > tbody > tr:only-child > td {
+    height: 2.5em !important;
 }
 
 .fmu-table > thead > tr > th {
@@ -811,6 +815,11 @@ h2{
     background-color: #FDF2DD;
 }
 
+.fmu-assign-banner h1 {
+    font-size: 14pt;
+    color: #28b4c4;
+}
+
 .fmu-badge-container {
     padding: 0;
     margin: 0;
@@ -825,4 +834,10 @@ h2{
 
 .greyed-hover .no-hover:hover > td{
     background-color: #ffffff;
+}
+
+.fmu-info-text {
+    font-style: italic;
+    margin-top: 0;
+    padding-top: 0;
 }

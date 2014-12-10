@@ -1,91 +1,66 @@
-<div class="fmu-header">
-    <a class="fmu-backlink" ui-sref="overview.orders">Till översikten</a>
-    <div class="pull-right fmu-name-banner flipInX normal">
-        <span>Invånare: <b>{{patientInfo.label}}</b></span>
-        <span style="margin-left: 2em;">Ärende-ID: <b>{{currentEavrop.arendeId}}</b></span>
+<div id="page-menus">
+    <div class="fmu-header">
+        <a class="fmu-backlink" ui-sref="overview.orders">Till översikten</a>
+        <div class="pull-right fmu-name-banner flipInX normal">
+            <span>Invånare: <b>{{patientInfo.label}}</b></span>
+            <span style="margin-left: 2em;">Ärende-ID: <b>{{currentEavrop.arendeId}}</b></span>
+        </div>
+    </div>
+
+    <div id="fmu-nav" class="navbar navbar-default fmu-nav" role="navigation">
+        <div>
+            <ul class="nav navbar-nav">
+                <li ng-class="{active: $state.includes('eavrop.order')}">
+                    <a ui-sref=".order.contents">
+                        <span class="glyphicon glyphicon-save">&nbsp;</span>Beställning
+                    </a>
+                </li>
+                <li ui-sref-active="active"><a ui-sref=".investigation"><span class="glyphicon glyphicon-search">&nbsp;</span>Utredning</a></li>
+                <li ui-sref-active="active"><a ui-sref=".allevents"><span class="glyphicon glyphicon-random">&nbsp;</span>Alla händelser</a></li>
+                <li ui-sref-active="active"><a ui-sref=".notes"><span class="glyphicon glyphicon-pencil">&nbsp;</span>Anteckningar</a></li>
+                <li ui-sref-active="active"><a ui-sref=".compensation"><span class="glyphicon glyphicon-book">&nbsp;</span>Underlag för ersättning</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 
 <script type="text/javascript">
-	$(function(){
-		$('.fmu-header').scrollToFixed({
-			dontSetWidth: true
-		});
-	});
+    $(function(){
+        $('#page-menus').scrollToFixed({
+            preFixed: function(){$('#fmu-nav').addClass('menu-shadow')},
+            postFixed: function(){$('#fmu-nav').removeClass('menu-shadow')}
+        });
+    });
 </script>
+
 <div restricted role="ROLE_SAMORDNARE"> 
 	<div ng-controller="AssignmentCtrl" ng-switch="currentEavrop.status">
-		<div class="alert alert-info" ng-switch-when="UNASSIGNED">
-			<h3>Utse vårdleverantör</h3>
-			<hr />
-			
+		<div class="fmu-assign-banner" ng-switch-when="UNASSIGNED">
+			<h1>Utse vårdleverantör</h1>
 			<p>Utse vårdleverantör genom att hämta in acceptans av denna förfrågan.</p>
 			<a class="btn btn-success" ng-click="openAssignUtredareDialog()">Utse utredare</a>
 		</div>
-		<div class="alert alert-warning" ng-switch-when="ASSIGNED">
-			<h3>Inväntar svar från vårdleverantör</h3>
-			<hr />
-			
-			<p>Förfrågan om acceptans för ärende med ID: <b>{{currentEavrop.arendeId}}</b> skickades till Danderyds sjukhus.</p>
+		<div class="fmu-assign-banner" ng-switch-when="ASSIGNED">
+			<h1>Inväntar svar från vårdleverantör</h1>
+			<p>Förfrågan om acceptans för ärende med ID: <b>{{currentEavrop.arendeId}}</b> skickades till !FIXA MIG! sjukhus.</p>
 		</div>
-	</div><div class="container" data-spy="affix" data-offset-top="400" id="nav">
-    <div class="navbar">
-        <div class="navbar-inner">
-            <div class="container">
-                <div class="span12">
-                    <a class="brand" href="#">Home</a>
-                     <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                     </ul>
-                </div>
-            </div> 
-        </div> 
-    </div> 
-</div>
+	</div>
 	
 </div>
 
 <div restricted role="ROLE_UTREDARE"> 
 	<div ng-controller="AcceptanceCtrl" ng-switch="currentEavrop.status">
 		<div class="fmu-assign-banner" ng-switch-when="ASSIGNED">
-			<h3>Förfrågan om acceptans</h3>
+			<h1>Förfrågan om acceptans</h1>
 
-			<p><b>Förfrågan ställd till:</b></p>
-			<p><b>Acceptans begärd av:</b></p>
+			<p>Förfrågan ställd till:</p>
+			<p>Acceptans begärd av:</p>
 			
 			<a ng-click="acceptDialog()" class="btn btn-success">Acceptera förfrågan</a>
 			<a ng-click="rejectDialog()" class="btn btn-danger">Avslå förfrågan</a>
 		</div>
 	</div>
 </div>
-
-<div id="fmu-nav" class="navbar navbar-default fmu-nav" role="navigation">
-    <div>
-        <ul class="nav navbar-nav">
-            <li ng-class="{active: $state.includes('eavrop.order')}">
-                <a ui-sref=".order.contents">
-                    <span class="glyphicon glyphicon-save">&nbsp;</span>Beställning
-                </a>
-            </li>
-            <li ui-sref-active="active"><a ui-sref=".investigation"><span class="glyphicon glyphicon-search">&nbsp;</span>Utredning</a></li>
-            <li ui-sref-active="active"><a ui-sref=".allevents"><span class="glyphicon glyphicon-random">&nbsp;</span>Alla händelser</a></li>
-            <li ui-sref-active="active"><a ui-sref=".notes"><span class="glyphicon glyphicon-pencil">&nbsp;</span>Anteckningar</a></li>
-            <li ui-sref-active="active"><a ui-sref=".compensation"><span class="glyphicon glyphicon-book">&nbsp;</span>Underlag för ersättning</a></li>
-        </ul>
-    </div>
-    </div>
-</div>
-<script type="text/javascript">
-	$(function(){
-		$('#fmu-nav').scrollToFixed({
-			marginTop: $('.fmu-header').outerHeight(true),
-			preFixed: function(){$(this).addClass('menu-shadow')},
-			postFixed: function(){$(this).removeClass('menu-shadow')}
-		});
-	});
-</script>
 
 <div>
     <div ui-view></div>
