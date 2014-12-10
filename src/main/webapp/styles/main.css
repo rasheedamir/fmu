@@ -741,6 +741,19 @@ h2{
 @media (max-width: 480px) {
     .nav-tabs > li {
         float:none;
+        border: 1px solid #ddd;
+    }
+
+    .nav-tabs > li.active > a {
+         border-radius: 0;
+         margin: 0;
+         border: 1px solid #ddd;
+     }
+
+    .nav-tabs > li.active > a,
+    .nav-tabs > li.active > a:hover,
+    .nav-tabs > li.active > a:focus {
+        background-color: #ddd;
     }
 }
 
