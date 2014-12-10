@@ -103,7 +103,7 @@ angular.module('fmuClientApp')
                         '<i class="glyphicon glyphicon-remove"></i>' +
                         '</span> ' +
                     '</td> ' +
-                    '<td ng-if="rowRemovable && !note.removable"></td> ' +
+
                 '</tr> ' +
             '</tbody> ' +
         '</table>'
