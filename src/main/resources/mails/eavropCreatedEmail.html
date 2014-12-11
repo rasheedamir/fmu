@@ -6,11 +6,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
-	<p th:text="#{email.eavrop.order(${arendeId})}">A new FMU Eavrop
-		have been ordered in the FMU application :</p>
+	<p th:text="#{email.eavrop.order.subject(${utredningType},${arendeId})}">En ny beställning av en försäkringsmedicinsk utredning har inkommit </p>
+	<p th:text="#{email.eavrop.order.admin}">Vänligen logga in i FMU-admin för att administrera beställningen.</p>
+	<p th:utext="#{email.eavrop.order.agreement(${dayStr})}">Enligt överenskommelse med Försäkringskassan ska handläggare informeras om vilken vårdenhet som åtagit sig ärendet inom fem dagar</p> 
+	<p th:text="#{email.eavrop.order.reply}">Detta mejl kan ej besvaras. All administration av ärendet sker inom ramen för FMU-admin och enligt de instruktioner som finns där.</p>
 	<p>
-		<span th:text="#{email.eavrop.created.greeting}">Regards, </span> <br />
-		<em th:text="#{email.signature}">FMU application.</em>
+		<span th:text="#{email.eavrop.order.greeting}">Regards, </span> <br />
+		<em th:text="#{email.eavrop.order.signature}">FMU-admin</em>
 	</p>
 </body>
 </html>
+

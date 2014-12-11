@@ -1,6 +1,7 @@
 package se.inera.fmu.interfaces.managing.dtomapper;
 
 import se.inera.fmu.domain.model.eavrop.Eavrop;
+import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
 
 public class EavropDTOMapper implements Mapper{
@@ -23,6 +24,15 @@ public class EavropDTOMapper implements Mapper{
 				eavrop.getBestallaradministrator().getUnit() : null);
 		dto.setMottagarenOrganisation(eavrop.getLandsting() != null ?
 				eavrop.getLandsting().getName() : null);
+		
+		Vardgivarenhet currentAssignedEnhet = eavrop.getCurrentAssignedVardgivarenhet();
+		if(currentAssignedEnhet != null){
+			dto.setUtforandeEnhet(currentAssignedEnhet.getUnitName());
+			dto.setUtforandeOrganisation(currentAssignedEnhet.getVardgivare() != null ? currentAssignedEnhet.getVardgivare().getName() : null);
+		}
+
+		dto.setAssigningPerson(eavrop.getCurrentAssignment() != null ? eavrop.getCurrentAssignment().getAssigningPerson().getName() : null);
+
 		return dto;
 	}
 

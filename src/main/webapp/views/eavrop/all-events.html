@@ -74,56 +74,47 @@
             <div class="col-md-12">
                 <h2>Beställning</h2>
 
-                <div class="fmu-table-k table-wrapper">
-                    <table>
-                        <tr>
-                            <td>
-                                Ärende-ID
-                            </td>
-                            <td>
-                                Typ
-                            </td>
-                            <td>
-                                Organisation
-                            </td>
-                            <td>
-                                Enhet/Avdelning
-                            </td>
-                            <td>
-                                Förfrågan skickad, datum
-                            </td>
-                            <td>
-                                Patientens bostadsort
-                            </td>
-                            <td>
-                                Organisation
-                            </td>
-                            <td>
-                                Utredare, enhet
-                            </td>
-                            <td>
-                                Acceptans av utredning
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{order.arendeId}}</td>
-                            <td>{{order.type}}</td>
-                            <td>{{order.ordererOrganization}}</td>
-                            <td>{{order.ordererUnit}}</td>
-                            <td>{{order.inquiryDate | date:'yyyy-MM-dd'}}</td>
-                            <td>{{order.patientResidence}}</td>
-                            <td>{{order.investigatorOrganization}}</td>
-                            <td>{{order.investigatorUnit}}</td>
-                            <td>{{order.acceptanceDate | date:'yyyy-MM-dd'}}</td>
-                        </tr>
+                <div class="table-wrapper">
+                    <table class="fmu-table">
+                        <thead>
+                            <tr>
+                                <th>Ärende-ID</th>
+                                <th>Typ</th>
+                                <th>Organisation</th>
+                                <th>Enhet/Avdelning</th>
+                                <th>Förfrågan skickad, datum</th>
+                                <th>Patientens bostadsort</th>
+                                <th>Organisation</th>
+                                <th>Utredare, enhet</th>
+                                <th>Acceptans av utredning</th>
+                            </tr>
+                        </thead>
 
+                        <tbody>
+                            <tr>
+                                <td>{{order.arendeId}}</td>
+                                <td>{{order.type}}</td>
+                                <td>{{order.ordererOrganization}}</td>
+                                <td>{{order.ordererUnit}}</td>
+                                <td>{{order.inquiryDate | date:'yyyy-MM-dd'}}</td>
+                                <td>{{order.patientResidence}}</td>
+                                <td>{{order.investigatorOrganization}}</td>
+                                <td>{{order.investigatorUnit}}</td>
+                                <td>{{order.acceptanceDate | date:'yyyy-MM-dd'}}</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
                 <h2>Handlingar</h2>
-                <fmu-handlingar-table handlingar="documents"></fmu-handlingar-table>
-                <h2>Tillägg</h2>
-                <fmu-tillagg-table tillagg="requestedDocuments"></fmu-tillagg-table>
+                <div class="table-wrapper">
+                    <fmu-handlingar-table handlingar="documents"></fmu-handlingar-table>
+                </div>
 
+                <h2>Tillägg</h2>
+                <div class="table-wrapper">
+                    <fmu-tillagg-table tillagg="requestedDocuments"></fmu-tillagg-table>
+
+                </div>
                 <h2>Utredning</h2>
 
                 <div class="table-wrapper">

@@ -10,10 +10,6 @@ angular.module('fmuClientApp')
             $scope.dateDescription = 'Datumen utgår från det datum då intyg levererats';
             $scope.getTableCellValue = UtredningService.getTableCellValue;
 
-            $scope.tillIntyg = function () {
-                console.log('till intyg');
-            };
-
             $scope.openBookingCreationDialog = function () {
                 var modal = $modal.open({
                     templateUrl: 'views/templates/laggTillHandelseDialog.html',

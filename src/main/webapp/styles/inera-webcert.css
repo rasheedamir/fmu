@@ -735,21 +735,6 @@
         padding: 0 15px 30px 30px;
     }
 
-/*    @media (min-width: 768px) {
-        .webcert-multicol-background {
-            background-color: #f2f2f2;
-            left: 50%;
-        }
-        .webcert-col-primary {
-            left: -50%;
-            padding: 30px 30px 20px 45px;
-        }
-        .webcert-col-secondary {
-            background: none;
-            left: -50%;
-        }
-    }*/
-
     .webcert-col-single {
         padding: 30px;
     }

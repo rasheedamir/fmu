@@ -63,7 +63,7 @@ public class EavropListener implements EventBusListener {
     @AllowConcurrentEvents
     @Transactional
     public void handleEavropAcceptedByVardgivarenhetEvent(final EavropAcceptedByVardgivarenhetEvent event) {
-        log.debug("EavropAcceptedByVardgivarenhetEvent received : " + event);
+        log.debug("EavropAcceptedByVardgivarenhetEvent received for ARENDE ID {} EAVROP ID {} HSA ID {} ", event.getArendeId().toString(), event.getEavropId().toString(), event.getHsaId().toString());
         
         Vardgivarenhet vardgivarenhet = getVardgivarenhet(event.getHsaId());
 
@@ -72,7 +72,7 @@ public class EavropListener implements EventBusListener {
         		new PublishFmuAssignmentResponseCommand(event.getArendeId(), Boolean.TRUE, vardgivarenhet.getUnitName(), vardgivarenhet.getVardgivare().getName() , vardgivarenhet.getAddress().getAddress1(), vardgivarenhet.getAddress().getPostalCode(), vardgivarenhet.getAddress().getCity(), vardgivarenhet.getAddress().getCountry(), null, null);
         
         bestallareWebserviceClient.publishFmuAssignmentResponse(assignmentResponseCommand);
-        log.debug("PublishFmuAssignmentResponseCommand  published : " + event);
+        log.debug("FmuAssignmentResponse  published for ARENDE ID {} EAVROP ID {} " +  event.getArendeId().toString(), event.getEavropId());
     }
 
     /**
@@ -83,7 +83,8 @@ public class EavropListener implements EventBusListener {
     @Subscribe
     @AllowConcurrentEvents
     public void handleEavropAssignedToVardgivarenhetEvent(final EavropAssignedToVardgivarenhetEvent event) {
-        log.debug("Event received : " + event);
+        log.debug("EavropAssignedToVardgivarenhetEvent received for EAVROP ID {} HSA ID {} ", event.getEavropId().toString(), event.getHsaId().toString());
+        
     }
 
 
@@ -97,14 +98,15 @@ public class EavropListener implements EventBusListener {
     @AllowConcurrentEvents
     @Transactional
     public void handleEavropRejectedByVardgivarenhetEvent(final EavropRejectedByVardgivarenhetEvent event) {
-        log.debug("EavropRejectedByVardgivarenhetEvent received : " + event);
+        log.debug("EavropRejectedByVardgivarenhetEvent received for ARENDE ID {} EAVROP ID {} HSA ID {} ", event.getArendeId().toString(), event.getEavropId().toString(), event.getHsaId().toString());
         
         Vardgivarenhet vardgivarenhet = getVardgivarenhet(event.getHsaId());
         PublishFmuAssignmentResponseCommand assignmentResponseCommand = 
         		new PublishFmuAssignmentResponseCommand(event.getArendeId(), Boolean.FALSE, vardgivarenhet.getUnitName(), vardgivarenhet.getVardgivare().getName() , vardgivarenhet.getAddress().getAddress1(), vardgivarenhet.getAddress().getPostalCode(), vardgivarenhet.getAddress().getCity(), vardgivarenhet.getAddress().getCountry(), null, null);
         
         bestallareWebserviceClient.publishFmuAssignmentResponse(assignmentResponseCommand);
-        log.debug("PublishFmuAssignmentResponseCommand  published : " + event);
+        log.debug("FmuAssignmentResponse  published for ARENDE ID {} EAVROP ID {} " +  event.getArendeId().toString(), event.getEavropId().toString());
+
     }
 
     /**
@@ -115,10 +117,11 @@ public class EavropListener implements EventBusListener {
     @Subscribe
     @AllowConcurrentEvents
     public void handleBookingCreatedEvent(final BookingCreatedEvent event) {
-        log.debug("BookingCreatedEvent received : " + event);
+        log.debug("BookingCreatedEvent received for ARENDE ID {} EAVROP ID {} BOOKING ID {} ", event.getArendeId().toString(), event.getEavropId().toString(), event.getBookingId().toString());
         
         PublishFmuBookingCommand publishFmuBookingCommand = new PublishFmuBookingCommand(event.getArendeId(), event.getBookingId(), event.getBookingType(), event.getStartDateTime(), event.getEndDateTime(), event.getResourceName(), event.getResourceRole(), event.isInterpreter());
         bestallareWebserviceClient.publishFmuBooking(publishFmuBookingCommand);
+        log.debug("FmuBooking  published for ARENDE ID {} EAVROP ID {} BOOKING ID {} " +  event.getArendeId().toString(), event.getEavropId().toString(), event.getBookingId().toString());
     }
 
     /**
@@ -129,10 +132,11 @@ public class EavropListener implements EventBusListener {
     @Subscribe
     @AllowConcurrentEvents
     public void handleBookingDeviationEvent(final BookingDeviationEvent event) {
-        log.debug("BookingDeviationEvent received : " + event);
-        
+        log.debug("BookingDeviationEvent received for ARENDE ID {} EAVROP ID {} BOOKING ID {} ", event.getArendeId().toString(), event.getEavropId().toString(), event.getBookingId().toString());
+       
         PublishFmuBookingDeviationCommand publishFmuBookingDeviationCommand = new PublishFmuBookingDeviationCommand(event.getArendeId(), event.getBookingId(), event.getBookingDeviationType(), event.isBookingDeviationResponseRequired(), event.getBookingDeviationNote());
         bestallareWebserviceClient.publishFmuBookingDeviation(publishFmuBookingDeviationCommand);
+        log.debug("FmuBookingDeviation  published for ARENDE ID {} EAVROP ID {} BOOKING ID {} " +  event.getArendeId().toString(), event.getEavropId().toString(), event.getBookingId().toString());
     }
 
     /**
@@ -142,7 +146,7 @@ public class EavropListener implements EventBusListener {
     @Subscribe
     @AllowConcurrentEvents
     public void handleBookingDeviationResponseEvent(final BookingDeviationResponseEvent event) {
-        log.debug("Event received : " + event);
+    	log.debug("BookingDeviationEvent received for EAVROP ID {} ", event.getEavropId().toString());
         //Mail someone?
     }
 
@@ -155,15 +159,16 @@ public class EavropListener implements EventBusListener {
     @Subscribe
     @AllowConcurrentEvents
     public void handleDocumentRequestedEvent(final DocumentRequestedEvent event) {
-        log.debug("DocumentRequestedEvent received : " + event);
+        log.debug("DocumentRequestedEvent received for ARENDE ID {} EAVROP ID {} DOCUMENT ID {} ", event.getArendeId().toString(), event.getEavropId().toString(), event.getDocumentId().toString());
         PublishFmuDocumentRequestedCommand publishFmuDocumentRequestedCommand = new PublishFmuDocumentRequestedCommand(event.getArendeId(), event.getDocumentName(), event.getDocumentDateTime(), event.getRequestPerson(), event.getRequestNote());
-        bestallareWebserviceClient.publishFmuDocumentRequested(publishFmuDocumentRequestedCommand);	
+        bestallareWebserviceClient.publishFmuDocumentRequested(publishFmuDocumentRequestedCommand);
+        log.debug("FmuDocumentRequest published for ARENDE ID {} EAVROP ID {} DOCUMENT ID {} " +  event.getArendeId().toString(), event.getEavropId().toString(), event.getDocumentId().toString());
     }
 
     @Subscribe
     @AllowConcurrentEvents
     public void handleDocumentsSentFromBestallareEvent(final DocumentSentByBestallareEvent event) {
-        log.debug("Event received : " + event);
+    	log.debug("DocumentsSentFromBestallareEvent received for ARENDE ID {} EAVROP ID {} ", event.getArendeId().toString(), event.getEavropId().toString() );
         //Mail someone?
     }
     
@@ -176,13 +181,13 @@ public class EavropListener implements EventBusListener {
     @Subscribe
     @AllowConcurrentEvents
     public void handleEavropStartEvent(final EavropStartEvent event) {
-        log.debug("EavropStartEvent received : " + event);
-        
+        log.debug("EavropStartEvent received for ARENDE ID {} EAVROP ID {} ", event.getArendeId().toString(), event.getEavropId().toString());
         //Mail someone?
         
         //web service  call to customer with start date
         PublishFmuStartDate publishFmuStartDate = new PublishFmuStartDate(event.getArendeId(), event.getEavropStartDate());
         bestallareWebserviceClient.publishFmuStartDate(publishFmuStartDate);
+        log.debug("FmuStartDate published for ARENDE ID {} EAVROP ID {} " +  event.getArendeId().toString(), event.getEavropId().toString());
         
     }
 
@@ -190,21 +195,22 @@ public class EavropListener implements EventBusListener {
     @Subscribe
     @AllowConcurrentEvents
     public void handleIntygApprovedByBestallareEvent(final IntygApprovedByBestallareEvent event) {
-        log.debug("Event received : " + event);
+        log.debug("IntygApprovedByBestallareEvent received for EAVROP ID {} ", event.getEavropId().toString());
+
         //mail someone?
     }
 
     @Subscribe
     @AllowConcurrentEvents
     public void handleIntygComplemetsRequestedFromBestallareEvent(final IntygComplemetsRequestedFromBestallareEvent event) {
-        log.debug("Event received : " + event);
+        log.debug("IntygComplemetsRequestedFromBestallareEvent received for EAVROP ID {} ", event.getEavropId().toString());
         //Mail someone?
     }
 
     @Subscribe
     @AllowConcurrentEvents
     public void handleIntygSentEvent(final IntygSentEvent event) {
-        log.debug("Event received : " + event);
+    	log.debug("IntygSentEvent received for EAVROP ID {} ", event.getEavropId().toString());
         //?
     }
 
@@ -215,8 +221,9 @@ public class EavropListener implements EventBusListener {
     @Subscribe
     @AllowConcurrentEvents
     public void handleEavropCreatedEvent(EavropCreatedEvent event) {
-        log.debug("Event received : " + event);
-        this.mailService.sendEavropCreatedEmail(event.getEavropId(), event.getArendeId(), event.getLandstingCode());
+    	log.debug("EavropCreatedEvent received for ARENDE ID {} EAVROP ID {} ", event.getArendeId().toString(), event.getEavropId().toString());
+        this.mailService.sendEavropCreatedEmail(event.getEavropId(), event.getArendeId(),event.getUtredningType(), event.getLastDayOfAcceptance(), event.getLandstingCode());
+        log.debug("Eavrop created email notification published for ARENDE ID {} EAVROP ID {} " +  event.getArendeId().toString(), event.getEavropId().toString());
 
     }
     
@@ -224,7 +231,7 @@ public class EavropListener implements EventBusListener {
     @Subscribe
     @AllowConcurrentEvents
     public void handleEavropRestartedByBestallareEvent(final EavropRestartedByBestallareEvent event) {
-        log.debug("Event received : " + event);
+    	log.debug("EavropRestartedByBestallareEvent received for EAVROP ID {} ", event.getEavropId().toString());
         //Mail someone?
     }
 
@@ -235,5 +242,4 @@ public class EavropListener implements EventBusListener {
     	}
     	return vardgivarenhet;
     }
-
 }

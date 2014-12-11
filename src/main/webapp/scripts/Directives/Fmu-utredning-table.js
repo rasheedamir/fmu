@@ -47,33 +47,76 @@ angular.module('fmuClientApp')
                     };
 
                     $scope.changeTolkStatus = function (rowData) {
-                        var dataPackage = createDataPackage(rowData.bookingId,
-                            rowData.selectedTolkStatus.name,
-                            rowData.selectedTolkStatus.requireComment ? rowData.tolkComment : null);
-                        var promise = UtredningService.changeTolkBooking(dataPackage);
-                        promise.then(function () {
-                                // Success
-                                $scope.toogleEditRow(rowData);
-                                $scope.tableParams.reload();
+                        var confirmModal = $modal.open({
+                            templateUrl: 'views/templates/changeBookingConfirmationModal.html',
+                            resolve: {
+                                parent: function () {
+                                    return $scope;
+                                }
                             },
-                            function () {
-                                // Failed
-                            });
+                            controller: function ($scope, parent) {
+                                $scope.save = function () {
+                                    var dataPackage = createDataPackage(rowData.bookingId,
+                                        rowData.selectedTolkStatus.name,
+                                        rowData.selectedTolkStatus.requireComment ? rowData.tolkComment : null);
+                                    var promise = UtredningService.changeTolkBooking(dataPackage);
+                                    promise.then(function () {
+                                            // Success
+                                            confirmModal.close();
+                                            parent.toogleEditRow(rowData);
+                                            parent.tableParams.reload();
+                                        },
+                                        function (error) {
+                                            $scope.bookingChangeErrors = [error];
+                                        });
+                                };
+
+                                $scope.cancel = function () {
+                                    confirmModal.close();
+                                };
+                            }
+                        });
                     };
 
                     $scope.changeHandelseStatus = function (rowData) {
-                        var dataPackage = createDataPackage(rowData.bookingId,
-                            rowData.selectedHandelseStatus.name,
-                            rowData.selectedHandelseStatus.requireComment ? rowData.handelseComment : null);
-                        var promise = UtredningService.changeBooking(dataPackage);
-                        promise.then(function () {
-                                // Success
-                                $scope.toogleEditRow(rowData);
-                                $scope.tableParams.reload();
+                        var confirmModal = $modal.open({
+                            templateUrl: 'views/templates/changeBookingConfirmationModal.html',
+                            resolve: {
+                                parent: function () {
+                                    return $scope;
+                                }
                             },
-                            function () {
-                                // Failed
-                            });
+                            controller: function ($scope, parent) {
+                                $scope.save = function () {
+                                    var dataPackage = createDataPackage(rowData.bookingId,
+                                        rowData.selectedHandelseStatus.name,
+                                        rowData.selectedHandelseStatus.requireComment ? rowData.handelseComment : null);
+                                    var promise = UtredningService.changeBooking(dataPackage);
+                                    promise.then(function () {
+                                            // Success
+                                            confirmModal.close();
+                                            parent.toogleEditRow(rowData);
+                                            parent.tableParams.reload();
+                                        },
+                                        function (error) {
+                                            // Failed
+                                            $scope.bookingChangeErrors = [error];
+                                        });
+                                };
+
+                                $scope.cancel = function () {
+                                    confirmModal.close();
+                                };
+
+                                $scope.getAdditionalExplaination = function () {
+                                    if(!rowData){
+                                        return null;
+                                    }
+
+                                    return UTREDNING.eventsRequireConfirmation[rowData.selectedHandelseStatus.name];
+                                }
+                            }
+                        });
                     };
 
                     $scope.sort = function (key) {

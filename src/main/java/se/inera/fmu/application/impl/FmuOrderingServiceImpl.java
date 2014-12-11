@@ -191,7 +191,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 		// Publish an event to notify the interested listeners/subscribers that
 		// an eavrop has been created.
-		domainEventPublisher.post(new EavropCreatedEvent(eavrop.getEavropId(), eavrop.getArendeId(), eavrop.getLandsting().getLandstingCode()));
+		domainEventPublisher.post(new EavropCreatedEvent(eavrop.getEavropId(), eavrop.getArendeId(), eavrop.getUtredningType(), eavrop.getLandsting().getLandstingCode(), eavrop.getLastValidEavropAssignmentAcceptDay()));
 
 		return eavrop.getArendeId();
 	}

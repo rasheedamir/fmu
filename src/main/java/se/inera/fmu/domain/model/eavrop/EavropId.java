@@ -12,7 +12,6 @@ import se.inera.fmu.domain.shared.ValueObject;
  * Created by Rickard on 9/26/14.
  *
  */
-@ToString
 @Embeddable
 public final class EavropId implements ValueObject<EavropId>, Serializable {
 
@@ -61,5 +60,10 @@ public final class EavropId implements ValueObject<EavropId>, Serializable {
     @Override
     public boolean sameValueAs(EavropId other) {
         return other != null && this.id.equals(other.id);
+    }
+   
+    @Override
+    public String toString() {
+    	return getId();
     }
 }

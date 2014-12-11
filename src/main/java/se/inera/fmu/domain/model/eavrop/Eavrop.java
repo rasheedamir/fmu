@@ -396,10 +396,10 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		}
 	}
 	
-	private LocalDate getLastValidEavropAssignmentAcceptDay(){
+	public LocalDate getLastValidEavropAssignmentAcceptDay(){
 
 		//From date is the day after the Eavrop was received from orderer.
-		LocalDate fromDate = new LocalDate(this.getCreatedDate()).plusDays(1);
+		LocalDate fromDate = (this.getCreatedDate()!=null)?new LocalDate(this.getCreatedDate()).plusDays(1):new LocalDate().plusDays(1);
 		int maxNumberOfDaysUntilAccept = this.getEavropProperties().getAcceptanceValidLength();
 		
 		//The last day that it is okay to accept;
@@ -407,7 +407,6 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		
 		return lastValidDay;
 	}
-
 	private LocalDate getLastValidEavropAssessmentDay(){
 		
 		//From date is the day that the assessment started

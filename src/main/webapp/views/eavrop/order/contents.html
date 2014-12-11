@@ -8,7 +8,7 @@
                 <th>Förfrågan inkom</th>
                 <th>Typ av utredning</th>
                 <th>Tolk</th>
-                <th>Val av inriktning:</th>
+                <th>Val av inriktning</th>
             </tr>
             </thead>
 
@@ -17,7 +17,7 @@
                 <td>{{order.arendeId}}</td>
                 <td>{{order.inquiryDate | date: 'yyyy-MM-dd'}}</td>
                 <td>{{order.type}}</td>
-                <td>{{order.interpreterLang ? ('Ja, ' + order.interpreterLang) : 'Nej'}}</td>
+                <td>{{order.interpreterLang ? ('Ja, ' + order.interpreterLang) : order.interpreterLang != undefined ? 'Nej': null}}</td>
                 <td>{{order.valAvInriktning}}</td>
             </tr>
             </tbody>

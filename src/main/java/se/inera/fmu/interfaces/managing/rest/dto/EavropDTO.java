@@ -22,4 +22,10 @@ public class EavropDTO {
 	private String bestallareOrganisation;
 
 	private String mottagarenOrganisation;
+	
+	private String utforandeEnhet;
+	
+	private String utforandeOrganisation;
+	
+	private String assigningPerson;
 }
