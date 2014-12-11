@@ -329,6 +329,8 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	@Override
 	public OrderDTO getOrderInfo(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
+		
+		log.debug(eavropForUser.toString());
 		return new OrderDTOMapper().map(eavropForUser);
 	}
 
