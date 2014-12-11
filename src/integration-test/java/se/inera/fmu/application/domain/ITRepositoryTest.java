@@ -465,10 +465,6 @@ public class ITRepositoryTest {
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
     	
-       	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, startDate.minusDays(1), startDate.plusDays(1), Arrays.asList(NOT_ACCEPTED_STATES), PAGEABLE);
-    	assertNotNull(eavrops);
-    	assertEquals(0, eavrops.getNumberOfElements());
-    	
        	eavrops = eavropRepository.findByLandstingAndStartDateAndEavropStateIn(landsting, startDate.minusDays(1), startDate.plusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
