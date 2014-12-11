@@ -57,8 +57,8 @@ public interface EavropRepository extends JpaRepository<Eavrop, Long> {
 
 	@Query("SELECT e FROM Eavrop e "
 			+ "WHERE e.landsting = :landsting "
-			+ " AND (e.startDate >= :fromDate or :fromDate IS NULL) "
-			+ " AND (e.startDate < :toDate or :toDate IS NULL) "
+			+ " AND (((e.startDate >= :fromDate or :fromDate IS NULL) AND (e.startDate < :toDate or :toDate IS NULL)) "
+			+ " 	OR ((e.startDate IS NULL) AND (e.createdDate >= :fromDate or :fromDate IS NULL) AND (e.createdDate < :toDate or :toDate IS NULL)))"
 			+ " AND e.eavropState in (:eavropStates) ")
     public Page<Eavrop> findByLandstingAndStartDateAndEavropStateIn(
     		@Param("landsting") Landsting landsting,
@@ -93,8 +93,8 @@ public interface EavropRepository extends JpaRepository<Eavrop, Long> {
 	
 	@Query("SELECT e FROM Eavrop e "
 			+ "WHERE e.currentAssignment.vardgivarenhet = :vardgivarenhet "
-			+ " AND (e.startDate >= :fromDate or :fromDate IS NULL) "
-			+ " AND (e.startDate < :toDate or :toDate IS NULL) "
+			+ " AND (((e.startDate >= :fromDate or :fromDate IS NULL) AND (e.startDate < :toDate or :toDate IS NULL)) "
+			+ " 	OR ((e.startDate IS NULL) AND (e.createdDate >= :fromDate or :fromDate IS NULL) AND (e.createdDate < :toDate or :toDate IS NULL)))"
 			+ " AND e.eavropState in (:eavropStates) ")
     public Page<Eavrop> findByVardgivarenhetAndStartDateAndEavropStateIn(
     		@Param("vardgivarenhet") Vardgivarenhet vardgivarenhet,
