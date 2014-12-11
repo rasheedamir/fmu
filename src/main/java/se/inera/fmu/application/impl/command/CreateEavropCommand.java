@@ -31,8 +31,8 @@ public class CreateEavropCommand {
     private String utredningFocus;
     private String additionalInformation;
     private Interpreter interpreter;
-    private Invanare invanare;
+    @NonNull private Invanare invanare;
     @NonNull private LandstingCode landstingCode;
-    private Bestallaradministrator bestallaradministrator;
+    @NonNull private Bestallaradministrator bestallaradministrator;
     private PriorMedicalExamination priorMedicalExamination;
 }

@@ -9,6 +9,10 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.lang.CharEncoding;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -25,6 +29,7 @@ import org.thymeleaf.context.Context;
 import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropId;
+import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.domain.model.landsting.Landstingssamordnare;
 import se.inera.fmu.domain.model.landsting.LandstingssamordnareRepository;
@@ -92,6 +97,7 @@ public class MailService {
 			message.setText(content, isHtml);
 			javaMailSender.send(mimeMessage);
 			log.debug("Sent e-mail to User '{}'!", to);
+			log.debug(mimeMessage.toString());
 		} catch (Exception e) {
 			log.warn("E-mail could not be sent to user '{}', exception is: {}",
 					to, e.getMessage());
@@ -120,7 +126,10 @@ public class MailService {
 	 * @param eavropId, id of the eavrop to send email about
 	 */
 	@Async
-	public void sendEavropCreatedEmail(final EavropId eavropId, final ArendeId arendeId, final LandstingCode landstingCode) {
+	public void sendEavropCreatedEmail(final EavropId eavropId, final ArendeId arendeId, final UtredningType utredningType, final LocalDate lastAcceptanceDay, final LandstingCode landstingCode) {
+	try {
+		
+	
 		Assert.notNull(eavropId, "EavropId can't be Null!");
 		Assert.notNull(arendeId, "ArendeId can't be Null!");
 		Assert.notNull(landstingCode, "LandstingCode can't be Null!");
@@ -137,15 +146,34 @@ public class MailService {
 				emailAddress, locale.toString());
 
 		// Prepare the evaluation context
+		String utredningTypeStr = (utredningType!=null)?utredningType.name():"försäkringsmedicinsk utredning";
 		final Context ctx = new Context(locale);
 		ctx.setVariable("arendeId", arendeId.toString());
+		ctx.setVariable("utredningType", utredningTypeStr);
+		if(lastAcceptanceDay!=null){
+			DateTimeFormatter formatter = DateTimeFormat.forPattern("d MMMM, yyyy");
+			String dayString = lastAcceptanceDay.toString(formatter);
+			ctx.setVariable("dayStr", dayString);
+			log.debug("dayStr: "+dayString);
+		}
 		
 		// Create the HTML body using Thymeleaf
 		final String htmlContent = this.templateEngine.process(	"eavropCreatedEmail", ctx);
-
+		log.debug("htmlContent: "+htmlContent);
 		// Get subject according to locale
-		String subject = messageSource.getMessage("email.eavrop.created.title",	null, locale);
+		
+		Object[] args = {utredningTypeStr,arendeId.toString()};
+		
+		String subject = messageSource.getMessage("email.eavrop.order.subject", args, locale);
+		
+		log.debug("Subject "+subject);
+		
 		sendEmail(emailAddress, subject, htmlContent, false, true);
+	} catch (Throwable t) {
+		log.error(t.getMessage());
+		throw t;
+		// TODO: handle exception
+	}
 	}
 	
 	private String getLandstingsamordnareEmailAddresses(LandstingCode landstingCode) {

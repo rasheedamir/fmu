@@ -1,5 +1,6 @@
 package se.inera.fmu.domain.model.eavrop;
 
+import lombok.extern.slf4j.Slf4j;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
@@ -15,6 +16,7 @@ import se.inera.fmu.domain.model.eavrop.booking.BookingId;
  * to Accepted state i.e. restarted or if it should go to Approved state
  * i.e. stopped 
  */
+@Slf4j
 public class OnHoldEavropState extends AbstractNoteableEavropState{
 
 	@Override
@@ -42,9 +44,11 @@ public class OnHoldEavropState extends AbstractNoteableEavropState{
 			//TODO: SET new base date, use some kind of domain service
 			eavrop.setStartDate(bookingDeviationResponse.getResponseTimestamp().toLocalDate());
 			eavrop.setEavropState(new AcceptedEavropState());
+			log.info("State transition ON_HOLD -> ACCEPTED for ARENDE ID {} EAVROP ID {} ", eavrop.getArendeId().toString(), eavrop.getEavropId().toString());
 		
 		}else if(BookingDeviationResponseType.STOP.equals(responseType)) {
 			eavrop.setEavropState(new ApprovedEavropState());
+			log.info("State transition ON_HOLD -> APPROVED for ARENDE ID {} EAVROP ID {} ", eavrop.getArendeId().toString(), eavrop.getEavropId().toString());
 		}
 	}
 }

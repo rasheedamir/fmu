@@ -1,5 +1,7 @@
 package se.inera.fmu.domain.model.eavrop;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
@@ -12,12 +14,14 @@ import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygSentInformation;
 import se.inera.fmu.domain.model.eavrop.note.Note;
+import se.inera.fmu.infrastructure.listener.EavropListener;
 
 /**
  * The accepted state, means that the care giver has accepted and 
  * the case is ongoing, this is where all the action is. 
  * Available state transition is to On hold  or Approved state 
  */
+@Slf4j
 public class AcceptedEavropState extends AbstractNoteableEavropState {
 
 	@Override
@@ -71,6 +75,7 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 		if(BookingDeviationTypeUtil.isBookingStatusReasonForOnHold(booking.getBookingStatus(), eavrop.getUtredningType())){
 			//State transition ACCEPTED -> ON_HOLD
 			eavrop.setEavropState(new OnHoldEavropState());
+			log.info("State transition ACCEPTED -> ON_HOLD for ARENDE ID {} EAVROP ID {} ", eavrop.getArendeId().toString(), eavrop.getEavropId().toString());
 		}
 	}
 	
@@ -92,6 +97,8 @@ public class AcceptedEavropState extends AbstractNoteableEavropState {
 		
 		//State transition ACCEPTED -> SENT
 		eavrop.setEavropState(new SentEavropState());
+		log.info("State transition ACCEPTED -> SENT for ARENDE ID {} EAVROP ID {} ", eavrop.getArendeId().toString(), eavrop.getEavropId().toString());
+		
 	}
 	
 	@Override

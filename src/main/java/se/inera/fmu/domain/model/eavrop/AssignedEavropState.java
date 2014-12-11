@@ -1,5 +1,6 @@
 package se.inera.fmu.domain.model.eavrop;
 
+import lombok.extern.slf4j.Slf4j;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.person.HoSPerson;
@@ -9,6 +10,7 @@ import se.inera.fmu.domain.model.person.HoSPerson;
  * Accept will move Eavrop forward into Accepted state.
  * Reject will move Eavrop back to Unassigned state.
  */
+@Slf4j
 public class AssignedEavropState extends AbstractEavropState {
 		
 	@Override
@@ -22,6 +24,7 @@ public class AssignedEavropState extends AbstractEavropState {
 	
 		//State transition ASSIGNED -> ACCEPTED
 		eavrop.setEavropState(new AcceptedEavropState());
+		log.info("State transition ASSIGNED -> ACCEPTED for ARENDE ID {} EAVROP ID {} ", eavrop.getArendeId().toString(), eavrop.getEavropId().toString());
 	}
 	
 	@Override
@@ -34,6 +37,7 @@ public class AssignedEavropState extends AbstractEavropState {
 		
 		//State transition ASSIGNED -> UNASSIGNED
 		eavrop.setEavropState(new UnassignedEavropState());
+		log.info("State transition ASSIGNED -> UNASSIGNED for ARENDE ID {} EAVROP ID {} ", eavrop.getArendeId().toString(), eavrop.getEavropId().toString());
 	}
 	
 }
