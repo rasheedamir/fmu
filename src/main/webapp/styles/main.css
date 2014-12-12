@@ -22,7 +22,7 @@
         min-width:auto !important;
         min-width: 500px !important;
         background-color: #9DA6AB;
-        z-index: 1000;
+        z-index: 1000 !important;
     }
 }
 
@@ -922,13 +922,13 @@ h2{
 }
 
 .fmu-status-banner {
-    position: absolute;
+    position: relative;
     background-color: #27BC8F;
     color: #ffffff;
     display: block;
     width: 100%;
     min-width: 100px;
-    z-index: 1000;
+    z-index: 100;
     overflow-x: hidden;
 
     -webkit-box-shadow: 0 2px 2px -1px #000000;
