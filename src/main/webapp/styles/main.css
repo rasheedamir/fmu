@@ -5,6 +5,26 @@
     padding: 10px;
 }
 
+.fmu-nav-responsive-small {
+    display: none;
+}
+
+@media (max-width: 980px) {
+    .fmu-nav-responsive-big {
+        display: none;
+    }
+    .fmu-nav-responsive-small {
+        display: inline-block;
+        width: 100%;
+    }
+
+    .dropdown-menu {
+        min-width:auto !important;
+        min-width: 500px !important;
+        background-color: #9DA6AB;
+    }
+}
+
 .nav-tabs {
     margin-bottom: 0;
 }
@@ -884,6 +904,11 @@ h2{
 .navbar-default .fmu-status-nav:focus a {
     color: #ffffff !important;
     background-color: #27BC8F;
+}
+
+.dropdown-menu {
+    min-width:auto;
+    width:100%;
 }
 
 .status-active {
