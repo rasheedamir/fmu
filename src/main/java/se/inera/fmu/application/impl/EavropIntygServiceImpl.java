@@ -70,7 +70,7 @@ public class EavropIntygServiceImpl implements EavropIntygService {
         	log.debug(String.format("IntygSentInformation added for eavrop:: %s", eavrop.getEavropId().toString()));
         }
 		
-		handleIntygSent(eavrop.getEavropId(), aCommand.getIntygSentDateTime());
+		handleIntygSent(eavrop.getEavropId(), eavrop.getArendeId(), aCommand.getIntygSentDateTime());
 	}
 
 	@Override
@@ -134,8 +134,8 @@ public class EavropIntygServiceImpl implements EavropIntygService {
 		getDomainEventPublisher().post(event);
 	}
 
-	private void handleIntygSent(EavropId eavropId, DateTime intygSentDateTime){
-		IntygSentEvent event = new IntygSentEvent(eavropId, intygSentDateTime);
+	private void handleIntygSent(EavropId eavropId, ArendeId arendeId, DateTime intygSentDateTime){
+		IntygSentEvent event = new IntygSentEvent(eavropId, arendeId, intygSentDateTime);
         if(log.isDebugEnabled()){
         	log.debug(String.format("IntygSentEvent created :: %s", event.toString()));
         }

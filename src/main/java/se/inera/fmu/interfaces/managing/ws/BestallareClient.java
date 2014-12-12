@@ -15,6 +15,7 @@ import se.inera.fmu.interfaces.managing.command.PublishFmuAssignmentResponseComm
 import se.inera.fmu.interfaces.managing.command.PublishFmuBookingCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuBookingDeviationCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuDocumentRequestedCommand;
+import se.inera.fmu.interfaces.managing.command.PublishFmuIntygSentCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuStartDate;
 
 
@@ -191,6 +192,34 @@ public class BestallareClient extends WebServiceGatewaySupport {
 			log.error(e.getMessage());
 		}
 	}
+
+	/**
+	 * Method publishes a web service message to bestallare with information that an intyg has been sent that is related to a FMU Eavrop
+	 * 
+	 * @param aCommand, a PublishFmuDocumentRequestedCommand with booking deviation information
+	 */
+	public void publishFmuIntygSent(PublishFmuIntygSentCommand aCommand) {
+		//Create request
+		FmuIntygSentRequest request = new FmuIntygSentRequest();
+		request.setArendeId(aCommand.getArendeId().toString());
+		request.setIntygSentDateTime(getDateTime(aCommand.getIntygSendDateTime()));
+	    //Send request and receive response
+	    try {
+	    	FmuIntygSentResponse response =
+		  	      (FmuIntygSentResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+		    
+		    if(response == null ||
+		    		response.getServiceResponse() == null ||!StatusCodeType.OK.equals(response.getServiceResponse().getStatusCode())){
+		    	log.error("Intyg sent information on eavrop with arendeId:{} not published to customer, message: {} ", aCommand.getArendeId().toString(),  (response!=null && response.getServiceResponse()!=null)?response.getServiceResponse().getErrorMessage():"");
+		    }else{
+		    	log.debug("Intyg sent information on eavrop with arendeId:{} published to customer", aCommand.getArendeId().toString());
+		    }
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+	}
+
+	
 	
 	private NoteringType getNoteType(Note requestNote) {
 		NoteringType notering= null;

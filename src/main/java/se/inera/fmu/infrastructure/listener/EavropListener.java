@@ -30,6 +30,7 @@ import se.inera.fmu.interfaces.managing.command.PublishFmuAssignmentResponseComm
 import se.inera.fmu.interfaces.managing.command.PublishFmuBookingCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuBookingDeviationCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuDocumentRequestedCommand;
+import se.inera.fmu.interfaces.managing.command.PublishFmuIntygSentCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuStartDate;
 import se.inera.fmu.interfaces.managing.ws.BestallareClient;
 
@@ -211,7 +212,10 @@ public class EavropListener implements EventBusListener {
     @AllowConcurrentEvents
     public void handleIntygSentEvent(final IntygSentEvent event) {
     	log.debug("IntygSentEvent received for EAVROP ID {} ", event.getEavropId().toString());
-        //?
+    	//web service  call to customer with intyg sent information
+        PublishFmuIntygSentCommand publishFmuIntygSentCommand = new PublishFmuIntygSentCommand(event.getArendeId(), event.getSentDateTime());
+        bestallareWebserviceClient.publishFmuIntygSent(publishFmuIntygSentCommand);
+        log.debug("FmuIntygSent information published for ARENDE ID {} EAVROP ID {} " +  event.getArendeId().toString(), event.getEavropId().toString());
     }
 
     /**
