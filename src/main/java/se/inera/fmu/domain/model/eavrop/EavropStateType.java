@@ -12,6 +12,7 @@ public enum EavropStateType {
 	UNASSIGNED,
 	ASSIGNED,
 	ACCEPTED,
+	ONGOING,
 	ON_HOLD,
 	SENT,
 	APPROVED,

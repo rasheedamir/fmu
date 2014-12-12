@@ -1409,6 +1409,13 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.startDate = startDate;
 	}
 	
+	public boolean isStarted(){
+		if(getStartDate()!=null && !getStartDate().isAfter(LocalDate.now())){
+			return true;
+		}
+		return false;
+	}
+	
 	
 	/**
 	 * Calculates the number of times the assessmentperiod/eavrop has been restarted.
@@ -1424,10 +1431,12 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		if(getStartDate()==null){
 			//Not yet started
 			return noOfStarts;
-		}else if(LocalDate.now().isAfter(getStartDate())){
+		}else if(isStarted()){
 			//Started
 			noOfStarts++;
 		}
+		
+		
 		for (Booking booking : getBookings()) {
 			if(booking.getBookingDeviationResponse() !=null && BookingDeviationResponseType.RESTART.equals(booking.getBookingDeviationResponse().getResponseType())){
 				//Restarted
@@ -1596,6 +1605,9 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	
 	public EavropStateType getStatus(){
 		
+		if(EavropStateType.ACCEPTED.equals(this.getEavropState().getEavropStateType()) && isStarted()){
+			return EavropStateType.ONGOING;
+		}
 		//TODO: add Additional statuses
 		return this.getEavropState().getEavropStateType();
 	}
