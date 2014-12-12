@@ -58,6 +58,9 @@ public class User implements Serializable {
 		return middleAndLastName;
 	}
 
+	public String getFullName(){
+		return String.format("%s %s", this.getFirstName(),this.getMiddleAndLastName());
+	}
 
 	public void setMiddleAndLastName(String middleAndLastName) {
 		this.middleAndLastName = middleAndLastName;

@@ -18,11 +18,14 @@ import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.DomainEventPublisher;
 import se.inera.fmu.application.EavropAssignmentService;
 import se.inera.fmu.application.EavropBookingService;
+import se.inera.fmu.application.EavropDocumentService;
 import se.inera.fmu.application.EavropNoteService;
 import se.inera.fmu.application.FmuListService;
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.application.impl.command.AcceptEavropAssignmentCommand;
 import se.inera.fmu.application.impl.command.AddNoteCommand;
+import se.inera.fmu.application.impl.command.AddReceivedInternalDocumentCommand;
+import se.inera.fmu.application.impl.command.AddRequestedDocumentCommand;
 import se.inera.fmu.application.impl.command.AssignEavropCommand;
 import se.inera.fmu.application.impl.command.ChangeBookingStatusCommand;
 import se.inera.fmu.application.impl.command.ChangeInterpreterBookingStatusCommand;
@@ -122,6 +125,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	private final EavropNoteService noteService;
 	private final HoSPersonalRepository hosPersonalRepository;
 	private final EavropAssignmentService eavropAssignmentService;
+	private final EavropDocumentService eavropDocumentService;
 
 	/**
 	 *
@@ -137,7 +141,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 			final VardgivarenhetRepository vardgivarEnhetRepository,
 			final FmuListService fmuListService, final EavropBookingService bookingService,
 			final EavropNoteService noteService, final HoSPersonalRepository hosPersonalRepository,
-			final EavropAssignmentService eavropAssignmentService) {
+			final EavropAssignmentService eavropAssignmentService, final EavropDocumentService eavropDocumentService) {
 		this.eavropRepository = eavropRepository;
 		this.invanareRepository = invanareRepository;
 		this.configuration = configuration;
@@ -150,6 +154,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		this.noteService = noteService;
 		this.hosPersonalRepository = hosPersonalRepository;
 		this.eavropAssignmentService = eavropAssignmentService;
+		this.eavropDocumentService = eavropDocumentService;
 	}
 
 	/**
@@ -387,22 +392,25 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 	@Override
 	public void addReceivedDocuments(EavropId eavropId, ReceivedDocumentDTO doc) {
-		Eavrop eavropForUser = getEavropForUser(eavropId);
-
-		Person p = createPersonObjectFromCurrentUser();
-
-		ReceivedDocument receivedDocument = new ReceivedDocument(doc.getName(), p, false);
-		eavropForUser.addReceivedDocument(receivedDocument);
+		User currentUser = this.currentUserService.getCurrentUser();
+		
+		AddReceivedInternalDocumentCommand addReceivedInternalDocumentCommand = 
+				new AddReceivedInternalDocumentCommand(eavropId, doc.getName(), getHsaId(currentUser), 
+						currentUser.getFullName(), currentUser.getActiveRole().name(), getUserOrganisation(currentUser),getUserUnit(currentUser));
+		
+		this.eavropDocumentService.addReceivedInternalDocument(addReceivedInternalDocumentCommand);
 	}
 
 	@Override
 	public void addRequestedDocuments(EavropId eavropId, RequestedDocumentDTO doc) {
-		Eavrop eavropForUser = getEavropForUser(eavropId);
 
-		Person p = createPersonObjectFromCurrentUser();
-		Note requestNote = new Note(NoteType.DOCUMENT_REQUEST, doc.getComment(), p);
-		RequestedDocument requestedDocument = new RequestedDocument(doc.getName(), p, requestNote);
-		eavropForUser.addRequestedDocument(requestedDocument);
+		User currentUser = this.currentUserService.getCurrentUser();
+		
+		AddRequestedDocumentCommand addRequestedDocumentCommand = 
+				new AddRequestedDocumentCommand(eavropId, doc.getName(), getHsaId(currentUser), 
+						currentUser.getFullName(), currentUser.getActiveRole().name(), getUserOrganisation(currentUser),getUserUnit(currentUser), doc.getComment());
+		
+		this.eavropDocumentService.addRequestedDocument(addRequestedDocumentCommand);
 	}
 
 	@Override
