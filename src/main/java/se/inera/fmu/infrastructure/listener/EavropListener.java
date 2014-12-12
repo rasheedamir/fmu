@@ -30,6 +30,7 @@ import se.inera.fmu.interfaces.managing.command.PublishFmuAssignmentResponseComm
 import se.inera.fmu.interfaces.managing.command.PublishFmuBookingCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuBookingDeviationCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuDocumentRequestedCommand;
+import se.inera.fmu.interfaces.managing.command.PublishFmuIntygSentCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuStartDate;
 import se.inera.fmu.interfaces.managing.ws.BestallareClient;
 
@@ -72,7 +73,7 @@ public class EavropListener implements EventBusListener {
         		new PublishFmuAssignmentResponseCommand(event.getArendeId(), Boolean.TRUE, vardgivarenhet.getUnitName(), vardgivarenhet.getVardgivare().getName() , vardgivarenhet.getAddress().getAddress1(), vardgivarenhet.getAddress().getPostalCode(), vardgivarenhet.getAddress().getCity(), vardgivarenhet.getAddress().getCountry(), null, null);
         
         bestallareWebserviceClient.publishFmuAssignmentResponse(assignmentResponseCommand);
-        log.debug("FmuAssignmentResponse  published for ARENDE ID {} EAVROP ID {} " +  event.getArendeId().toString(), event.getEavropId());
+        log.debug("FmuAssignmentResponse  published for ARENDE ID {} EAVROP ID {} ",  event.getArendeId().toString(), event.getEavropId());
     }
 
     /**
@@ -105,7 +106,7 @@ public class EavropListener implements EventBusListener {
         		new PublishFmuAssignmentResponseCommand(event.getArendeId(), Boolean.FALSE, vardgivarenhet.getUnitName(), vardgivarenhet.getVardgivare().getName() , vardgivarenhet.getAddress().getAddress1(), vardgivarenhet.getAddress().getPostalCode(), vardgivarenhet.getAddress().getCity(), vardgivarenhet.getAddress().getCountry(), null, null);
         
         bestallareWebserviceClient.publishFmuAssignmentResponse(assignmentResponseCommand);
-        log.debug("FmuAssignmentResponse  published for ARENDE ID {} EAVROP ID {} " +  event.getArendeId().toString(), event.getEavropId().toString());
+        log.debug("FmuAssignmentResponse  published for ARENDE ID {} EAVROP ID {} ",  event.getArendeId().toString(), event.getEavropId().toString());
 
     }
 
@@ -121,7 +122,7 @@ public class EavropListener implements EventBusListener {
         
         PublishFmuBookingCommand publishFmuBookingCommand = new PublishFmuBookingCommand(event.getArendeId(), event.getBookingId(), event.getBookingType(), event.getStartDateTime(), event.getEndDateTime(), event.getResourceName(), event.getResourceRole(), event.isInterpreter());
         bestallareWebserviceClient.publishFmuBooking(publishFmuBookingCommand);
-        log.debug("FmuBooking  published for ARENDE ID {} EAVROP ID {} BOOKING ID {} " +  event.getArendeId().toString(), event.getEavropId().toString(), event.getBookingId().toString());
+        log.debug("FmuBooking  published for ARENDE ID {} EAVROP ID {} BOOKING ID {} ",  event.getArendeId().toString(), event.getEavropId().toString(), event.getBookingId().toString());
     }
 
     /**
@@ -136,7 +137,7 @@ public class EavropListener implements EventBusListener {
        
         PublishFmuBookingDeviationCommand publishFmuBookingDeviationCommand = new PublishFmuBookingDeviationCommand(event.getArendeId(), event.getBookingId(), event.getBookingDeviationType(), event.isBookingDeviationResponseRequired(), event.getBookingDeviationNote());
         bestallareWebserviceClient.publishFmuBookingDeviation(publishFmuBookingDeviationCommand);
-        log.debug("FmuBookingDeviation  published for ARENDE ID {} EAVROP ID {} BOOKING ID {} " +  event.getArendeId().toString(), event.getEavropId().toString(), event.getBookingId().toString());
+        log.debug("FmuBookingDeviation  published for ARENDE ID {} EAVROP ID {} BOOKING ID {} ",  event.getArendeId().toString(), event.getEavropId().toString(), event.getBookingId().toString());
     }
 
     /**
@@ -162,7 +163,7 @@ public class EavropListener implements EventBusListener {
         log.debug("DocumentRequestedEvent received for ARENDE ID {} EAVROP ID {} DOCUMENT ID {} ", event.getArendeId().toString(), event.getEavropId().toString(), event.getDocumentId().toString());
         PublishFmuDocumentRequestedCommand publishFmuDocumentRequestedCommand = new PublishFmuDocumentRequestedCommand(event.getArendeId(), event.getDocumentName(), event.getDocumentDateTime(), event.getRequestPerson(), event.getRequestNote());
         bestallareWebserviceClient.publishFmuDocumentRequested(publishFmuDocumentRequestedCommand);
-        log.debug("FmuDocumentRequest published for ARENDE ID {} EAVROP ID {} DOCUMENT ID {} " +  event.getArendeId().toString(), event.getEavropId().toString(), event.getDocumentId().toString());
+        log.debug("FmuDocumentRequest published for ARENDE ID {} EAVROP ID {} DOCUMENT ID {} ",  event.getArendeId().toString(), event.getEavropId().toString(), event.getDocumentId().toString());
     }
 
     @Subscribe
@@ -187,7 +188,7 @@ public class EavropListener implements EventBusListener {
         //web service  call to customer with start date
         PublishFmuStartDate publishFmuStartDate = new PublishFmuStartDate(event.getArendeId(), event.getEavropStartDate());
         bestallareWebserviceClient.publishFmuStartDate(publishFmuStartDate);
-        log.debug("FmuStartDate published for ARENDE ID {} EAVROP ID {} " +  event.getArendeId().toString(), event.getEavropId().toString());
+        log.debug("FmuStartDate published for ARENDE ID {} EAVROP ID {} ",  event.getArendeId().toString(), event.getEavropId().toString());
         
     }
 
@@ -211,7 +212,10 @@ public class EavropListener implements EventBusListener {
     @AllowConcurrentEvents
     public void handleIntygSentEvent(final IntygSentEvent event) {
     	log.debug("IntygSentEvent received for EAVROP ID {} ", event.getEavropId().toString());
-        //?
+    	//web service  call to customer with intyg sent information
+        PublishFmuIntygSentCommand publishFmuIntygSentCommand = new PublishFmuIntygSentCommand(event.getArendeId(), event.getSentDateTime());
+        bestallareWebserviceClient.publishFmuIntygSent(publishFmuIntygSentCommand);
+        log.debug("FmuIntygSent information published for ARENDE ID {} EAVROP ID {} ", event.getArendeId().toString(), event.getEavropId().toString());
     }
 
     /**
@@ -223,7 +227,7 @@ public class EavropListener implements EventBusListener {
     public void handleEavropCreatedEvent(EavropCreatedEvent event) {
     	log.debug("EavropCreatedEvent received for ARENDE ID {} EAVROP ID {} ", event.getArendeId().toString(), event.getEavropId().toString());
         this.mailService.sendEavropCreatedEmail(event.getEavropId(), event.getArendeId(),event.getUtredningType(), event.getLastDayOfAcceptance(), event.getLandstingCode());
-        log.debug("Eavrop created email notification published for ARENDE ID {} EAVROP ID {} " +  event.getArendeId().toString(), event.getEavropId().toString());
+        log.debug("Eavrop created email notification published for ARENDE ID {} EAVROP ID {} ",  event.getArendeId().toString(), event.getEavropId().toString());
 
     }
     

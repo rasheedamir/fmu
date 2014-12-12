@@ -207,18 +207,18 @@ public class EavropTest extends TestCase {
 		
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 		
-		eavrop.addReceivedDocument(new ReceivedDocument("External", bestallaradministrator,Boolean.TRUE));
+		eavrop.addReceivedDocument(new ReceivedDocument(new DateTime().minusDays(5), "External", bestallaradministrator,Boolean.TRUE));
 
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+		assertEquals(EavropStateType.ONGOING, eavrop.getStatus());
 		
 		eavrop.addRequestedDocument(new RequestedDocument("Journal", doctorPerson,new Note(NoteType.DOCUMENT_REQUEST, "Glömt journalen", doctorPerson)));
 
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+		assertEquals(EavropStateType.ONGOING, eavrop.getStatus());
 
 		Booking booking = createBooking();
 		eavrop.addBooking(booking);
 		
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+		assertEquals(EavropStateType.ONGOING, eavrop.getStatus());
 		
 		eavrop.setBookingStatus(booking.getBookingId(), BookingStatusType.CANCELLED_NOT_PRESENT, null);
 
@@ -226,19 +226,19 @@ public class EavropTest extends TestCase {
 
 		eavrop.addBookingDeviationResponse(booking.getBookingId(), createBookingDeviationResponse(null));
 		
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+		assertEquals(EavropStateType.ONGOING, eavrop.getStatus());
 		
 		Note note = new Note(NoteType.EAVROP,"",null);
 		
 		eavrop.addNote(new Note(NoteType.EAVROP,"",null));
 
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+		assertEquals(EavropStateType.ONGOING, eavrop.getStatus());
 
 		note = eavrop.getNote(note.getNoteId());
 		
 		eavrop.removeNote(note);
 
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+		assertEquals(EavropStateType.ONGOING, eavrop.getStatus());
 
 		eavrop.addIntygSentInformation(createIntygSentInformation(null));
 		
@@ -494,19 +494,19 @@ public class EavropTest extends TestCase {
 		//Fk signals that thet have sent documents on the thirteenth then the fist day of the assessment is on the 17th?
 		eavrop.addReceivedDocument(new ReceivedDocument(new DateTime(2014,10,13,10,30), "FK 7325", bestallaradministrator, Boolean.TRUE));
 
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+		assertEquals(EavropStateType.ONGOING, eavrop.getStatus());
 		
 		//doctor adds another document
 		eavrop.addRequestedDocument(new RequestedDocument(new DateTime(2014,10,17,10,30),"Journal", doctorPerson, new Note(NoteType.DOCUMENT_REQUEST, "Ge hit!!", doctorPerson)));
 
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+		assertEquals(EavropStateType.ONGOING, eavrop.getStatus());
 		
 		//a booking is made
 		DateTime start = new DateTime(2014,10,20,8,0);
 		Booking booking = new Booking(BookingType.EXAMINATION, start,start.plusHours(1), false, doctorPerson.getName(), doctorPerson.getRole(), Boolean.TRUE);
 		eavrop.addBooking(booking);
 		
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+		assertEquals(EavropStateType.ONGOING, eavrop.getStatus());
 		
 		eavrop.setInterpreterBookingStatus(booking.getBookingId(), InterpreterBookingStatusType.INTERPRETER_NOT_PRESENT, new Note(NoteType.BOOKING_DEVIATION, "Tolk uteblev",doctorPerson));
 		eavrop.setBookingStatus(booking.getBookingId(), BookingStatusType.CANCELLED_NOT_PRESENT, new Note(NoteType.BOOKING_DEVIATION, "Patient uteblev",doctorPerson));
@@ -519,18 +519,18 @@ public class EavropTest extends TestCase {
 		eavrop.addBookingDeviationResponse(booking.getBookingId(), createBookingDeviationResponse(new DateTime(2014,10,21,8,0)));
 		
 		
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+		assertEquals(EavropStateType.ONGOING, eavrop.getStatus());
 		
 		//New booking is made
 		start = new DateTime(2014,10,24,8,0);
 		booking = new Booking(BookingType.EXAMINATION, start,start.plusHours(1),Boolean.FALSE, doctorPerson.getName(), doctorPerson.getRole(), Boolean.TRUE);
 		eavrop.addBooking(booking);
 
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+		assertEquals(EavropStateType.ONGOING, eavrop.getStatus());
 		
 		eavrop.addNote(new Note(NoteType.EAVROP,"Utredning utförd",null));
 
-		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
+		assertEquals(EavropStateType.ONGOING, eavrop.getStatus());
 
 		eavrop.addIntygSentInformation(createIntygSentInformation(start.plusHours(5)));
 		

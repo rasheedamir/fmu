@@ -34,7 +34,8 @@ angular.module('fmuClientApp')
             ON_HOLD: 'Inväntar beslut från beställare',
             SENT: 'Inväntar acceptans',
             APPROVED: 'Utredningen godkänts av beställare',
-            CLOSED: 'Utredningen är avslutad'
+            CLOSED: 'Utredningen är avslutad',
+            ONGOING: 'Utredningen är påbörjad'
         },
         isCompletedMapping: {
             true: 'Ja',
