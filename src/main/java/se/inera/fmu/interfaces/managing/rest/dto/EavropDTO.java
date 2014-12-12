@@ -28,4 +28,6 @@ public class EavropDTO {
 	private String utforandeOrganisation;
 	
 	private String assigningPerson;
+	
+	private Integer nrOfDaysSinceStart;
 }

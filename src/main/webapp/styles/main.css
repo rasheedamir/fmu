@@ -861,23 +861,38 @@ h2{
     background-color: #3C4E57;
 }
 
-.fmu-status-nav .nav li > a {
-    border: none;
+.fmu-status-nav {
+    background-color: #8B959A;
+    position: relative;
+    float: right;
+    border-left: solid thin #ffffff;
+
+}
+
+.fmu-nav .fmu-status-nav li > a {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    background-color: #27BC8F !important;
-    opacity: 1;
+    background-color: #8B959A;
 }
 
-.fmu-status-nav {
+.navbar-default .fmu-status-nav:hover,
+.navbar-default .fmu-status-nav:hover li,
+.navbar-default .fmu-status-nav:hover a,
+.navbar-default .fmu-status-nav:focus,
+.navbar-default .fmu-status-nav:focus li,
+.navbar-default .fmu-status-nav:focus a {
+    color: #ffffff !important;
     background-color: #27BC8F;
-    margin-right: 1em;
-    float: right;
 }
 
-.fmu-status-nav li > a {
-    background-color: #27BC8F;
+.status-active {
+    background: #27BC8F;
+}
+.status-active a,
+.status-active a:hover,
+.status-active a:focus {
+    background: #27BC8F !important;
 }
 
 .fmu-status-banner {
@@ -888,6 +903,48 @@ h2{
     width: 100%;
     min-width: 100px;
     z-index: 1000;
+    overflow-x: hidden;
+}
+
+.fmu-status-banner table {
+    table-layout:fixed
+    border: none;
+    width: 100%;
+}
+
+.fmu-status-banner td {
+    color: #ffffff;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-right: 1em;
+}
+
+.fmu-status-banner td:first-child {
+    padding-left: 4em;
+}
+
+.fmu-status-banner td:last-child {
+    padding-right: 4em;
+}
+
+.status-info-badge {
+    display: inline-block;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-left: 0.5em;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+}
+
+.fmu-status-banner h3,
+.fmu-status-banner h2 {
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
 }
 
 .greyed-hover > tbody > tr:hover > td {

@@ -24,6 +24,7 @@ public class EavropDTOMapper implements Mapper{
 				eavrop.getBestallaradministrator().getUnit() : null);
 		dto.setMottagarenOrganisation(eavrop.getLandsting() != null ?
 				eavrop.getLandsting().getName() : null);
+		dto.setNrOfDaysSinceStart(eavrop.getNoOfAssesmentDays());
 		
 		Vardgivarenhet currentAssignedEnhet = eavrop.getCurrentAssignedVardgivarenhet();
 		if(currentAssignedEnhet != null){

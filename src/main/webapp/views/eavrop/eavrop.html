@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <div id="fmu-nav" class="navbar navbar-default fmu-nav" role="navigation">
+    <nav id="fmu-nav" class="navbar navbar-default fmu-nav" role="navigation">
         <ul class="nav navbar-nav">
             <li ng-class="{active: $state.includes('eavrop.order')}">
                 <a ui-sref=".order.contents">
@@ -52,33 +52,31 @@
             </li>
             <li ui-sref-active="active"><a ui-sref=".investigation"><span
                     class="glyphicon glyphicon-search">&nbsp;</span>Utredning</a></li>
-            <li ui-sref-active="active"><a ui-sref=".allevents"><span class="glyphicon glyphicon-random">&nbsp;</span>Alla
-                händelser</a></li>
-            <li ui-sref-active="active"><a ui-sref=".notes"><span class="glyphicon glyphicon-pencil">&nbsp;</span>Anteckningar</a>
-            </li>
-            <li ui-sref-active="active"><a ui-sref=".compensation"><span class="glyphicon glyphicon-book">&nbsp;</span>Underlag
-                för ersättning</a></li>
+            <li ui-sref-active="active"><a ui-sref=".allevents"><span class="glyphicon glyphicon-random">&nbsp;</span>Allahändelser</a></li>
+            <li ui-sref-active="active"><a ui-sref=".notes"><span class="glyphicon glyphicon-pencil">&nbsp;</span>Anteckningar</a></li>
+            <li ui-sref-active="active"><a ui-sref=".compensation"><span class="glyphicon glyphicon-book">&nbsp;</span>Underlag för ersättning</a></li>
         </ul>
 
-        <ul class="nav navbar-nav fmu-status-nav" style="box-shadow: none">
+        <ul class="nav navbar-nav fmu-status-nav">
             <li id="status-btn" ng-init="showStatus = false" ng-click="showStatus = !showStatus"><a><span class="glyphicon glyphicon-flag">&nbsp;</span>Status</a></li>
         </ul>
-    </div>
+    </nav>
 
     <div ng-show="showStatus" class="fmu-status-banner">
-        <div class="row">
-            <div class="col-md-11">
-                <div style="border-top: solid thin #ffffff">{{showStatus}}</div>
-                <div>{{showStatus}}</div>
-                <div>{{showStatus}}</div>
-                <div>{{showStatus}}</div>
-                <div>{{showStatus}}</div>
-                <div>{{showStatus}}</div>
-                <div>{{showStatus}}</div>
-
-            </div>
-
-            <div class="col-md-1"></div>
+        <div>
+            <table>
+                <tr>
+                    <td width="50%" align="left">
+                        <h3 ng-bind="getStatus(currentEavrop)"></h3>
+                    </td>
+                    <td width="50%" align="right">
+                        <h2 style="display: inline-block">Antal dagar sedan utredningens start:</h2>
+                        <div class="status-info-badge">
+                            <h3>{{currentEavrop.nrOfDaysSinceStart}}</h3>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
@@ -100,10 +98,13 @@
                 $('#fmu-nav').addClass('no-shadow');
                 $('.fmu-status-banner').removeClass('fadeOut');
                 $('.fmu-status-banner').addClass('fadeIn fast');
+                $('.fmu-status-nav').addClass('status-active');
             } else {
                 $('#fmu-nav').removeClass('no-shadow');
                 $('.fmu-status-banner').removeClass('fadeIn');
-                $('.fmu-status-banner').addClass('fadeOut fast');
+                $('.fmu-status-banner').addClass('menu-shadow fadeOut fast');
+                $('.fmu-status-nav').removeClass('status-active');
+
             }
         });
     });
