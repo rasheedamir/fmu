@@ -55,7 +55,7 @@
                         <div class="text-center summary-badge">
                             <div class="panel-heading"><strong>Antal avvikelser</strong></div>
                             <div class="panel-body" ng-class="{'badge-danger': allevents.noDeviations > 0}">
-                                <span class="summary-badge-text" ng-class="'badge-danger': allevents.noDeviations > 0">{{allevents.noDeviations}}</span></div>
+                                <span class="summary-badge-text" ng-class="allevents.noDeviations > 0 ? 'badge-danger' : ''">{{allevents.noDeviations}}</span></div>
                         </div>
                     </div>
                     <div class="col-md-3">

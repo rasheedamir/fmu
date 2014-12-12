@@ -112,9 +112,11 @@
         $('#page-menus').scrollToFixed({
             preFixed: function () {
                 $('#fmu-nav').addClass('menu-shadow')
+                $('.fmu-status-banner').addClass('menu-shadow')
             },
             postFixed: function () {
                 $('#fmu-nav').removeClass('menu-shadow')
+                $('.fmu-status-banner').removeClass('menu-shadow')
             }
         });
 
@@ -128,7 +130,7 @@
             } else {
                 $('#fmu-nav').removeClass('no-shadow');
                 $('.fmu-status-banner').removeClass('fadeIn');
-                $('.fmu-status-banner').addClass('menu-shadow fadeOut fast');
+                $('.fmu-status-banner').addClass('fadeOut fast');
                 $('.fmu-status-nav').removeClass('status-active');
 
             }
