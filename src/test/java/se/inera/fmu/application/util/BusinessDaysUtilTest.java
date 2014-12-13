@@ -137,9 +137,23 @@ public class BusinessDaysUtilTest {
 		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,JULY,23)));
 		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,JULY,24)));
 		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2015,JULY,27)));
-
 		
-
+		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2015,DECEMBER,18)));
+		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2015,DECEMBER,19)));
+		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2015,DECEMBER,20)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,DECEMBER,21)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,DECEMBER,22)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,DECEMBER,23)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,DECEMBER,24)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,DECEMBER,25)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,DECEMBER,26)));
+		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2015,DECEMBER,27)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,DECEMBER,28)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,DECEMBER,29)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,DECEMBER,30)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2015,DECEMBER,31)));
+		assertTrue(BusinessDaysUtil.isHoliday(new LocalDate(2016,JANUARY,1)));
+		assertFalse(BusinessDaysUtil.isHoliday(new LocalDate(2016,JANUARY,2)));
 	}
 
 	
@@ -158,16 +172,16 @@ public class BusinessDaysUtilTest {
 		assertEquals(4, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2015,MARCH,30), new LocalDate(2015,APRIL,6)));
 		
 		//Christmas week 2014
-		assertEquals(2, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2014,DECEMBER,22), new LocalDate(2014,DECEMBER,29)));
+		assertEquals(0, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2014,DECEMBER,22), new LocalDate(2014,DECEMBER,29)));
 
 		//Christmas week 2015
-		assertEquals(3, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2015,DECEMBER,21), new LocalDate(2015,DECEMBER,28)));
+		assertEquals(0, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2015,DECEMBER,21), new LocalDate(2015,DECEMBER,28)));
 		
-		//Christmas holiday 2014, 8 working days
-		assertEquals(8, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2014,DECEMBER,22), new LocalDate(2015,JANUARY,12)));
+		//Christmas holiday 2014
+		assertEquals(4, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2014,DECEMBER,22), new LocalDate(2015,JANUARY,12)));
 
 		//Christmas holiday 2015
-		assertEquals(6, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2015,DECEMBER,21), new LocalDate(2016,JANUARY,11)));
+		assertEquals(0, BusinessDaysUtil.numberOfBusinessDays(new LocalDate(2015,DECEMBER,21), new LocalDate(2016,JANUARY,11)));
 
 	}
 
