@@ -9,8 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.metamodel.EntityType;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -25,9 +25,8 @@ import com.codahale.metrics.ehcache.InstrumentedEhcache;
 //@Configuration
 @EnableCaching
 @AutoConfigureAfter(value = {MetricsConfiguration.class, DatabaseConfiguration.class})
+@Slf4j
 public class CacheConfiguration {
-
-    private static final Logger log = LoggerFactory.getLogger(CacheConfiguration.class);
 
     @PersistenceContext
     private EntityManager entityManager;

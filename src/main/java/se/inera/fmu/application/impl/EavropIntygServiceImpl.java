@@ -3,9 +3,9 @@ package se.inera.fmu.application.impl;
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.joda.time.DateTime;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -37,9 +37,8 @@ import se.inera.fmu.domain.model.person.HoSPerson;
 @Service
 @Validated
 @Transactional
+@Slf4j
 public class EavropIntygServiceImpl implements EavropIntygService {
-
-    private static final Logger log = LoggerFactory.getLogger(EavropIntygServiceImpl.class);
 
     private final EavropRepository eavropRepository;
     private final DomainEventPublisher domainEventPublisher;

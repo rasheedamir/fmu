@@ -7,8 +7,8 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;
@@ -29,9 +29,10 @@ import com.codahale.metrics.jvm.ThreadStatesGaugeSet;
 import com.ryantenney.metrics.spring.config.annotation.EnableMetrics;
 import com.ryantenney.metrics.spring.config.annotation.MetricsConfigurerAdapter;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("all")
 @Configuration
 @EnableMetrics(proxyTargetClass = true)
+@Slf4j
 public class MetricsConfiguration extends MetricsConfigurerAdapter implements EnvironmentAware {
 
     private static final String ENV_METRICS = "metrics.";
@@ -45,8 +46,6 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
     private static final String PROP_METRIC_REG_JVM_THREADS = "jvm.threads";
     private static final String PROP_METRIC_REG_JVM_FILES = "jvm.files";
     private static final String PROP_METRIC_REG_JVM_BUFFERS = "jvm.buffers";
-
-    private static final Logger log = LoggerFactory.getLogger(MetricsConfiguration.class);
 
     private static final MetricRegistry METRIC_REGISTRY = new MetricRegistry();
 
@@ -88,9 +87,8 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
 
     @Configuration
     @ConditionalOnClass(Graphite.class)
+    @Slf4j
     public static class GraphiteRegistry implements EnvironmentAware {
-
-        private final Logger log = LoggerFactory.getLogger(GraphiteRegistry.class);
 
         @Inject
         private MetricRegistry metricRegistry;

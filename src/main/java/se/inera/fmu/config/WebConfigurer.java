@@ -12,8 +12,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.context.annotation.Configuration;
@@ -31,13 +31,12 @@ import com.codahale.metrics.servlets.MetricsServlet;
 /**
  * Configuration of web application with Servlet 3.0 APIs.
  */
+@Slf4j
 @SuppressWarnings("all")
 @Configuration
 @AutoConfigureAfter(CacheConfiguration.class)
 @ImportResource({"classpath:/security/securityContext.xml", "classpath:/restErrorHandler/errorHandlingContext.xml"})
 public class WebConfigurer implements ServletContextInitializer {
-
-    private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);
 
     @Inject
     private Environment env;

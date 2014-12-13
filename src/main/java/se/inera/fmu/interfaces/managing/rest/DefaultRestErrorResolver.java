@@ -22,9 +22,9 @@ import java.util.Map;
 
 import javax.validation.ValidationException;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.hibernate.ObjectNotFoundException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;
@@ -48,12 +48,11 @@ import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMeth
  *
  * @author Les Hazlewood
  */
+@Slf4j
 public class DefaultRestErrorResolver implements RestErrorResolver, MessageSourceAware, InitializingBean {
 
     public static final String DEFAULT_EXCEPTION_MESSAGE_VALUE = "_exmsg";
     public static final String DEFAULT_MESSAGE_VALUE = "_msg";
-
-    private static final Logger log = LoggerFactory.getLogger(DefaultRestErrorResolver.class);
 
     private Map<String, RestError> exceptionMappings = Collections.emptyMap();
 

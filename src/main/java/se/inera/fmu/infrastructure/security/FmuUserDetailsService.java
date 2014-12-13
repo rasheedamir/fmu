@@ -1,7 +1,7 @@
 package se.inera.fmu.infrastructure.security;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.saml.SAMLCredential;
 import org.springframework.security.saml.userdetails.SAMLUserDetailsService;
@@ -16,10 +16,9 @@ import se.inera.fmu.domain.model.landsting.LandstingssamordnareRepository;
 /**
  * @author andreaskaltenbach
  */
+@Slf4j
 public class FmuUserDetailsService implements SAMLUserDetailsService {
 
-	private static final Logger LOG = LoggerFactory
-			.getLogger(FmuUserDetailsService.class);
 	
 	@Autowired
 	private LandstingssamordnareRepository ltSamordnareRepo;
@@ -28,7 +27,7 @@ public class FmuUserDetailsService implements SAMLUserDetailsService {
 	@Override
 	public Object loadUserBySAML(SAMLCredential credential) {
 
-		LOG.info("User authentication was successful. SAML credential is: {}",
+		log.info("User authentication was successful. SAML credential is: {}",
 				credential);
 
 		SakerhetstjanstAssertion assertion = new SakerhetstjanstAssertion(

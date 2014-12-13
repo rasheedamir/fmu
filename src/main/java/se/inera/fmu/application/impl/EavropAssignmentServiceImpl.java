@@ -3,8 +3,8 @@ package se.inera.fmu.application.impl;
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -36,9 +36,8 @@ import se.inera.fmu.domain.model.person.HoSPerson;
 @Service
 @Validated
 @Transactional
+@Slf4j
 public class EavropAssignmentServiceImpl implements EavropAssignmentService {
-
-    private static final Logger log = LoggerFactory.getLogger(EavropAssignmentServiceImpl.class);
 
     private final EavropRepository eavropRepository;
     private final VardgivarenhetRepository vardgivarenhetRepository;

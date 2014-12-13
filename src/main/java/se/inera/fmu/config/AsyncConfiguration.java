@@ -2,8 +2,8 @@ package se.inera.fmu.config;
 
 import java.util.concurrent.Executor;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
@@ -19,9 +19,8 @@ import se.inera.fmu.config.async.ExceptionHandlingAsyncTaskExecutor;
 @Configuration
 @EnableAsync
 @EnableScheduling
+@Slf4j
 public class AsyncConfiguration implements AsyncConfigurer, EnvironmentAware {
-
-    private static final Logger log = LoggerFactory.getLogger(AsyncConfiguration.class);
 
     private RelaxedPropertyResolver propertyResolver;
 

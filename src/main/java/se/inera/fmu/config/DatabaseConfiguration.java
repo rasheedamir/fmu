@@ -7,9 +7,8 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import liquibase.integration.spring.SpringLiquibase;
+import lombok.extern.slf4j.Slf4j;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.context.EnvironmentAware;
@@ -28,9 +27,8 @@ import com.zaxxer.hikari.HikariDataSource;
 @EnableJpaRepositories("se.inera.fmu.repository")
 @EnableTransactionManagement
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
+@Slf4j
 public class DatabaseConfiguration implements EnvironmentAware {
-
-    private static final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
 
     private RelaxedPropertyResolver propertyResolver;
 
