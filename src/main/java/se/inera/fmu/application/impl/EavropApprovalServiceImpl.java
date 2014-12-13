@@ -37,7 +37,7 @@ import se.inera.fmu.domain.model.person.Bestallarsamordnare;
 @Transactional
 public class EavropApprovalServiceImpl implements EavropApprovalService {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(EavropApprovalServiceImpl.class);
 
     private final EavropRepository eavropRepository;
     private final DomainEventPublisher domainEventPublisher;

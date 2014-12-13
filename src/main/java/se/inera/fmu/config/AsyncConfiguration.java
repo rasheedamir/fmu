@@ -21,7 +21,7 @@ import se.inera.fmu.config.async.ExceptionHandlingAsyncTaskExecutor;
 @EnableScheduling
 public class AsyncConfiguration implements AsyncConfigurer, EnvironmentAware {
 
-    private final Logger log = LoggerFactory.getLogger(AsyncConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(AsyncConfiguration.class);
 
     private RelaxedPropertyResolver propertyResolver;
 

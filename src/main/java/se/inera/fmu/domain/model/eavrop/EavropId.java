@@ -44,8 +44,12 @@ public final class EavropId implements ValueObject<EavropId>, Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+        	return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+        	return false;
+        }
 
         EavropId other = (EavropId) o;
 

@@ -32,7 +32,7 @@ import se.inera.fmu.domain.model.person.HoSPerson;
 @Transactional
 public class EavropNoteServiceImpl implements EavropNoteService {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private static final Logger log = LoggerFactory.getLogger(EavropNoteServiceImpl.class);
 
     private final EavropRepository eavropRepository;
     

@@ -44,7 +44,7 @@ import se.inera.fmu.domain.model.landsting.LandstingssamordnareRepository;
 @Service
 public class MailService {
 
-	private final Logger log = LoggerFactory.getLogger(MailService.class);
+	private static final Logger log = LoggerFactory.getLogger(MailService.class);
 
 	@Inject
 	private Environment env;
@@ -127,9 +127,6 @@ public class MailService {
 	 */
 	@Async
 	public void sendEavropCreatedEmail(final EavropId eavropId, final ArendeId arendeId, final UtredningType utredningType, final LocalDate lastAcceptanceDay, final LandstingCode landstingCode) {
-	try {
-		
-	
 		Assert.notNull(eavropId, "EavropId can't be Null!");
 		Assert.notNull(arendeId, "ArendeId can't be Null!");
 		Assert.notNull(landstingCode, "LandstingCode can't be Null!");
@@ -169,11 +166,6 @@ public class MailService {
 		log.debug("Subject "+subject);
 		
 		sendEmail(emailAddress, subject, htmlContent, false, true);
-	} catch (Throwable t) {
-		log.error(t.getMessage());
-		throw t;
-		// TODO: handle exception
-	}
 	}
 	
 	private String getLandstingsamordnareEmailAddresses(LandstingCode landstingCode) {

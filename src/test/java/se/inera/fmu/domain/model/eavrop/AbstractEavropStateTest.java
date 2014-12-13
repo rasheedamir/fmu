@@ -110,7 +110,6 @@ public abstract class AbstractEavropStateTest {
 		eavrop.removeNote(createNote());
 	}
 
-	
 	@Test(expected=IllegalStateException.class)
 	public void testApproveEavrop() {
 		Eavrop eavrop = getEavrop();
@@ -129,8 +128,6 @@ public abstract class AbstractEavropStateTest {
 	public void testCancelBooking() {
 		Eavrop eavrop = getEavrop();
 		assertEquals(getEavropStateType(), eavrop.getEavropState().getEavropStateType());
-		//eavrop.cancelBooking(createBooking().getBookingId(), createBookingDevation());
-		//eavrop.cancelBooking(createBooking().getBookingId(), BookingStatusType.CANCELLED_NOT_PRESENT, createNote());
 		eavrop.setBookingStatus(createBooking().getBookingId(), BookingStatusType.CANCELLED_NOT_PRESENT, createNote());
 	}
 
@@ -194,7 +191,7 @@ public abstract class AbstractEavropStateTest {
 
 	protected Eavrop createSentEavrop(){
 		Eavrop eavrop =  createAcceptedEavrop();
-		eavrop.addIntygSentInformation(createIntygSentInformation());;
+		eavrop.addIntygSentInformation(createIntygSentInformation());
 		return eavrop;
 	}
 
@@ -211,7 +208,6 @@ public abstract class AbstractEavropStateTest {
 		return eavrop;
 	}
 
-	
 	protected Invanare createInvanare(){
 		PersonalNumber pnr = new PersonalNumber("5604262214");
 		Name name = new Name("Oscar",  "II", "Adolf");
@@ -227,8 +223,6 @@ public abstract class AbstractEavropStateTest {
 	}
 	
 	protected Booking createBooking(){
-		//Set<Person> persons = new HashSet<Person>();
-		//persons.add(createPerson());
 		DateTime now = DateTime.now();
 		DateTime to = now.plusHours(1);
 		return new Booking(BookingType.EXAMINATION, now, to, Boolean.FALSE, createHoSPerson().getName(), createHoSPerson().getRole(), Boolean.FALSE);

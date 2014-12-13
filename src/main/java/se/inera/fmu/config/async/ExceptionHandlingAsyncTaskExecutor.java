@@ -12,7 +12,7 @@ import org.springframework.core.task.AsyncTaskExecutor;
 public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
         InitializingBean, DisposableBean {
 
-    private final Logger log = LoggerFactory.getLogger(ExceptionHandlingAsyncTaskExecutor.class);
+    private static final Logger log = LoggerFactory.getLogger(ExceptionHandlingAsyncTaskExecutor.class);
 
     private final AsyncTaskExecutor executor;
 

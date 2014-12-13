@@ -191,7 +191,7 @@ public class BusinessDaysUtil {
 			throw new IllegalArgumentException("need to be a valid date");
 		}
 		
-		LocalDate result = null;;
+		LocalDate result = null;
 		
 		int day = businessDaysOffset;
 		

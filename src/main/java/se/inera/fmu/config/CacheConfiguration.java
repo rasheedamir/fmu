@@ -26,7 +26,7 @@ import java.util.SortedSet;
 @AutoConfigureAfter(value = {MetricsConfiguration.class, DatabaseConfiguration.class})
 public class CacheConfiguration {
 
-    private final Logger log = LoggerFactory.getLogger(CacheConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(CacheConfiguration.class);
 
     @PersistenceContext
     private EntityManager entityManager;

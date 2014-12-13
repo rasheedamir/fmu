@@ -44,7 +44,7 @@ import se.inera.fmu.domain.model.person.HoSPerson;
 @Transactional
 public class EavropDocumentServiceImpl implements EavropDocumentService {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private static final Logger log = LoggerFactory.getLogger(EavropDocumentServiceImpl.class);
 
     private final EavropRepository eavropRepository;
     private final DomainEventPublisher domainEventPublisher;

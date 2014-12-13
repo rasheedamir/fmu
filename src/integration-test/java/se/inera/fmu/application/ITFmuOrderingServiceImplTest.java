@@ -70,7 +70,6 @@ public class ITFmuOrderingServiceImplTest {
 		// NOT ACCEPTED
 		EavropPageDTO eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OverviewEavropStates.NOT_ACCEPTED, pageSpecs);
 		assertNotEquals(eavrops, null);
-//		log.debug("NOT ACCEPTED: " + Long.toString(eavrops.getTotalElements()));
 		assertTrue(eavrops.getEavrops().size() > 0);
 		
 		DateTime previous = null;
@@ -86,7 +85,6 @@ public class ITFmuOrderingServiceImplTest {
 		// ACCEPTED
 		eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OverviewEavropStates.ACCEPTED, pageSpecs);
 		assertNotEquals(eavrops, null);
-//		log.debug("ACCEPTED: " + Long.toString(eavrops.getTotalElements()));
 		assertTrue(eavrops.getEavrops().size() > 0);
 		
 		previous = null;
@@ -102,7 +100,6 @@ public class ITFmuOrderingServiceImplTest {
 		// COMPLETED
 		eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OverviewEavropStates.COMPLETED, pageSpecs);
 		assertNotEquals(eavrops, null);
-//		log.debug("COMPLETED: "+ Long.toString(eavrops.getTotalElements()));
 		assertTrue(eavrops.getEavrops().size() > 0);
 		
 		previous = null;
@@ -132,7 +129,6 @@ public class ITFmuOrderingServiceImplTest {
 		
 		DateTime previous = null;
 		for (EavropDTO eavrop : eavrops.getEavrops()) {
-//			assertTrue(eavrop.get);
 			assertTrue(eavrop.getStatus() == EavropStateType.UNASSIGNED
 					|| eavrop.getStatus() == EavropStateType.ASSIGNED);
 			if(previous != null){
@@ -148,7 +144,6 @@ public class ITFmuOrderingServiceImplTest {
 		
 		previous = null;
 		for (EavropDTO eavrop : eavrops.getEavrops()) {
-//			assertTrue(eavrop.getLandsting().getLandstingCode().getCode() == currentUser.getLandstingCode());
 			assertTrue(eavrop.getStatus() == EavropStateType.ACCEPTED
 					|| eavrop.getStatus() == EavropStateType.ON_HOLD);
 			if(previous != null){
@@ -164,7 +159,6 @@ public class ITFmuOrderingServiceImplTest {
 		
 		previous = null;
 		for (EavropDTO eavrop : eavrops.getEavrops()) {
-//			assertTrue(eavrop.getLandsting().getLandstingCode().getCode() == currentUser.getLandstingCode());
 			assertTrue(eavrop.getStatus() == EavropStateType.CLOSED
 					|| eavrop.getStatus() == EavropStateType.APPROVED);
 			if(previous != null){

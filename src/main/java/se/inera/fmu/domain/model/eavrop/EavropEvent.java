@@ -44,10 +44,12 @@ public abstract class EavropEvent implements DomainEvent<EavropEvent>{
 	 */
 	@Override
 	public boolean equals(final Object object) {
-		if (this == object)
+		if (this == object){
 			return true;
-		if (object == null || getClass() != object.getClass())
+		}
+		if (object == null || getClass() != object.getClass()){
 			return false;
+		}
 
 		final EavropEvent other = (EavropEvent) object;
 		return sameEventAs(other);

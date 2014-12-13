@@ -82,14 +82,15 @@ public class EavropProperties implements ValueObject<EavropProperties> {
 			&& this.completionValidLength == other.completionValidLength
 			;
 	}
-	
 
 	@Override
 	public boolean equals(final Object object) {
-		if (this == object)
+		if (this == object){
 			return true;
-		if (object == null || getClass() != object.getClass())
+		}
+		if (object == null || getClass() != object.getClass()){
 			return false;
+		}
 
 		final EavropProperties other = (EavropProperties) object;
 		return sameValueAs(other);

@@ -65,7 +65,7 @@ public class ITLandstingRepositoryTest {
     private HsaId landstingssamordnarId;
     
     @Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		this.landstingCode = new LandstingCode(99);
 		Landsting landsting = createLandsting(this.landstingCode, "Stockholms Läns Landsting");
 

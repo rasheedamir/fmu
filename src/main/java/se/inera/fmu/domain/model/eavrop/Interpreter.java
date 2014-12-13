@@ -47,8 +47,12 @@ public class Interpreter implements ValueObject<Interpreter>{
 
 	@Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+        	return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+        	return false;
+        }
 
         return sameValueAs((Interpreter) o);
     }

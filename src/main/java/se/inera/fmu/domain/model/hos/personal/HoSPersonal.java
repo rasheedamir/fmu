@@ -128,8 +128,12 @@ public class HoSPersonal extends AbstractBaseEntity implements IEntity<HoSPerson
      */
     @Override
     public boolean equals(final Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
+        if (this == object){
+        	return true;
+        };
+        if (object == null || getClass() != object.getClass()){
+        	return false;
+        }
 
         final HoSPersonal other = (HoSPersonal) object;
         return sameIdentityAs(other);

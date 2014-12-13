@@ -62,10 +62,6 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	@Column(name = "ADDITIONAL_SERVICE", nullable = false, updatable = false, columnDefinition="char(1)")
 	@Convert(converter=BooleanToStringConverter.class)
 	private Boolean additionalService;
-//	
-//	@OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name="BOOKING_PERSON_ID")
-//	private Person person;
 	
 	@Embedded
 	private BookingResource bookingResource;
@@ -210,7 +206,7 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	}
 
 	public boolean hasInterpreterBooking(){
-		return (getInterpreterBooking()!=null);
+		return getInterpreterBooking()!=null;
 	}
 	
 	public boolean hasInterpreterDeviation(){
@@ -270,11 +266,13 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	 */
 	@Override
 	public boolean equals(final Object object) {
-		if (this == object)
+		if (this == object){
 			return true;
-		if (object == null || getClass() != object.getClass())
+		}
+		if (object == null || getClass() != object.getClass()){
 			return false;
-
+		}
+			
 		final Booking other = (Booking) object;
 		return sameIdentityAs(other);
 	}

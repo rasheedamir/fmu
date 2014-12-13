@@ -58,12 +58,20 @@ public final class BookingResource implements ValueObject<BookingResource>, Seri
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+        	return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+        	return false;
+        }
 
         BookingResource other = (BookingResource) o;
-        if (name != null ? !name.equals(other.name) : other.name != null) return false;
-        if (role != null ? !role.equals(other.role) : other.role != null) return false;
+        if (name != null ? !name.equals(other.name) : other.name != null){
+        	return false;
+        }
+        if (role != null ? !role.equals(other.role) : other.role != null){
+        	return false;
+        }
 
         return true;
     }

@@ -137,8 +137,12 @@ public class Landsting extends AbstractBaseEntity implements IEntity<Landsting>{
 	     */
 	    @Override
 	    public boolean equals(final Object object) {
-	        if (this == object) return true;
-	        if (object == null || getClass() != object.getClass()) return false;
+	        if (this == object){
+	        	return true;
+	        }
+	        if (object == null || getClass() != object.getClass()){
+	        	return false;
+	        }
 
 	        final Landsting other = (Landsting) object;
 	        return sameIdentityAs(other);

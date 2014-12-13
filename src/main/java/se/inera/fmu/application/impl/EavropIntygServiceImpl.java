@@ -40,7 +40,7 @@ import se.inera.fmu.domain.model.person.HoSPerson;
 @Transactional
 public class EavropIntygServiceImpl implements EavropIntygService {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private static final Logger log = LoggerFactory.getLogger(EavropIntygServiceImpl.class);
 
     private final EavropRepository eavropRepository;
     private final DomainEventPublisher domainEventPublisher;

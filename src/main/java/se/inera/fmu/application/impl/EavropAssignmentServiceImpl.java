@@ -38,7 +38,7 @@ import se.inera.fmu.domain.model.person.HoSPerson;
 @Transactional
 public class EavropAssignmentServiceImpl implements EavropAssignmentService {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private static final Logger log = LoggerFactory.getLogger(EavropAssignmentServiceImpl.class);
 
     private final EavropRepository eavropRepository;
     private final VardgivarenhetRepository vardgivarenhetRepository;

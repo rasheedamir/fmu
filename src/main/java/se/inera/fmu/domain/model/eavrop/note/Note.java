@@ -121,10 +121,12 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>, Compa
 	 */
 	@Override
 	public boolean equals(final Object object) {
-		if (this == object)
+		if (this == object){
 			return true;
-		if (object == null || getClass() != object.getClass())
+		}
+		if (object == null || getClass() != object.getClass()){
 			return false;
+		}
 
 		final Note other = (Note) object;
 		return sameValueAs(other);

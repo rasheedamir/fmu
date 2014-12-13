@@ -95,14 +95,24 @@ public final class Name implements ValueObject<Name> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+        	return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+        	return false;
+        }
 
         Name name = (Name) o;
 
-        if (firstName != null ? !firstName.equals(name.firstName) : name.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(name.lastName) : name.lastName != null) return false;
-        if (!middleName.equals(name.middleName)) return false;
+        if (firstName != null ? !firstName.equals(name.firstName) : name.firstName != null){
+        	return false;
+        }
+        if (lastName != null ? !lastName.equals(name.lastName) : name.lastName != null){
+        	return false;
+        }
+        if (!middleName.equals(name.middleName)){
+        	return false;
+        }
 
         return true;
     }

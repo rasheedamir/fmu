@@ -27,7 +27,7 @@ import java.util.List;
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 public class DatabaseConfiguration implements EnvironmentAware {
 
-    private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
 
     private RelaxedPropertyResolver propertyResolver;
 

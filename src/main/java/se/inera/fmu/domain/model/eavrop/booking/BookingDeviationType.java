@@ -43,7 +43,7 @@ public enum BookingDeviationType {
 //		case INTERPRETER_PRESENT_BUT_NOT_USED:
 //			return INTERPRETER_NOT_UTILIZED;
 		default:
-			 throw new IllegalArgumentException("Not a booking devation value: " +interpreterBookingStatus.name());
+			 throw new IllegalArgumentException("Status is not a booking devation value: " +interpreterBookingStatus.name());
 		}
 	}
 }

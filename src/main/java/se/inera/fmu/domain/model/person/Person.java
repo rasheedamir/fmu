@@ -52,8 +52,8 @@ public abstract class Person implements Serializable  {
 
 	public Person(String name, String role, String organisation, String unit, String phone, String email) {
 		super();
-		this.setNamn(name);;
-		this.setRole(role);;
+		this.setNamn(name);
+		this.setRole(role);
 		this.setUnit(unit);
 		this.setOrganisation(organisation);
 		this.setPhone(phone);

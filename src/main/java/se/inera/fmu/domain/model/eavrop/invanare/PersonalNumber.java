@@ -47,9 +47,12 @@ public final class PersonalNumber implements ValueObject<PersonalNumber>, Serial
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o){
+        	return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+        	return false;
+        }
         PersonalNumber other = (PersonalNumber) o;
 
         return sameValueAs(other);

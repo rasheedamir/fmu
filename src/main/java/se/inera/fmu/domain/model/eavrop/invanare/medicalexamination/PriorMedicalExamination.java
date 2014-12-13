@@ -38,14 +38,11 @@ public class PriorMedicalExamination implements ValueObject<PriorMedicalExaminat
 	    @Column(name = "MEDICAL_LEAVE_ISSUED_AT")
 	    private String medicalLeaveIssuedAt;
 
-//	    @Column(name = "MEDICAL_LEAVE_ISSUED_BY")
-//	    private String medicalLeaveIssuedBy;
 		@NotNull
 	    @OneToOne(cascade = CascadeType.ALL)
 	    @JoinColumn(name="PERSON_ID")
 		private Person medicalLeaveIssuedBy;
 
-   
 	    //~ Constructors ===================================================================================================
 
 	    PriorMedicalExamination(){ 
@@ -59,7 +56,6 @@ public class PriorMedicalExamination implements ValueObject<PriorMedicalExaminat
 	     * @param medicalLeaveIssuedBy,  
 	     */
 	    public PriorMedicalExamination(String examinedAt, String medicalLeaveIssuedAt, Person medicalLeaveIssuedBy ) {
-	    	//this.id = DateTime.now().getMillis();
 	    	this.setExaminedAt(examinedAt);
 	    	this.setMedicalLeaveIssuedAt(medicalLeaveIssuedAt);
 	    	this.setMedicalLeaveIssuedBy(medicalLeaveIssuedBy);
@@ -100,20 +96,27 @@ public class PriorMedicalExamination implements ValueObject<PriorMedicalExaminat
 	     */
 	    @Override
 	    public boolean equals(Object object) {
-	        if (this == object) return true;
-	        if (object == null || getClass() != object.getClass()) return false;
-
+	        if (this == object){
+	        	return true;
+	        }
+	        if (object == null || getClass() != object.getClass()){
+	        	return false;
+	        }
 
 	        final PriorMedicalExamination other = (PriorMedicalExamination) object;
-	        int result = examinedAt.hashCode();
-	        if (examinedAt != null ? !examinedAt.equals(other.examinedAt) : other.examinedAt != null) return false;
-	        if (medicalLeaveIssuedAt != null ? !medicalLeaveIssuedAt.equals(other.medicalLeaveIssuedAt) : other.medicalLeaveIssuedAt != null) return false;
-	        if (medicalLeaveIssuedBy != null ? !medicalLeaveIssuedBy.equals(other.medicalLeaveIssuedBy) : other.medicalLeaveIssuedBy != null) return false;
+	        if (examinedAt != null ? !examinedAt.equals(other.examinedAt) : other.examinedAt != null){
+	        	return false;
+	        }
+	        if (medicalLeaveIssuedAt != null ? !medicalLeaveIssuedAt.equals(other.medicalLeaveIssuedAt) : other.medicalLeaveIssuedAt != null){
+	        	return false;
+	        }
+	        if (medicalLeaveIssuedBy != null ? !medicalLeaveIssuedBy.equals(other.medicalLeaveIssuedBy) : other.medicalLeaveIssuedBy != null){
+	        	return false;
+	        }
 
 	        return true;
 	    }
 
-	    
 		/**
 	     * @return Hash code.
 	     */
@@ -125,11 +128,9 @@ public class PriorMedicalExamination implements ValueObject<PriorMedicalExaminat
 	        return result;
 	    }
 
-	    
 		@Override
 		public boolean sameValueAs(PriorMedicalExamination other) {
 			return other != null && this.equals(other);
 		}
-		
 	}
 

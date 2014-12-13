@@ -203,10 +203,12 @@ public class EavropAssignment extends AbstractBaseEntity implements
 	 */
 	@Override
 	public boolean equals(final Object object) {
-		if (this == object)
+		if (this == object){
 			return true;
-		if (object == null || getClass() != object.getClass())
+		}
+		if (object == null || getClass() != object.getClass()){
 			return false;
+		}
 
 		final EavropAssignment other = (EavropAssignment) object;
 		return sameIdentityAs(other);

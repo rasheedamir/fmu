@@ -37,7 +37,7 @@ import se.inera.fmu.domain.model.landsting.LandstingRepository;
 @Transactional(readOnly=true)
 public class FmuListServiceImpl implements FmuListService {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private static final Logger log = LoggerFactory.getLogger(FmuListServiceImpl.class);
 
     private final EavropRepository eavropRepository;
 
