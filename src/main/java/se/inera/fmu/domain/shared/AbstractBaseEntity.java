@@ -3,7 +3,6 @@ package se.inera.fmu.domain.shared;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
-import java.io.Serializable;
 
 /**
  * Base Entity

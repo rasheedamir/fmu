@@ -18,7 +18,6 @@ import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.note.NoteType;
-import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.person.HoSPerson;
 
 /**

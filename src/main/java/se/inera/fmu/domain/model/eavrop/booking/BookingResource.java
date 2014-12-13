@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import lombok.ToString;
-import se.inera.fmu.domain.model.shared.Name;
 import se.inera.fmu.domain.shared.ValueObject;
 
 /**

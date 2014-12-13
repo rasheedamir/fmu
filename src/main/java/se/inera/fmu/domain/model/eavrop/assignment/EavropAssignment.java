@@ -1,5 +1,7 @@
 package se.inera.fmu.domain.model.eavrop.assignment;
 
+import static se.inera.fmu.application.util.StringUtils.isBlankOrNull;
+
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -22,12 +24,9 @@ import se.inera.fmu.application.util.BusinessDaysUtil;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.note.NoteType;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
-import se.inera.fmu.domain.model.landsting.Landstingssamordnare;
 import se.inera.fmu.domain.model.person.HoSPerson;
-import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
-import static se.inera.fmu.application.util.StringUtils.isBlankOrNull;
 
 /**
  * 

@@ -1,5 +1,16 @@
 package se.inera.fmu.application.util;
 
+import static org.joda.time.DateTimeConstants.DECEMBER;
+import static org.joda.time.DateTimeConstants.FRIDAY;
+import static org.joda.time.DateTimeConstants.JANUARY;
+import static org.joda.time.DateTimeConstants.JUNE;
+import static org.joda.time.DateTimeConstants.MAY;
+import static org.joda.time.DateTimeConstants.MONDAY;
+import static org.joda.time.DateTimeConstants.OCTOBER;
+import static org.joda.time.DateTimeConstants.SATURDAY;
+import static org.joda.time.DateTimeConstants.SUNDAY;
+import static org.joda.time.DateTimeConstants.THURSDAY;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,7 +18,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static org.joda.time.DateTimeConstants.*;
 import org.joda.time.LocalDate;
 /**
  * Utility Class for handling business days calculations considering if days in period is weekend or holiday

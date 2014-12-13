@@ -2,9 +2,9 @@ package se.inera.fmu.interfaces.managing.rest.dto;
 
 import java.util.List;
 
-import se.inera.fmu.domain.model.eavrop.EavropDeviationEventDTO;
 import lombok.Getter;
 import lombok.Setter;
+import se.inera.fmu.domain.model.eavrop.EavropDeviationEventDTO;
 
 @Getter
 @Setter

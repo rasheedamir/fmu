@@ -6,8 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import se.inera.fmu.domain.model.eavrop.Eavrop;
-import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 
 /**

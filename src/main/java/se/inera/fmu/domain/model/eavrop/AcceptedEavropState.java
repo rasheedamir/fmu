@@ -14,7 +14,6 @@ import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygSentInformation;
 import se.inera.fmu.domain.model.eavrop.note.Note;
-import se.inera.fmu.infrastructure.listener.EavropListener;
 
 /**
  * The accepted state, means that the care giver has accepted and 

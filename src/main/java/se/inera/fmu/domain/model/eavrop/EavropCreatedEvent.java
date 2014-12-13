@@ -1,6 +1,5 @@
 package se.inera.fmu.domain.model.eavrop;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 import se.inera.fmu.domain.model.landsting.LandstingCode;

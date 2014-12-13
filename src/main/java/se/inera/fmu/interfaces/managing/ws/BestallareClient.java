@@ -4,7 +4,6 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import fk.wsdl.*;
 import lombok.extern.slf4j.Slf4j;
 
 import org.joda.time.DateTime;
@@ -17,6 +16,24 @@ import se.inera.fmu.interfaces.managing.command.PublishFmuBookingDeviationComman
 import se.inera.fmu.interfaces.managing.command.PublishFmuDocumentRequestedCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuIntygSentCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuStartDate;
+import fk.wsdl.AdressType;
+import fk.wsdl.BegarKompletteringFmuHandlingRequest;
+import fk.wsdl.BegarKompletteringFmuHandlingResponse;
+import fk.wsdl.BookingDeviationType;
+import fk.wsdl.FmuBokningRequest;
+import fk.wsdl.FmuBokningResponse;
+import fk.wsdl.FmuBokningsavvikelseRequest;
+import fk.wsdl.FmuBokningsavvikelseResponse;
+import fk.wsdl.FmuIntygSentRequest;
+import fk.wsdl.FmuIntygSentResponse;
+import fk.wsdl.FmuStartRequest;
+import fk.wsdl.FmuStartResponse;
+import fk.wsdl.FmuVardgivarenhetTilldelningRequest;
+import fk.wsdl.FmuVardgivarenhetTilldelningResponse;
+import fk.wsdl.NoteringType;
+import fk.wsdl.PersonType;
+import fk.wsdl.StatusCodeType;
+import fk.wsdl.VardgivarenhetType;
 
 
 /**

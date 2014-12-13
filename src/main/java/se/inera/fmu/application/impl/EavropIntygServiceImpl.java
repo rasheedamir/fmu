@@ -15,7 +15,6 @@ import se.inera.fmu.application.EavropIntygService;
 import se.inera.fmu.application.impl.command.AddIntygApprovedCommand;
 import se.inera.fmu.application.impl.command.AddIntygComplementRequestCommand;
 import se.inera.fmu.application.impl.command.AddIntygSentCommand;
-import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropId;

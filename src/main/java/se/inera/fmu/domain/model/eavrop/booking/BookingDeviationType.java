@@ -1,7 +1,5 @@
 package se.inera.fmu.domain.model.eavrop.booking;
 
-import java.util.Arrays;
-
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 
 public enum BookingDeviationType {

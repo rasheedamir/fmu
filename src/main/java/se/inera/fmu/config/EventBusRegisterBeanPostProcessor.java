@@ -1,17 +1,18 @@
 package se.inera.fmu.config;
 
-import com.google.common.eventbus.AsyncEventBus;
-import com.google.common.eventbus.Subscribe;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+
+import javax.inject.Inject;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
-import se.inera.fmu.infrastructure.listener.EavropListener;
-import se.inera.fmu.infrastructure.listener.EventBusListener;
 
-import javax.inject.Inject;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
+import com.google.common.eventbus.AsyncEventBus;
+import com.google.common.eventbus.Subscribe;
 
 /**
  * Created by Rasheed on 9/29/14.

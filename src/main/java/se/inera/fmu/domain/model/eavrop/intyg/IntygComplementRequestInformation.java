@@ -7,10 +7,8 @@ import lombok.ToString;
 
 import org.joda.time.DateTime;
 
-import se.inera.fmu.domain.model.eavrop.EavropApproval;
 import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
 import se.inera.fmu.domain.model.eavrop.EavropEventDTOType;
-import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.ValueObject;
 

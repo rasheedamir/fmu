@@ -3,7 +3,6 @@ package se.inera.fmu.domain.model.eavrop;
 import lombok.extern.slf4j.Slf4j;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
-import se.inera.fmu.domain.model.landsting.Landstingssamordnare;
 import se.inera.fmu.domain.model.person.HoSPerson;
 
 /**

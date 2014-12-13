@@ -1,6 +1,9 @@
 package se.inera.fmu.config.logging;
 
-import se.inera.fmu.config.Constants;
+import java.util.Arrays;
+
+import javax.inject.Inject;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -11,8 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 
-import javax.inject.Inject;
-import java.util.Arrays;
+import se.inera.fmu.config.Constants;
 
 /**
  * Aspect for logging execution of service and repository Spring components.

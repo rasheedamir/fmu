@@ -1,17 +1,19 @@
 package se.inera.fmu.infrastructure.persistence.hibernate;
 
-import se.inera.fmu.config.audit.AuditEventConverter;
-import se.inera.fmu.domain.model.auditing.PersistenceAuditEventRepository;
-import se.inera.fmu.domain.model.auditing.PersistentAuditEvent;
+import java.util.Date;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.joda.time.LocalDateTime;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-import java.util.Date;
-import java.util.List;
+import se.inera.fmu.config.audit.AuditEventConverter;
+import se.inera.fmu.domain.model.auditing.PersistenceAuditEventRepository;
+import se.inera.fmu.domain.model.auditing.PersistentAuditEvent;
 
 /**
  * Wraps an implementation of Spring Boot's AuditEventRepository.

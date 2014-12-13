@@ -1,12 +1,16 @@
 package se.inera.fmu.config;
 
-import com.codahale.metrics.MetricRegistry;
-import com.codahale.metrics.servlet.InstrumentedFilter;
-import com.codahale.metrics.servlets.MetricsServlet;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
 
-import se.inera.fmu.config.filter.CachingHttpHeadersFilter;
-import se.inera.fmu.config.filter.StaticResourcesProductionFilter;
-import se.inera.fmu.config.filter.gzip.GZipServletFilter;
+import javax.inject.Inject;
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,13 +20,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.env.Environment;
 
-import javax.inject.Inject;
-import javax.servlet.*;
+import se.inera.fmu.config.filter.CachingHttpHeadersFilter;
+import se.inera.fmu.config.filter.StaticResourcesProductionFilter;
+import se.inera.fmu.config.filter.gzip.GZipServletFilter;
 
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.servlet.InstrumentedFilter;
+import com.codahale.metrics.servlets.MetricsServlet;
 
 /**
  * Configuration of web application with Servlet 3.0 APIs.

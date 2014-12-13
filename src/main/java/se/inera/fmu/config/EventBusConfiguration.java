@@ -1,9 +1,11 @@
 package se.inera.fmu.config;
 
-import com.google.common.eventbus.AsyncEventBus;
+import java.util.concurrent.Executors;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import java.util.concurrent.Executors;
+
+import com.google.common.eventbus.AsyncEventBus;
 
 /**
  * Created by Rasheed on 9/26/14.

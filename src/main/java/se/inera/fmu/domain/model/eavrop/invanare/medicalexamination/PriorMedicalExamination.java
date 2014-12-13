@@ -13,11 +13,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.joda.time.DateTime;
-
 import lombok.ToString;
 import se.inera.fmu.domain.model.person.Person;
-import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.shared.ValueObject;
 
 @Entity

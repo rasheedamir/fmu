@@ -1,11 +1,15 @@
 package se.inera.fmu.interfaces.managing.ws;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.springframework.ws.test.server.RequestCreators.withPayload;
+import static org.springframework.ws.test.server.ResponseMatchers.payload;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,14 +18,12 @@ import javax.xml.bind.DatatypeConverter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.text.StrSubstitutor;
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -34,11 +36,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ws.test.server.MockWebServiceClient;
-import org.springframework.xml.transform.StringSource;
-
-import com.google.common.io.CharStreams;
 
 import se.inera.fmu.Application;
 import se.inera.fmu.application.EavropAssignmentService;
@@ -51,7 +49,6 @@ import se.inera.fmu.application.impl.command.AssignEavropCommand;
 import se.inera.fmu.application.impl.command.ChangeBookingStatusCommand;
 import se.inera.fmu.application.impl.command.CreateBookingCommand;
 import se.inera.fmu.application.impl.command.RejectEavropAssignmentCommand;
-import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropStateType;
@@ -59,19 +56,11 @@ import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
-import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
-import se.inera.fmu.domain.model.eavrop.note.Note;
-import se.inera.fmu.domain.model.eavrop.note.NoteType;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import ws.inera.fmu.admin.eavrop.SkapaFmuEavropRequest;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.springframework.ws.test.server.RequestCreators.*;
-import static org.springframework.ws.test.server.ResponseMatchers.*;
 /**
  * Created by Rasheed, Rickard on 11/17/14.
  */
@@ -119,7 +108,7 @@ public class ITBestallareEndpointIntegrationTest {
 
 
 	@Test
-    public void acceptAssignment() throws Exception {
+    public void acceptAssignment(){
 
     	ArendeId arendeId = new ArendeId("150000000001");
     	LandstingCode landstingCode = new LandstingCode(1);
@@ -489,13 +478,12 @@ public class ITBestallareEndpointIntegrationTest {
     	return substitute(templateFilename, valueMap);
 	}
 
-    
     private InputStream substitute(String filename, Map<String, String> valueMap){
-    	try {
-        	String stringFromInputStream = IOUtils.toString(new ClassPathResource(filename).getInputStream(), StandardCharsets.UTF_8);
-        	return  new ByteArrayInputStream(StrSubstitutor.replace(stringFromInputStream, valueMap).getBytes(StandardCharsets.UTF_8));
-			
-		} catch (Throwable e) {
+    	String stringFromInputStream;
+		try {
+			stringFromInputStream = IOUtils.toString(new ClassPathResource(filename).getInputStream(), StandardCharsets.UTF_8);
+	    	return  new ByteArrayInputStream(StrSubstitutor.replace(stringFromInputStream, valueMap).getBytes(StandardCharsets.UTF_8));
+		} catch (IOException e) {
 			log.error(e.getMessage());
 		}
     	return null;

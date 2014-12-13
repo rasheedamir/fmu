@@ -1,5 +1,7 @@
 package se.inera.fmu.interfaces.managing.ws;
 
+import static se.inera.fmu.application.util.StringUtils.isBlankOrNull;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -42,8 +44,26 @@ import se.inera.fmu.domain.model.person.HoSPerson;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
-import ws.inera.fmu.admin.eavrop.*;
-import static se.inera.fmu.application.util.StringUtils.isBlankOrNull;
+import ws.inera.fmu.admin.eavrop.AccepteratFmuIntygRequest;
+import ws.inera.fmu.admin.eavrop.AccepteratFmuIntygResponse;
+import ws.inera.fmu.admin.eavrop.AccepteratFmuUtredningRequest;
+import ws.inera.fmu.admin.eavrop.AccepteratFmuUtredningResponse;
+import ws.inera.fmu.admin.eavrop.BegartFmuIntygKompletteringRequest;
+import ws.inera.fmu.admin.eavrop.BegartFmuIntygKompletteringResponse;
+import ws.inera.fmu.admin.eavrop.FmuResponseType;
+import ws.inera.fmu.admin.eavrop.GodkannandeErsattningFmuUtredningRequest;
+import ws.inera.fmu.admin.eavrop.GodkannandeErsattningFmuUtredningResponse;
+import ws.inera.fmu.admin.eavrop.HoSPersonType;
+import ws.inera.fmu.admin.eavrop.PersonType;
+import ws.inera.fmu.admin.eavrop.SkapaFmuEavropRequest;
+import ws.inera.fmu.admin.eavrop.SkapaFmuEavropResponse;
+import ws.inera.fmu.admin.eavrop.SkickatFmuHandlingarRequest;
+import ws.inera.fmu.admin.eavrop.SkickatFmuHandlingarResponse;
+import ws.inera.fmu.admin.eavrop.SkickatFmuIntygRequest;
+import ws.inera.fmu.admin.eavrop.SkickatFmuIntygResponse;
+import ws.inera.fmu.admin.eavrop.StatusCodeType;
+import ws.inera.fmu.admin.eavrop.SvarBokningsavvikelseRequest;
+import ws.inera.fmu.admin.eavrop.SvarBokningsavvikelseResponse;
 
 /**
  * Created by Rasheed on 10/25/14.

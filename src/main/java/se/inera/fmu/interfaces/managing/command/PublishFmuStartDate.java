@@ -7,8 +7,6 @@ import lombok.NonNull;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.ArendeId;
-import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
-import se.inera.fmu.domain.model.person.HoSPerson;
 
 
 /**
