@@ -18,9 +18,9 @@ public class NoteDTOMapper {
 
 	private String getRoleName(String role) {
 		switch (role) {
-		case "ROLE_SAMORDNARE":
+		case "Role_samordnare":
 			return "Samordnare";
-		case "ROLE_UTREDARE":
+		case "Role_utredare":
 			return "Utredare";
 		default:
 			return role;
