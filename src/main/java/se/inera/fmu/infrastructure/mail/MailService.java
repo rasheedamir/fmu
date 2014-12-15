@@ -1,10 +1,13 @@
 package se.inera.fmu.infrastructure.mail;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +28,6 @@ import org.springframework.util.Assert;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
@@ -78,7 +80,7 @@ public class MailService {
 	 * @param isHtml
 	 */
 	@Async
-	public void sendEmail(String to, String subject, String content,
+	public void sendEmail(InternetAddress[] to, String subject, String content,
 			boolean isMultipart, boolean isHtml) {
 		log.debug(
 				"Send e-mail[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
@@ -86,37 +88,24 @@ public class MailService {
 
 		// Prepare message using a Spring helper
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		log.debug("mimeMessage created:  ");
+		
 		try {
-			MimeMessageHelper message = new MimeMessageHelper(mimeMessage,
+			MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage,
 					isMultipart, CharEncoding.UTF_8);
-			message.setTo(to);
-			message.setFrom(from);
-			message.setSubject(subject);
-			message.setText(content, isHtml);
+			log.debug("mimeMessageHelper created:  ");
+			messageHelper.setTo(to);
+			messageHelper.setFrom(from);
+			messageHelper.setSubject(subject);
+			messageHelper.setText(content, isHtml);
+			log.debug("sending message:  ");
 			javaMailSender.send(mimeMessage);
-			log.debug("Sent e-mail to User '{}'!", to);
-			log.debug(mimeMessage.toString());
+			log.debug("Sent e-mail to User '{}'!", (Object[])to);
 		} catch (Exception e) {
 			log.warn("E-mail could not be sent to user '{}', exception is: {}",
 					to, e.getMessage());
 		}
 	}
-
-	/**
-	 *
-	 * @param email
-	 * @param content
-	 * @param locale
-	 */
-	@Async
-	public void sendActivationEmail(final String email, String content,
-			Locale locale) {
-		log.debug("Sending activation e-mail to '{}'", email);
-		String subject = messageSource.getMessage("email.activation.title",
-				null, locale);
-		sendEmail(email, subject, content, false, true);
-	}
-
 
 	/**
 	 * Sends notification email that eavrop have been created.
@@ -129,18 +118,18 @@ public class MailService {
 		Assert.notNull(arendeId, "ArendeId can't be Null!");
 		Assert.notNull(landstingCode, "LandstingCode can't be Null!");
 		
-		final String emailAddress = getLandstingsamordnareEmailAddresses(landstingCode);
-		
-		if(StringUtils.isBlankOrNull(emailAddress)){
+		//Get the send to email addresses
+		final InternetAddress[] emailAddress = getLandstingsamordnareEmailAddresses(landstingCode);
+		if(emailAddress == null || emailAddress.length == 0){
 			log.warn(String.format("No email addresses found for landstingssamordnare on Eavrop with ÄrendeId %s", arendeId.toString()));
 			return;
 		}
-		
+
 		Locale locale = LocaleContextHolder.getLocale();
 		log.debug("Sending eavrop created mail to '{}' in locale '{}'",
 				emailAddress, locale.toString());
 
-		// Prepare the evaluation context
+		//Retrive all context variables
 		String utredningTypeStr = (utredningType!=null)?utredningType.name():"försäkringsmedicinsk utredning";
 		final Context ctx = new Context(locale);
 		ctx.setVariable("arendeId", arendeId.toString());
@@ -155,36 +144,39 @@ public class MailService {
 		// Create the HTML body using Thymeleaf
 		final String htmlContent = this.templateEngine.process(	"eavropCreatedEmail", ctx);
 		log.debug("htmlContent: "+htmlContent);
+
 		// Get subject according to locale
-		
 		Object[] args = {utredningTypeStr,arendeId.toString()};
-		
 		String subject = messageSource.getMessage("email.eavrop.order.subject", args, locale);
-		
 		log.debug("Subject "+subject);
 		
+		//Send the email
 		sendEmail(emailAddress, subject, htmlContent, false, true);
 	}
 	
-	private String getLandstingsamordnareEmailAddresses(LandstingCode landstingCode) {
-		String result = null;
+	
+	/*
+	 * Method for retrieving valid email addresses from the landstingssmaordnare 
+	 */
+	private InternetAddress[] getLandstingsamordnareEmailAddresses(LandstingCode landstingCode) {
+		List<InternetAddress> result = new ArrayList<InternetAddress>();
+		
 		List<Landstingssamordnare> landstingssamordnare =  landstingssamordnareRepository.findByLandstingCode(landstingCode);
 		
-		if (landstingssamordnare != null && !landstingssamordnare.isEmpty()) {
-			StringBuilder sb = null;
+		if (landstingssamordnare != null) {
 			for (Landstingssamordnare samordnare : landstingssamordnare) {
-				if (samordnare.getEmail() != null
-						&& EmailValidator.getInstance().isValid(samordnare.getEmail())) {
-					if (sb != null) {
-						sb.append("," + samordnare.getEmail());
-					} else {
-						sb = new StringBuilder(samordnare.getEmail());
+				if (samordnare.getEmail() != null && EmailValidator.getInstance().isValid(samordnare.getEmail())) {
+					InternetAddress address;
+					try {
+						address = new InternetAddress(samordnare.getEmail());
+						result.add(address);
+					} catch (AddressException e) {
+						log.error(" {} not a valid email address", samordnare.getEmail());
 					}
 				}
 			}
-			result = (sb != null)?sb.toString():null;
 		}
 
-		return result;
+		return result.toArray(new InternetAddress[result.size()]);
 	}
 }
