@@ -219,8 +219,8 @@ public class EavropTest extends TestCase {
 		
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 		
-		eavrop.addReceivedDocument(new ReceivedDocument(new DateTime().minusDays(5), "External", bestallaradministrator,Boolean.TRUE));
-
+		eavrop.addReceivedDocument(new ReceivedDocument(new DateTime().minusDays(7), "External", bestallaradministrator,Boolean.TRUE));
+ 
 		assertEquals(EavropStateType.ONGOING, eavrop.getStatus());
 		
 		eavrop.addRequestedDocument(new RequestedDocument("Journal", doctorPerson,new Note(NoteType.DOCUMENT_REQUEST, "Glömt journalen", doctorPerson)));
