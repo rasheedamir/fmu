@@ -24,7 +24,7 @@ public class NoteId  implements ValueObject<NoteId>, Serializable {
 	}
 
 	public NoteId(final String noteId){
-		this.setNoteId(noteId);;
+		this.setNoteId(noteId);
 	}
 
 	
@@ -48,8 +48,12 @@ public class NoteId  implements ValueObject<NoteId>, Serializable {
 
 	@Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+        	return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+        	return false;
+        }
 
         NoteId other = (NoteId) o;
 

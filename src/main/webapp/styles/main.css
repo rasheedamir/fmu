@@ -5,6 +5,27 @@
     padding: 10px;
 }
 
+.fmu-nav-responsive-small {
+    display: none;
+}
+
+@media (max-width: 980px) {
+    .fmu-nav-responsive-big {
+        display: none;
+    }
+    .fmu-nav-responsive-small {
+        display: inline-block;
+        width: 100%;
+    }
+
+    .dropdown-menu {
+        min-width:auto !important;
+        min-width: 500px !important;
+        background-color: #9DA6AB;
+        z-index: 1000 !important;
+    }
+}
+
 .nav-tabs {
     margin-bottom: 0;
 }
@@ -862,7 +883,7 @@ h2{
 }
 
 .fmu-status-nav {
-    background-color: #8B959A;
+    background-color: #9DA6AB;
     position: relative;
     float: right;
     border-left: solid thin #ffffff;
@@ -873,7 +894,7 @@ h2{
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    background-color: #8B959A;
+    background-color: #9DA6AB;
 }
 
 .navbar-default .fmu-status-nav:hover,
@@ -886,6 +907,11 @@ h2{
     background-color: #27BC8F;
 }
 
+.dropdown-menu {
+    min-width:auto;
+    width:100%;
+}
+
 .status-active {
     background: #27BC8F;
 }
@@ -896,14 +922,18 @@ h2{
 }
 
 .fmu-status-banner {
-    position: absolute;
+    position: relative;
     background-color: #27BC8F;
     color: #ffffff;
     display: block;
     width: 100%;
     min-width: 100px;
-    z-index: 1000;
+    z-index: 100;
     overflow-x: hidden;
+
+    -webkit-box-shadow: 0 2px 2px -1px #000000;
+    -moz-box-shadow: 0 2px 2px -1px #000000;
+    box-shadow: 0 2px 2px -1px #000000;
 }
 
 .fmu-status-banner table {
@@ -981,6 +1011,10 @@ h2{
     font-style: italic;
     margin-top: 0;
     padding-top: 0;
+}
+
+.badge-danger {
+    background-color: #FA6761 !important;
 }
 
 

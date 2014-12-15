@@ -93,4 +93,36 @@ public class EavropEventDTO implements Comparable<EavropEventDTO>{
 	public int compareTo(EavropEventDTO o) {
 		return getEventTime().compareTo(o.getEventTime());
 	}
+	
+	/**
+	 * @param other to compare
+	 * @return True if they have the same identity
+	 */
+	@Override
+	public boolean equals(final Object other) {
+		if (this == other){
+			return true;
+		}
+		if (other == null || getClass() != other.getClass()){
+			return false;
+		}
+		return sameEventAs((EavropEventDTO)other);
+	}
+	 
+	private	 boolean sameEventAs(final EavropEventDTO other) {
+		//TODO: Add some kind of unique id
+		return other != null 
+				&& this.getEventType().equals(other.getEventType())
+				&& this.getEventTime().equals(other.getEventTime());
+	}
+	
+	/**
+	 * @return HashCode.
+	 */
+	@Override
+	public int hashCode() {
+		int result = getEventType().hashCode();
+		result = result * this.getEventTime().hashCode() ;
+		return result;
+	}
 }

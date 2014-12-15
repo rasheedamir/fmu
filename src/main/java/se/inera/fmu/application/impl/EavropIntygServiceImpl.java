@@ -3,9 +3,9 @@ package se.inera.fmu.application.impl;
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.joda.time.DateTime;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -15,7 +15,6 @@ import se.inera.fmu.application.EavropIntygService;
 import se.inera.fmu.application.impl.command.AddIntygApprovedCommand;
 import se.inera.fmu.application.impl.command.AddIntygComplementRequestCommand;
 import se.inera.fmu.application.impl.command.AddIntygSentCommand;
-import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropId;
@@ -38,9 +37,8 @@ import se.inera.fmu.domain.model.person.HoSPerson;
 @Service
 @Validated
 @Transactional
+@Slf4j
 public class EavropIntygServiceImpl implements EavropIntygService {
-
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private final EavropRepository eavropRepository;
     private final DomainEventPublisher domainEventPublisher;

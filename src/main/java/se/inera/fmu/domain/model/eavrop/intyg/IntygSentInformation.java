@@ -10,11 +10,12 @@ import org.joda.time.DateTime;
 import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
 import se.inera.fmu.domain.model.eavrop.EavropEventDTOType;
 import se.inera.fmu.domain.model.person.Person;
+import se.inera.fmu.domain.shared.ValueObject;
 
 @Entity
 @DiscriminatorValue("SENT")
 @ToString
-public class IntygSentInformation extends IntygInformation implements Comparable<IntygSentInformation> {
+public class IntygSentInformation extends IntygInformation implements Comparable<IntygSentInformation>, ValueObject<IntygSentInformation> {
 	
 	public IntygSentInformation(){
         //Needed by hibernate
@@ -27,6 +28,33 @@ public class IntygSentInformation extends IntygInformation implements Comparable
 	@Override
 	public int compareTo(IntygSentInformation  other) {
 	        return this.getInformationTimestamp().compareTo(other.getInformationTimestamp());
+	}
+
+	@Override
+    public boolean equals(Object o) {
+        if (this == o){
+        	return true;
+        } 
+        if (o == null || getClass() != o.getClass()){
+        	return false;
+        } 
+
+        return sameValueAs((IntygSentInformation) o);
+    }
+	
+    @Override
+    public boolean sameValueAs(IntygSentInformation other) {
+        return other != null && this.getInformationTimestamp().equals(other.getInformationTimestamp());
+    }
+
+	/**
+	 * @return HashCode.
+	 */
+	@Override
+	public int hashCode() {
+		int result = getInformationTimestamp().hashCode();
+		result = 31 * this.getClass().hashCode();
+		return result;
 	}
 
 	@Override

@@ -2,14 +2,14 @@ package se.inera.fmu.application.impl.command;
 
 import java.util.List;
 
-import org.joda.time.DateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
+
+import org.joda.time.DateTime;
+
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
-import se.inera.fmu.domain.model.person.Person;
 
 
 /**

@@ -10,11 +10,12 @@ import org.joda.time.DateTime;
 import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
 import se.inera.fmu.domain.model.eavrop.EavropEventDTOType;
 import se.inera.fmu.domain.model.person.Person;
+import se.inera.fmu.domain.shared.ValueObject;
 
 @Entity
 @DiscriminatorValue("REQUEST")
 @ToString
-public class IntygComplementRequestInformation  extends IntygInformation implements Comparable<IntygComplementRequestInformation>{
+public class IntygComplementRequestInformation  extends IntygInformation implements Comparable<IntygComplementRequestInformation>, ValueObject<IntygComplementRequestInformation>{
 
 	public IntygComplementRequestInformation(){
         //Needed by hibernate
@@ -29,6 +30,34 @@ public class IntygComplementRequestInformation  extends IntygInformation impleme
 	        return this.getInformationTimestamp().compareTo(other.getInformationTimestamp());
 	}
 	
+	@Override
+    public boolean equals(Object o) {
+        if (this == o){
+        	return true;
+        } 
+        if (o == null || getClass() != o.getClass()){
+        	return false;
+        } 
+
+        return sameValueAs((IntygComplementRequestInformation) o);
+    }
+	
+    @Override
+    public boolean sameValueAs(IntygComplementRequestInformation other) {
+        return other != null && this.getInformationTimestamp().equals(other.getInformationTimestamp());
+    }
+	
+	/**
+	 * @return HashCode.
+	 */
+	@Override
+	public int hashCode() {
+		int result = getInformationTimestamp().hashCode();
+		result = 31 * this.getClass().hashCode();
+		return result;
+	}
+
+    
 	@Override
 	public EavropEventDTO getAsEavropEvent() {
 		return (this.getPerson()!=null)?

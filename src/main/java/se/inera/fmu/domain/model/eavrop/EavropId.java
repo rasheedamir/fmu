@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import lombok.ToString;
 import se.inera.fmu.domain.shared.ValueObject;
 
 /**
@@ -44,8 +43,12 @@ public final class EavropId implements ValueObject<EavropId>, Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+        	return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+        	return false;
+        }
 
         EavropId other = (EavropId) o;
 

@@ -146,8 +146,12 @@ public class Vardgivarenhet extends AbstractBaseEntity implements IEntity<Vardgi
      */
     @Override
     public boolean equals(final Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
+        if (this == object){
+        	return true;
+        }
+        if (object == null || getClass() != object.getClass()){
+        	return false;
+        }
 
         final Vardgivarenhet other = (Vardgivarenhet) object;
         return sameIdentityAs(other);

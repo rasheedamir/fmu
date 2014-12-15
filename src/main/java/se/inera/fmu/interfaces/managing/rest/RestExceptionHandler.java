@@ -15,8 +15,17 @@
  */
 package se.inera.fmu.interfaces.managing.rest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
@@ -30,14 +39,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
 import org.springframework.web.util.WebUtils;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Renders a response with a RESTful Error representation based on the error format discussed in
@@ -108,9 +109,8 @@ import java.util.List;
  *
  * @author Les Hazlewood
  */
+@Slf4j
 public class RestExceptionHandler extends AbstractHandlerExceptionResolver implements InitializingBean {
-
-    private static final Logger log = LoggerFactory.getLogger(RestExceptionHandler.class);
 
     private HttpMessageConverter<?>[] messageConverters = null;
 
@@ -263,8 +263,8 @@ public class RestExceptionHandler extends AbstractHandlerExceptionResolver imple
             }
         }
 
-        if (logger.isWarnEnabled()) {
-            logger.warn("Could not find HttpMessageConverter that supports return type [" + bodyType +
+        if (log.isWarnEnabled()) {
+            log.warn("Could not find HttpMessageConverter that supports return type [" + bodyType +
                     "] and " + acceptedMediaTypes);
         }
         return null;

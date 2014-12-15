@@ -4,7 +4,6 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import fk.wsdl.*;
 import lombok.extern.slf4j.Slf4j;
 
 import org.joda.time.DateTime;
@@ -17,7 +16,7 @@ import se.inera.fmu.interfaces.managing.command.PublishFmuBookingDeviationComman
 import se.inera.fmu.interfaces.managing.command.PublishFmuDocumentRequestedCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuIntygSentCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuStartDate;
-
+import fk.wsdl.*;
 
 /**
  * Created by Rasheed on 12/3/14.

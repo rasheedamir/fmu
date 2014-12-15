@@ -1,11 +1,15 @@
 package se.inera.fmu.interfaces.managing.ws;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.springframework.ws.test.server.RequestCreators.withPayload;
+import static org.springframework.ws.test.server.ResponseMatchers.payload;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,14 +18,12 @@ import javax.xml.bind.DatatypeConverter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.text.StrSubstitutor;
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -34,11 +36,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ws.test.server.MockWebServiceClient;
-import org.springframework.xml.transform.StringSource;
-
-import com.google.common.io.CharStreams;
 
 import se.inera.fmu.Application;
 import se.inera.fmu.application.EavropAssignmentService;
@@ -48,7 +46,6 @@ import se.inera.fmu.application.impl.command.AcceptEavropAssignmentCommand;
 import se.inera.fmu.application.impl.command.AssignEavropCommand;
 import se.inera.fmu.application.impl.command.ChangeBookingStatusCommand;
 import se.inera.fmu.application.impl.command.CreateBookingCommand;
-import se.inera.fmu.application.util.StringUtils;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropStateType;
@@ -61,11 +58,6 @@ import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import ws.inera.fmu.admin.eavrop.SkapaFmuEavropRequest;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.springframework.ws.test.server.RequestCreators.*;
-import static org.springframework.ws.test.server.ResponseMatchers.*;
 /**
  * Created by Rasheed, Rickard on 11/17/14.
  */
@@ -109,7 +101,7 @@ public class ITEavropEndpointIntegrationTest {
     	
 
     @Test
-    public void createEavrop_BothValidAndInvalidRequests_GeneratesSuccessAndErrorResponse() throws Exception {
+    public void createEavrop_BothValidAndInvalidRequests_GeneratesSuccessAndErrorResponse(){
 
     	ArendeId arendeId = new ArendeId("140000000001");
     	LandstingCode landstingCode = new LandstingCode(1);
@@ -131,8 +123,7 @@ public class ITEavropEndpointIntegrationTest {
     }
 
     @Test
-    public void createEavrop_onlyMandatoryFields() throws Exception {
-
+    public void createEavrop_onlyMandatoryFields(){
     	ArendeId arendeId = new ArendeId("140000000002");
     	LandstingCode landstingCode = new LandstingCode(1);
     	
@@ -141,15 +132,10 @@ public class ITEavropEndpointIntegrationTest {
         Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(CREATE_EAVROP_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
-        
-        //validateMandatoryEavrop(arendeId, landstingCode);
-        
-
     }
 
 	@Test
-    public void createSendDocumentsRequest() throws Exception {
-
+    public void createSendDocumentsRequest(){
     	ArendeId arendeId = new ArendeId("140000000003");
     	LandstingCode landstingCode = new LandstingCode(1);
 
@@ -173,7 +159,7 @@ public class ITEavropEndpointIntegrationTest {
     }
  
     @Test
-    public void bookingDeviationsRequest() throws Exception {
+    public void bookingDeviationsRequest(){
 
     	ArendeId arendeId = new ArendeId("140000000004");
     	LandstingCode landstingCode = new LandstingCode(1);
@@ -211,8 +197,7 @@ public class ITEavropEndpointIntegrationTest {
 
     
     @Test
-    public void sentIntygInformationRequest() throws Exception {
-
+    public void sentIntygInformationRequest(){
     	ArendeId arendeId = new ArendeId("140000000005");
     	LandstingCode landstingCode = new LandstingCode(1);
 
@@ -243,7 +228,7 @@ public class ITEavropEndpointIntegrationTest {
     }
 
     @Test
-    public void intygComplementInformationRequest() throws Exception {
+    public void intygComplementInformationRequest(){
 
     	ArendeId arendeId = new ArendeId("140000000006");
     	LandstingCode landstingCode = new LandstingCode(1);
@@ -282,7 +267,7 @@ public class ITEavropEndpointIntegrationTest {
     }
 
     @Test
-    public void intygApprovedInformationRequest() throws Exception {
+    public void intygApprovedInformationRequest(){
 
     	ArendeId arendeId = new ArendeId("140000000007");
     	LandstingCode landstingCode = new LandstingCode(1);
@@ -322,7 +307,7 @@ public class ITEavropEndpointIntegrationTest {
 
     
     @Test
-    public void eavropApprovedInformationRequest() throws Exception {
+    public void eavropApprovedInformationRequest() {
 
     	ArendeId arendeId = new ArendeId("140000000008");
     	LandstingCode landstingCode = new LandstingCode(1);
@@ -366,7 +351,7 @@ public class ITEavropEndpointIntegrationTest {
 
     
     @Test
-    public void eavropCompensationApprovedInformationRequest() throws Exception {
+    public void eavropCompensationApprovedInformationRequest(){
 
     	ArendeId arendeId = new ArendeId("140000000009");
     	LandstingCode landstingCode = new LandstingCode(1);
@@ -414,30 +399,6 @@ public class ITEavropEndpointIntegrationTest {
         andExpect(payload(succesResponsePayload));
     }
 
-    
-    
-//    private ArendeId getArendeId(String xmlFileName){
-//        
-//    	try{
-//        	JAXBContext context = JAXBContext.newInstance(SkapaFmuEavropRequest.class);
-//            Unmarshaller unmarshaller = context.createUnmarshaller();
-//            
-//            StreamSource requestPayload = new StreamSource(new ClassPathResource(xmlFileName).getInputStream());
-//            
-//            JAXBElement<SkapaFmuEavropRequest> element = unmarshaller.unmarshal(requestPayload,	SkapaFmuEavropRequest.class);
-//            SkapaFmuEavropRequest skapaEavropRequest = element.getValue();
-//            
-//            if(!StringUtils.isBlankOrNull(skapaEavropRequest.getArendeId())){
-//            	return new ArendeId(skapaEavropRequest.getArendeId());
-//            }
-//            
-//    	}catch(Exception e){
-//    		System.out.println("Exception:" + e.getMessage());
-//    		
-//    	}
-//    	return null;
-//    }
-
     private void validateEavrop(ArendeId arendeId, LandstingCode landstingCode){
     	SkapaFmuEavropRequest eavropRequest =  getSkapaFmuEavropRequest(arendeId, landstingCode);
     	assertNotEquals(eavropRequest, null);
@@ -448,7 +409,6 @@ public class ITEavropEndpointIntegrationTest {
     	
     	assertEquals(eavropRequest.getAdministrator().getNamn(), eavrop.getBestallaradministrator().getName());
     	assertEquals(eavropRequest.getAdministrator().getBefattning(), eavrop.getBestallaradministrator().getRole());
-    	//assertEquals(eavropRequest.getAdministrator().getId(), eavrop.getBestallaradministrator().);
     	assertEquals(eavropRequest.getAdministrator().getEnhet(), eavrop.getBestallaradministrator().getUnit());
     	assertEquals(eavropRequest.getAdministrator().getOrganisation(), eavrop.getBestallaradministrator().getOrganisation());
     	assertEquals(eavropRequest.getAdministrator().getTelefon(), eavrop.getBestallaradministrator().getPhone());
@@ -474,7 +434,6 @@ public class ITEavropEndpointIntegrationTest {
     	assertEquals(eavropRequest.getTidigareUtredning().getUtreddVid(), eavrop.getPriorMedicalExamination().getExaminedAt());
     	assertEquals(eavropRequest.getTidigareUtredning().getSjukskrivandeenhet(), eavrop.getPriorMedicalExamination().getMedicalLeaveIssuedAt());  	
     	assertEquals(eavropRequest.getTidigareUtredning().getSjukskrivenAv().getNamn(), eavrop.getPriorMedicalExamination().getMedicalLeaveIssuedBy().getName());
-    	//assertEquals(eavropRequest.getTidigareUtredning().getSjukskrivenAv().getId(), eavrop.getPriorMedicalExamination().getMedicalLeaveIssuedBy().);
     	assertEquals(eavropRequest.getTidigareUtredning().getSjukskrivenAv().getBefattning(), eavrop.getPriorMedicalExamination().getMedicalLeaveIssuedBy().getRole());
     	assertEquals(eavropRequest.getTidigareUtredning().getSjukskrivenAv().getEnhet(), eavrop.getPriorMedicalExamination().getMedicalLeaveIssuedBy().getUnit());
     	assertEquals(eavropRequest.getTidigareUtredning().getSjukskrivenAv().getOrganisation(), eavrop.getPriorMedicalExamination().getMedicalLeaveIssuedBy().getOrganisation());
@@ -705,16 +664,14 @@ public class ITEavropEndpointIntegrationTest {
     	return substitute(templateFilename, valueMap);
 	}
 
-    
     private InputStream substitute(String filename, Map<String, String> valueMap){
-    	try {
-        	String stringFromInputStream = IOUtils.toString(new ClassPathResource(filename).getInputStream(), StandardCharsets.UTF_8);
-        	return  new ByteArrayInputStream(StrSubstitutor.replace(stringFromInputStream, valueMap).getBytes(StandardCharsets.UTF_8));
-			
-		} catch (Throwable e) {
+    	String stringFromInputStream;
+		try {
+			stringFromInputStream = IOUtils.toString(new ClassPathResource(filename).getInputStream(), StandardCharsets.UTF_8);
+	    	return  new ByteArrayInputStream(StrSubstitutor.replace(stringFromInputStream, valueMap).getBytes(StandardCharsets.UTF_8));
+		} catch (IOException e) {
 			log.error(e.getMessage());
 		}
     	return null;
     }
-    
 }

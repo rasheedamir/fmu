@@ -76,7 +76,7 @@ public class FmuOrderingServiceImplTest {
 
     @Before
     public void setUp() {
-        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, configuration, eventPublisher, landstingRepository, currentUserService, vgRepository, null, null, null, null, null);
+        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, configuration, eventPublisher, landstingRepository, currentUserService, vgRepository, null, null, null, null, null, null);
     }
 
     /*

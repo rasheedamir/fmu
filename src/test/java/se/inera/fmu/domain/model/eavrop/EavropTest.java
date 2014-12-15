@@ -2,6 +2,8 @@ package se.inera.fmu.domain.model.eavrop;
 
 import java.text.SimpleDateFormat;
 
+import javax.persistence.Column;
+
 import junit.framework.TestCase;
 
 import org.joda.time.DateTime;
@@ -40,6 +42,12 @@ import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
 
 public class EavropTest extends TestCase {
+	
+	private static int START_DATE_OFFSET = 3;
+	private static int ACCEPTANCE_VALID_LENGTH = 5;
+	private static int ASSESSMENT_VALID_LENGTH = 25;
+	private static int COMPLETION_VALID_LENGTH = 10;
+	
 	private Eavrop eavrop;
 	
 	private Invanare invanare;
@@ -159,8 +167,10 @@ public class EavropTest extends TestCase {
 		.withInvanare(invanare)
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
-		.withEavropProperties(new EavropProperties(3,5,25,10))
-		.build();
+		.withEavropProperties(new EavropProperties(START_DATE_OFFSET,
+													ACCEPTANCE_VALID_LENGTH,
+													ASSESSMENT_VALID_LENGTH,
+													COMPLETION_VALID_LENGTH)).build();
 		
 		assertEquals(invanare, eavrop.getInvanare());
 		assertEquals(utredningType, eavrop.getUtredningType());
@@ -178,8 +188,10 @@ public class EavropTest extends TestCase {
 		.withInvanare(invanare)
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
-		.withEavropProperties(new EavropProperties(3,5,25,10))
-		.build();
+		.withEavropProperties(new EavropProperties(START_DATE_OFFSET,
+				ACCEPTANCE_VALID_LENGTH,
+				ASSESSMENT_VALID_LENGTH,
+				COMPLETION_VALID_LENGTH)).build();
 		
 		assertEquals(invanare, eavrop.getInvanare());
 		assertEquals(utredningType, eavrop.getUtredningType());
@@ -191,7 +203,7 @@ public class EavropTest extends TestCase {
 		
 		assertEquals(EavropStateType.ASSIGNED, eavrop.getStatus());
 
-		eavrop.rejectEavropAssignment(doctorPerson, null);;
+		eavrop.rejectEavropAssignment(doctorPerson, null);
 
 		assertEquals(EavropStateType.UNASSIGNED, eavrop.getStatus());
 
@@ -199,7 +211,7 @@ public class EavropTest extends TestCase {
 		
 		assertEquals(EavropStateType.ASSIGNED, eavrop.getStatus());
 
-		eavrop.acceptEavropAssignment(doctorPerson);;
+		eavrop.acceptEavropAssignment(doctorPerson);
 
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 		
@@ -207,8 +219,8 @@ public class EavropTest extends TestCase {
 		
 		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
 		
-		eavrop.addReceivedDocument(new ReceivedDocument(new DateTime().minusDays(5), "External", bestallaradministrator,Boolean.TRUE));
-
+		eavrop.addReceivedDocument(new ReceivedDocument(new DateTime().minusDays(7), "External", bestallaradministrator,Boolean.TRUE));
+ 
 		assertEquals(EavropStateType.ONGOING, eavrop.getStatus());
 		
 		eavrop.addRequestedDocument(new RequestedDocument("Journal", doctorPerson,new Note(NoteType.DOCUMENT_REQUEST, "Glömt journalen", doctorPerson)));
@@ -252,7 +264,7 @@ public class EavropTest extends TestCase {
 		
 		assertEquals(EavropStateType.SENT, eavrop.getStatus());
 
-		eavrop.addIntygApprovedInformation(createIntygApprovedInformation(null));;
+		eavrop.addIntygApprovedInformation(createIntygApprovedInformation(null));
 		
 		assertEquals(EavropStateType.SENT, eavrop.getStatus());
 		
@@ -275,8 +287,10 @@ public class EavropTest extends TestCase {
 		.withInvanare(invanare)
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
-		.withEavropProperties(new EavropProperties(3,5,25,10))
-		.build();
+		.withEavropProperties(new EavropProperties(START_DATE_OFFSET,
+				ACCEPTANCE_VALID_LENGTH,
+				ASSESSMENT_VALID_LENGTH,
+				COMPLETION_VALID_LENGTH)).build();
 		
 		eavrop.setCreatedDate(new DateTime(2014,10,1,10,30));
 
@@ -306,8 +320,10 @@ public class EavropTest extends TestCase {
 		.withInvanare(invanare)
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
-		.withEavropProperties(new EavropProperties(3,5,25,10))
-		.build();
+		.withEavropProperties(new EavropProperties(START_DATE_OFFSET,
+				ACCEPTANCE_VALID_LENGTH,
+				ASSESSMENT_VALID_LENGTH,
+				COMPLETION_VALID_LENGTH)).build();
 		
 		eavrop.setCreatedDate(new DateTime(2014,10,1,10,30));
 
@@ -328,127 +344,6 @@ public class EavropTest extends TestCase {
 		
 	}
 
-//	@Test
-//	public void  testFMU_64_View_Samordnare() {
-//		
-//		eavrop = EavropBuilder.eavrop()
-//		.withArendeId(arendeId)
-//		.withUtredningType(utredningType) 
-//		.withInvanare(invanare)
-//		.withLandsting(landsting)
-//		.withBestallaradministrator(bestallaradministrator)
-//		.withEavropProperties(new EavropProperties(3,5,25,10))
-//		.build();
-//		
-//		eavrop.setCreatedDate(new DateTime(2014,10,1,10,30));
-//
-//		eavrop.assignEavropToVardgivarenhet(vardgivarenhet);
-//
-//		eavrop.rejectEavropAssignment();
-//
-//		//1. Ärende-ID
-//		assertNotNull(eavrop.getArendeId());
-//		//2. Typ
-//		assertNotNull(eavrop.getUtredningType());
-//		//3. Beställare -> Organisation
-//		assertNotNull(eavrop.getBestallaradministrator().getOrganisation());
-//		//4.Beställare -> Enhet/Avdelning
-//		assertNotNull(eavrop.getBestallaradministrator().getUnit());
-//		//5.Beställare -> Förfrågan inkommit, datum
-//		assertNotNull(eavrop.getCreatedDate());
-//		//6.Beställare -> Den försäkrades bostadsort
-//		assertNotNull(eavrop.getInvanare().getHomeAddress().getCity());
-//		//7. Beställning mottagen av -> Organisation
-//		assertNotNull(eavrop.getLandsting().getName());
-//		
-//		//A row in the view list should be created for 	1. all the assigments in the eavrop
-//		//										  		2. one row for the unassingned eavrop   
-//		
-//		if(eavrop.getAssignments()!=null){
-//			for (EavropAssignment eavropAssignment : eavrop.getAssignments()) {
-//				//8. Förfrågan om utredning skickad till -> Utförare
-//				assertNotNull(eavropAssignment.getVardgivarenhet().getUnitName());
-//				//9. Status
-//				assertNotNull(eavropAssignment.getAssignmentStatus());
-//				//10. Antal dagar efter förfrågan om utredning.
-//				assertNotNull(eavropAssignment.getAssignmentReplyDays());
-//			}
-//		} 
-//	
-//		if(eavrop.getStatus().equals(EavropStateType.UNASSIGNED)){
-//			//8. Förfrågan om utredning skickad till -> Utförare
-//			//"Förfrågan ej skickad"
-//			//TODO:
-//			//assertNotNull(eavropAssignment.getVardgivarenhet().getUnitName());
-//			//9. Status "Förfrågan om utredning har inkommit" 
-//			assertEquals(EavropStateType.UNASSIGNED,eavrop.getStatus());
-//			//10. Antal dagar efter förfrågan om utredning.
-//			//TODO: Eavrop create until now
-//			//assertNotNull(eavropAssignment.getAssignmentReplyDays());
-//		}
-//		
-//	}
-//
-//	@Test
-//	public void  testFMU_64_View_Utredare() {
-//		
-//		eavrop = EavropBuilder.eavrop()
-//		.withArendeId(arendeId)
-//		.withUtredningType(utredningType) 
-//		.withInvanare(invanare)
-//		.withLandsting(landsting)
-//		.withBestallaradministrator(bestallaradministrator)
-//		.withEavropProperties(new EavropProperties(3,5,25,10))
-//		.build();
-//		
-//		eavrop.setCreatedDate(new DateTime(2014,10,1,10,30));
-//
-//		eavrop.assignEavropToVardgivarenhet(vardgivarenhet);
-//		
-//		//1. Ärende-ID
-//		assertNotNull(eavrop.getArendeId());
-//		//2. Typ
-//		assertNotNull(eavrop.getUtredningType());
-//		//3. Beställare -> Organisation
-//		assertNotNull(eavrop.getBestallaradministrator().getOrganisation());
-//		//4.Beställare -> Enhet/Avdelning
-//		assertNotNull(eavrop.getBestallaradministrator().getUnit());
-//		//5.Beställare -> Förfrågan inkommit, datum
-//		assertNotNull(eavrop.getCreatedDate());
-//		//6. Beställning mottagen av -> Organisation
-//		assertNotNull(eavrop.getLandsting().getName());
-//		//7. Status
-//		assertNotNull(eavrop.getStatus());
-//		//8. Antal dagar
-//		assertNotNull(eavrop.getCurrentAssignment().getStatus());
-//		
-//		if(eavrop.getAssignments()!=null){
-//			for (EavropAssignment eavropAssignment : eavrop.getAssignments()) {
-//				//8. Förfrågan om utredning skickad till -> Utförare
-//				assertNotNull(eavropAssignment.getVardgivarenhet().getUnitName());
-//				//9. Status
-//				assertNotNull(eavropAssignment.getAssignmentStatus());
-//				//10. Antal dagar efter förfrågan om utredning.
-//				assertNotNull(eavropAssignment.getAssignmentReplyDays());
-//			}
-//		} 
-//	
-//		if(eavrop.getStatus().equals(EavropStateType.UNASSIGNED)){
-//			//8. Förfrågan om utredning skickad till -> Utförare
-//			//"Förfrågan ej skickad"
-//			//TODO:
-//			//assertNotNull(eavropAssignment.getVardgivarenhet().getUnitName());
-//			//9. Status "Förfrågan om utredning har inkommit" 
-//			assertEquals(EavropStateType.UNASSIGNED,eavrop.getStatus());
-//			//10. Antal dagar efter förfrågan om utredning.
-//			//TODO: Eavrop create until now
-//			//assertNotNull(eavropAssignment.getAssignmentReplyDays());
-//		}
-//		
-//	}
-//	
-//
-//	
 	@Test
 	public void  testFMU_66_Alla_Handelser() {
 		
@@ -460,8 +355,10 @@ public class EavropTest extends TestCase {
 		.withInvanare(invanare)
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
-		.withEavropProperties(new EavropProperties(3,5,25,10))
-		.build();
+		.withEavropProperties(new EavropProperties(START_DATE_OFFSET,
+				ACCEPTANCE_VALID_LENGTH,
+				ASSESSMENT_VALID_LENGTH,
+				COMPLETION_VALID_LENGTH)).build();
 		
 		
 		//Eavrop was ordered first of october
@@ -544,7 +441,7 @@ public class EavropTest extends TestCase {
 		
 		assertEquals(EavropStateType.SENT, eavrop.getStatus());
 
-		eavrop.addIntygApprovedInformation(createIntygApprovedInformation(new DateTime(2014,10,30,8,0)));;
+		eavrop.addIntygApprovedInformation(createIntygApprovedInformation(new DateTime(2014,10,30,8,0)));
 		
 		assertEquals(EavropStateType.SENT, eavrop.getStatus());
 		
@@ -629,12 +526,12 @@ public class EavropTest extends TestCase {
 			//27. Datum
 			assertNotNull(eavropEventDTO.getEventTime());
 			//28. Person/Roll/Organisation/Unit
-			//assertNotNull(eavropEventDTO.getPersonName());
-			//assertNotNull(eavropEventDTO.getPersonRole());
-			//assertNotNull(eavropEventDTO.getPersonOrganistation());
-			//assertNotNull(eavropEventDTO.getPersonUnit());
+			//assertNotNull(eavropEventDTO.getPersonName())
+			//assertNotNull(eavropEventDTO.getPersonRole())
+			//assertNotNull(eavropEventDTO.getPersonOrganistation())
+			//assertNotNull(eavropEventDTO.getPersonUnit())
 			//29. Status
-			//assertNotNull(eavropEventDTO.getEventStatus());
+			//assertNotNull(eavropEventDTO.getEventStatus())
 		}
 
 		//Anteckningar
@@ -644,10 +541,10 @@ public class EavropTest extends TestCase {
 			//23. Innehåll
 			assertNotNull(note.getText());
 			//24. Skapad av
-//			assertNotNull(note.getPerson().getName());
-//			assertNotNull(note.getPerson().getRole());
-//			assertNotNull(note.getPerson().getOrganisation());
-//			assertNotNull(note.getPerson().getUnit());
+//			assertNotNull(note.getPerson().getName())
+//			assertNotNull(note.getPerson().getRole())
+//			assertNotNull(note.getPerson().getOrganisation())
+//			assertNotNull(note.getPerson().getUnit())
 			//24. Datum
 			assertNotNull(eavrop.getBestallaradministrator().getName());
 		}
@@ -669,8 +566,10 @@ public class EavropTest extends TestCase {
 		.withInvanare(invanare)
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
-		.withEavropProperties(new EavropProperties(3,5,25,10))
-		.build();
+		.withEavropProperties(new EavropProperties(START_DATE_OFFSET,
+				ACCEPTANCE_VALID_LENGTH,
+				ASSESSMENT_VALID_LENGTH,
+				COMPLETION_VALID_LENGTH)).build();
 		
 		
 		//Eavrop was ordered first of october
@@ -714,7 +613,7 @@ public class EavropTest extends TestCase {
 		eavrop.addIntygSentInformation(createIntygSentInformation(start.plusHours(5)));
 		eavrop.addIntygComplementRequestInformation(createIntygComplementRequestInformation(new DateTime(2014,10,27,8,0)));
 		eavrop.addIntygSentInformation(createIntygSentInformation(new DateTime(2014,11,15,8,0)));
-		eavrop.addIntygApprovedInformation(createIntygApprovedInformation(new DateTime(2014,11,16,8,0)));;
+		eavrop.addIntygApprovedInformation(createIntygApprovedInformation(new DateTime(2014,11,16,8,0)));
 		eavrop.addNote(new Note(NoteType.EAVROP,"Utredning utförd",null));
 		eavrop.approveEavrop(createEavropApproval(new DateTime(2014,11,3,8,0)));
 		eavrop.approveEavropCompensation(createEavropCompensationApproval(new DateTime(2014,11,7,8,0)));
@@ -763,122 +662,19 @@ public class EavropTest extends TestCase {
 		
 	}
 
-private void acceptEavropAssignment(Eavrop eavrop, DateTime dateTime) {
-	
+	private void acceptEavropAssignment(Eavrop eavrop, DateTime dateTime) {
 		eavrop.acceptEavropAssignment(new HoSPerson(new HsaId("SE160000000000-HAHAHHSAL"), "Petter Olovsson", "Läkare", "Stafettläkarna", "Ortopeden"));
 		EavropAssignment assignment = eavrop.getCurrentAssignment();
 		assignment.setLastModifiedDate(dateTime);
-		
-}
+	}
 
-private void rejectEavropAssignment(Eavrop eavrop, DateTime dateTime) {
-	EavropAssignment assignment = eavrop.getCurrentAssignment();
-	eavrop.rejectEavropAssignment(new HoSPerson(new HsaId("SE160000000000-HAHAHHSAL"), "Petter Olovsson", "Läkare", "Stafettläkarna", "Ortopeden"), null);
-	assignment.setLastModifiedDate(dateTime);
-	
-}
+	private void rejectEavropAssignment(Eavrop eavrop, DateTime dateTime) {
+		EavropAssignment assignment = eavrop.getCurrentAssignment();
+		eavrop.rejectEavropAssignment(new HoSPerson(new HsaId("SE160000000000-HAHAHHSAL"), "Petter Olovsson", "Läkare", "Stafettläkarna", "Ortopeden"), null);
+		assignment.setLastModifiedDate(dateTime);
+	}
 
-//	@Test
-//	public void  testEavropStartDate() {
-//		
-//		eavrop = EavropBuilder.eavrop()
-//		.withArendeId(arendeId)
-//		.withUtredningType(utredningType) 
-//		.withInvanare(invanare)
-//		.withLandsting(landsting)
-//		.withBestallaradministrator(bestallaradministrator)
-//		.withEavropProperties(new EavropProperties(3,5,25,10))
-//		.build();
-//		
-//		eavrop.setCreatedDate(new DateTime(2014,10,1,10,30));
-//		
-//		ReceivedDocument doc = new ReceivedDocument(new DateTime(2014,10,1,10,30), "TEST", new Bestallaradministrator("","","","",""),true );
-//		eavrop.addReceivedDocument(doc);
-//		
-//		assertEquals(invanare, eavrop.getInvanare());
-//		assertEquals(utredningType, eavrop.getUtredningType());
-//		assertEquals(arendeId, eavrop.getArendeId());
-//		
-//		assertEquals(EavropStateType.UNASSIGNED, eavrop.getStatus());
-//	
-//		eavrop.assignEavropToVardgivarenhet(vardgivarenhet);
-//		
-//		assertEquals(EavropStateType.ASSIGNED, eavrop.getStatus());
-//
-//		eavrop.rejectEavropAssignment();;
-//
-//		assertEquals(EavropStateType.UNASSIGNED, eavrop.getStatus());
-//
-//		eavrop.assignEavropToVardgivarenhet(vardgivarenhet);
-//		
-//		assertEquals(EavropStateType.ASSIGNED, eavrop.getStatus());
-//
-//		eavrop.acceptEavropAssignment();;
-//
-//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-//		
-//		eavrop.addReceivedDocument(new ReceivedDocument("Internal", bestallaradministrator,Boolean.FALSE));
-//		
-//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-//		
-//		eavrop.addReceivedDocument(new ReceivedDocument("External", bestallaradministrator,Boolean.TRUE));
-//
-//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-//		
-//		eavrop.addRequestedDocument(new RequestedDocument("REQ", new HoSPerson("Dr Hudson", "Surgeon", "Danderyds sjukhus")));
-//
-//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-//
-//		Booking booking = createBooking();
-//		eavrop.addBooking(booking);
-//		
-//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-//		
-//		eavrop.cancelBooking(booking.getBookingId(), createBookingDeviation());
-//
-//		assertEquals(EavropStateType.ON_HOLD, eavrop.getStatus());
-//
-//		eavrop.addBookingDeviationResponse(booking.getBookingId(), createBookingDeviationResponse());
-//		
-//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-//		
-//		eavrop.addIntygSignedInformation(createIntygSignedInformation());
-//		
-//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-//		
-//		eavrop.addIntygComplementRequestInformation(createIntygComplementRequestInformation());
-//		
-//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-//
-//		eavrop.addIntygApprovedInformation(createIntygApprovedInformation());;
-//		
-//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-//		
-//		Note note = new Note(NoteType.EAVROP,"",null);
-//		
-//		eavrop.addNote(new Note(NoteType.EAVROP,"",null));
-//
-//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-//
-//		note = eavrop.getNote(note.getNoteId());
-//		
-//		eavrop.removeNote(note);
-//
-//		assertEquals(EavropStateType.ACCEPTED, eavrop.getStatus());
-//
-//		eavrop.approveEavrop(createEavropApproval());
-//		
-//		assertEquals(EavropStateType.APPROVED, eavrop.getStatus());
-//
-//		eavrop.approveEavropCompensation(createEavropCompensationApproval());
-//
-//		assertEquals(EavropStateType.CLOSED, eavrop.getStatus());
-//	}
-//
-	
-
-	private void assignToVardgivarenhet(Eavrop eavrop, Vardgivarenhet enhet,
-			DateTime dateTime) {
+	private void assignToVardgivarenhet(Eavrop eavrop, Vardgivarenhet enhet, DateTime dateTime) {
 		eavrop.assignEavropToVardgivarenhet(enhet, new HoSPerson(new HsaId("SE160000000000-HAHAHHSAL"), "Petter Olovsson", "Läkare", "Stafettläkarna", "Ortopeden"));
 		EavropAssignment assignment = eavrop.getCurrentAssignment();
 		assignment.setCreatedDate(dateTime);

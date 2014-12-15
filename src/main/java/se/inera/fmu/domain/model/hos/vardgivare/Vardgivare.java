@@ -120,8 +120,12 @@ public class Vardgivare extends AbstractBaseEntity implements IEntity<Vardgivare
      */
     @Override
     public boolean equals(final Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
+        if (this == object){
+        	return true;
+        }
+        if (object == null || getClass() != object.getClass()){
+        	return false;
+        }
 
         final Vardgivare other = (Vardgivare) object;
         return sameIdentityAs(other);

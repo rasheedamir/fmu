@@ -95,9 +95,6 @@ public class ITRepositoryTest {
 	@Inject
 	private LandstingRepository landstingRepository;
 
-//	@Inject
-//	private LandstingssamordnareRepository landstingssamordnareRepository;
-	
 	@Inject
 	private VardgivareRepository vardgivareRepository;
 
@@ -116,8 +113,6 @@ public class ITRepositoryTest {
     
     private HsaId vardgivarenhetId;
     
-//    private HsaId landstingssamordnarId;
-    
     private ArendeId arendeId;
     
 	private static EavropState[] NOT_ACCEPTED_STATES = {new  UnassignedEavropState(), new AssignedEavropState() };
@@ -131,27 +126,22 @@ public class ITRepositoryTest {
 	private static final  PageRequest PAGEABLE = new PageRequest( 0, 100, Direction.ASC, "arendeId");
 
     @Before
-	public void setUp() throws Exception {
+	public void setUp(){
 		this.landstingCode = new LandstingCode(99);
 		Landsting landsting = createLandsting(this.landstingCode, "Stockholms Läns Landsting");
 
-//		this.landstingssamordnarId = new HsaId("SE160000000000-00000000A");
-//		Landstingssamordnare landstingssamordnare = createLandstingssamordnare(this.landstingssamordnarId, new Name("Sam", null, "Ordnarsson"), new HsaBefattning("S3", "Samordnare"), landsting);
-
 		this.vardgivareId = new HsaId("SE160000000000-00000000B");
 		Vardgivare vardgivare = createVardgivare(this.vardgivareId, "Personal Care AB");
-		
+
 		this.vardgivarenhetId = new HsaId("SE160000000000-00000000C");
 		Vardgivarenhet vardgivarenhet = createVardgivarenhet(this.vardgivarenhetId, "Roinekliniken", new Address("Barnhusgatan 12", "33443", "Stockholm", "Sverige"),vardgivare, landsting);
-		
+
 		this.arendeId = new ArendeId("140212042744");
 		Eavrop eavrop = createEavrop(this.arendeId, landsting);
 	}
-    
 
     @Test
     public void testGetEavrop(){
-    	
     	Eavrop eavrop = eavropRepository.findByArendeId(arendeId);
     	assertNotNull(eavrop);
     	assertEquals(arendeId, eavrop.getArendeId());
@@ -159,7 +149,6 @@ public class ITRepositoryTest {
 
     @Test
     public void testGetEavropFromLandsting(){
-    	
     	Landsting landsting = landstingRepository.findByLandstingCode(this.landstingCode);
     	assertNotNull(landsting);
     	List<Eavrop> eavrops = eavropRepository.findAllByLandsting(landsting);
@@ -167,10 +156,8 @@ public class ITRepositoryTest {
     	assertEquals(1, eavrops.size());
     }
     
-    
     @Test
     public void testAddNote(){
-    	
     	Eavrop eavrop = eavropRepository.findByArendeId(this.arendeId);
     	assertNotNull(eavrop);
     	
@@ -191,12 +178,10 @@ public class ITRepositoryTest {
 
     	eavrop = eavropRepository.findByArendeId(this.arendeId);
     	assertEquals(2, eavrop.getNotes().size());
-    	
     }
 
     @Test
     public void testOnhold(){
-    	
     	ArendeId arendeId = new ArendeId("010000000021");
     	
     	Landsting landsting = landstingRepository.findByLandstingCode(this.landstingCode);
@@ -236,7 +221,6 @@ public class ITRepositoryTest {
         	assertNotNull(booking.getBookingDeviationResponse());
     	}
     }
-
 
     @Test
     public void testGetEavropFromLandstingWithStatus(){
@@ -279,7 +263,6 @@ public class ITRepositoryTest {
     	eavrop = assignEavrop(eavrop, vardgivarenhet,createHoSPerson());
     	eavrop = acceptEavrop(eavrop,createHoSPerson());
     	deviateEavrop(eavrop);
-//    	eavrop = createDeviatedEavrop(new ArendeId("010000000015"), landsting);    	
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("010000000015")));
     	assertEquals(EavropStateType.ON_HOLD, eavropRepository.findByArendeId(new ArendeId("010000000015")).getEavropState().getEavropStateType());
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("010000000015")).getBookings());
@@ -330,7 +313,6 @@ public class ITRepositoryTest {
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("010000000020")));
     	assertEquals(EavropStateType.CLOSED, eavropRepository.findByArendeId(new ArendeId("010000000020")).getEavropState().getEavropStateType());
 
-    	
     	List<Eavrop> eavrops = eavropRepository.findAllByLandsting(landsting);
     	assertNotNull(eavrops);
     	assertEquals(11, eavrops.size());
@@ -365,7 +347,6 @@ public class ITRepositoryTest {
 		}
     }
 
-    
     @Test
     public void testDocumentType(){
     	
@@ -469,7 +450,6 @@ public class ITRepositoryTest {
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
     }
-
 
     @Test
     public void testFindByLandstingAndIntygSentDateAndStates(){
@@ -621,10 +601,7 @@ public class ITRepositoryTest {
        	eavrops = eavropRepository.findByVardgivarenhetAndStartDateAndEavropStateIn(vardgivarenhet, startDate.minusDays(1), startDate.plusDays(1), Arrays.asList(COMPLETED_STATES), PAGEABLE);
     	assertNotNull(eavrops);
     	assertEquals(0, eavrops.getNumberOfElements());
-
- 
     }
-
 
     @Test
     public void testFindByVardgivarenhetAndIntygSendDateAndStates(){
@@ -680,10 +657,8 @@ public class ITRepositoryTest {
     	assertEquals(0, eavrops.getNumberOfElements());
     }
 
-    
     @Test
     public void testGetEavropAsPage(){
-    	
     	Landsting landsting = landstingRepository.findByLandstingCode(this.landstingCode);
     	assertNotNull(landsting);
     	
@@ -722,7 +697,6 @@ public class ITRepositoryTest {
     	eavrop = assignEavrop(eavrop, vardgivarenhet, createHoSPerson());
     	eavrop = acceptEavrop(eavrop, createHoSPerson());
     	deviateEavrop(eavrop);
-//    	eavrop = createDeviatedEavrop(new ArendeId("010000000015"), landsting);    	
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("010000000015")));
     	assertEquals(EavropStateType.ON_HOLD, eavropRepository.findByArendeId(new ArendeId("010000000015")).getEavropState().getEavropStateType());
     	assertNotNull(eavropRepository.findByArendeId(new ArendeId("010000000015")).getBookings());
@@ -867,7 +841,6 @@ public class ITRepositoryTest {
         return eavropRepository.saveAndFlush(eavrop);
     }
 
-    
     private Eavrop assignEavrop(Eavrop eavrop, Vardgivarenhet vardgivarenhet, HoSPerson assigningPerson){
     	eavrop.assignEavropToVardgivarenhet(vardgivarenhet, assigningPerson);
     	return eavropRepository.save(eavrop);
@@ -884,8 +857,6 @@ public class ITRepositoryTest {
     }
 
     private Eavrop deviateEavrop(Eavrop eavrop){
-    	
-    	//Booking booking =  createBooking();
     	Person person = new HoSPerson(null,"","","","");
     	
     	Booking booking = new Booking(BookingType.EXAMINATION, new DateTime(), new DateTime().plusHours(1), Boolean.FALSE, person.getName(), person.getRole(), Boolean.FALSE);
@@ -903,36 +874,16 @@ public class ITRepositoryTest {
     }
 
     private Eavrop startEavrop(Eavrop eavrop){
-    	
-    	
     	DateTime monday = new DateTime().withDayOfWeek(DateTimeConstants.MONDAY);
-
     	eavrop.setCreatedDate(monday.minusDays(3));
     	
-    	//TODO: GO through documenst sent property vs add received document
-    	//eavrop.setDateTimeDocumentsSentFromBestallare(date);
        	ReceivedDocument receivedDocument = new ReceivedDocument(monday, "Journal", new Bestallaradministrator("Ordny Ordnarsson", "Handläggare", "Försäkringskassan", "LFC Stockholm", "555-12345", "ordny@fk.se"), Boolean.TRUE);
     	eavrop.addReceivedDocument(receivedDocument);
    	
-    	
     	return eavropRepository.save(eavrop);
-    }
-
-    
-    private DateTime getTodayWithOffset(int offset){
-    	LocalDate today = new LocalDate();
-    	LocalDate date = new LocalDate();
-    	int idx = 0;
-    	while(BusinessDaysUtil.calculateBusinessDayDate(date, offset).isAfter(today)){
-    		date = date.minusDays(1);
-    		idx++;
-    	}
-    
-    	return new DateTime().minusDays(idx);
     }
     
     private Eavrop sendIntygToday(Eavrop eavrop){
-    	
     	DateTime today = new DateTime();
     	eavrop.setCreatedDate(today.minusDays(6));
 
@@ -987,7 +938,6 @@ public class ITRepositoryTest {
 
 
     private Booking createBooking(){
-    	
     	DateTime start = new DateTime();
     	DateTime end = start.plusHours(1);
     	Person person = new HoSPerson(new HsaId("SE160000000000-HAHAHHSBB"), "Dr Hudson", "Surgeon", "Danderyds sjukhus", "AVD fmu");
@@ -997,14 +947,12 @@ public class ITRepositoryTest {
     }
     
     private BookingDeviation createBookingDeviation(){
-    	
     	BookingDeviation deviation = new BookingDeviation(BookingDeviationType.CANCELLED_BY_INVANARE_LT_48, new Note(NoteType.BOOKING_DEVIATION, "No Show", new HoSPerson(new HsaId("SE160000000000-HAHAHHSLC"), "Lasse Kongo", "Läkare", "Danderydssjukhus", "AVD fmu")));
     	return deviation;
     }
 
     
     private BookingDeviationResponse createBookingDeviationResponse(){
-    	
     	Bestallaradministrator adm = new Bestallaradministrator("Törn Valdegård", "Driver", "Försäkringskassan", "STCC", "555-123456", "rattmuff@saab.se");
     	
     	BookingDeviationResponse deviation = new BookingDeviationResponse( BookingDeviationResponseType.RESTART, new DateTime(), adm, null );
@@ -1014,10 +962,7 @@ public class ITRepositoryTest {
     }
     
     private Note createNote(){
-    	
     	Note note = new Note(NoteType.EAVROP, "Test note", new HoSPerson(new HsaId("SE160000000000-HAHAHHTST"),"Test Testsson", "Testare", "Test AB", "AVD Testning"));
     	return note;
     }
-    
-    
 }

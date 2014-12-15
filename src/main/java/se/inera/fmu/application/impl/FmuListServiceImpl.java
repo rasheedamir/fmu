@@ -4,11 +4,11 @@ import java.util.Arrays;
 
 import javax.inject.Inject;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.hibernate.Hibernate;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,8 +36,6 @@ import se.inera.fmu.domain.model.landsting.LandstingRepository;
 @Validated
 @Transactional(readOnly=true)
 public class FmuListServiceImpl implements FmuListService {
-
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private final EavropRepository eavropRepository;
 

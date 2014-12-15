@@ -1,18 +1,22 @@
 package se.inera.fmu.config.filter.gzip;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.zip.GZIPOutputStream;
 
-public class GZipServletFilter implements Filter {
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-    private Logger log = LoggerFactory.getLogger(GZipServletFilter.class);
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class GZipServletFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

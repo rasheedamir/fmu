@@ -129,16 +129,29 @@ public final class Address implements ValueObject<Address> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+        	return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+        	return false;
+        }
 
         Address address = (Address) o;
-
-        if (!address1.equals(address.address1)) return false;
-        if (address2 != null ? !address2.equals(address.address2) : address.address2 != null) return false;
-        if (!city.equals(address.city)) return false;
-        if (!country.equals(address.country)) return false;
-        if (!postalCode.equals(address.postalCode)) return false;
+        if (!address1.equals(address.address1)){
+        	return false;
+        }
+        if (address2 != null ? !address2.equals(address.address2) : address.address2 != null){
+        	return false;
+        }
+        if (!city.equals(address.city)){
+        	return false;
+        }
+        if (!country.equals(address.country)){
+        	return false;
+        }
+        if (!postalCode.equals(address.postalCode)){
+        	return false;
+        }
 
         return true;
     }

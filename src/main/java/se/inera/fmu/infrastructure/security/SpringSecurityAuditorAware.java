@@ -1,6 +1,5 @@
 package se.inera.fmu.infrastructure.security;
 
-import se.inera.fmu.config.Constants;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
 

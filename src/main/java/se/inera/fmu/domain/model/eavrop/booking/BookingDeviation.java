@@ -38,7 +38,7 @@ public class BookingDeviation  {
 	public BookingDeviation(BookingDeviationType deviationType, Note deviationNote) {
 		super();
 		this.setDeviationType(deviationType);
-		this.setDeviationNote(deviationNote);;
+		this.setDeviationNote(deviationNote);
 	}
 
 	public BookingDeviationType getDeviationType() {

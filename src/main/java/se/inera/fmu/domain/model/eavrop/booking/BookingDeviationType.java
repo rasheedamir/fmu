@@ -1,7 +1,5 @@
 package se.inera.fmu.domain.model.eavrop.booking;
 
-import java.util.Arrays;
-
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 
 public enum BookingDeviationType {
@@ -43,7 +41,7 @@ public enum BookingDeviationType {
 //		case INTERPRETER_PRESENT_BUT_NOT_USED:
 //			return INTERPRETER_NOT_UTILIZED;
 		default:
-			 throw new IllegalArgumentException("Not a booking devation value: " +interpreterBookingStatus.name());
+			 throw new IllegalArgumentException("Status is not a booking devation value: " +interpreterBookingStatus.name());
 		}
 	}
 }

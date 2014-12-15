@@ -7,8 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -18,13 +18,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * @author andreaskaltenbach
  */
+@Slf4j
 public class FakeAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
-
-    private static final Logger LOG = LoggerFactory.getLogger(FakeAuthenticationFilter.class);
 
     protected FakeAuthenticationFilter() {
         super("/fake");
-        LOG.error("FakeAuthentication enabled. DO NOT USE IN PRODUCTION");
+        log.error("FakeAuthentication enabled. DO NOT USE IN PRODUCTION");
     }
 
     @Override
@@ -40,11 +39,11 @@ public class FakeAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
         try {
             FakeCredentials fakeCredentials = new ObjectMapper().readValue(json, FakeCredentials.class);
-            LOG.info("Detected fake credentials " + fakeCredentials);
+            log.info("Detected fake credentials " + fakeCredentials);
             return getAuthenticationManager().authenticate(new FakeAuthenticationToken(fakeCredentials));
         } catch (IOException e) {
             String message = "Failed to parse JSON: " + json;
-            LOG.error(message, e);
+            log.error(message, e);
             throw new RuntimeException(message, e);
         }
     }

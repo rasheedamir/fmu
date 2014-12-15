@@ -21,7 +21,7 @@ public class HsaId implements ValueObject<HsaId>, Serializable {
 
     @Column(name = "HSA_ID", nullable = false, updatable = false, unique = true)
     @NotNull
-    private String hsaId;
+    private String id;
 
     //~ Constructors ===================================================================================================
 
@@ -33,18 +33,18 @@ public class HsaId implements ValueObject<HsaId>, Serializable {
 //		if (!isValid(hsaId)) {
 //			throw new IllegalArgumentException("Invalid hsaId");
 //		}
-		this.hsaId = hsaId;
+		this.id = hsaId;
 	}
 
 	
     //~ Property Methods ===============================================================================================
 
 	public String getHsaId(){
-		return hsaId;
+		return id;
 	}
 
 	private void setHsaId(String hsaId) {
-		this.hsaId = hsaId;
+		this.id = hsaId;
 	}
 
     //~ Other Methods ==================================================================================================
@@ -55,11 +55,11 @@ public class HsaId implements ValueObject<HsaId>, Serializable {
 
 	@Override
 	public String toString() {
-		return hsaId;
+		return id;
 	}
 
 	public String extractOrgNo() {
-		Matcher matcher = HSA_ID_PATTERN.matcher(hsaId);
+		Matcher matcher = HSA_ID_PATTERN.matcher(id);
 		if (!matcher.find()) {
 			throw new IllegalStateException("Illegal hsa id");
 		}
@@ -67,23 +67,24 @@ public class HsaId implements ValueObject<HsaId>, Serializable {
 	}
 	
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        HsaId other = (HsaId) o;
-
-        return sameValueAs(other);
+    public boolean equals(Object other) {
+        if (this == other){
+        	return true;
+        } 
+        if (other == null || getClass() != other.getClass()){
+        	return false;
+        } 
+        return sameValueAs((HsaId)other);
     }
 
     @Override
     public int hashCode() {
-        return hsaId.hashCode();
+        return id.hashCode();
     }
 
     @Override
     public boolean sameValueAs(HsaId other) {
-        return other != null && this.hsaId.equals(other.hsaId);
+        return other != null && this.id.equals(other.id);
     }
 
 }

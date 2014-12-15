@@ -157,7 +157,7 @@ public class ITFmuAssignmentServiceImplTest {
 
 
 	private Invanare createInvanare(){
-    	PersonalNumber personalNumber = new PersonalNumber("1901-01-01");;
+    	PersonalNumber personalNumber = new PersonalNumber("1901-01-01");
     	Name name = new Name("A",null,"B"); 
     	Gender gender= Gender.FEMALE; 
     	Address homeAddress = new Address("C", "12345","","Sweden"); 

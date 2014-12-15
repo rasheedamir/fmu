@@ -9,7 +9,6 @@ import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
-import se.inera.fmu.domain.model.hos.hsa.HsaId;
 
 /**
  * Created by Rickard on 11/12/14.

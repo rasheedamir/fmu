@@ -1,6 +1,5 @@
 package se.inera.fmu.domain.model.eavrop;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 import se.inera.fmu.domain.model.landsting.LandstingCode;
@@ -9,7 +8,7 @@ import se.inera.fmu.domain.model.landsting.LandstingCode;
 public class EavropCreatedEvent extends EavropEvent {
 	
 	private final ArendeId arendeId;
-	//TODO:Remove variables below when event handling is perfomed after the event creating transaction has finished;
+	//TODO:Remove variables below when event handling is performed after the event creating transaction has finished
 	private final LandstingCode landstingCode;
 	private final UtredningType utredningType; 
 	private final LocalDate lastDayOfAcceptance;
@@ -42,8 +41,6 @@ public class EavropCreatedEvent extends EavropEvent {
 	public LocalDate getLastDayOfAcceptance() {
 		return lastDayOfAcceptance;
 	}
-	
-	
 
 	//~ Other Methods ==================================================================================================
 }

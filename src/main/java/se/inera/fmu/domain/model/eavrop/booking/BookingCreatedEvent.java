@@ -1,9 +1,10 @@
 package se.inera.fmu.domain.model.eavrop.booking;
 
 
+import lombok.ToString;
+
 import org.joda.time.DateTime;
 
-import lombok.ToString;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropEvent;
 import se.inera.fmu.domain.model.eavrop.EavropId;

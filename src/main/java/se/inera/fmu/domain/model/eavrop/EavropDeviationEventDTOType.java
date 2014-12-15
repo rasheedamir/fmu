@@ -1,7 +1,5 @@
 package se.inera.fmu.domain.model.eavrop;
 
-import java.util.Arrays;
-
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 
 

@@ -18,11 +18,14 @@ import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.DomainEventPublisher;
 import se.inera.fmu.application.EavropAssignmentService;
 import se.inera.fmu.application.EavropBookingService;
+import se.inera.fmu.application.EavropDocumentService;
 import se.inera.fmu.application.EavropNoteService;
 import se.inera.fmu.application.FmuListService;
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.application.impl.command.AcceptEavropAssignmentCommand;
 import se.inera.fmu.application.impl.command.AddNoteCommand;
+import se.inera.fmu.application.impl.command.AddReceivedInternalDocumentCommand;
+import se.inera.fmu.application.impl.command.AddRequestedDocumentCommand;
 import se.inera.fmu.application.impl.command.AssignEavropCommand;
 import se.inera.fmu.application.impl.command.ChangeBookingStatusCommand;
 import se.inera.fmu.application.impl.command.ChangeInterpreterBookingStatusCommand;
@@ -39,33 +42,24 @@ import se.inera.fmu.domain.model.eavrop.EavropBuilder;
 import se.inera.fmu.domain.model.eavrop.EavropCreatedEvent;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
-import se.inera.fmu.domain.model.eavrop.Interpreter;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
-import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
-import se.inera.fmu.domain.model.eavrop.invanare.medicalexamination.PriorMedicalExamination;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.note.NoteId;
-import se.inera.fmu.domain.model.eavrop.note.NoteType;
 import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
-import se.inera.fmu.domain.model.hos.personal.HoSPersonal;
 import se.inera.fmu.domain.model.hos.personal.HoSPersonalRepository;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.hos.vardgivare.VardgivarenhetRepository;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.domain.model.landsting.LandstingRepository;
-import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.HoSPerson;
 import se.inera.fmu.domain.model.person.Person;
-import se.inera.fmu.domain.model.shared.Address;
-import se.inera.fmu.domain.model.shared.Gender;
-import se.inera.fmu.domain.model.shared.Name;
 import se.inera.fmu.domain.model.systemparameter.Configuration;
 import se.inera.fmu.interfaces.managing.dtomapper.AllEventsDTOMapper;
 import se.inera.fmu.interfaces.managing.dtomapper.BestallningDTOMapper;
@@ -122,6 +116,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	private final EavropNoteService noteService;
 	private final HoSPersonalRepository hosPersonalRepository;
 	private final EavropAssignmentService eavropAssignmentService;
+	private final EavropDocumentService eavropDocumentService;
 
 	/**
 	 *
@@ -137,7 +132,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 			final VardgivarenhetRepository vardgivarEnhetRepository,
 			final FmuListService fmuListService, final EavropBookingService bookingService,
 			final EavropNoteService noteService, final HoSPersonalRepository hosPersonalRepository,
-			final EavropAssignmentService eavropAssignmentService) {
+			final EavropAssignmentService eavropAssignmentService, final EavropDocumentService eavropDocumentService) {
 		this.eavropRepository = eavropRepository;
 		this.invanareRepository = invanareRepository;
 		this.configuration = configuration;
@@ -150,6 +145,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		this.noteService = noteService;
 		this.hosPersonalRepository = hosPersonalRepository;
 		this.eavropAssignmentService = eavropAssignmentService;
+		this.eavropDocumentService = eavropDocumentService;
 	}
 
 	/**
@@ -387,22 +383,25 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 	@Override
 	public void addReceivedDocuments(EavropId eavropId, ReceivedDocumentDTO doc) {
-		Eavrop eavropForUser = getEavropForUser(eavropId);
-
-		Person p = createPersonObjectFromCurrentUser();
-
-		ReceivedDocument receivedDocument = new ReceivedDocument(doc.getName(), p, false);
-		eavropForUser.addReceivedDocument(receivedDocument);
+		User currentUser = this.currentUserService.getCurrentUser();
+		
+		AddReceivedInternalDocumentCommand addReceivedInternalDocumentCommand = 
+				new AddReceivedInternalDocumentCommand(eavropId, doc.getName(), getHsaId(currentUser), 
+						currentUser.getFullName(), currentUser.getActiveRole().name(), getUserOrganisation(currentUser),getUserUnit(currentUser));
+		
+		this.eavropDocumentService.addReceivedInternalDocument(addReceivedInternalDocumentCommand);
 	}
 
 	@Override
 	public void addRequestedDocuments(EavropId eavropId, RequestedDocumentDTO doc) {
-		Eavrop eavropForUser = getEavropForUser(eavropId);
 
-		Person p = createPersonObjectFromCurrentUser();
-		Note requestNote = new Note(NoteType.DOCUMENT_REQUEST, doc.getComment(), p);
-		RequestedDocument requestedDocument = new RequestedDocument(doc.getName(), p, requestNote);
-		eavropForUser.addRequestedDocument(requestedDocument);
+		User currentUser = this.currentUserService.getCurrentUser();
+		
+		AddRequestedDocumentCommand addRequestedDocumentCommand = 
+				new AddRequestedDocumentCommand(eavropId, doc.getName(), getHsaId(currentUser), 
+						currentUser.getFullName(), currentUser.getActiveRole().name(), getUserOrganisation(currentUser),getUserUnit(currentUser), doc.getComment());
+		
+		this.eavropDocumentService.addRequestedDocument(addRequestedDocumentCommand);
 	}
 
 	@Override

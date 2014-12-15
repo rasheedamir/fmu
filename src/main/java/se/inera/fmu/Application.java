@@ -1,8 +1,13 @@
 package se.inera.fmu;
 
-import se.inera.fmu.config.Constants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
+import java.util.Arrays;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration;
@@ -11,16 +16,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import java.io.IOException;
-import java.util.Arrays;
+import se.inera.fmu.config.Constants;
 
 @ComponentScan
 @EnableAutoConfiguration(exclude = {MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class})
+@Slf4j
 public class Application {
-
-    private final Logger log = LoggerFactory.getLogger(Application.class);
 
     @Inject
     private Environment env;

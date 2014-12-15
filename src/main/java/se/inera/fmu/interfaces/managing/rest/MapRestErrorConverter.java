@@ -15,10 +15,10 @@
  */
 package se.inera.fmu.interfaces.managing.rest;
 
-import org.springframework.http.HttpStatus;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import org.springframework.http.HttpStatus;
 
 /**
  * Simple {@code RestErrorConverter} implementation that creates a new Map instance based on the specified RestError

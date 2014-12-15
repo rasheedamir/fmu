@@ -149,12 +149,18 @@ public class Invanare extends AbstractBaseEntity implements IEntity<Invanare> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+        	return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+        	return false;
+        }
 
         Invanare patient = (Invanare) o;
 
-        if (!this.getPersonalNumber().equals(patient.getPersonalNumber())) return false;
+        if (!this.getPersonalNumber().equals(patient.getPersonalNumber())){
+        	return false;
+        }
 
         return true;
     }
