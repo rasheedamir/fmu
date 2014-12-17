@@ -269,7 +269,7 @@
 			<!-- <property name="hostedSPName" value=""/> -->
 			<!-- OPTIONAL property: can tell the system which IDP should be used for 
 				authenticating user by default. -->
-			<property name="defaultIDP" value="https://idp.sakerhetstjanst.inera.se:8443/idp/saml"/> 
+			<property name="defaultIDP" value="https://idp2.acctest.sakerhetstjanst.inera.se:443/idp/saml"/> 
 		</bean>
 
 		<!-- SAML Authentication Provider responsible for validating of received 
