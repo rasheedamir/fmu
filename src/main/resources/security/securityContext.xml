@@ -224,7 +224,7 @@
 			class="org.springframework.security.saml.metadata.MetadataGeneratorFilter">
 			<constructor-arg>
 				<bean class="org.springframework.security.saml.metadata.MetadataGenerator">
-					<property name="includeDiscoveryExtension" value="false"/>
+					<property name="includeDiscoveryExtension" value="false" />
 				</bean>
 			</constructor-arg>
 		</bean>
@@ -269,7 +269,8 @@
 			<!-- <property name="hostedSPName" value=""/> -->
 			<!-- OPTIONAL property: can tell the system which IDP should be used for 
 				authenticating user by default. -->
-			<property name="defaultIDP" value="https://idp2.acctest.sakerhetstjanst.inera.se:443/idp/saml"/> 
+			<property name="defaultIDP"
+				value="https://idp2.acctest.sakerhetstjanst.inera.se:443/idp/saml" />
 		</bean>
 
 		<!-- SAML Authentication Provider responsible for validating of received 
@@ -277,7 +278,10 @@
 		<bean id="samlAuthenticationProvider"
 			class="org.springframework.security.saml.SAMLAuthenticationProvider">
 			<!-- OPTIONAL property: can be used to store/load user data after login -->
-			<!-- <property name="userDetails" ref="bean" /> -->
+			<property name="userDetails">
+				<bean id="userDetailsService"
+					class="se.inera.fmu.infrastructure.security.FmuUserDetailsService" />
+			</property>
 		</bean>
 
 		<!-- Provider of default SAML Context -->
