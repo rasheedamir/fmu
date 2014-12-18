@@ -8,7 +8,7 @@ node_modules/
 bower_components/
 src/main/webapp/dist/
 src/main/java/ws/
-
+.sass-cache/
 ######################
 # Eclipse
 ######################
