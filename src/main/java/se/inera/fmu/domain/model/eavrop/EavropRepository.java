@@ -33,7 +33,7 @@ public interface EavropRepository extends JpaRepository<Eavrop, Long> {
 	@Query("SELECT e FROM Eavrop e "
 		+ " WHERE e.eavropId = :eavropId "
 		+ " AND e.currentAssignment.vardgivarenhet = :vardgivarenhet ")
-	Eavrop findByEavropIdAndVardgivare(@Param("eavropId") EavropId eavropId, 
+	Eavrop findByEavropIdAndVardgivarenhet(@Param("eavropId") EavropId eavropId, 
 									   @Param("vardgivarenhet") Vardgivarenhet vardgivarenhet);
 	
 	 	

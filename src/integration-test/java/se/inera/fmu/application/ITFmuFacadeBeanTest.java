@@ -26,6 +26,7 @@ import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
+import se.inera.fmu.facade.FmuFacade;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.TestUtil;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
@@ -41,13 +42,13 @@ import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 @ActiveProfiles("dev")
 @IntegrationTest("server.port:0")
 @Slf4j
-public class ITFmuOrderingServiceImplTest {
+public class ITFmuFacadeBeanTest {
+	
+	@Inject
+	private FmuFacade fmuFacade;
 	
 	@Inject
 	private CurrentUserService currentUserService;
-	
-	@Inject
-	private FmuOrderingService fmuOrderingService;
 	
 	@Inject
 	private FmuListService fmuListService;
@@ -68,7 +69,7 @@ public class ITFmuOrderingServiceImplTest {
 		Pageable pageSpecs = new PageRequest(0, 10, new Sort(Sort.Direction.ASC, "eavropId"));
 		
 		// NOT ACCEPTED
-		EavropPageDTO eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OverviewEavropStates.NOT_ACCEPTED, pageSpecs);
+		EavropPageDTO eavrops = this.fmuFacade.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OverviewEavropStates.NOT_ACCEPTED, pageSpecs);
 		assertNotEquals(eavrops, null);
 		assertTrue(eavrops.getEavrops().size() > 0);
 		
@@ -83,7 +84,7 @@ public class ITFmuOrderingServiceImplTest {
 		}
 		
 		// ACCEPTED
-		eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OverviewEavropStates.ACCEPTED, pageSpecs);
+		eavrops = this.fmuFacade.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OverviewEavropStates.ACCEPTED, pageSpecs);
 		assertNotEquals(eavrops, null);
 		assertTrue(eavrops.getEavrops().size() > 0);
 		
@@ -91,6 +92,7 @@ public class ITFmuOrderingServiceImplTest {
 		for (EavropDTO eavrop : eavrops.getEavrops()) {
 			assertEquals(eavrop.getMottagarenOrganisation(),this.fmuListService.findLandstingByLandstingCode(new LandstingCode(currentUser.getLandstingCode())).getName());
 			assertTrue(eavrop.getStatus() == EavropStateType.ACCEPTED
+					|| eavrop.getStatus() == EavropStateType.ONGOING
 					|| eavrop.getStatus() == EavropStateType.ON_HOLD);
 			if(previous != null){
 				assertTrue(eavrop.getCreationTime() > previous.getMillis());
@@ -98,7 +100,7 @@ public class ITFmuOrderingServiceImplTest {
 		}
 		
 		// COMPLETED
-		eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OverviewEavropStates.COMPLETED, pageSpecs);
+		eavrops = this.fmuFacade.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OverviewEavropStates.COMPLETED, pageSpecs);
 		assertNotEquals(eavrops, null);
 		assertTrue(eavrops.getEavrops().size() > 0);
 		
@@ -106,7 +108,8 @@ public class ITFmuOrderingServiceImplTest {
 		for (EavropDTO eavrop : eavrops.getEavrops()) {
 			assertEquals(eavrop.getMottagarenOrganisation(),this.fmuListService.findLandstingByLandstingCode(new LandstingCode(currentUser.getLandstingCode())).getName());
 			assertTrue(eavrop.getStatus() == EavropStateType.CLOSED
-					|| eavrop.getStatus() == EavropStateType.APPROVED);
+					|| eavrop.getStatus() == EavropStateType.APPROVED
+					|| eavrop.getStatus() == EavropStateType.SENT);
 			if(previous != null){
 				assertTrue(eavrop.getCreationTime() > previous.getMillis());
 			}
@@ -122,7 +125,7 @@ public class ITFmuOrderingServiceImplTest {
 		Pageable pageSpecs = new PageRequest(0, 10, new Sort(Sort.Direction.ASC, "eavropId"));
 		
 		// NOT ACCEPTED
-		EavropPageDTO eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OverviewEavropStates.NOT_ACCEPTED, pageSpecs);
+		EavropPageDTO eavrops = this.fmuFacade.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OverviewEavropStates.NOT_ACCEPTED, pageSpecs);
 		assertNotEquals(eavrops, null);
 		log.debug("NOT ACCEPTED: " + Long.toString(eavrops.getEavrops().size()));
 		assertTrue(eavrops.getEavrops().size() > 0);
@@ -137,7 +140,8 @@ public class ITFmuOrderingServiceImplTest {
 		}
 		
 		// ACCEPTED
-		eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OverviewEavropStates.ACCEPTED, pageSpecs);
+		eavrops = this.fmuFacade.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OverviewEavropStates.ACCEPTED, pageSpecs);
+
 		assertNotEquals(eavrops, null);
 		log.debug("ACCEPTED: " + Long.toString(eavrops.getEavrops().size()));
 		assertTrue(eavrops.getEavrops().size() > 0);
@@ -145,6 +149,7 @@ public class ITFmuOrderingServiceImplTest {
 		previous = null;
 		for (EavropDTO eavrop : eavrops.getEavrops()) {
 			assertTrue(eavrop.getStatus() == EavropStateType.ACCEPTED
+					|| eavrop.getStatus() == EavropStateType.ONGOING
 					|| eavrop.getStatus() == EavropStateType.ON_HOLD);
 			if(previous != null){
 				assertTrue(eavrop.getCreationTime() > previous.getMillis());
@@ -152,7 +157,7 @@ public class ITFmuOrderingServiceImplTest {
 		}
 		
 		// COMPLETED
-		eavrops = this.fmuOrderingService.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OverviewEavropStates.COMPLETED, pageSpecs);
+		eavrops = this.fmuFacade.getOverviewEavrops(fromDate.getMillis(), toDate.getMillis(),OverviewEavropStates.COMPLETED, pageSpecs);
 		assertNotEquals(eavrops, null);
 		log.debug("COMPLETED: "+ Long.toString(eavrops.getEavrops().size()));
 		assertTrue(eavrops.getEavrops().size() > 0);
@@ -160,7 +165,8 @@ public class ITFmuOrderingServiceImplTest {
 		previous = null;
 		for (EavropDTO eavrop : eavrops.getEavrops()) {
 			assertTrue(eavrop.getStatus() == EavropStateType.CLOSED
-					|| eavrop.getStatus() == EavropStateType.APPROVED);
+					|| eavrop.getStatus() == EavropStateType.APPROVED
+					|| eavrop.getStatus() == EavropStateType.SENT);
 			if(previous != null){
 				assertTrue(eavrop.getCreationTime() > previous.getMillis());
 			}

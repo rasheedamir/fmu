@@ -34,6 +34,7 @@ import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
+import se.inera.fmu.facade.FmuFacade;
 import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
@@ -55,7 +56,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ITEavropRestControllerTest {
 
 	@Inject
-	private FmuOrderingService fmuOrderingService;
+	private FmuFacade fmuFacade; 
 	private MockMvc restMock;
 
 	@Inject
@@ -64,8 +65,8 @@ public class ITEavropRestControllerTest {
 	@Before
 	public void SetUp() {
 		EavropResource eavropResource = new EavropResource();
-		ReflectionTestUtils.setField(eavropResource, "fmuOrderingService",
-				fmuOrderingService);
+		ReflectionTestUtils.setField(eavropResource, "fmuFacade", fmuFacade);
+
 		this.restMock = MockMvcBuilders.standaloneSetup(eavropResource).build();
 		TestUtil.loginWithNoActiveRole();
 	}

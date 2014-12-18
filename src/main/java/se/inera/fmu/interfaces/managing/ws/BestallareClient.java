@@ -15,7 +15,7 @@ import se.inera.fmu.interfaces.managing.command.PublishFmuBookingCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuBookingDeviationCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuDocumentRequestedCommand;
 import se.inera.fmu.interfaces.managing.command.PublishFmuIntygSentCommand;
-import se.inera.fmu.interfaces.managing.command.PublishFmuStartDate;
+import se.inera.fmu.interfaces.managing.command.PublishFmuStartDateCommand;
 import fk.wsdl.*;
 
 /**
@@ -81,7 +81,7 @@ public class BestallareClient extends WebServiceGatewaySupport {
 	 * 
 	 * @param aCommand, a PublishFmuStartDate with startDate information
 	 */
-	public void publishFmuStartDate(final PublishFmuStartDate aCommand){
+	public void publishFmuStartDate(final PublishFmuStartDateCommand aCommand){
 		
 		//Set up request
 		FmuStartRequest request = new FmuStartRequest();

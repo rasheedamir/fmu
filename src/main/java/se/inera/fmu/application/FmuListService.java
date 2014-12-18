@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
+import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.landsting.Landsting;
@@ -31,6 +32,13 @@ public interface FmuListService {
 	 * * @param hsaId
 	 * */
 	 public Vardgivarenhet findVardgivarenhetByHsaId(HsaId hsaId);
+
+	/**
+	 * Finds a Vardgivarenhet entity by its Id  
+	 * 
+	 * * @param id
+	 * */
+	 public Vardgivarenhet findVardgivarenhetById(long id);
 	 
 	/**
 	 * Finds a Eavrop entity by its ArendeId  
@@ -41,6 +49,30 @@ public interface FmuListService {
 
 
 	/**
+	 * Finds a Eavrop entity by its EavropId  
+	 * 
+	 * * @param arendeId
+	 * */
+    public Eavrop findByEavropId(EavropId eavropId);
+    
+	
+	/**
+	 * Finds a Eavrop entity by its EavropId  and LandstingCode 
+	 * 
+	 * @param eavropId
+	 * @param landstingCode
+	 * */
+    Eavrop findByEavropIdAndLandstingCode(EavropId eavropId, LandstingCode landstingCode);
+
+	/**
+	 * Finds a Eavrop entity by its EavropId  and HsaId of Vardgivarenhet 
+	 * 
+	 * @param eavropId
+	 * @param hsaId, HsaId of vardgivarenhet
+	 * */
+    Eavrop findByEavropIdAndVardgivarenhetHsaId(EavropId eavropId, HsaId hsaId);
+
+    /**
 	 * Finds a Eavrop entity by its ArendeId  
 	 * 
 	 * * @param arendeId
