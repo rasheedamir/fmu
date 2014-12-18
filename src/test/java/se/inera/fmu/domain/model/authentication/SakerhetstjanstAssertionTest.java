@@ -24,6 +24,7 @@ public class SakerhetstjanstAssertionTest {
 
     private static Assertion assertionWithEnhet;
     private static Assertion assertionWithoutEnhet;
+    private static Assertion newAssertion;
 
     @BeforeClass
     public static void readSamlAssertions() throws Exception {
@@ -39,6 +40,10 @@ public class SakerhetstjanstAssertionTest {
         doc = (Document) XMLUtils.fromSource(new StreamSource(new ClassPathResource(
                 "SakerhetstjanstAssertionTest/saml-assertion-without-enhet.xml").getInputStream()));
         assertionWithoutEnhet = (Assertion) unmarshaller.unmarshall(doc.getDocumentElement());
+        
+        doc = (Document) XMLUtils.fromSource(new StreamSource(new ClassPathResource(
+                "SakerhetstjanstAssertionTest/new-assertion.xml").getInputStream()));
+        newAssertion = (Assertion) unmarshaller.unmarshall(doc.getDocumentElement());        
     }
 
     @Test
@@ -56,6 +61,14 @@ public class SakerhetstjanstAssertionTest {
         assertEquals("IFV1239877878-0001", assertion.getVardgivareHsaId());
         assertEquals("IFV Testdata", assertion.getVardgivareNamn());
     }
+    
+    @Test
+    public void testNewAssertion() {
+
+        SakerhetstjanstAssertion assertion = new SakerhetstjanstAssertion(newAssertion);
+        
+        System.out.println(assertion.getFornamn());
+    }  
 
     @Test
     public void testAssertionWithoutEnhetAndVardgivare() {
