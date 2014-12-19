@@ -78,8 +78,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-@Validated
-@Transactional
 public class FmuFacadeBean  implements FmuFacade {
 
 	@Inject 
@@ -102,6 +100,7 @@ public class FmuFacadeBean  implements FmuFacade {
 
 	
 	@Override
+	@Transactional(readOnly=true)
 	public EavropPageDTO getOverviewEavrops(long fromDate, long toDate, OverviewEavropStates state,
 			Pageable paginationSpecs) {
 		
@@ -199,6 +198,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 	
 	@Override
+	@Transactional(readOnly=true)
 	public List<HandelseDTO> getEavropEvents(String eavropId) {
 		UtredningDTOMapper mapper = new UtredningDTOMapper();
 		Eavrop eavrop = this.fmuListService.findByEavropId(new EavropId(eavropId));
@@ -209,6 +209,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 	
 	@Override
+	@Transactional(readOnly=true)
 	public AllEventsDTO getAllEvents(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 
@@ -216,6 +217,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 	
 	@Override
+	@Transactional(readOnly=true)
 	public OrderDTO getOrderInfo(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		//TODO:check if StaleObjectStateException still exists
@@ -223,6 +225,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 	
 	@Override
+	@Transactional(readOnly=true)
 	public List<ReceivedDocumentDTO> getReceivedDocuments(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		List<ReceivedDocumentDTO> result = new ArrayList<>();
@@ -236,6 +239,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<RequestedDocumentDTO> getRequestedDocuments(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		List<RequestedDocumentDTO> result = new ArrayList<>();
@@ -250,6 +254,7 @@ public class FmuFacadeBean  implements FmuFacade {
 
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<NoteDTO> getNotes(EavropId eavropId) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		Eavrop eavropForUser = getEavropForUser(eavropId);
@@ -268,6 +273,7 @@ public class FmuFacadeBean  implements FmuFacade {
 
 
 	@Override
+	@Transactional
 	public void addReceivedDocuments(EavropId eavropId, ReceivedDocumentDTO doc) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		
@@ -279,6 +285,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 
 	@Override
+	@Transactional
 	public void addRequestedDocuments(EavropId eavropId, RequestedDocumentDTO doc) {
 
 		User currentUser = this.currentUserService.getCurrentUser();
@@ -291,6 +298,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 
 	@Override
+	@Transactional
 	public void addBooking(BookingRequestDTO changeRequestDto) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		BookingType type = changeRequestDto.getBookingType();
@@ -311,6 +319,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 
 	@Override
+	@Transactional
 	public void modifyBooking(BookingModificationRequestDTO changeRequestData) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		ChangeBookingStatusCommand command = new ChangeBookingStatusCommand(new EavropId(
@@ -322,6 +331,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 
 	@Override
+	@Transactional
 	public void modifyTolkBooking(TolkBookingModificationRequestDTO changeRequestData) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		ChangeInterpreterBookingStatusCommand command = new ChangeInterpreterBookingStatusCommand(
@@ -334,6 +344,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 
 	@Override
+	@Transactional
 	public void addNote(AddNoteRequestDTO addRequest) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		AddNoteCommand command = new AddNoteCommand(new EavropId(addRequest.getEavropId()),
@@ -344,6 +355,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 
 	@Override
+	@Transactional
 	public void removeNote(String eavropId, String noteId) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		RemoveNoteCommand command = new RemoveNoteCommand(new EavropId(eavropId),
@@ -352,6 +364,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 	
 	@Override
+	@Transactional(readOnly=true)
 	public PatientDTO getPatientInfo(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		Invanare invanare = eavropForUser.getInvanare();
@@ -364,6 +377,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public EavropDTO getEavrop(EavropId eavropId) {
 		EavropDTOMapper mapper = new EavropDTOMapper();
 		Eavrop eavropForUser = getEavropForUser(eavropId);
@@ -371,6 +385,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<VardgivarenhetDTO> getVardgivarenheter(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		Landsting landsting = eavropForUser.getLandsting();
@@ -385,6 +400,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 
 	@Override
+	@Transactional
 	public void assignVardgivarenhet(EavropId eavropId, Long vardgivarenhetId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		Vardgivarenhet vardgivarenhet = fmuListService.findVardgivarenhetById(vardgivarenhetId);
@@ -404,6 +420,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 	
 	@Override
+	@Transactional
 	public void acceptEavropAssignment(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		User currentUser = currentUserService.getCurrentUser();
@@ -422,6 +439,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public void rejectEavropAssignment(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		User currentUser = currentUserService.getCurrentUser();
@@ -440,6 +458,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 
 	@Override
+	@Transactional
 	public CompensationDTO getCompensations(EavropId eavropId) {
 		Eavrop eavrop = this.fmuListService.findByEavropId(eavropId);
 		CompensationDTOMapper mapper = new CompensationDTOMapper();
@@ -449,6 +468,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	
 	
 	@Override
+	@Transactional(readOnly=true)
 	public Eavrop getEavropForUser(EavropId eavropId) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		Eavrop result = null;
