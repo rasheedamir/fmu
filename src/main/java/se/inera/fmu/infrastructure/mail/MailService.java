@@ -138,17 +138,14 @@ public class MailService {
 			DateTimeFormatter formatter = DateTimeFormat.forPattern("d MMMM, yyyy");
 			String dayString = lastAcceptanceDay.toString(formatter);
 			ctx.setVariable("dayStr", dayString);
-			log.debug("dayStr: "+dayString);
 		}
 		
 		// Create the HTML body using Thymeleaf
 		final String htmlContent = this.templateEngine.process(	"eavropCreatedEmail", ctx);
-		log.debug("htmlContent: "+htmlContent);
 
 		// Get subject according to locale
 		Object[] args = {utredningTypeStr,arendeId.toString()};
 		String subject = messageSource.getMessage("email.eavrop.order.subject", args, locale);
-		log.debug("Subject "+subject);
 		
 		//Send the email
 		sendEmail(emailAddress, subject, htmlContent, false, true);

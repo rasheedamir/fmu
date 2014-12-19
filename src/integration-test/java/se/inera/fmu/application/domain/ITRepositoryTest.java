@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.persistence.Column;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
@@ -31,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import se.inera.fmu.Application;
 import se.inera.fmu.application.util.BusinessDaysUtil;
+import se.inera.fmu.application.util.EavropPropertiesUtil;
 import se.inera.fmu.domain.model.eavrop.AcceptedEavropState;
 import se.inera.fmu.domain.model.eavrop.ApprovedEavropState;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
@@ -804,7 +806,7 @@ public class ITRepositoryTest {
 		.withInvanare(invanare)
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
-		.withEavropProperties(new EavropProperties(3,5,25,10))
+		.withEavropProperties(EavropPropertiesUtil.createEavropProperties())
 		.build();
    
         return eavropRepository.save(eavrop);
@@ -821,7 +823,7 @@ public class ITRepositoryTest {
 		.withInvanare(invanare)
 		.withLandsting(landsting)
 		.withBestallaradministrator(bestallaradministrator)
-		.withEavropProperties(new EavropProperties(3,5,25,10))
+		.withEavropProperties(EavropPropertiesUtil.createEavropProperties())
 		.build();
         
         //assign

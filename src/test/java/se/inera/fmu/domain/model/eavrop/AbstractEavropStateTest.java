@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
+import se.inera.fmu.application.util.EavropPropertiesUtil;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
@@ -166,7 +167,7 @@ public abstract class AbstractEavropStateTest {
 	}
 	
     private EavropProperties getEavropProperties() {
-		return new EavropProperties(3,5,25,10);
+		return EavropPropertiesUtil.createEavropProperties();
 	}
 	
 	protected Eavrop createAssignedEavrop(){

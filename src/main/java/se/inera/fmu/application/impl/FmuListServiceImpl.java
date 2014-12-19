@@ -35,7 +35,7 @@ import se.inera.fmu.domain.model.landsting.LandstingRepository;
  */
 @Service
 @Validated
-@Transactional(readOnly=true)
+//@Transactional(readOnly=true)
 public class FmuListServiceImpl implements FmuListService {
 
     private final EavropRepository eavropRepository;

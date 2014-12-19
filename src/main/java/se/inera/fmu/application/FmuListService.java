@@ -14,7 +14,10 @@ import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 
 /**
- * Created by Rickard on 3/11/14.
+ * Service for reading entities
+ * 
+ * @author Rickard on 01/11/14.
+ *
  */
 public interface FmuListService {
 

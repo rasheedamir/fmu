@@ -5,10 +5,11 @@ import lombok.ToString;
 import org.apache.commons.lang.Validate;
 import org.joda.time.DateTime;
 
+import se.inera.fmu.application.ApplicationEvents;
 import se.inera.fmu.domain.shared.DomainEvent;
 
 @ToString
-public abstract class EavropEvent implements DomainEvent<EavropEvent>{
+public abstract class EavropEvent implements DomainEvent<EavropEvent>, ApplicationEvents{
 	private final DateTime eventDateTime = DateTime.now();
 	private final EavropId eavropId;
 	
