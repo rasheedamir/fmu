@@ -103,7 +103,6 @@ public class AcceptedEavropStateTest extends AbstractNoteableEavropStateTest{
 
 	@Override
 	EavropStateType getEavropStateType() {
-		// TODO Auto-generated method stub
 		return EavropStateType.ACCEPTED;
 	}
 }

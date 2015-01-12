@@ -777,7 +777,7 @@ public class ITRepositoryTest {
     	Vardgivarenhet vardgivarenhet = new Vardgivarenhet(vardgivare, hsaId, name, address );
     	if(landsting != null ){
     		landsting.addVardgivarenhet(vardgivarenhet);
-    		vardgivarenhet.addLandsting(landsting); //TODO: necessary relation ?
+    		vardgivarenhet.addLandsting(landsting);
     	}
     	vardgivarenhetRepository.saveAndFlush(vardgivarenhet);
     	

@@ -24,8 +24,6 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.converter.BooleanToStringConverter;
-import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
-import se.inera.fmu.domain.model.eavrop.EavropEventDTOType;
 import se.inera.fmu.domain.model.eavrop.InterpreterBookingEventDTO;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBooking;
@@ -211,43 +209,6 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	
 	public boolean hasInterpreterDeviation(){
 		return (getInterpreterBooking()!=null)?getInterpreterBooking().hasDeviation():Boolean.FALSE;
-	}
-	
-	public List<EavropEventDTO> getAsEavropEvents(UtredningType utredningType){
-		List<EavropEventDTO> events= new ArrayList<EavropEventDTO>();
-		
-		events.add(getAsEavropEvent(utredningType));
-		
-		if(getBookingDeviationResponse()!=null){
-			events.add(getBookingDeviationResponse().getAsEavropEvent());
-		}
-		
-		return events;
-	}
-	
-	private EavropEventDTO getAsEavropEvent(UtredningType utredningType) {
-		String comment = (this.deviationNote!=null)?this.deviationNote.getText():null;
-		List<BookingStatusType> validBookingStatuses =  BookingStatusType.getValidBookingStatuses(utredningType, getBookingType());
-		InterpreterBookingEventDTO interpreterBookingEventDTO = (getInterpreterBooking()!=null)?getInterpreterBooking().getAsInterpreterBookingEventDTO():null; 
-		
-		return (this.getBookingResource()!=null)?
-			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType, comment, getBookingResource().getName(), getBookingResource().getRole(), null, null,validBookingStatuses,interpreterBookingEventDTO):
-			new EavropEventDTO(getEavropEventDTOType(), this.startDateTime, this.bookingStatusType, comment, null, null, null, null,validBookingStatuses,interpreterBookingEventDTO);
-	}
-	
-	private EavropEventDTOType getEavropEventDTOType(){
-		BookingType type = getBookingType();
-		
-		switch(type) {
-		case EXAMINATION:
-            return EavropEventDTOType.BOOKING_EXAMINATION; 
-        case BREIFING_WITH_CITIZEN:
-        	return EavropEventDTOType.BOOKING_BREIFING_WITH_CITIZEN;
-        case INTERNAL_WORK:
-        	return EavropEventDTOType.BOOKING_INTERNAL_WORK;
-        default:
-        	return EavropEventDTOType.UNKNOWN;
-		}
 	}
 	
 	// ~ Other Methods

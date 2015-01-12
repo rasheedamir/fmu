@@ -20,7 +20,6 @@ import lombok.ToString;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
-import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
 import se.inera.fmu.domain.model.person.Person;
 
 @Entity
@@ -70,7 +69,4 @@ public abstract class IntygInformation {
 	private void setPerson(Person person) {
 		this.person = person;
 	}
-	
-	public abstract EavropEventDTO getAsEavropEvent();
-	
 }

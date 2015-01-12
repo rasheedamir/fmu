@@ -88,7 +88,7 @@ public class BusinessDaysUtil {
 		//floatingHolidaysForYear.add(new Holiday(allSaintsDay.minusDays(SATURDAY - FRIDAY)));
 
 		//Some week should not be considered as business weeks.
-		//Skippable weeks: 1, 29, 30 and 52.
+		//Skippable weeks: 1, 29, 30 and 52 and 53 if exists.
 
 		//Week 1: From beginning of year to Monday of week 2. 
 		LocalDate secondOfJanuary = new LocalDate(year,JANUARY,2);
@@ -193,7 +193,7 @@ public class BusinessDaysUtil {
 	 * 
 	 */
 	
-	//TODO: Clean this up, should from and to dates be inclusinve or not, or should we handle the it like joda, plusDays(...
+	//TODO: Clean this up, should from and to dates be inclusive or not, or should we handle the it like joda, plusDays(...
 	public static LocalDate calculateBusinessDayDate(LocalDate from, int businessDaysOffset){
 		
 		if(from == null ){

@@ -7,8 +7,6 @@ import lombok.ToString;
 
 import org.joda.time.DateTime;
 
-import se.inera.fmu.domain.model.eavrop.EavropEventDTO;
-import se.inera.fmu.domain.model.eavrop.EavropEventDTOType;
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.ValueObject;
 
@@ -55,13 +53,5 @@ public class IntygComplementRequestInformation  extends IntygInformation impleme
 		int result = getInformationTimestamp().hashCode();
 		result = 31 * this.getClass().hashCode();
 		return result;
-	}
-
-    
-	@Override
-	public EavropEventDTO getAsEavropEvent() {
-		return (this.getPerson()!=null)?
-			new EavropEventDTO(EavropEventDTOType.INTYG_COMPLEMENT_REQUEST,this.getInformationTimestamp(),null, null, getPerson().getName(), getPerson().getRole(), getPerson().getOrganisation(), getPerson().getUnit()):
-			new EavropEventDTO(EavropEventDTOType.INTYG_COMPLEMENT_REQUEST,this.getInformationTimestamp(),null, null, null, null, null, null);
 	}
 }

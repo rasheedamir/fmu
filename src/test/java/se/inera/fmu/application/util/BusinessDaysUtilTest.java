@@ -13,6 +13,7 @@ import org.junit.Test;
  *
  * @author Rickard Hjortling, R2M
  */
+@SuppressWarnings(value = { "checkstyle:magicnumber" })
 public class BusinessDaysUtilTest {
 	
 	/**

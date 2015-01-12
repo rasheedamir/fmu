@@ -26,8 +26,6 @@ public class BookingDeviation  {
     @JoinColumn(name="DEVIATION_NOTE_ID", nullable = true)
 	private Note deviationNote;
     
-    //TODO, should we have a person which defines who set the deviation?
-    
     @Embedded
     private BookingDeviationResponse bookingDeviationResponse; 
 
