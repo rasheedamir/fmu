@@ -5,12 +5,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 
 import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.EavropAssignmentService;
@@ -37,7 +38,6 @@ import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
-import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.note.NoteId;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
@@ -74,7 +74,6 @@ import se.inera.fmu.interfaces.managing.rest.dto.RequestedDocumentDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TimeDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.TolkBookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.VardgivarenhetDTO;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
@@ -186,24 +185,24 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 	
 	private EavropPageDTO constructOverviewDTO(Page<Eavrop> eavrops, EavropDTOMapper eavropMapper) {
-		List<EavropDTO> data = new ArrayList<EavropDTO>();
+		List<EavropDTO> eavropDTOs = new ArrayList<EavropDTO>();
 		for (Eavrop eavrop : eavrops.getContent()) {
-			data.add(eavropMapper.map(eavrop));
+			eavropDTOs.add(eavropMapper.map(eavrop));
 		}
 
-		EavropPageDTO retval = new EavropPageDTO();
-		retval.setEavrops(data).setTotalElements(eavrops.getTotalElements());
+		EavropPageDTO eavropPageDto = new EavropPageDTO();
+		eavropPageDto.setEavrops(eavropDTOs).setTotalElements(eavrops.getTotalElements());
 
-		return retval;
+		return eavropPageDto;
 	}
 	
 	@Override
 	@Transactional(readOnly=true)
 	public List<HandelseDTO> getEavropEvents(String eavropId) {
-		UtredningDTOMapper mapper = new UtredningDTOMapper();
+		UtredningDTOMapper utredningMapper = new UtredningDTOMapper();
 		Eavrop eavrop = this.fmuListService.findByEavropId(new EavropId(eavropId));
 		if (eavrop != null){
-			return mapper.map(eavrop);
+			return utredningMapper.map(eavrop);
 		}
 		return null;
 	}
@@ -228,28 +227,28 @@ public class FmuFacadeBean  implements FmuFacade {
 	@Transactional(readOnly=true)
 	public List<ReceivedDocumentDTO> getReceivedDocuments(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
-		List<ReceivedDocumentDTO> result = new ArrayList<>();
-		ReceivedDocumentDTOMapper mapper = new ReceivedDocumentDTOMapper();
+		List<ReceivedDocumentDTO> receivedDocumentDTOs = new ArrayList<>();
+		ReceivedDocumentDTOMapper receivedDocumentMapper = new ReceivedDocumentDTOMapper();
 
 		for (ReceivedDocument doc : eavropForUser.getReceivedDocuments()) {
-			result.add(mapper.map(doc));
+			receivedDocumentDTOs.add(receivedDocumentMapper.map(doc));
 		}
 
-		return result;
+		return receivedDocumentDTOs;
 	}
 
 	@Override
 	@Transactional(readOnly=true)
 	public List<RequestedDocumentDTO> getRequestedDocuments(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
-		List<RequestedDocumentDTO> result = new ArrayList<>();
-		RequestedDocumentDTOMapper mapper = new RequestedDocumentDTOMapper();
+		List<RequestedDocumentDTO> requestedDocumentDTOs = new ArrayList<>();
+		RequestedDocumentDTOMapper requestedDocumentMapper = new RequestedDocumentDTOMapper();
 
 		for (RequestedDocument doc : eavropForUser.getRequestedDocuments()) {
-			result.add(mapper.map(doc, eavropForUser));
+			requestedDocumentDTOs.add(requestedDocumentMapper.map(doc, eavropForUser));
 		}
 
-		return result;
+		return requestedDocumentDTOs;
 	}
 
 
@@ -258,17 +257,17 @@ public class FmuFacadeBean  implements FmuFacade {
 	public List<NoteDTO> getNotes(EavropId eavropId) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		Eavrop eavropForUser = getEavropForUser(eavropId);
-		NoteDTOMapper mapper = new NoteDTOMapper();
-		List<NoteDTO> result = new ArrayList<>();
+		NoteDTOMapper noteMapper = new NoteDTOMapper();
+		List<NoteDTO> noteDTOs = new ArrayList<>();
 		if (eavropForUser == null){
-			return result;
+			return noteDTOs;
 		}
 			
 		for (Note n : eavropForUser.getAllNotes()) {
-			result.add(mapper.map(n, currentUser));
+			noteDTOs.add(noteMapper.map(n, currentUser));
 		}
 
-		return result;
+		return noteDTOs;
 	}
 
 
@@ -300,18 +299,15 @@ public class FmuFacadeBean  implements FmuFacade {
 	@Override
 	@Transactional
 	public void addBooking(BookingRequestDTO changeRequestDto) {
-		User currentUser = this.currentUserService.getCurrentUser();
-		BookingType type = changeRequestDto.getBookingType();
+		BookingType bookingType = changeRequestDto.getBookingType();
 		Long bookingDateMilis = changeRequestDto.getBookingDate();
 		TimeDTO startTime = changeRequestDto.getBookingStartTime();
 		TimeDTO endTime = changeRequestDto.getBookingEndTime();
-		DateTime sDateTime = new DateTime(bookingDateMilis).withTime(startTime.getHour(),
-				startTime.getMinute(), 0, 0);
-		DateTime eDateTime = new DateTime(bookingDateMilis).withTime(endTime.getHour(),
-				endTime.getMinute(), 0, 0);
+		DateTime startDateTime = new DateTime(bookingDateMilis).withTime(startTime.getHour(),startTime.getMinute(), 0, 0);
+		DateTime endDateTime = new DateTime(bookingDateMilis).withTime(endTime.getHour(),	endTime.getMinute(), 0, 0);
 
 		CreateBookingCommand command = new CreateBookingCommand(new EavropId(
-				changeRequestDto.getEavropId()), type, sDateTime, eDateTime, 
+				changeRequestDto.getEavropId()), bookingType, startDateTime, endDateTime, 
 				changeRequestDto.getPersonName(), changeRequestDto.getPersonRole(),
 				changeRequestDto.getAdditionalService(), changeRequestDto.getUseInterpreter());
 
@@ -367,21 +363,16 @@ public class FmuFacadeBean  implements FmuFacade {
 	@Transactional(readOnly=true)
 	public PatientDTO getPatientInfo(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
-		Invanare invanare = eavropForUser.getInvanare();
-
-		PatientDTOMapper mapper = new PatientDTOMapper();
-		PatientDTO dto = mapper.map(eavropForUser, currentUserService.getCurrentUser()
-				.getActiveRole() == Role.ROLE_UTREDARE);
-
-		return dto;
+		PatientDTOMapper patientMapper = new PatientDTOMapper();
+		return  patientMapper.map(eavropForUser, currentUserService.getCurrentUser().getActiveRole() == Role.ROLE_UTREDARE);
 	}
 
 	@Override
 	@Transactional(readOnly=true)
 	public EavropDTO getEavrop(EavropId eavropId) {
-		EavropDTOMapper mapper = new EavropDTOMapper();
+		EavropDTOMapper eavropMapper = new EavropDTOMapper();
 		Eavrop eavropForUser = getEavropForUser(eavropId);
-		return mapper.map(eavropForUser, new EavropDTO());
+		return eavropMapper.map(eavropForUser, new EavropDTO());
 	}
 
 	@Override
@@ -389,19 +380,19 @@ public class FmuFacadeBean  implements FmuFacade {
 	public List<VardgivarenhetDTO> getVardgivarenheter(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		Landsting landsting = eavropForUser.getLandsting();
-		VardgivarenhetDTOMapper mapper = new VardgivarenhetDTOMapper();
-		List<VardgivarenhetDTO> result = new ArrayList<>();
+		VardgivarenhetDTOMapper vardgivarenhetMapper = new VardgivarenhetDTOMapper();
+		List<VardgivarenhetDTO> vardgivarenhetDTOs = new ArrayList<>();
 
 		for (Vardgivarenhet vardgivarenhet : landsting.getVardgivarenheter()) {
-			result.add(mapper.map(vardgivarenhet));
+			vardgivarenhetDTOs.add(vardgivarenhetMapper.map(vardgivarenhet));
 		}
 
-		return result;
+		return vardgivarenhetDTOs;
 	}
 
 	@Override
 	@Transactional
-	public void assignVardgivarenhet(EavropId eavropId, Long vardgivarenhetId) {
+	public void assignVardgivarenhetToEavrop(EavropId eavropId, Long vardgivarenhetId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		Vardgivarenhet vardgivarenhet = fmuListService.findVardgivarenhetById(vardgivarenhetId);
 		User currentUser = currentUserService.getCurrentUser();
@@ -422,7 +413,6 @@ public class FmuFacadeBean  implements FmuFacade {
 	@Override
 	@Transactional
 	public void acceptEavropAssignment(EavropId eavropId) {
-		Eavrop eavropForUser = getEavropForUser(eavropId);
 		User currentUser = currentUserService.getCurrentUser();
 		Vardgivarenhet vardgivarenhet = getVardgivarenhetFromUser();
 
@@ -441,7 +431,6 @@ public class FmuFacadeBean  implements FmuFacade {
 	@Override
 	@Transactional(readOnly=true)
 	public void rejectEavropAssignment(EavropId eavropId) {
-		Eavrop eavropForUser = getEavropForUser(eavropId);
 		User currentUser = currentUserService.getCurrentUser();
 		Vardgivarenhet vardgivarenhet = getVardgivarenhetFromUser();
 
@@ -461,9 +450,9 @@ public class FmuFacadeBean  implements FmuFacade {
 	@Transactional
 	public CompensationDTO getCompensations(EavropId eavropId) {
 		Eavrop eavrop = this.fmuListService.findByEavropId(eavropId);
-		CompensationDTOMapper mapper = new CompensationDTOMapper();
+		CompensationDTOMapper compensationMapper = new CompensationDTOMapper();
 
-		return mapper.map(eavrop);
+		return compensationMapper.map(eavrop);
 	}
 	
 	
@@ -471,17 +460,17 @@ public class FmuFacadeBean  implements FmuFacade {
 	@Transactional(readOnly=true)
 	public Eavrop getEavropForUser(EavropId eavropId) {
 		User currentUser = this.currentUserService.getCurrentUser();
-		Eavrop result = null;
+		Eavrop eavrop = null;
 
 		if (currentUser.getActiveRole() == Role.ROLE_SAMORDNARE) {
-			result = this.fmuListService.findByEavropIdAndLandstingCode(eavropId, new LandstingCode(currentUser.getLandstingCode()));
+			eavrop = this.fmuListService.findByEavropIdAndLandstingCode(eavropId, new LandstingCode(currentUser.getLandstingCode()));
 		} else if (currentUser.getActiveRole() == Role.ROLE_UTREDARE) {
-			result = this.fmuListService.findByEavropIdAndVardgivarenhetHsaId(eavropId, new HsaId(currentUser.getVardenhetHsaId()));
+			eavrop = this.fmuListService.findByEavropIdAndVardgivarenhetHsaId(eavropId, new HsaId(currentUser.getVardenhetHsaId()));
 		} else {
 			throw new IllegalStateException("User has no active role");
 		}
 
-		return result;
+		return eavrop;
 	}
 
 	/*

@@ -8,7 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropCreatedEvent;
+import se.inera.fmu.domain.model.eavrop.EavropId;
+import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.EavropRestartedByBestallareEvent;
 import se.inera.fmu.domain.model.eavrop.EavropStartEvent;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAcceptedByVardgivarenhetEvent;
@@ -50,6 +53,9 @@ public class EavropListener implements EventBusListener {
 
     @Inject
     private BestallareClient bestallareWebserviceClient;
+
+    @Inject
+    private EavropRepository eavropRepository;
 
     @Inject
     private VardgivarenhetRepository vardgivarenhetRepository;
@@ -224,11 +230,12 @@ public class EavropListener implements EventBusListener {
      */
     @Subscribe
     @AllowConcurrentEvents
+    @Transactional(readOnly=true)
     public void handleEavropCreatedEvent(EavropCreatedEvent event) {
     	log.debug("EavropCreatedEvent received for ARENDE ID {} EAVROP ID {} ", event.getArendeId().toString(), event.getEavropId().toString());
-        this.mailService.sendEavropCreatedEmail(event.getEavropId(), event.getArendeId(),event.getUtredningType(), event.getLastDayOfAcceptance(), event.getLandstingCode());
+    	Eavrop eavrop = getEavrop(event.getEavropId());
+        this.mailService.sendEavropCreatedEmail(eavrop.getEavropId(), eavrop.getArendeId(), eavrop.getUtredningType(), eavrop.getLastValidEavropAssignmentAcceptDay(), eavrop.getLandsting().getLandstingCode());
         log.debug("Eavrop created email notification published for ARENDE ID {} EAVROP ID {} ",  event.getArendeId().toString(), event.getEavropId().toString());
-
     }
     
     
@@ -246,4 +253,13 @@ public class EavropListener implements EventBusListener {
     	}
     	return vardgivarenhet;
     }
+    
+    private Eavrop getEavrop(EavropId eavropId){
+    	Eavrop eavrop = eavropRepository.findByEavropId(eavropId);
+    	if(eavrop == null){
+    		throw new EntityNotFoundException(String.format("Eavrop with eavropId: %s could not be found", eavropId.toString()));
+    	}
+    	return eavrop;
+    }
+
 }

@@ -10,7 +10,7 @@ public class PagaendeDTOMapper extends EavropDTOMapper {
 		super.map(eavrop, dto);
 
 		dto.setAvikelser(eavrop.getNumberOfDeviationsOnEavrop());
-		dto.setColor(eavrop.isEavropAcceptDaysDeviated() ? DANGER_COLOR : DEFAULT_COLOR);
+		dto.setColor(eavrop.isEavropAssignmentAcceptDaysDeviated() ? DANGER_COLOR : DEFAULT_COLOR);
 		dto.setStartDate(eavrop.getStartDate() != null ? eavrop.getStartDate()
 				.toDateTimeAtCurrentTime().getMillis() : null);
 		dto.setNrOfDaysSinceStart(eavrop.getNoOfAssesmentDays());

@@ -145,7 +145,7 @@ public class EavropResource {
 	
 	@RequestMapping(value = "/rest/eavrop/{id}/assign", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void assignVardgivarenhet(@PathVariable("id") String id, @RequestParam Long veId) {
-		this.fmuFacade.assignVardgivarenhet(new EavropId(id), veId);
+		this.fmuFacade.assignVardgivarenhetToEavrop(new EavropId(id), veId);
 	}	
 	
 	@RequestMapping(value = "/rest/eavrop/{id}/accept", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)

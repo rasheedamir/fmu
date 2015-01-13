@@ -282,19 +282,19 @@ public class EavropTest extends TestCase {
 		eavrop.setCreatedDate(new DateTime(2014,10,1,10,30));
 
 		// Today is more than 5 business days since createDateTime 
-		assertEquals(true, eavrop.isEavropAcceptDaysDeviated());
+		assertEquals(true, eavrop.isEavropAssignmentAcceptDaysDeviated());
 
 		
 		eavrop.assignEavropToVardgivarenhet(vardgivarenhet, samordnare);
 		eavrop.acceptEavropAssignment(doctorPerson);
-		assertEquals(true, eavrop.isEavropAcceptDaysDeviated());
+		assertEquals(true, eavrop.isEavropAssignmentAcceptDaysDeviated());
 		
 		
 		eavrop.getCurrentAssignment().setLastModifiedDate(new DateTime(2014,10,8,23,59));
-		assertEquals(false, eavrop.isEavropAcceptDaysDeviated());
+		assertEquals(false, eavrop.isEavropAssignmentAcceptDaysDeviated());
 
 		eavrop.getCurrentAssignment().setLastModifiedDate(new DateTime(2014,10,9,0,0));
-		assertEquals(true, eavrop.isEavropAcceptDaysDeviated());
+		assertEquals(true, eavrop.isEavropAssignmentAcceptDaysDeviated());
 		
 	}
 	

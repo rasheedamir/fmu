@@ -363,7 +363,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	 * defined in the eavrop properties
 	 * @return
 	 */
-	public boolean isEavropAcceptDaysDeviated(){
+	public boolean isEavropAssignmentAcceptDaysDeviated(){
 		
 		//The last day that it is okay to accept
 		LocalDate lastValidDay = getLastValidEavropAssignmentAcceptDay();
@@ -630,7 +630,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	public int getNumberOfDeviationsOnEavrop() {
 		int count = 0;
 
-		if(this.isEavropAcceptDaysDeviated()){
+		if(this.isEavropAssignmentAcceptDaysDeviated()){
 			count++;
 		}
 
@@ -659,7 +659,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	public List<EavropDeviationEventDTO> getEavropDeviationEventDTOs() {
 		List<EavropDeviationEventDTO> deviationEvents = new ArrayList<EavropDeviationEventDTO>();
 		
-		if(this.isEavropAcceptDaysDeviated()){
+		if(this.isEavropAssignmentAcceptDaysDeviated()){
 			deviationEvents.add(createEavropAcceptDaysDeviationEvent());
 		}
 		
@@ -693,7 +693,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	 * @return
 	 */
 	private EavropDeviationEventDTO createEavropAcceptDaysDeviationEvent() {
-		if(this.isEavropAcceptDaysDeviated()){
+		if(this.isEavropAssignmentAcceptDaysDeviated()){
 			LocalDate lastValidDay = getLastValidEavropAssignmentAcceptDay();
 			DateTime devationDateTime = lastValidDay.toDateTime(new LocalTime(0,0));
 			return new EavropDeviationEventDTO(EavropDeviationEventDTOType.EAVROP_ASSIGNMENT_ACCEPT_DEVIATION, devationDateTime.getMillis());
