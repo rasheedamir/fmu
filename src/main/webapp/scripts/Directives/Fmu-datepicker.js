@@ -1,14 +1,17 @@
 'use strict';
 angular.module('fmuClientApp')
-    .directive('fmuDatepicker', function(AuthService){
+    .directive('fmuDatepicker', function() {
         return {
             restrict: 'E',
             scope: {
                 dateModel: '=',
                 title: '@'
             },
-            controller: function ($scope, $element) {
+            controller: function($scope) {
                 $scope.isOpened = false;
+                $scope.dateOptions = {
+                    'show-weeks': false
+                };
 
                 // Disable weekend selection
                 $scope.disabled = function(date, mode) {
@@ -20,26 +23,25 @@ angular.module('fmuClientApp')
                     $event.stopPropagation();
 
                     $scope.isOpened = !$scope.isOpened;
-
                 };
             },
-            template:
-                '<div class="form-group row"> ' +
-                    '<label>{{title}}</label> ' +
-                    '<div class="input-group">' +
-                        '<input type="text" ' +
-                            'class="form-control" ' +
-                            'datepicker-popup="{{dateFormat}}" ' +
-                            'ng-model="dateModel" ' +
-                            'is-open="isOpened" ' +
-                            'ng-required="true" ' +
-                            'close-text="Close"/> ' +
-                            '<span class="input-group-addon"> ' +
-                                '<a ng-click="open($event)">' +
-                                '   <i class="glyphicon glyphicon-calendar"></i>' +
-                                '</a> ' +
-                            '</span> ' +
-                    '</div>' +
+            template: '<div class="form-group row"> ' +
+                '<label>{{title}}</label> ' +
+                '<div class="input-group">' +
+                '<input type="text" ' +
+                'class="form-control" ' +
+                'datepicker-popup="{{dateFormat}}" ' +
+                'datepicker-options="dateOptions"' +
+                'ng-model="dateModel" ' +
+                'is-open="isOpened" ' +
+                'ng-required="true" ' +
+                'close-text="Close"/> ' +
+                '<span class="input-group-addon"> ' +
+                '<a ng-click="open($event)">' +
+                '   <i class="glyphicon glyphicon-calendar"></i>' +
+                '</a> ' +
+                '</span> ' +
+                '</div>' +
                 '</div>'
         };
     });

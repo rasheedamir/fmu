@@ -1,39 +1,71 @@
 header.navigation {
-  ///////////////////////////////////////////////////////////////////////////////////
-  $base-border-radius: 3px !default;
-  $dark-gray: #333 !default;
-  -webkit-font-smoothing: antialiased;
-
-  a {
-    text-decoration: none;
-  }
-  //////////////////////////////////////////////////////////////////////////////////
-
-  $navigation-padding: 1em;
-  $navigation-height: 60px;
-
-  background-color: $navigation-background;
-  border-bottom: 1px solid darken($navigation-background, 10);
-  min-height: $navigation-height;
-  width: 100%;
-  z-index: 999;
-
-  .navigation-wrapper {
-    @include clearfix;
-    @include container;
-
-    position: relative;
-    z-index: 9999;
-  }
-
-  .logo {
-    float: left;
-    max-height: $navigation-height;
-    padding-left: $navigation-padding;
-    padding-right: 2em;
-    img {
-      max-height: $navigation-height;
-      padding: .8em 0;
+    ///////////////////////////////////////////////////////////////////////////////////
+    $base-border-radius: 3px !default;
+    $dark-gray: #333 !default;
+    -webkit-font-smoothing: antialiased;
+    a {
+        text-decoration: none;
     }
-  }
+    //////////////////////////////////////////////////////////////////////////////////
+    $navigation-padding: 0.5em;
+    $navigation-height: 60px;
+    background-color: $navigation-background;
+    border-bottom: 1px solid darken($navigation-background, 10);
+    min-height: $navigation-height;
+    width: 100%;
+    z-index: 999;
+
+    .navigation-wrapper {
+        @include layout(15 0 no-gutters);
+        @include clearfix;
+        @include container(show);
+        @include squish($navigation-padding);
+        position: relative;
+        z-index: 9999;
+    }
+
+    .navigation_back {
+        @include span(2);
+        height: $navigation-height;
+        border-right: solid thin white;
+    }
+    .logo {
+        @include span(5);
+        max-height: $navigation-height;
+        padding-left: $navigation-padding;
+        img {
+            float: left;
+            max-height: $navigation-height;
+            padding: .8em 0;
+        }
+    }
+    .role-selector-wrapper {
+        @include span(4);
+        .role-selector {
+            display: inline-block;
+            float: right;
+            margin-right: $navigation-padding;
+            height: $navigation-height;
+            padding: .8em 0;
+            li > a {
+                padding: 0;
+                margin: 0;
+                overflow: hidden;
+            }
+        }
+    }
+    .user-logo {
+        @include span(2);
+        max-height: $navigation-height;
+        padding-right: $navigation-padding;
+        img {
+            float: right;
+            max-height: $navigation-height;
+            padding: .8em 0;
+        }
+    }
+    .navigation_expand {
+        float: left;
+        @include span(2 last);
+    }
 }
