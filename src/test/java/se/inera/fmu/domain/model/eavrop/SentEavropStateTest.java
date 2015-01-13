@@ -61,7 +61,6 @@ public class SentEavropStateTest extends AbstractNoteableEavropStateTest{
 
 	@Override
 	EavropStateType getEavropStateType() {
-		// TODO Auto-generated method stub
 		return EavropStateType.SENT;
 	}
 }

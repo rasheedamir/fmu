@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import se.inera.fmu.application.CurrentUserService;
 import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.eavrop.EavropId;
+import se.inera.fmu.facade.FmuFacade;
 import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
@@ -60,8 +61,8 @@ import com.codahale.metrics.annotation.Timed;
 public class EavropResource {
 
 	@Inject
-	private FmuOrderingService fmuOrderingService;
-
+	private FmuFacade fmuFacade;
+	
 	@Inject
 	private CurrentUserService currentUserService;
 
@@ -79,7 +80,7 @@ public class EavropResource {
 			@ValidateSortKey @PathVariable String sortKey, @PathVariable Direction sortOrder) {
 
 		Pageable pageSpecs = new PageRequest(currentPage, pageSize, new Sort(sortOrder, sortKey));
-		EavropPageDTO pageEavrops = this.fmuOrderingService.getOverviewEavrops(startDate, endDate,
+		EavropPageDTO pageEavrops = this.fmuFacade.getOverviewEavrops(startDate, endDate,
 				status, pageSpecs);
 		return new ResponseEntity<EavropPageDTO>(pageEavrops, HttpStatus.OK);
 	}
@@ -88,79 +89,79 @@ public class EavropResource {
 	@Timed
 	public ResponseEntity<List<HandelseDTO>> getAllEavropEvents(@PathVariable String eavropId) {
 
-		List<HandelseDTO> retval = this.fmuOrderingService.getEavropEvents(eavropId);
+		List<HandelseDTO> retval = this.fmuFacade.getEavropEvents(eavropId);
 		return new ResponseEntity<List<HandelseDTO>>(retval, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/rest/eavrop/{id}/all-events", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public AllEventsDTO getAllEvents(@PathVariable("id") String id) {
-		return this.fmuOrderingService.getAllEvents(new EavropId(id));
+		return this.fmuFacade.getAllEvents(new EavropId(id));
 	}
 
 	@RequestMapping(value = "/rest/eavrop/{id}/order", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public OrderDTO getOrderInfo(@PathVariable("id") String id) {
-		return this.fmuOrderingService.getOrderInfo(new EavropId(id));
+		return this.fmuFacade.getOrderInfo(new EavropId(id));
 	}
 	
 	@RequestMapping(value = "/rest/eavrop/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public EavropDTO getEavrop(@PathVariable("id") String id) {
-		return this.fmuOrderingService.getEavrop(new EavropId(id));
+		return this.fmuFacade.getEavrop(new EavropId(id));
 	}	
 	
 	@RequestMapping(value = "/rest/eavrop/{id}/patient", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public PatientDTO getPatientInfo(@PathVariable("id") String id) {
-		return this.fmuOrderingService.getPatientInfo(new EavropId(id));
+		return this.fmuFacade.getPatientInfo(new EavropId(id));
 	}	
 
 	@RequestMapping(value = "/rest/eavrop/{id}/received-documents", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ReceivedDocumentDTO> getReceivedDocuments(@PathVariable("id") String id) {
-		return this.fmuOrderingService.getReceivedDocuments(new EavropId(id));
+		return this.fmuFacade.getReceivedDocuments(new EavropId(id));
 	}
 
 	@RequestMapping(value="/rest/eavrop/{id}/received-documents", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void addReceivedDocuments(@PathVariable("id") String id, @RequestBody ReceivedDocumentDTO doc){
-		this.fmuOrderingService.addReceivedDocuments(new EavropId(id), doc);
+		this.fmuFacade.addReceivedDocuments(new EavropId(id), doc);
 	}	
 	
 	@RequestMapping(value = "/rest/eavrop/{id}/requested-documents", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<RequestedDocumentDTO> getRequestedDocuments(@PathVariable("id") String id) {
-		return this.fmuOrderingService.getRequestedDocuments(new EavropId(id));
+		return this.fmuFacade.getRequestedDocuments(new EavropId(id));
 	}
 	
 	@RequestMapping(value = "/rest/eavrop/{id}/vardgivarenheter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<VardgivarenhetDTO> getVardgivarenheter(@PathVariable("id") String id) {
-		return this.fmuOrderingService.getVardgivarenheter(new EavropId(id));
+		return this.fmuFacade.getVardgivarenheter(new EavropId(id));
 	}	
 	
 	@RequestMapping(value="/rest/eavrop/{id}/requested-documents", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void addReceivedDocuments(@PathVariable("id") String id, @RequestBody RequestedDocumentDTO doc){
-		this.fmuOrderingService.addRequestedDocuments(new EavropId(id), doc);
+		this.fmuFacade.addRequestedDocuments(new EavropId(id), doc);
 	}		
 
 	@RequestMapping(value = "/rest/eavrop/{id}/notes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<NoteDTO> getNotes(@PathVariable("id") String id) {
-		return this.fmuOrderingService.getNotes(new EavropId(id));
+		return this.fmuFacade.getNotes(new EavropId(id));
 	}
 	
 	@RequestMapping(value = "/rest/eavrop/{id}/assign", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void assignVardgivarenhet(@PathVariable("id") String id, @RequestParam Long veId) {
-		this.fmuOrderingService.assignVardgivarenhet(new EavropId(id), veId);
+		this.fmuFacade.assignVardgivarenhet(new EavropId(id), veId);
 	}	
 	
 	@RequestMapping(value = "/rest/eavrop/{id}/accept", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void acceptRequest(@PathVariable("id") String id) {
-		this.fmuOrderingService.acceptRequest(new EavropId(id));
+		this.fmuFacade.acceptEavropAssignment(new EavropId(id));
 	}	
 	
 	@RequestMapping(value = "/rest/eavrop/{id}/reject", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void rejectRequest(@PathVariable("id") String id) {
-		this.fmuOrderingService.rejectRequest(new EavropId(id));
+		this.fmuFacade.rejectEavropAssignment(new EavropId(id));
 	}		
 
 	@RequestMapping(value = "/rest/eavrop/utredning/create/booking", method = RequestMethod.POST)
 	@ResponseBody
 	public HttpStatus addBooking(@RequestBody final BookingRequestDTO booking) throws Exception {
-		this.fmuOrderingService.addBooking(booking);
+		this.fmuFacade.addBooking(booking);
 		return HttpStatus.OK;
 	}
 
@@ -168,7 +169,7 @@ public class EavropResource {
 	@ResponseBody
 	public HttpStatus modifyBooking(
 			@RequestBody final BookingModificationRequestDTO changeRequestData) throws Exception {
-		this.fmuOrderingService.modifyBooking(changeRequestData);
+		this.fmuFacade.modifyBooking(changeRequestData);
 		return HttpStatus.OK;
 	}
 
@@ -177,7 +178,7 @@ public class EavropResource {
 	public HttpStatus modifyBooking(
 			@RequestBody final TolkBookingModificationRequestDTO changeRequestData)
 			throws Exception {
-		this.fmuOrderingService.modifyTolkBooking(changeRequestData);
+		this.fmuFacade.modifyTolkBooking(changeRequestData);
 		return HttpStatus.OK;
 	}
 	
@@ -186,20 +187,20 @@ public class EavropResource {
 	public HttpStatus addNote(
 			@RequestBody final AddNoteRequestDTO addRequest)
 			throws Exception {
-		this.fmuOrderingService.addNote(addRequest);
+		this.fmuFacade.addNote(addRequest);
 		return HttpStatus.OK;
 	}
 	
 	@RequestMapping(value = "/rest/eavrop/{eavropId}/note/{noteId}/remove", method = RequestMethod.DELETE)
 	@ResponseBody
 	public HttpStatus removeNote(@PathVariable String eavropId, @PathVariable String noteId) throws Exception {
-		this.fmuOrderingService.removeNote(eavropId, noteId);
+		this.fmuFacade.removeNote(eavropId, noteId);
 		return HttpStatus.OK;
 	}
 
 	@RequestMapping(value = "/rest/eavrop/{id}/compensations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public CompensationDTO getCompensations(@PathVariable("id") String id) {
-		return this.fmuOrderingService.getCompensations(new EavropId(id));
+		return this.fmuFacade.getCompensations(new EavropId(id));
 	}
 	
 }

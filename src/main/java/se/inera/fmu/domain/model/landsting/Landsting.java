@@ -35,7 +35,6 @@ public class Landsting extends AbstractBaseEntity implements IEntity<Landsting>{
 	   private static final long serialVersionUID = 1L;
 
 		// database primary key
-	   //TODO: Is this neccessary use business id as primary key 
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.AUTO)
 	    @Column(name = "LANDSTING_ID", updatable = false, nullable = false)

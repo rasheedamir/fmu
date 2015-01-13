@@ -75,6 +75,8 @@ public class EavropEndpoint {
 
     private static final String NAMESPACE_URI = "http://inera.ws/fmu/admin/eavrop";
 
+    
+    //TODO: move all services to facade?
     @Inject
     private FmuOrderingService fmuOrderingService;
     @Inject

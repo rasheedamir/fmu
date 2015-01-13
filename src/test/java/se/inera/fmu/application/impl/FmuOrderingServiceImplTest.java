@@ -54,19 +54,10 @@ public class FmuOrderingServiceImplTest {
     private InvanareRepository patientRepository;
 
     @Mock
-    private AsyncEventBus asyncEventBus;
-    
-    @Mock
     private Configuration configuration;
     
     @Mock
-    private CurrentUserService currentUserService;
-    
-    @Mock
     private LandstingRepository landstingRepository;
-    
-    @Mock
-    private VardgivarenhetRepository vgRepository;
     
     @Mock
     private DomainEventPublisher eventPublisher;
@@ -76,7 +67,7 @@ public class FmuOrderingServiceImplTest {
 
     @Before
     public void setUp() {
-        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, configuration, eventPublisher, landstingRepository, currentUserService, vgRepository, null, null, null, null, null, null);
+        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, configuration, eventPublisher, landstingRepository);
     }
 
     /*
@@ -114,42 +105,49 @@ public class FmuOrderingServiceImplTest {
     }
     
     @Test
-    public void getEavropForSamordnare(){
-    	User currentUser = new User();
-    	final int landstingCode = 100;
-		currentUser.setLandstingCode(landstingCode);
-    	currentUser.getRoles().add(Role.ROLE_SAMORDNARE);
-    	currentUser.setActiveRole(Role.ROLE_SAMORDNARE);
+    public void test(){
     	
-    	Landsting lt = new Landsting(new LandstingCode(landstingCode), "Test landsting");
-    	
-    	when(landstingRepository.findByLandstingCode(new LandstingCode(landstingCode))).thenReturn(lt);
-    	when(currentUserService.getCurrentUser()).thenReturn(currentUser);
-    	final String id = "ABC";
-		fmuOrderingService.getEavropForUser(new EavropId(id));
-		
-		verify(currentUserService).getCurrentUser();
-		verify(landstingRepository).findByLandstingCode(new LandstingCode(landstingCode));
-		verify(eavropRepository).findByEavropIdAndLandsting(new EavropId(id), lt);
     }
     
-    @Test
-    public void getEavropForUtredare(){
-    	User currentUser = new User();
-		final String vardenhetHsaId = "SE1111112222-AAAA";
-		currentUser.setVardenhetHsaId(vardenhetHsaId);
-    	currentUser.getRoles().add(Role.ROLE_UTREDARE);
-    	currentUser.setActiveRole(Role.ROLE_UTREDARE);
-    	
-    	Vardgivarenhet ve = new Vardgivarenhet(new Vardgivare(new HsaId("SE2222223333-BBBB"), "test vg"), new HsaId(vardenhetHsaId), "Test unit", null);
-    	
-    	when(vgRepository.findByHsaId(new HsaId(vardenhetHsaId))).thenReturn(ve);
-    	when(currentUserService.getCurrentUser()).thenReturn(currentUser);
-    	final String id = "ABC";
-		fmuOrderingService.getEavropForUser(new EavropId(id));
-		
-		verify(currentUserService).getCurrentUser();
-		verify(vgRepository).findByHsaId(new HsaId(vardenhetHsaId));
-		verify(eavropRepository).findByEavropIdAndVardgivare(new EavropId(id), ve);
-    }
+//FUNCTIONALITY MOVED TO FmuFacade
+//    @Test
+//    public void getEavropForSamordnare(){
+//    	User currentUser = new User();
+//    	final int landstingCode = 100;
+//		currentUser.setLandstingCode(landstingCode);
+//    	currentUser.getRoles().add(Role.ROLE_SAMORDNARE);
+//    	currentUser.setActiveRole(Role.ROLE_SAMORDNARE);
+//    	
+//    	Landsting lt = new Landsting(new LandstingCode(landstingCode), "Test landsting");
+//    	
+//    	when(landstingRepository.findByLandstingCode(new LandstingCode(landstingCode))).thenReturn(lt);
+//    	when(currentUserService.getCurrentUser()).thenReturn(currentUser);
+//    	final String id = "ABC";
+//		fmuOrderingService.getEavropForUser(new EavropId(id));
+//		
+//		verify(currentUserService).getCurrentUser();
+//		verify(landstingRepository).findByLandstingCode(new LandstingCode(landstingCode));
+//		verify(eavropRepository).findByEavropIdAndLandsting(new EavropId(id), lt);
+//    }
+    
+  //FUNCTIONALITY MOVED TO FmuFacade
+//    @Test
+//    public void getEavropForUtredare(){
+//    	User currentUser = new User();
+//		final String vardenhetHsaId = "SE1111112222-AAAA";
+//		currentUser.setVardenhetHsaId(vardenhetHsaId);
+//    	currentUser.getRoles().add(Role.ROLE_UTREDARE);
+//    	currentUser.setActiveRole(Role.ROLE_UTREDARE);
+//    	
+//    	Vardgivarenhet ve = new Vardgivarenhet(new Vardgivare(new HsaId("SE2222223333-BBBB"), "test vg"), new HsaId(vardenhetHsaId), "Test unit", null);
+//    	
+//    	when(vgRepository.findByHsaId(new HsaId(vardenhetHsaId))).thenReturn(ve);
+//    	when(currentUserService.getCurrentUser()).thenReturn(currentUser);
+//    	final String id = "ABC";
+//		fmuOrderingService.getEavropForUser(new EavropId(id));
+//		
+//		verify(currentUserService).getCurrentUser();
+//		verify(vgRepository).findByHsaId(new HsaId(vardenhetHsaId));
+//		verify(eavropRepository).findByEavropIdAndVardgivarenhet(new EavropId(id), ve);
+//    }
 }

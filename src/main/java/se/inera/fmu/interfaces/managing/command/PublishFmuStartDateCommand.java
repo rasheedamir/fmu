@@ -16,7 +16,7 @@ import se.inera.fmu.domain.model.eavrop.ArendeId;
  */
 @Getter
 @AllArgsConstructor
-public class PublishFmuStartDate {
+public class PublishFmuStartDateCommand {
 	@NonNull private ArendeId arendeId;
 	@NonNull private DateTime startDate;
 }

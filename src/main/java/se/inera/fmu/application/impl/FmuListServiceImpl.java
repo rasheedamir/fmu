@@ -18,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import se.inera.fmu.application.FmuListService;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
+import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.EavropState;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
@@ -34,7 +35,7 @@ import se.inera.fmu.domain.model.landsting.LandstingRepository;
  */
 @Service
 @Validated
-@Transactional(readOnly=true)
+//@Transactional(readOnly=true)
 public class FmuListServiceImpl implements FmuListService {
 
     private final EavropRepository eavropRepository;
@@ -68,11 +69,33 @@ public class FmuListServiceImpl implements FmuListService {
     public Vardgivarenhet findVardgivarenhetByHsaId(HsaId hsaId) {
     	return this.vardgivarenhetRepository.findByHsaId(hsaId);
     }
+    
+    @Override
+    public Vardgivarenhet findVardgivarenhetById(long id){
+    	return this.vardgivarenhetRepository.getOne(id);
+    }
 
     @Override
     public Eavrop findByArendeId(ArendeId arendeId){
     	return this.eavropRepository.findByArendeId(arendeId);
     }
+
+    @Override
+    public Eavrop findByEavropId(EavropId eavropId){
+    	return this.eavropRepository.findByEavropId(eavropId);
+    }
+    
+    @Override
+    public Eavrop findByEavropIdAndLandstingCode(EavropId eavropId, LandstingCode landstingCode){
+    	Landsting landsting = findLandstingByLandstingCode(landstingCode);
+    	return eavropRepository.findByEavropIdAndLandsting(eavropId, landsting);
+    }
+    
+	@Override
+	public Eavrop findByEavropIdAndVardgivarenhetHsaId(EavropId eavropId, HsaId hsaId) {
+		Vardgivarenhet vardgivarenhet = vardgivarenhetRepository.findByHsaId(hsaId);
+		return eavropRepository.findByEavropIdAndVardgivarenhet(eavropId, vardgivarenhet);
+	}
     
     @Override
     public Page<Eavrop> findAllNotAcceptedEavropByLandstingAndDateTimeOrdered(Landsting landsting, DateTime fromDate, DateTime toDate, Pageable pageable){

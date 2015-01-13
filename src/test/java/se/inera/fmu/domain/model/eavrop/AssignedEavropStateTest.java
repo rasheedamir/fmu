@@ -35,7 +35,6 @@ public class AssignedEavropStateTest extends AbstractEavropStateTest{
 
 	@Override
 	EavropStateType getEavropStateType() {
-		// TODO Auto-generated method stub
 		return EavropStateType.ASSIGNED;
 	}
 
