@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": ";;;;AACE,IAAK;ECQC,kBAAoB,EDPJ,UAAU;ECY1B,eAAiB,EDZD,UAAU;EC2B1B,UAAY,ED3BI,UAAU;;AAI9B,oBAAqB;ECGjB,kBAAoB,EDFF,OAAO;ECOzB,eAAiB,EDPC,OAAO;ECsBzB,UAAY,EDtBM,OAAO;;AEFjC,eAAgB;EACf,UAAU,EAAE,OAAO",
-"sources": ["../bower_components/neat/app/assets/stylesheets/grid/_box-sizing.scss","../bower_components/bourbon/dist/addons/_prefixer.scss","layout.scss"],
-"names": [],
-"file": "layout.css"
-}
