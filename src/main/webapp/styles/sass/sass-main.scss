@@ -1,0 +1,28 @@
+@import "modules/modules";
+@import "layout/layout";
+@import "elements/elements";
+
+body {
+  margin: 0;
+  padding: 0;
+  @include global-box-sizing(border-box);
+}
+
+.container {
+  // Default 4 columns
+  @include with-layout($phone-columns) { 
+      @include container(show);
+  }
+
+  @include respond-to('tablet'){
+    @include with-layout($tablet-columns) { 
+        @include container(show);
+    }
+  };
+
+  @include respond-to('desktop'){
+    @include with-layout($desktop-columns) { 
+        @include container(show);
+    }
+  };
+}
