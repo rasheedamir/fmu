@@ -172,7 +172,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 				.withPriorMedicalExamination(aCommand.getPriorMedicalExamination()).build();
 
 		eavrop = eavropRepository.save(eavrop);
-		log.debug(String.format("eavrop created :: %s", eavrop));
+		log.debug(String.format("eavrop with arendeId  %s created", eavrop.getArendeId()));
 
 		return eavrop;
 	}
