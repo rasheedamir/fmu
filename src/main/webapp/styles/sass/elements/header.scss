@@ -9,63 +9,80 @@ header.navigation {
     //////////////////////////////////////////////////////////////////////////////////
     $navigation-padding: 0.5em;
     $navigation-height: 60px;
+    $general-padding: 0.8em 0;
+    $total-columns: 12;
+    $left-columns: 2;
+    $right-columns: 7;
+    $middle-columns: 3;
     background-color: $navigation-background;
     border-bottom: 1px solid darken($navigation-background, 10);
     min-height: $navigation-height;
     width: 100%;
     z-index: 999;
-
     .navigation-wrapper {
-        @include layout(15 0 no-gutters);
+        @include layout($total-columns 0 no-gutters);
         @include clearfix;
-        @include container(show);
+        //@include container(show);
         @include squish($navigation-padding);
         position: relative;
         z-index: 9999;
     }
-
-    .navigation_back {
-        @include span(2);
-        height: $navigation-height;
-        border-right: solid thin white;
-    }
-    .logo {
-        @include span(5);
-        max-height: $navigation-height;
-        padding-left: $navigation-padding;
-        img {
-            float: left;
-            max-height: $navigation-height;
-            padding: .8em 0;
-        }
-    }
-    .role-selector-wrapper {
-        @include span(4);
-        .role-selector {
-            display: inline-block;
-            float: right;
-            margin-right: $navigation-padding;
-            height: $navigation-height;
-            padding: .8em 0;
-            li > a {
-                padding: 0;
-                margin: 0;
-                overflow: hidden;
+    .navigation-left {
+        @include span($left-columns);
+        .logo {
+            img {
+                height: $navigation-height;
+                padding: $general-padding;
             }
         }
     }
-    .user-logo {
-        @include span(2);
-        max-height: $navigation-height;
-        padding-right: $navigation-padding;
-        img {
+    .navigation-center {
+        @include span($middle-columns);
+    }
+    .navigation-right {
+        @include span($right-columns last);
+        padding-left: $navigation-padding;
+
+        .navigation-right_content {
             float: right;
-            max-height: $navigation-height;
-            padding: .8em 0;
+            td {
+              padding: 0 0.5em;
+            }
+
+            .user-logo {
+                img {
+                    height: $navigation-height;
+                    padding: $general-padding;
+                }
+            }
+
+            .navigation-button {
+                border: solid thin transparent;
+                background-color: transparent;
+                $radius: 0.4em;
+                border-radius: 0.5em;
+                .collaped-menu {
+                    display: inline-block;
+                    box-sizing: border-box;
+                    color: darken(white, 30%);
+                    vertical-align: middle;
+                    font-size: 2em;
+                    margin: 0.2em;
+                }
+            }
+            .navigation-button:hover {
+                background-color: lighten(black, 30%);
+                .collaped-menu {
+                    color: white;
+                }
+            }
         }
     }
-    .navigation_expand {
-        float: left;
-        @include span(2 last);
+    @include respond-to("tablet") {
+        .navigation-right {
+            .collaped-menu {
+                display: none !important;
+            }
+        }
     }
 }

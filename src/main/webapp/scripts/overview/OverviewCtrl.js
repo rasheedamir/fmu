@@ -15,7 +15,7 @@ angular.module('fmuClientApp')
         }
     }
 
-    $scope.$watch('currentOverview', function(val){
-        $scope.$state.go(val.state);
-    });
+    $scope.select = function(option) {
+        $scope.$state.go(option.state);
+    };
 }]);

@@ -1,5 +1,7 @@
-<div class="fmu-header" style="border-bottom: 1px solid #9cd7e3">
-    <select class="form-control" ng-model="currentOverview" ng-options="o.name for o in overviews"></select>
+<div class="order-overview">
+    <ul class="navigation">
+    	<li class="navigation-control" ng-repeat="o in overviews" ng-click="select(o)">{{o.name}}</li>
+    </ul>
 </div>
 
-<div ui-view style="margin-top: 1em"></div>
+<div ui-view></div>
