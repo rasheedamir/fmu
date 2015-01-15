@@ -9,7 +9,7 @@
 	<context:annotation-config />
 	<context:component-scan base-package="org.springframework.security.saml" />
 
-	<beans profile="dev">
+	<beans profile="dev,prod">
 		<!-- Unsecured pages -->
 		<security:http security="none" pattern="/css/**" />
 		<security:http security="none" pattern="/bootstrap/**" />
@@ -108,7 +108,7 @@
 
 	</beans>
 
-	<beans profile="prod">
+	<beans profile="acctest">
 		<!-- Unsecured pages -->
 		<security:http security="none" pattern="/favicon.ico" />
 		<security:http security="none" pattern="/images/**" />
@@ -161,8 +161,8 @@
 			class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
 			<property name="defaultTargetUrl" value="/" />
 		</bean>
-		<!-- Use the following for interpreting RelayState coming from unsolicited 
-			response as redirect URL: <bean id="successRedirectHandler" class="org.springframework.security.saml.SAMLRelayStateSuccessHandler"> 
+		<!-- Use the following for interpreting RelayState coming from unsolicited
+			response as redirect URL: <bean id="successRedirectHandler" class="org.springframework.security.saml.SAMLRelayStateSuccessHandler">
 			<property name="defaultTargetUrl" value="/" /> </bean> -->
 
 		<!-- Handler deciding where to redirect user after failed login -->
@@ -208,7 +208,7 @@
 			<constructor-arg type="java.lang.String" value="apollo" />
 		</bean>
 
-		<!-- Entry point to initialize authentication, default values taken from 
+		<!-- Entry point to initialize authentication, default values taken from
 			properties file -->
 		<bean id="samlEntryPoint" class="org.springframework.security.saml.SAMLEntryPoint">
 			<property name="defaultProfileOptions">
@@ -229,12 +229,12 @@
 			</constructor-arg>
 		</bean>
 
-		<!-- The filter is waiting for connections on URL suffixed with filterSuffix 
+		<!-- The filter is waiting for connections on URL suffixed with filterSuffix
 			and presents SP metadata there -->
 		<bean id="metadataDisplayFilter"
 			class="org.springframework.security.saml.metadata.MetadataDisplayFilter" />
 
-		<!-- IDP Metadata configuration - paths to metadata of IDPs in circle of 
+		<!-- IDP Metadata configuration - paths to metadata of IDPs in circle of
 			trust is here -->
 		<bean id="metadata"
 			class="org.springframework.security.saml.metadata.CachingMetadataManager">
@@ -264,16 +264,16 @@
 					</bean>
 				</list>
 			</constructor-arg>
-			<!-- OPTIONAL used when one of the metadata files contains information 
+			<!-- OPTIONAL used when one of the metadata files contains information
 				about this service provider -->
 			<!-- <property name="hostedSPName" value=""/> -->
-			<!-- OPTIONAL property: can tell the system which IDP should be used for 
+			<!-- OPTIONAL property: can tell the system which IDP should be used for
 				authenticating user by default. -->
 			<property name="defaultIDP"
 				value="https://idp2.acctest.sakerhetstjanst.inera.se:443/idp/saml" />
 		</bean>
 
-		<!-- SAML Authentication Provider responsible for validating of received 
+		<!-- SAML Authentication Provider responsible for validating of received
 			SAML messages -->
 		<bean id="samlAuthenticationProvider"
 			class="org.springframework.security.saml.SAMLAuthenticationProvider">
@@ -309,7 +309,7 @@
 			<property name="invalidateHttpSession" value="true" />
 		</bean>
 
-		<!-- Override default logout processing filter with the one processing 
+		<!-- Override default logout processing filter with the one processing
 			SAML messages -->
 		<bean id="samlLogoutFilter" class="org.springframework.security.saml.SAMLLogoutFilter">
 			<constructor-arg index="0" ref="successLogoutHandler" />
@@ -318,7 +318,7 @@
 		</bean>
 
 		<!-- Filter processing incoming logout messages -->
-		<!-- First argument determines URL user will be redirected to after successful 
+		<!-- First argument determines URL user will be redirected to after successful
 			global logout -->
 		<bean id="samlLogoutProcessingFilter"
 			class="org.springframework.security.saml.SAMLLogoutProcessingFilter">
