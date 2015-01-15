@@ -1,6 +1,7 @@
 $navigation-background : #212633;
 $webcert-color: #28b4c4;
-$overview-nav-bgcolor: lighten($webcert-color, 20%);
+$overview-nav-bgcolor: lighten($navigation-background, 15%);
+
 
 //General table styling
 $table-header-bgcolor: #3c4e57;

@@ -1,0 +1,29 @@
+$eavrop-header-bcolor: lighten($navigation-background, 15%);
+$eavrop-header-text-color: text-contrast($eavrop-header-bcolor);
+$eavrop-header-link-bcolor: darken($eavrop-header-bcolor, 10%);
+$eavrop-header-element-margins: 0.5em 1em;
+
+.eavrop-header {
+    @include layout(2 0 no-gutters);
+    @include clearfix;
+    background-color: $eavrop-header-bcolor;
+    color: $eavrop-header-text-color;
+    .header-backlink {
+        @include span(1);
+        margin: $eavrop-header-element-margins;
+        color: text-contrast($eavrop-header-link-bcolor, white);
+        max-width: 30%;
+        float: left;
+        cursor: pointer;
+        p {
+            font-family: $typl8-font-family;
+            display: inline;
+        }
+    }
+    .patient-info-banner {
+        @include span(1 last);
+        span {
+            display: block;
+        }
+    }
+}
