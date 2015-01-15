@@ -1,38 +1,30 @@
-<div ng-cloak class="container-fluid">
-    <div class="row">
-        <h1 class="col-md-4">Pågående beställningar</h1>
-
-        <div class="col-md-8">
-            <div class="col-md-4">
-                <fmu-datepicker title="Start datum" date-model="startDate"></fmu-datepicker>
-            </div>
-            <div class="col-md-4 col-md-offset-1">
-                <fmu-datepicker title="Slut datum" date-model="endDate"></fmu-datepicker>
-            </div>
-
-            <div class="col-md-3 fmu-dateButton">
-                <button class="btn btn-info" ng-click="visa()">Visa</button>
-            </div>
-        </div>
+<div ng-cloak class="overview-order-container">
+    <h1 class="order-status-title typl8-delta">Pågående beställningar</h1>
+    <ul class="order-dates-container">
+        <li class="start-date">
+            <fmu-datepicker title="Start datum" date-model="startDate"></fmu-datepicker>
+        </li>
+        <li class="end-date">
+            <fmu-datepicker title="Slut datum" date-model="endDate"></fmu-datepicker>
+        </li>
+        <li class="date-btn-container">
+            <button class="btn btn-info" ng-click="visa()">Visa</button>
+        </li>
+    </ul>
+    <div class="date-explaination">
+        <p><i>
+        {{datePickerDescription}}
+        </i>
+        </p>
     </div>
-
-    <div class="row">
-        <div class="col-md-8 col-md-offset-4">
-            <p><i>
-                {{datePickerDescription}}
-            </i>
-            </p>
-        </div>
-    </div>
-
     <fmu-table
-            table-parameters="tableParameters"
-            date-key="{{dateKey}}"
-            start-date="startDate.getTime()"
-            end-date="endDate.getTime()"
-            eavrop-status="ongoingStatus"
-            header-groups=headerGroups
-            header-fields="headerFields"
-            access-data-callback="getTableCellValue"
-            footer-hints="footerHints"></fmu-table>
+    table-parameters="tableParameters"
+    date-key="{{dateKey}}"
+    start-date="startDate.getTime()"
+    end-date="endDate.getTime()"
+    eavrop-status="ongoingStatus"
+    header-groups=headerGroups
+    header-fields="headerFields"
+    access-data-callback="getTableCellValue"
+    footer-hints="footerHints"></fmu-table>
 </div>

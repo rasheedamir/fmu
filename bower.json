@@ -20,7 +20,8 @@
     "susy": "latest",
     "breakpoint-sass": "latest",
     "typeplate-starter-kit": "latest",
-    "lodash": "latest"
+    "lodash": "latest",
+    "font-awesome": "latest"
   },
   "devDependencies": {
     "angular-scenario": "~1.2.0"

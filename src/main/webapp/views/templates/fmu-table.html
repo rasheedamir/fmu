@@ -1,70 +1,64 @@
 <div class="table-wrapper fadeIn fast">
     <table ng-table="tableParams" template-pagination="custom/pager" class="fmu-table">
-
         <thead>
-        <tr>
-            <th class="text-capitalize"
-                ng-repeat="group in headerGroups" colspan="{{group.colspan}}"
-                ng-class="group.colorClass == null || group.name == null ? 'invisible-header' : group.colorClass">
-                {{group.name}}
-            </th>
-        </tr>
-
-        <tr class="header">
-            <th ng-repeat="field in headerFields" class="text-center text-capitalize"
-                ng-class="{'sortable': isSortable(field.key), 'sort-asc': tableParams.isSortBy(field.key, 'asc'),'sort-desc': tableParams.isSortBy(field.key, 'desc')}"
-                ng-click="sort(field.key)">
-                <div ng-bind-html="field.name"></div>
-            </th>
-        </tr>
-
+            <tr>
+                <th
+                    ng-repeat="group in headerGroups" colspan="{{group.colspan}}"
+                    ng-class="group.colorClass == null || group.name == null ? 'invisible-header' : group.colorClass">
+                    {{group.name}}
+                </th>
+            </tr>
+            <tr class="header">
+                <th ng-repeat="field in headerFields" class="text-center text-capitalize"
+                    ng-class="{'sortable': isSortable(field.key), 'sort-asc': tableParams.isSortBy(field.key, 'asc'),'sort-desc': tableParams.isSortBy(field.key, 'desc')}"
+                    ng-click="sort(field.key)">
+                    <div ng-bind-html="field.name"></div>
+                </th>
+            </tr>
         </thead>
-
         <tbody>
-        <tr ng-if="!tableParams.data || tableParams.data.length == 0" class="blank-row">
-            <td colspan="100"></td>
-        </tr>
-
-        <tr ng-repeat="row in tableParams.data" ng-class="row.color" ng-click="rowClicked(row)">
-            <td ng-repeat="column in headerFields"
-                sortable="{{column.key}}" class="text-capitalize">
-                <span ng-bind="getValue(column.key, row)"></span>
-            </td>
-        </tr>
+            <tr ng-if="!tableParams.data || tableParams.data.length == 0" class="blank-row">
+                <td ng-repeat="field in headerFields">&nbsp;</td>
+            </tr>
+            <tr ng-repeat="row in tableParams.data" ng-class="row.color" ng-click="rowClicked(row)">
+                <td ng-repeat="column in headerFields"
+                    sortable="{{column.key}}" class="text-capitalize">
+                    <span ng-bind="getValue(column.key, row)"></span>
+                </td>
+            </tr>
         </tbody>
     </table>
     <script type="text/ng-template" id="custom/pager">
-        <ul class="pager ng-cloak">
+    <div class="pager">
+        <ul class="ng-cloak">
             <li ng-repeat="page in pages"
                 ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
                 ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
                 <a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Previous</a>
                 <a ng-switch-when="next" ng-click="params.page(page.number)" href="">Next &raquo;</a>
             </li>
-
             <li>
                 <div class="btn-group">
                     <button type="button" ng-class="{'active':params.count() == 10}" ng-click="params.count(10)"
-                            class="btn btn-default">10
+                    class="btn btn-default">10
                     </button>
                     <button type="button" ng-class="{'active':params.count() == 25}" ng-click="params.count(25)"
-                            class="btn btn-default">25
+                    class="btn btn-default">25
                     </button>
                     <button type="button" ng-class="{'active':params.count() == 50}" ng-click="params.count(50)"
-                            class="btn btn-default">50
+                    class="btn btn-default">50
                     </button>
                     <button type="button" ng-class="{'active':params.count() == 100}" ng-click="params.count(100)"
-                            class="btn btn-default">100
+                    class="btn btn-default">100
                     </button>
                 </div>
             </li>
         </ul>
-
-        <div>
-            <div ng-repeat="value in params.settings().$scope.footerHints" class="table-legend">
-                <span><i class="circle {{value.colorClass}}"></i>{{value.description}}</span>
-            </div>
+    </div>
+    <div>
+        <div ng-repeat="value in params.settings().$scope.footerHints" class="table-legend">
+            <span><i class="circle {{value.colorClass}}"></i>{{value.description}}</span>
         </div>
+    </div>
     </script>
 </div>
-

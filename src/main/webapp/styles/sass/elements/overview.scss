@@ -1,0 +1,60 @@
+.navigation {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    .navigation-control {
+        background-color: darken($overview-nav-bgcolor, 10%);
+        display: block;
+        border-bottom: solid thin darken($overview-nav-bgcolor, 30%);
+        padding: 0.5em 1em;
+        text-align: left;
+        font-size: 1em;
+        font-weight: bold;
+        color: text-contrast($overview-nav-bgcolor);
+        box-shadow: inset 0 0 1px 1px darken($overview-nav-bgcolor, 10%);
+        cursor: pointer;
+    }
+    .navigation-control:hover {
+        $hover-color: darken($overview-nav-bgcolor, 20%);
+        background-color: $hover-color;
+        color: white;
+        box-shadow: inset 0 0 1px 1px darken($hover-color, 10%);
+        border: solid thin darken($hover-color, 30%);
+    }
+    .navigation-control:active {
+        $clicked-color: lighten($overview-nav-bgcolor, 2%);
+        background-color: $clicked-color;
+        box-shadow: inset 0 0 1px 1px darken($clicked-color, 10%);
+        border: solid thin darken($clicked-color, 30%);
+        color: text-contrast($clicked-color);
+    }
+    @include respond-to("tablet") {
+        .navigation-control {
+            background-color: $overview-nav-bgcolor;
+            display: inline-block;
+            padding: 0.5em 1em;
+            text-align: center;
+            font-size: 1em;
+            font-weight: bold;
+            color: text-contrast($overview-nav-bgcolor);
+            margin: 0;
+            border: none;
+            border-radius: none;
+            box-shadow: none;
+            cursor: pointer;
+        }
+        .navigation-control:hover {
+            border: none;
+            border-radius: none;
+            box-shadow: none;
+            $hover-color: darken($overview-nav-bgcolor, 20%);
+            background-color: $hover-color;
+            color: white;
+        }
+        .navigation-control:active {
+            $clicked-color: lighten($overview-nav-bgcolor, 2%);
+            background-color: $clicked-color;
+            color: text-contrast($clicked-color);
+        }
+    }
+}

@@ -1,0 +1,45 @@
+.order-overview {
+    @include container;
+    background-color: $overview-nav-bgcolor;
+    box-shadow: 0 2px 2px -1px darken($overview-nav-bgcolor, 50%);
+}
+
+.overview-order-container {
+    @include container(12);
+    margin: 1em;
+    .order-dates-container {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .order-date-button {
+        float: right;
+    }
+    @include respond-to("tablet") {
+        .order-status-title {
+            @include span(3);
+        }
+        .order-dates-container {
+            @include span(9 last);
+            .start-date {
+                @include span(4);
+            }
+            .end-date {
+                @include span(4);
+                @include push(1);
+            }
+            .date-btn-container {
+                @include span(2 last);
+            }
+            .order-date-button {
+                margin-top: 1.5em;
+                float: left;
+            }
+        }
+        .date-explaination {
+            @include container(12);
+            @include push(3);
+            margin-top: 0;
+        }
+    }
+}

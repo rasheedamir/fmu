@@ -1,1 +1,11 @@
 $navigation-background : #212633;
+$webcert-color: #28b4c4;
+$overview-nav-bgcolor: lighten($webcert-color, 20%);
+
+//General table styling
+$table-header-bgcolor: #3c4e57;
+$table-border-color: #DDDDDD;
+$table-row-shadow-color: #999;
+$danger-color: rgba(255, 75, 73, 0.5);
+$warning-color: rgba(250, 206, 65, 0.5);
+$success-color: rgba(153, 219, 102, 0.5);
