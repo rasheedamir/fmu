@@ -1,5 +1,5 @@
-<div class="container-fluid">
-    <div class="col-md-12 table-wrapper">
+<div class="eavrop-order-content">
+    <div class="bestallning">
         <h2>Beställning</h2>
         <table class="fmu-table">
             <thead>
@@ -14,16 +14,16 @@
 
             <tbody>
             <tr>
-                <td>{{order.arendeId}}</td>
-                <td>{{order.inquiryDate | date: 'yyyy-MM-dd'}}</td>
-                <td>{{order.type}}</td>
-                <td>{{order.interpreterLang ? ('Ja, ' + order.interpreterLang) : order.interpreterLang != undefined ? 'Nej': null}}</td>
-                <td>{{order.valAvInriktning}}</td>
+                <td>{{order.arendeId}}&nbsp;</td>
+                <td>{{order.inquiryDate | date: 'yyyy-MM-dd'}}&nbsp;</td>
+                <td>{{order.type}}&nbsp;</td>
+                <td>{{order.interpreterLang ? ('Ja, ' + order.interpreterLang) : order.interpreterLang != undefined ? 'Nej': null}}&nbsp;</td>
+                <td>{{order.valAvInriktning}}&nbsp;</td>
             </tr>
             </tbody>
         </table>
     </div>
-    <div class="col-md-12 table-wrapper">
+    <div class="bestallare">
         <h2>Beställare</h2>
         <table class="fmu-table">
             <thead>
@@ -37,10 +37,10 @@
 
             <tbody>
             <tr>
-                <td>{{order.ordererUnit}}</td>
-                <td>{{order.ordererName}}</td>
-                <td>{{order.ordererPhone}}</td>
-                <td>{{order.ordererEmail}}</td>
+                <td>{{order.ordererUnit}}&nbsp;</td>
+                <td>{{order.ordererName}}&nbsp;</td>
+                <td>{{order.ordererPhone}}&nbsp;</td>
+                <td>{{order.ordererEmail}}&nbsp;</td>
             </tr>
             </tbody>
         </table>

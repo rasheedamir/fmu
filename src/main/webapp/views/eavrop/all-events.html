@@ -1,80 +1,54 @@
-<div ng-cloak class="fadeIn fast">
-    <div class="container-fluid fmu-badge-container">
-        <h1>Alla händelser</h1>
+<div ng-cloak class="alla-handelser fadeIn fast">
+    <h1>Alla händelser</h1>
+    <div class="sammanfattning">
         <h2>Sammanfattning</h2>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="summary-badge text-center">
-                            <div class="panel-heading"><strong>Förfrågan om utredning</strong></div>
-                            <div class="panel-body"><span class="summary-badge-text">{{allevents.dateInquiry | date:'yyyy-MM-dd'}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="text-center summary-badge">
-                            <div class="panel-heading"><strong>Handlingar översändes</strong></div>
-                            <div class="panel-body"><span class="summary-badge-text">{{allevents.documentsSent | date:'yyyy-MM-dd'}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="text-center summary-badge">
-                            <div class="panel-heading"><strong>Utredning antal dagar</strong></div>
-                            <div class="panel-body"><span
-                                    class="summary-badge-text">{{allevents.investigationNoDays}}</span></div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="text-center summary-badge">
-                            <div class="panel-heading"><strong>Begärda tillägg, handlingar</strong></div>
-                            <div class="panel-body"><span
-                                    class="summary-badge-text">{{allevents.reqAmendmentsDocuments}}</span></div>
-                        </div>
-                    </div>
+        <div class="badges-container">
+            <div class="summary-badge text-center">
+                <div class="panel-heading"><strong>Förfrågan om utredning</strong></div>
+                <div class="panel-body"><span class="summary-badge-text">{{allevents.dateInquiry | date:'yyyy-MM-dd'}}</span>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="text-center summary-badge">
-                            <div class="panel-heading"><strong>Acceptans av utredningen</strong></div>
-                            <div class="panel-body"><span class="summary-badge-text">{{allevents.acceptanceDate | date:'yyyy-MM-dd'}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="text-center summary-badge">
-                            <div class="panel-heading"><strong>Intyg skickat till beställaren</strong></div>
-                            <div class="panel-body"><span class="summary-badge-text">{{allevents.certSentToOrdererDate |  date:'yyyy-MM-dd'}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="text-center summary-badge">
-                            <div class="panel-heading"><strong>Antal avvikelser</strong></div>
-                            <div class="panel-body" ng-class="{'badge-danger': allevents.noDeviations > 0}">
-                                <span class="summary-badge-text" ng-class="allevents.noDeviations > 0 ? 'badge-danger' : ''">{{allevents.noDeviations}}</span></div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="text-center summary-badge">
-                            <div class="panel-heading"><strong>Begärda kompletteringar till utredning</strong></div>
-                            <div class="panel-body"><span class="summary-badge-text">{{allevents.reqAmendmentsInvestigation}}</span>
-                            </div>
-                        </div>
-                    </div>
+            </div>
+            <div class="text-center summary-badge">
+                <div class="panel-heading"><strong>Handlingar översändes</strong></div>
+                <div class="panel-body"><span class="summary-badge-text">{{allevents.documentsSent | date:'yyyy-MM-dd'}}</span>
+                </div>
+            </div>
+            <div class="text-center summary-badge">
+                <div class="panel-heading"><strong>Utredning antal dagar</strong></div>
+                <div class="panel-body"><span
+                class="summary-badge-text">{{allevents.investigationNoDays}}</span></div>
+            </div>
+            <div class="text-center summary-badge">
+                <div class="panel-heading"><strong>Begärda tillägg, handlingar</strong></div>
+                <div class="panel-body"><span
+                class="summary-badge-text">{{allevents.reqAmendmentsDocuments}}</span></div>
+            </div>
+            <div class="text-center summary-badge">
+                <div class="panel-heading"><strong>Acceptans av utredningen</strong></div>
+                <div class="panel-body"><span class="summary-badge-text">{{allevents.acceptanceDate | date:'yyyy-MM-dd'}}</span>
+                </div>
+            </div>
+            <div class="text-center summary-badge">
+                <div class="panel-heading"><strong>Intyg skickat till beställaren</strong></div>
+                <div class="panel-body"><span class="summary-badge-text">{{allevents.certSentToOrdererDate |  date:'yyyy-MM-dd'}}</span>
+                </div>
+            </div>
+            <div class="text-center summary-badge">
+                <div class="panel-heading"><strong>Antal avvikelser</strong></div>
+                <div class="panel-body" ng-class="{'badge-danger': allevents.noDeviations > 0}">
+                <span class="summary-badge-text" ng-class="allevents.noDeviations > 0 ? 'badge-danger' : ''">{{allevents.noDeviations}}</span></div>
+            </div>
+            <div class="text-center summary-badge">
+                <div class="panel-heading"><strong>Begärda kompletteringar till utredning</strong></div>
+                <div class="panel-body"><span class="summary-badge-text">{{allevents.reqAmendmentsInvestigation}}</span>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <h2>Beställning</h2>
-
                 <div class="table-wrapper">
                     <table class="fmu-table">
                         <thead>
@@ -90,7 +64,6 @@
                                 <th>Acceptans av utredning</th>
                             </tr>
                         </thead>
-
                         <tbody>
                             <tr>
                                 <td>{{order.arendeId}}</td>
@@ -110,32 +83,25 @@
                 <div class="table-wrapper">
                     <fmu-handlingar-table handlingar="documents"></fmu-handlingar-table>
                 </div>
-
                 <h2>Tillägg</h2>
                 <div class="table-wrapper">
                     <fmu-tillagg-table tillagg="requestedDocuments"></fmu-tillagg-table>
-
                 </div>
                 <h2>Utredning</h2>
-
                 <div class="table-wrapper">
                     <fmu-utredning-table
-                            table-parameters="tableParameters"
-                            header-fields="headerFields"
-                            eavropid="currentEavropId"
-                            row-modifiable="false"
-                            access-data-callback="getTableCellValue">
+                    table-parameters="tableParameters"
+                    header-fields="headerFields"
+                    eavropid="currentEavropId"
+                    row-modifiable="false"
+                    access-data-callback="getTableCellValue">
                     </fmu-utredning-table>
                 </div>
-
                 <h2>Anteckningar</h2>
-
                 <div class="table-wrapper">
                     <fmu-anteckningar-table anteckningar="notes"></fmu-anteckningar-table>
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>

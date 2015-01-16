@@ -1,0 +1,68 @@
+.eavrop-order {
+    @include container;
+    @include clearfix;
+    padding: 1em;
+    h1 {
+        font-size: 2em;
+    }
+    .eavrop-order-tab {
+        li {
+            display: block;
+            a {
+                border: solid thin grey;
+                border-bottom: none;
+            }
+            &:last-child a {
+                border-bottom: solid thin grey;
+                @include border-bottom-radius(0.5em);
+            }
+            &:first-child a {
+                @include border-top-radius(0.5em);
+            }
+        }
+
+        @include respond-to('tablet') {
+            li {
+                display: inline-block;
+                a {
+                    border: solid thin grey;
+                    border-bottom: none !important;
+                    @include border-top-radius(0.5em);
+                    border-bottom-right-radius: 0 !important;
+                    border-bottom-left-radius: 0 !important;
+                }
+            }
+        }
+    }
+    .eavrop-order-content {
+        @include container;
+        padding: 1em;
+        .bestallning {
+            @include container;
+            margin-bottom: 1em;
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+        .bestallare {
+            @extend .bestallning;
+        }
+    }
+    .handlingar-tillagg {
+        @include container;
+        @include clearfix;
+        padding: 1em;
+        .table-wrapper {
+            @include container;
+            h2 {
+                font-size: 1.5em;
+            }
+            &:nth-child(2) {
+                margin-top: 1em;
+            }
+        }
+    }
+    .citizen {
+        @extend .handlingar-tillagg;
+    }
+}

@@ -1,28 +1,21 @@
-<div ng-cloak class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>
-                Utredning
-            </h1>
-        </div>
-    </div>
+<div ng-cloak class="investigation">
+    <h1>
+    Utredning
+    </h1>
+    <div class="table-wrapper">
+        <fmu-utredning-table
+        table-parameters="tableParameters"
+        header-fields="headerFields"
+        eavropid="currentEavropId"
+        row-modifiable="true"
+        access-data-callback="getTableCellValue">
+        </fmu-utredning-table>
 
-    <div class="row" style="margin: 0">
-        <div class="table-wrapper">
-            <fmu-utredning-table
-                    table-parameters="tableParameters"
-                    header-fields="headerFields"
-                    eavropid="currentEavropId"
-                    row-modifiable="true"
-                    access-data-callback="getTableCellValue">
-            </fmu-utredning-table>
-
-            <div class="fmu-form-footer">
-                <button class="btn btn-success utredning-laggtill-btn"
-                        ng-click="openBookingCreationDialog()">
-                    Lägg till händelse
-                </button>
-            </div>
+        <div class="fmu-form-footer">
+            <button class="btn btn-success utredning-laggtill-btn"
+            ng-click="openBookingCreationDialog()">
+            Lägg till händelse
+            </button>
         </div>
     </div>
 </div>

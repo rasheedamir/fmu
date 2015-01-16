@@ -1,0 +1,9 @@
+.investigation {
+    @include container;
+    @include clearfix;
+    padding: 1em;
+
+    h1 {
+        font-size: 2em;
+    }
+}

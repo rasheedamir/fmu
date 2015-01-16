@@ -10,37 +10,95 @@ $eavrop-hover-bcolor: lighten($eavrop-header-bcolor, 20%);
     background-color: $eavrop-header-bcolor;
     color: $eavrop-header-text-color;
     .header-backlink {
-    	padding: $eavrop-header-element-padding;
-    	display: table-cell;
-    	vertical-align: middle;
-    	float: left;
-    	color: $eavrop-header-text-color;
-    	p {
-    		margin: 0;
-    		color: white;
-    	}
-    	cursor: pointer;
-
-    	&:hover{
-    		background-color: $eavrop-hover-bcolor;
-    		color: text-contrast($eavrop-hover-bcolor);
-    	}
+        padding: $eavrop-header-element-padding;
+        display: table-cell;
+        vertical-align: middle;
+        float: left;
+        color: $eavrop-header-text-color;
+        p {
+            margin: 0;
+            color: white;
+        }
+        cursor: pointer;
+        &:hover {
+            background-color: $eavrop-hover-bcolor;
+            color: text-contrast($eavrop-hover-bcolor);
+        }
     }
     .patient-info-banner {
-    	padding: $eavrop-header-element-padding;
-    	display: table-cell;
-    	vertical-align: middle;
-		float: right;
+        padding: $eavrop-header-element-padding;
+        display: table-cell;
+        vertical-align: middle;
+        float: right;
     }
 }
 
 #fmu-nav {
-	@include container;
-	ul {
-		@include ul-navigation(darken($webcert-color, 20%));
-	}
+    min-width: 1em;
+    width: auto !important;
+    @include container;
+    ul {
+        @include ul-navigation(darken($webcert-color, 20%));
+        li:last-child{
+            @include respond-to('desktop'){
+                float: right;
+            };
+        }
+    }
 }
 
-#status-btn {
-	float: right;
+.fmu-status-banner {
+    @include container;
+    @include clearfix;
+    background-color: $webcert-color;
+    $color: text-contrast($webcert-color, white);
+    padding: 0.5em 1em;
+    .status {
+        float: left;
+        h1 {
+            font-size: 1.5em;
+            color: $color;
+        }
+    }
+    .nr-of-days {
+        display: inline-block;
+        float: right;
+        text-align: center;
+        h1 {
+            display: none;
+        }
+        p {
+            $background: transparentize(grey, 0.2);
+            color: text-contrast($background, white);
+            font-weight: bold;
+            border-radius: 0.5em;
+            background-color: $background;
+            padding: 0 0.5em;
+        }
+    }
+    @include respond-to("tablet") {
+        padding: 0.5em 1em;
+        .status {
+            float: left;
+            h1 {
+                font-size: 1.5em;
+                color: $color;
+            }
+        }
+        .nr-of-days {
+            display: inline-block;
+            float: right;
+            text-align: center;
+            h1 {
+                display: inline-block;
+                font-size: 1.5em;
+                color: $color;
+                float: left;
+            }
+            p {
+                float: right;
+                margin-left: 1em;
+            }
+        }
+    }
 }

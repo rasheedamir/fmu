@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-if="!tableParams.data || tableParams.data.length == 0" class="blank-row">
+            <tr ng-if="!tableParams.data || tableParams.data.length == 0">
                 <td ng-repeat="field in headerFields">&nbsp;</td>
             </tr>
             <tr ng-repeat="row in tableParams.data" ng-class="row.color" ng-click="rowClicked(row)">

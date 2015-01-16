@@ -1,0 +1,28 @@
+.alla-handelser {
+    @include layout(12 1/4);
+    padding: 1em;
+    h1 {
+        font-size: 2em;
+    }
+    h2 {
+        font-size: 1.5em !important;
+    }
+    .sammanfattning {
+        .badges-container {
+            h2 {
+                margin-bottom: gutter(12);
+            }
+            @include clearfix;
+            background-color: blue;
+            padding: gutter(12);
+            margin-bottom: 0;
+            padding-bottom: 0;
+            .summary-badge {
+                @include gallery(3 of 12);
+                height: 10em;
+                background-color: red;
+                margin-bottom: gutter(12);
+            }
+        }
+    }
+}
