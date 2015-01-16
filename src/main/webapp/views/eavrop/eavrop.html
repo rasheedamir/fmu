@@ -1,8 +1,8 @@
 <div id="page-menus">
     <div class="eavrop-header">
-        <span class="header-backlink fa fa-chevron-left typl8-zeta" ui-sref="overview.orders">
-            <p> Till översikten</p>
-        </span>
+        <div class="header-backlink" ui-sref="overview.orders">
+            <p class="fa fa-chevron-left typl8-zeta"> Till översikten</p>
+        </div>
 
         <div class="patient-info-banner flipInX normal">
             <span>Invånare: <b>{{patientInfo.label}}</b></span>
@@ -45,29 +45,23 @@
         </div>
     </div>
 
-    <nav id="fmu-nav" class="navbar navbar-default fmu-nav" role="navigation">
-        <div class="fmu-nav-responsive-big">
-            <ul class="nav navbar-nav">
-                <li ng-class="{active: $state.includes('eavrop.order')}">
-                    <a ui-sref=".order.contents">
-                        <span class="glyphicon glyphicon-save">&nbsp;</span>Beställning
-                    </a>
-                </li>
-                <li ui-sref-active="active"><a ui-sref=".investigation"><span
-                        class="glyphicon glyphicon-search">&nbsp;</span>Utredning</a></li>
-                <li ui-sref-active="active"><a ui-sref=".allevents"><span class="glyphicon glyphicon-random">&nbsp;</span>Allahändelser</a></li>
-                <li ui-sref-active="active"><a ui-sref=".notes"><span class="glyphicon glyphicon-pencil">&nbsp;</span>Anteckningar</a></li>
-                <li ui-sref-active="active"><a ui-sref=".compensation"><span class="glyphicon glyphicon-book">&nbsp;</span>Underlag för ersättning</a></li>
-            </ul>
-
-            <ul class="nav navbar-nav fmu-status-nav">
-                <li id="status-btn" ng-init="showStatus = false" ng-click="showStatus = !showStatus"><a><span class="glyphicon glyphicon-flag">&nbsp;</span>Status</a></li>
-            </ul>
-        </div>
+    <nav id="fmu-nav" role="navigation">
+        <ul>
+            <li ng-class="{active: $state.includes('eavrop.order')}">
+                <a ui-sref=".order.contents">
+                    <span class="glyphicon glyphicon-save">&nbsp;</span>Beställning
+                </a>
+            </li><li ui-sref-active="active"><a ui-sref=".investigation"><span
+                    class="glyphicon glyphicon-search">&nbsp;</span>Utredning</a></li><li ui-sref-active="active"><a ui-sref=".allevents"><span class="glyphicon glyphicon-random">&nbsp;</span>Allahändelser</a></li><li ui-sref-active="active"><a ui-sref=".notes"><span class="glyphicon glyphicon-pencil">&nbsp;</span>Anteckningar</a></li><li ui-sref-active="active"><a ui-sref=".compensation"><span class="glyphicon glyphicon-book">&nbsp;</span>Underlag för ersättning</a></li><li id="status-btn" ng-init="showStatus = false" ng-click="showStatus = !showStatus"><a><span class="glyphicon glyphicon-flag">&nbsp;</span>Status</a></li>
+        </ul>
+        <!-- 
+        <ul class="nav navbar-nav fmu-status-nav">
+            <li id="status-btn" ng-init="showStatus = false" ng-click="showStatus = !showStatus"><a><span class="glyphicon glyphicon-flag">&nbsp;</span>Status</a></li>
+        </ul> -->
 
         <!--Responsive menu-->
 
-        <ul class="nav navbar-nav fmu-nav-responsive-small">
+        <!-- <ul class="nav navbar-nav fmu-nav-responsive-small">
             <li class="dropdown">
                 <a class="dropdown-toggle" role="button" aria-expanded="true">
                     <span class="glyphicon glyphicon-list"></span>
@@ -87,7 +81,7 @@
                     <li ng-init="showStatus = false" ng-click="showStatus = !showStatus"><a><span class="glyphicon glyphicon-flag">&nbsp;</span>Status</a></li>
                 </ul>
             </li>
-        </ul>
+        </ul> -->
     </nav>
 
     <div ng-show="showStatus" class="fmu-status-banner">

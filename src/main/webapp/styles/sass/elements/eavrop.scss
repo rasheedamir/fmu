@@ -1,29 +1,46 @@
 $eavrop-header-bcolor: lighten($navigation-background, 15%);
 $eavrop-header-text-color: text-contrast($eavrop-header-bcolor);
 $eavrop-header-link-bcolor: darken($eavrop-header-bcolor, 10%);
-$eavrop-header-element-margins: 0.5em 1em;
+$eavrop-header-element-padding: 0.5em 1em;
+$eavrop-hover-bcolor: lighten($eavrop-header-bcolor, 20%);
 
 .eavrop-header {
-    @include layout(2 0 no-gutters);
+    @include container;
     @include clearfix;
     background-color: $eavrop-header-bcolor;
     color: $eavrop-header-text-color;
     .header-backlink {
-        @include span(1);
-        margin: $eavrop-header-element-margins;
-        color: text-contrast($eavrop-header-link-bcolor, white);
-        max-width: 30%;
-        float: left;
-        cursor: pointer;
-        p {
-            font-family: $typl8-font-family;
-            display: inline;
-        }
+    	padding: $eavrop-header-element-padding;
+    	display: table-cell;
+    	vertical-align: middle;
+    	float: left;
+    	color: $eavrop-header-text-color;
+    	p {
+    		margin: 0;
+    		color: white;
+    	}
+    	cursor: pointer;
+
+    	&:hover{
+    		background-color: $eavrop-hover-bcolor;
+    		color: text-contrast($eavrop-hover-bcolor);
+    	}
     }
     .patient-info-banner {
-        @include span(1 last);
-        span {
-            display: block;
-        }
+    	padding: $eavrop-header-element-padding;
+    	display: table-cell;
+    	vertical-align: middle;
+		float: right;
     }
+}
+
+#fmu-nav {
+	@include container;
+	ul {
+		@include ul-navigation(darken($webcert-color, 20%));
+	}
+}
+
+#status-btn {
+	float: right;
 }
