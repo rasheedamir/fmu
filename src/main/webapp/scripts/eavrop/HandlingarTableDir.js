@@ -15,8 +15,8 @@ angular.module('fmuClientApp')
                     '</tr> ' +
             '</thead> ' +
             '<tbody> ' +
-                '<tr class="blank-row" ng-if="!handlingar || handlingar.length == 0">' +
-                    '<td colspan="1000"></td>' +
+                '<tr ng-if="!handlingar || handlingar.length == 0">' +
+                    '<td ng-repeat="i in [1, 2, 3]">&nbsp;</td>' +
                 '</tr>'+
 
                 '<tr ng-repeat="doc in handlingar"> ' +
@@ -46,8 +46,8 @@ angular.module('fmuClientApp')
                     '</tr> ' +
                 '</thead> ' +
                 '<tbody> ' +
-                    '<tr class="blank-row" ng-if="!tillagg || tillagg.length == 0">' +
-                        '<td colspan="1000"></td>' +
+                    '<tr ng-if="!tillagg || tillagg.length == 0">' +
+                        '<td ng-repeat="i in [1, 2, 3, 4, 5]">&nbsp;</td>' +
                     '</tr>'+
 
                     '<tr ng-repeat="am in tillagg"> ' +
@@ -92,7 +92,8 @@ angular.module('fmuClientApp')
             '</thead> ' +
             '<tbody> ' +
                 '<tr class="blank-row" ng-if="!anteckningar || anteckningar.length == 0">' +
-                    '<td colspan="1000"></td>' +
+                    '<td ng-repeat="i in [1, 2, 3]">&nbsp;</td>' +
+                    '<td ng-if="rowRemovable">&nbsp;</td>' +
                 '</tr>'+
                 '<tr ng-repeat="note in anteckningar"> ' +
                     '<td class="text-capitalize">{{note.contents}}</td> ' +

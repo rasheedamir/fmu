@@ -22,7 +22,7 @@
 
         <tbody>
         <tr ng-if="!tabularData || tabularData.length == 0" class="blank-row">
-            <td colspan="100"></td>
+            <td ng-repeat="field in headerFields">&nbsp;</td>
         </tr>
 
         <tr ng-repeat="row in tabularData" ng-class="row.color" ng-click="rowClicked(row)">

@@ -1,26 +1,14 @@
-<div ng-cloak class="container-fluid fadeIn fast">
-    <h1>
-        Anteckningar
-    </h1>
-
-    <p class="fmu-info-text">De anteckningar som noteras här skall inte innehålla någon medicinsk eller känslig information.</p>
-
+<div ng-cloak class="eavrop-notes">
+    <h1>Anteckningar</h1>
+    <p>De anteckningar som noteras här skall inte innehålla någon medicinsk eller känslig information.</p>
     <div class="table-wrapper">
         <fmu-error-field errors="noteError"></fmu-error-field>
-
         <div class="table-wrapper">
             <fmu-anteckningar-table
-                    anteckningar="notes"
-                    row-removable="true"
-                    remove-func="openRemoveNote"></fmu-anteckningar-table>
+            anteckningar="notes"
+            row-removable="true"
+            remove-func="openRemoveNote"></fmu-anteckningar-table>
         </div>
-
-        <div class="fmu-form-footer" style="border: none">
-            <div>
-                <button class="btn btn-success" ng-click="openAddNoteModal()">Lägg till anteckning</button>
-            </div>
-        </div>
+        <button class="btn btn-success" ng-click="openAddNoteModal()">Lägg till anteckning</button>
     </div>
 </div>
-
-

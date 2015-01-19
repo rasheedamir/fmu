@@ -1,0 +1,15 @@
+.eavrop-compensation {
+	@include container;
+	@include clearfix;
+	padding: 1em;
+	h1 {
+		font-size: 2em !important;
+	}
+
+	div {
+		h2 {
+			font-size: 1.5em !important;
+			margin-top: 1em;
+		}
+	}
+}

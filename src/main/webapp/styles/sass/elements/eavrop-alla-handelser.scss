@@ -1,5 +1,5 @@
 .alla-handelser {
-    @include layout(12 1/4);
+    @include layout(12 1 / 4);
     padding: 1em;
     h1 {
         font-size: 2em;
@@ -9,20 +9,81 @@
     }
     .sammanfattning {
         .badges-container {
+            @include clearfix;
             h2 {
                 margin-bottom: gutter(12);
             }
-            @include clearfix;
-            background-color: blue;
             padding: gutter(12);
             margin-bottom: 0;
             padding-bottom: 0;
             .summary-badge {
-                @include gallery(3 of 12);
                 height: 10em;
-                background-color: red;
                 margin-bottom: gutter(12);
+                $bg-color: lighten(grey, 20%);
+                .panel-heading {
+                    @include border-top-radius(0.5em);
+                    box-shadow: 0 0 1px 1px text-contrast(white);
+                    text-align: center;
+                    background-color: $bg-color;
+                    color: text-contrast($bg-color);
+                    padding: 0.5em 0;
+                }
+                .panel-body {
+                    margin-left: auto;
+                    margin-right: auto;
+                    border-bottom-left-radius: 0.5em;
+                    border-bottom-right-radius: 0.5em;
+                    box-shadow: 0 0 1px 1px text-contrast(white);
+                    font-size: 2em;
+                    text-align: center;
+                    font-weight: bold;
+                    color: text-contrast(white);
+                    min-height: 2em;
+
+                    .badge-danger {
+                        background-color: #FA6761 !important;
+                    }
+                }
             }
         }
+        @include respond-to("tablet") {
+            .badges-container {
+                .summary-badge {
+                    @include gallery(6 of 12);
+                }
+            }
+        }
+
+        @include respond-to("desktop") {
+            .badges-container {
+                .summary-badge {
+                    @include gallery(3 of 12);
+                }
+            }
+        }
+    }
+
+    %container {
+        @include container;
+        @include clearfix;
+        margin-top: 1em;
+    }
+
+    .events-bestallning{
+        @extend %container;
+    }
+    .events-handlingar {
+        @extend %container;
+    }
+    .events-tillagg {
+        @extend %container;
+    }
+
+    .events-utredning {
+        @extend %container;
+    }
+
+    .events-anteckningar {
+        @extend %container;
     }
 }

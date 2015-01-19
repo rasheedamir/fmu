@@ -1,0 +1,20 @@
+.eavrop-notes {
+	@include container;
+	@include clearfix;
+	padding: 1em;
+	h1 {
+		font-size: 2em !important;
+	}
+
+	p {
+		font-size: 1em !important;
+		font-style: italic;
+		margin-top: 0;
+		padding-top: 0;
+	}
+
+	button {
+		float: right;
+		margin-top: 1em;
+	}
+}

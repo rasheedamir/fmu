@@ -16,8 +16,8 @@
     </thead>
 
     <tbody>
-    <tr ng-if="!tableParams.data || tableParams.data.length == 0" class="blank-row">
-        <td colspan="100"></td>
+    <tr ng-if="!tableParams.data || tableParams.data.length == 0">
+        <td ng-repeat="field in headerFields">&nbsp;</td>
     </tr>
 
     <tr ng-repeat-start="row in tableParams.data"
