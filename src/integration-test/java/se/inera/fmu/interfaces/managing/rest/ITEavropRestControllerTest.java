@@ -35,6 +35,7 @@ import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 import se.inera.fmu.facade.FmuFacade;
+import se.inera.fmu.infrastructure.security.FakeAuthenticationProvider;
 import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingModificationRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.BookingRequestDTO;
@@ -61,6 +62,9 @@ public class ITEavropRestControllerTest {
 
 	@Inject
 	private CurrentUserService currentUserService;
+	
+	@Inject
+	private FakeAuthenticationProvider provider;
 
 	@Before
 	public void SetUp() {
@@ -68,7 +72,7 @@ public class ITEavropRestControllerTest {
 		ReflectionTestUtils.setField(eavropResource, "fmuFacade", fmuFacade);
 
 		this.restMock = MockMvcBuilders.standaloneSetup(eavropResource).build();
-		TestUtil.loginWithNoActiveRole();
+		TestUtil.loginWithNoActiveRole(provider);
 	}
 	
 	@Test

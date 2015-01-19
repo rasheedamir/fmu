@@ -48,6 +48,7 @@ import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
+import se.inera.fmu.infrastructure.security.FakeAuthenticationProvider;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.TestUtil;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
@@ -77,9 +78,12 @@ public class ITFmuAssignmentServiceImplTest {
 	@Inject
 	private FmuListService fmuListService;
 	
+	@Inject
+	private FakeAuthenticationProvider provider;
+	
 	@Before
 	public void setUp(){
-		TestUtil.loginWithNoActiveRole();
+		TestUtil.loginWithNoActiveRole(provider);
 	}
 	
 	@Test
