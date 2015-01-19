@@ -25,7 +25,7 @@
         <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <header class="navigation" role="banner">
+        <header class="navigation show" role="banner">
             <div class="navigation-wrapper">
                 <div class="navigation-left">
                     <a href="javascript:void(0)" class="logo">
@@ -57,12 +57,6 @@
                                     <img src="/images/avatar.png" alt="User Image">
                                 </a>
                             </td>
-
-                            <td>
-                                <div class="navigation-button">
-                                    <a class="collaped-menu fa fa-bars"></a>
-                                </div>
-                            </td>
                         </tr>
                     </table>
                 </div>
@@ -74,7 +68,7 @@
         <div ui-view></div>
 
 
-        <!-- <footer class="footer" role="contentinfo">
+        <footer class="footer" role="contentinfo">
             <div class="footer-logo">
                 <img src="/images/fmu_logo.png" alt="Logo image">
             </div>
@@ -99,7 +93,7 @@
             </div>
             <hr>
             <p>Created by R2M</p>
-        </footer> -->
+        </footer>
         <!-- build:js scripts/oldieshim.js -->
         <!--[if lt IE 9]>
         <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -151,6 +145,7 @@
         <script src="scripts/overview/CompletedController.js"></script>
         <script src="scripts/overview/OngoingController.js"></script>
         <script src="scripts/overview/OrderController.js"></script>
+        <script src="scripts/Directives/Fmu-responsive-menu.js"></script>
         <!-- endbuild -->
     </body>
 </html>

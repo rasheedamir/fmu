@@ -37,12 +37,12 @@ $eavrop-hover-bcolor: lighten($eavrop-header-bcolor, 20%);
     min-width: 1em;
     width: auto !important;
     @include container;
-    ul {
-        @include ul-navigation(darken($webcert-color, 20%));
-        li:last-child{
-            @include respond-to('desktop'){
+    @include ul-navigation(darken($webcert-color, 20%));
+    .navigation-expanded {
+        li:last-child {
+            @include respond-to("desktop") {
                 float: right;
-            };
+            }
         }
     }
 }
@@ -50,8 +50,9 @@ $eavrop-hover-bcolor: lighten($eavrop-header-bcolor, 20%);
 .fmu-status-banner {
     @include container;
     @include clearfix;
-    background-color: $webcert-color;
-    $color: text-contrast($webcert-color, white);
+    $background-color: #27BC8F;
+    background-color: $background-color;
+    $color: white;
     padding: 0.5em 1em;
     .status {
         float: left;

@@ -1,0 +1,105 @@
+@mixin ul-navigation($background-color, $forground-color: $webcert-color) {
+    $default-text-color: text-contrast($background-color, white);
+    $hover-color: $forground-color;
+    $hover-text-color: text-contrast($hover-color, black);
+    $clicked-color: $background-color;
+    height: auto;
+    .navigation-collapsed {
+        @include container;
+        @include clearfix;
+        display: block;
+        background-color: $background-color;
+        text-align: center;
+        border-bottom: solid thin darken($background-color, 30%);
+        button {
+            margin: 0.2em 1em;
+            float: right;
+            font-size: 2em;
+            vertical-align: middle;
+            color: text-contrast($background-color);
+            background-color: lighten($background-color, 5%);
+            border: solid thin transparent;
+            border-radius: 0.2em;
+            &:hover {
+                background-color: lighten($background-color, 15%);
+            }
+            &:focus {
+                outline: none;
+            }
+            &:active {
+                background-color: darken($background-color, 15%);
+            }
+        }
+    }
+    .navigation-expanded {
+        display: none;
+        margin-top: 0;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none;
+        width: 100%;
+        background-color: $background-color;
+        overflow-y: auto;
+        position: relative;
+        li {
+            background-color: $background-color;
+            display: block;
+            border-bottom: solid thin darken($background-color, 30%);
+            padding: 0.5em 1em;
+            text-align: left;
+            font-size: 1em;
+            font-weight: bold;
+            color: $default-text-color;
+            box-shadow: 0 0 1px 1px darken($background-color, 10%);
+            cursor: pointer;
+            a {
+                color: inherit;
+            }
+            &:hover {
+                background-color: $hover-color;
+                color: $hover-text-color;
+                box-shadow: inset 0 0 1px 1px darken($hover-color, 10%);
+                border: solid thin darken($hover-color, 30%);
+            }
+            &:active {
+                background-color: $clicked-color;
+                box-shadow: inset 0 0 1px 1px darken($clicked-color, 10%);
+                border: solid thin darken($clicked-color, 30%);
+                color: text-contrast($clicked-color);
+            }
+        }
+    }
+    @include respond-to("desktop") {
+        .navigation-collapsed {
+            display: none;
+        }
+        .navigation-expanded {
+            display: block !important;
+            li {
+                background-color: $background-color;
+                display: inline-block;
+                padding: 0.5em 1em;
+                text-align: center;
+                font-size: 1em;
+                font-weight: bold;
+                color: text-contrast($background-color);
+                margin: 0;
+                border: none;
+                border-radius: none;
+                box-shadow: none;
+                cursor: pointer;
+                &:hover {
+                    border: none;
+                    border-radius: none;
+                    box-shadow: none;
+                    background-color: $hover-color;
+                    color: $hover-text-color;
+                }
+                &:active {
+                    background-color: $clicked-color;
+                    color: text-contrast($clicked-color);
+                }
+            }
+        }
+    }
+}

@@ -55,34 +55,6 @@ header.navigation {
                     padding: $general-padding;
                 }
             }
-
-            .navigation-button {
-                border: solid thin transparent;
-                background-color: transparent;
-                $radius: 0.4em;
-                border-radius: 0.5em;
-                .collaped-menu {
-                    display: inline-block;
-                    box-sizing: border-box;
-                    color: darken(white, 30%);
-                    vertical-align: middle;
-                    font-size: 2em;
-                    margin: 0.2em;
-                }
-            }
-            .navigation-button:hover {
-                background-color: lighten(black, 30%);
-                .collaped-menu {
-                    color: white;
-                }
-            }
-        }
-    }
-    @include respond-to("tablet") {
-        .navigation-right {
-            .collaped-menu {
-                display: none !important;
-            }
         }
     }
 }

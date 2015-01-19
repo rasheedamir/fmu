@@ -1,7 +1,6 @@
-<div class="order-overview">
-    <ul class="navigation">
-    	<li ng-repeat="o in overviews" ng-click="select(o)">{{o.name}}</li>
-    </ul>
+<div class="order-overview-menu" fmu-responsive-menu>
+	<ul class="navigation-expanded">
+		<li ng-repeat="o in overviews" ng-click="select(o)">{{o.name}}</li>
+	</ul>
 </div>
-
 <div ui-view class="page-content"></div>

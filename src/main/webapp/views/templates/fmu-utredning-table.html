@@ -18,6 +18,7 @@
     <tbody>
     <tr ng-if="!tableParams.data || tableParams.data.length == 0">
         <td ng-repeat="field in headerFields">&nbsp;</td>
+        <td ng-if="rowModifiable">&nbsp;</td>
     </tr>
 
     <tr ng-repeat-start="row in tableParams.data"

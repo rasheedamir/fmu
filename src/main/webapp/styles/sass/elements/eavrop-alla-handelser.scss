@@ -31,8 +31,7 @@
                 .panel-body {
                     margin-left: auto;
                     margin-right: auto;
-                    border-bottom-left-radius: 0.5em;
-                    border-bottom-right-radius: 0.5em;
+                    @include border-bottom-radius(0.5em);
                     box-shadow: 0 0 1px 1px text-contrast(white);
                     font-size: 2em;
                     text-align: center;
