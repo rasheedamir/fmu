@@ -59,15 +59,15 @@ public class FmuOrderingServiceImplTest {
     @Mock
     private LandstingRepository landstingRepository;
     
-    @Mock
-    private DomainEventPublisher eventPublisher;
+//    @Mock
+//    private DomainEventPublisher eventPublisher;
 
 
     private FmuOrderingServiceImpl fmuOrderingService;
 
     @Before
     public void setUp() {
-        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, configuration, eventPublisher, landstingRepository);
+        fmuOrderingService = new FmuOrderingServiceImpl(eavropRepository, patientRepository, configuration, landstingRepository);
     }
 
     /*

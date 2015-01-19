@@ -5,12 +5,11 @@ import javax.persistence.EntityNotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import se.inera.fmu.application.DomainEventPublisher;
 import se.inera.fmu.application.EavropApprovalService;
 import se.inera.fmu.application.impl.command.ApproveEavropCommand;
 import se.inera.fmu.application.impl.command.ApproveEavropCompensationCommand;
@@ -34,27 +33,24 @@ import se.inera.fmu.domain.model.person.Bestallarsamordnare;
  */
 @Service
 @Validated
-@Transactional
 @Slf4j
 public class EavropApprovalServiceImpl implements EavropApprovalService {
 
     private final EavropRepository eavropRepository;
-    private final DomainEventPublisher domainEventPublisher;
     
 
     /**
      * Constructor
      * @param eavropRepository
-     * @param domainEventPublisher
      */
 	@Inject
-	public EavropApprovalServiceImpl(EavropRepository eavropRepository, DomainEventPublisher domainEventPublisher) {
+	public EavropApprovalServiceImpl(EavropRepository eavropRepository) {
 		this.eavropRepository = eavropRepository;
-		this.domainEventPublisher = domainEventPublisher;
 	}
 
 	@Override
-	public void approveEavrop(ApproveEavropCommand aCommand) {
+	@Transactional(propagation=Propagation.REQUIRED)
+	public EavropId approveEavrop(ApproveEavropCommand aCommand) {
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		
 		Bestallaradministrator person = aCommand.getBestallaradministrator();
@@ -64,18 +60,18 @@ public class EavropApprovalServiceImpl implements EavropApprovalService {
 		}
 		
 		 EavropApproval eavropApproval = new EavropApproval(aCommand.getApproveDateTime(), person, note);
-		
 		 eavrop.approveEavrop(eavropApproval);
 
 		if(log.isDebugEnabled()){
         	log.debug(String.format("EavropApproval added for eavrop:: %s", eavrop.getEavropId().toString()));
         }
 		
-		handleEavropApproval(eavrop.getEavropId(), aCommand.getApproveDateTime());
+		return eavrop.getEavropId();
 	}
 
 	@Override
-	public void approveEavropCompensation(ApproveEavropCompensationCommand aCommand) {
+	@Transactional(propagation=Propagation.REQUIRED)
+	public EavropId approveEavropCompensation(ApproveEavropCompensationCommand aCommand) {
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		
 		Bestallarsamordnare person = aCommand.getBestallarsamordnare();
@@ -85,44 +81,21 @@ public class EavropApprovalServiceImpl implements EavropApprovalService {
 		}
 		
 		 EavropCompensationApproval eavropCompensationApproval = new EavropCompensationApproval(aCommand.getApproved(), aCommand.getApproveDateTime(), person, note);
-		
 		 eavrop.approveEavropCompensation(eavropCompensationApproval);
 
 		if(log.isDebugEnabled()){
         	log.debug(String.format("EavropCompensationApproval added for eavrop:: %s", eavrop.getEavropId().toString()));
         }
 		
-		handleEavropCompensationApproval(eavrop.getEavropId(), aCommand.getApproveDateTime());
-		
+		return eavrop.getEavropId();
 	}
 
+	
 	private Eavrop getEavropByArendeId(ArendeId arendeId){
 		Eavrop eavrop = eavropRepository.findByArendeId(arendeId);
 		if(eavrop==null){
 			throw new EntityNotFoundException(String.format("Eavrop with ArendeId %s not found", arendeId.toString()));
 		}
 		return eavrop;
-	}
-	
-	private DomainEventPublisher getDomainEventPublisher(){
-		return this.domainEventPublisher;
-	}
-	
-	private void handleEavropApproval(EavropId eavropId, DateTime approvedDateTime){
-	//TODO: Should we have events when eavrop is approved?	
-//		 IntygApprovedByBestallareEvent event = new IntygApprovedByBestallareEvent(eavropId, approvedDateTime);
-//        if(log.isDebugEnabled()){
-//        	log.debug(String.format("IntygApprovedByBestallareEvent created :: %s", event.toString()));
-//        }
-//		getDomainEventPublisher().post(event);
-	}
-
-	private void handleEavropCompensationApproval(EavropId eavropId, DateTime complementRequestDateTime){
-		//TODO: Should we have events when eavrop is approved?	
-//		 IntygApprovedByBestallareEvent event = new IntygApprovedByBestallareEvent(eavropId, approvedDateTime);
-//       if(log.isDebugEnabled()){
-//       	log.debug(String.format("IntygApprovedByBestallareEvent created :: %s", event.toString()));
-//       }
-//		getDomainEventPublisher().post(event);
 	}
 }

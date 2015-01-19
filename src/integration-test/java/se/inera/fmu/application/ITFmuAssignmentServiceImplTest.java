@@ -4,23 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Set;
-
 import javax.inject.Inject;
-import javax.validation.constraints.AssertFalse;
 
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -29,11 +21,9 @@ import se.inera.fmu.Application;
 import se.inera.fmu.application.impl.command.AcceptEavropAssignmentCommand;
 import se.inera.fmu.application.impl.command.AssignEavropCommand;
 import se.inera.fmu.application.impl.command.CreateEavropCommand;
-import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
-import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.eavrop.Interpreter;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
@@ -48,10 +38,7 @@ import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
-import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.TestUtil;
-import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
-import se.inera.fmu.interfaces.managing.rest.dto.EavropPageDTO;
 
 /**
  * Created by Rasheed on 8/8/14.
@@ -99,6 +86,7 @@ public class ITFmuAssignmentServiceImplTest {
 		Eavrop eavrop_TST_1 = fmuListService.findByArendeId(TST_1);
 		assertNotEquals(null,eavrop_TST_1);
 		assertTrue(EavropStateType.UNASSIGNED.equals(eavrop_TST_1.getStatus()));
+		log.debug("DEBUG:2");
 		//Assign first Eavrop
 		AssignEavropCommand assignEavrop_TST_1 = new AssignEavropCommand(eavrop_TST_1.getEavropId(), vardgivarenhet.getHsaId(), new HsaId(currentUser.getHsaId()),"A", "B", "C","D" );
 		eavropAssignmentService.assignEavropToVardgivarenhet(assignEavrop_TST_1);
@@ -112,15 +100,17 @@ public class ITFmuAssignmentServiceImplTest {
 		assertNotEquals(eavrop_TST_1, null);
 		assertTrue(EavropStateType.UNASSIGNED.equals(eavrop_TST_2.getStatus()));
 		//Assign second Eavrop
+
 		AssignEavropCommand assignEavrop_TST_2 = new AssignEavropCommand(eavrop_TST_2.getEavropId(), vardgivarenhet.getHsaId(), new HsaId(currentUser.getHsaId()),"A", "B", "C","D" );
 		eavropAssignmentService.assignEavropToVardgivarenhet(assignEavrop_TST_2);
 		eavrop_TST_2 = fmuListService.findByArendeId(TST_2);
 		assertNotEquals(null,eavrop_TST_2);
 		assertTrue(EavropStateType.ASSIGNED.equals(eavrop_TST_2.getStatus()));
-		
+
 		//Accept both eavrop
 		AcceptEavropAssignmentCommand accept_TST_1 = new AcceptEavropAssignmentCommand(eavrop_TST_1.getEavropId(), vardgivarenhet.getHsaId(), new HsaId(currentUser.getHsaId()),"A", "B", "C","D");
 		eavropAssignmentService.acceptEavropAssignment(accept_TST_1);
+
 		AcceptEavropAssignmentCommand accept_TST_2 = new AcceptEavropAssignmentCommand(eavrop_TST_2.getEavropId(), vardgivarenhet.getHsaId(), new HsaId(currentUser.getHsaId()),"A", "B", "C","D");
 		eavropAssignmentService.acceptEavropAssignment(accept_TST_2);
 	

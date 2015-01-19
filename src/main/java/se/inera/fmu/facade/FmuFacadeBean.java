@@ -18,6 +18,7 @@ import se.inera.fmu.application.EavropAssignmentService;
 import se.inera.fmu.application.EavropBookingService;
 import se.inera.fmu.application.EavropDocumentService;
 import se.inera.fmu.application.EavropNoteService;
+import se.inera.fmu.application.FmuEventService;
 import se.inera.fmu.application.FmuListService;
 import se.inera.fmu.application.impl.command.AcceptEavropAssignmentCommand;
 import se.inera.fmu.application.impl.command.AddNoteCommand;
@@ -36,6 +37,7 @@ import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
+import se.inera.fmu.domain.model.eavrop.document.DocumentRequestedEvent;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.note.Note;
@@ -96,6 +98,9 @@ public class FmuFacadeBean  implements FmuFacade {
 
 	@Inject 
 	private EavropAssignmentService eavropAssignmentService;
+	
+	@Inject
+	private FmuEventService fmuEventService;
 
 	
 	@Override
@@ -272,32 +277,37 @@ public class FmuFacadeBean  implements FmuFacade {
 
 
 	@Override
-	@Transactional
 	public void addReceivedDocuments(EavropId eavropId, ReceivedDocumentDTO doc) {
+		this.eavropDocumentService.addReceivedInternalDocument(createAddReceivedInternalDocumentCommand(eavropId, doc));
+	}
+	
+	@Transactional(readOnly=true)
+	private AddReceivedInternalDocumentCommand createAddReceivedInternalDocumentCommand(EavropId eavropId, ReceivedDocumentDTO doc){
 		User currentUser = this.currentUserService.getCurrentUser();
-		
-		AddReceivedInternalDocumentCommand addReceivedInternalDocumentCommand = 
+		AddReceivedInternalDocumentCommand command = 
 				new AddReceivedInternalDocumentCommand(eavropId, doc.getName(), getHsaId(currentUser), 
 						currentUser.getFullName(), currentUser.getActiveRole().name(), getUserOrganisation(currentUser),getUserUnit(currentUser));
-		
-		this.eavropDocumentService.addReceivedInternalDocument(addReceivedInternalDocumentCommand);
+		return command;
 	}
 
 	@Override
-	@Transactional
 	public void addRequestedDocuments(EavropId eavropId, RequestedDocumentDTO doc) {
-
-		User currentUser = this.currentUserService.getCurrentUser();
+		RequestedDocument requestedDocument = this.eavropDocumentService.addRequestedDocument(createAddRequestedDocumentCommand(eavropId, doc));
+		this.fmuEventService.publishDocumentRequestedEvent(eavropId, requestedDocument);
 		
-		AddRequestedDocumentCommand addRequestedDocumentCommand = 
+	}
+
+	@Transactional(readOnly=true)
+	private AddRequestedDocumentCommand createAddRequestedDocumentCommand(EavropId eavropId, RequestedDocumentDTO doc){
+		User currentUser = this.currentUserService.getCurrentUser();
+		AddRequestedDocumentCommand command = 
 				new AddRequestedDocumentCommand(eavropId, doc.getName(), getHsaId(currentUser), 
 						currentUser.getFullName(), currentUser.getActiveRole().name(), getUserOrganisation(currentUser),getUserUnit(currentUser), doc.getComment());
-		
-		this.eavropDocumentService.addRequestedDocument(addRequestedDocumentCommand);
+		return command;
 	}
 
+	
 	@Override
-	@Transactional
 	public void addBooking(BookingRequestDTO changeRequestDto) {
 		BookingType bookingType = changeRequestDto.getBookingType();
 		Long bookingDateMilis = changeRequestDto.getBookingDate();
@@ -305,42 +315,69 @@ public class FmuFacadeBean  implements FmuFacade {
 		TimeDTO endTime = changeRequestDto.getBookingEndTime();
 		DateTime startDateTime = new DateTime(bookingDateMilis).withTime(startTime.getHour(),startTime.getMinute(), 0, 0);
 		DateTime endDateTime = new DateTime(bookingDateMilis).withTime(endTime.getHour(),	endTime.getMinute(), 0, 0);
-
-		CreateBookingCommand command = new CreateBookingCommand(new EavropId(
-				changeRequestDto.getEavropId()), bookingType, startDateTime, endDateTime, 
+		EavropId eavropId = new EavropId(changeRequestDto.getEavropId());
+		
+		CreateBookingCommand command = new CreateBookingCommand(eavropId, bookingType, startDateTime, endDateTime, 
 				changeRequestDto.getPersonName(), changeRequestDto.getPersonRole(),
 				changeRequestDto.getAdditionalService(), changeRequestDto.getUseInterpreter());
 
-		this.eavropBookingService.createBooking(command);
+		BookingId bookingId = this.eavropBookingService.createBooking(command);
+		
+		this.fmuEventService.publishBookingCreatedEvent(eavropId, bookingId);
+		
 	}
 
 	@Override
-	@Transactional
 	public void modifyBooking(BookingModificationRequestDTO changeRequestData) {
+		ChangeBookingStatusCommand changeBookingStatusCommand = createChangeBookingStatusCommand(changeRequestData);
+		this.eavropBookingService.changeBookingStatus(changeBookingStatusCommand);
+		
+		if(changeBookingStatusCommand.getBookingStatus().isDeviant()){
+			this.fmuEventService.publishBookingDeviationEvent(changeBookingStatusCommand.getEavropId(), changeBookingStatusCommand.getBookingId());
+		}
+	}
+	
+	//@Transactional(readOnly=true)
+	private ChangeBookingStatusCommand createChangeBookingStatusCommand(BookingModificationRequestDTO changeRequestData){
 		User currentUser = this.currentUserService.getCurrentUser();
 		ChangeBookingStatusCommand command = new ChangeBookingStatusCommand(new EavropId(
 				changeRequestData.getEavropId()), new BookingId(changeRequestData.getBookingId()),
 				changeRequestData.getBookingStatus(), changeRequestData.getComment(),
 				getHsaId(currentUser), currentUser.getFullName(), currentUser.getActiveRole().name(),
 				getUserOrganisation(currentUser), getUserUnit(currentUser));
-		this.eavropBookingService.changeBookingStatus(command);
+		
+		return command;
 	}
 
 	@Override
-	@Transactional
 	public void modifyTolkBooking(TolkBookingModificationRequestDTO changeRequestData) {
+		ChangeInterpreterBookingStatusCommand changeInterpreterBookingStatusCommand = createChangeInterpreterBookingStatusCommand(changeRequestData);
+		this.eavropBookingService.changeInterpreterBookingStatus(changeInterpreterBookingStatusCommand);
+		
+		if(changeInterpreterBookingStatusCommand.getInterpreterbookingStatus().isDeviant()){
+			this.fmuEventService.publishInterpreterBookingDeviationEvent(changeInterpreterBookingStatusCommand.getEavropId(), changeInterpreterBookingStatusCommand.getBookingId());
+		}
+	}
+	
+	//@Transactional(readOnly=true)
+	private ChangeInterpreterBookingStatusCommand createChangeInterpreterBookingStatusCommand(TolkBookingModificationRequestDTO changeRequestData){
 		User currentUser = this.currentUserService.getCurrentUser();
 		ChangeInterpreterBookingStatusCommand command = new ChangeInterpreterBookingStatusCommand(
-				new EavropId(changeRequestData.getEavropId()), new BookingId(
-						changeRequestData.getBookingId()), changeRequestData.getBookingStatus(),
-				changeRequestData.getComment(), getHsaId(currentUser), currentUser.getFullName(),
-				currentUser.getActiveRole().name(), getUserOrganisation(currentUser),
+				new EavropId(changeRequestData.getEavropId()), 
+				new BookingId(changeRequestData.getBookingId()), 
+				changeRequestData.getBookingStatus(),
+				changeRequestData.getComment(), 
+				getHsaId(currentUser), 
+				currentUser.getFullName(),
+				currentUser.getActiveRole().name(), 
+				getUserOrganisation(currentUser),
 				getUserUnit(currentUser));
-		this.eavropBookingService.changeInterpreterBookingStatus(command);
+		return command;
 	}
 
 	@Override
-	@Transactional
+	//@Transactional
+	//TODO:remove transaction annotation
 	public void addNote(AddNoteRequestDTO addRequest) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		AddNoteCommand command = new AddNoteCommand(new EavropId(addRequest.getEavropId()),
@@ -351,7 +388,8 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 
 	@Override
-	@Transactional
+	//@Transactional
+	//TODO:remove transaction annotation
 	public void removeNote(String eavropId, String noteId) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		RemoveNoteCommand command = new RemoveNoteCommand(new EavropId(eavropId),
@@ -391,7 +429,6 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 
 	@Override
-	@Transactional
 	public void assignVardgivarenhetToEavrop(EavropId eavropId, Long vardgivarenhetId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		Vardgivarenhet vardgivarenhet = fmuListService.findVardgivarenhetById(vardgivarenhetId);
@@ -408,10 +445,11 @@ public class FmuFacadeBean  implements FmuFacade {
 				personUnit);
 
 		this.eavropAssignmentService.assignEavropToVardgivarenhet(cmd);
+		
+		this.fmuEventService.publishEavropAssignedToVardgivarenhetEvent(eavropForUser.getEavropId(), vardgivarenhetHsaId);
 	}
 	
 	@Override
-	@Transactional
 	public void acceptEavropAssignment(EavropId eavropId) {
 		User currentUser = currentUserService.getCurrentUser();
 		Vardgivarenhet vardgivarenhet = getVardgivarenhetFromUser();
@@ -426,10 +464,11 @@ public class FmuFacadeBean  implements FmuFacade {
 				vardgivarenhetHsaId, personHsaId, personName, personRole, personOrganisation,
 				personUnit);
 		this.eavropAssignmentService.acceptEavropAssignment(assignCommand);
+		this.fmuEventService.publishEavropAcceptedByVardgivarenhetEvent(eavropId, vardgivarenhetHsaId);
+
 	}
 
 	@Override
-	@Transactional(readOnly=true)
 	public void rejectEavropAssignment(EavropId eavropId) {
 		User currentUser = currentUserService.getCurrentUser();
 		Vardgivarenhet vardgivarenhet = getVardgivarenhetFromUser();
@@ -444,6 +483,7 @@ public class FmuFacadeBean  implements FmuFacade {
 				vardgivarenhetHsaId, personHsaId, personName, personRole, personOrganisation,
 				personUnit, "");
 		this.eavropAssignmentService.rejectEavropAssignment(rejectCommand);
+		this.fmuEventService.publishEavropRejectedByVardgivarenhetEvent(eavropId, vardgivarenhetHsaId);
 	}
 
 	@Override
@@ -458,6 +498,7 @@ public class FmuFacadeBean  implements FmuFacade {
 	
 	@Override
 	@Transactional(readOnly=true)
+	//TODO:remove transaction? 
 	public Eavrop getEavropForUser(EavropId eavropId) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		Eavrop eavrop = null;

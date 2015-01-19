@@ -2,15 +2,11 @@ package se.inera.fmu.domain.model.eavrop;
 
 import java.text.SimpleDateFormat;
 
-import javax.persistence.Column;
-
 import junit.framework.TestCase;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
 
-import se.inera.fmu.application.DomainEventPublisher;
-import se.inera.fmu.application.impl.DomainEventPublisherImpl;
 import se.inera.fmu.application.util.EavropPropertiesUtil;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
@@ -30,7 +26,6 @@ import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.note.NoteType;
-import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
@@ -72,8 +67,6 @@ public class EavropTest extends TestCase {
 
 	private UtredningType utredningType;
 
-	private String tolk;
-	
 	private Landsting landsting;
 
 	private HoSPerson samordnare;
@@ -86,8 +79,6 @@ public class EavropTest extends TestCase {
 	
 	private Vardgivare vardgivare;
 	
-	private DomainEventPublisher domainEventPublisher = new DomainEventPublisherImpl(); //TODO: one for test
-
 	@Override
 	protected void setUp() throws Exception {
 		firstName = "john";
@@ -106,7 +97,6 @@ public class EavropTest extends TestCase {
 		invanare = new Invanare(personalNumber, name, gender, address, phone, email, specialNeeds);
 		arendeId = new ArendeId("131242153215");
 		utredningType = UtredningType.SLU;
-		tolk = "Swedish";
 		landsting = new Landsting (new LandstingCode(1), "Stockholms läns landsting");
 		samordnare = new HoSPerson(new HsaId("SE160000000000-HAHAHHSLS"), "Sven Duva", "Samordnare", "Landstinget Stockholm","Avd2", "08654321", "sven.duva@landstinget.se");
 		bestallaradministrator = new Bestallaradministrator("Per Elofsson","Handläggare", "Försäkringskassan", "LFC Stockholm", "08123456", "per.elofsson@forsakringskassan.se");
@@ -330,8 +320,6 @@ public class EavropTest extends TestCase {
 
 	@Test
 	public void  testFMU_66_Alla_Handelser() {
-		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		
 		eavrop = EavropBuilder.eavrop()
 		.withArendeId(arendeId)

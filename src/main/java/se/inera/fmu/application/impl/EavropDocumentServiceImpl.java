@@ -10,10 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import se.inera.fmu.application.DomainEventPublisher;
 import se.inera.fmu.application.EavropDocumentService;
 import se.inera.fmu.application.impl.command.AddReceivedExternalDocumentsCommand;
 import se.inera.fmu.application.impl.command.AddReceivedInternalDocumentCommand;
@@ -23,9 +23,6 @@ import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
-import se.inera.fmu.domain.model.eavrop.EavropStartEvent;
-import se.inera.fmu.domain.model.eavrop.document.DocumentRequestedEvent;
-import se.inera.fmu.domain.model.eavrop.document.DocumentSentByBestallareEvent;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.note.Note;
@@ -41,27 +38,24 @@ import se.inera.fmu.domain.model.person.HoSPerson;
  */
 @Service
 @Validated
-@Transactional
 @Slf4j
 public class EavropDocumentServiceImpl implements EavropDocumentService {
 
     private final EavropRepository eavropRepository;
-    private final DomainEventPublisher domainEventPublisher;
     
 
     /**
      * Constructor
      * @param eavropRepository
-     * @param domainEventPublisher
      */
 	@Inject
-	public EavropDocumentServiceImpl(EavropRepository eavropRepository, DomainEventPublisher domainEventPublisher) {
+	public EavropDocumentServiceImpl(EavropRepository eavropRepository) {
 		this.eavropRepository = eavropRepository;
-		this.domainEventPublisher = domainEventPublisher;
 	}
-
+	
 	@Override
-	public void addReceivedExternalDocument(AddReceivedExternalDocumentsCommand aCommand) {
+	@Transactional
+	public boolean addReceivedExternalDocument(AddReceivedExternalDocumentsCommand aCommand) {
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		LocalDate startDate = eavrop.getStartDate();
 		DateTime documentsSentFromBestallareDateTime = (aCommand.getDocumentsSentDateTime()!=null)?aCommand.getDocumentsSentDateTime():DateTime.now();
@@ -69,7 +63,6 @@ public class EavropDocumentServiceImpl implements EavropDocumentService {
 		Bestallaradministrator person = aCommand.getBestallaradministrator();
 		
 		List<String> documentNames = aCommand.getDocumentNames();
-		
 		
 		if(documentNames != null && !documentNames.isEmpty()){
 			for (String documentName : documentNames) {
@@ -83,15 +76,13 @@ public class EavropDocumentServiceImpl implements EavropDocumentService {
 				eavrop.setDateTimeDocumentsSentFromBestallare(documentsSentFromBestallareDateTime);
 			}
 		}
-		
-		handleDocumentsSentByBestallare(eavrop.getEavropId(), eavrop.getArendeId(), documentsSentFromBestallareDateTime);
-		
-		if(eavrop.getStartDate() != null && !eavrop.getStartDate().equals(startDate)){
-			handleEavropStart(eavrop.getEavropId(), eavrop.getArendeId(), eavrop.getStartDate().toDateTimeAtStartOfDay());	
-		}
+		boolean start = (eavrop.getStartDate() != null && !eavrop.getStartDate().equals(startDate));
+		return start;
 	}
 
+	
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public void addReceivedInternalDocument(AddReceivedInternalDocumentCommand aCommand) {
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		HoSPerson person = new HoSPerson(aCommand.getPersonHsaId(), aCommand.getPersonName(),  aCommand.getPersonRole(), aCommand.getPersonOrganisation(), aCommand.getPersonUnit());
@@ -100,7 +91,8 @@ public class EavropDocumentServiceImpl implements EavropDocumentService {
 	}
 	
 	@Override
-	public void addRequestedDocument(AddRequestedDocumentCommand aCommand) {
+	@Transactional(propagation=Propagation.REQUIRED)
+	public RequestedDocument addRequestedDocument(AddRequestedDocumentCommand aCommand) {
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		HoSPerson person = null;
 		Note requestNote = null;
@@ -121,10 +113,7 @@ public class EavropDocumentServiceImpl implements EavropDocumentService {
 		
 		eavrop.addRequestedDocument(requestedDocument);
 		log.debug(String.format("RequestedDocument created :: %s", requestedDocument));
-		
-		handleDocumentRequested(aCommand.getEavropId(), eavrop.getArendeId(),  requestedDocument.getId(), requestedDocument.getDocumentName(), requestedDocument.getDocumentDateTime(), person, requestNote);
-		
-		
+		return requestedDocument;
 	}
 
 	private Eavrop getEavropByEavropId(EavropId eavropId) throws EntityNotFoundException{
@@ -141,36 +130,5 @@ public class EavropDocumentServiceImpl implements EavropDocumentService {
 			throw new EntityNotFoundException(String.format("Eavrop with ArendeId %s not found", arendeId.toString()));
 		}
 		return eavrop;
-	}
-
-	private DomainEventPublisher getDomainEventPublisher(){
-		return this.domainEventPublisher;
-	}
-
-	private void handleDocumentsSentByBestallare(EavropId eavropId, ArendeId arendeId, DateTime dateTimeDocumentsSent){
-		//TODO: dont know if this event should be created... 
-		DocumentSentByBestallareEvent event = new DocumentSentByBestallareEvent(eavropId, arendeId, dateTimeDocumentsSent);
-        if(log.isDebugEnabled()){
-        	log.debug(String.format("DocumentSentByBestallareEvent created :: %s", event.toString()));
-        }
-		getDomainEventPublisher().post(event);
-	}
-
-	private void handleEavropStart(EavropId eavropId, ArendeId arendeId, DateTime eavropStartDate){
-		//TODO: dont know if this event should be created... 
-		EavropStartEvent event = new EavropStartEvent(eavropId, arendeId, eavropStartDate);
-        if(log.isDebugEnabled()){
-        	log.debug(String.format("EavropStartEvent created :: %s", event.toString()));
-        }
-		getDomainEventPublisher().post(event);
-	}
-
-	
-	private void handleDocumentRequested(EavropId eavropId, ArendeId arendeId, String documentId, String documentName, DateTime documentDateTime, HoSPerson person, Note requestNote) {
-		DocumentRequestedEvent event = new DocumentRequestedEvent(eavropId, arendeId, documentId, documentName, documentDateTime, person, requestNote);
-        if(log.isDebugEnabled()){
-        	log.debug(String.format("DocumentRequestedEvent created :: %s", event.toString()));
-        }
-		getDomainEventPublisher().post(event);
 	}
 }

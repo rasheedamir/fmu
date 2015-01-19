@@ -6,6 +6,7 @@ import javax.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
@@ -28,7 +29,6 @@ import se.inera.fmu.domain.model.person.HoSPerson;
  */
 @Service
 @Validated
-@Transactional
 @Slf4j
 public class EavropNoteServiceImpl implements EavropNoteService {
 
@@ -37,7 +37,6 @@ public class EavropNoteServiceImpl implements EavropNoteService {
     /**
      * Constructor
      * @param eavropRepository
-     * @param domainEventPublisher
      */
 	@Inject
 	public EavropNoteServiceImpl(EavropRepository eavropRepository) {
@@ -45,6 +44,7 @@ public class EavropNoteServiceImpl implements EavropNoteService {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public void addNote(AddNoteCommand aCommand) {
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		HoSPerson person = null;
@@ -53,7 +53,6 @@ public class EavropNoteServiceImpl implements EavropNoteService {
 		}
 		
 		Note note = new Note(NoteType.EAVROP, aCommand.getText(), person);
-		
 		eavrop.addNote(note);
 		
 		if(log.isDebugEnabled()){
@@ -63,17 +62,20 @@ public class EavropNoteServiceImpl implements EavropNoteService {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public void removeNote(RemoveNoteCommand aCommand) {
 		Eavrop eavrop = getEavropByEavropId(aCommand.getEavropId());
 		
 		Note note = eavrop.getNote(aCommand.getNoteId());
-		
 		if(note==null){
 			throw new EntityNotFoundException(String.format("Note with NoteId: %s not found on eavrop with eavropId: %s", aCommand.getNoteId().toString(), aCommand.getEavropId()));
 		}
 		
 		if(note.isRemovableBy(aCommand.getPersonHsaId())){
 			eavrop.removeNote(note);
+			if(log.isDebugEnabled()){
+	        	log.debug(String.format("Note %s removed from eavrop:: %s", note.getNoteId(), eavrop.getEavropId().toString()));
+	        }
 		}else{
 			throw new IllegalArgumentException(String.format("Note with NoteId: %s not eligeble for removal by person with HsaId: %s", aCommand.getNoteId().toString(), aCommand.getPersonHsaId()));
 		}
