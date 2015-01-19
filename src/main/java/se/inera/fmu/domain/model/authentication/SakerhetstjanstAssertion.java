@@ -135,7 +135,9 @@ public class SakerhetstjanstAssertion {
             return values;
         }
         for (XMLObject xmlObject : attribute.getAttributeValues()) {
-            values.add(xmlObject.getDOM().getTextContent());
+        	if(xmlObject.getDOM() != null){
+        		values.add(xmlObject.getDOM().getTextContent());
+        	}
         }
         return values;
     }
