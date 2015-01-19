@@ -66,6 +66,11 @@ public class TestUtil {
     	FakeCredentials cred = new FakeCredentials("IFV1239877878-1042", "Åsa", "Andersson", true, "IFV1239877878-1045");
     	FakeAuthenticationToken token = new FakeAuthenticationToken(cred);
     	
-    	SecurityContextHolder.getContext().setAuthentication(provider.authenticate(token));
+    	Authentication auth = provider.authenticate(token);
+    	
+    	FmuUserDetails details = (FmuUserDetails) auth.getDetails();
+    	details.getUser().getRoles().add(Role.ROLE_SAMORDNARE);
+    	
+    	SecurityContextHolder.getContext().setAuthentication(auth);
 	}
 }
