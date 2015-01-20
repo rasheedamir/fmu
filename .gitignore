@@ -95,3 +95,6 @@ Desktop.ini
 *.class
 *.log
 /target/
+/target/
+/target/
+/target/

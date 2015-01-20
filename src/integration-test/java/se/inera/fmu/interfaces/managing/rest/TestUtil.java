@@ -12,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import se.inera.fmu.domain.model.authentication.Role;
 import se.inera.fmu.domain.model.authentication.User;
+import se.inera.fmu.infrastructure.security.FakeAuthenticationProvider;
+import se.inera.fmu.infrastructure.security.FakeAuthenticationToken;
 import se.inera.fmu.infrastructure.security.FakeCredentials;
 import se.inera.fmu.infrastructure.security.FmuUserDetails;
 
@@ -46,8 +48,8 @@ public class TestUtil {
     /**
      * Log in with a fake user with predefined credentials
      */
-    public static void loginWithNoActiveRole() {
-		User user = new User();
+    public static void loginWithNoActiveRole(FakeAuthenticationProvider provider) {
+		/*User user = new User();
         user.setFirstName("Åsa");
         List<Role> roles = new ArrayList<Role>();
         roles.add(Role.ROLE_SAMORDNARE);
@@ -59,6 +61,16 @@ public class TestUtil {
 		FmuUserDetails details = new FmuUserDetails(user);
 		FakeCredentials credencial = new FakeCredentials("IFV1239877878-1042", "Åsa", "Andersson", true, "IFV1239877878-1045");
 		Authentication authentication = new UsernamePasswordAuthenticationToken(details, credencial);
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+		SecurityContextHolder.getContext().setAuthentication(authentication);*/
+    	
+    	FakeCredentials cred = new FakeCredentials("IFV1239877878-1042", "Åsa", "Andersson", true, "IFV1239877878-1045");
+    	FakeAuthenticationToken token = new FakeAuthenticationToken(cred);
+    	
+    	Authentication auth = provider.authenticate(token);
+    	
+    	FmuUserDetails details = (FmuUserDetails) auth.getDetails();
+    	details.getUser().getRoles().add(Role.ROLE_SAMORDNARE);
+    	
+    	SecurityContextHolder.getContext().setAuthentication(auth);
 	}
 }
