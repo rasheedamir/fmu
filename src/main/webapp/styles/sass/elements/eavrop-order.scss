@@ -5,32 +5,73 @@
     h1 {
         font-size: 2em;
     }
-    .eavrop-order-tab {
-        li {
-            display: block;
-            a {
-                border: solid thin grey;
-                border-bottom: none;
-            }
-            &:last-child a {
-                border-bottom: solid thin grey;
-                @include border-bottom-radius(0.5em);
-            }
-            &:first-child a {
-                @include border-top-radius(0.5em);
+    %select {}
+    .fmu-tabs {
+        nav {
+            border: solid thin #ddd;
+            @include border-top-radius(0.5em);
+            width: 100%;
+            float: left;
+            ul {
+                margin: 0;
+                padding: 0;
+                li {
+                    width: 100%;
+                    border-bottom: solid thin #ddd;
+                    a {
+                        font-size: 1.5em;
+                        padding: 0.5em 1em;
+                        line-height: 2.5em;
+                        font-weight: bold;
+                        text-decoration: none;
+                    }
+                    &:hover {
+                        background-color: #ddd;
+                        a {
+                            color: text-contrast(#ddd);
+                        }
+                    }
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
             }
         }
-
-        @include respond-to('tablet') {
-            li {
-                display: inline-block;
-                a {
-                    border: solid thin grey;
-                    border-bottom: none !important;
-                    @include border-top-radius(0.5em);
-                    border-bottom-right-radius: 0 !important;
-                    border-bottom-left-radius: 0 !important;
+        .fmu-tab-content {
+            width: 100%;
+            float: left;
+            border: solid thin #ddd;
+            border-top: none;
+        }
+        @include respond-to("desktop") {
+            nav {
+                border: none;
+                ul {
+                    li {
+                        float: left;
+                        width: auto;
+                        border-bottom: none;
+                        border-left: solid thin #ddd;
+                        border-top: solid thin #ddd;
+                        &:hover {
+                            background-color: #ddd;
+                            a {
+                                color: text-contrast(#ddd);
+                            }
+                        }
+                        &:first-child {
+                            border-top-left-radius: 0.5em;
+                        }
+                        &:last-child {
+                            border-right: solid thin #ddd;
+                            border-top-right-radius: 0.5em;
+                        }
+                    }
                 }
+            }
+            .fmu-tab-content {
+                border-top: solid thin #ddd;
+                border-top-right-radius: 0.5em;
             }
         }
     }

@@ -1,14 +1,25 @@
 <div ng-cloak class="eavrop-order">
     <h1>
-        Beställning
+    Beställning
     </h1>
-
-    <div>
-        <ul class="eavrop-order-tab nav" role="tablist">
-            <li ui-sref-active="active"><a ui-sref=".contents">Innehåll i beställningen</a></li>
-            <li ui-sref-active="active"><a ui-sref=".documents">Handlingar och tillägg</a></li>
-            <li ui-sref-active="active"><a ui-sref=".citizen">Invånaren</a></li>
-        </ul>
-        <div class="tab-content" ui-view></div>
+    <!--     <tabset>
+    <tab ui-sref=".contents" heading="Innehåll i beställningen"></tab>
+    <tab ui-sref=".documents" heading="Handlingar och tillägg"></tab>
+    <tab ui-sref=".citizen" heading="Invånaren"></tab>
+    </tabset>
+    <div ui-view></div> -->
+    <div class="fmu-tabs">
+        <nav>
+            <ul class="enable-selection-highlight">
+                <li>
+                    <a ui-sref=".contents">Innehåll i beställningen</a>
+                </li>
+                <li>
+                    <a ui-sref=".documents">Handlingar och tillägg</a>
+                </li>
+                <li><a ui-sref=".citizen">Invånaren</a></li>
+            </ul>
+        </nav>
+        <div class="fmu-tab-content" ui-view></div>
     </div>
 </div>
