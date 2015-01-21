@@ -2,10 +2,10 @@
     @include layout(12 1 / 4);
     padding: 1em;
     h1 {
-        font-size: 2em;
+        font-size: $header-font-size;
     }
     h2 {
-        font-size: 1.5em !important;
+        font-size: $sub-header-font-size !important;
     }
     .sammanfattning {
         .badges-container {

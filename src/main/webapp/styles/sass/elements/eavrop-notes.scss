@@ -3,7 +3,7 @@
 	@include clearfix;
 	padding: 1em;
 	h1 {
-		font-size: 2em !important;
+		font-size: $header-font-size !important;
 	}
 
 	p {

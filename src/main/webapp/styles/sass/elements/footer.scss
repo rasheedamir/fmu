@@ -18,7 +18,7 @@
     $footer-text-color: white;
     $footer-link-color: text-contrast($footer-text-color);
     $footer-disclaimer-color: text-contrast($footer-text-color);
-    background: $footer-background;
+    background-color: $footer-background;
     padding: $base-spacing gutter();
     .footer-logo {
         text-align: center;
@@ -67,7 +67,7 @@
         width: 12em;
     }
     p {
-        color: text-contrast($navigation-background);
+        color: text-contrast($footer-background);
         font-size: .9em;
         line-height: 1.5em;
         margin: auto;

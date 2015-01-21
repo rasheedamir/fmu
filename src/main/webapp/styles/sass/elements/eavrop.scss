@@ -33,6 +33,21 @@ $eavrop-hover-bcolor: lighten($eavrop-header-bcolor, 20%);
     }
 }
 
+.fmu-assign-banner {
+    @include container;
+    @include clearfix;
+    padding: 1em;
+    background-color: $assign-banner-bgColor;
+    h1, p {
+        color: text-contrast($assign-banner-bgColor, $webcert-color);
+        text-indent: 0;
+    }
+
+    h1 {
+        font-size: $header-font-size;
+    }
+}
+
 #fmu-nav {
     min-width: 1em;
     width: auto !important;
@@ -50,8 +65,7 @@ $eavrop-hover-bcolor: lighten($eavrop-header-bcolor, 20%);
 .fmu-status-banner {
     @include container;
     @include clearfix;
-    $background-color: #27BC8F;
-    background-color: $background-color;
+    background-color: $fmu-status-bgColor;
     $color: white;
     padding: 0.5em 1em;
     .status {
@@ -69,11 +83,10 @@ $eavrop-hover-bcolor: lighten($eavrop-header-bcolor, 20%);
             display: none;
         }
         p {
-            $background: transparentize(grey, 0.2);
-            color: text-contrast($background, white);
+            color: text-contrast($fmu-status-daysBgColor, white);
             font-weight: bold;
             border-radius: 0.5em;
-            background-color: $background;
+            background-color: $fmu-status-daysBgColor;
             padding: 0 0.5em;
         }
     }

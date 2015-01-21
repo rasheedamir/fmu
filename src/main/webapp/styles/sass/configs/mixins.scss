@@ -3,8 +3,8 @@
     $hover-color: $forground-color;
     $hover-text-color: text-contrast($hover-color, black);
     $clicked-color: $background-color;
-    $selected-color: #27BC8F;
-    $selected-text-color: text-contrast($selected-color, white);;
+    $navigation-selected-color: #27BC8F;
+    $selected-text-color: text-contrast($navigation-selected-color, white);;
     height: auto;
     .navigation-collapsed {
         @include container;
@@ -72,7 +72,7 @@
             }
         }
         .navigation-tab-highlighted {
-            background-color: $selected-color;
+            background-color: $navigation-selected-color;
             color: $selected-text-color;
         }
     }

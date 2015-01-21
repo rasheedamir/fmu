@@ -3,12 +3,12 @@
 	@include clearfix;
 	padding: 1em;
 	h1 {
-		font-size: 2em !important;
+		font-size: $header-font-size !important;
 	}
 
 	div {
 		h2 {
-			font-size: 1.5em !important;
+			font-size: $sub-header-font-size !important;
 			margin-top: 1em;
 		}
 	}

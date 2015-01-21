@@ -3,11 +3,14 @@
     @include clearfix;
     padding: 1em;
     h1 {
-        font-size: 2em;
+        font-size: $header-font-size;
     }
     .fmu-tabs {
+        $border: solid thin $fmu-tabs-base-color;
+        $hover-bg-color: $fmu-tabs-base-color;
+        $hover-text-color: text-contrast($fmu-tabs-base-color);
         nav {
-            border: solid thin #ddd;
+            border: $border;
             @include border-top-radius(0.5em);
             width: 100%;
             float: left;
@@ -16,18 +19,18 @@
                 padding: 0;
                 li {
                     width: 100%;
-                    border-bottom: solid thin #ddd;
+                    border-bottom: $border;
                     a {
-                        font-size: 1.5em;
+                        font-size: 1em;
                         padding: 0.5em 1em;
-                        line-height: 2.5em;
+                        line-height: 2em;
                         font-weight: bold;
                         text-decoration: none;
                     }
                     &:hover {
-                        background-color: #ddd;
+                        background-color: $fmu-tabs-base-color;
                         a {
-                            color: text-contrast(#ddd);
+                            color: $hover-text-color;
                         }
                     }
                     &:last-child {
@@ -39,7 +42,7 @@
         .fmu-tab-content {
             width: 100%;
             float: left;
-            border: solid thin #ddd;
+            border: $border;
             border-top: none;
         }
         @include respond-to("desktop") {
@@ -50,28 +53,28 @@
                         float: left;
                         width: auto;
                         border-bottom: none;
-                        border-left: solid thin #ddd;
-                        border-top: solid thin #ddd;
+                        border-left: $border;
+                        border-top: $border;
                         &:first-child {
                             border-top-left-radius: 0.5em;
                         }
                         &:last-child {
-                            border-right: solid thin #ddd;
+                            border-right: $border;
                             border-top-right-radius: 0.5em;
                         }
                     }
                 }
             }
             .fmu-tab-content {
-                border-top: solid thin #ddd;
+                border-top: $border;
                 border-top-right-radius: 0.5em;
             }
         }
 
         .tab-highlight {
-            background-color: $webcert-color;
+            background-color: $fmu-tabs-highlight-color;
             a {
-                color: text-contrast($webcert-color);
+                color: $hover-text-color;
             }
         }
     }
@@ -82,7 +85,7 @@
             @include container;
             margin-bottom: 1em;
             h2 {
-                font-size: 1.5em;
+                font-size: $sub-header-font-size;
             }
         }
         .bestallare {
@@ -96,7 +99,7 @@
         .table-wrapper {
             @include container;
             h2 {
-                font-size: 1.5em;
+                font-size: $sub-header-font-size;
             }
             &:nth-child(2) {
                 margin-top: 1em;
