@@ -3,9 +3,9 @@
 angular.module('fmuClientApp')
 .controller('OverviewCtrl', ['$scope', function($scope){
     $scope.overviews = [
-        {name: 'Beställningar', state: 'overview.orders'},
-        {name: 'Pågående utredningar', state: 'overview.ongoing'},
-        {name: 'Genomförda utredningar', state: 'overview.completed'}
+        {name: 'Beställningar', state: '.orders'},
+        {name: 'Pågående utredningar', state: '.ongoing'},
+        {name: 'Genomförda utredningar', state: '.completed'}
     ];
 
     for (var i=0; i < $scope.overviews.length; ++i) {

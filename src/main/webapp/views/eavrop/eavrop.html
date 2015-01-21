@@ -37,12 +37,42 @@
     </div>
     <nav id="fmu-nav" role="navigation" fmu-responsive-menu>
         <ul class="navigation-expanded" enable-selection-highlight="navigation-tab-highlighted" highlight-tab="1">
-            <li ng-class="{active: $state.includes('eavrop.order')}">
+            <li ui-sref-active="navigation-tab-highlighted" ng-class="{active: $state.includes('eavrop.order')}">
                 <a ui-sref=".order.contents">
-                    <span class="glyphicon glyphicon-save">&nbsp;</span>Beställning
+                    <span class="glyphicon glyphicon-save">&nbsp;</span>
+                    Beställning
                 </a>
-            </li><li ui-sref-active="active"><a ui-sref=".investigation"><span
-            class="glyphicon glyphicon-search">&nbsp;</span>Utredning</a></li><li ui-sref-active="active"><a ui-sref=".allevents"><span class="glyphicon glyphicon-random">&nbsp;</span>Alla händelser</a></li><li ui-sref-active="active"><a ui-sref=".notes"><span class="glyphicon glyphicon-pencil">&nbsp;</span>Anteckningar</a></li><li ui-sref-active="active"><a ui-sref=".compensation"><span class="glyphicon glyphicon-book">&nbsp;</span>Underlag för ersättning</a></li><li id="status-btn" ng-init="showStatus = false" ng-click="showStatus = !showStatus"><a><span class="glyphicon glyphicon-flag">&nbsp;</span>Status</a></li>
+            </li>
+            <li ui-sref-active="navigation-tab-highlighted">
+                <a ui-sref=".investigation">
+                    <span class="glyphicon glyphicon-search">&nbsp;</span>
+                    Utredning
+                </a>
+            </li>
+            <li ui-sref-active="navigation-tab-highlighted">
+                <a ui-sref=".allevents">
+                    <span class="glyphicon glyphicon-random">&nbsp;</span>
+                    Alla händelser
+                </a>
+            </li>
+            <li ui-sref-active="navigation-tab-highlighted">
+                <a ui-sref=".notes">
+                    <span class="glyphicon glyphicon-pencil">&nbsp;</span>
+                    Anteckningar
+                </a>
+            </li>
+            <li ui-sref-active="navigation-tab-highlighted">
+                <a ui-sref=".compensation">
+                    <span class="glyphicon glyphicon-book">&nbsp;</span>
+                    Underlag för ersättning
+                </a>
+            </li>
+            <li id="status-btn" ng-init="showStatus = false" ng-click="showStatus = !showStatus">
+                <a>
+                    <span class="glyphicon glyphicon-flag">&nbsp;</span>
+                    Status
+                </a>
+            </li>
         </ul>
         <!--
         <ul class="nav navbar-nav fmu-status-nav">

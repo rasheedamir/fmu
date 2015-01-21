@@ -4,14 +4,16 @@
     </h1>
     <div class="fmu-tabs">
         <nav>
-            <ul enable-selection-highlight="tab-highlight">
-                <li class="tab-highlight">
+            <ul>
+                <li ui-sref-active="tab-highlight" class="tab-highlight">
                     <a ui-sref=".contents">Innehåll i beställningen</a>
                 </li>
-                <li>
+                <li ui-sref-active="tab-highlight">
                     <a ui-sref=".documents">Handlingar och tillägg</a>
                 </li>
-                <li><a ui-sref=".citizen">Invånaren</a></li>
+                <li ui-sref-active="tab-highlight">
+                    <a ui-sref=".citizen">Invånaren</a>
+                </li>
             </ul>
         </nav>
         <div class="fmu-tab-content" ui-view></div>
