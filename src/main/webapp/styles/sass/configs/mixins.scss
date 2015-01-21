@@ -3,7 +3,6 @@
     $hover-color: $forground-color;
     $hover-text-color: text-contrast($hover-color, black);
     $clicked-color: $background-color;
-    $navigation-selected-color: #27BC8F;
     $selected-text-color: text-contrast($navigation-selected-color, white);;
     height: auto;
     .navigation-collapsed {
