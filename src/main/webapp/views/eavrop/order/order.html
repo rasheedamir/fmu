@@ -2,16 +2,10 @@
     <h1>
     Beställning
     </h1>
-    <!--     <tabset>
-    <tab ui-sref=".contents" heading="Innehåll i beställningen"></tab>
-    <tab ui-sref=".documents" heading="Handlingar och tillägg"></tab>
-    <tab ui-sref=".citizen" heading="Invånaren"></tab>
-    </tabset>
-    <div ui-view></div> -->
     <div class="fmu-tabs">
         <nav>
-            <ul class="enable-selection-highlight">
-                <li>
+            <ul enable-selection-highlight="tab-highlight">
+                <li class="tab-highlight">
                     <a ui-sref=".contents">Innehåll i beställningen</a>
                 </li>
                 <li>

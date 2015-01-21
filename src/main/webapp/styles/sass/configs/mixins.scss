@@ -3,6 +3,8 @@
     $hover-color: $forground-color;
     $hover-text-color: text-contrast($hover-color, black);
     $clicked-color: $background-color;
+    $selected-color: #27BC8F;
+    $selected-text-color: text-contrast($selected-color, white);;
     height: auto;
     .navigation-collapsed {
         @include container;
@@ -54,6 +56,7 @@
             cursor: pointer;
             a {
                 color: inherit;
+                text-decoration: none;
             }
             &:hover {
                 background-color: $hover-color;
@@ -67,6 +70,10 @@
                 border: solid thin darken($clicked-color, 30%);
                 color: text-contrast($clicked-color);
             }
+        }
+        .navigation-tab-highlighted {
+            background-color: $selected-color;
+            color: $selected-text-color;
         }
     }
     @include respond-to("desktop") {

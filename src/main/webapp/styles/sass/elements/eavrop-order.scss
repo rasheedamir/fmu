@@ -5,7 +5,6 @@
     h1 {
         font-size: 2em;
     }
-    %select {}
     .fmu-tabs {
         nav {
             border: solid thin #ddd;
@@ -53,12 +52,6 @@
                         border-bottom: none;
                         border-left: solid thin #ddd;
                         border-top: solid thin #ddd;
-                        &:hover {
-                            background-color: #ddd;
-                            a {
-                                color: text-contrast(#ddd);
-                            }
-                        }
                         &:first-child {
                             border-top-left-radius: 0.5em;
                         }
@@ -72,6 +65,13 @@
             .fmu-tab-content {
                 border-top: solid thin #ddd;
                 border-top-right-radius: 0.5em;
+            }
+        }
+
+        .tab-highlight {
+            background-color: $webcert-color;
+            a {
+                color: text-contrast($webcert-color);
             }
         }
     }

@@ -1,6 +1,6 @@
 <div class="order-overview-menu" fmu-responsive-menu>
-	<ul class="navigation-expanded">
-		<li ng-repeat="o in overviews" ng-click="select(o)">{{o.name}}</li>
+	<ul class="navigation-expanded" enable-selection-highlight="navigation-tab-highlighted" highlight-tab="1">
+		<li ng-repeat="(key, o) in overviews" ng-click="select(o)">{{o.name}}</li>
 	</ul>
 </div>
 <div ui-view class="page-content"></div>
