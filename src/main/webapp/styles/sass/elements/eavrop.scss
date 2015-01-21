@@ -103,3 +103,9 @@ $eavrop-hover-bcolor: lighten($eavrop-header-bcolor, 20%);
         }
     }
 }
+
+.menu-shadow {
+    -webkit-box-shadow: 0 8px 8px rgba(128, 128, 128, 0.5) !important;
+    -moz-box-shadow: 0 8px 8px rgba(128, 128, 128, 0.5) !important;
+    box-shadow: 0 8px 8px rgba(128, 128, 128, 0.5) !important;
+}

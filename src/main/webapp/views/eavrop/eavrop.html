@@ -35,8 +35,8 @@
             </div>
         </div>
     </div>
-    <nav id="fmu-nav" role="navigation" fmu-responsive-menu>
-        <ul class="navigation-expanded" enable-selection-highlight="navigation-tab-highlighted" highlight-tab="1">
+    <nav id="fmu-nav" fmu-responsive-menu>
+        <ul class="navigation-expanded">
             <li ui-sref-active="navigation-tab-highlighted" ng-class="{active: $state.includes('eavrop.order')}">
                 <a ui-sref=".order.contents">
                     <span class="glyphicon glyphicon-save">&nbsp;</span>
@@ -67,38 +67,14 @@
                     Underlag för ersättning
                 </a>
             </li>
-            <li id="status-btn" ng-init="showStatus = false" ng-click="showStatus = !showStatus">
+            <li id="status-btn" ng-init="showStatus = false" ng-click="showStatus = !showStatus" 
+                ng-class="{'navigation-tab-highlighted' : showStatus}">
                 <a>
                     <span class="glyphicon glyphicon-flag">&nbsp;</span>
                     Status
                 </a>
             </li>
         </ul>
-        <!--
-        <ul class="nav navbar-nav fmu-status-nav">
-            <li id="status-btn" ng-init="showStatus = false" ng-click="showStatus = !showStatus"><a><span class="glyphicon glyphicon-flag">&nbsp;</span>Status</a></li>
-        </ul> -->
-        <!--Responsive menu-->
-        <!-- <ul class="nav navbar-nav fmu-nav-responsive-small">
-            <li class="dropdown">
-                <a class="dropdown-toggle" role="button" aria-expanded="true">
-                    <span class="glyphicon glyphicon-list"></span>
-                </a>
-                <ul class="dropdown-menu" role="menu">
-                    <li ng-class="{active: $state.includes('eavrop.order')}">
-                        <a ui-sref=".order.contents">
-                            <span class="glyphicon glyphicon-save">&nbsp;</span>Beställning
-                        </a>
-                    </li>
-                    <li ui-sref-active="active"><a ui-sref=".investigation"><span
-                    class="glyphicon glyphicon-search">&nbsp;</span>Utredning</a></li>
-                    <li ui-sref-active="active"><a ui-sref=".allevents"><span class="glyphicon glyphicon-random">&nbsp;</span>Allahändelser</a></li>
-                    <li ui-sref-active="active"><a ui-sref=".notes"><span class="glyphicon glyphicon-pencil">&nbsp;</span>Anteckningar</a></li>
-                    <li ui-sref-active="active"><a ui-sref=".compensation"><span class="glyphicon glyphicon-book">&nbsp;</span>Underlag för ersättning</a></li>
-                    <li ng-init="showStatus = false" ng-click="showStatus = !showStatus"><a><span class="glyphicon glyphicon-flag">&nbsp;</span>Status</a></li>
-                </ul>
-            </li>
-        </ul> -->
     </nav>
     <div ng-show="showStatus" class="fmu-status-banner">
         <div class="status">
@@ -114,25 +90,10 @@
 $(function() {
     $('#page-menus').scrollToFixed({
         preFixed: function() {
-            $('#fmu-nav').addClass('menu-shadow')
-            $('.fmu-status-banner').addClass('menu-shadow')
+            $('#page-menus').addClass('menu-shadow');
         },
         postFixed: function() {
-            $('#fmu-nav').removeClass('menu-shadow')
-            $('.fmu-status-banner').removeClass('menu-shadow')
-        }
-    });
-    $('#status-btn').click(function() {
-        var status = angular.element($('#status-btn')).scope().showStatus;
-        if (!status) {
-            $('#fmu-nav').addClass('no-shadow');
-            $('.fmu-status-banner').removeClass('fadeOut');
-            $('.fmu-status-banner').addClass('fadeIn fast');
-            $('.fmu-status-nav').addClass('status-active');
-        } else {
-            $('#fmu-nav').removeClass('no-shadow');
-            $('.fmu-status-banner').removeClass('fadeIn fast');
-            $('.fmu-status-nav').removeClass('status-active');
+            $('#page-menus').removeClass('menu-shadow');
         }
     });
 });
