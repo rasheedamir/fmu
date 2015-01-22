@@ -220,7 +220,9 @@ public abstract class AbstractEavropStateTest {
 		HsaId hsaId = new HsaId("SE160000000000-HAHAHHSAA");
 		Vardgivare vardgivare = new Vardgivare(hsaId,"TEST CARE");
 		Address address = new Address("Slottsbacken 2","11123","Stockholm","SWEDEN");
-		return new Vardgivarenhet(vardgivare, hsaId, "TEST UNIT", address);
+		String email = "epost@epost.se";
+		String phone = "08123123";
+		return new Vardgivarenhet(vardgivare, hsaId, "TEST UNIT", address, email, phone);
 	}
 	
 	protected Booking createBooking(){

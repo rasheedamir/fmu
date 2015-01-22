@@ -54,7 +54,6 @@ public class EavropTest extends TestCase {
 	private String address1;
 	private String address2;
 	private String postalCode;
-	private String state;
 	private String city;
 	private String country;
 
@@ -89,7 +88,6 @@ public class EavropTest extends TestCase {
 		address1 = "testgatan 1";
 		address2 = "testgatan 2";
 		postalCode = "33144";
-		state = "test county";
 		city = "test city";
 		country = "testland";
 		personalNumber = new PersonalNumber("6677665577");
@@ -101,7 +99,7 @@ public class EavropTest extends TestCase {
 		samordnare = new HoSPerson(new HsaId("SE160000000000-HAHAHHSLS"), "Sven Duva", "Samordnare", "Landstinget Stockholm","Avd2", "08654321", "sven.duva@landstinget.se");
 		bestallaradministrator = new Bestallaradministrator("Per Elofsson","Handläggare", "Försäkringskassan", "LFC Stockholm", "08123456", "per.elofsson@forsakringskassan.se");
 		vardgivare = new Vardgivare(new HsaId("SE160000000000-HAHAHHSAA"), "Cary Care");
-		vardgivarenhet = new Vardgivarenhet(vardgivare, new HsaId("SE160000000000-HAHAHHSAB"), "CareIt", new Address("","","",""));
+		vardgivarenhet = new Vardgivarenhet(vardgivare, new HsaId("SE160000000000-HAHAHHSAB"), "CareIt", new Address("","","",""), "","");
 		doctorPerson = new HoSPerson(new HsaId("SE160000000000-HAHAHHSBB"), "Dr Hudson", "Surgeon", "Danderyds sjukhus","FMU enheten");
 
 	}
@@ -126,7 +124,7 @@ public class EavropTest extends TestCase {
 	
 	@Test
 	public void  testCreateAddress2() {
-		address = new Address(address1, address2, postalCode, state, city, country);
+		address = new Address(address1, address2, postalCode, city, country);
 		assertEquals(address1, address.getAddress1());
 		assertEquals(address2, address.getAddress2());
 		assertEquals(city, address.getCity());

@@ -76,7 +76,7 @@ public class ITLandstingRepositoryTest {
 		Vardgivare vardgivare = createVardgivare(this.vardgivareId, "Personal Care AB");
 		
 		this.vardgivarenhetId = new HsaId("SE160000000000-00000000C");
-		Vardgivarenhet vardgivarenhet = createVardgivarenhet(this.vardgivarenhetId, "Roinekliniken", new Address("Barnhusgatan 12", "33443", "Stockholm", "Sverige"),vardgivare, landsting);
+		Vardgivarenhet vardgivarenhet = createVardgivarenhet(this.vardgivarenhetId, "Roinekliniken", new Address("Barnhusgatan 12", "33443", "Stockholm", "Sverige"),"epost@epost.se","555-123123", vardgivare, landsting);
 		
 	}
     
@@ -153,8 +153,8 @@ public class ITLandstingRepositoryTest {
     	return landstingssamordnare; 
     }
     
-    private Vardgivarenhet createVardgivarenhet(HsaId hsaId, String name, Address address, Vardgivare vardgivare, Landsting landsting){
-    	Vardgivarenhet vardgivarenhet = new Vardgivarenhet(vardgivare, hsaId, name, address );
+    private Vardgivarenhet createVardgivarenhet(HsaId hsaId, String name, Address address, String email, String phone, Vardgivare vardgivare, Landsting landsting){
+    	Vardgivarenhet vardgivarenhet = new Vardgivarenhet(vardgivare, hsaId, name, address, email, phone );
     	if(landsting != null ){
     		landsting.addVardgivarenhet(vardgivarenhet);
     		vardgivarenhet.addLandsting(landsting);

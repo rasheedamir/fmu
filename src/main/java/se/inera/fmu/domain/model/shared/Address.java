@@ -47,7 +47,7 @@ public final class Address implements ValueObject<Address> {
     * @param city
     */
     public Address(final String address1, final String postalCode, final String city) {
-        this(address1, null, postalCode, null, city, null);
+        this(address1, null, postalCode, city, null);
     }
 
     /**
@@ -58,7 +58,7 @@ public final class Address implements ValueObject<Address> {
      * @param country
      */
     public Address(final String address1, final String postalCode, final String city, final String country) {
-        this(address1, null, postalCode, null, city, country);
+        this(address1, null, postalCode, city, country);
     }
 
     /**
@@ -66,11 +66,10 @@ public final class Address implements ValueObject<Address> {
      * @param address1
      * @param address2
      * @param postalCode
-     * @param state
      * @param city
      * @param country
      */
-    public Address(final String address1, final String address2, final String postalCode, final String state, final String city, final String country) {
+    public Address(final String address1, final String address2, final String postalCode, final String city, final String country) {
         setAddress1(address1);
         setAddress2(address2);
         setPostalCode(postalCode);

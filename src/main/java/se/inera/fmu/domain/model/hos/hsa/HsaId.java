@@ -49,8 +49,8 @@ public class HsaId implements ValueObject<HsaId>, Serializable {
 
     //~ Other Methods ==================================================================================================
 
-	public static boolean isValid(String hsaId) {
-		return hsaId.matches(HSA_ID_REGEX);
+	public static boolean isValid(String hsaIdString) {
+		return hsaIdString.matches(HSA_ID_REGEX);
 	}
 
 	@Override
