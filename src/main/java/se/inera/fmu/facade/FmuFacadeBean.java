@@ -37,7 +37,6 @@ import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
-import se.inera.fmu.domain.model.eavrop.document.DocumentRequestedEvent;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
 import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 import se.inera.fmu.domain.model.eavrop.note.Note;
@@ -224,7 +223,6 @@ public class FmuFacadeBean  implements FmuFacade {
 	@Transactional(readOnly=true)
 	public OrderDTO getOrderInfo(EavropId eavropId) {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
-		//TODO:check if StaleObjectStateException still exists
 		return new OrderDTOMapper().map(eavropForUser);
 	}
 	
@@ -337,7 +335,6 @@ public class FmuFacadeBean  implements FmuFacade {
 		}
 	}
 	
-	//@Transactional(readOnly=true)
 	private ChangeBookingStatusCommand createChangeBookingStatusCommand(BookingModificationRequestDTO changeRequestData){
 		User currentUser = this.currentUserService.getCurrentUser();
 		ChangeBookingStatusCommand command = new ChangeBookingStatusCommand(new EavropId(
@@ -359,7 +356,6 @@ public class FmuFacadeBean  implements FmuFacade {
 		}
 	}
 	
-	//@Transactional(readOnly=true)
 	private ChangeInterpreterBookingStatusCommand createChangeInterpreterBookingStatusCommand(TolkBookingModificationRequestDTO changeRequestData){
 		User currentUser = this.currentUserService.getCurrentUser();
 		ChangeInterpreterBookingStatusCommand command = new ChangeInterpreterBookingStatusCommand(
@@ -376,8 +372,6 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 
 	@Override
-	//@Transactional
-	//TODO:remove transaction annotation
 	public void addNote(AddNoteRequestDTO addRequest) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		AddNoteCommand command = new AddNoteCommand(new EavropId(addRequest.getEavropId()),
@@ -388,8 +382,6 @@ public class FmuFacadeBean  implements FmuFacade {
 	}
 
 	@Override
-	//@Transactional
-	//TODO:remove transaction annotation
 	public void removeNote(String eavropId, String noteId) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		RemoveNoteCommand command = new RemoveNoteCommand(new EavropId(eavropId),
@@ -433,17 +425,17 @@ public class FmuFacadeBean  implements FmuFacade {
 		Eavrop eavropForUser = getEavropForUser(eavropId);
 		Vardgivarenhet vardgivarenhet = fmuListService.findVardgivarenhetById(vardgivarenhetId);
 		User currentUser = currentUserService.getCurrentUser();
-
+		
 		HsaId vardgivarenhetHsaId = vardgivarenhet.getHsaId();
 		HsaId personHsaId = new HsaId(currentUser.getHsaId());
 		String personName = currentUser.getFullName();
 		String personRole = currentUser.getActiveRole().toString();
 		String personOrganisation = vardgivarenhet.getVardgivare().getName();
 		String personUnit = currentUser.getUnit();
+		
 		AssignEavropCommand cmd = new AssignEavropCommand(eavropForUser.getEavropId(),
 				vardgivarenhetHsaId, personHsaId, personName, personRole, personOrganisation,
 				personUnit);
-
 		this.eavropAssignmentService.assignEavropToVardgivarenhet(cmd);
 		
 		this.fmuEventService.publishEavropAssignedToVardgivarenhetEvent(eavropForUser.getEavropId(), vardgivarenhetHsaId);
@@ -497,8 +489,6 @@ public class FmuFacadeBean  implements FmuFacade {
 	
 	
 	@Override
-	@Transactional(readOnly=true)
-	//TODO:remove transaction? 
 	public Eavrop getEavropForUser(EavropId eavropId) {
 		User currentUser = this.currentUserService.getCurrentUser();
 		Eavrop eavrop = null;
@@ -587,6 +577,4 @@ public class FmuFacadeBean  implements FmuFacade {
 		User currentUser = currentUserService.getCurrentUser();
 		return this.fmuListService.findVardgivarenhetByHsaId(new HsaId(currentUser.getVardenhetHsaId()));
 	}
-
-
 }
