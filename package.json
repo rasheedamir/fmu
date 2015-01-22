@@ -27,7 +27,7 @@
     "grunt-wiredep": "^1.7.0",
     "jshint-stylish": "^0.2.0",
     "karma": "^0.12.23",
-    "jit-grunt": "latest",
+    "load-grunt-tasks": "^0.4.0",
     "time-grunt": "^0.3.1",
     "grunt-protractor-runner":"1.1.4",
     "protractor":"1.1.0",
@@ -36,7 +36,10 @@
     "phantomjs":"1.9.7-15",
     "grunt-shell": "0.7.0",
     "grunt-connect-proxy": "0.1.10",
-    "grunt-contrib-sass": "^0.7.3"
+    "grunt-contrib-sass": "^0.7.3",
+    "grunt-angular-gettext": "^2.0.1",
+    "grunt-injector": "latest",
+    "grunt-file-blocks": "latest"
   },
   "engines": {
     "node": ">=0.10.0"

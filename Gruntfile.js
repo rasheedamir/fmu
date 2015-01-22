@@ -10,13 +10,10 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically
-  require('jit-grunt')(grunt);
+  require('load-grunt-tasks')(grunt);
 
   // Time how long tasks take. Can help when optimizing build times
-  require('jit-grunt')(grunt, {
-    configureProxies: 'grunt-connect-proxy',
-    useminPrepare: 'grunt-usemin'
-  });
+  require('time-grunt')(grunt);
 
   // Configurable paths for the application
   var appConfig = {
@@ -147,6 +144,9 @@ module.exports = function (grunt) {
         }]
       },
       server: {
+        options: {
+          style: 'expanded'
+        },
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/styles/sass',
@@ -391,6 +391,56 @@ module.exports = function (grunt) {
         configFile: 'src/test/javascript/karma.conf.js',
         singleRun: true
       }
+    },
+
+    // Extract texts from html files for translation or override
+       nggettext_extract: {
+      pot: {
+        files: {
+          /* fileblock:js components */
+          /* endfileblock */
+        }
+      }
+    },
+
+    // Include files content to other files
+    fileblocks: {
+        options: {
+            removeFiles: true,
+            templates: {
+                less: '\/\/@import \'${file}\';'
+            }
+        },
+        js: {
+            src: 'Gruntfile.js',
+            blocks: {
+                components: {
+                    cwd: '<%= yeoman.app %>',
+                    src: '**/*.js'
+                }
+            }
+        }
+    },
+    
+    // Inject any dependencies to a file when ordering is not important
+    injector: {
+        options: {
+          starttag: '/* inject:{{ext}} */',
+          endtag: '/* inject-end */',
+          transform: function(filepath) {
+            var path = require('path');
+            var fileExtension = path.extname(filepath);
+            var filename = path.basename(filepath, fileExtension);
+            if(fileExtension === '.html'){
+              return '\t' + '\'<%= yeoman.app %>/texts/' + filename + '.pot\'' + ':[\'<%= yeoman.app %>/' + filename + 'index.html\'],';
+            }
+          }
+        },
+        textextraction: {
+            files: {
+                '<%= yeoman.app %>/texts/index.js': ['<%= yeoman.app %>/**/*.html'],
+            }
+        }
     }
   });
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
