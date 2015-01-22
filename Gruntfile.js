@@ -10,10 +10,13 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically
-  require('load-grunt-tasks')(grunt);
+  require('jit-grunt')(grunt);
 
   // Time how long tasks take. Can help when optimizing build times
-  require('time-grunt')(grunt);
+  require('jit-grunt')(grunt, {
+    configureProxies: 'grunt-connect-proxy',
+    useminPrepare: 'grunt-usemin'
+  });
 
   // Configurable paths for the application
   var appConfig = {
