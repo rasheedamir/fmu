@@ -33,7 +33,7 @@ public class CurrentUserServiceImpl implements CurrentUserService {
 		user.setActiveRole(role);
 		
 		ExpiringUsernameAuthenticationToken newToken = new ExpiringUsernameAuthenticationToken(token.getTokenExpiration(), details, token.getCredentials(), details.getAuthorities());
-		
+		newToken.setDetails(details);
 		context.setAuthentication(newToken);
 	}
 
