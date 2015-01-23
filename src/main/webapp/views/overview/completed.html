@@ -1,5 +1,5 @@
 <div ng-cloak class="overview-order-container">
-    <h1 class="order-status-title typl8-delta">Genomförda Utredningar</h1>
+    <h1 translate class="order-status-title typl8-delta">Genomförda Utredningar</h1>
     <ul class="order-dates-container">
         <li class="start-date">
             <fmu-datepicker title="Start datum" date-model="startDate"></fmu-datepicker>
@@ -8,14 +8,12 @@
             <fmu-datepicker title="Slut datum" date-model="endDate"></fmu-datepicker>
         </li>
         <li class="date-btn-container">
-            <button class="order-date-button btn btn-info" ng-click="visa()">Visa</button>
+            <button class="order-date-button btn btn-info" ng-click="visa()" translate>Visa</button>
         </li>
     </ul>
     <div class="date-explaination">
         <p>
-            <i>
-                {{datePickerDescription}}
-            </i>
+            <i> {{datePickerDescription}} </i>
         </p>
     </div>
     <fmu-table

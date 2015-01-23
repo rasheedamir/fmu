@@ -1,14 +1,14 @@
 <div class="fmu-form-container">
     <!--Typ-->
     <div class="fmu-form-header">
-        <h1>Lägg till Händelse</h1>
+        <h1 translate>Lägg till Händelse</h1>
     </div>
 
     <div class="fmu-form-body">
         <fmu-error-field errors="createBookingErrors"></fmu-error-field>
 
         <div>
-            <label>Typ av händelse</label>
+            <label translate>Typ av händelse</label>
             <select class="form-control" ng-model="choosenHandelseType"
                     ng-options="handelse.name for handelse in handelseTypes">
                 <option value="">-- Välj en händelse --</option>
@@ -36,12 +36,12 @@
 
         <div class="row">
             <div class="col-md-5">
-                <label>Person</label>
+                <label translate>Person</label>
                 <input class="form-control" ng-model="personName">
             </div>
 
             <div class="col-md-6">
-                <label>Roll</label>
+                <label translate>Roll</label>
                 <select class="form-control" ng-model="choosenRole"
                         ng-options="role.name for role in roles">
                     <option value="">-- Välj en roll --</option>
@@ -50,27 +50,27 @@
         </div>
 
         <div ng-if="isAFU()">
-            <label>Är detta en tilläggstjänst?</label>
+            <label translate>Är detta en tilläggstjänst?</label>
             <div class="radio">
                 <label>
-                    <input ng-model="tillaggRadio.value" type="radio" ng-value="true"> Ja
+                    <input ng-model="tillaggRadio.value" type="radio" ng-value="true" translate> Ja
                 </label>
 
                 <label>
-                    <input ng-model="tillaggRadio.value" type="radio" ng-value="false"> Nej
+                    <input ng-model="tillaggRadio.value" type="radio" ng-value="false" translate> Nej
                 </label>
             </div>
         </div>
 
         <div>
-            <label>Tolk?</label>
+            <label translate>Tolk?</label>
             <div class="radio">
                 <label>
-                    <input ng-model="tolkRadio" type="radio" ng-value="true"> Ja
+                    <input ng-model="tolkRadio" type="radio" ng-value="true" translate> Ja
                 </label>
 
                 <label>
-                    <input ng-model="tolkRadio" type="radio" ng-value="false"> Nej
+                    <input ng-model="tolkRadio" type="radio" ng-value="false" translate> Nej
                 </label>
             </div>
         </div>
@@ -78,10 +78,10 @@
 
     <div class="fmu-form-footer">
         <div>
-            <button class="btn btn-success"
+            <button translate class="btn btn-success"
                     ng-click="saveHandelse()">Spara
             </button>
-            <button class="btn btn-danger"
+            <button translate class="btn btn-danger"
                     ng-click="cancel()">Avbryt
             </button>
         </div>

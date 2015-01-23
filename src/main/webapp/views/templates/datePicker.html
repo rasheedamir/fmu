@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-5">
-    <b>Från, datum</b>
+    <b translate>Från, datum</b>
     <div class="input-group">
       <input type="text" class="form-control"
       datepicker-popup="{{dateFormat}}"
@@ -14,7 +14,7 @@
   </div>
 
   <div class="col-md-5">
-    <b>Till, datum</b>
+    <b translate>Till, datum</b>
     <div class="input-group">
       <input type="text" class="form-control"
       datepicker-popup="{{dateFormat}}"
@@ -27,7 +27,7 @@
     </div>
   </div>
   <div class="col-md-2">
-    <button class="btn btn-info dateBtn" ng-click="tableService.doDateFilter(dateKey, dateService.startDate, dateService.endDate)">Visa</button>
+    <button class="btn btn-info dateBtn" ng-click="tableService.doDateFilter(dateKey, dateService.startDate, dateService.endDate)" translate>Visa</button>
   </div>
 </div>
 
