@@ -18,7 +18,7 @@ import se.inera.fmu.interfaces.managing.rest.RestExceptionHandler;
 @ComponentScan("se.inera.fmu.interfaces.managing.rest")
 @Slf4j
 //TODO Make this work and remove the xml configuration in WebConfigurer
-public class RestErrorHandlingConfig {
+public class RestErrorHandlingConfiguration {
 
 	private static final String DEFAULT_ERROR_URL = "http://www.inera.se/KONTAKT_KUNDSERVICE/Felanmalan-och-support/";
 

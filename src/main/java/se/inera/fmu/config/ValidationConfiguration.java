@@ -6,7 +6,7 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-public class ValidationConfig extends WebMvcConfigurerAdapter{
+public class ValidationConfiguration extends WebMvcConfigurerAdapter{
  
     /**
      * Method validation post processor. This bean is created to apply the JSR validation in method

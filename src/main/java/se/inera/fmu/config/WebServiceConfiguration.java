@@ -25,7 +25,7 @@ import se.inera.fmu.interfaces.managing.ws.BestallareClient;
 @EnableWs
 @Configuration
 @Slf4j
-public class WebServiceConfig extends WsConfigurerAdapter {
+public class WebServiceConfiguration extends WsConfigurerAdapter {
 
     @Bean
     public ServletRegistrationBean webServiceDispatcherServlet(ApplicationContext applicationContext) {
