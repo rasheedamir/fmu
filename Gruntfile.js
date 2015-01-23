@@ -398,35 +398,35 @@ module.exports = function (grunt) {
       pot: {
         files: {
           /* fileblock:html partials */
-          	'<%= yeoman.app %>/texts/404.pot':['<%= yeoman.app %>/404.html'],
-          	'<%= yeoman.app %>/texts/index.pot':['<%= yeoman.app %>/index.html'],
-          	'<%= yeoman.app %>/texts/accept-request-modal.pot':['<%= yeoman.app %>/views/eavrop/accept-request-modal.html'],
-          	'<%= yeoman.app %>/texts/add-note-modal.pot':['<%= yeoman.app %>/views/eavrop/add-note-modal.html'],
-          	'<%= yeoman.app %>/texts/all-events.pot':['<%= yeoman.app %>/views/eavrop/all-events.html'],
-          	'<%= yeoman.app %>/texts/assign-utredare-modal.pot':['<%= yeoman.app %>/views/eavrop/assign-utredare-modal.html'],
-          	'<%= yeoman.app %>/texts/compensation.pot':['<%= yeoman.app %>/views/eavrop/compensation.html'],
-          	'<%= yeoman.app %>/texts/confirmModal.pot':['<%= yeoman.app %>/views/eavrop/confirmModal.html'],
-          	'<%= yeoman.app %>/texts/eavrop.pot':['<%= yeoman.app %>/views/eavrop/eavrop.html'],
-          	'<%= yeoman.app %>/texts/investigation.pot':['<%= yeoman.app %>/views/eavrop/investigation.html'],
-          	'<%= yeoman.app %>/texts/notes.pot':['<%= yeoman.app %>/views/eavrop/notes.html'],
-          	'<%= yeoman.app %>/texts/add-doc-modal.pot':['<%= yeoman.app %>/views/eavrop/order/add-doc-modal.html'],
-          	'<%= yeoman.app %>/texts/citizen.pot':['<%= yeoman.app %>/views/eavrop/order/citizen.html'],
-          	'<%= yeoman.app %>/texts/contents.pot':['<%= yeoman.app %>/views/eavrop/order/contents.html'],
-          	'<%= yeoman.app %>/texts/documents.pot':['<%= yeoman.app %>/views/eavrop/order/documents.html'],
-          	'<%= yeoman.app %>/texts/order.pot':['<%= yeoman.app %>/views/eavrop/order/order.html'],
-          	'<%= yeoman.app %>/texts/req-amendment-modal.pot':['<%= yeoman.app %>/views/eavrop/order/req-amendment-modal.html'],
-          	'<%= yeoman.app %>/texts/reject-request-modal.pot':['<%= yeoman.app %>/views/eavrop/reject-request-modal.html'],
-          	'<%= yeoman.app %>/texts/completed.pot':['<%= yeoman.app %>/views/overview/completed.html'],
-          	'<%= yeoman.app %>/texts/ongoing.pot':['<%= yeoman.app %>/views/overview/ongoing.html'],
-          	'<%= yeoman.app %>/texts/orders.pot':['<%= yeoman.app %>/views/overview/orders.html'],
-          	'<%= yeoman.app %>/texts/overview.pot':['<%= yeoman.app %>/views/overview/overview.html'],
-          	'<%= yeoman.app %>/texts/changeBookingConfirmationModal.pot':['<%= yeoman.app %>/views/templates/changeBookingConfirmationModal.html'],
-          	'<%= yeoman.app %>/texts/datePicker.pot':['<%= yeoman.app %>/views/templates/datePicker.html'],
-          	'<%= yeoman.app %>/texts/fmu-simple-table.pot':['<%= yeoman.app %>/views/templates/fmu-simple-table.html'],
-          	'<%= yeoman.app %>/texts/fmu-table.pot':['<%= yeoman.app %>/views/templates/fmu-table.html'],
-          	'<%= yeoman.app %>/texts/fmu-utredning-table.pot':['<%= yeoman.app %>/views/templates/fmu-utredning-table.html'],
-          	'<%= yeoman.app %>/texts/laggTillHandelseDialog.pot':['<%= yeoman.app %>/views/templates/laggTillHandelseDialog.html'],
-          	'<%= yeoman.app %>/texts/welcome.pot':['<%= yeoman.app %>/welcome.html'],
+          	'<%= yeoman.app %>/translations/404.pot':['<%= yeoman.app %>/404.html'],
+          	'<%= yeoman.app %>/translations/index.pot':['<%= yeoman.app %>/index.html'],
+          	'<%= yeoman.app %>/translations/accept-request-modal.pot':['<%= yeoman.app %>/views/eavrop/accept-request-modal.html'],
+          	'<%= yeoman.app %>/translations/add-note-modal.pot':['<%= yeoman.app %>/views/eavrop/add-note-modal.html'],
+          	'<%= yeoman.app %>/translations/all-events.pot':['<%= yeoman.app %>/views/eavrop/all-events.html'],
+          	'<%= yeoman.app %>/translations/assign-utredare-modal.pot':['<%= yeoman.app %>/views/eavrop/assign-utredare-modal.html'],
+          	'<%= yeoman.app %>/translations/compensation.pot':['<%= yeoman.app %>/views/eavrop/compensation.html'],
+          	'<%= yeoman.app %>/translations/confirmModal.pot':['<%= yeoman.app %>/views/eavrop/confirmModal.html'],
+          	'<%= yeoman.app %>/translations/eavrop.pot':['<%= yeoman.app %>/views/eavrop/eavrop.html'],
+          	'<%= yeoman.app %>/translations/investigation.pot':['<%= yeoman.app %>/views/eavrop/investigation.html'],
+          	'<%= yeoman.app %>/translations/notes.pot':['<%= yeoman.app %>/views/eavrop/notes.html'],
+          	'<%= yeoman.app %>/translations/add-doc-modal.pot':['<%= yeoman.app %>/views/eavrop/order/add-doc-modal.html'],
+          	'<%= yeoman.app %>/translations/citizen.pot':['<%= yeoman.app %>/views/eavrop/order/citizen.html'],
+          	'<%= yeoman.app %>/translations/contents.pot':['<%= yeoman.app %>/views/eavrop/order/contents.html'],
+          	'<%= yeoman.app %>/translations/documents.pot':['<%= yeoman.app %>/views/eavrop/order/documents.html'],
+          	'<%= yeoman.app %>/translations/order.pot':['<%= yeoman.app %>/views/eavrop/order/order.html'],
+          	'<%= yeoman.app %>/translations/req-amendment-modal.pot':['<%= yeoman.app %>/views/eavrop/order/req-amendment-modal.html'],
+          	'<%= yeoman.app %>/translations/reject-request-modal.pot':['<%= yeoman.app %>/views/eavrop/reject-request-modal.html'],
+          	'<%= yeoman.app %>/translations/completed.pot':['<%= yeoman.app %>/views/overview/completed.html'],
+          	'<%= yeoman.app %>/translations/ongoing.pot':['<%= yeoman.app %>/views/overview/ongoing.html'],
+          	'<%= yeoman.app %>/translations/orders.pot':['<%= yeoman.app %>/views/overview/orders.html'],
+          	'<%= yeoman.app %>/translations/overview.pot':['<%= yeoman.app %>/views/overview/overview.html'],
+          	'<%= yeoman.app %>/translations/changeBookingConfirmationModal.pot':['<%= yeoman.app %>/views/templates/changeBookingConfirmationModal.html'],
+          	'<%= yeoman.app %>/translations/datePicker.pot':['<%= yeoman.app %>/views/templates/datePicker.html'],
+          	'<%= yeoman.app %>/translations/fmu-simple-table.pot':['<%= yeoman.app %>/views/templates/fmu-simple-table.html'],
+          	'<%= yeoman.app %>/translations/fmu-table.pot':['<%= yeoman.app %>/views/templates/fmu-table.html'],
+          	'<%= yeoman.app %>/translations/fmu-utredning-table.pot':['<%= yeoman.app %>/views/templates/fmu-utredning-table.html'],
+          	'<%= yeoman.app %>/translations/laggTillHandelseDialog.pot':['<%= yeoman.app %>/views/templates/laggTillHandelseDialog.html'],
+          	'<%= yeoman.app %>/translations/welcome.pot':['<%= yeoman.app %>/welcome.html'],
           /* endfileblock */
         }
       }
@@ -437,7 +437,7 @@ module.exports = function (grunt) {
           module: 'fmuClientApp'
         },
         files: {
-          '<%= yeoman.app %>/texts/translations.js': ['<%= yeoman.app %>/texts/*.pot']
+          '<%= yeoman.app %>/translations/translations.js': ['<%= yeoman.app %>/translations/*.pot']
         }
       },
     },
@@ -453,7 +453,7 @@ module.exports = function (grunt) {
                 var path = require('path');
                 var fileExtension = path.extname(file);
                 var filename = path.basename(file, fileExtension);
-                return '\t' + '\'<%= yeoman.app %>/texts/' + filename + '.pot\'' + ':[\'<%= yeoman.app %>/' + file + '\'],';
+                return '\t' + '\'<%= yeoman.app %>/translations/' + filename + '.pot\'' + ':[\'<%= yeoman.app %>/' + file + '\'],';
             }
         }
       },
@@ -481,13 +481,13 @@ module.exports = function (grunt) {
             var fileExtension = path.extname(filepath);
             var filename = path.basename(filepath, fileExtension);
             if(fileExtension === '.html'){
-              return '\t' + '\'<%= yeoman.app %>/texts/' + filename + '.pot\'' + ':[\'<%= yeoman.app %>/' + filename + 'index.html\'],';
+              return '\t' + '\'<%= yeoman.app %>/translations/' + filename + '.pot\'' + ':[\'<%= yeoman.app %>/' + filename + 'index.html\'],';
             }
           }
         },
         textextraction: {
             files: {
-                '<%= yeoman.app %>/texts/index.js': ['<%= yeoman.app %>/**/*.html'],
+                '<%= yeoman.app %>/translations/index.js': ['<%= yeoman.app %>/**/*.html'],
             }
         }
     }

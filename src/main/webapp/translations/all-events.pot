@@ -1,0 +1,98 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: ./src/main/webapp/views/eavrop/all-events.html:62
+msgid "Acceptans av utredning"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:27
+msgid "Acceptans av utredningen"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:2
+msgid "Alla händelser"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:37
+msgid "Antal avvikelser"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:108
+msgid "Anteckningar"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:42
+msgid "Begärda kompletteringar till utredning"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:22
+msgid "Begärda tillägg, handlingar"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:49
+msgid "Beställning"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:57
+msgid "Enhet/Avdelning"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:7
+msgid "Förfrågan om utredning"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:58
+msgid "Förfrågan skickad, datum"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:82
+msgid "Handlingar"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:12
+msgid "Handlingar översändes"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:32
+msgid "Intyg skickat till beställaren"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:56
+#: ./src/main/webapp/views/eavrop/all-events.html:60
+msgid "Organisation"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:59
+msgid "Patientens bostadsort"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:4
+msgid "Sammanfattning"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:89
+msgid "Tillägg"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:55
+msgid "Typ"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:61
+msgid "Utredare, enhet"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:95
+msgid "Utredning"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:17
+msgid "Utredning antal dagar"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/all-events.html:54
+msgid "Ärende-ID"
+msgstr ""

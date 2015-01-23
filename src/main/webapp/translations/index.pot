@@ -1,0 +1,57 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: ./src/main/webapp/index.html:90
+msgid "Användarvillkor"
+msgstr ""
+
+#: ./src/main/webapp/index.html:95
+msgid "Created by R2M"
+msgstr ""
+
+#: ./src/main/webapp/index.html:84
+msgid "Försäkringskassan"
+msgstr ""
+
+#: ./src/main/webapp/index.html:77
+msgid "Innehåll"
+msgstr ""
+
+#: ./src/main/webapp/index.html:91
+msgid "Integritetspolicy"
+msgstr ""
+
+#: ./src/main/webapp/index.html:79
+msgid "Kontakt"
+msgstr ""
+
+#: ./src/main/webapp/index.html:89
+msgid "Lag"
+msgstr ""
+
+#: ./src/main/webapp/index.html:86
+msgid "Mina intyg"
+msgstr ""
+
+#: ./src/main/webapp/index.html:78
+msgid "Om FMU"
+msgstr ""
+
+#: ./src/main/webapp/index.html:83
+msgid "Relaterade länkar"
+msgstr ""
+
+#: ./src/main/webapp/index.html:80
+msgid "Tjänster"
+msgstr ""
+
+#: ./src/main/webapp/index.html:44
+msgid "Välj roll"
+msgstr ""
+
+#: ./src/main/webapp/index.html:85
+msgid "Webcert"
+msgstr ""

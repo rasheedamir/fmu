@@ -11,7 +11,7 @@ angular.module('fmuClientApp')
                 scope.expandMenu = function(){
                     var menus = iElement.find('.navigation-expanded');
                     var oldCss = menus.css('display');
-                    if(oldCss == 'none'){
+                    if(oldCss === 'none'){
                         menus.css('display', 'block');
                     } else {
                         menus.css('display', 'none');

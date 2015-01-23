@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: ./src/main/webapp/views/eavrop/order/contents.html:27
+msgid "Beställare"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/contents.html:34
+msgid "Beställare, e-post"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/contents.html:32
+msgid "Beställare, namn"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/contents.html:33
+msgid "Beställare, tel"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/contents.html:3
+msgid "Beställning"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/contents.html:31
+msgid "Enhet:"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/contents.html:8
+msgid "Förfrågan inkom"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/contents.html:10
+msgid "Tolk"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/contents.html:9
+msgid "Typ av utredning"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/contents.html:11
+msgid "Val av inriktning"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/contents.html:7
+msgid "Ärende-ID"
+msgstr ""

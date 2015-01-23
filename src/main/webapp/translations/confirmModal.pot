@@ -1,0 +1,18 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: ./src/main/webapp/views/eavrop/confirmModal.html:12
+msgid "Avbryt"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/confirmModal.html:13
+#: ./src/main/webapp/views/eavrop/confirmModal.html:3
+msgid "Ta bort"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/confirmModal.html:7
+msgid "Är du säker på att du vill ta bort anteckningen?"
+msgstr ""

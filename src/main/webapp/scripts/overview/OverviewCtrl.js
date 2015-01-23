@@ -9,7 +9,7 @@ angular.module('fmuClientApp')
     ];
 
     for (var i=0; i < $scope.overviews.length; ++i) {
-        if($scope.overviews[i].state == $scope.$state.current.name){
+        if($scope.overviews[i].state === $scope.$state.current.name){
             $scope.currentOverview = $scope.overviews[i];
             break;
         }

@@ -59,7 +59,7 @@ angular.module('fmuClientApp', [
         controller: 'CompletedController'
     })
     .state('eavrop', {
-        url: '/eavrop/{eavropId:[A-Za-z0-9\-]+}',
+        url: '/eavrop/{eavropId:[A-Za-z0-9-]+}',
         abstract: true,
         resolve: {
             currentEavrop: function($stateParams, Eavrops){

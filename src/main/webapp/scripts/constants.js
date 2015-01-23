@@ -43,9 +43,9 @@ angular.module('fmuClientApp')
         },
 
         isCompensationApprovedMapping: {
-            null : 'inväntar',
-            true : 'Ja',
-            false : 'Nej'
+            null: 'inväntar',
+            true: 'Ja',
+            false: 'Nej'
         }
     })
     .constant('UTREDNING', {

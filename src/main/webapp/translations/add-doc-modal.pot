@@ -1,0 +1,21 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: ./src/main/webapp/views/eavrop/order/add-doc-modal.html:9
+msgid "Handling"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/add-doc-modal.html:4
+msgid "Lägg till handling"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/add-doc-modal.html:13
+msgid "Registrerad av"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/add-doc-modal.html:20
+msgid "Registrerad, datum"
+msgstr ""

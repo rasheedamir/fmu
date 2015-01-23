@@ -1,0 +1,29 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: ./src/main/webapp/views/eavrop/order/req-amendment-modal.html:4
+msgid "Begär tillägg"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/req-amendment-modal.html:13
+msgid "Begäran skickad av"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/req-amendment-modal.html:17
+msgid "Begäran skickad, datum"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/req-amendment-modal.html:25
+msgid "Begäran skickas till"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/req-amendment-modal.html:9
+msgid "Handling"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/order/req-amendment-modal.html:21
+msgid "Kommentar"
+msgstr ""

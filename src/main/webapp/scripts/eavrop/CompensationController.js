@@ -98,7 +98,7 @@ angular.module('fmuClientApp')
                             ];
                         }
 
-                        if (!$scope.tillaggtjanstHeaderFields && currentEavrop.utredningType == 'AFU') {
+                        if (!$scope.tillaggtjanstHeaderFields && currentEavrop.utredningType === 'AFU') {
                             $scope.tillaggtjanstHeaderFields = [
                                 {
                                     key: 'name',

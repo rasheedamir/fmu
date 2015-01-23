@@ -1,0 +1,21 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: ./src/main/webapp/views/eavrop/compensation.html:16
+msgid "Specifikation - avvikelser"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/compensation.html:27
+msgid "Tillägstjänster"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/compensation.html:2
+msgid "Underlag för ersättning"
+msgstr ""
+
+#: ./src/main/webapp/views/eavrop/compensation.html:5
+msgid "Ärende"
+msgstr ""

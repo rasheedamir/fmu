@@ -114,7 +114,7 @@ angular.module('fmuClientApp')
                                     }
 
                                     return UTREDNING.eventsRequireConfirmation[rowData.selectedHandelseStatus.name];
-                                }
+                                };
                             }
                         });
                     };

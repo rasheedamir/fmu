@@ -1,0 +1,13 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: ./src/main/webapp/views/overview/completed.html:2
+msgid "Genomförda Utredningar"
+msgstr ""
+
+#: ./src/main/webapp/views/overview/completed.html:11
+msgid "Visa"
+msgstr ""

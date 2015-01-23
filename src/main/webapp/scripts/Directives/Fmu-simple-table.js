@@ -14,7 +14,7 @@ angular.module('fmuClientApp')
                 },
                 controller: function ($scope) {
                     // Todo enable sortable fields
-                    $scope.isSortable = function (key) {
+                    $scope.isSortable = function () {
                         return false;
                     };
 
@@ -38,7 +38,7 @@ angular.module('fmuClientApp')
                                     count: 10 // count per page
                                 },
                                 {
-                                    getData: function ($defer, params) {
+                                    getData: function ($defer) {
                                         $defer.resolve($scope.tabularData);
                                     },
                                     $scope: $scope
