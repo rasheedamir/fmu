@@ -3,6 +3,7 @@ package se.inera.fmu.application;
 import se.inera.fmu.application.impl.command.AddIntygApprovedCommand;
 import se.inera.fmu.application.impl.command.AddIntygComplementRequestCommand;
 import se.inera.fmu.application.impl.command.AddIntygSentCommand;
+import se.inera.fmu.domain.model.eavrop.EavropId;
 
 /**
  * Service for handling information about intyg connected to the Eavrop 
@@ -15,21 +16,22 @@ public interface EavropIntygService {
 	/**
 	 * Adds information to the eavrop that a Intyg has been signed and sent to the bestallare
 	 * @param intygCommand
+	 * @return 
 	 */
-	public void addIntygSentInformation(AddIntygSentCommand intygCommand);
+	public EavropId addIntygSentInformation(AddIntygSentCommand intygCommand);
 
 	/**
 	 * Adds information to the eavrop that the bestallare has requested a new Intyg with complements
 	 * @param intygCommand
 	 */
-	public void addIntygComplementRequestInformation(AddIntygComplementRequestCommand intygCommand);
+	public EavropId addIntygComplementRequestInformation(AddIntygComplementRequestCommand intygCommand);
 	
 	
 	/**
 	 * Adds information to the eavrop that the bestallare has approved an Intyg ordered by the bestallare
 	 * @param intygCommand
 	 */
-	public void addIntygApprovedInformation(AddIntygApprovedCommand intygCommand);
+	public EavropId addIntygApprovedInformation(AddIntygApprovedCommand intygCommand);
 
 	
 }

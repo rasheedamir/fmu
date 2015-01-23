@@ -13,7 +13,7 @@ public class BestallningDTOMapper extends EavropDTOMapper{
 		dto.setPatientCity(eavrop.getInvanare() != null && eavrop.getInvanare().getHomeAddress() != null ?
 				eavrop.getInvanare().getHomeAddress().getCity() : null);
 		dto.setAntalDagarEfterForfragan(eavrop.getNumberOfAcceptanceDaysFromOrderDate());
-		dto.setColor(eavrop.isEavropAcceptDaysDeviated() ? DANGER_COLOR : DEFAULT_COLOR);
+		dto.setColor(eavrop.isEavropAssignmentAcceptDaysDeviated() ? DANGER_COLOR : DEFAULT_COLOR);
 		return dto;
 	}
 	

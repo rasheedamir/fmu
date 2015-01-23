@@ -5,12 +5,11 @@ import javax.persistence.EntityNotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import se.inera.fmu.application.DomainEventPublisher;
 import se.inera.fmu.application.EavropIntygService;
 import se.inera.fmu.application.impl.command.AddIntygApprovedCommand;
 import se.inera.fmu.application.impl.command.AddIntygComplementRequestCommand;
@@ -19,11 +18,8 @@ import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
-import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedByBestallareEvent;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygApprovedInformation;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygComplementRequestInformation;
-import se.inera.fmu.domain.model.eavrop.intyg.IntygComplemetsRequestedFromBestallareEvent;
-import se.inera.fmu.domain.model.eavrop.intyg.IntygSentEvent;
 import se.inera.fmu.domain.model.eavrop.intyg.IntygSentInformation;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.HoSPerson;
@@ -36,27 +32,23 @@ import se.inera.fmu.domain.model.person.HoSPerson;
  */
 @Service
 @Validated
-@Transactional
 @Slf4j
 public class EavropIntygServiceImpl implements EavropIntygService {
 
     private final EavropRepository eavropRepository;
-    private final DomainEventPublisher domainEventPublisher;
-    
 
     /**
      * Constructor
      * @param eavropRepository
-     * @param domainEventPublisher
      */
 	@Inject
-	public EavropIntygServiceImpl(EavropRepository eavropRepository, DomainEventPublisher domainEventPublisher) {
+	public EavropIntygServiceImpl(EavropRepository eavropRepository) {
 		this.eavropRepository = eavropRepository;
-		this.domainEventPublisher = domainEventPublisher;
 	}
 
 	@Override
-	public void addIntygSentInformation(AddIntygSentCommand aCommand) {
+	@Transactional(propagation=Propagation.REQUIRED)
+	public EavropId addIntygSentInformation(AddIntygSentCommand aCommand) {
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		
 		HoSPerson person = aCommand.getIntygSentBy();
@@ -67,12 +59,12 @@ public class EavropIntygServiceImpl implements EavropIntygService {
 		if(log.isDebugEnabled()){
         	log.debug(String.format("IntygSentInformation added for eavrop:: %s", eavrop.getEavropId().toString()));
         }
-		
-		handleIntygSent(eavrop.getEavropId(), eavrop.getArendeId(), aCommand.getIntygSentDateTime());
+		return eavrop.getEavropId();
 	}
 
 	@Override
-	public void addIntygComplementRequestInformation(AddIntygComplementRequestCommand aCommand) {
+	@Transactional(propagation=Propagation.REQUIRED)
+	public EavropId addIntygComplementRequestInformation(AddIntygComplementRequestCommand aCommand) {
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		
 		Bestallaradministrator person = aCommand.getBestallaradministrator();
@@ -83,12 +75,13 @@ public class EavropIntygServiceImpl implements EavropIntygService {
 		if(log.isDebugEnabled()){
         	log.debug(String.format("IntygComplementRequestInformation added for eavrop:: %s", eavrop.getEavropId().toString()));
         }
-		
-		handleIntygComplementRequest(eavrop.getEavropId(), aCommand.getIntygComplementRequestDateTime());
+		return eavrop.getEavropId();
 	}
 
+	
 	@Override
-	public void addIntygApprovedInformation(AddIntygApprovedCommand aCommand) {
+	@Transactional(propagation=Propagation.REQUIRED)
+	public EavropId addIntygApprovedInformation(AddIntygApprovedCommand aCommand) {
 		Eavrop eavrop = getEavropByArendeId(aCommand.getArendeId());
 		
 		Bestallaradministrator person = aCommand.getBestallaradministrator();
@@ -99,44 +92,15 @@ public class EavropIntygServiceImpl implements EavropIntygService {
 		if(log.isDebugEnabled()){
         	log.debug(String.format("IntygApprovedInformation added for eavrop:: %s", eavrop.getEavropId().toString()));
         }
-		
-		handleIntygApproved(eavrop.getEavropId(), aCommand.getIntygApprovedDateTime());
-		
+		return eavrop.getEavropId();
 	}
 
+	
 	private Eavrop getEavropByArendeId(ArendeId arendeId){
 		Eavrop eavrop = eavropRepository.findByArendeId(arendeId);
 		if(eavrop==null){
 			throw new EntityNotFoundException(String.format("Eavrop with ArendeId %s not found", arendeId.toString()));
 		}
 		return eavrop;
-	}
-	
-	private DomainEventPublisher getDomainEventPublisher(){
-		return this.domainEventPublisher;
-	}
-	
-	private void handleIntygApproved(EavropId eavropId, DateTime approvedDateTime){
-		IntygApprovedByBestallareEvent event = new IntygApprovedByBestallareEvent(eavropId, approvedDateTime);
-        if(log.isDebugEnabled()){
-        	log.debug(String.format("IntygApprovedByBestallareEvent created :: %s", event.toString()));
-        }
-		getDomainEventPublisher().post(event);
-	}
-
-	private void handleIntygComplementRequest(EavropId eavropId, DateTime complementRequestDateTime){
-		IntygComplemetsRequestedFromBestallareEvent event = new IntygComplemetsRequestedFromBestallareEvent(eavropId, complementRequestDateTime);
-        if(log.isDebugEnabled()){
-        	log.debug(String.format("IntygComplemetsRequestedFromBestallareEvent created :: %s", event.toString()));
-        }
-		getDomainEventPublisher().post(event);
-	}
-
-	private void handleIntygSent(EavropId eavropId, ArendeId arendeId, DateTime intygSentDateTime){
-		IntygSentEvent event = new IntygSentEvent(eavropId, arendeId, intygSentDateTime);
-        if(log.isDebugEnabled()){
-        	log.debug(String.format("IntygSentEvent created :: %s", event.toString()));
-        }
-		getDomainEventPublisher().post(event);
 	}
 }

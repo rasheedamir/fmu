@@ -2,15 +2,11 @@ package se.inera.fmu.domain.model.eavrop;
 
 import java.text.SimpleDateFormat;
 
-import javax.persistence.Column;
-
 import junit.framework.TestCase;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
 
-import se.inera.fmu.application.DomainEventPublisher;
-import se.inera.fmu.application.impl.DomainEventPublisherImpl;
 import se.inera.fmu.application.util.EavropPropertiesUtil;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
@@ -30,7 +26,6 @@ import se.inera.fmu.domain.model.eavrop.invanare.Invanare;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.note.NoteType;
-import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
@@ -59,7 +54,6 @@ public class EavropTest extends TestCase {
 	private String address1;
 	private String address2;
 	private String postalCode;
-	private String state;
 	private String city;
 	private String country;
 
@@ -72,8 +66,6 @@ public class EavropTest extends TestCase {
 
 	private UtredningType utredningType;
 
-	private String tolk;
-	
 	private Landsting landsting;
 
 	private HoSPerson samordnare;
@@ -86,8 +78,6 @@ public class EavropTest extends TestCase {
 	
 	private Vardgivare vardgivare;
 	
-	private DomainEventPublisher domainEventPublisher = new DomainEventPublisherImpl(); //TODO: one for test
-
 	@Override
 	protected void setUp() throws Exception {
 		firstName = "john";
@@ -98,7 +88,6 @@ public class EavropTest extends TestCase {
 		address1 = "testgatan 1";
 		address2 = "testgatan 2";
 		postalCode = "33144";
-		state = "test county";
 		city = "test city";
 		country = "testland";
 		personalNumber = new PersonalNumber("6677665577");
@@ -106,12 +95,11 @@ public class EavropTest extends TestCase {
 		invanare = new Invanare(personalNumber, name, gender, address, phone, email, specialNeeds);
 		arendeId = new ArendeId("131242153215");
 		utredningType = UtredningType.SLU;
-		tolk = "Swedish";
 		landsting = new Landsting (new LandstingCode(1), "Stockholms läns landsting");
 		samordnare = new HoSPerson(new HsaId("SE160000000000-HAHAHHSLS"), "Sven Duva", "Samordnare", "Landstinget Stockholm","Avd2", "08654321", "sven.duva@landstinget.se");
 		bestallaradministrator = new Bestallaradministrator("Per Elofsson","Handläggare", "Försäkringskassan", "LFC Stockholm", "08123456", "per.elofsson@forsakringskassan.se");
 		vardgivare = new Vardgivare(new HsaId("SE160000000000-HAHAHHSAA"), "Cary Care");
-		vardgivarenhet = new Vardgivarenhet(vardgivare, new HsaId("SE160000000000-HAHAHHSAB"), "CareIt", new Address("","","",""));
+		vardgivarenhet = new Vardgivarenhet(vardgivare, new HsaId("SE160000000000-HAHAHHSAB"), "CareIt", new Address("","","",""), "","");
 		doctorPerson = new HoSPerson(new HsaId("SE160000000000-HAHAHHSBB"), "Dr Hudson", "Surgeon", "Danderyds sjukhus","FMU enheten");
 
 	}
@@ -136,7 +124,7 @@ public class EavropTest extends TestCase {
 	
 	@Test
 	public void  testCreateAddress2() {
-		address = new Address(address1, address2, postalCode, state, city, country);
+		address = new Address(address1, address2, postalCode, city, country);
 		assertEquals(address1, address.getAddress1());
 		assertEquals(address2, address.getAddress2());
 		assertEquals(city, address.getCity());
@@ -282,19 +270,19 @@ public class EavropTest extends TestCase {
 		eavrop.setCreatedDate(new DateTime(2014,10,1,10,30));
 
 		// Today is more than 5 business days since createDateTime 
-		assertEquals(true, eavrop.isEavropAcceptDaysDeviated());
+		assertEquals(true, eavrop.isEavropAssignmentAcceptDaysDeviated());
 
 		
 		eavrop.assignEavropToVardgivarenhet(vardgivarenhet, samordnare);
 		eavrop.acceptEavropAssignment(doctorPerson);
-		assertEquals(true, eavrop.isEavropAcceptDaysDeviated());
+		assertEquals(true, eavrop.isEavropAssignmentAcceptDaysDeviated());
 		
 		
 		eavrop.getCurrentAssignment().setLastModifiedDate(new DateTime(2014,10,8,23,59));
-		assertEquals(false, eavrop.isEavropAcceptDaysDeviated());
+		assertEquals(false, eavrop.isEavropAssignmentAcceptDaysDeviated());
 
 		eavrop.getCurrentAssignment().setLastModifiedDate(new DateTime(2014,10,9,0,0));
-		assertEquals(true, eavrop.isEavropAcceptDaysDeviated());
+		assertEquals(true, eavrop.isEavropAssignmentAcceptDaysDeviated());
 		
 	}
 	
@@ -330,8 +318,6 @@ public class EavropTest extends TestCase {
 
 	@Test
 	public void  testFMU_66_Alla_Handelser() {
-		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		
 		eavrop = EavropBuilder.eavrop()
 		.withArendeId(arendeId)

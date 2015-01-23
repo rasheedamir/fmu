@@ -104,9 +104,6 @@ public class ITBestallareEndpointIntegrationTest {
         mockClient = MockWebServiceClient.createClient(applicationContext);
     }
 
-    	
-
-
 	@Test
     public void acceptAssignment(){
 
@@ -178,7 +175,6 @@ public class ITBestallareEndpointIntegrationTest {
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
     }
- 
 
     private void validateEavrop(ArendeId arendeId, LandstingCode landstingCode){
     	SkapaFmuEavropRequest eavropRequest =  getSkapaFmuEavropRequest(arendeId, landstingCode);
@@ -229,12 +225,8 @@ public class ITBestallareEndpointIntegrationTest {
     	assertEquals(eavropRequest.getTolkSprak(), eavrop.getIterpreterDescription());
 
     	assertEquals(eavropRequest.getYtterligareInformation(), eavrop.getAdditionalInformation().toString());
-
-    	
-    	
     }
-    
-    
+   
     
     private SkapaFmuEavropRequest getSkapaFmuEavropRequest(ArendeId arendeId, LandstingCode landstingCode){
         
@@ -325,7 +317,7 @@ public class ITBestallareEndpointIntegrationTest {
      	
 		eavropBookingService.createBooking(createBookingCommand);
 		eavrop = fmuListService.findByArendeIdInitialized(arendeId);
-		assertTrue(EavropStateType.ACCEPTED.equals(eavrop.getStatus()));
+		assertTrue(EavropStateType.ACCEPTED.equals(eavrop.getStatus())||EavropStateType.ONGOING.equals(eavrop.getStatus()));
 		assertNotEquals(eavrop.getBookings(), null);
 		assertNotEquals(eavrop.getBookings().isEmpty(), true);
 		Booking booking = eavrop.getBookings().iterator().next();

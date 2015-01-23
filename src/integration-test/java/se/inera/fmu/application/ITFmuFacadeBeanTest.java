@@ -27,6 +27,7 @@ import se.inera.fmu.domain.model.authentication.User;
 import se.inera.fmu.domain.model.eavrop.EavropStateType;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.facade.FmuFacade;
+import se.inera.fmu.infrastructure.security.FakeAuthenticationProvider;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.TestUtil;
 import se.inera.fmu.interfaces.managing.rest.dto.EavropDTO;
@@ -53,9 +54,13 @@ public class ITFmuFacadeBeanTest {
 	@Inject
 	private FmuListService fmuListService;
 	
+	
+	@Inject
+	private FakeAuthenticationProvider provider;
+	
 	@Before
 	public void setUp(){
-		TestUtil.loginWithNoActiveRole();
+		TestUtil.loginWithNoActiveRole(provider);
 	}
 	
 

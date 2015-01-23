@@ -18,7 +18,7 @@ public class CurrentUserServiceImpl implements CurrentUserService {
 	public User getCurrentUser() {
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
-		FmuUserDetails details = (FmuUserDetails) authentication.getPrincipal();
+		FmuUserDetails details = (FmuUserDetails) authentication.getDetails();
 		return details.getUser();
 	}
 
@@ -28,12 +28,12 @@ public class CurrentUserServiceImpl implements CurrentUserService {
 		Authentication authentication = context.getAuthentication();
 		ExpiringUsernameAuthenticationToken token = (ExpiringUsernameAuthenticationToken) authentication;
 		
-		FmuUserDetails details = (FmuUserDetails) token.getPrincipal();
+		FmuUserDetails details = (FmuUserDetails) token.getDetails();
 		User user = details.getUser();
 		user.setActiveRole(role);
 		
 		ExpiringUsernameAuthenticationToken newToken = new ExpiringUsernameAuthenticationToken(token.getTokenExpiration(), details, token.getCredentials(), details.getAuthorities());
-		
+		newToken.setDetails(details);
 		context.setAuthentication(newToken);
 	}
 

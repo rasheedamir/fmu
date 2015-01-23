@@ -44,6 +44,7 @@ import se.inera.fmu.domain.model.person.HoSPerson;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
+import se.inera.fmu.facade.FmuWebServiceFacade;
 import ws.inera.fmu.admin.eavrop.AccepteratFmuIntygRequest;
 import ws.inera.fmu.admin.eavrop.AccepteratFmuIntygResponse;
 import ws.inera.fmu.admin.eavrop.AccepteratFmuUtredningRequest;
@@ -76,17 +77,8 @@ public class EavropEndpoint {
     private static final String NAMESPACE_URI = "http://inera.ws/fmu/admin/eavrop";
 
     
-    //TODO: move all services to facade?
     @Inject
-    private FmuOrderingService fmuOrderingService;
-    @Inject
-    private EavropDocumentService eavropDocumentService;
-    @Inject
-    private EavropBookingService eavropBookingService;
-    @Inject
-    private EavropIntygService eavropIntygService;
-    @Inject
-    private EavropApprovalService eavropApprovalService;
+    FmuWebServiceFacade fmuWebServiceFacade;  
 
     /**
      *
@@ -102,7 +94,8 @@ public class EavropEndpoint {
 
         try {
             CreateEavropCommand aCommand = mapSkapaFmuEavropRequestToCreateEavropCommand(request);
-            ArendeId arendeId = fmuOrderingService.createEavrop(aCommand);
+            //ArendeId arendeId = fmuOrderingService.createEavrop(aCommand);
+            ArendeId arendeId = fmuWebServiceFacade.createEavrop(aCommand);
             fmuResponse.setArendeId(arendeId.toString());
             fmuResponse.setStatusCode(StatusCodeType.OK);
         } catch (IllegalArgumentException | EntityNotFoundException exception) {
@@ -136,7 +129,8 @@ public class EavropEndpoint {
 
         try {
         	AddReceivedExternalDocumentsCommand aCommand = mapSkickatFmuHandlingarRequestToAddReceivedExternalDocumentCommand(request);
-            eavropDocumentService.addReceivedExternalDocument(aCommand);
+        	//eavropDocumentService.addReceivedExternalDocument(aCommand);
+        	fmuWebServiceFacade.addReceivedExternalDocument(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
             fmuResponse.setStatusCode(StatusCodeType.OK);
         } catch (IllegalArgumentException | EntityNotFoundException exception) {
@@ -170,7 +164,8 @@ public class EavropEndpoint {
 
         try {
         	AddBookingDeviationResponseCommand aCommand = mapSvarBokningsavvikelseRequestToAddBookingDeviationResponseCommand (request);
-            eavropBookingService.addBookingDeviationResponse(aCommand);
+            //eavropBookingService.addBookingDeviationResponse(aCommand);
+        	fmuWebServiceFacade	.addBookingDeviationResponse(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
             fmuResponse.setStatusCode(StatusCodeType.OK);
         } catch (IllegalArgumentException | EntityNotFoundException exception) {
@@ -204,7 +199,8 @@ public class EavropEndpoint {
 
         try {
         	AddIntygSentCommand aCommand = mapSkickatFmuIntygRequestToAddIntygSentCommand (request);
-            eavropIntygService.addIntygSentInformation(aCommand);
+            //eavropIntygService.addIntygSentInformation(aCommand);
+            fmuWebServiceFacade.addIntygSentInformation(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
             fmuResponse.setStatusCode(StatusCodeType.OK);
         } catch (IllegalArgumentException | EntityNotFoundException exception) {
@@ -238,7 +234,8 @@ public class EavropEndpoint {
 
         try {
         	AddIntygComplementRequestCommand aCommand = mapBegartFmuIntygKompletteringRequestToAddIntygComplementRequestCommand (request);
-            eavropIntygService.addIntygComplementRequestInformation(aCommand);
+            //eavropIntygService.addIntygComplementRequestInformation(aCommand);
+            fmuWebServiceFacade.addIntygComplementRequestInformation(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
             fmuResponse.setStatusCode(StatusCodeType.OK);
         } catch (IllegalArgumentException | EntityNotFoundException exception) {
@@ -272,7 +269,8 @@ public class EavropEndpoint {
 
         try {
         	AddIntygApprovedCommand aCommand = mapAccepteratFmuIntygRequestToAddIntygApprovedCommand(request);
-            eavropIntygService.addIntygApprovedInformation(aCommand);
+            //eavropIntygService.addIntygApprovedInformation(aCommand);
+            fmuWebServiceFacade.addIntygApprovedInformation(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
             fmuResponse.setStatusCode(StatusCodeType.OK);
         } catch (IllegalArgumentException | EntityNotFoundException exception) {
@@ -306,7 +304,8 @@ public class EavropEndpoint {
 
         try {
         	ApproveEavropCommand aCommand = mapAccepteratFmuUtredningRequestToApproveEavropCommand(request);
-            eavropApprovalService.approveEavrop(aCommand);
+            //eavropApprovalService.approveEavrop(aCommand);
+        	fmuWebServiceFacade.approveEavrop(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
             fmuResponse.setStatusCode(StatusCodeType.OK);
         } catch (IllegalArgumentException | EntityNotFoundException exception) {
@@ -340,8 +339,9 @@ public class EavropEndpoint {
 
         try {
         	ApproveEavropCompensationCommand aCommand = mapGodkannandeErsattningFmuUtredningRequestToApproveEavropCompensationCommand(request);
-            eavropApprovalService.approveEavropCompensation(aCommand);
-            fmuResponse.setArendeId(request.getArendeId());
+            //eavropApprovalService.approveEavropCompensation(aCommand);
+        	fmuWebServiceFacade.approveEavropCompensation(aCommand);
+        	fmuResponse.setArendeId(request.getArendeId());
             fmuResponse.setStatusCode(StatusCodeType.OK);
         } catch (IllegalArgumentException | EntityNotFoundException exception) {
             log.error("IllegalArgumentException occured : ", exception);

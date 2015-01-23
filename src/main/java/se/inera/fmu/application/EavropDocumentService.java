@@ -3,6 +3,7 @@ package se.inera.fmu.application;
 import se.inera.fmu.application.impl.command.AddReceivedExternalDocumentsCommand;
 import se.inera.fmu.application.impl.command.AddReceivedInternalDocumentCommand;
 import se.inera.fmu.application.impl.command.AddRequestedDocumentCommand;
+import se.inera.fmu.domain.model.eavrop.document.RequestedDocument;
 
 /**
  * Service for handling eavrop documents and events related to those
@@ -18,7 +19,7 @@ public interface EavropDocumentService {
 	 *
 	 * @param aCommand
 	 */
-	public void addReceivedExternalDocument(AddReceivedExternalDocumentsCommand aCommand);
+	public boolean addReceivedExternalDocument(AddReceivedExternalDocumentsCommand aCommand);
 
 	/**
 	 * Adds to the eavrop an internally received document 
@@ -31,6 +32,6 @@ public interface EavropDocumentService {
 	 * Adds to the eavrop a requested document
 	 * @param aCommand
 	 */
-	public void addRequestedDocument(AddRequestedDocumentCommand aCommand);
+	public RequestedDocument addRequestedDocument(AddRequestedDocumentCommand aCommand);
 
 }

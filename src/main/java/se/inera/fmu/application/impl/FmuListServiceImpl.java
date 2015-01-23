@@ -35,7 +35,7 @@ import se.inera.fmu.domain.model.landsting.LandstingRepository;
  */
 @Service
 @Validated
-//@Transactional(readOnly=true)
+@Transactional(readOnly=true)
 public class FmuListServiceImpl implements FmuListService {
 
     private final EavropRepository eavropRepository;
@@ -72,7 +72,10 @@ public class FmuListServiceImpl implements FmuListService {
     
     @Override
     public Vardgivarenhet findVardgivarenhetById(long id){
-    	return this.vardgivarenhetRepository.getOne(id);
+    	Vardgivarenhet enhet = this.vardgivarenhetRepository.getOne(id);
+    	Hibernate.initialize(enhet.getLandsting());
+		Hibernate.initialize(enhet.getVardgivare());
+    	return enhet;
     }
 
     @Override
@@ -88,7 +91,8 @@ public class FmuListServiceImpl implements FmuListService {
     @Override
     public Eavrop findByEavropIdAndLandstingCode(EavropId eavropId, LandstingCode landstingCode){
     	Landsting landsting = findLandstingByLandstingCode(landstingCode);
-    	return eavropRepository.findByEavropIdAndLandsting(eavropId, landsting);
+    	Eavrop eavrop = eavropRepository.findByEavropIdAndLandsting(eavropId, landsting);
+    	return eavrop;
     }
     
 	@Override

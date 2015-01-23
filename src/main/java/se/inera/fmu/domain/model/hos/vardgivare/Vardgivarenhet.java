@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.Validate;
+import org.hibernate.validator.constraints.Email;
 
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.landsting.Landsting;
@@ -52,7 +53,14 @@ public class Vardgivarenhet extends AbstractBaseEntity implements IEntity<Vardgi
     //TODO: arbetsplatskod?
     
     @Embedded
-    private Address address;    
+    private Address address;
+    
+    @Email
+    @Column(name = "EMAIL")
+    private String email;
+    
+	@Column(name = "PHONE")
+    private String phone;
     
     @ManyToOne
     @JoinColumn(name = "VARDGIVARE_ID")
@@ -69,7 +77,7 @@ public class Vardgivarenhet extends AbstractBaseEntity implements IEntity<Vardgi
         //Needed by hibernate
     }
 
-    public Vardgivarenhet(final Vardgivare vardgivare, final HsaId hsaId, final String unitName, final Address address) {
+    public Vardgivarenhet(final Vardgivare vardgivare, final HsaId hsaId, final String unitName, final Address address, final String email, final String phone) {
     	Validate.notNull(vardgivare);
     	this.setVardgivare(vardgivare);
     	Validate.notNull(hsaId);
@@ -77,6 +85,8 @@ public class Vardgivarenhet extends AbstractBaseEntity implements IEntity<Vardgi
         Validate.notBlank(unitName);
         this.setUnitName(unitName);
         this.setAddress(address);
+        this.setEmail(email);
+        this.setPhone(phone);
     }
 
     //~ Property Methods ===============================================================================================
@@ -107,6 +117,22 @@ public class Vardgivarenhet extends AbstractBaseEntity implements IEntity<Vardgi
 
 	private void setAddress(Address address) {
 		this.address = address;
+	}
+
+	private String getEmail(){
+		return this.email;
+	}
+
+	private void setEmail(String email){
+		this.email = email;
+	}
+
+	private String getPhone(){
+		return this.phone;
+	}
+
+	private void setPhone(String phone){
+		this.phone = phone;
 	}
 
 	public Vardgivare getVardgivare() {

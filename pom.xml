@@ -800,7 +800,7 @@
                 <configuration>
                     <schemaLanguage>WSDL</schemaLanguage>
                     <generatePackage>fk.wsdl</generatePackage>
-                    <forceRegenerate>true</forceRegenerate>
+                    <forceRegenerate>false</forceRegenerate>
                     <schemas>
                         <schema>
                             <!-- ToDo: This must be read from resources

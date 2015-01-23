@@ -448,8 +448,16 @@ Use
 Although its not safe but you can skip tests by appending this in the end of the command `-Dmaven.test.skip=true`
 
 ##Authentication
+Currently the “prod” and “dev” profiles uses fake login that doesn’t authenticate with the SSO server. A profile named “acctest” will authenticate with a test SSO server.
 
-Cookie-Based Authentication (Session)
+In order to login to the SSO-server the client needs a card reader and the NetID client installed.
+
+http://www.e-identitet.se/index.php?page=net_id_download
+
+A test card was issued to the fmu-team along with a paper containing credentials.
+
+Regarding FMU integration with the SSO-service see:
+https://gist.github.com/knivmakkara/2443e6988a29b85f619f
 
 ##Endpoints
 
@@ -480,4 +488,3 @@ If you run into issue like: ssh: connect to host github.com port 22: Connection 
 Then follow advice here: http://stackoverflow.com/questions/7953806/github-ssh-via-public-wifi-port-22-blocked
 
 ##WebServices
-

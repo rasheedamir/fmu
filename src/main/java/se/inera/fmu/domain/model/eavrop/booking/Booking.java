@@ -1,7 +1,5 @@
 package se.inera.fmu.domain.model.eavrop.booking;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -24,8 +22,6 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.converter.BooleanToStringConverter;
-import se.inera.fmu.domain.model.eavrop.InterpreterBookingEventDTO;
-import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBooking;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
