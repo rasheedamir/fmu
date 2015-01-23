@@ -2,8 +2,24 @@
     @include container;
     @include clearfix;
     padding: 1em;
-
     h1 {
         font-size: $header-font-size;
+    }
+}
+
+#add-event-datetime {
+	width: 100%;
+    > tbody {
+        > tr {
+            > td {
+                padding-right: 1em;
+                &:first-child {
+            		max-width: 50%;
+            	}
+                &:last-child {
+                    padding-right: 0;
+                }
+            }
+        }
     }
 }

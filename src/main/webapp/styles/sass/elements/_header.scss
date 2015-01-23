@@ -18,14 +18,14 @@ header.navigation {
     border-bottom: 1px solid darken($navigation-background, 10);
     min-height: $navigation-height;
     width: 100%;
-    z-index: 999;
+    z-index: 1049;
     .navigation-wrapper {
         @include layout($total-columns 0 no-gutters);
         @include clearfix;
         //@include container(show);
         @include squish($navigation-padding);
         position: relative;
-        z-index: 9999;
+        z-index: 1049;
     }
     .navigation-left {
         @include span($left-columns);

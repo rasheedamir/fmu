@@ -22,7 +22,7 @@ angular.module('fmuClientApp', [
 ])
 .run(['gettextCatalog', function(gettextCatalog){
     gettextCatalog.currentLanguage='sv';
-    gettextCatalog.debug = true;
+    //gettextCatalog.debug = true;
 }])
 .run(['$rootScope', '$state', function($rootScope, $state){
     $rootScope.$state = $state;

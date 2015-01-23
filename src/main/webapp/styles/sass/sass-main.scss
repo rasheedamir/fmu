@@ -235,9 +235,43 @@ body {
     box-shadow: 0px 0px 1px 1px #000;
 }
 
-.fmu-form-footer {
-    @include container;
-    button {
-        float: right;
+.fmu-form-container {
+    @include container(12);
+    @include container(show);
+    @include clearfix;
+    padding: 1em;
+    .fmu-form-header {
+        @include span(12);
+        h1 {
+            @extend .typl8-delta;
+            text-align: left;
+        }
+    }
+
+    .fmu-form-body {
+        @include span(12);
+        border-top: solid thin $table-border-color;
+        border-bottom: solid thin $table-border-color;
+        margin: 0.5em 0;
+        padding: 0.5em 0;
+    }
+
+    .fmu-form-footer {
+        @include span(12 last);
+        button {
+            margin-left: 1em;
+            &:only-child {
+                float: right;
+            }
+        }
+
+        div {
+            float: right;
+        }
+    }
+
+    .fmu-form-item {
+        @include span(12);
+        margin: 0.5em 0;
     }
 }

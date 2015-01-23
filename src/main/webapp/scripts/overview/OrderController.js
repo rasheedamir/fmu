@@ -172,7 +172,7 @@ angular.module('fmuClientApp')
                     case 'status':
                         return EAVROP_TABLE.statusMapping[rowData[key]];
                     default:
-                        return rowData[key];
+                        return rowData[key] ? rowData[key] : '&nbsp;';
                 }
             };
 
