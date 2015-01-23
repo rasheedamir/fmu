@@ -17,8 +17,13 @@ angular.module('fmuClientApp', [
     'ui.router',
     'ngTable',
     'ui.bootstrap',
-    'ngAnimate'
+    'ngAnimate',
+    'gettext'
 ])
+.run(['gettextCatalog', function(gettextCatalog){
+    gettextCatalog.currentLanguage='sv';
+    gettextCatalog.debug = true;
+}])
 .run(['$rootScope', '$state', function($rootScope, $state){
     $rootScope.$state = $state;
 }])

@@ -431,6 +431,16 @@ module.exports = function (grunt) {
         }
       }
     },
+    'nggettext_compile': {
+      all: {
+        options: {
+          module: 'fmuClientApp'
+        },
+        files: {
+          '<%= yeoman.app %>/texts/translations.js': ['<%= yeoman.app %>/texts/*.pot']
+        }
+      },
+    },
     fileblocks: {
       options: {
         /* Task options */

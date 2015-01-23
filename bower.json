@@ -21,7 +21,8 @@
     "breakpoint-sass": "latest",
     "typeplate-starter-kit": "latest",
     "lodash": "latest",
-    "font-awesome": "latest"
+    "font-awesome": "latest",
+    "angular-gettext": "latest"
   },
   "devDependencies": {
     "angular-scenario": "~1.2.0"
