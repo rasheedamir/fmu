@@ -4,10 +4,13 @@ import javax.xml.datatype.DatatypeConfigurationException;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.ws.config.annotation.EnableWs;
@@ -25,8 +28,27 @@ import se.inera.fmu.interfaces.managing.ws.BestallareClient;
 @EnableWs
 @Configuration
 @Slf4j
-public class WebServiceConfiguration extends WsConfigurerAdapter {
+public class WebServiceConfiguration extends WsConfigurerAdapter implements EnvironmentAware {
 
+    private RelaxedPropertyResolver propertyResolver;
+
+    private Environment environment;
+
+    /**
+     * Sets the environment
+     * @param environment
+     */
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+        this.propertyResolver = new RelaxedPropertyResolver(environment);
+    }
+
+    /**
+     *
+     * @param applicationContext
+     * @return
+     */
     @Bean
     public ServletRegistrationBean webServiceDispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
@@ -35,6 +57,11 @@ public class WebServiceConfiguration extends WsConfigurerAdapter {
         return new ServletRegistrationBean(servlet, "/ws/*");
     }
 
+    /**
+     *
+     * @param eavropSchema
+     * @return
+     */
     @Bean(name = "eavrop-ws")
     public DefaultWsdl11Definition eavropWsdl11Definition(XsdSchema eavropSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
@@ -46,6 +73,10 @@ public class WebServiceConfiguration extends WsConfigurerAdapter {
         return wsdl11Definition;
     }
 
+    /**
+     *
+     * @return
+     */
     @Bean
     public XsdSchema eavropSchema() {
         return new SimpleXsdSchema(new ClassPathResource("ws/eavrop.xsd"));
@@ -63,6 +94,11 @@ public class WebServiceConfiguration extends WsConfigurerAdapter {
         return marshaller;
     }
 
+    /**
+     *
+     * @param marshaller
+     * @return
+     */
     @Bean
     public BestallareClient bestallareClient(Jaxb2Marshaller marshaller) {
         BestallareClient bestallareClient = null;
@@ -70,8 +106,8 @@ public class WebServiceConfiguration extends WsConfigurerAdapter {
         try {
 			bestallareClient = new BestallareClient();
 		
-	        // ToDo: This must be read from resources
-	        bestallareClient.setDefaultUri("http://ec2-54-76-142-198.eu-west-1.compute.amazonaws.com:9191/ws/bestallare-ws.wsdl");
+	        String fkWsdlUri = propertyResolver.getProperty("fk.wsdl.uri");
+	        bestallareClient.setDefaultUri(fkWsdlUri);
 	        bestallareClient.setMarshaller(marshaller);
 	        bestallareClient.setUnmarshaller(marshaller);
         } catch (DatatypeConfigurationException e) {
