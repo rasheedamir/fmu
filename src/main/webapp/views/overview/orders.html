@@ -2,10 +2,10 @@
     <h1 translate class="order-status-title typl8-delta">Beställningar</h1>
     <ul class="order-dates-container">
         <li class="start-date">
-            <fmu-datepicker title="Start datum" date-model="startDate"></fmu-datepicker>
+            <fmu-datepicker title="Start datum" date-model="dateTimeService.startDate"></fmu-datepicker>
         </li>
         <li class="end-date">
-            <fmu-datepicker title="Slut datum" date-model="endDate"></fmu-datepicker>
+            <fmu-datepicker title="Slut datum" date-model="dateTimeService.endDate"></fmu-datepicker>
         </li>
         <li class="date-btn-container">
             <button class="order-date-button btn btn-info" ng-click="visa()" translate>Visa</button>
@@ -20,8 +20,8 @@
     <fmu-table
     table-parameters="tableParameters"
     date-key="{{dateKey}}"
-    start-date="startDate.getTime()"
-    end-date="endDate.getTime()"
+    start-date="dateTimeService.startDate.getTime()"
+    end-date="dateTimeService.endDate.getTime()"
     eavrop-status="bestallningarStatus"
     header-groups=headerGroups
     header-fields="headerFields"

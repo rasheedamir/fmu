@@ -1,14 +1,11 @@
 'use strict';
 
 angular.module('fmuClientApp')
-    .controller('OrderController', ['$scope', '$state', '$filter', 'AuthService', 'EAVROP_STATUS', 'EAVROP_TABLE',
-        function ($scope, $state, $filter, AuthService, EAVROP_STATUS, EAVROP_TABLE) {
+    .controller('OrderController', ['$scope', '$state', '$filter', 'AuthService','DatetimeService', 'EAVROP_STATUS', 'EAVROP_TABLE',
+        function ($scope, $state, $filter, AuthService, DatetimeService, EAVROP_STATUS, EAVROP_TABLE) {
             $scope.authService = AuthService;
             $scope.dateKey = 'creationTime';
-            $scope.startDate = new Date();
-            $scope.endDate = new Date();
-            $scope.endDate.setMonth($scope.startDate.getMonth() + 1);
-            $scope.startDate.setMonth($scope.startDate.getMonth() - 1);
+            $scope.dateTimeService = DatetimeService;
 
             $scope.click = function (id) {
                 $state.go('eavrop.order', {eavropId: id});
@@ -175,6 +172,10 @@ angular.module('fmuClientApp')
                         return rowData[key] ? rowData[key] : '&nbsp;';
                 }
             };
+
+            $scope.$watch('startDate', function(){
+
+            });
 
             // TODO fix this with event ?
             $scope.$watch('authService', function () {

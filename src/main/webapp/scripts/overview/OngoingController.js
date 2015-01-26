@@ -1,13 +1,10 @@
 'use strict';
 
 angular.module('fmuClientApp')
-    .controller('OngoingController', ['$scope', '$filter', 'AuthService', 'EAVROP_STATUS', 'EAVROP_TABLE',
-        function ($scope, $filter, AuthService, EAVROP_STATUS, EAVROP_TABLE) {
+    .controller('OngoingController', ['$scope', '$filter', 'AuthService', 'DatetimeService', 'EAVROP_STATUS', 'EAVROP_TABLE',
+        function ($scope, $filter, AuthService, DatetimeService, EAVROP_STATUS, EAVROP_TABLE) {
             $scope.authService = AuthService;
-            $scope.startDate = new Date();
-            $scope.endDate = new Date();
-            $scope.endDate.setMonth($scope.startDate.getMonth() + 1);
-            $scope.startDate.setMonth($scope.startDate.getMonth() - 1);
+            $scope.datetimeService = DatetimeService;
             $scope.dateKey = 'startDate';
 
             $scope.ongoingStatus = EAVROP_STATUS.accepted;

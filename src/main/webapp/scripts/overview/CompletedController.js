@@ -1,15 +1,11 @@
 'use strict';
 
 angular.module('fmuClientApp')
-    .controller('CompletedController', ['$scope', '$filter', 'AuthService', 'EAVROP_STATUS', 'EAVROP_TABLE',
-        function ($scope, $filter, AuthService, EAVROP_STATUS, EAVROP_TABLE) {
+    .controller('CompletedController', ['$scope', '$filter', 'AuthService', 'DatetimeService', 'EAVROP_STATUS', 'EAVROP_TABLE',
+        function ($scope, $filter, AuthService, DatetimeService, EAVROP_STATUS, EAVROP_TABLE) {
             $scope.authService = AuthService;
             $scope.dateKey = 'creationTime';
-            $scope.startDate = new Date();
-            $scope.endDate = new Date();
-            $scope.endDate.setMonth($scope.startDate.getMonth() + 1);
-            $scope.startDate.setMonth($scope.startDate.getMonth() - 1);
-            $scope.dateKey = 'dateDelivered';
+            $scope.datetimeService = DatetimeService;
 
             $scope.completedStatus = EAVROP_STATUS.completed;
             $scope.headerFields = [
