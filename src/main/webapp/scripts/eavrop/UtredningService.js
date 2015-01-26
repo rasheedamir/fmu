@@ -5,68 +5,69 @@ angular.module('fmuClientApp').factory('UtredningService', ['$http', '$filter', 
         var UTREDNING = {
             dateFormat: 'yyyy-MM-dd',
             statusMapping: {
-                INTYG_APPROVED: gettext('Intyg godkänt'),
-                INTYG_COMPLEMENT_REQUEST: gettext('Intyg kompleteras'),
-                INTYG_SIGNED: gettext('Intyg signeras'),
-                EAVROP_APPROVED: gettext('Utredningen godkänts'),
-                EAVROP_COMPENSATION_APPROVED: gettext('Utredningens godkänts för utbetalning'),
-                UNKNOWN: gettext('Okänt handelse'),
-                EXAMINATION: gettext('Besök'),
-                BREIFING_WITH_CITIZEN: gettext('Möte med patient'),
-                INTERNAL_WORK: gettext('Internt arbete')
+                INTYG_APPROVED: gettext('Intyg-status/Intyg godkänt'),
+                INTYG_COMPLEMENT_REQUEST: gettext('Intyg-status/Intyg kompleteras'),
+                INTYG_SIGNED: gettext('Intyg-status/Intyg signeras'),
+                EAVROP_APPROVED: gettext('Händelse-typ/Utredningen godkänts'),
+                EAVROP_COMPENSATION_APPROVED: gettext('Händelse-typ/Utredningens godkänts för utbetalning'),
+                UNKNOWN: gettext('Händelse-typ/Okänt handelse'),
+                EXAMINATION: gettext('Händelse-typ/Besök'),
+                BREIFING_WITH_CITIZEN: gettext('Händelse-typ/Möte med patient'),
+                INTERNAL_WORK: gettext('Händelse-typ/Internt arbete')
             },
 
             handelseMapping: {
-                BOOKED: gettext('Bokat'),
-                PERFORMED: gettext('Genomfört'),
-                CANCELLED_NOT_PRESENT: gettext('Patient uteblev'),
-                CANCELLED_BY_CARE_GIVER: gettext('Besök avbokat av utförare'),
-                CANCELLED_LT_48_H: gettext('Besök avbokat <48h'),
-                CANCELLED_GT_48_H: gettext('Besök avbokat >48h'),
-                CANCELLED_LT_96_H: gettext('Besök avbokat <96h'),
-                CANCELLED_GT_96_H: gettext('Besök avbokat >96h')
+                BOOKED: gettext('Bookning-status/Bokat'),
+                PERFORMED: gettext('Bookning-status/Genomfört'),
+                CANCELLED_NOT_PRESENT: gettext('Bookning-status/Patient uteblev'),
+                CANCELLED_BY_CARE_GIVER: gettext('Bookning-status/Besök avbokat av utförare'),
+                CANCELLED_LT_48_H: gettext('Bookning-status/Besök avbokat <48h'),
+                CANCELLED_GT_48_H: gettext('Bookning-status/Besök avbokat >48h'),
+                CANCELLED_LT_96_H: gettext('Bookning-status/Besök avbokat <96h'),
+                CANCELLED_GT_96_H: gettext('Bookning-status/Besök avbokat >96h')
             },
 
             tolkMapping: {
-                INTERPRETER_BOOKED: gettext('Bokat'),
-                INTERPRETATION_PERFORMED: gettext('Tolkning genomförd'),
-                INTERPRETER_CANCELED: gettext('Tolk avbokad'),
-                INTERPRETER_NOT_PRESENT: gettext('Tolk uteblev'),
-                INTERPRETER_PRESENT_BUT_NOT_USED: gettext('Tolk anlänt, men tolkning inte använd')
+                INTERPRETER_BOOKED: gettext('Tolk-status/Bokat'),
+                INTERPRETATION_PERFORMED: gettext('Tolk-status/Tolkning genomförd'),
+                INTERPRETER_CANCELED: gettext('Tolk-status/Tolk avbokad'),
+                INTERPRETER_NOT_PRESENT: gettext('Tolk-status/Tolk uteblev'),
+                INTERPRETER_PRESENT_BUT_NOT_USED: gettext('Tolk-status/Tolk anlänt, men tolkning inte använd')
             },
 
             eventsRequireConfirmation: {
-                CANCELLED_GT_48_H: gettext('Besök avbokat >48h'),
-                CANCELLED_NOT_PRESENT: gettext('Patient uteblev'),
-                CANCELLED_LT_96_H: gettext('Besök avbokat <96h'),
-                CANCELLED_GT_96_H: gettext('Besök avbokat >96h')
+                CANCELLED_GT_48_H: gettext('Händelser-som-måste-bekräftas/Besök avbokat >48h'),
+                CANCELLED_NOT_PRESENT: gettext('Händelser-som-måste-bekräftas/Patient uteblev'),
+                CANCELLED_LT_96_H: gettext('Händelser-som-måste-bekräftas/Besök avbokat <96h'),
+                CANCELLED_GT_96_H: gettext('Händelser-som-måste-bekräftas/Besök avbokat >96h')
             },
 
             handelseTypes: [{
                 type: 'EXAMINATION',
-                name: gettext('Besök')
+                name: gettext('Händelse-typer/Besök')
             }, {
                 type: 'BREIFING_WITH_CITIZEN',
-                name: gettext('Genomgång med patient')
+                name: gettext('Händelse-typer/Genomgång med patient')
             }, {
                 type: 'INTERNAL_WORK',
-                name: gettext('Internt arbete')
+                name: gettext('Händelse-typer/Internt arbete')
             }],
+
             roles: [{
-                name: gettext('Läkare')
+                name: gettext('Lägg-till-bokning-Roller/Läkare')
             }, {
-                name: gettext('Psykolog')
+                name: gettext('Lägg-till-bokning-Roller/Psykolog')
             }, {
-                name: gettext('Arbetsterapeut')
+                name: gettext('Lägg-till-bokning-Roller/Arbetsterapeut')
             }, {
-                name: gettext('Sjukgymnast')
+                name: gettext('Lägg-till-bokning-Roller/Sjukgymnast')
             }, {
-                name: gettext('Utredare')
+                name: gettext('Lägg-till-bokning-Roller/Utredare')
             }],
 
 
             errors: {
-                cannotCreateBooking: 'Bookningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda'
+                cannotCreateBooking: gettext('Lägg-till-bokning-misslyckad/Bookningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda')
             }
         };
 

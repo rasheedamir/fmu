@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('fmuClientApp').factory('EavropService', ['$q', '$http', 'RestUrlBuilderService',
-    function($q, $http, RestUrlBuilderService) {
+angular.module('fmuClientApp').factory('EavropService', ['$q', '$http', 'RestUrlBuilderService', 'gettext',
+    function($q, $http, RestUrlBuilderService, gettext) {
         var eavropConstants = {
             dateFormat: 'yyyy-MM-dd',
             sortKeyMap: {
@@ -13,24 +13,24 @@ angular.module('fmuClientApp').factory('EavropService', ['$q', '$http', 'RestUrl
                 status: 'eavropState'
             },
             statusMapping: {
-                UNASSIGNED: 'Förfrågan om utredning har inkommit',
-                ASSIGNED: 'Förfrågan tilldelas, inväntar acceptans',
-                ACCEPTED: 'Förfrågan accepterade',
-                ON_HOLD: 'Inväntar beslut från beställare',
-                SENT: 'Inväntar acceptans',
-                APPROVED: 'Utredningen godkänts av beställare',
-                CLOSED: 'Utredningen är avslutad',
-                ONGOING: 'Utredningen är påbörjad'
+                UNASSIGNED: gettext('Eavrop-status/Förfrågan om utredning har inkommit'),
+                ASSIGNED: gettext('Eavrop-status/Förfrågan tilldelas, inväntar acceptans'),
+                ACCEPTED: gettext('Eavrop-status/Förfrågan accepterade'),
+                ON_HOLD: gettext('Eavrop-status/Inväntar beslut från beställare'),
+                SENT: gettext('Eavrop-status/Inväntar acceptans'),
+                APPROVED: gettext('Eavrop-status/Utredningen godkänts av beställare'),
+                CLOSED: gettext('Eavrop-status/Utredningen är avslutad'),
+                ONGOING: gettext('Eavrop-status/Utredningen är påbörjad')
             },
             isCompletedMapping: {
-                true: 'Ja',
-                false: 'Nej'
+                true: gettext('Eavrop-tabell-komplett-status/Ja'),
+                false: gettext('Eavrop-tabell-komplett-status/Nej')
             },
 
             isCompensationApprovedMapping: {
-                null: 'inväntar',
-                true: 'Ja',
-                false: 'Nej'
+                null: gettext('Eavrop-tabell-kompensation-godkänd-status/inväntar'),
+                true: gettext('Eavrop-tabell-kompensation-godkänd-status/Ja'),
+                false: gettext('Eavrop-tabell-kompensation-godkänd-status/Nej')
             },
             eavropStatus: {
                 notAccepted: 'NOT_ACCEPTED',

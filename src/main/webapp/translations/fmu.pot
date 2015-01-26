@@ -1,0 +1,1042 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Language: sv\n"
+"X-Generator: Poedit 1.7.3\n"
+
+#: src/main/webapp/views/eavrop/all-events.html:63
+msgid "Acceptans av utredning"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:27
+msgid "Acceptans av utredningen"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/accept-request-modal.html:4
+msgid "Acceptera förfrågan om utredning"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:2
+#: src/main/webapp/views/eavrop/eavrop.html:55
+msgid "Alla händelser"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:37
+msgid "Antal avvikelser"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/eavrop.html:84
+msgid "Antal dagar sedan utredningens start:"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/add-note-modal.html:10
+msgid "Anteckning"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:109
+#: src/main/webapp/views/eavrop/eavrop.html:61
+#: src/main/webapp/views/eavrop/notes.html:2
+msgid "Anteckningar"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/HandlingarTableDir.js:102
+msgid "Anteckningar-tabell/Datum"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/HandlingarTableDir.js:100
+msgid "Anteckningar-tabell/Innehåll"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/HandlingarTableDir.js:101
+msgid "Anteckningar-tabell/Skapad av"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/HandlingarTableDir.js:103
+msgid "Anteckningar-tabell/Tabort"
+msgstr ""
+
+#: src/main/webapp/scripts/app.js:219
+msgid "Anteckningar/Anteckningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda"
+msgstr ""
+
+#: src/main/webapp/scripts/app.js:220
+msgid "Anteckningar/Fel uppstod vid bortagning av anteckning, detta kan beror på att du inte har rätt behörighet att genomföra denna förfrågan"
+msgstr ""
+
+#: src/main/webapp/index.html:90
+msgid "Användarvillkor"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/confirmModal.html:12
+#: src/main/webapp/views/templates/changeBookingConfirmationModal.html:16
+#: src/main/webapp/views/templates/fmu-utredning-table.html:108
+#: src/main/webapp/views/templates/fmu-utredning-table.html:71
+#: src/main/webapp/views/templates/laggTillHandelseDialog.html:73
+msgid "Avbryt"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/reject-request-modal.html:4
+msgid "Avslå förfrågan om utredning"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/assign-utredare-modal.html:9
+msgid "Begär acceptans om utredning från:"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/req-amendment-modal.html:4
+msgid "Begär tillägg"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/req-amendment-modal.html:13
+msgid "Begäran skickad av"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/req-amendment-modal.html:17
+msgid "Begäran skickad, datum"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/req-amendment-modal.html:25
+msgid "Begäran skickas till"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:43
+msgid "Begärda kompletteringar till utredning"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:22
+msgid "Begärda tillägg, handlingar"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/contents.html:27
+msgid "Beställare"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/contents.html:34
+msgid "Beställare, e-post"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/contents.html:32
+msgid "Beställare, namn"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/contents.html:33
+msgid "Beställare, tel"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:50
+#: src/main/webapp/views/eavrop/eavrop.html:43
+#: src/main/webapp/views/eavrop/order/contents.html:3
+#: src/main/webapp/views/eavrop/order/order.html:2
+msgid "Beställning"
+msgstr ""
+
+#: src/main/webapp/views/overview/orders.html:2
+#: src/main/webapp/views/overview/overview.html:3
+msgid "Beställningar"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OrderController.js:126
+#: src/main/webapp/scripts/overview/OrderController.js:63
+msgid "Beställningar/Antal dagar efter förfrågan om utredning"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OrderController.js:158
+msgid "Beställningar/Antal dagar har överträtts och/eller annan avvikelse finns"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OrderController.js:163
+msgid "Beställningar/Datumen utgår från det datum då beställningen inkommit"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OrderController.js:47
+msgid "Beställningar/Den försäkrades bostadsort"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OrderController.js:118
+#: src/main/webapp/scripts/overview/OrderController.js:55
+msgid "Beställningar/Enhet"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OrderController.js:106
+#: src/main/webapp/scripts/overview/OrderController.js:39
+msgid "Beställningar/Enhet/Avdelning"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OrderController.js:110
+#: src/main/webapp/scripts/overview/OrderController.js:43
+msgid "Beställningar/Förfrågan inkommit datum"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OrderController.js:102
+#: src/main/webapp/scripts/overview/OrderController.js:114
+#: src/main/webapp/scripts/overview/OrderController.js:35
+#: src/main/webapp/scripts/overview/OrderController.js:51
+msgid "Beställningar/Organisation"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OrderController.js:122
+#: src/main/webapp/scripts/overview/OrderController.js:59
+msgid "Beställningar/Status"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OrderController.js:31
+#: src/main/webapp/scripts/overview/OrderController.js:98
+msgid "Beställningar/Typ"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OrderController.js:138
+#: src/main/webapp/scripts/overview/OrderController.js:75
+msgid "Beställningar/beställare"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OrderController.js:143
+#: src/main/webapp/scripts/overview/OrderController.js:80
+msgid "Beställningar/leverantör"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OrderController.js:27
+#: src/main/webapp/scripts/overview/OrderController.js:94
+msgid "Beställningar/Ärende-ID"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:24
+msgid "Bookning-status/Besök avbokat <48h"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:26
+msgid "Bookning-status/Besök avbokat <96h"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:25
+msgid "Bookning-status/Besök avbokat >48h"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:27
+msgid "Bookning-status/Besök avbokat >96h"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:23
+msgid "Bookning-status/Besök avbokat av utförare"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:20
+msgid "Bookning-status/Bokat"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:21
+msgid "Bookning-status/Genomfört"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:22
+msgid "Bookning-status/Patient uteblev"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/citizen.html:10
+msgid "Bostadsort"
+msgstr ""
+
+#: src/main/webapp/index.html:95
+msgid "Created by R2M"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/notes.html:3
+msgid "De anteckningar som noteras här skall inte innehålla någon medicinsk eller känslig information."
+msgstr ""
+
+#: src/main/webapp/scripts/overview/EavropService.js:18
+msgid "Eavrop-status/Förfrågan accepterade"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/EavropService.js:16
+msgid "Eavrop-status/Förfrågan om utredning har inkommit"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/EavropService.js:17
+msgid "Eavrop-status/Förfrågan tilldelas, inväntar acceptans"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/EavropService.js:20
+msgid "Eavrop-status/Inväntar acceptans"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/EavropService.js:19
+msgid "Eavrop-status/Inväntar beslut från beställare"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/EavropService.js:21
+msgid "Eavrop-status/Utredningen godkänts av beställare"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/EavropService.js:22
+msgid "Eavrop-status/Utredningen är avslutad"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/EavropService.js:23
+msgid "Eavrop-status/Utredningen är påbörjad"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/EavropService.js:32
+msgid "Eavrop-tabell-kompensation-godkänd-status/Ja"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/EavropService.js:33
+msgid "Eavrop-tabell-kompensation-godkänd-status/Nej"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/EavropService.js:31
+msgid "Eavrop-tabell-kompensation-godkänd-status/inväntar"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/EavropService.js:26
+msgid "Eavrop-tabell-komplett-status/Ja"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/EavropService.js:27
+msgid "Eavrop-tabell-komplett-status/Nej"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:58
+msgid "Enhet/Avdelning"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/contents.html:31
+msgid "Enhet:"
+msgstr ""
+
+#: src/main/webapp/views/templates/fmu-utredning-table.html:44
+#: src/main/webapp/views/templates/fmu-utredning-table.html:81
+msgid "Error:"
+msgstr ""
+
+#: src/main/webapp/views/templates/datePicker.html:3
+msgid "Från, datum"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/citizen.html:9
+msgid "Födelseår"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/contents.html:8
+msgid "Förfrågan inkom"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/eavrop.html:28
+msgid "Förfrågan om acceptans"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:7
+msgid "Förfrågan om utredning"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:59
+msgid "Förfrågan skickad, datum"
+msgstr ""
+
+#: src/main/webapp/index.html:84
+msgid "Försäkringskassan"
+msgstr ""
+
+#: src/main/webapp/views/overview/completed.html:2
+#: src/main/webapp/views/overview/overview.html:5
+msgid "Genomförda utredningar"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/CompletedController.js:26
+msgid "Genomförda-utredningar/Antal dgr för komplettering"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/CompletedController.js:22
+msgid "Genomförda-utredningar/Antal dgr klar"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/CompletedController.js:81
+msgid "Genomförda-utredningar/Datumen utgår från det datum då intyg levererats"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/CompletedController.js:51
+msgid "Genomförda-utredningar/Godkänd för ersättning"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/CompletedController.js:43
+msgid "Genomförda-utredningar/Intyg levererades, datum"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/CompletedController.js:64
+msgid "Genomförda-utredningar/Invänta acceptans av intyg och godkännande för ersättning"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/CompletedController.js:18
+msgid "Genomförda-utredningar/Typ"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/CompletedController.js:39
+msgid "Genomförda-utredningar/Utredare, ansvarig"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/CompletedController.js:35
+msgid "Genomförda-utredningar/Utredare, organisation"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/CompletedController.js:47
+msgid "Genomförda-utredningar/Utredning komplett"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/CompletedController.js:72
+msgid "Genomförda-utredningar/Utredning komplett, inväntar godkännande för ersättning"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/CompletedController.js:76
+msgid "Genomförda-utredningar/Utredning är komplett och godkänd"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/CompletedController.js:68
+msgid "Genomförda-utredningar/Utredningen är ej komplett, ej godkänd, försenad eller innehåller ersättningsbara avvikelser"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/CompletedController.js:30
+msgid "Genomförda-utredningar/avikelser"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/CompletedController.js:14
+msgid "Genomförda-utredningar/Ärende-ID"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/add-doc-modal.html:9
+#: src/main/webapp/views/eavrop/order/req-amendment-modal.html:9
+msgid "Handling"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:83
+#: src/main/webapp/views/eavrop/order/documents.html:3
+msgid "Handlingar"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/order.html:10
+msgid "Handlingar och tillägg"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:12
+msgid "Handlingar översändes"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:14
+msgid "Händelse-typ/Besök"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:16
+msgid "Händelse-typ/Internt arbete"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:15
+msgid "Händelse-typ/Möte med patient"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:13
+msgid "Händelse-typ/Okänt handelse"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:11
+msgid "Händelse-typ/Utredningen godkänts"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:12
+msgid "Händelse-typ/Utredningens godkänts för utbetalning"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:47
+msgid "Händelse-typer/Besök"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:50
+msgid "Händelse-typer/Genomgång med patient"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:53
+msgid "Händelse-typer/Internt arbete"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:41
+msgid "Händelser-som-måste-bekräftas/Besök avbokat <96h"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:39
+msgid "Händelser-som-måste-bekräftas/Besök avbokat >48h"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:42
+msgid "Händelser-som-måste-bekräftas/Besök avbokat >96h"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:40
+msgid "Händelser-som-måste-bekräftas/Patient uteblev"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/citizen.html:7
+msgid "Initialer"
+msgstr ""
+
+#: src/main/webapp/index.html:77
+msgid "Innehåll"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/order.html:7
+msgid "Innehåll i beställningen"
+msgstr ""
+
+#: src/main/webapp/index.html:91
+msgid "Integritetspolicy"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:32
+msgid "Intyg skickat till beställaren"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:8
+msgid "Intyg-status/Intyg godkänt"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:9
+msgid "Intyg-status/Intyg kompleteras"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:10
+msgid "Intyg-status/Intyg signeras"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/eavrop.html:19
+msgid "Inväntar svar från vårdleverantör"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/eavrop.html:7
+msgid "Invånare"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/citizen.html:3
+#: src/main/webapp/views/eavrop/order/order.html:13
+msgid "Invånaren"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/req-amendment-modal.html:21
+#: src/main/webapp/views/templates/fmu-utredning-table.html:60
+#: src/main/webapp/views/templates/fmu-utredning-table.html:96
+msgid "Kommentar"
+msgstr ""
+
+#: src/main/webapp/index.html:79
+msgid "Kontakt"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/citizen.html:8
+msgid "Kön"
+msgstr ""
+
+#: src/main/webapp/index.html:89
+msgid "Lag"
+msgstr ""
+
+#: src/main/webapp/views/templates/laggTillHandelseDialog.html:4
+msgid "Lägg till Händelse"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/add-note-modal.html:3
+#: src/main/webapp/views/eavrop/notes.html:12
+msgid "Lägg till anteckning"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/add-doc-modal.html:4
+msgid "Lägg till handling"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/investigation.html:13
+msgid "Lägg till händelse"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:61
+msgid "Lägg-till-bokning-Roller/Arbetsterapeut"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:57
+msgid "Lägg-till-bokning-Roller/Läkare"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:59
+msgid "Lägg-till-bokning-Roller/Psykolog"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:63
+msgid "Lägg-till-bokning-Roller/Sjukgymnast"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:65
+msgid "Lägg-till-bokning-Roller/Utredare"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:70
+msgid "Lägg-till-bokning-misslyckad/Bookningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda"
+msgstr ""
+
+#: src/main/webapp/index.html:86
+msgid "Mina intyg"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/citizen.html:29
+msgid "Namn"
+msgstr ""
+
+#: src/main/webapp/index.html:78
+msgid "Om FMU"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:57
+#: src/main/webapp/views/eavrop/all-events.html:61
+msgid "Organisation"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:60
+msgid "Patientens bostadsort"
+msgstr ""
+
+#: src/main/webapp/views/templates/laggTillHandelseDialog.html:34
+msgid "Person"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/citizen.html:28
+msgid "Personnummer"
+msgstr ""
+
+#: src/main/webapp/views/overview/ongoing.html:2
+msgid "Pågående beställningar"
+msgstr ""
+
+#: src/main/webapp/views/overview/overview.html:4
+msgid "Pågående utredningar"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OngoingController.js:43
+msgid "Pågående-utredningar/Antal dagar från start"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OngoingController.js:76
+msgid "Pågående-utredningar/Antal dagar har överträtts och/eller annan avvikelse finns"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OngoingController.js:47
+msgid "Pågående-utredningar/Avikelser"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OngoingController.js:81
+msgid "Pågående-utredningar/Datumen utgår från det datum då utredningen startat"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OngoingController.js:27
+msgid "Pågående-utredningar/Enhet/Avdelning"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OngoingController.js:23
+#: src/main/webapp/scripts/overview/OngoingController.js:31
+msgid "Pågående-utredningar/Organisation"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OngoingController.js:35
+msgid "Pågående-utredningar/Status"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OngoingController.js:19
+msgid "Pågående-utredningar/Typ"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OngoingController.js:39
+msgid "Pågående-utredningar/Utredning start"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OngoingController.js:58
+msgid "Pågående-utredningar/beställare"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OngoingController.js:63
+msgid "Pågående-utredningar/leverantör"
+msgstr ""
+
+#: src/main/webapp/scripts/overview/OngoingController.js:15
+msgid "Pågående-utredningar/Ärende-ID"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/add-doc-modal.html:13
+msgid "Registrerad av"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/add-doc-modal.html:20
+msgid "Registrerad, datum"
+msgstr ""
+
+#: src/main/webapp/index.html:83
+msgid "Relaterade länkar"
+msgstr ""
+
+#: src/main/webapp/views/templates/laggTillHandelseDialog.html:38
+msgid "Roll"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:4
+msgid "Sammanfattning"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/citizen.html:33
+msgid "Sjukskrivande läkare"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/citizen.html:32
+msgid "Sjukskrivande vårdcentral/klinik"
+msgstr ""
+
+#: src/main/webapp/views/templates/changeBookingConfirmationModal.html:17
+#: src/main/webapp/views/templates/fmu-utredning-table.html:106
+#: src/main/webapp/views/templates/fmu-utredning-table.html:70
+#: src/main/webapp/views/templates/laggTillHandelseDialog.html:70
+msgid "Spara"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/compensation.html:16
+msgid "Specifikation - avvikelser"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/eavrop.html:74
+#: src/main/webapp/views/templates/fmu-utredning-table.html:51
+#: src/main/webapp/views/templates/fmu-utredning-table.html:88
+msgid "Status"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/citizen.html:34
+msgid "Särskilda behov"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/confirmModal.html:13
+#: src/main/webapp/views/eavrop/confirmModal.html:3
+msgid "Ta bort"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/citizen.html:30
+msgid "Telefonnummer"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/citizen.html:31
+msgid "Tidigare utredd vid"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/eavrop.html:4
+msgid "Till översikten"
+msgstr ""
+
+#: src/main/webapp/views/templates/datePicker.html:17
+msgid "Till, datum"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:90
+#: src/main/webapp/views/eavrop/order/documents.html:13
+msgid "Tillägg"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/HandlingarTableDir.js:50
+msgid "Tillägg-tabell/Begäran skickad till"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/HandlingarTableDir.js:47
+msgid "Tillägg-tabell/Begäran skickad, av"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/HandlingarTableDir.js:48
+msgid "Tillägg-tabell/Begäran skickad, datum"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/HandlingarTableDir.js:46
+msgid "Tillägg-tabell/Handling"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/HandlingarTableDir.js:49
+msgid "Tillägg-tabell/Kommentar"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/compensation.html:27
+msgid "Tillägstjänster"
+msgstr ""
+
+#: src/main/webapp/index.html:80
+msgid "Tjänster"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/contents.html:10
+msgid "Tolk"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:31
+msgid "Tolk-status/Bokat"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:35
+msgid "Tolk-status/Tolk anlänt, men tolkning inte använd"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:33
+msgid "Tolk-status/Tolk avbokad"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:34
+msgid "Tolk-status/Tolk uteblev"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:32
+msgid "Tolk-status/Tolkning genomförd"
+msgstr ""
+
+#: src/main/webapp/views/templates/laggTillHandelseDialog.html:57
+msgid "Tolk?"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:56
+msgid "Typ"
+msgstr ""
+
+#: src/main/webapp/views/templates/laggTillHandelseDialog.html:10
+msgid "Typ av händelse"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/contents.html:9
+msgid "Typ av utredning"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/compensation.html:2
+#: src/main/webapp/views/eavrop/eavrop.html:67
+msgid "Underlag för ersättning"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:51
+msgid "Underlag-ersättningsvy/Antal avikelser"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:48
+msgid "Underlag-ersättningsvy/Antal dagar efter komplettering"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:18
+msgid "Underlag-ersättningsvy/Antal dagar för acceptans av förfrågan om utredning har överskridits"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:17
+msgid "Underlag-ersättningsvy/Antal dagar för komplettering har överskridits"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:19
+msgid "Underlag-ersättningsvy/Antal dagar för utredning har överskridits"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:54
+msgid "Underlag-ersättningsvy/Antal utredningsstarter"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:103
+msgid "Underlag-ersättningsvy/Avvikelse"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:12
+msgid "Underlag-ersättningsvy/Besök avbokat <48h"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:14
+msgid "Underlag-ersättningsvy/Besök avbokat <96h"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:13
+msgid "Underlag-ersättningsvy/Besök avbokat >48h"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:15
+msgid "Underlag-ersättningsvy/Besök avbokat >96h"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:11
+msgid "Underlag-ersättningsvy/Besök avbokat av utförare"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:23
+msgid "Underlag-ersättningsvy/Ja"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:24
+msgid "Underlag-ersättningsvy/Nej"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:20
+msgid "Underlag-ersättningsvy/Ops detta ska inte hända"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:10
+msgid "Underlag-ersättningsvy/Patient uteblev"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:112
+msgid "Underlag-ersättningsvy/Tillägstjänst"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:115
+msgid "Underlag-ersättningsvy/Timmar"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:118
+msgid "Underlag-ersättningsvy/Tolk"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:42
+msgid "Underlag-ersättningsvy/Tolk anlitad?"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:16
+msgid "Underlag-ersättningsvy/Tolk uteblev"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:33
+msgid "Underlag-ersättningsvy/Typ"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:39
+msgid "Underlag-ersättningsvy/Utförare, namn"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:36
+msgid "Underlag-ersättningsvy/Utförare, organisation"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:57
+msgid "Underlag-ersättningsvy/Utredning är komplett och godkänd?"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:45
+msgid "Underlag-ersättningsvy/Utredningen genomfördes på, antal dagar"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/CompensationController.js:30
+msgid "Underlag-ersättningsvy/Ärende-ID"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:62
+msgid "Utredare, enhet"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:96
+#: src/main/webapp/views/eavrop/eavrop.html:49
+#: src/main/webapp/views/eavrop/investigation.html:2
+msgid "Utredning"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:17
+msgid "Utredning antal dagar"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:136
+msgid "Utredning-tabell/Datum"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:132
+msgid "Utredning-tabell/Händelse"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:144
+msgid "Utredning-tabell/Person"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:148
+msgid "Utredning-tabell/Roll"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:158
+msgid "Utredning-tabell/Status"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:140
+msgid "Utredning-tabell/Tidpunkt"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/UtredningService.js:154
+msgid "Utredning-tabell/Tolk"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/assign-utredare-modal.html:4
+msgid "Utse utredare"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/eavrop.html:14
+msgid "Utse vårdleverantör"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/order/contents.html:11
+msgid "Val av inriktning"
+msgstr ""
+
+#: src/main/webapp/views/overview/completed.html:11
+#: src/main/webapp/views/overview/ongoing.html:11
+#: src/main/webapp/views/overview/orders.html:11
+#: src/main/webapp/views/templates/datePicker.html:30
+msgid "Visa"
+msgstr ""
+
+#: src/main/webapp/index.html:44
+msgid "Välj roll"
+msgstr ""
+
+#: src/main/webapp/index.html:85
+msgid "Webcert"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/HandlingarTableDir.js:11
+msgid "handlingar-tabell/Handling"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/HandlingarTableDir.js:12
+msgid "handlingar-tabell/Registrerad av"
+msgstr ""
+
+#: src/main/webapp/scripts/eavrop/HandlingarTableDir.js:13
+msgid "handlingar-tabell/Registrerad, datum"
+msgstr ""
+
+#: src/main/webapp/views/templates/changeBookingConfirmationModal.html:9
+msgid "kommer att pausa utredningen till dess att beställaren godkänner att utredningen får fortsätta"
+msgstr ""
+
+#: src/main/webapp/views/templates/changeBookingConfirmationModal.html:3
+#: src/main/webapp/views/templates/fmu-utredning-table.html:12
+msgid "Ändra"
+msgstr ""
+
+#: src/main/webapp/views/templates/changeBookingConfirmationModal.html:8
+msgid "Ändringen till statusen"
+msgstr ""
+
+#: src/main/webapp/views/templates/laggTillHandelseDialog.html:46
+msgid "Är detta en tilläggstjänst?"
+msgstr ""
+
+#: src/main/webapp/views/templates/changeBookingConfirmationModal.html:10
+msgid "Är du säker på att du vill spara ändringarna?"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/confirmModal.html:7
+msgid "Är du säker på att du vill ta bort anteckningen?"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/compensation.html:5
+msgid "Ärende"
+msgstr ""
+
+#: src/main/webapp/views/eavrop/all-events.html:55
+#: src/main/webapp/views/eavrop/eavrop.html:8
+#: src/main/webapp/views/eavrop/order/contents.html:7
+msgid "Ärende-ID"
+msgstr ""
