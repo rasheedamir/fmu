@@ -38,10 +38,10 @@
                     font-weight: bold;
                     color: text-contrast(white);
                     min-height: 2em;
-
-                    .badge-danger {
-                        background-color: #FA6761 !important;
-                    }
+                }
+                .badge-danger {
+                    background-color: $danger-color !important;
+                    color: text-contrast($danger-color);
                 }
             }
         }
@@ -61,14 +61,12 @@
             }
         }
     }
-
     %container {
         @include container;
         @include clearfix;
         margin-top: 1em;
     }
-
-    .events-bestallning{
+    .events-bestallning {
         @extend %container;
     }
     .events-handlingar {
@@ -77,11 +75,9 @@
     .events-tillagg {
         @extend %container;
     }
-
     .events-utredning {
         @extend %container;
     }
-
     .events-anteckningar {
         @extend %container;
     }

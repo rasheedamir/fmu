@@ -237,7 +237,6 @@ body {
 
 .fmu-form-container {
     @include container(12);
-    @include container(show);
     @include clearfix;
     padding: 1em;
     .fmu-form-header {

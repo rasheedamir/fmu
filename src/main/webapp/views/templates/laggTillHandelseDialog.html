@@ -3,86 +3,75 @@
     <div class="fmu-form-header">
         <h1 translate>Lägg till Händelse</h1>
     </div>
-
     <div class="fmu-form-body">
         <fmu-error-field errors="createBookingErrors"></fmu-error-field>
-
         <div class="fmu-form-item">
-            <label translate>Typ av händelse</label>
-            <select class="form-control" ng-model="choosenHandelseType"
+            <div class="event-type">
+                <label translate>Typ av händelse</label>
+                <select class="form-control" ng-model="choosenHandelseType"
                     ng-options="handelse.name for handelse in handelseTypes">
-                <option value="">-- Välj en händelse --</option>
-            </select>
+                    <option value="">-- Välj en händelse --</option>
+                </select>
+            </div>
         </div>
-
         <!--Datum-->
         <div class="fmu-form-item">
-            <table id="add-event-datetime">
-                <tr>
-                    <td>
-                        <fmu-datepicker title="Datum" date-model="handelseDate"></fmu-datepicker>
-                    </td>
-                    <td>
-                        <timepicker ng-model="handelseStartTime" hour-step="1" minute-step="10" show-meridian="false"></timepicker>
-                    </td>
-                    <td>
-                        <timepicker ng-model="handelseEndTime" hour-step="1" minute-step="10" show-meridian="false"></timepicker>
-                    </td>
-                </tr>
-            </table>
+            <div class="date">
+                <fmu-datepicker title="Datum" date-model="handelseDate"></fmu-datepicker>
+            </div>
+            <div class="time">
+                <div class="start-time">
+                    <timepicker ng-model="handelseStartTime" hour-step="1" minute-step="10" show-meridian="false"></timepicker>
+                </div>
+                <div class="end-time">
+                    <timepicker ng-model="handelseEndTime" hour-step="1" minute-step="10" show-meridian="false"></timepicker>
+                </div>
+            </div>
         </div>
-
         <!--Person/Roll-->
-
         <div class="fmu-form-item">
-            <div>
+            <div class="person">
                 <label translate>Person</label>
                 <input class="form-control" ng-model="personName">
             </div>
-
-            <div>
+            <div class="roles">
                 <label translate>Roll</label>
                 <select class="form-control" ng-model="choosenRole"
-                        ng-options="role.name for role in roles">
+                    ng-options="role.name for role in roles">
                     <option value="">-- Välj en roll --</option>
                 </select>
             </div>
         </div>
-
         <div ng-if="isAFU()" class="fmu-form-item">
             <label translate>Är detta en tilläggstjänst?</label>
             <div class="radio">
                 <label>
                     <input ng-model="tillaggRadio.value" type="radio" ng-value="true" translate> Ja
                 </label>
-
                 <label>
                     <input ng-model="tillaggRadio.value" type="radio" ng-value="false" translate> Nej
                 </label>
             </div>
         </div>
-
         <div class="fmu-form-item">
             <label translate>Tolk?</label>
             <div class="radio">
                 <label>
                     <input ng-model="tolkRadio" type="radio" ng-value="true" translate> Ja
                 </label>
-
                 <label>
                     <input ng-model="tolkRadio" type="radio" ng-value="false" translate> Nej
                 </label>
             </div>
         </div>
     </div>
-
     <div class="fmu-form-footer">
         <div>
             <button translate class="btn btn-success"
-                    ng-click="saveHandelse()">Spara
+            ng-click="saveHandelse()">Spara
             </button>
             <button translate class="btn btn-danger"
-                    ng-click="cancel()">Avbryt
+            ng-click="cancel()">Avbryt
             </button>
         </div>
     </div>

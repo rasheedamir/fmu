@@ -35,8 +35,9 @@
             </div>
             <div class="summary-badge">
                 <div class="panel-heading"><strong translate>Antal avvikelser</strong></div>
-                <div class="panel-body" ng-class="{'badge-danger': allevents.noDeviations > 0}">
-                <span ng-class="allevents.noDeviations > 0 ? 'badge-danger' : ''">{{allevents.noDeviations}}</span></div>
+                <div class="panel-body" ng-class="allevents.noDeviations > 0 ? 'badge-danger' : ''">
+                    <span>{{allevents.noDeviations}}</span>
+                </div>
             </div>
             <div class="summary-badge">
                 <div class="panel-heading"><strong translate>Begärda kompletteringar till utredning</strong></div>
