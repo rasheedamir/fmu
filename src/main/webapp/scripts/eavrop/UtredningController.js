@@ -1,13 +1,12 @@
 'use strict';
 
 angular.module('fmuClientApp')
-    .controller('UtredningController', ['$scope', '$filter', '$stateParams', 'AuthService', 'UtredningService', '$modal', 'UTREDNING', 'currentEavrop',
-        function ($scope, $filter, $stateParams, AuthService, UtredningService, $modal, UTREDNING, currentEavrop) {
+    .controller('UtredningController', ['$scope', '$filter', '$stateParams', 'AuthService', 'UtredningService', '$modal', 'currentEavrop',
+        function ($scope, $filter, $stateParams, AuthService, UtredningService, $modal, currentEavrop) {
             $scope.authService = AuthService;
             $scope.currentEavropId = $stateParams.eavropId;
 
             $scope.headerFields = UtredningService.getTableFields();
-            $scope.dateDescription = 'Datumen utgår från det datum då intyg levererats';
             $scope.getTableCellValue = UtredningService.getTableCellValue;
 
             $scope.openBookingCreationDialog = function () {
@@ -32,19 +31,8 @@ angular.module('fmuClientApp')
                         $scope.tillaggRadio = {value: false};
                         $scope.tolkRadio = false;
 
-                        $scope.handelseTypes = [
-                            {type: UTREDNING.editableEvents.examination, name: 'Besök'},
-                            {type: UTREDNING.editableEvents.briefing, name: 'Genomgång med patient'},
-                            {type: UTREDNING.editableEvents.internalWork, name: 'Internt arbete'}
-                        ];
-
-                        $scope.roles = [
-                            {name: 'Läkare'},
-                            {name: 'Psykolog'},
-                            {name: 'Arbetsterapeut'},
-                            {name: 'Sjukgymnast'},
-                            {name: 'Utredare'}
-                        ];
+                        $scope.handelseTypes = UtredningService.getTextConstants().handelseTypes;
+                        $scope.roles = UtredningService.getTextConstants().roles;
 
                         $scope.isAFU = function () {
                              return currentEavrop && currentEavrop.utredningType === 'AFU';
@@ -77,7 +65,7 @@ angular.module('fmuClientApp')
                                 modal.close();
                                 tableParameters.reload();
                             }, function () {
-                                $scope.createBookingErrors.push(UTREDNING.errors.cannotCreateBooking);
+                                $scope.createBookingErrors.push(UtredningService.getTextConstants().errors.cannotCreateBooking);
                             });
                         };
 

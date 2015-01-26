@@ -1,78 +1,87 @@
 'use strict';
 
 angular.module('fmuClientApp')
-    .controller('CompensationController', ['$scope', '$filter', 'AuthService', 'currentEavrop', 'EavropService', 'EAVROP_COMPENSATION',
-        function ($scope, $filter, AuthService, currentEavrop, EavropService, EAVROP_COMPENSATION) {
+    .controller('CompensationController', ['$scope', '$filter', 'AuthService', 'currentEavrop', 'EavropService', 'gettext',
+        function($scope, $filter, AuthService, currentEavrop, EavropService, gettext) {
             $scope.authService = AuthService;
             $scope.currentEavrop = currentEavrop;
+            var textMapping = {
+                statusMapping: {
+                    CANCELLED_NOT_PRESENT: gettext('Underlag-ersättningsvy/Patient uteblev'),
+                    CANCELLED_BY_CAREGIVER: gettext('Underlag-ersättningsvy/Besök avbokat av utförare'),
+                    CANCELLED_LT_48_H: gettext('Underlag-ersättningsvy/Besök avbokat <48h'),
+                    CANCELLED_GT_48_H: gettext('Underlag-ersättningsvy/Besök avbokat >48h'),
+                    CANCELLED_LT_96_H: gettext('Underlag-ersättningsvy/Besök avbokat <96h'),
+                    CANCELLED_GT_96_H: gettext('Underlag-ersättningsvy/Besök avbokat >96h'),
+                    INTERPRETER_NOT_PRESENT: gettext('Underlag-ersättningsvy/Tolk uteblev'),
+                    INTYG_COMPLEMENT_RESPONSE_DEVIATION: gettext('Underlag-ersättningsvy/Antal dagar för komplettering har överskridits'),
+                    EAVROP_ASSIGNMENT_ACCEPT_DEVIATION: gettext('Underlag-ersättningsvy/Antal dagar för acceptans av förfrågan om utredning har överskridits'),
+                    EAVROP_ASSESSMENT_LENGHT_DEVIATION: gettext('Underlag-ersättningsvy/Antal dagar för utredning har överskridits'),
+                    UNKNOWN: gettext('Underlag-ersättningsvy/Ops detta ska inte hända')
+                },
+                jaNejMapping: {
+                    true: gettext('Underlag-ersättningsvy/Ja'),
+                    false: gettext('Underlag-ersättningsvy/Nej')
+                }
+            };
 
-                $scope.arendeHeaderFields = [
-                    {
-                        key: 'arendeId',
-                        name: 'Ärende-ID'
-                    },
-                    {
-                        key: 'utredningType',
-                        name: 'Typ'
-                    },
-                    {
-                        key: 'utforareOrganisation',
-                        name: 'Utförare, organisation'
-                    },
-                    {
-                        key: 'utforareNamn',
-                        name: 'Utförare, namn'
-                    },
-                    {
-                        key: 'tolkBooked',
-                        name: 'Tolk anlitad?'
-                    },
-                    {
-                        key: 'utredningDuration',
-                        name: 'Utredningen genomfördes på, antal dagar'
-                    },
-                    {
-                        key: 'nrDaysAfterCompletetion',
-                        name: 'Antal dagar efter komplettering'
-                    },
-                    {
-                        key: 'nrAvikelser',
-                        name: 'Antal avikelser'
-                    },
-                    {
-                        key: 'nrUtredningstarts',
-                        name: 'Antal utredningsstarter'
-                    },
-                    {
-                        key: 'isCompletedAndApproved',
-                        name: 'Utredning är komplett och godkänd?'
-                    }
+            $scope.arendeHeaderFields = [{
+                    key: 'arendeId',
+                    name: gettext('Underlag-ersättningsvy/Ärende-ID')
+                }, {
+                    key: 'utredningType',
+                    name: gettext('Underlag-ersättningsvy/Typ')
+                }, {
+                    key: 'utforareOrganisation',
+                    name: gettext('Underlag-ersättningsvy/Utförare, organisation')
+                }, {
+                    key: 'utforareNamn',
+                    name: gettext('Underlag-ersättningsvy/Utförare, namn')
+                }, {
+                    key: 'tolkBooked',
+                    name: gettext('Underlag-ersättningsvy/Tolk anlitad?')
+                }, {
+                    key: 'utredningDuration',
+                    name: gettext('Underlag-ersättningsvy/Utredningen genomfördes på, antal dagar')
+                }, {
+                    key: 'nrDaysAfterCompletetion',
+                    name: gettext('Underlag-ersättningsvy/Antal dagar efter komplettering')
+                }, {
+                    key: 'nrAvikelser',
+                    name: gettext('Underlag-ersättningsvy/Antal avikelser')
+                }, {
+                    key: 'nrUtredningstarts',
+                    name: gettext('Underlag-ersättningsvy/Antal utredningsstarter')
+                }, {
+                    key: 'isCompletedAndApproved',
+                    name: gettext('Underlag-ersättningsvy/Utredning är komplett och godkänd?')
+                }
 
-                ];
+            ];
 
-            $scope.getArendeData = function (key, data) {
+            $scope.getArendeData = function(key, data) {
                 var value = data ? data[key] : '-';
                 switch (key) {
                     case 'tolkBooked':
                     case 'isCompletedAndApproved':
-                        return EAVROP_COMPENSATION.jaNejMapping[value];
-                    default :
+                        return textMapping.jaNejMapping[value];
+                    default:
                         return value ? value : '-';
                 }
             };
 
-            $scope.getAvikelserData = function (key, data) {
-                return data ? EAVROP_COMPENSATION.statusMapping[data[key]] : '-';
+            $scope.getAvikelserData = function(key, data) {
+                return data ? textMapping.statusMapping[data[key]] : '-';
             };
 
-            $scope.getTillaggData = function (key, data) {
+            $scope.getTillaggData = function(key, data) {
                 var value = data ? data[key] : '-';
                 switch (key) {
                     case 'antalTimmar':
                         return millisToHHMM(value);
                     case 'tolkBooked':
-                        return EAVROP_COMPENSATION.jaNejMapping[value];
-                    default :
+                        return textMapping.jaNejMapping[value];
+                    default:
                         return value ? value : '-';
                 }
             };
@@ -80,52 +89,48 @@ angular.module('fmuClientApp')
             function millisToHHMM(milliseconds) {
                 var minutes = Math.floor(milliseconds / (1000 * 60));
                 var hours = Math.floor(milliseconds / (1000 * 60 * 60));
-                var bookingMinutes = (minutes - hours*60);
-                return (hours < 10 ? '0' + hours : hours) + ' : ' + (bookingMinutes < 10 ? '0' + bookingMinutes: bookingMinutes);
+                var bookingMinutes = (minutes - hours * 60);
+                return (hours < 10 ? '0' + hours : hours) + ' : ' + (bookingMinutes < 10 ? '0' + bookingMinutes : bookingMinutes);
             }
 
-            var initData = function () {
-                return currentEavrop.$promise.then(
-                    function () {
-                        // Init table fields
-                        if (!$scope.specificationHeaderFields) {
-                            $scope.specificationHeaderFields = [
-                                {
-                                    key: 'deviationType',
-                                    name: 'Avvikelse'
-                                }
+            var initData = function() {
+                    return currentEavrop.$promise.then(
+                        function() {
+                            // Init table fields
+                            if (!$scope.specificationHeaderFields) {
+                                $scope.specificationHeaderFields = [{
+                                        key: 'deviationType',
+                                        name: gettext('Underlag-ersättningsvy/Avvikelse')
+                                    }
 
-                            ];
-                        }
+                                ];
+                            }
 
-                        if (!$scope.tillaggtjanstHeaderFields && currentEavrop.utredningType === 'AFU') {
-                            $scope.tillaggtjanstHeaderFields = [
-                                {
+                            if (!$scope.tillaggtjanstHeaderFields && currentEavrop.utredningType === 'AFU') {
+                                $scope.tillaggtjanstHeaderFields = [{
                                     key: 'name',
-                                    name: 'Tillägstjänst'
-                                },
-                                {
+                                    name: gettext('Underlag-ersättningsvy/Tillägstjänst')
+                                }, {
                                     key: 'antalTimmar',
-                                    name: 'Timmar'
-                                },
-                                {
+                                    name: gettext('Underlag-ersättningsvy/Timmar')
+                                }, {
                                     key: 'tolkBooked',
-                                    name: 'Tolk'
-                                }
-                            ];
-                        }
+                                    name: gettext('Underlag-ersättningsvy/Tolk')
+                                }];
+                            }
 
-                        return currentEavrop.eavropId;
-                    }
-                );
-            }, fetchRestData = function (eavropId) {
-                return EavropService.getCompensation(eavropId).then(function (serverData) {
-                    $scope.tableData = [serverData];
-                    $scope.specifications = serverData.avikelser;
-                    $scope.tillaggTjanster = serverData.tillaggTjanster;
-                    return serverData;
-                });
-            };
+                            return currentEavrop.eavropId;
+                        }
+                    );
+                },
+                fetchRestData = function(eavropId) {
+                    return EavropService.getCompensation(eavropId).then(function(serverData) {
+                        $scope.tableData = [serverData];
+                        $scope.specifications = serverData.avikelser;
+                        $scope.tillaggTjanster = serverData.tillaggTjanster;
+                        return serverData;
+                    });
+                };
 
             initData().then(fetchRestData);
         }

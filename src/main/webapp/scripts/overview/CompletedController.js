@@ -1,54 +1,54 @@
 'use strict';
 
 angular.module('fmuClientApp')
-    .controller('CompletedController', ['$scope', '$filter', 'AuthService', 'DatetimeService', 'EAVROP_STATUS', 'EAVROP_TABLE',
-        function ($scope, $filter, AuthService, DatetimeService, EAVROP_STATUS, EAVROP_TABLE) {
+    .controller('CompletedController', ['$scope', '$filter', 'AuthService', 'DatetimeService', 'EavropService','gettext',
+        function ($scope, $filter, AuthService, DatetimeService, EavropService, gettext) {
             $scope.authService = AuthService;
             $scope.dateKey = 'creationTime';
             $scope.datetimeService = DatetimeService;
 
-            $scope.completedStatus = EAVROP_STATUS.completed;
+            $scope.completedStatus = EavropService.getEavropConstants.eavropStatus.completed;
             $scope.headerFields = [
                 {
                     key: 'arendeId',
-                    name: 'Ärende-ID'
+                    name: gettext('Genomförda-utredningar/Ärende-ID')
                 },
                 {
                     key: 'utredningType',
-                    name: 'Typ'
+                    name: gettext('Genomförda-utredningar/Typ')
                 },
                 {
                     key: 'dagarFromStartToAccepted',
-                    name: 'Antal dgr klar'
+                    name: gettext('Genomförda-utredningar/Antal dgr klar')
                 },
                 {
                     key: 'totalCompletionDays',
-                    name: 'Antal dgr för komplettering'
+                    name: gettext('Genomförda-utredningar/Antal dgr för komplettering')
                 },
                 {
                     key: 'avikelser',
-                    name: 'avikelser'
+                    name: gettext('Genomförda-utredningar/avikelser')
                 },
 
                 {
                     key: 'utredareOrganisation',
-                    name: 'Utredare, organisation'
+                    name: gettext('Genomförda-utredningar/Utredare, organisation')
                 },
                 {
                     key: 'ansvarigUtredare',
-                    name: 'Utredare, ansvarig'
+                    name: gettext('Genomförda-utredningar/Utredare, ansvarig')
                 },
                 {
                     key: 'dateIntygDelivered',
-                    name: 'Intyg levererades, datum'
+                    name: gettext('Genomförda-utredningar/Intyg levererades, datum')
                 },
                 {
                     key: 'isCompleted',
-                    name: 'Utredning komplett&nbsp;?'
+                    name: gettext('Genomförda-utredningar/Utredning komplett') + '&nbsp;?'
                 },
                 {
                     key: 'isCompensationApproved',
-                    name: 'Godkänd för ersättning'
+                    name: gettext('Genomförda-utredningar/Godkänd för ersättning')
                 }
             ];
             $scope.headerGroups = [
@@ -61,24 +61,24 @@ angular.module('fmuClientApp')
 
             $scope.footerHints = [
                 {
-                    description: 'Invänta acceptans av intyg och godkännande för ersättning',
+                    description: gettext('Genomförda-utredningar/Invänta acceptans av intyg och godkännande för ersättning'),
                     colorClass: null
                 },
                 {
-                    description: 'Utredningen är ej komplett, ej godkänd, försenad eller innehåller ersättningsbara avvikelser',
+                    description: gettext('Genomförda-utredningar/Utredningen är ej komplett, ej godkänd, försenad eller innehåller ersättningsbara avvikelser'),
                     colorClass: 'bg-danger'
                 },
                 {
-                    description: 'Utredning komplett, inväntar godkännande för ersättning',
+                    description: gettext('Genomförda-utredningar/Utredning komplett, inväntar godkännande för ersättning'),
                     colorClass: 'bg-warning'
                 },
                 {
-                    description: 'Utredning är komplett och godkänd',
+                    description: gettext('Genomförda-utredningar/Utredning är komplett och godkänd'),
                     colorClass: 'bg-success'
                 }
             ];
 
-            $scope.datePickerDescription = 'Datumen utgår från det datum då intyg levererats';
+            $scope.datePickerDescription = gettext('Genomförda-utredningar/Datumen utgår från det datum då intyg levererats');
 
             $scope.visa = function () {
                 if($scope.tableParameters){
@@ -88,17 +88,18 @@ angular.module('fmuClientApp')
 
             $scope.getTableCellValue = function (key, rowData) {
                 var value = rowData[key];
+                var eavropConstants = EavropService.getEavropConstants;
                 switch (key) {
                     case 'dateIntygDelivered':
-                        return $filter('date')(value, EAVROP_TABLE.dateFormat);
+                        return $filter('date')(value, eavropConstants.dateFormat);
                     case 'isCompleted':
-                        return EAVROP_TABLE.isCompletedMapping[value];
+                        return eavropConstants.isCompletedMapping[value];
                     case 'isCompensationApproved':
-                        var status = EAVROP_TABLE.isCompensationApprovedMapping[value];
+                        var status = eavropConstants.isCompensationApprovedMapping[value];
                         if(value === null){
                             return status;
                         } else {
-                            return status + ', ' + $filter('date')(rowData.compensationApprovalDate, EAVROP_TABLE.dateFormat);
+                            return status + ', ' + $filter('date')(rowData.compensationApprovalDate, eavropConstants.dateFormat);
                         }
                         break;
                     default:

@@ -214,8 +214,11 @@ angular.module('fmuClientApp', [
     .state('eavrop.notes', {
         url: '/notes',
         templateUrl: 'views/eavrop/notes.html',
-        controller: function($scope, $modal, $filter, $stateParams, EavropNotes, EavropService, EAVROP_NOTES){
-
+        controller: function($scope, $modal, $filter, $stateParams, EavropNotes, EavropService, gettext){
+            var EAVROP_NOTES = {
+                cannotAdd: gettext('Anteckningar/Anteckningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda'),
+                cannotRemove: gettext('Anteckningar/Fel uppstod vid bortagning av anteckning, detta kan beror på att du inte har rätt behörighet att genomföra denna förfrågan')
+            };
             $scope.openRemoveNote = function (noteData) {
                 var confirmModal = $modal.open({
                     templateUrl: 'views/eavrop/confirmModal.html',
@@ -253,7 +256,7 @@ angular.module('fmuClientApp', [
                 var modalInstance = $modal.open({
                     templateUrl: 'views/eavrop/add-note-modal.html',
                     size: 'md',
-                    controller: function($scope, EavropNotes, EAVROP_NOTES){
+                    controller: function($scope, EavropNotes){
                         $scope.picker = {opened: false};
                         $scope.note = new EavropNotes({
                             content: '',

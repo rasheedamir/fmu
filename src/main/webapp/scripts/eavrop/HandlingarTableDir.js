@@ -1,17 +1,24 @@
 'use strict';
 angular.module('fmuClientApp')
-.directive('fmuHandlingarTable', function(){
+.directive('fmuHandlingarTable', ['gettext', function(gettext){
     return {
         scope: {
             handlingar: '=handlingar'
         },
         restrict: 'E',
+        link: function(scope){
+            scope.text = {
+                handling: gettext('handlingar-tabell/Handling'),
+                registeredBy: gettext('handlingar-tabell/Registrerad av'),
+                registeredDate: gettext('handlingar-tabell/Registrerad, datum')
+            };
+        }, 
         template:'<table class="fmu-table"> ' +
             '<thead> ' +
                 '<tr> ' +
-                    '<th>Handling</th> ' +
-                    '<th>Registrerad av</th> ' +
-                    '<th>Registrerad, datum</th> ' +
+                    '<th>{{text.handling}}</th> ' +
+                    '<th>{{text.registeredBy}}</th> ' +
+                    '<th>{{text.registeredDate}}</th> ' +
                     '</tr> ' +
             '</thead> ' +
             '<tbody> ' +
@@ -27,22 +34,31 @@ angular.module('fmuClientApp')
             '</tbody> ' +
         '</table> '
     };
-})
-.directive('fmuTillaggTable', function(){
+}])
+.directive('fmuTillaggTable', function(gettext){
     return {
         scope: {
             tillagg: '=tillagg'
         },
         restrict: 'E',
+        link: function(scope){
+            scope.text = {
+                handling: gettext('Tillägg-tabell/Handling'),
+                sentBy: gettext('Tillägg-tabell/Begäran skickad, av'),
+                sentDate: gettext('Tillägg-tabell/Begäran skickad, datum'),
+                comment: gettext('Tillägg-tabell/Kommentar'),
+                sentTo: gettext('Tillägg-tabell/Begäran skickad till')
+            };
+        },
         template:
             '<table class="fmu-table"> ' +
                 '<thead> ' +
                     '<tr> ' +
-                        '<th>Handling</th> ' +
-                        '<th>Begäran skickad, av</th> ' +
-                        '<th>Begäran skickad, datum</th> ' +
-                        '<th>Kommentar</th> ' +
-                        '<th>Begäran skickad till</th> ' +
+                        '<th>{{text.handling}}</th> ' +
+                        '<th>{{text.sentBy}}</th> ' +
+                        '<th>{{text.sentDate}}</th> ' +
+                        '<th>{{text.comment}}</th> ' +
+                        '<th>{{text.sentTo}}</th> ' +
                     '</tr> ' +
                 '</thead> ' +
                 '<tbody> ' +
@@ -61,7 +77,7 @@ angular.module('fmuClientApp')
             '</table>'
     };
 })
-.directive('fmuAnteckningarTable', function($filter){
+.directive('fmuAnteckningarTable', function($filter, gettext){
     return {
         scope: {
             anteckningar: '=',
@@ -79,15 +95,22 @@ angular.module('fmuClientApp')
             scope.remove = function (note) {
                 return scope.rowRemovable && scope.removeFunc() ? scope.removeFunc()(note) : null;
             };
+
+            scope.text = {
+                content: gettext('Anteckningar-tabell/Innehåll'),
+                createdBy: gettext('Anteckningar-tabell/Skapad av'),
+                date: gettext('Anteckningar-tabell/Datum'),
+                remove: gettext('Anteckningar-tabell/Tabort')
+            };
         },
         template:
             '<table class="fmu-table greyed-hover"> ' +
             '<thead> ' +
                 '<tr> ' +
-                        '<th> Innehåll </th> ' +
-                        '<th> Skapad av </th> ' +
-                        '<th> Datum </th> ' +
-                        '<th ng-if="rowRemovable"> Tabort </th> ' +
+                        '<th>{{text.content}}</th> ' +
+                        '<th>{{text.createdBy}}</th> ' +
+                        '<th>{{text.date}}</th> ' +
+                        '<th ng-if="rowRemovable">{{text.remove}}</th> ' +
                 '</tr> ' +
             '</thead> ' +
             '<tbody> ' +

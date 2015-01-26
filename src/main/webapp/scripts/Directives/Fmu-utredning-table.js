@@ -1,7 +1,7 @@
 'use strict';
 angular.module('fmuClientApp')
-    .directive('fmuUtredningTable', ['ngTableParams', '$filter', 'UtredningService', '$modal', 'UTREDNING',
-        function (ngTableParams, $filter, UtredningService, $modal, UTREDNING) {
+    .directive('fmuUtredningTable', ['ngTableParams', '$filter', 'UtredningService', '$modal',
+        function (ngTableParams, $filter, UtredningService, $modal) {
             return {
                 restrict: 'E',
                 scope: {
@@ -26,7 +26,7 @@ angular.module('fmuClientApp')
                     $scope.cancelChange = function (rowData) {
                         $scope.toogleEditRow(rowData);
                     };
-                    $scope.tableConstants = UTREDNING;
+                    $scope.tableConstants = UtredningService.getTextConstants();
                     // TODO when eavrop status is onhold disable editing functionalities
                     $scope.isEditColumn = function (row) {
                         return (row.tolkStatus || row.handelseStatus);
@@ -113,7 +113,7 @@ angular.module('fmuClientApp')
                                         return null;
                                     }
 
-                                    return UTREDNING.eventsRequireConfirmation[rowData.selectedHandelseStatus.name];
+                                    return UtredningService.getTextConstants().eventsRequireConfirmation[rowData.selectedHandelseStatus.name];
                                 };
                             }
                         });
