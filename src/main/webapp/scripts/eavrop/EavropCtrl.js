@@ -5,8 +5,8 @@ controller('EavropCtrl', ['$scope', 'currentEavrop', 'AuthService', 'patientInfo
     function($scope, currentEavrop, AuthService, patientInfo, EavropService) {
         $scope.patientInfo = patientInfo;
         $scope.currentEavrop = currentEavrop;
-        $scope.getStatus = function(eavrop) {
-            return EavropService.getEavropConstants.statusMapping[eavrop.status];
+        $scope.getStatus = function(status) {
+            return EavropService.getEavropConstants.statusMapping[status];
         };
     }
 ]);

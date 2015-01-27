@@ -5,14 +5,14 @@
                 <th
                     ng-repeat="group in headerGroups" colspan="{{group.colspan}}"
                     ng-class="group.colorClass == null || group.name == null ? 'invisible-header' : group.colorClass">
-                    {{group.name}}
+                    {{group.name | translate}}
                 </th>
             </tr>
             <tr class="header">
                 <th ng-repeat="field in headerFields" class="text-center text-capitalize"
                     ng-class="{'sortable': isSortable(field.key), 'sort-asc': tableParams.isSortBy(field.key, 'asc'),'sort-desc': tableParams.isSortBy(field.key, 'desc')}"
                     ng-click="sort(field.key)">
-                    <div ng-bind-html="field.name"></div>
+                    <div ng-bind-html="field.name | translate"></div>
                 </th>
             </tr>
         </thead>
@@ -23,7 +23,7 @@
             <tr ng-repeat="row in tableParams.data" ng-class="row.color" ng-click="rowClicked(row)">
                 <td ng-repeat="column in headerFields"
                     sortable="{{column.key}}" class="text-capitalize">
-                    <span ng-bind="getValue(column.key, row)"></span>
+                    <span ng-bind="getValue(column.key, row) | translate"></span>
                 </td>
             </tr>
         </tbody>
@@ -57,7 +57,7 @@
     </div>
     <div>
         <div ng-repeat="value in params.settings().$scope.footerHints" class="table-legend">
-            <span><i class="circle {{value.colorClass}}"></i>{{value.description}}</span>
+            <span><i class="circle {{value.colorClass}}"></i>{{value.description | translate}}</span>
         </div>
     </div>
     </script>

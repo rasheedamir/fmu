@@ -1,16 +1,16 @@
 <div class="fmu-form-container">
     <!--Typ-->
     <div class="fmu-form-header">
-        <h1 translate>Lägg till Händelse</h1>
+        <h1 translate>Lägg till Händelse/Lägg till Händelse</h1>
     </div>
     <div class="fmu-form-body">
         <fmu-error-field errors="createBookingErrors"></fmu-error-field>
         <div class="fmu-form-item">
             <div class="event-type">
-                <label translate>Typ av händelse</label>
+                <label translate>Lägg till Händelse/Typ av händelse</label>
                 <select class="form-control" ng-model="choosenHandelseType"
-                    ng-options="handelse.name for handelse in handelseTypes">
-                    <option value="">-- Välj en händelse --</option>
+                    ng-options="handelse.name | translate for handelse in handelseTypes">
+                    <option value="">----</option>
                 </select>
             </div>
         </div>
@@ -31,36 +31,40 @@
         <!--Person/Roll-->
         <div class="fmu-form-item">
             <div class="person">
-                <label translate>Person</label>
+                <label translate>Lägg till Händelse/Person</label>
                 <input class="form-control" ng-model="personName">
             </div>
             <div class="roles">
-                <label translate>Roll</label>
+                <label translate>Lägg till Händelse/Roll</label>
                 <select class="form-control" ng-model="choosenRole"
-                    ng-options="role.name for role in roles">
-                    <option value="">-- Välj en roll --</option>
+                    ng-options="role.name | translate for role in roles">
+                    <option value="">----</option>
                 </select>
             </div>
         </div>
         <div ng-if="isAFU()" class="fmu-form-item">
-            <label translate>Är detta en tilläggstjänst?</label>
+            <label translate>Lägg till Händelse/Är detta en tilläggstjänst?</label>
             <div class="radio">
                 <label>
-                    <input ng-model="tillaggRadio.value" type="radio" ng-value="true" translate> Ja
+                    <input ng-model="tillaggRadio.value" type="radio" ng-value="true"> 
+                    <translate>Lägg till Händelse/Ja</translate>
                 </label>
                 <label>
-                    <input ng-model="tillaggRadio.value" type="radio" ng-value="false" translate> Nej
+                    <input ng-model="tillaggRadio.value" type="radio" ng-value="false"> 
+                    <translate>Lägg till Händelse/Nej</translate>
                 </label>
             </div>
         </div>
         <div class="fmu-form-item">
-            <label translate>Tolk?</label>
+            <label translate>Lägg till Händelse/Tolk?</label>
             <div class="radio">
                 <label>
-                    <input ng-model="tolkRadio" type="radio" ng-value="true" translate> Ja
+                    <input ng-model="tolkRadio" type="radio" ng-value="true"> 
+                    <translate>Lägg till Händelse/Ja</translate>
                 </label>
                 <label>
-                    <input ng-model="tolkRadio" type="radio" ng-value="false" translate> Nej
+                    <input ng-model="tolkRadio" type="radio" ng-value="false"> 
+                    <translate>Lägg till Händelse/Nej</translate>
                 </label>
             </div>
         </div>
@@ -68,10 +72,10 @@
     <div class="fmu-form-footer">
         <div>
             <button translate class="btn btn-success"
-            ng-click="saveHandelse()">Spara
+            ng-click="saveHandelse()">Lägg till Händelse/Spara
             </button>
             <button translate class="btn btn-danger"
-            ng-click="cancel()">Avbryt
+            ng-click="cancel()">Lägg till Händelse/Avbryt
             </button>
         </div>
     </div>

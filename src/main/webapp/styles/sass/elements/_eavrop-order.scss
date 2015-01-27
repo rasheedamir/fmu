@@ -105,6 +105,11 @@
                 margin-top: 1em;
             }
         }
+
+        .btn-handlingar {
+            margin-top: 1em;
+            float: right;
+        }
     }
     .citizen {
         @extend .handlingar-tillagg;

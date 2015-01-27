@@ -95,7 +95,7 @@ angular.module('fmuClientApp')
                     case 'isCompleted':
                         return eavropConstants.isCompletedMapping[value];
                     case 'isCompensationApproved':
-                        var status = eavropConstants.isCompensationApprovedMapping[value];
+                        var status = $filter('translate')(eavropConstants.isCompensationApprovedMapping[value]);
                         if(value === null){
                             return status;
                         } else {

@@ -1,23 +1,14 @@
 <div class="handlingar-tillagg">
     <div class="table-wrapper">
-        <h2 translate>Handlingar</h2>
+        <h2 translate>Handlingar/Handlingar</h2>
         <fmu-handlingar-table handlingar="documents"></fmu-handlingar-table>
-
-        <div class="fmu-form-footer" style="border: none">
-            <input type="button" restricted role="ROLE_UTREDARE" ng-click="openAddDocumentModal()" class="btn btn-success btn-handlingar"
-                   value="Lägg till handling"/>
-        </div>
+        
+        <button restricted role="ROLE_UTREDARE" ng-click="openAddDocumentModal()" class="btn btn-success btn-handlingar" translate>Handlingar/Lägg till handling</button>
     </div>
-
     <div class="table-wrapper">
-        <h2 translate>Tillägg</h2>
+        <h2 translate>Handlingar/Tillägg</h2>
         <fmu-tillagg-table tillagg="reqDocuments"></fmu-tillagg-table>
-        <div class="fmu-form-footer" style="border: none">
-            <input type="button" restricted role="ROLE_UTREDARE" ng-click="openReqAmendmentModal()"
-                   class="btn btn-success btn-handlingar" value="Begär tillägg"/>
-        </div>
-
+        
+        <button restricted role="ROLE_UTREDARE" ng-click="openReqAmendmentModal()" class="btn btn-success btn-handlingar" translate>Handlingar/Begär tillägg</button>
     </div>
 </div>
-
-

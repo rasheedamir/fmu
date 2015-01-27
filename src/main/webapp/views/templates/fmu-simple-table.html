@@ -6,7 +6,7 @@
             <th class="text-capitalize"
                 ng-repeat="group in headerGroups" colspan="{{group.colspan}}"
                 ng-class="group.colorClass == null || group.name == null ? 'invisible-header' : group.colorClass">
-                {{group.name}}
+                {{group.name | translate}}
             </th>
         </tr>
 
@@ -14,7 +14,7 @@
             <th ng-repeat="field in headerFields" class="text-center text-capitalize"
                 ng-class="{'sortable': isSortable(field.key), 'sort-asc': tableParams.isSortBy(field.key, 'asc'),'sort-desc': tableParams.isSortBy(field.key, 'desc')}"
                 ng-click="sort(field.key)">
-                <div ng-bind-html="field.name"></div>
+                <div ng-bind-html="field.name | translate"></div>
             </th>
         </tr>
 
@@ -28,7 +28,7 @@
         <tr ng-repeat="row in tabularData" ng-class="row.color" ng-click="rowClicked(row)">
             <td ng-repeat="column in headerFields"
                 sortable="{{column.key}}">
-                <span ng-bind="getValue(column.key, row)"></span>
+                <span ng-bind="getValue(column.key, row) | translate"></span>
             </td>
         </tr>
 

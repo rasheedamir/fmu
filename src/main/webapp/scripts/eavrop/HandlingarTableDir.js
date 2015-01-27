@@ -16,9 +16,9 @@ angular.module('fmuClientApp')
         template:'<table class="fmu-table"> ' +
             '<thead> ' +
                 '<tr> ' +
-                    '<th>{{text.handling}}</th> ' +
-                    '<th>{{text.registeredBy}}</th> ' +
-                    '<th>{{text.registeredDate}}</th> ' +
+                    '<th>{{text.handling | translate}}</th> ' +
+                    '<th>{{text.registeredBy | translate}}</th> ' +
+                    '<th>{{text.registeredDate | translate}}</th> ' +
                     '</tr> ' +
             '</thead> ' +
             '<tbody> ' +
@@ -54,11 +54,11 @@ angular.module('fmuClientApp')
             '<table class="fmu-table"> ' +
                 '<thead> ' +
                     '<tr> ' +
-                        '<th>{{text.handling}}</th> ' +
-                        '<th>{{text.sentBy}}</th> ' +
-                        '<th>{{text.sentDate}}</th> ' +
-                        '<th>{{text.comment}}</th> ' +
-                        '<th>{{text.sentTo}}</th> ' +
+                        '<th>{{text.handling | translate}}</th> ' +
+                        '<th>{{text.sentBy | translate}}</th> ' +
+                        '<th>{{text.sentDate | translate}}</th> ' +
+                        '<th>{{text.comment | translate}}</th> ' +
+                        '<th>{{text.sentTo | translate}}</th> ' +
                     '</tr> ' +
                 '</thead> ' +
                 '<tbody> ' +
@@ -107,10 +107,10 @@ angular.module('fmuClientApp')
             '<table class="fmu-table greyed-hover"> ' +
             '<thead> ' +
                 '<tr> ' +
-                        '<th>{{text.content}}</th> ' +
-                        '<th>{{text.createdBy}}</th> ' +
-                        '<th>{{text.date}}</th> ' +
-                        '<th ng-if="rowRemovable">{{text.remove}}</th> ' +
+                        '<th>{{text.content | translate}}</th> ' +
+                        '<th>{{text.createdBy | translate}}</th> ' +
+                        '<th>{{text.date | translate}}</th> ' +
+                        '<th ng-if="rowRemovable">{{text.remove | translate}}</th> ' +
                 '</tr> ' +
             '</thead> ' +
             '<tbody> ' +

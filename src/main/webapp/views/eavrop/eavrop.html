@@ -1,23 +1,23 @@
   <div id="page-menus">
     <div class="eavrop-header">
         <div class="header-backlink" ui-sref="overview.orders">
-            <p translate class="fa fa-chevron-left typl8-zeta"> Till översikten</p>
+            <p translate class="fa fa-chevron-left typl8-zeta">Eavrop-vyn/Till översikten</p>
         </div>
         <div class="patient-info-banner flipInX normal">
-            <span> <translate>Invånare</translate>: <b>{{patientInfo.label}}</b></span>
-            <span> <translate>Ärende-ID</translate>: <b>{{currentEavrop.arendeId}}</b></span>
+            <span> <translate>Eavrop-vyn/Invånare</translate>: <b>{{patientInfo.label}}</b></span>
+            <span> <translate>Eavrop-vyn/Ärende-ID</translate>: <b>{{currentEavrop.arendeId}}</b></span>
         </div>
     </div>  
     <div restricted role="ROLE_SAMORDNARE">
         <div ng-controller="AssignmentCtrl" ng-switch="currentEavrop.status">
             <div class="fmu-assign-banner" ng-switch-when="UNASSIGNED">
-                <h1 translate>Utse vårdleverantör</h1>
-                <p>Utse vårdleverantör genom att hämta in acceptans av denna förfrågan.</p>
-                <a class="btn btn-success" ng-click="openAssignUtredareDialog()">Utse utredare</a>
+                <h1 translate>Eavrop-vyn/Utse vårdleverantör</h1>
+                <p translate>Eavrop-vyn/Utse vårdleverantör genom att hämta in acceptans av denna förfrågan.</p>
+                <a class="btn btn-success" ng-click="openAssignUtredareDialog()" translate>Eavrop-vyn/Utse utredare</a>
             </div>
             <div class="fmu-assign-banner" ng-switch-when="ASSIGNED">
-                <h1 translate>Inväntar svar från vårdleverantör</h1>
-                <p>Förfrågan om acceptans för ärende med ID: <b>{{currentEavrop.arendeId}}</b> skickades till <b>{{currentEavrop.utforandeEnhet}},
+                <h1 translate>Eavrop-vyn/tilldela-1/Inväntar svar från vårdleverantör</h1>
+                <p><translate>Eavrop-vyn/tilldela-2/Förfrågan om acceptans för ärende med ID</translate>: <b>{{currentEavrop.arendeId}}</b> <translate>Eavrop-vyn/tilldela-3/skickades till</translate> <b>{{currentEavrop.utforandeEnhet}},
                 {{currentEavrop.utforandeOrganisation}}</b></p>
             </div>
         </div>
@@ -25,13 +25,13 @@
     <div restricted role="ROLE_UTREDARE">
         <div ng-controller="AcceptanceCtrl" ng-switch="currentEavrop.status">
             <div class="fmu-assign-banner" ng-switch-when="ASSIGNED">
-                <h1 translate>Förfrågan om acceptans</h1>
-                <p>Förfrågan ställd till: <b>{{currentEavrop.utforandeEnhet}},
+                <h1 translate>Eavrop-vyn/Förfrågan om acceptans</h1>
+                <p><translate>Eavrop-vyn/acceptera-1/Förfrågan ställd till</translate>: <b>{{currentEavrop.utforandeEnhet}},
                 {{currentEavrop.utforandeOrganisation}}</b></p>
-                <p>Acceptans begärd av: <b>{{currentEavrop.mottagarenOrganisation}},
+                <p><translate>Eavrop-vyn/acceptera-2/Acceptans begärd av</translate>: <b>{{currentEavrop.mottagarenOrganisation}},
                 {{currentEavrop.assigningPerson}}</b></p>
-                <a ng-click="acceptDialog()" class="btn btn-success">Acceptera förfrågan</a>
-                <a ng-click="rejectDialog()" class="btn btn-danger">Avslå förfrågan</a>
+                <a ng-click="acceptDialog()" class="btn btn-success" translate>Eavrop-vyn/acceptera/Acceptera förfrågan</a>
+                <a ng-click="rejectDialog()" class="btn btn-danger" translate>Eavrop-vyn/acceptera/Avslå förfrågan</a>
             </div>
         </div>
     </div>
@@ -40,48 +40,48 @@
             <li ui-sref-active="navigation-tab-highlighted" ng-class="{active: $state.includes('eavrop.order')}">
                 <a ui-sref=".order.contents">
                     <span class="glyphicon glyphicon-save">&nbsp;</span>
-                    <translate>Beställning</translate>
+                    <translate>Eavrop-vyn/meny/Beställning</translate>
                 </a>
             </li>
             <li ui-sref-active="navigation-tab-highlighted">
                 <a ui-sref=".investigation">
                     <span class="glyphicon glyphicon-search">&nbsp;</span>
-                    <translate>Utredning</translate>
+                    <translate>Eavrop-vyn/meny/Utredning</translate>
                 </a>
             </li>
             <li ui-sref-active="navigation-tab-highlighted">
                 <a ui-sref=".allevents">
                     <span class="glyphicon glyphicon-random">&nbsp;</span>
-                    <translate>Alla händelser</translate>
+                    <translate>Eavrop-vyn/meny/Alla händelser</translate>
                 </a>
             </li>
             <li ui-sref-active="navigation-tab-highlighted">
                 <a ui-sref=".notes">
                     <span class="glyphicon glyphicon-pencil">&nbsp;</span>
-                    <translate>Anteckningar</translate>
+                    <translate>Eavrop-vyn/meny/Anteckningar</translate>
                 </a>
             </li>
             <li ui-sref-active="navigation-tab-highlighted">
                 <a ui-sref=".compensation">
                     <span class="glyphicon glyphicon-book">&nbsp;</span>
-                    <translate>Underlag för ersättning</translate>
+                    <translate>Eavrop-vyn/meny/Underlag för ersättning</translate>
                 </a>
             </li>
             <li id="status-btn" ng-init="showStatus = false" ng-click="showStatus = !showStatus" 
                 ng-class="{'navigation-tab-highlighted' : showStatus}">
                 <a>
                     <span class="glyphicon glyphicon-flag">&nbsp;</span>
-                    <translate>Status</translate>
+                    <translate>Eavrop-vyn/meny/Status</translate>
                 </a>
             </li>
         </ul>
     </nav>
     <div ng-show="showStatus" class="fmu-status-banner">
         <div class="status">
-            <h1 ng-binds="getStatus(currentEavrop)"></h1>
+            <h1>{{getStatus(currentEavrop.status) | translate}}</h1>
         </div>
         <div class="nr-of-days">
-            <h1 translate>Antal dagar sedan utredningens start:</h1>
+            <h1 translate>Eavrop-vyn/status/Antal dagar sedan utredningens start:</h1>
             <p>{{currentEavrop.nrOfDaysSinceStart}}</p>
         </div>
     </div>
