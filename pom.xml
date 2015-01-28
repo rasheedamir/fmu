@@ -805,7 +805,7 @@
                         <schema>
                             <!-- ToDo: This must be read from resources
                             -->
-                            <url>http://ec2-54-76-142-198.eu-west-1.compute.amazonaws.com:9191/ws/bestallare-ws.wsdl</url>
+                            <url>http://ec2-54-154-123-186.eu-west-1.compute.amazonaws.com:9191/ws/bestallare-ws.wsdl</url>
                         </schema>
                     </schemas>
                 </configuration>
