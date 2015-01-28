@@ -801,13 +801,10 @@
                     <schemaLanguage>WSDL</schemaLanguage>
                     <generatePackage>fk.wsdl</generatePackage>
                     <forceRegenerate>false</forceRegenerate>
-                    <schemas>
-                        <schema>
-                            <!-- ToDo: This must be read from resources
-                            -->
-                            <url>http://ec2-54-76-142-198.eu-west-1.compute.amazonaws.com:9191/ws/bestallare-ws.wsdl</url>
-                        </schema>
-                    </schemas>
+                    <schemaDirectory>${project.basedir}/src/main/resources/ws/ext/</schemaDirectory>
+                    <schemaIncludes>
+                        <include>*.wsdl</include>
+                    </schemaIncludes>
                 </configuration>
             </plugin>
 		</plugins>

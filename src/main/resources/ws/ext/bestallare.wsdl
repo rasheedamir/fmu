@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"	xmlns:sch="http://fk.ws/fmu/admin/eavrop" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://fk.ws/fmu/admin/eavrop" targetNamespace="http://fk.ws/fmu/admin/eavrop">
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://fk.ws/fmu/admin/eavrop">
+			<!-- Type that contain information about FMU assignment -->
+			<xs:element name="fmuVardgivarenhetTilldelningRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="arendeId" type="tns:arendeIdType" />
+						<xs:element name="vardgivarenhet" type="tns:vardgivarenhetType" />
+						<xs:element name="accepterad" type="xs:boolean" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="fmuVardgivarenhetTilldelningResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="serviceResponse" type="tns:serviceResponseType" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- Type that contain FMU start date time -->
+			<xs:element name="fmuStartRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="arendeId" type="tns:arendeIdType" />
+						<xs:element name="startDateTime" type="xs:dateTime" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="fmuStartResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="serviceResponse" type="tns:serviceResponseType" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- Type that contain information about requested additional documents -->
+			<xs:element name="begarKompletteringFmuHandlingRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="arendeId" type="tns:arendeIdType" />
+						<xs:element name="handlingBegardDateTime" type="xs:dateTime" />
+						<xs:element name="handlingBegardAv" type="tns:personType" />
+						<xs:element name="handling" type="xs:string" />
+						<xs:element minOccurs="0" name="notering" type="tns:noteringType" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="begarKompletteringFmuHandlingResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="serviceResponse" type="tns:serviceResponseType" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- Type for handling bookings -->
+			<xs:element name="fmuBokningRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="arendeId" type="tns:arendeIdType" />
+						<xs:element name="bokningsId" type="tns:uuIdType" />
+						<xs:element name="bokningsType" type="tns:bookingType" />
+						<xs:element name="startDateTime" type="xs:dateTime" />
+						<xs:element name="slutDateTime" type="xs:dateTime" />
+						<xs:element name="namn" type="xs:string" />
+						<xs:element name="roll" type="xs:string" />
+						<xs:element name="tolk" type="xs:boolean" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="fmuBokningResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="serviceResponse" type="tns:serviceResponseType" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- -->
+			<xs:element name="fmuBokningsavvikelseRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="arendeId" type="tns:arendeIdType" />
+						<xs:element name="bokningsId" type="tns:uuIdType" />
+						<xs:element name="bokningsavvikelse" type="tns:bookingDeviationType" />
+						<xs:element name="svarBokningsavvikelseErfordras" type="xs:boolean" />
+						<xs:element minOccurs="0" name="notering" type="tns:noteringType" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="fmuBokningsavvikelseResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="serviceResponse" type="tns:serviceResponseType" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- -->
+			<xs:element name="fmuIntygSentRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="arendeId" type="tns:arendeIdType" />
+						<xs:element name="intygSentDateTime" type="xs:dateTime" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="fmuIntygSentResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="serviceResponse" type="tns:serviceResponseType" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:complexType name="serviceResponseType">
+				<xs:sequence>
+					<xs:element name="arendeId" type="tns:arendeIdType" />
+					<xs:element name="statusCode" type="tns:statusCodeType" />
+					<xs:element minOccurs="0" name="errorMessage" type="tns:errorMessage" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="personType">
+				<xs:sequence>
+					<xs:element name="namn" type="xs:string" />
+					<xs:element minOccurs="0" name="personalId" type="xs:string" />
+					<xs:element name="befattning" type="xs:string" />
+					<xs:element name="enhet" type="xs:string" />
+					<xs:element name="organisation" type="xs:string" />
+					<xs:element minOccurs="0" name="telefon" type="xs:string" />
+					<xs:element minOccurs="0" name="epostAdress" type="tns:epostAdressType" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="noteringType">
+				<xs:sequence>
+					<xs:element name="notering" type="xs:string" />
+					<xs:element name="noteradAv" type="tns:personType" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="vardgivarenhetType">
+				<xs:sequence>
+					<xs:element name="enhetsnamn" type="xs:string" />
+					<xs:element name="adress" type="tns:adressType" />
+					<xs:element name="organisation" type="xs:string" />
+					<xs:element minOccurs="0" name="telefon" type="xs:string" />
+					<xs:element minOccurs="0" name="epostAdress" type="tns:epostAdressType" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="adressType">
+				<xs:sequence>
+					<xs:element name="postadress" type="xs:string" />
+					<xs:element name="postnummer" type="xs:string" />
+					<xs:element name="stad" type="xs:string" />
+					<xs:element minOccurs="0" name="land" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:simpleType name="bookingType">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="EXAMINATION" />
+					<xs:enumeration value="BREIFING_WITH_CITIZEN" />
+					<xs:enumeration value="INTERNAL_WORK" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="bookingDeviationType">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="INVANARE_ABSENT" />
+					<xs:enumeration value="CANCELLED_BY_INVANARE_LT_48" />
+					<xs:enumeration value="CANCELLED_BY_INVANARE_GT_48" />
+					<xs:enumeration value="CANCELLED_BY_INVANARE_LT_96" />
+					<xs:enumeration value="CANCELLED_BY_INVANARE_GT_96" />
+					<xs:enumeration value="CANCELLED_BY_CAREGIVER" />
+					<xs:enumeration value="CANCELLED_BY_INTERPRETER" />
+					<xs:enumeration value="INTERPRETER_ABSENT" />
+					<xs:enumeration value="INTERPRETER_NOT_UTILIZED" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="epostAdressType">
+				<xs:restriction base="xs:string">
+					<xs:pattern value="[^@]+@[^\.]+\..+" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="arendeIdType">
+				<xs:restriction base="xs:string">
+					<xs:pattern value="[0-9]{12}" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="uuIdType">
+				<xs:restriction base="xs:string">
+					<xs:length value="36" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="statusCodeType">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="OK" />
+					<xs:enumeration value="INVALID_REQUEST" />
+					<xs:enumeration value="REQUEST_DENIED" />
+					<xs:enumeration value="UNKNOWN_ERROR" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="errorMessage">
+				<xs:restriction base="xs:string" />
+			</xs:simpleType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="fmuIntygSentRequest">
+		<wsdl:part element="tns:fmuIntygSentRequest" name="fmuIntygSentRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="begarKompletteringFmuHandlingResponse">
+		<wsdl:part element="tns:begarKompletteringFmuHandlingResponse"
+			name="begarKompletteringFmuHandlingResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="fmuBokningsavvikelseResponse">
+		<wsdl:part element="tns:fmuBokningsavvikelseResponse" name="fmuBokningsavvikelseResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="begarKompletteringFmuHandlingRequest">
+		<wsdl:part element="tns:begarKompletteringFmuHandlingRequest"
+			name="begarKompletteringFmuHandlingRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="fmuIntygSentResponse">
+		<wsdl:part element="tns:fmuIntygSentResponse" name="fmuIntygSentResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="fmuBokningsavvikelseRequest">
+		<wsdl:part element="tns:fmuBokningsavvikelseRequest" name="fmuBokningsavvikelseRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="fmuStartRequest">
+		<wsdl:part element="tns:fmuStartRequest" name="fmuStartRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="fmuVardgivarenhetTilldelningRequest">
+		<wsdl:part element="tns:fmuVardgivarenhetTilldelningRequest"
+			name="fmuVardgivarenhetTilldelningRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="fmuStartResponse">
+		<wsdl:part element="tns:fmuStartResponse" name="fmuStartResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="fmuVardgivarenhetTilldelningResponse">
+		<wsdl:part element="tns:fmuVardgivarenhetTilldelningResponse"
+			name="fmuVardgivarenhetTilldelningResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="fmuBokningResponse">
+		<wsdl:part element="tns:fmuBokningResponse" name="fmuBokningResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="fmuBokningRequest">
+		<wsdl:part element="tns:fmuBokningRequest" name="fmuBokningRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="BestallarePort">
+		<wsdl:operation name="fmuIntygSent">
+			<wsdl:input message="tns:fmuIntygSentRequest" name="fmuIntygSentRequest"></wsdl:input>
+			<wsdl:output message="tns:fmuIntygSentResponse" name="fmuIntygSentResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="begarKompletteringFmuHandling">
+			<wsdl:input message="tns:begarKompletteringFmuHandlingRequest"
+				name="begarKompletteringFmuHandlingRequest"></wsdl:input>
+			<wsdl:output message="tns:begarKompletteringFmuHandlingResponse"
+				name="begarKompletteringFmuHandlingResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="fmuBokningsavvikelse">
+			<wsdl:input message="tns:fmuBokningsavvikelseRequest"
+				name="fmuBokningsavvikelseRequest"></wsdl:input>
+			<wsdl:output message="tns:fmuBokningsavvikelseResponse"
+				name="fmuBokningsavvikelseResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="fmuStart">
+			<wsdl:input message="tns:fmuStartRequest" name="fmuStartRequest"></wsdl:input>
+			<wsdl:output message="tns:fmuStartResponse" name="fmuStartResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="fmuVardgivarenhetTilldelning">
+			<wsdl:input message="tns:fmuVardgivarenhetTilldelningRequest"
+				name="fmuVardgivarenhetTilldelningRequest"></wsdl:input>
+			<wsdl:output message="tns:fmuVardgivarenhetTilldelningResponse"
+				name="fmuVardgivarenhetTilldelningResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="fmuBokning">
+			<wsdl:input message="tns:fmuBokningRequest" name="fmuBokningRequest"></wsdl:input>
+			<wsdl:output message="tns:fmuBokningResponse" name="fmuBokningResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="BestallarePortSoap11" type="tns:BestallarePort">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="fmuIntygSent">
+			<soap:operation soapAction="" />
+			<wsdl:input name="fmuIntygSentRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="fmuIntygSentResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="begarKompletteringFmuHandling">
+			<soap:operation soapAction="" />
+			<wsdl:input name="begarKompletteringFmuHandlingRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="begarKompletteringFmuHandlingResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="fmuBokningsavvikelse">
+			<soap:operation soapAction="" />
+			<wsdl:input name="fmuBokningsavvikelseRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="fmuBokningsavvikelseResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="fmuStart">
+			<soap:operation soapAction="" />
+			<wsdl:input name="fmuStartRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="fmuStartResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="fmuVardgivarenhetTilldelning">
+			<soap:operation soapAction="" />
+			<wsdl:input name="fmuVardgivarenhetTilldelningRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="fmuVardgivarenhetTilldelningResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="fmuBokning">
+			<soap:operation soapAction="" />
+			<wsdl:input name="fmuBokningRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="fmuBokningResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="BestallarePortService">
+		<wsdl:port binding="tns:BestallarePortSoap11" name="BestallarePortSoap11">
+			<soap:address
+				location="http://ec2-54-154-123-186.eu-west-1.compute.amazonaws.com:9191/ws" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
