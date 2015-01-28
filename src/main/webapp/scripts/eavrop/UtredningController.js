@@ -50,7 +50,7 @@ angular.module('fmuClientApp')
                              return currentEavrop && currentEavrop.utredningType === 'AFU';
                         };
 
-                        function constructBookingObject() {
+                        function constructBookingObject(param) {
                             return {
                                 eavropId: currentEavrop.eavropId,
                                 bookingType: $scope.choosenHandelseType ? $scope.choosenHandelseType.type : null,
@@ -71,7 +71,7 @@ angular.module('fmuClientApp')
                         }
 
                         $scope.saveHandelse = function () {
-                            var dataPackage = constructBookingObject();
+                            var dataPackage = constructBookingObject($scope);
                             var promise = UtredningService.createBooking(dataPackage);
                             promise.then(function () {
                                 modal.close();

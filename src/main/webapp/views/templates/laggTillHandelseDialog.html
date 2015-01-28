@@ -2,6 +2,7 @@
     <!--Typ-->
     <div class="fmu-form-header">
         <h1>Lägg till Händelse</h1>
+
     </div>
 
     <div class="fmu-form-body">
@@ -9,7 +10,7 @@
 
         <div>
             <label>Typ av händelse</label>
-            <select class="form-control" ng-model="choosenHandelseType"
+            <select class="form-control" ng-model="$parent.choosenHandelseType"
                     ng-options="handelse.name for handelse in handelseTypes">
                 <option value="">-- Välj en händelse --</option>
             </select>
@@ -23,11 +24,11 @@
 
             <div class="col-md-6">
                 <div class="col-md-6">
-                    <timepicker ng-model="handelseStartTime" hour-step="1" minute-step="10"
+                    <timepicker ng-model="$parent.handelseStartTime" hour-step="1" minute-step="10"
                                 show-meridian="false"></timepicker>
                 </div>
                 <div class="col-md-6">
-                    <timepicker ng-model="handelseEndTime" hour-step="1" minute-step="10" show-meridian="false"></timepicker>
+                    <timepicker ng-model="$parent.handelseEndTime" hour-step="1" minute-step="10" show-meridian="false"></timepicker>
                 </div>
             </div>
         </div>
@@ -37,12 +38,12 @@
         <div class="row">
             <div class="col-md-5">
                 <label>Person</label>
-                <input class="form-control" ng-model="personName">
+                <input class="form-control" ng-model="$parent.personName">
             </div>
 
             <div class="col-md-6">
                 <label>Roll</label>
-                <select class="form-control" ng-model="choosenRole"
+                <select class="form-control" ng-model="$parent.choosenRole"
                         ng-options="role.name for role in roles">
                     <option value="">-- Välj en roll --</option>
                 </select>
@@ -53,11 +54,11 @@
             <label>Är detta en tilläggstjänst?</label>
             <div class="radio">
                 <label>
-                    <input ng-model="tillaggRadio.value" type="radio" ng-value="true"> Ja
+                    <input ng-model="$parent.tillaggRadio.value" type="radio" ng-value="true"> Ja
                 </label>
 
                 <label>
-                    <input ng-model="tillaggRadio.value" type="radio" ng-value="false"> Nej
+                    <input ng-model="$parent.tillaggRadio.value" type="radio" ng-value="false"> Nej
                 </label>
             </div>
         </div>
@@ -66,11 +67,11 @@
             <label>Tolk?</label>
             <div class="radio">
                 <label>
-                    <input ng-model="tolkRadio" type="radio" ng-value="true"> Ja
+                    <input ng-model="$parent.tolkRadio" type="radio" ng-value="true"> Ja
                 </label>
 
                 <label>
-                    <input ng-model="tolkRadio" type="radio" ng-value="false"> Nej
+                    <input ng-model="$parent.tolkRadio" type="radio" ng-value="false"> Nej
                 </label>
             </div>
         </div>

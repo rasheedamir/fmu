@@ -1,3 +1,50 @@
 DISC;HOSPERSONAL_ID;created_by;created_date;last_modified_by;last_modified_date;version;BEFATTNINGSKOD;BEFATTNINGSBESKRIVNING;HSA_ID;FIRST_NAME;LAST_NAME;MIDDLE_NAME;VARDGIVARENHET_ID;LANDSTING_ID;EMAIL
 HOS;1;system;2014-11-20;null;null;1;1;Utredare befattning;IFV1239877878-104B;Asa;Andersson;aka;1;1;asa@utreda.se
 LSAM;2;system;2014-11-20;null;null;1;1;Samordnare befattning;IFV1239877878-104K;Sam;Ordnarsson;Ordna;null;1;sam.ordnarsson@mail.com
+LSAM;3;system;1970-01-01;null;null;0;1;Samordnare;SE2321000081-ke8501;Kerstin;Pettersson;null;null;9;null
+LSAM;4;system;1970-01-01;null;null;0;1;Samordnare;SE2321000081-he0182;Helene;Bjerstedt;null;null;9;null
+LSAM;5;system;1970-01-01;null;null;0;1;Samordnare;SE2321000180-4410;Eva-Lotte;Lundin;null;null;16;null
+LSAM;6;system;1970-01-01;null;null;0;1;Samordnare;SE2321000180-3ZK1;Karin Elisabeth;Lagerbäck;null;null;16;null
+LSAM;7;system;1970-01-01;null;null;0;1;Samordnare;SE2321000016-4VTV;Linda;Eklund;null;null;8;null
+LSAM;8;system;1970-01-01;null;null;0;1;Samordnare;SE2321000198-004629;Annchristin;Johansson;null;null;17;null
+LSAM;9;system;1970-01-01;null;null;0;1;Samordnare;SE2321000198-001526;Lena;Hörberg;null;null;17;null
+LSAM;10;system;1970-01-01;null;null;0;1;Samordnare;SE2321000198-001205;Margareta;Vahlgren;null;null;17;null
+LSAM;11;system;1970-01-01;null;null;0;1;Samordnare;SE2321000115-250535;Angelica;Pettersson;null;null;11;null
+LSAM;12;system;1970-01-01;null;null;0;1;Samordnare;SE2321000115-358814;Sabina;Tandrup;null;null;11;null
+LSAM;13;system;1970-01-01;null;null;0;1;Samordnare;SE2321000057-458W;Eva-Marie;Sundkvist;null;null;5;null
+LSAM;14;system;1970-01-01;null;null;0;1;Samordnare;SE2321000057-5V4S;Gun;Skacke;null;null;5;null
+LSAM;15;system;1970-01-01;null;null;0;1;Samordnare;SE2321000073-460S;Anita;Bergsell;null;null;7;null
+LSAM;16;system;1970-01-01;null;null;0;1;Samordnare;SE2321000073-45FC;Anne-Lie;Gustafsson;null;null;7;null
+LSAM;17;system;1970-01-01;null;null;0;1;Samordnare;SE2321000073-43QG;Jan;Fehrm;null;null;7;Kalmar läns landsting;null
+LSAM;18;system;1970-01-01;null;null;0;1;Samordnare;SE2321000065-7330028950371;Lena;Söderlund;null;null;6;null
+LSAM;19;system;1970-01-01;null;null;0;1;Samordnare;SE2321000065-7330028950692;Ellionor;Bohman;null;null;6;null
+LSAM;20;system;1970-01-01;null;null;0;1;Samordnare;SE2321000230-pvthehal;Therese;Hallmin;null;null;21;null
+LSAM;21;system;1970-01-01;null;null;0;1;Samordnare;SE2321000230-lbmoiand;Monica;Mäki;null;null;21;null
+LSAM;22;system;1970-01-01;null;null;0;1;Samordnare;SE2321000230-lbchaeng;Katarina;Englund;null;null;21;null
+LSAM;23;system;1970-01-01;null;null;0;1;Samordnare;SE2321000230-lbsusvik;Susanne;Viklund Pajunen;null;null;21;null
+LSAM;24;system;1970-01-01;null;null;0;1;Samordnare;SE162321000255-115004;Britt-Marie;Persson;null;null;10;null
+LSAM;25;system;1970-01-01;null;null;0;1;Samordnare;SE162321000255-180838;Fredrik;Mårtensson;null;null;10;null
+LSAM;26;system;1970-01-01;null;null;0;1;Samordnare;SE2321000016-1RD2;Madeleine;Jonsson;null;null;1;null
+LSAM;27;system;1970-01-01;null;null;0;1;Samordnare;SE2321000016-5JD4;Alexandra;Westblad Lundgren;null;null;1;null
+LSAM;28;system;1970-01-01;null;null;0;1;Samordnare;SE2321000016-53XM;Jens;Bengtner;null;null;1;null
+LSAM;29;system;1970-01-01;null;null;0;1;Samordnare;SE2321000016-1N43;Anne-Marie;Norén;null;null;1;null
+LSAM;30;system;1970-01-01;null;null;0;1;Samordnare;SE2321000032-44FM;Liselott;Söderlund;null;null;3;null
+LSAM;31;system;1970-01-01;null;null;0;1;Samordnare;SE2321000131-P000000214726;Mats;Swanberg;null;null;12;null
+LSAM;32;system;1970-01-01;null;null;0;1;Samordnare;SE2321000131-P000000246114;Elisabeth;Österberg;null;null;12;null
+LSAM;33;system;1970-01-01;null;null;0;1;Samordnare;SE2321000131-P000000076923;Lena;Kjäll;null;null;12;null
+LSAM;34;system;1970-01-01;null;null;0;1;Samordnare;SE2321000131-P000000070187;Ingegerd;Thörnqvist;null;null;12;null
+LSAM;35;system;1970-01-01;null;null;0;1;Samordnare;SE162321000156-49ZS;Anna;Egardsson;null;null;13;null
+LSAM;36;system;1970-01-01;null;null;0;1;Samordnare;SE162321000156-4HBQ;Marianne;Stenlund;null;null;13;null
+LSAM;37;system;1970-01-01;null;null;0;1;Samordnare;SE2321000222-0010579;Carolina;Forsell;null;null;20;null
+LSAM;38;system;1970-01-01;null;null;0;1;Samordnare;SE2321000222-0011220  ;Britt;Nystedt;null;null;20;null
+LSAM;39;system;1970-01-01;null;null;0;1;Samordnare;SE2321000172-16JT;Magnus;Henning;null;null;15;null
+LSAM;40;system;1970-01-01;null;null;0;1;Samordnare;SE2321000164-lgo009 ;Lina;Göthberg;null;null;14;null
+LSAM;41;system;1970-01-01;null;null;0;1;Samordnare;SE2321000164-yni005;Yvonne;Nilsson Hirsch;null;null;14;null
+LSAM;42;system;1970-01-01;null;null;0;1;Samordnare;SE2321000040-TT22;Annika;Öhman;null;null;4;null
+LSAM;43;system;1970-01-01;null;null;0;1;Samordnare;SE2321000040-486F;Malin;Järlefalk;null;null;4;null
+LSAM;44;system;1970-01-01;null;null;0;1;Samordnare;SE2321000040-3S21;Anette;Malm;null;null;4;null
+LSAM;45;system;1970-01-02;null;null;0;1;Samordnare;SE0000000000-NULL;Birgitta;Plejel;null;null;2;null
+LSAM;46;system;1970-01-03;null;null;0;1;Samordnare;SE2321000206-mjn050;Maria;Jakobsson;null;null;18;null
+LSAM;47;system;1970-01-04;null;null;0;1;Samordnare;SE2321000206-efm002;Eva;Fredholm;null;null;18;null
+LSAM;48;system;1970-01-05;null;null;0;1;Samordnare;SE2321000206-ikn001;Ingrid;Karlsson;null;null;18;null
+LSAM;49;system;1970-01-06;null;null;0;1;Samordnare;SE2321000206-gms001;Gun-Britt;Milioris;null;null;18;null
