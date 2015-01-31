@@ -191,7 +191,7 @@ body {
         }
     }
 
-    @include respond-to('desktop'){
+    @include respond-to('desktop') {
       thead {
         tr {
           th {

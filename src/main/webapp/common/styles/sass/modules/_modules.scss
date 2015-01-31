@@ -1,15 +1,15 @@
 
-@import "bourbon/app/assets/stylesheets/bourbon";
+@import "bourbon";
 
-@import "susy/sass/susy";
-@import "../styles/sass/configs/susy-config";
+@import "../../../../dependencies/bower_components/susy/sass/susy";
+@import "../configs/susy-config";
 
-@import "breakpoint-sass/stylesheets/breakpoint";
-@import "../styles/sass/configs/breakpoint-config";
+@import "../../../../dependencies/bower_components/breakpoint-sass/stylesheets/breakpoint";
+@import "../configs/breakpoint-config";
 
-@import "../styles/sass/configs/typeplate-config";
-@import "typeplate-starter-kit/scss/typeplate";
+@import "../configs/typeplate-config";
+@import "../../../../dependencies/bower_components/typeplate-starter-kit/scss/typeplate";
 
-@import "../styles/sass/configs/variables";
-@import "../styles/sass/configs/functions";
-@import "../styles/sass/configs/mixins";
+@import "../configs/variables";
+@import "../configs/functions";
+@import "../configs/mixins";
