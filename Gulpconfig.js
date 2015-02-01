@@ -3,6 +3,7 @@
 module.exports = function() {
     var appPath = './src/main/webapp';
     var dist = appPath + '/dist';
+    var bower = appPath + '/dependencies/bower_components/';
     var config = {
         appPath: appPath,
         tmp: './.tmp',
@@ -18,10 +19,11 @@ module.exports = function() {
         ],
         cssfiles: ['.tmp/styles/*.css'],
         imagefiles: appPath + '/common/images/**/*.{png,jpg,jpeg,gif}',
+        fonts: [bower + '**/*.{eot,svg,ttf,woff}', appPath + '/fonts/**'],
         dist: dist,
         bower: {
             json: require('./bower.json'),
-            directory: appPath + '/dependencies/bower_components/'
+            directory: bower
         }
     };
 

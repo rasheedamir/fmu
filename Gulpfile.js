@@ -8,6 +8,15 @@ var $ = require('gulp-load-plugins')({
     lazy: true
 });
 
+function log(message) {
+    $.util.log(message);
+}
+
+function clean(path) {
+    log('Cleaning: ' + $.util.colors.yellow(path));
+    del(path);
+}
+
 gulp.task('clean-styles', function() {
     clean(config.tmp + '/styles');
 });
@@ -20,10 +29,7 @@ gulp.task('clean-images', function() {
     clean(config.dist + '/images');
 });
 
-gulp.task('clean-all', function() {
-    clean(config.tmp);
-    clean(config.dist);
-});
+gulp.task('clean-all', del.bind(null, [config.tmp, config.dist]));
 
 gulp.task('sass', ['clean-styles'], function() {
     log('Processing and compiling SCSS to CSS');
@@ -51,7 +57,7 @@ gulp.task('jshint', function() {
         .pipe($.jshint.reporter('fail'));
 });
 
-gulp.task('html', ['sass'], function() {
+gulp.task('html', ['wiredep'], function() {
     log('Processing index.html and minifying css/js files');
     var assets = $.useref.assets({
         searchPath: '{.tmp,' + config.appPath + '}'
@@ -79,7 +85,7 @@ gulp.task('images', ['clean-images'], function() {
 
 gulp.task('fonts', ['clean-fonts'], function() {
     log('Extract and moving fonts to dist');
-    return gulp.src(require('main-bower-files')('**/*.{eot,svg,ttf,woff}').concat(config.appPath + '/fonts/**'))
+    return gulp.src(config.fonts)
         .pipe($.if(args.verbose, $.print()))
         .pipe($.flatten())
         .pipe(gulp.dest(config.dist + '/fonts'));
@@ -134,17 +140,6 @@ gulp.task('wiredep', [], function() {
         .pipe(gulp.dest(config.appPath));
 });
 
-
-gulp.task('build', ['jshint','html'], function() {
-    gulp.start('fonts');
-    gulp.start('images');
-    gulp.start('extras');
-});
-
-gulp.task('default', ['clean-all'], function () {
-  gulp.start('build');
-});
-
 gulp.task('connect-prod', ['default'], function() {
     var serveStatic = require('serve-static');
     var serveIndex = require('serve-index');
@@ -163,11 +158,9 @@ gulp.task('connect-prod', ['default'], function() {
         });
 });
 
-function log(message) {
-    $.util.log(message);
-}
+gulp.task('build',['jshint', 'images', 'fonts', 'extras', 'html'], function() {
+});
 
-function clean(path) {
-    log('Cleaning: ' + $.util.colors.yellow(path));
-    del(path);
-}
+gulp.task('default', ['clean-all'], function () {
+  gulp.start('build');
+});
