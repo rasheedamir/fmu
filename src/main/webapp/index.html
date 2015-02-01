@@ -8,17 +8,17 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
-        <link rel="stylesheet" href="bower_components/ng-table/ng-table.css" />
-        <link rel="stylesheet" href="bower_components/animate.css/animate.css" />
-        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="dependencies/bower_components/ng-table/ng-table.css" />
+        <link rel="stylesheet" href="dependencies/bower_components/animate.css/animate.css" />
+        <link rel="stylesheet" href="dependencies/bower_components/font-awesome/css/font-awesome.css" />
         <!-- endbower -->
+        <link rel="stylesheet" href="dependencies/bootstrap/css/bootstrap.css">
         <!-- endbuild -->
+
         <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
-        <!-- <link rel="stylesheet" href="styles/inera-webcert.css"> 
-        <link rel="stylesheet" href="styles/main.css"> -->
+        <!-- inject:css -->
         <link rel="stylesheet" href="styles/sass-main.css">
+        <!-- endinject -->
         <!-- endbuild -->
     </head>
     <body ng-app="fmuClientAppDev">
@@ -29,11 +29,11 @@
             <div class="navigation-wrapper">
                 <div class="navigation-left">
                     <a href="javascript:void(0)" class="logo">
-                        <img src="/images/fmu_logo.png" alt="Logo Image">
+                        <img src="common/images/fmu_logo.png" alt="Logo Image">
                     </a>
                 </div>
                 <div class="navigation-center">
-                    
+
                 </div>
                 <div class="navigation-right">
                     <table class="navigation-right_content">
@@ -54,7 +54,7 @@
 
                             <td>
                                 <a href="javascript:void(0)" class="user-logo">
-                                    <img src="/images/avatar.png" alt="User Image">
+                                    <img src="common/images/avatar.png" alt="User Image">
                                 </a>
                             </td>
                         </tr>
@@ -63,14 +63,14 @@
             </div>
         </header>
 
-        
+
         <!-- Add your site or application content here -->
         <div ui-view></div>
 
 
         <footer class="footer" role="contentinfo">
             <div class="footer-logo">
-                <img src="/images/fmu_logo.png" alt="Logo image">
+                <img src="common/images/fmu_logo.png" alt="Logo image">
             </div>
             <div class="footer-links">
                 <ul>
@@ -102,53 +102,83 @@
         <!-- endbuild -->
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
-        <script src="bower_components/jquery/dist/jquery.js"></script>
-        <script src="bower_components/angular/angular.js"></script>
-        <script src="bower_components/angular-resource/angular-resource.js"></script>
-        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-        <script src="bower_components/angular-animate/angular-animate.js"></script>
-        <script src="bower_components/angular-touch/angular-touch.js"></script>
-        <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-        <script src="bower_components/angular-mocks/angular-mocks.js"></script>
-        <script src="bower_components/ng-table/ng-table.js"></script>
-        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-        <script src="bower_components/ScrollToFixed/jquery-scrolltofixed.js"></script>
-        <script src="bower_components/lodash/dist/lodash.compat.js"></script>
-        <script src="bower_components/angular-gettext/dist/angular-gettext.js"></script>
+        <script src="dependencies/bower_components/jquery/dist/jquery.js"></script>
+        <script src="dependencies/bower_components/es5-shim/es5-shim.js"></script>
+        <script src="dependencies/bower_components/angular/angular.js"></script>
+        <script src="dependencies/bower_components/json3/lib/json3.js"></script>
+        <script src="dependencies/bower_components/angular-resource/angular-resource.js"></script>
+        <script src="dependencies/bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="dependencies/bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="dependencies/bower_components/angular-animate/angular-animate.js"></script>
+        <script src="dependencies/bower_components/angular-touch/angular-touch.js"></script>
+        <script src="dependencies/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="dependencies/bower_components/angular-mocks/angular-mocks.js"></script>
+        <script src="dependencies/bower_components/ng-table/ng-table.js"></script>
+        <script src="dependencies/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="dependencies/bower_components/ScrollToFixed/jquery-scrolltofixed.js"></script>
+        <script src="dependencies/bower_components/lodash/lodash.js"></script>
+        <script src="dependencies/bower_components/angular-gettext/dist/angular-gettext.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
+
         <!-- build:js scripts/scripts.js -->
-        <script src="bootstrap/js/bootstrap.js"></script>
-        <script src="scripts/app.js"></script>
-        <script src="scripts/app-dev.js"></script>
-        <script src="scripts/services/Datetime-service.js"></script>
-        <script src="scripts/overview/OverviewCtrl.js"></script>
-        <script src="scripts/eavrop/EavropCtrl.js"></script>
-        <script src="scripts/eavrop/AssignmentCtrl.js"></script>
-        <script src="scripts/eavrop/AcceptanceCtrl.js"></script>
-        <script src="scripts/eavrop/Eavrops.js"></script>
-        <script src="scripts/eavrop/AddDocCtrl.js"></script>
-        <script src="scripts/eavrop/HandlingarTableDir.js"></script>
-        <script src="scripts/authentication/AuthService.js"></script>
-        <script src="scripts/authentication/RestrictedDirective.js"></script>
-        <script src="scripts/authentication/FakeRoleCtrl.js"></script>
-        <script src="scripts/constants.js"></script>
-        <script src="scripts/overview/EavropService.js"></script>
-        <script src="scripts/overview/RestUrlBuilderService.js"></script>
-        <script src="scripts/eavrop/UtredningService.js"></script>
-        <script src="scripts/Directives/Fmu-utredning-table.js"></script>
-        <script src="scripts/Directives/Fmu-datepicker.js"></script>
-        <script src="scripts/Directives/Fmu-table.js"></script>
-        <script src="scripts/Directives/Fmu-simple-table.js"></script>
-        <script src="scripts/Directives/FMU-errorField.js"></script>
-        <script src="scripts/eavrop/UtredningController.js"></script>
-        <script src="scripts/eavrop/CompensationController.js"></script>
-        <script src="scripts/overview/CompletedController.js"></script>
-        <script src="scripts/overview/OngoingController.js"></script>
-        <script src="scripts/overview/OrderController.js"></script>
-        <script src="scripts/Directives/Fmu-responsive-menu.js"></script>
-        <script src="translations/translations.js"></script>
+        <!-- inject:js -->
+        <script src="app.js"></script>
+        <script src="app-dev.js"></script>
+
+        <script src="eavrop-overview/EavropController.js"></script>
+
+        <script src="eavrop-overview/EavropService.js"></script>
+
+        <script src="eavrop-overview/RequestAcceptanceController.js"></script>
+
+        <script src="eavrop-overview/RequestAssignmentController.js"></script>
+
+        <script src="orders-overview/OverviewCtrl.js"></script>
+
+        <script src="widgets/FMU-errorField.js"></script>
+
+        <script src="widgets/Fmu-datepicker.js"></script>
+
+        <script src="widgets/Fmu-responsive-menu.js"></script>
+
+        <script src="widgets/Fmu-simple-table.js"></script>
+
+        <script src="widgets/Fmu-table.js"></script>
+
+        <script src="widgets/Fmu-utredning-table.js"></script>
+
+        <script src="widgets/HandlingarTableDir.js"></script>
+
+        <script src="widgets/datetime-service.js"></script>
+
+        <script src="common/authentication/AuthService.js"></script>
+
+        <script src="common/authentication/FakeRoleCtrl.js"></script>
+
+        <script src="common/authentication/RestrictedDirective.js"></script>
+
+        <script src="common/rest/Eavrops.js"></script>
+
+        <script src="common/rest/RestUrlBuilderService.js"></script>
+
+        <script src="common/rest/constants.js"></script>
+
+        <script src="eavrop-overview/compensations/CompensationController.js"></script>
+
+        <script src="eavrop-overview/investigation/InvestigationController.js"></script>
+
+        <script src="eavrop-overview/investigation/InvestigationService.js"></script>
+
+        <script src="eavrop-overview/order/AddDocumentController.js"></script>
+
+        <script src="orders-overview/completed/CompletedController.js"></script>
+
+        <script src="orders-overview/incoming/IncomingController.js"></script>
+
+        <script src="orders-overview/ongoing/OngoingController.js"></script>
+
+        <!-- endinject -->
         <!-- endbuild -->
     </body>
 </html>

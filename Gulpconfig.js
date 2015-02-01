@@ -1,16 +1,37 @@
 'use strict';
 
 module.exports = function() {
+    var appPath = './src/main/webapp';
+    var dist = appPath + '/dist';
     var config = {
+        appPath: appPath,
+        tmp: './.tmp',
+        index: appPath + '/index.html',
         jsfiles: [
-            './src/main/webapp/**/*.js',
+            appPath + '/**/*.js',
             '!./src/main/webapp/dependencies/**',
-            '!**/translations.js'
+            '!**/translations.js',
+            '!' + dist + '/**/*.js'
         ],
         sassfiles: [
-            './src/main/webapp/common/styles/sass/sass-main.scss'
+            appPath + '/common/styles/sass/**/*.scss'
         ],
-        dest: './src/main/webapp/dist/css'
+        cssfiles: ['.tmp/styles/*.css'],
+        imagefiles: appPath + '/common/images/**/*.{png,jpg,jpeg,gif}',
+        dist: dist,
+        bower: {
+            json: require('./bower.json'),
+            directory: appPath + '/dependencies/bower_components/'
+        }
+    };
+
+    config.getWiredepOptions = function(){
+        var options = {
+            bowerJson: config.bower.json,
+            directory: config.bower.directory,
+            ignorePath: config.bower.ignorePath
+        };
+        return options;
     };
 
     return config;
