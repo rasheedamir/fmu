@@ -149,6 +149,9 @@ gulp.task('wiredep', ['sass'], function() {
 gulp.task('connect-dev', ['wiredep'], function() {
     var serveStatic = require('serve-static');
     var serveIndex = require('serve-index');
+    var url = require('url');
+    var proxy = require('proxy-middleware');
+
     var app = require('connect')()
         .use(require('connect-livereload')({
             port: 35729
@@ -158,7 +161,8 @@ gulp.task('connect-dev', ['wiredep'], function() {
         // paths to bower_components should be relative to the current file
         // e.g. in app/index.html you should use ../bower_components
         .use(config.bower, serveStatic('bower_components'))
-        .use(serveIndex('app'));
+        .use(serveIndex('app'))
+        .use('/app', proxy(url.parse('http://www.feber.se'))); //TODO check this !
 
     require('http').createServer(app)
         .listen(9000)
