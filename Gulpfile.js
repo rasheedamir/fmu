@@ -48,7 +48,9 @@ gulp.task('sass', ['clean-styles'], function() {
 });
 
 gulp.task('jshint', function() {
-    return gulp.src(config.jsfiles)
+    var files = config.jsfiles.slice();
+    files.push('!' + config.appPath + '/common/translations/**');
+    return gulp.src(files)
         .pipe($.if(args.verbose, $.print()))
         .pipe($.jshint())
         .pipe($.jshint.reporter('jshint-stylish', {
@@ -105,6 +107,25 @@ gulp.task('extras', function() {
         .pipe(gulp.dest(config.dist));
 });
 
+gulp.task('extract-pot', function() {
+    return gulp.src(config.translationfiles)
+        .pipe($.if(args.verbose, $.print()))
+        .pipe($.angularGettext.extract('translation.pot', {}))
+        .pipe(gulp.dest(config.translationfolder));
+});
+
+gulp.task('compile-po', function() {
+    return gulp.src(config.translationfolder + '/**/*.po')
+        .pipe($.if(args.verbose, $.print()))
+        .pipe($.angularGettext.compile({
+            module: 'fmuClientApp',
+
+            // Let not do this, our translations are not big enough
+            // format: 'json'
+        }))
+        .pipe(gulp.dest(config.translationfolder));
+});
+
 gulp.task('connect-dev', ['sass'], function() {
     var serveStatic = require('serve-static');
     var serveIndex = require('serve-index');
@@ -132,11 +153,17 @@ gulp.task('wiredep', [], function() {
     var options = config.getWiredepOptions();
     gulp.src(config.index)
         .pipe(wiredep(options))
-        .pipe($.inject(gulp.src(config.jsfiles, {read: false}), {relative: true}))
-        .pipe($.inject(gulp.src(config.cssfiles, {read: false}), {
-                ignorePath: '.tmp',
-                addRootSlash: false
-            }))
+        .pipe($.inject(gulp.src(config.jsfiles, {
+            read: false
+        }), {
+            relative: true
+        }))
+        .pipe($.inject(gulp.src(config.cssfiles, {
+            read: false
+        }), {
+            ignorePath: '.tmp',
+            addRootSlash: false
+        }))
         .pipe(gulp.dest(config.appPath));
 });
 
@@ -158,9 +185,8 @@ gulp.task('connect-prod', ['default'], function() {
         });
 });
 
-gulp.task('build',['jshint', 'images', 'fonts', 'extras', 'html'], function() {
-});
+gulp.task('build', ['jshint', 'images', 'fonts', 'extras', 'html'], function() {});
 
-gulp.task('default', ['clean-all'], function () {
-  gulp.start('build');
+gulp.task('default', ['clean-all'], function() {
+    gulp.start('build');
 });
