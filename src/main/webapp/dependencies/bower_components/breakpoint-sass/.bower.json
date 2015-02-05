@@ -24,6 +24,6 @@
     "commit": "9fa26b61bfa729004645da297e614eef21ee0cbc"
   },
   "_source": "git://github.com/Team-Sass/breakpoint.git",
-  "_target": "*",
+  "_target": "~2.5.0",
   "_originalSource": "breakpoint-sass"
 }

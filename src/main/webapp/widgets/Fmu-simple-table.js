@@ -54,6 +54,6 @@ angular.module('fmuClientApp')
 
                     scope.initTableParameters();
                 },
-                templateUrl: 'views/templates/fmu-simple-table.html'
+                templateUrl: 'widgets/fmu-simple-table.html'
             };
         }]);

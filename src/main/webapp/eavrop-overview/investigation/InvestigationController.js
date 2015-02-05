@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fmuClientApp')
-    .controller('UtredningController', ['$scope', '$filter', '$stateParams', 'AuthService', 'UtredningService', '$modal', 'currentEavrop',
+    .controller('InvestigationController', ['$scope', '$filter', '$stateParams', 'AuthService', 'UtredningService', '$modal', 'currentEavrop',
         function ($scope, $filter, $stateParams, AuthService, UtredningService, $modal, currentEavrop) {
             $scope.authService = AuthService;
             $scope.currentEavropId = $stateParams.eavropId;

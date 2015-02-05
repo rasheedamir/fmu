@@ -41,21 +41,21 @@ angular.module('fmuClientApp', [
         url: '/overview',
         abstract: true,
         controller: 'OverviewCtrl',
-        templateUrl: 'views/overview/overview.html'
+        templateUrl: 'orders-overview/overview.html'
     })
     .state('overview.orders', {
         url: '/orders',
-        templateUrl: 'views/overview/orders.html',
+        templateUrl: 'orders-overview/incoming/incoming.html',
         controller: 'OrderController'
     })
     .state('overview.ongoing', {
         url: '/ongoing',
-        templateUrl: 'views/overview/ongoing.html',
+        templateUrl: 'orders-overview/ongoing/ongoing.html',
         controller: 'OngoingController'
     })
     .state('overview.completed', {
         url: '/completed',
-        templateUrl: 'views/overview/completed.html',
+        templateUrl: 'orders-overview/completed/completed.html',
         controller: 'CompletedController'
     })
     .state('eavrop', {
@@ -70,11 +70,11 @@ angular.module('fmuClientApp', [
             }
         },
         controller: 'EavropCtrl',
-        templateUrl: 'views/eavrop/eavrop.html'
+        templateUrl: 'eavrop-overview/eavrop.html'
     })
     .state('eavrop.order', {
         url: '/order',
-        templateUrl: 'views/eavrop/order/order.html',
+        templateUrl: 'eavrop-overview/order/order.html',
         abstract: true
     })
     .state('eavrop.order.contents', {
@@ -84,14 +84,14 @@ angular.module('fmuClientApp', [
         		return EavropOrder.get({eavropId: $stateParams.eavropId});
         	}
         },
-        templateUrl: 'views/eavrop/order/contents.html',
+        templateUrl: 'eavrop-overview/order/contents.html',
         controller: function($scope, order){
         	$scope.order = order;
         }
     })
     .state('eavrop.order.documents', {
         url: '/documents',
-        templateUrl: 'views/eavrop/order/documents.html',
+        templateUrl: 'eavrop-overview/order/documents.html',
         resolve: {
             Documents: function(EavropDocuments){
                 return EavropDocuments;
@@ -139,7 +139,7 @@ angular.module('fmuClientApp', [
 
             $scope.openReqAmendmentModal = function(){
                 var mod = $modal.open({
-                    templateUrl: 'views/eavrop/order/req-amendment-modal.html',
+                    templateUrl: 'eavrop-overview/order/req-amendment-modal.html',
                     size: 'md',
                     controller: reqAmendmentModalCtrl
                 });
@@ -152,7 +152,7 @@ angular.module('fmuClientApp', [
             };
             $scope.openAddDocumentModal = function(){
                 var mod = $modal.open({
-                    templateUrl: 'views/eavrop/order/add-doc-modal.html',
+                    templateUrl: 'eavrop-overview/order/add-doc-modal.html',
                     size: 'md',
                     controller: addDocModalCtrl
                 });
@@ -171,7 +171,7 @@ angular.module('fmuClientApp', [
     })
     .state('eavrop.order.citizen', {
         url: '/citizen',
-        templateUrl: 'views/eavrop/order/citizen.html',
+        templateUrl: 'eavrop-overview/order/citizen.html',
         resolve:{
         	patient: function(EavropPatient, $stateParams){return EavropPatient.get({eavropId: $stateParams.eavropId});}
         },
@@ -199,21 +199,21 @@ angular.module('fmuClientApp', [
             $scope.allevents = allevents;
             $scope.order = order;
         },
-        templateUrl: 'views/eavrop/all-events.html'
+        templateUrl: 'eavrop-overview/allEvents/all-events.html'
     })
     .state('eavrop.compensation', {
         url: '/compensation',
-        templateUrl: 'views/eavrop/compensation.html',
+        templateUrl: 'eavrop-overview/compensations/compensation.html',
         controller: 'CompensationController'
     })
     .state('eavrop.investigation', {
         url: '/investigation',
-        templateUrl: 'views/eavrop/investigation.html',
-        controller: 'UtredningController'
+        templateUrl: 'eavrop-overview/investigation/investigation.html',
+        controller: 'InvestigationController'
     })
     .state('eavrop.notes', {
         url: '/notes',
-        templateUrl: 'views/eavrop/notes.html',
+        templateUrl: 'eavrop-overview/notes/notes.html',
         controller: function($scope, $modal, $filter, $stateParams, EavropNotes, EavropService, gettext){
             var EAVROP_NOTES = {
                 cannotAdd: gettext('Anteckningar/Anteckningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda'),
@@ -221,7 +221,7 @@ angular.module('fmuClientApp', [
             };
             $scope.openRemoveNote = function (noteData) {
                 var confirmModal = $modal.open({
-                    templateUrl: 'views/eavrop/confirmModal.html',
+                    templateUrl: 'eavrop-overview/notes/confirmRemoveModal.html',
                     size: 'md',
                     resolve: {
                         noteData: function () {
@@ -254,7 +254,7 @@ angular.module('fmuClientApp', [
             loadNotes();
             $scope.openAddNoteModal = function(){
                 var modalInstance = $modal.open({
-                    templateUrl: 'views/eavrop/add-note-modal.html',
+                    templateUrl: 'eavrop-overview/notes/add-note-modal.html',
                     size: 'md',
                     controller: function($scope, EavropNotes){
                         $scope.picker = {opened: false};

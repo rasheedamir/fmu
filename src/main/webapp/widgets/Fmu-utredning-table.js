@@ -160,6 +160,6 @@ angular.module('fmuClientApp')
 
                     scope.initTableParameters();
                 },
-                templateUrl: 'views/templates/fmu-utredning-table.html'
+                templateUrl: 'widgets/fmu-utredning-table.html'
             };
         }]);

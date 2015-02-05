@@ -82,7 +82,7 @@ gulp.task('images', ['clean-images'], function() {
             progressive: true,
             interlaced: true
         })))
-        .pipe(gulp.dest(config.dist + '/images'));
+        .pipe(gulp.dest(config.dist + '/common/images'));
 });
 
 gulp.task('fonts', ['clean-fonts'], function() {
@@ -126,7 +126,27 @@ gulp.task('compile-po', function() {
         .pipe(gulp.dest(config.translationfolder));
 });
 
-gulp.task('connect-dev', ['sass'], function() {
+gulp.task('wiredep', ['sass'], function() {
+    log('Wiring dependencies to index.html');
+    var wiredep = require('wiredep').stream;
+    var options = config.getWiredepOptions();
+    gulp.src(config.index)
+        .pipe(wiredep(options))
+        .pipe($.inject(gulp.src(config.jsfiles, {
+            read: false
+        }), {
+            relative: true
+        }))
+        .pipe($.inject(gulp.src(config.cssfiles, {
+            read: false
+        }), {
+            ignorePath: '.tmp',
+            addRootSlash: false
+        }))
+        .pipe(gulp.dest(config.appPath));
+});
+
+gulp.task('connect-dev', ['wiredep'], function() {
     var serveStatic = require('serve-static');
     var serveIndex = require('serve-index');
     var app = require('connect')()
@@ -145,26 +165,6 @@ gulp.task('connect-dev', ['sass'], function() {
         .on('listening', function() {
             console.log('Started connect web server on http://localhost:9000');
         });
-});
-
-gulp.task('wiredep', [], function() {
-    log('Wiring dependencies to index.html');
-    var wiredep = require('wiredep').stream;
-    var options = config.getWiredepOptions();
-    gulp.src(config.index)
-        .pipe(wiredep(options))
-        .pipe($.inject(gulp.src(config.jsfiles, {
-            read: false
-        }), {
-            relative: true
-        }))
-        .pipe($.inject(gulp.src(config.cssfiles, {
-            read: false
-        }), {
-            ignorePath: '.tmp',
-            addRootSlash: false
-        }))
-        .pipe(gulp.dest(config.appPath));
 });
 
 gulp.task('connect-prod', ['default'], function() {
