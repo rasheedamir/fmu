@@ -50,8 +50,8 @@ angular.module('fmuClientApp')
                              return currentEavrop && currentEavrop.utredningType === 'AFU';
                         };
 
-                        function constructBookingObject(param) {
-                            return {
+                        function constructBookingObject() {
+                            var retval = {
                                 eavropId: currentEavrop.eavropId,
                                 bookingType: $scope.choosenHandelseType ? $scope.choosenHandelseType.type : null,
                                 bookingDate: $scope.handelseDate.getTime(),
@@ -68,6 +68,8 @@ angular.module('fmuClientApp')
                                 personRole: $scope.choosenRole ? $scope.choosenRole.name : null,
                                 useInterpreter: $scope.tolkRadio
                             };
+
+                            return retval;
                         }
 
                         $scope.saveHandelse = function () {
