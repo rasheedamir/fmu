@@ -10,7 +10,6 @@
         <!-- bower:css -->
         <link rel="stylesheet" href="dependencies/bower_components/ng-table/ng-table.css" />
         <link rel="stylesheet" href="dependencies/bower_components/animate.css/animate.css" />
-        <link rel="stylesheet" href="dependencies/bower_components/font-awesome/css/font-awesome.css" />
         <!-- endbower -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="dependencies/bootstrap/css/bootstrap.css">
@@ -22,7 +21,7 @@
         <!-- endinject -->
         <!-- endbuild -->
     </head>
-    <body ng-app="fmuClientAppDev">
+    <body ng-app="fmuClientApp">
         <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -95,12 +94,7 @@
             <hr>
             <p>Created by R2M</p>
         </footer>
-        <!-- build:js scripts/oldieshim.js -->
-        <!--[if lt IE 9]>
-        <script src="bower_components/es5-shim/es5-shim.js"></script>
-        <script src="bower_components/json3/lib/json3.js"></script>
-        <![endif]-->
-        <!-- endbuild -->
+
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="dependencies/bower_components/jquery/dist/jquery.js"></script>
@@ -124,36 +118,71 @@
 
         <!-- build:js scripts/scripts.js -->
         <!-- inject:js -->
+
         <script src="app-dev.js"></script>
+
         <script src="app.js"></script>
+
         <script src="eavrop-overview/EavropController.js"></script>
+
         <script src="eavrop-overview/EavropService.js"></script>
+
         <script src="eavrop-overview/RequestAcceptanceController.js"></script>
+
         <script src="eavrop-overview/RequestAssignmentController.js"></script>
+
         <script src="orders-overview/OverviewCtrl.js"></script>
+
         <script src="widgets/FMU-errorField.js"></script>
+
         <script src="widgets/Fmu-datepicker.js"></script>
+
         <script src="widgets/Fmu-responsive-menu.js"></script>
+
         <script src="widgets/Fmu-simple-table.js"></script>
+
         <script src="widgets/Fmu-table.js"></script>
+
         <script src="widgets/Fmu-utredning-table.js"></script>
+
         <script src="widgets/HandlingarTableDir.js"></script>
+
         <script src="widgets/datetime-service.js"></script>
+
         <script src="common/authentication/AuthService.js"></script>
+
         <script src="common/authentication/FakeRoleCtrl.js"></script>
+
         <script src="common/authentication/RestrictedDirective.js"></script>
+
         <script src="common/rest/Eavrops.js"></script>
+
         <script src="common/rest/RestUrlBuilderService.js"></script>
+
         <script src="common/rest/constants.js"></script>
+
+        <script src="common/router/router-module.js"></script>
+
+        <script src="common/templatecache/templates.js"></script>
+
         <script src="common/translations/fmu.pot.js"></script>
+
         <script src="common/translations/translations.js"></script>
+
         <script src="eavrop-overview/compensations/CompensationController.js"></script>
+
         <script src="eavrop-overview/investigation/InvestigationController.js"></script>
+
         <script src="eavrop-overview/investigation/InvestigationService.js"></script>
+
         <script src="eavrop-overview/order/AddDocumentController.js"></script>
+
         <script src="orders-overview/completed/CompletedController.js"></script>
+
         <script src="orders-overview/incoming/IncomingController.js"></script>
+
         <script src="orders-overview/ongoing/OngoingController.js"></script>
+
         <!-- endinject -->
         <!-- endbuild -->
     </body>

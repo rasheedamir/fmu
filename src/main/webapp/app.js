@@ -9,6 +9,7 @@
  * Main module of the application.
  */
 angular.module('fmuClientApp', [
+    'templates',
     'ngAnimate',
     'ngCookies',
     'ngResource',
