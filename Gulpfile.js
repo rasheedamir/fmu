@@ -25,7 +25,7 @@
         clean(config.templatecache);
     });
 
-    gulp.task('clean-all',['clean-template'], del.bind(null, [config.tmp, config.dist]));
+    gulp.task('clean-all', ['clean-template'], del.bind(null, [config.tmp, config.dist]));
 
     gulp.task('sass', ['clean-styles'], function() {
         log('Processing and compiling SCSS to CSS');
@@ -177,7 +177,7 @@
             // e.g. in app/index.html you should use ../bower_components
             .use(config.bower, serveStatic('bower_components'))
             .use(serveIndex('app'))
-            .use('/app', proxy(url.parse('http://www.feber.se'))); //TODO check this !
+            .use('/app', proxy(url.parse('localhost:8080'))); //TODO check this !
 
         require('http').createServer(app)
             .listen(9000)
@@ -190,9 +190,12 @@
     gulp.task('connect-prod', ['default'], function() {
         var serveStatic = require('serve-static');
         var serveIndex = require('serve-index');
+        var url = require('url');
+        var proxy = require('proxy-middleware');
         var app = require('connect')()
             .use(serveStatic(config.dist))
-            .use(serveIndex('dist'));
+            .use(serveIndex('dist'))
+            .use('/app', proxy(url.parse('localhost:8080'))); //TODO check this !
 
         require('http').createServer(app)
             .listen(9000)
@@ -200,6 +203,23 @@
                 console.log('Started connect web server on http://localhost:9000');
             });
     });
+
+    gulp.task('inject-karma', function() {
+        gulp.src(config.unittestFolder + '/*.conf.js')
+            .pipe($.plumber())
+            .pipe($.inject(
+                gulp.src(config.jsfiles, {
+                    read: false
+                }), {
+                    starttag: '/* inject:js */',
+                    endtag: '/* endinject */',
+                    transform: function(filepath) {
+                        return '\'' + filepath + '\',';
+                    }
+                }))
+            .pipe(gulp.dest(config.unittestFolder));
+    });
+
 
     gulp.task('karma', ['jshint'], function(done) {
         log('Starting karma unittests');

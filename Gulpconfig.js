@@ -49,6 +49,7 @@
                     bowerfiles,
                     appPath + '**/**/*.module.js',
                     appPath + '**/**/*.js',
+
                     unittest + '/spec/**/*.js'
                 ),
                 exclude: [appPath + '/dist/**'],

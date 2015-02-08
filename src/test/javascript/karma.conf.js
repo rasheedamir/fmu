@@ -54,3 +54,7 @@
         });
     };
 })();
+
+/* inject:js */
+
+/* endinject */
