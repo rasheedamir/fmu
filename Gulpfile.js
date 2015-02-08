@@ -21,9 +21,13 @@
         clean(config.dist + '/images');
     });
 
-    gulp.task('clean-all', del.bind(null, [config.tmp, config.dist]));
+    gulp.task('clean-template', function() {
+        clean(config.templatecache);
+    });
 
-    gulp.task('sass', function() {
+    gulp.task('clean-all',['clean-template'], del.bind(null, [config.tmp, config.dist]));
+
+    gulp.task('sass', ['clean-styles'], function() {
         log('Processing and compiling SCSS to CSS');
         return gulp.src(config.sassfiles)
             .pipe($.if(args.verbose, $.print()))
@@ -54,7 +58,7 @@
     });
 
     gulp.task('html', ['wiredep'], function() {
-        log('Processing index.html and minifying css/js files');
+        log('Processing index.html and minifying css/js dependencies');
         var assets = $.useref.assets({
             searchPath: '{.tmp,' + config.appPath + '}'
         });
@@ -65,7 +69,7 @@
             .pipe(assets)
             .pipe(jsfilter)
             .pipe($.ngAnnotate())
-            //.pipe($.uglify())
+            .pipe($.uglify())
             .pipe(jsfilter.restore())
             .pipe(cssfilter)
             .pipe($.csso())
@@ -75,17 +79,17 @@
             .pipe(gulp.dest(config.dist));
     });
 
-    gulp.task('templatecache', function() {
+    gulp.task('templatecache', ['clean-template'], function() {
         log('Generate templatecache');
         gulp.src([config.appPath + '/**/*.html', '!' + config.index])
             .pipe($.plumber())
 
         .pipe($.if(args.verbose, $.print()))
-            .pipe($.angularTemplatecache({
+            .pipe($.angularTemplatecache('templatecache.module.js', {
                 standalone: true,
-                module: 'templates'
+                module: 'templatecache'
             }))
-            .pipe(gulp.dest(config.appPath + '/common/templatecache'));
+            .pipe(gulp.dest(config.templatecache));
     });
 
     gulp.task('images', ['clean-images'], function() {
@@ -121,6 +125,7 @@
     });
 
     gulp.task('extract-pot', function() {
+        log('Extract texts from html/js files');
         return gulp.src(config.translationfiles)
             .pipe($.if(args.verbose, $.print()))
             .pipe($.angularGettext.extract('translation.pot', {}))
@@ -128,6 +133,7 @@
     });
 
     gulp.task('compile-po', function() {
+        log('Compiling translation to javascript');
         return gulp.src(config.translationfolder + '/**/*.po')
             .pipe($.if(args.verbose, $.print()))
             .pipe($.angularGettext.compile({
@@ -139,7 +145,7 @@
     });
 
     gulp.task('wiredep', ['sass', 'templatecache'], function() {
-        log('Wiring dependencies to index.html');
+        log('Generate and wire .js/css dependencies to index.html');
         var wiredep = require('wiredep').stream;
         var options = config.getWiredepOptions();
         gulp.src(config.index)
@@ -195,6 +201,30 @@
             });
     });
 
+    gulp.task('karma', ['jshint'], function(done) {
+        log('Starting karma unittests');
+        gulp.src(config.karmaconfig.files)
+            .pipe($.print());
+        startTests(true /* singlerun */ , done);
+    });
+
+    function startTests(singlerun, done) {
+        var karma = require('karma').server;
+        karma.start({
+            configFile: __dirname + '/src/test/javascript/karma.conf.js',
+            singleRun: !!singlerun
+        }, karmaCompleted);
+
+        function karmaCompleted(karmaResult) {
+            log('Karma completed !');
+            if (karmaResult === 1) {
+                done('Karma test failed with code: ' + karmaResult);
+            } else {
+                done();
+            }
+        }
+    }
+
     gulp.task('serve', ['connect-dev'], function() {
         gulp.watch(config.sassfiles, ['sass']);
     });
@@ -213,7 +243,7 @@
 
     function clean(path) {
         log('Cleaning: ' + $.util.colors.yellow(path));
-        del(path);
+        del.bind(null, path);
     }
 
     function startBrowserSync(files) {

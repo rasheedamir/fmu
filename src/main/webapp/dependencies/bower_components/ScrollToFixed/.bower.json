@@ -25,7 +25,7 @@
     "tag": "1.0.6",
     "commit": "76e185a2a0d4edf8f4e5de09f75fe5cef4a2f05a"
   },
-  "_source": "https://github.com/bigspotteddog/ScrollToFixed.git",
+  "_source": "git://github.com/bigspotteddog/ScrollToFixed.git",
   "_target": "~1.0.6",
-  "_originalSource": "https://github.com/bigspotteddog/ScrollToFixed.git"
+  "_originalSource": "ScrollToFixed"
 }
