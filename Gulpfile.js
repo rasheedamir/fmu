@@ -164,6 +164,23 @@
             .pipe(gulp.dest(config.appPath));
     });
 
+
+    gulp.task('karma-inject', ['templatecache'], function() {
+        gulp.src('./Gulpconfig.js')
+            .pipe($.inject(
+                gulp.src(config.jsfiles, {
+                    read: false,
+                    ignorePath: '/',
+                }), {
+                    starttag: '/* inject:js */',
+                    endtag: '/* endinject */',
+                    transform: function(filepath) {
+                        return '\'' + filepath + '\',';
+                    }
+                }))
+            .pipe(gulp.dest('.'));
+    });
+
     gulp.task('connect-dev', ['wiredep'], function() {
         var serveStatic = require('serve-static');
         var serveIndex = require('serve-index');
@@ -204,24 +221,8 @@
             });
     });
 
-    gulp.task('inject-karma', function() {
-        gulp.src(config.unittestFolder + '/*.conf.js')
-            .pipe($.plumber())
-            .pipe($.inject(
-                gulp.src(config.jsfiles, {
-                    read: false
-                }), {
-                    starttag: '/* inject:js */',
-                    endtag: '/* endinject */',
-                    transform: function(filepath) {
-                        return '\'' + filepath + '\',';
-                    }
-                }))
-            .pipe(gulp.dest(config.unittestFolder));
-    });
 
-
-    gulp.task('karma', ['jshint'], function(done) {
+    gulp.task('karma', ['jshint', 'karma-inject'], function(done) {
         log('Starting karma unittests');
         gulp.src(config.karmaconfig.files)
             .pipe($.print());
