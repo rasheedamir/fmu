@@ -30,8 +30,8 @@
     gulp.task('sass', ['clean-styles'], function() {
         log('Processing and compiling SCSS to CSS');
         return gulp.src(config.sassfiles)
-            .pipe($.if(args.verbose, $.print()))
             .pipe($.plumber())
+            .pipe($.if(args.verbose, $.print()))
             .pipe($.sourcemaps.init())
             .pipe($.sass({
                 style: 'compressed',
@@ -120,6 +120,7 @@
                 config.appPath + '/*.{ico,txt,htaccess}',
                 config.appPath + '/.htaccess'
             ])
+            .pipe($.plumber())
             .pipe($.if(args.verbose, $.print()))
             .pipe(gulp.dest(config.dist));
     });
@@ -127,6 +128,7 @@
     gulp.task('extract-pot', function() {
         log('Extract texts from html/js files');
         return gulp.src(config.translationfiles)
+            .pipe($.plumber())
             .pipe($.if(args.verbose, $.print()))
             .pipe($.angularGettext.extract('translation.pot', {}))
             .pipe(gulp.dest(config.translationfolder));
@@ -135,6 +137,7 @@
     gulp.task('compile-po', function() {
         log('Compiling translation to javascript');
         return gulp.src(config.translationfolder + '/**/*.po')
+            .pipe($.plumber())
             .pipe($.if(args.verbose, $.print()))
             .pipe($.angularGettext.compile({
                 module: 'fmuClientApp',
@@ -164,18 +167,18 @@
             .pipe(gulp.dest(config.appPath));
     });
 
-
     gulp.task('karma-inject', ['templatecache'], function() {
+        log('Inject app javascript source files to karmaconfig options');
         gulp.src('./Gulpconfig.js')
             .pipe($.inject(
                 gulp.src(config.jsfiles, {
-                    read: false,
-                    ignorePath: '/',
+                    read: false
                 }), {
                     starttag: '/* inject:js */',
                     endtag: '/* endinject */',
                     transform: function(filepath) {
-                        return '\'' + filepath + '\',';
+                        var retval =  '\'' + filepath.slice(1) + '\',';
+                        return retval;
                     }
                 }))
             .pipe(gulp.dest('.'));
@@ -224,8 +227,6 @@
 
     gulp.task('karma', ['jshint', 'karma-inject'], function(done) {
         log('Starting karma unittests');
-        gulp.src(config.karmaconfig.files)
-            .pipe($.print());
         startTests(true /* singlerun */ , done);
     });
 
