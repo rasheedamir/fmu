@@ -47,6 +47,7 @@
         var files = config.jsfiles.slice();
         files.push('!' + config.appPath + '/common/translations/**');
         files.push('!' + config.appPath + '/common/templatecache/**');
+        files.push('!' + config.appPath + '/dependencies/**');
 
         return gulp.src(files)
             .pipe($.if(args.verbose, $.print()))
@@ -155,7 +156,7 @@
             .pipe(wiredep(options))
             .pipe($.inject(gulp.src(config.jsfiles, {
                 read: false
-            }), {
+            }).pipe($.print()), {
                 relative: true
             }))
             .pipe($.inject(gulp.src(config.cssfiles, {
@@ -184,13 +185,19 @@
             .pipe(gulp.dest('.'));
     });
 
-    gulp.task('karma', ['jshint', 'karma-inject'], function(done) {
+    gulp.task('test', ['jshint', 'karma-inject'], function(done) {
         log('Starting karma unittests');
         startTests(true /* singlerun */ , done);
     });
 
+    gulp.task('tdd', ['jshint', 'karma-inject'], function(done) {
+        log('Starting karma unittests');
+        startTests(false /* singlerun */ , done);
+    });
+
     function startTests(singlerun, done) {
         var karma = require('karma').server;
+
         function karmaCompleted(karmaResult) {
             log('Karma completed !');
             if (karmaResult === 1) {
@@ -202,7 +209,7 @@
 
         karma.start({
             configFile: __dirname + '/src/test/javascript/karma.conf.js',
-            singleRun: !!singlerun
+            singleRun: singlerun
         }, karmaCompleted);
     }
 
@@ -220,7 +227,7 @@
     // Helper functions
 
     function log(message) {
-        $.util.log(message);
+        $.util.log('------> ' + message);
     }
 
     function clean(path) {
@@ -237,19 +244,24 @@
         var proxyFake = url.parse('http://localhost:8080/fake');
         proxyFake.route = '/fake';
 
+        var proxyRest = url.parse('http://localhost:8080/app/');
+        proxyRest.route = '/app/';
+
 
         if (browsersync.active) {
-            console.log('already active');
             return;
         }
         var options = {
-            open: true,
             port: 9000,
             server: {
-                baseDir: [config.appPath, config.tmp, config.bower.directory, '!' + config.dist],
-                middleware: [proxy(proxyFake)]
+                baseDir: [config.appPath, config.tmp, '!' + config.dist],
+                //directory: true,
+                middleware: [proxy(proxyFake), proxy(proxyRest)]
             },
             files: files,
+            watchOptions: {
+                debounceDelay: 1000
+            },
             ghostMode: {
                 clicks: true,
                 forms: true,

@@ -14,7 +14,7 @@
             index: appPath + '/index.html',
             jsfiles: [
                 appPath + '/**/*.js',
-                '!./src/main/webapp/dependencies/**',
+                '!./src/main/webapp/dependencies/bower_components/**',
                 '!' + dist + '/**'
             ],
             sassfiles: [
@@ -70,6 +70,7 @@
                         'src/main/webapp/common/rest/Eavrops.js',
                         'src/main/webapp/common/rest/RestUrlBuilderService.js',
                         'src/main/webapp/common/rest/constants.js',
+                        'src/main/webapp/common/rest/dataservice.js',
                         'src/main/webapp/common/router/router-module.js',
                         'src/main/webapp/common/templatecache/templatecache.module.js',
                         'src/main/webapp/common/translations/fmu.pot.js',
@@ -81,9 +82,10 @@
                         'src/main/webapp/orders-overview/completed/CompletedController.js',
                         'src/main/webapp/orders-overview/incoming/IncomingController.js',
                         'src/main/webapp/orders-overview/ongoing/OngoingController.js',
+                        'src/main/webapp/dependencies/bootstrap/js/bootstrap.js',
                         /* endinject */
                     ],
-                    unittest + '/spec/**/*.js'
+                    unittest + '/**/**.spec.js'
                 ),
                 exclude: [appPath + '/dist/**'],
                 coverage: {
@@ -96,11 +98,12 @@
                         subdir: 'report-lcov'
                     }, {
                         type: 'text-summary'
-                    }],
-                    preprocessors: [unittest + '**/!(*.spec) + (.js)']
-                }
+                    }]
+                },
+                preprocessors: {}
             };
 
+            options.preprocessors[appPath + '/*.js'] = ['coverage'];
             return options;
         }
 

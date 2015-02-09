@@ -46,7 +46,7 @@
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
                                         <li ng-repeat="role in roles">
-                                            <a ng-click="changeRole(selectedRole)">{{role}}</a>
+                                            <a ng-click="changeRole(role)">{{role}}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -161,6 +161,8 @@
 
         <script src="common/rest/constants.js"></script>
 
+        <script src="common/rest/dataservice.js"></script>
+
         <script src="common/router/router-module.js"></script>
 
         <script src="common/templatecache/templatecache.module.js"></script>
@@ -182,6 +184,8 @@
         <script src="orders-overview/incoming/IncomingController.js"></script>
 
         <script src="orders-overview/ongoing/OngoingController.js"></script>
+
+        <script src="dependencies/bootstrap/js/bootstrap.js"></script>
 
         <!-- endinject -->
         <!-- endbuild -->
