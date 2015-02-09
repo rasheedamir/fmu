@@ -805,7 +805,7 @@
                         <schema>
                             <!-- ToDo: This must be read from resources
                             -->
-                            <url>http://localhost:8080/ws/bestallare-ws.wsdl</url>
+                            <url>http://localhost:9090/ws/bestallare-ws.wsdl</url>
                         </schema>
                     </schemas>
                 </configuration>

@@ -177,53 +177,12 @@
                     starttag: '/* inject:js */',
                     endtag: '/* endinject */',
                     transform: function(filepath) {
-                        var retval =  '\'' + filepath.slice(1) + '\',';
+                        var retval = '\'' + filepath.slice(1) + '\',';
                         return retval;
                     }
                 }))
             .pipe(gulp.dest('.'));
     });
-
-    gulp.task('connect-dev', ['wiredep'], function() {
-        var serveStatic = require('serve-static');
-        var serveIndex = require('serve-index');
-        var url = require('url');
-        var proxy = require('proxy-middleware');
-
-        var app = require('connect')()
-            .use(serveStatic(config.tmp))
-            .use(serveStatic(config.appPath))
-            // paths to bower_components should be relative to the current file
-            // e.g. in app/index.html you should use ../bower_components
-            .use(config.bower, serveStatic('bower_components'))
-            .use(serveIndex('app'))
-            .use('/app', proxy(url.parse('localhost:8080'))); //TODO check this !
-
-        require('http').createServer(app)
-            .listen(9000)
-            .on('listening', function() {
-                console.log('Started connect web server on http://localhost:9000');
-                startBrowserSync([config.jsfiles, config.htmlfiles, config.cssfiles]);
-            });
-    });
-
-    gulp.task('connect-prod', ['default'], function() {
-        var serveStatic = require('serve-static');
-        var serveIndex = require('serve-index');
-        var url = require('url');
-        var proxy = require('proxy-middleware');
-        var app = require('connect')()
-            .use(serveStatic(config.dist))
-            .use(serveIndex('dist'))
-            .use('/app', proxy(url.parse('localhost:8080'))); //TODO check this !
-
-        require('http').createServer(app)
-            .listen(9000)
-            .on('listening', function() {
-                console.log('Started connect web server on http://localhost:9000');
-            });
-    });
-
 
     gulp.task('karma', ['jshint', 'karma-inject'], function(done) {
         log('Starting karma unittests');
@@ -232,11 +191,6 @@
 
     function startTests(singlerun, done) {
         var karma = require('karma').server;
-        karma.start({
-            configFile: __dirname + '/src/test/javascript/karma.conf.js',
-            singleRun: !!singlerun
-        }, karmaCompleted);
-
         function karmaCompleted(karmaResult) {
             log('Karma completed !');
             if (karmaResult === 1) {
@@ -245,9 +199,15 @@
                 done();
             }
         }
+
+        karma.start({
+            configFile: __dirname + '/src/test/javascript/karma.conf.js',
+            singleRun: !!singlerun
+        }, karmaCompleted);
     }
 
-    gulp.task('serve', ['connect-dev'], function() {
+    gulp.task('serve', function() {
+        startBrowserSync([config.jsfiles, config.htmlfiles, config.cssfiles]);
         gulp.watch(config.sassfiles, ['sass']);
     });
 
@@ -270,12 +230,25 @@
 
     function startBrowserSync(files) {
         log('started browser-sync');
+        var url = require('url');
+        var proxy = require('proxy-middleware');
         var browsersync = require('browser-sync');
+
+        var proxyFake = url.parse('http://localhost:8080/fake');
+        proxyFake.route = '/fake';
+
+
         if (browsersync.active) {
+            console.log('already active');
             return;
         }
         var options = {
-            proxy: 'localhost:9000',
+            open: true,
+            port: 9000,
+            server: {
+                baseDir: [config.appPath, config.tmp, config.bower.directory, '!' + config.dist],
+                middleware: [proxy(proxyFake)]
+            },
             files: files,
             ghostMode: {
                 clicks: true,
