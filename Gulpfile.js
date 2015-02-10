@@ -50,6 +50,7 @@
         files.push('!' + config.appPath + '/dependencies/**');
 
         return gulp.src(files)
+            .pipe($.plumber())
             .pipe($.if(args.verbose, $.print()))
             .pipe($.jshint())
             .pipe($.jshint.reporter('jshint-stylish', {
@@ -192,6 +193,12 @@
 
     gulp.task('tdd', ['jshint', 'karma-inject'], function(done) {
         log('Starting karma unittests');
+        if(args.mockport) {
+            startMockServer(args.mockport);
+        } else {
+            startMockServer();
+        }
+
         startTests(false /* singlerun */ , done);
     });
 
@@ -209,11 +216,11 @@
 
         karma.start({
             configFile: __dirname + '/src/test/javascript/karma.conf.js',
-            singleRun: singlerun
+            singleRun: !!singlerun
         }, karmaCompleted);
     }
 
-    gulp.task('serve', function() {
+    gulp.task('serve',['wiredep'], function() {
         startBrowserSync([config.jsfiles, config.htmlfiles, config.cssfiles]);
         gulp.watch(config.sassfiles, ['sass']);
     });
@@ -233,6 +240,22 @@
     function clean(path) {
         log('Cleaning: ' + $.util.colors.yellow(path));
         del.bind(null, path);
+    }
+
+    function startMockServer(port) {
+        log('Starting mock server');
+        var jsonServer = require('json-server');
+        var fs = require('fs');
+        var db = JSON.parse(fs.readFileSync(config.mockRestData, 'utf8'));
+        var router = jsonServer.router(db);
+        var server = jsonServer.create().use(router);
+        if(port) {
+            server.listen(port);
+            log('Mock server is running at port 3000');
+        } else {
+            server.listen(3000);
+            log('Mock server is running at port 3000');
+        }
     }
 
     function startBrowserSync(files) {

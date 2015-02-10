@@ -1,7 +1,7 @@
 'use strict';
 
 /* Constants */
-angular.module('fmuClientApp')
+angular.module('RestModule')
     .constant('RESTURL', {
         eavrop: 'app/rest/eavrop/:eavropId',
         eavropDocuments: 'app/rest/eavrop/:eavropId/received-documents',

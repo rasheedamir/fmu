@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fmuClientApp').factory('RestUrlBuilderService',
+angular.module('RestModule').factory('RestUrlBuilderService',
     function () {
         return {
             buildOverViewRestUrl: function (startDate, endDate, eavropStatus, currentPageNumber,

@@ -20,7 +20,7 @@
 
             preprocesssors: gulpconf.karmaconfig.preprocessors,
 
-            reporters: ['progress', 'coverage', 'osx'],
+            reporters: ['progress', 'osx'],
 
             coverageReporter: {
                 dir: gulpconf.karmaconfig.coverage.dir,

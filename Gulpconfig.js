@@ -13,6 +13,10 @@
             tmp: './.tmp',
             index: appPath + '/index.html',
             jsfiles: [
+                appPath + '/**/*.module.js',
+                appPath + '/**/*.constant.js',
+                appPath + '/**/*.service.js',
+                appPath + '/**/*.directive.js',
                 appPath + '/**/*.js',
                 '!./src/main/webapp/dependencies/bower_components/**',
                 '!' + dist + '/**'
@@ -36,6 +40,7 @@
                 directory: bower
             },
             unittestFolder: unittest,
+            mockRestData: unittest + '/mocks/db.json',
             karmaconfig: getKarmaConfigOptions()
         };
 
@@ -51,6 +56,10 @@
                         /* inject:js */
                         'src/main/webapp/app-dev.module.js',
                         'src/main/webapp/app.module.js',
+                        'src/main/webapp/common/rest/Rest.module.js',
+                        'src/main/webapp/common/templatecache/templatecache.module.js',
+                        'src/main/webapp/common/rest/Rest.constant.js',
+                        'src/main/webapp/common/rest/RestUrlBuilder.service.js',
                         'src/main/webapp/eavrop-overview/EavropController.js',
                         'src/main/webapp/eavrop-overview/EavropService.js',
                         'src/main/webapp/eavrop-overview/RequestAcceptanceController.js',
@@ -68,11 +77,7 @@
                         'src/main/webapp/common/authentication/FakeRoleCtrl.js',
                         'src/main/webapp/common/authentication/RestrictedDirective.js',
                         'src/main/webapp/common/rest/Eavrops.js',
-                        'src/main/webapp/common/rest/RestUrlBuilderService.js',
-                        'src/main/webapp/common/rest/constants.js',
-                        'src/main/webapp/common/rest/dataservice.js',
                         'src/main/webapp/common/router/router-module.js',
-                        'src/main/webapp/common/templatecache/templatecache.module.js',
                         'src/main/webapp/common/translations/fmu.pot.js',
                         'src/main/webapp/common/translations/translations.js',
                         'src/main/webapp/eavrop-overview/compensations/CompensationController.js',
@@ -103,7 +108,7 @@
                 preprocessors: {}
             };
 
-            options.preprocessors[appPath + '/*.js'] = ['coverage'];
+            options.preprocessors['../../../src/main/webapp/**/*.module.js'] = 'coverage';
             return options;
         }
 
