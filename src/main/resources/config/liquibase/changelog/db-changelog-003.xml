@@ -64,7 +64,7 @@
             <column name="PERSON_ID" value="2001"/>
     </insert>
     <!-- Eavrop -->
-    <insert tableName="t_eavrop">
+    <insert tableName="T_EAVROP">
         <column name="EAVROP_ID" value="1001"/>
         <column name="created_by" value="test"/>
         <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 2 DAY) FROM DUAL)"/>
@@ -190,7 +190,7 @@
     </insert>
     
     <!-- Eavrop -->
-    <insert tableName="t_eavrop">
+    <insert tableName="T_EAVROP">
         <column name="EAVROP_ID" value="1002"/>
         <column name="created_by" value="test"/>
         <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)"/>
@@ -348,7 +348,7 @@
     </insert>
     
     <!-- Eavrop -->
-    <insert tableName="t_eavrop">
+    <insert tableName="T_EAVROP">
         <column name="EAVROP_ID" value="1003"/>
         <column name="created_by" value="test"/>
         <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)"/>
@@ -504,7 +504,7 @@
     </insert>
     
     <!-- Eavrop -->
-    <insert tableName="t_eavrop">
+    <insert tableName="T_EAVROP">
         <column name="EAVROP_ID" value="1004"/>
         <column name="created_by" value="test"/>
         <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 14 DAY) FROM DUAL)"/>
@@ -751,7 +751,7 @@
     </insert>
     
     <!-- Eavrop -->
-    <insert tableName="t_eavrop">
+    <insert tableName="T_EAVROP">
         <column name="EAVROP_ID" value="1005"/>
         <column name="created_by" value="test"/>
         <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 13 DAY) FROM DUAL)"/>
@@ -1041,7 +1041,7 @@
     </insert>
     
     <!-- Eavrop -->
-    <insert tableName="t_eavrop">
+    <insert tableName="T_EAVROP">
         <column name="EAVROP_ID" value="1006"/>
         <column name="created_by" value="test"/>
         <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 15 DAY) FROM DUAL)"/>
@@ -1152,76 +1152,4 @@
         <column name="EAVROP_ID" value="1006"/>
     </insert>
 </changeSet>
-
-
-
-<!-- 
-<changeSet author="richjo (generated)" id="003-2">
-
-    <update tableName="t_eavrop">
-        <column name="CURRENT_ASSIGNMENT_ID"/>
-        <where>EAVROP_ID in ("1001")</where>
-    </update>
-
-    <sql dbms="mysql">
-	    DELETE R_EAVROP_ASSIGNMENT, T_ASSIGNMENT, assignPerson, respondPerson, rejectionNote, rejectionNotePerson 
-	    FROM R_EAVROP_ASSIGNMENT 
-	    INNER JOIN T_ASSIGNMENT ON R_EAVROP_ASSIGNMENT.assignment_id=T_ASSIGNMENT.assignment_id
-        INNER JOIN T_PERSON assignPerson ON T_ASSIGNMENT.assign_person_id=assignPerson.person_id
-        LEFT OUTER JOIN T_PERSON respondPerson ON T_ASSIGNMENT.respond_person_id=respondPerson.person_id
-	    LEFT OUTER JOIN T_NOTE rejectionNote ON T_ASSIGNMENT.rejection_note_id=rejectionNote.note_id
-            LEFT OUTER JOIN T_PERSON rejectionNotePerson ON rejectionNote.person_id=rejectionNotePerson.person_id
-	    WHERE R_EAVROP_ASSIGNMENT.eavrop_id in("1001") ;
-    </sql>
-    <sql dbms="mysql">
-        DELETE R_EAVROP_NOTE, T_NOTE, T_PERSON 
-        FROM R_EAVROP_NOTE
-        INNER JOIN T_NOTE ON R_EAVROP_NOTE.note_id=T_NOTE.note_id
-        INNER JOIN T_PERSON ON T_NOTE.person_id=T_PERSON.person_id
-        WHERE R_EAVROP_NOTE.eavrop_id in("1001") ;
-    </sql>
-
-    <sql dbms="mysql">
-        DELETE R_EAVROP_BOOKING, T_BOOKING, T_PERSON, devRespNote, devRespNotePerson, intDevNote, intDevNotePerson, devNote, devNotePerson 
-        FROM R_EAVROP_BOOKING
-        INNER JOIN T_BOOKING ON R_EAVROP_BOOKING.booking_id=T_BOOKING.booking_id
-        INNER JOIN T_PERSON ON T_BOOKING.deviation_response_person_id=T_PERSON.person_id
-        INNER JOIN T_NOTE devRespNote ON T_BOOKING.deviation_response_note_id=devRespNote.note_id
-            INNER JOIN T_PERSON devRespNotePerson ON devRespNote.person_id=devRespNotePerson.person_id
-        INNER JOIN T_NOTE intDevNote ON T_BOOKING.interpreter_deviation_note_id=intDevNote.note_id
-            INNER JOIN T_PERSON intDevNotePerson ON intDevNote.person_id=intDevNotePerson.person_id
-        INNER JOIN T_NOTE devNote ON T_BOOKING.deviation_note_id=devNote.note_id
-            INNER JOIN T_PERSON devNotePerson ON devNote.person_id=devNotePerson.person_id
-        WHERE R_EAVROP_BOOKING.eavrop_id in("1001") ;
-    </sql>
-
-<delete tableName="t_eavrop">
-        <where>EAVROP_ID="1001"</where>
-</delete>
-<delete tableName="t_invanare">
-        <where>INVANARE_ID not in (select e.invanare_id from t_eavrop e )</where>
-</delete>
-<delete tableName="t_person">
-        <where>PERSON_ID not in (select e.BESTALLAR_PERSON_ID from t_eavrop e )</where>
-</delete>
-r_eavrop_assignment
-r_eavrop_booking
-r_eavrop_intyg
-r_eavrop_note
-r_eavrop_req_document
-r_eavrop_rec_document
-t_assignment
-t_booking
-t_eavrop
-t_eavrop_approval
-t_eavrop_comp_approval
-t_intyg_information
-t_invanare
-t_note
-t_prior_medical_examination
-t_rec_document
-t_req_document
-
-</changeSet>
- -->
 </databaseChangeLog>
