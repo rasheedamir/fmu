@@ -1112,7 +1112,7 @@
 
 
 <!-- Scenario 3:3 Utredning genomförd
-150000000005 -->
+150000000006 -->
 <changeSet runAlways="true" author="richjo" id="003-6">
     <!-- Handläggare -->
     <insert tableName="T_PERSON">
@@ -1400,4 +1400,383 @@
         <column name="EAVROP_ID" value="1006" />
     </insert>
 </changeSet>
+<!-- Scenario 3:3 Utredning genomförd
+150000000008 -->
+<changeSet runAlways="true" author="richjo" id="003-8">
+    <!-- Handläggare -->
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="ADM" />
+        <column name="PERSON_ID" value="1008" />
+        <column name="EMAIL" value="kurt.kroner@forsakringskassan.se" />
+        <column name="NAME" value="Kurt Kronér" />
+        <column name="ORGANISATION" value="Försäkringskassan" />
+        <column name="PHONE" value="08-125876522" />
+        <column name="ROLE" value="Personlig handläggare" />
+        <column name="UNIT" value="Stockholm, City Servicekontor" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <!-- Invånare -->
+    <insert tableName="T_INVANARE">
+        <column name="INVANARE_ID" value="1008" />
+        <column name="created_by" value="test" />
+        <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 30 DAY) FROM DUAL)" />
+        <column name="last_modified_by" value="test" />
+        <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 30 DAY) FROM DUAL)" />
+        <column name="version" valueNumeric="0" />
+        <column name="EMAIL" value="NULL" />
+        <column name="GENDER" value="MALE" />
+        <column name="address_1" value="Armevägen 3, 4tr" />
+        <column name="address_2" value="NULL" />
+        <column name="city" value="Stockholm" />
+        <column name="country" value="Sverige" />
+        <column name="postal_code" value="11264" />
+        <column name="FIRST_NAME" value="Erik" />
+        <column name="LAST_NAME" value="Eriksson" />
+        <column name="MIDDLE_NAME" value="NULL" />
+        <column name="PERSONAL_NUMBER" value="19611210-2960" />
+        <column name="PHONE" value="070-33152426" />
+        <column name="SPECIAL_NEEDS" value="NULL" />
+    </insert>
+    <!-- Läkare tidigare utredning -->
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="HOS" />
+        <column name="PERSON_ID" value="2008" />
+        <column name="EMAIL" value="NULL" />
+        <column name="NAME" value="Lena Lindell" />
+        <column name="ORGANISATION" value="Stockholms Läns Landsting" />
+        <column name="PHONE" value="08-85423610" />
+        <column name="ROLE" value="Leg. Läkare" />
+        <column name="UNIT" value="Närhälsan Gärdet" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <!-- Tidigare utredning -->
+    <insert tableName="T_PRIOR_MEDICAL_EXAMINATION">
+            <column name="PRIOR_MEDICAL_EXAM_ID" value="1008" />
+            <column name="EXAMINED_AT" value="AFU 12-11-01" />
+            <column name="MEDICAL_LEAVE_ISSUED_AT" value="Närhälsan Gärdet" />
+            <column name="PERSON_ID" value="2008" />
+    </insert>
+    <!-- assign person -->
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="HOS" />
+        <column name="PERSON_ID" value="3008" />
+        <column name="EMAIL" value="sam.ordnarsson@landsting.se" />
+        <column name="NAME" value="sam ordnarsson" />
+        <column name="ORGANISATION" value="Landstinget" />
+        <column name="PHONE" value="08-784321500" />
+        <column name="ROLE" value="Samordnare" />
+        <column name="UNIT" value="Landsting" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <!-- respond person -->
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="HOS" />
+        <column name="PERSON_ID" value="4008" />
+        <column name="EMAIL" value="åsa.andersson@fmu.se" />
+        <column name="NAME" value="Åsa Andersson" />
+        <column name="ORGANISATION" value="Karolinska" />
+        <column name="PHONE" value="08-784321501" />
+        <column name="ROLE" value="Leg Läkare" />
+        <column name="UNIT" value="FMU" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <!-- Assignment -->
+    <insert tableName="T_ASSIGNMENT">
+        <column name="ASSIGNMENT_ID" value="1008" />
+        <column name="created_by" value="test" />
+        <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 29 DAY) FROM DUAL)" />
+        <column name="last_modified_by" value="test" />
+        <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 29 DAY) FROM DUAL)" />
+        <column name="version" valueNumeric="0" />
+        <column name="STATUS" value="ACCEPTED" />
+        <column name="vardgivarenhet_VARDGIVARENHET_ID" value="1" />
+        <column name="ASSIGN_PERSON_ID" value="3008" />
+        <column name="RESPOND_PERSON_ID" value="4008" />
+    </insert>
+    
+    <!-- Approval -->
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="ADM" />
+        <column name="PERSON_ID" value="7008" />
+        <column name="EMAIL" value="NULL" />
+        <column name="NAME" value="Magnus Samuelsson" />
+        <column name="ORGANISATION" value="Försäkringskassan" />
+        <column name="PHONE" value="08-542952600" />
+        <column name="ROLE" value="Samordnare" />
+        <column name="UNIT" value="Stockholm, Kungsholmen Servicekontor" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="ADM" />
+        <column name="PERSON_ID" value="8008" />
+        <column name="EMAIL" value="NULL" />
+        <column name="NAME" value="Magnus Samuelsson" />
+        <column name="ORGANISATION" value="Försäkringskassan" />
+        <column name="PHONE" value="08-542952600" />
+        <column name="ROLE" value="Samordnare" />
+        <column name="UNIT" value="Stockholm, Kungsholmen Servicekontor" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <insert tableName="T_NOTE">
+        <column name="NOTE_ID" value="1008" />
+        <column name="created_by" value="test" />
+        <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 2 DAY) FROM DUAL)" />
+        <column name="last_modified_by" value="test" />
+        <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 2 DAY) FROM DUAL)" />
+        <column name="version" valueNumeric="0" />
+        <column name="TYPE" value="APPROVAL" />
+        <column name="TEXT" value="Utredning accepterad" />
+        <column name="PERSON_ID" value="8006" />
+    </insert>
+    <insert tableName="T_EAVROP_APPROVAL">
+        <column name="EAVROP_APPROVAL_ID" value="1008" />
+        <column name="APPROVAL_DATE_TIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 2 DAY) FROM DUAL)" />
+        <column name="NOTE_ID" value="1008" />
+        <column name="PERSON_ID" value="7008" />
+    </insert>
+
+    <!-- Compensation Approval 
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="ADM" />
+        <column name="PERSON_ID" value="9008" />
+        <column name="EMAIL" value="NULL" />
+        <column name="NAME" value="Magnus Samuelsson" />
+        <column name="ORGANISATION" value="Försäkringskassan" />
+        <column name="PHONE" value="08-542952600" />
+        <column name="ROLE" value="Samordnare" />
+        <column name="UNIT" value="Stockholm, Kungsholmen Servicekontor" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="ADM" />
+        <column name="PERSON_ID" value="10008" />
+        <column name="EMAIL" value="NULL" />
+        <column name="NAME" value="Magnus Samuelsson" />
+        <column name="ORGANISATION" value="Försäkringskassan" />
+        <column name="PHONE" value="08-542952600" />
+        <column name="ROLE" value="Samordnare" />
+        <column name="UNIT" value="Stockholm, Kungsholmen Servicekontor" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <insert tableName="T_NOTE">
+        <column name="NOTE_ID" value="2008" />
+        <column name="created_by" value="test" />
+        <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 1 DAY) FROM DUAL)" />
+        <column name="last_modified_by" value="test" />
+        <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 1 DAY) FROM DUAL)" />
+        <column name="version" valueNumeric="0" />
+        <column name="TYPE" value="COMPENSATION_APPROVAL" />
+        <column name="TEXT" value="Betalning godkänd" />
+        <column name="PERSON_ID" value="10006" />
+    </insert>
+    <insert tableName="T_EAVROP_COMP_APPROVAL">
+        <column name="ID" value="1008" />
+        <column name="APPROVED" value="Y" />
+        <column name="COMPENSATION_DATE_TIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 1 DAY) FROM DUAL)" />
+        <column name="NOTE_ID" value="2008" />
+        <column name="PERSON_ID" value="9008" />
+    </insert>
+    -->
+    <!-- Eavrop -->
+    <insert tableName="T_EAVROP">
+        <column name="EAVROP_ID" value="1008" />
+        <column name="created_by" value="test" />
+        <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 60 DAY) FROM DUAL)" />
+        <column name="last_modified_by" value="test" />
+        <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 60 DAY) FROM DUAL)" />
+        <column name="version" valueNumeric="0" />
+        <column name="ADDITIONAL_INFO" value="NULL" />
+        <column name="ARENDE_ID" value="150000000008" />
+        <column name="DESCRIPTION" value="NULL" />
+        <column name="DOCUMENTS_SENT_DATE_TIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 58 DAY) FROM DUAL)" />
+        <column name="ACCEPTANCE_VALID_LENGTH" valueNumeric="5" />
+        <column name="ASSESSMENT_VALID_LENGTH" valueNumeric="25" />
+        <column name="COMPLETION_VALID_LENGTH" valueNumeric="10" />
+        <column name="START_DATE_OFFSET" valueNumeric="3" />
+        <column name="STATE" value="CLOSED" />
+        <column name="INTERPRETER_DESC" value="NULL" />
+        <column name="CURRENT_INTYG_SENT_DATE" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 2 DAY) FROM DUAL)" />
+        <column name="CURRENT_START_DATE" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 55 DAY) FROM DUAL)" />
+        <column name="EXAMINATION_FOCUS" value="NULL" />
+        <column name="UTREDNING_TYPE" value="TMU" />
+        <column name="BESTALLAR_PERSON_ID" valueNumeric="1008" />
+        <column name="CURRENT_ASSIGNMENT_ID" valueNumeric="1008" />
+        <column name="EAVROP_APPROVAL_ID" value="1008" />
+        <column name="EAVROP_COMP_APPROVAL_ID" value="NULL" />
+        <column name="INVANARE_ID" valueNumeric="1008" />
+        <column name="LANDSTING_ID" valueNumeric="1" />
+        <column name="PRIOR_EXAMINATION_ID" value="1008" />
+    </insert>
+    
+    <!-- Connect assignment with eavrop -->
+    <insert tableName="R_EAVROP_ASSIGNMENT">
+        <column name="ASSIGNMENT_ID" value="1008" />
+        <column name="EAVROP_ID" value="1008" />
+    </insert>
+    
+    <!-- External documents -->
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="ADM" />
+        <column name="PERSON_ID" value="5008" />
+        <column name="EMAIL" value="NULL" />
+        <column name="NAME" value="Irma Isaksson" />
+        <column name="ORGANISATION" value="Försäkringskassan" />
+        <column name="PHONE" value="08-542952600" />
+        <column name="ROLE" value="Personlig handläggare" />
+        <column name="UNIT" value="Stockholm, Kungsholmen Servicekontor" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <insert tableName="T_REC_DOCUMENT">
+        <column name="DOCUMENT_ID" value="1008" />
+        <column name="DOCUMENT_DATETIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 58 DAY) FROM DUAL)" />
+        <column name="NAME" value="Journal" />
+        <column name="EXTERNAL" value="Y" />
+        <column name="PERSON_ID" value="5008" />
+    </insert>
+    <insert tableName="R_EAVROP_REC_DOCUMENT">
+        <column name="DOCUMENT_ID" value="1008" />
+        <column name="EAVROP_ID" value="1008" />
+    </insert>
+    
+    <!-- Bookings -->
+
+
+    <insert tableName="T_BOOKING">
+            <column name="BOOKING_ID" value="1008" />
+            <column name="created_by" value="test" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 55 DAY) FROM DUAL)" />
+            <column name="last_modified_by" value="test" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 55 DAY) FROM DUAL)" />
+            <column name="version" valueNumeric="0" />
+            <column name="ADDITIONAL_SERVICE" value="N" />
+            <column name="DEVIATION_RESPONSE_DATE_TIME" value="NULL" />
+            <column name="DEVIATION_RESPONSE_TYPE" value="NULL" />
+            <column name="BOOKING_RESOURCE_NAME" value="Åsa Andersson" />
+            <column name="BOOKING_RESOURCE_ROLE" value="Läkare" />
+            <column name="BOOKING_STATUS_TYPE" value="PERFORMED" />
+            <column name="BOOKING_TYPE" value="EXAMINATION" />
+            <column name="END_DATETIME" valueComputed="(SELECT DATE_ADD((DATE_SUB(NOW(), INTERVAL 55 DAY)),INTERVAL 4 HOUR) FROM DUAL)" />
+            <column name="INTERPRETER_STATUS_TYPE" value="NULL" />
+            <column name="START_DATETIME" valueComputed="(SELECT DATE_ADD((DATE_SUB(NOW(), INTERVAL 55 DAY)),INTERVAL 3 HOUR) FROM DUAL)" />
+            <column name="DEVIATION_RESPONSE_NOTE_ID" value="NULL" />
+            <column name="DEVIATION_RESPONSE_PERSON_ID" value="NULL" />
+            <column name="DEVIATION_NOTE_ID" value="NULL" />
+            <column name="INTERPRETER_DEVIATION_NOTE_ID" value="NULL" />
+    </insert>
+    <insert tableName="R_EAVROP_BOOKING">
+        <column name="BOOKING_ID" value="1008" />
+        <column name="EAVROP_ID" value="1008" />
+    </insert>
+
+
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="ADM" />
+        <column name="PERSON_ID" value="11008" />
+        <column name="EMAIL" value="NULL" />
+        <column name="NAME" value="Irma Isaksson" />
+        <column name="ORGANISATION" value="Försäkringskassan" />
+        <column name="PHONE" value="08-542952600" />
+        <column name="ROLE" value="Personlig handläggare" />
+        <column name="UNIT" value="Stockholm, Kungsholmen Servicekontor" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="ADM" />
+        <column name="PERSON_ID" value="12008" />
+        <column name="EMAIL" value="NULL" />
+        <column name="NAME" value="Irma Isaksson" />
+        <column name="ORGANISATION" value="Försäkringskassan" />
+        <column name="PHONE" value="08-542952600" />
+        <column name="ROLE" value="Personlig handläggare" />
+        <column name="UNIT" value="Stockholm, Kungsholmen Servicekontor" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+   <insert tableName="T_PERSON">
+        <column name="DISC" value="HOS" />
+        <column name="PERSON_ID" value="13008" />
+        <column name="EMAIL" value="åsa.andersson@fmu.se" />
+        <column name="NAME" value="Åsa Andersson" />
+        <column name="ORGANISATION" value="Karolinska" />
+        <column name="PHONE" value="08-784321501" />
+        <column name="ROLE" value="Leg Läkare" />
+        <column name="UNIT" value="FMU" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <insert tableName="T_NOTE">
+        <column name="NOTE_ID" value="3008" />
+        <column name="created_by" value="test" />
+        <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 56 DAY) FROM DUAL)" />
+        <column name="last_modified_by" value="test" />
+        <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 56 DAY) FROM DUAL)" />
+        <column name="version" valueNumeric="0" />
+        <column name="TYPE" value="BOOKING_DEVIATION_RESPONSE" />
+        <column name="TEXT" value="Kör vidare med utredningen" />
+        <column name="PERSON_ID" value="11008" />
+    </insert>
+
+    <insert tableName="T_NOTE">
+        <column name="NOTE_ID" value="4008" />
+        <column name="created_by" value="test" />
+        <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 56 DAY) FROM DUAL)" />
+        <column name="last_modified_by" value="test" />
+        <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 56 DAY) FROM DUAL)" />
+        <column name="version" valueNumeric="0" />
+        <column name="TYPE" value="BOOKING_DEVIATION" />
+        <column name="TEXT" value="Patient uteblev." />
+        <column name="PERSON_ID" value="13008" />
+    </insert>
+ 
+
+    <insert tableName="T_BOOKING">
+            <column name="BOOKING_ID" value="2008" />
+            <column name="created_by" value="test" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 56 DAY) FROM DUAL)" />
+            <column name="last_modified_by" value="test" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 56 DAY) FROM DUAL)" />
+            <column name="version" valueNumeric="0" />
+            <column name="ADDITIONAL_SERVICE" value="N" />
+            <column name="DEVIATION_RESPONSE_DATE_TIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 56 DAY) FROM DUAL)" />
+            <column name="DEVIATION_RESPONSE_TYPE" value="RESTART" />
+            <column name="BOOKING_RESOURCE_NAME" value="Åsa Andersson" />
+            <column name="BOOKING_RESOURCE_ROLE" value="Läkare" />
+            <column name="BOOKING_STATUS_TYPE" value="CANCELLED_NOT_PRESENT" />
+            <column name="BOOKING_TYPE" value="EXAMINATION" />
+            <column name="END_DATETIME" valueComputed="(SELECT DATE_ADD((DATE_SUB(NOW(), INTERVAL 56 DAY)),INTERVAL 2 HOUR) FROM DUAL)" />
+            <column name="INTERPRETER_STATUS_TYPE" value="NULL" />
+            <column name="START_DATETIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 56 DAY) FROM DUAL)" />
+            <column name="DEVIATION_RESPONSE_NOTE_ID" value="3008" />
+            <column name="DEVIATION_RESPONSE_PERSON_ID" value="12008" />
+            <column name="DEVIATION_NOTE_ID" value="4008" />
+            <column name="INTERPRETER_DEVIATION_NOTE_ID" value="NULL" />
+    </insert>
+    <insert tableName="R_EAVROP_BOOKING">
+        <column name="BOOKING_ID" value="2008" />
+        <column name="EAVROP_ID" value="1008" />
+    </insert>
+
+
+    <!-- Intyg sent -->
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="HOS" />
+        <column name="PERSON_ID" value="6008" />
+        <column name="EMAIL" value="åsa.andersson@fmu.se" />
+        <column name="NAME" value="Åsa Andersson" />
+        <column name="ORGANISATION" value="Karolinska" />
+        <column name="PHONE" value="08-784321501" />
+        <column name="ROLE" value="Leg Läkare" />
+        <column name="UNIT" value="FMU" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <insert tableName="T_INTYG_INFORMATION">
+        <column name="DISC" value="SENT" />
+        <column name="INTYG_INFORMATION_ID" value="1008" />
+        <column name="INFO_DATETIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 2 DAY) FROM DUAL)" />
+        <column name="PERSON_ID" value="6008" />
+    </insert>
+    <insert tableName="R_EAVROP_INTYG">
+        <column name="INTYG_INFORMATION_ID" value="1008" />
+        <column name="EAVROP_ID" value="1008" />
+    </insert>
+</changeSet>
+
 </databaseChangeLog>
