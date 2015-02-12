@@ -11,7 +11,7 @@
     
     <update tableName="t_eavrop">
         <column name="CURRENT_ASSIGNMENT_ID" />
-        <where>EAVROP_ID in ("1001", "1002", "1003", "1004", "1005", "1006")</where>
+        <where>EAVROP_ID in ("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008")</where>
     </update>
 
     <sql dbms="mysql">
@@ -22,7 +22,7 @@
         LEFT OUTER JOIN T_PERSON respondPerson ON T_ASSIGNMENT.respond_person_id=respondPerson.person_id
         LEFT OUTER JOIN T_NOTE rejectionNote ON T_ASSIGNMENT.rejection_note_id=rejectionNote.note_id
             LEFT OUTER JOIN T_PERSON rejectionNotePerson ON rejectionNote.person_id=rejectionNotePerson.person_id
-        WHERE R_EAVROP_ASSIGNMENT.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006") ;
+        WHERE R_EAVROP_ASSIGNMENT.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008") ;
     </sql>
     
     <sql dbms="mysql">
@@ -30,9 +30,44 @@
         FROM R_EAVROP_NOTE
         INNER JOIN T_NOTE ON R_EAVROP_NOTE.note_id=T_NOTE.note_id
         INNER JOIN T_PERSON ON T_NOTE.person_id=T_PERSON.person_id
-        WHERE R_EAVROP_NOTE.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006");
+        WHERE R_EAVROP_NOTE.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008");
     </sql>
-    
+
+    <sql dbms="mysql">
+        DELETE R_EAVROP_INTYG, T_INTYG_INFORMATION, T_PERSON 
+        FROM R_EAVROP_INTYG
+        INNER JOIN T_INTYG_INFORMATION ON R_EAVROP_INTYG.intyg_information_id=T_INTYG_INFORMATION.intyg_information_id
+        LEFT OUTER JOIN T_PERSON ON T_INTYG_INFORMATION.person_id=T_PERSON.person_id
+        WHERE R_EAVROP_INTYG.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008");
+    </sql>
+
+    <sql dbms="mysql">
+        DELETE R_EAVROP_REC_DOCUMENT, T_REC_DOCUMENT, T_PERSON 
+        FROM R_EAVROP_REC_DOCUMENT
+        INNER JOIN T_REC_DOCUMENT ON R_EAVROP_REC_DOCUMENT.document_id=T_REC_DOCUMENT.document_id
+        LEFT OUTER JOIN T_PERSON ON T_REC_DOCUMENT.person_id=T_PERSON.person_id
+        WHERE R_EAVROP_REC_DOCUMENT.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008");
+    </sql>
+
+    <sql dbms="mysql">
+        DELETE R_EAVROP_NOTE, T_NOTE, T_PERSON 
+        FROM R_EAVROP_NOTE
+        INNER JOIN T_NOTE ON R_EAVROP_NOTE.note_id=T_NOTE.note_id
+        INNER JOIN T_PERSON ON T_NOTE.person_id=T_PERSON.person_id
+        WHERE R_EAVROP_NOTE.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008");
+    </sql>
+
+<sql dbms="mysql">
+        DELETE R_EAVROP_REQ_DOCUMENT.*, p1.*, T_NOTE.*, p2.*, T_REQ_DOCUMENT.*
+        FROM R_EAVROP_REQ_DOCUMENT
+        INNER JOIN T_REQ_DOCUMENT ON R_EAVROP_REQ_DOCUMENT.document_id=T_REQ_DOCUMENT.document_id
+        LEFT OUTER JOIN T_PERSON p1 ON T_REQ_DOCUMENT.person_id=p1.person_id
+        LEFT OUTER JOIN T_NOTE ON T_REQ_DOCUMENT.request_note_id = T_NOTE.note_id
+                 LEFT OUTER JOIN T_PERSON p2 ON T_NOTE.person_id = p2.person_id
+        WHERE R_EAVROP_REQ_DOCUMENT.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008");
+    </sql>
+
+
     <sql dbms="mysql">
         DELETE R_EAVROP_BOOKING, T_BOOKING, T_PERSON, devRespNote, devRespNotePerson, intDevNote, intDevNotePerson, devNote, devNotePerson 
         FROM R_EAVROP_BOOKING
@@ -44,41 +79,7 @@
             LEFT OUTER JOIN T_PERSON intDevNotePerson ON intDevNote.person_id=intDevNotePerson.person_id
         LEFT OUTER JOIN T_NOTE devNote ON T_BOOKING.deviation_note_id=devNote.note_id
             LEFT OUTER JOIN T_PERSON devNotePerson ON devNote.person_id=devNotePerson.person_id
-        WHERE R_EAVROP_BOOKING.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006");
-    </sql>
-
-    <sql dbms="mysql">
-        DELETE R_EAVROP_INTYG, T_INTYG_INFORMATION, T_PERSON 
-        FROM R_EAVROP_INTYG
-        INNER JOIN T_INTYG_INFORMATION ON R_EAVROP_INTYG.intyg_information_id=T_INTYG_INFORMATION.intyg_information_id
-        LEFT OUTER JOIN T_PERSON ON T_INTYG_INFORMATION.person_id=T_PERSON.person_id
-        WHERE R_EAVROP_INTYG.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006");
-    </sql>
-
-    <sql dbms="mysql">
-        DELETE R_EAVROP_REC_DOCUMENT, T_REC_DOCUMENT, T_PERSON 
-        FROM R_EAVROP_REC_DOCUMENT
-        INNER JOIN T_REC_DOCUMENT ON R_EAVROP_REC_DOCUMENT.document_id=T_REC_DOCUMENT.document_id
-        LEFT OUTER JOIN T_PERSON ON T_REC_DOCUMENT.person_id=T_PERSON.person_id
-        WHERE R_EAVROP_REC_DOCUMENT.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006");
-    </sql>
-
-    <sql dbms="mysql">
-        DELETE R_EAVROP_REQ_DOCUMENT, T_REQ_DOCUMENT, reqPerson, T_NOTE, notePerson 
-        FROM R_EAVROP_REQ_DOCUMENT
-        INNER JOIN T_REQ_DOCUMENT ON R_EAVROP_REQ_DOCUMENT.document_id=T_REQ_DOCUMENT.document_id
-        LEFT OUTER JOIN T_PERSON reqPerson ON T_REQ_DOCUMENT.person_id=reqPerson.person_id
-        LEFT OUTER JOIN T_NOTE ON T_REQ_DOCUMENT.REQUEST_NOTE_ID=T_NOTE.note_id
-                LEFT OUTER JOIN T_PERSON notePerson ON T_NOTE.person_id=notePerson.person_id
-        WHERE R_EAVROP_REQ_DOCUMENT.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006");
-    </sql>
-
-    <sql dbms="mysql">
-        DELETE R_EAVROP_NOTE, T_NOTE, T_PERSON 
-        FROM R_EAVROP_NOTE
-        INNER JOIN T_NOTE ON R_EAVROP_NOTE.note_id=T_NOTE.note_id
-        INNER JOIN T_PERSON ON T_NOTE.person_id=T_PERSON.person_id
-        WHERE R_EAVROP_NOTE.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006");
+        WHERE R_EAVROP_BOOKING.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008");
     </sql>
 
     <sql dbms="mysql">
@@ -108,11 +109,11 @@
             LEFT OUTER JOIN T_PERSON compApprovalPerson ON T_EAVROP_COMP_APPROVAL.person_id = compApprovalPerson.person_id
             LEFT OUTER JOIN T_NOTE compApprovalNote  ON T_EAVROP_COMP_APPROVAL.note_id = compApprovalNote.note_id
                 LEFT OUTER JOIN T_PERSON compApprovalNotePerson ON compApprovalNote.person_id=compApprovalNotePerson.person_id
-        WHERE T_EAVROP.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006");
+        WHERE T_EAVROP.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008");
     </sql>
 
 </changeSet>
- -->
+  -->
 <!-- Scenario 1: Tilldelning och acceptans av e-avrop 150000000001 -->
 <changeSet runAlways="true" author="richjo" id="003-1">
     <!-- Handläggare -->
@@ -200,7 +201,7 @@
     </insert>
 </changeSet>
 
-<!-- Scenario 1:2 Tilldelning och acceptans av e-avrop 150000000001 -->
+<!-- Scenario 1:2 Tilldelning och acceptans av e-avrop 150000000007 -->
 <changeSet runAlways="true" author="richjo" id="003-7">
     <!-- Handläggare -->
     <insert tableName="T_PERSON">
@@ -260,7 +261,7 @@
         <column name="DISC" value="HOS" />
         <column name="PERSON_ID" value="3007" />
         <column name="EMAIL" value="sam.ordnarsson@landsting.se" />
-        <column name="NAME" value="sam ordnarsson" />
+        <column name="NAME" value="Sam Ordnarsson" />
         <column name="ORGANISATION" value="Landstinget" />
         <column name="PHONE" value="08-784321500" />
         <column name="ROLE" value="Samordnare" />
@@ -300,7 +301,7 @@
         <column name="STATE" value="ASSIGNED" />
         <column name="INTERPRETER_DESC" value="NULL" />
         <column name="CURRENT_INTYG_SENT_DATE" value="NULL" />
-        <column name="CURRENT_START_DATE" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 3 DAY) FROM DUAL)" />
+        <column name="CURRENT_START_DATE" value="NULL" />
         <column name="EXAMINATION_FOCUS" value="NULL" />
         <column name="UTREDNING_TYPE" value="TMU" />
         <column name="BESTALLAR_PERSON_ID" valueNumeric="1007" />
@@ -316,31 +317,6 @@
         <column name="ASSIGNMENT_ID" value="1007" />
         <column name="EAVROP_ID" value="1007" />
     </insert>
-
-    <!-- Add external documents -->
-    <insert tableName="T_PERSON">
-        <column name="DISC" value="ADM" />
-        <column name="PERSON_ID" value="5007" />
-        <column name="EMAIL" value="carl.claesson@forsakringskassan.se" />
-        <column name="NAME" value="Carl Claesson" />
-        <column name="ORGANISATION" value="Försäkringskassan" />
-        <column name="PHONE" value="08-125845662" />
-        <column name="ROLE" value="Personlig handläggare" />
-        <column name="UNIT" value="Stockholm, City Servicekontor" />
-        <column name="HSA_ID" value="NULL" />
-    </insert>
-    <insert tableName="T_REC_DOCUMENT">
-        <column name="DOCUMENT_ID" value="1007" />
-        <column name="DOCUMENT_DATETIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
-        <column name="NAME" value="Journal" />
-        <column name="EXTERNAL" value="Y" />
-        <column name="PERSON_ID" value="5007" />
-    </insert>
-    <insert tableName="R_EAVROP_REC_DOCUMENT">
-        <column name="DOCUMENT_ID" value="1007" />
-        <column name="EAVROP_ID" value="1007" />
-    </insert>
-    
 </changeSet>
 
 <!-- Scenario 2:1 Boka händelser, lägga till dokument, ändra statusar och skriva anteckningar för pågående utredningar 
@@ -404,7 +380,7 @@
         <column name="DISC" value="HOS" />
         <column name="PERSON_ID" value="3002" />
         <column name="EMAIL" value="sam.ordnarsson@landsting.se" />
-        <column name="NAME" value="sam ordnarsson" />
+        <column name="NAME" value="Sam Ordnarsson" />
         <column name="ORGANISATION" value="Landstinget" />
         <column name="PHONE" value="08-784321500" />
         <column name="ROLE" value="Samordnare" />
@@ -498,6 +474,57 @@
         <column name="DOCUMENT_ID" value="1002" />
         <column name="EAVROP_ID" value="1002" />
     </insert>
+
+    <!-- Add document request 
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="HOS" />
+        <column name="PERSON_ID" value="6002" />
+        <column name="EMAIL" value="åsa.andersson@fmu.se" />
+        <column name="NAME" value="Åsa Andersson" />
+        <column name="ORGANISATION" value="Karolinska" />
+        <column name="PHONE" value="08-784321501" />
+        <column name="ROLE" value="Leg Läkare" />
+        <column name="UNIT" value="FMU" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="HOS" />
+        <column name="PERSON_ID" value="7002" />
+        <column name="EMAIL" value="åsa.andersson@fmu.se" />
+        <column name="NAME" value="Åsa Andersson" />
+        <column name="ORGANISATION" value="Karolinska" />
+        <column name="PHONE" value="08-784321501" />
+        <column name="ROLE" value="Leg Läkare" />
+        <column name="UNIT" value="FMU" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+
+    <insert tableName="T_NOTE">
+        <column name="NOTE_ID" value="1002" />
+        <column name="created_by" value="test" />
+        <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
+        <column name="last_modified_by" value="test" />
+        <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
+        <column name="version" valueNumeric="0" />
+        <column name="TYPE" value="APPROVAL" />
+        <column name="TEXT" value="Utredning accepterad" />
+        <column name="PERSON_ID" value="7002" />
+    </insert>
+
+    <insert tableName="T_REQ_DOCUMENT">
+        <column name="DOCUMENT_ID" value="1002" />
+        <column name="DOCUMENT_DATETIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
+        <column name="NAME" value="Journal appendix" />
+        <column name="PERSON_ID" value="6002" />
+        <column name="REQUEST_NOTE_ID" value="1002" />
+    </insert>
+
+    <insert tableName="R_EAVROP_REQ_DOCUMENT">
+        <column name="DOCUMENT_ID" value="1002" />
+        <column name="EAVROP_ID" value="1002" />
+    </insert>
+    -->
     
 </changeSet>
 
@@ -562,7 +589,7 @@
         <column name="DISC" value="HOS" />
         <column name="PERSON_ID" value="3003" />
         <column name="EMAIL" value="sam.ordnarsson@landsting.se" />
-        <column name="NAME" value="sam ordnarsson" />
+        <column name="NAME" value="Sam Ordnarsson" />
         <column name="ORGANISATION" value="Landstinget" />
         <column name="PHONE" value="08-784321500" />
         <column name="ROLE" value="Samordnare" />
@@ -718,7 +745,7 @@
         <column name="DISC" value="HOS" />
         <column name="PERSON_ID" value="3004" />
         <column name="EMAIL" value="sam.ordnarsson@landsting.se" />
-        <column name="NAME" value="sam ordnarsson" />
+        <column name="NAME" value="Sam Ordnarsson" />
         <column name="ORGANISATION" value="Landstinget" />
         <column name="PHONE" value="08-784321500" />
         <column name="ROLE" value="Samordnare" />
@@ -924,7 +951,7 @@
         <column name="DISC" value="HOS" />
         <column name="PERSON_ID" value="3005" />
         <column name="EMAIL" value="sam.ordnarsson@landsting.se" />
-        <column name="NAME" value="sam ordnarsson" />
+        <column name="NAME" value="Sam Ordnarsson" />
         <column name="ORGANISATION" value="Landstinget" />
         <column name="PHONE" value="08-784321500" />
         <column name="ROLE" value="Samordnare" />
@@ -1172,7 +1199,7 @@
         <column name="DISC" value="HOS" />
         <column name="PERSON_ID" value="3006" />
         <column name="EMAIL" value="sam.ordnarsson@landsting.se" />
-        <column name="NAME" value="sam ordnarsson" />
+        <column name="NAME" value="Sam Ordnarsson" />
         <column name="ORGANISATION" value="Landstinget" />
         <column name="PHONE" value="08-784321500" />
         <column name="ROLE" value="Samordnare" />
@@ -1400,7 +1427,7 @@
         <column name="EAVROP_ID" value="1006" />
     </insert>
 </changeSet>
-<!-- Scenario 3:3 Utredning genomförd
+<!-- Scenario 3:4 Utredning genomförd
 150000000008 -->
 <changeSet runAlways="true" author="richjo" id="003-8">
     <!-- Handläggare -->
@@ -1461,7 +1488,7 @@
         <column name="DISC" value="HOS" />
         <column name="PERSON_ID" value="3008" />
         <column name="EMAIL" value="sam.ordnarsson@landsting.se" />
-        <column name="NAME" value="sam ordnarsson" />
+        <column name="NAME" value="Sam Ordnarsson" />
         <column name="ORGANISATION" value="Landstinget" />
         <column name="PHONE" value="08-784321500" />
         <column name="ROLE" value="Samordnare" />
@@ -1526,7 +1553,7 @@
         <column name="version" valueNumeric="0" />
         <column name="TYPE" value="APPROVAL" />
         <column name="TEXT" value="Utredning accepterad" />
-        <column name="PERSON_ID" value="8006" />
+        <column name="PERSON_ID" value="8008" />
     </insert>
     <insert tableName="T_EAVROP_APPROVAL">
         <column name="EAVROP_APPROVAL_ID" value="1008" />
@@ -1593,7 +1620,7 @@
         <column name="ASSESSMENT_VALID_LENGTH" valueNumeric="25" />
         <column name="COMPLETION_VALID_LENGTH" valueNumeric="10" />
         <column name="START_DATE_OFFSET" valueNumeric="3" />
-        <column name="STATE" value="CLOSED" />
+        <column name="STATE" value="APPROVED" />
         <column name="INTERPRETER_DESC" value="NULL" />
         <column name="CURRENT_INTYG_SENT_DATE" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 2 DAY) FROM DUAL)" />
         <column name="CURRENT_START_DATE" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 55 DAY) FROM DUAL)" />
@@ -1776,6 +1803,254 @@
     <insert tableName="R_EAVROP_INTYG">
         <column name="INTYG_INFORMATION_ID" value="1008" />
         <column name="EAVROP_ID" value="1008" />
+    </insert>
+</changeSet>
+
+<!-- Scenario 3:5 Utredning genomförd
+150000000009 -->
+<changeSet runAlways="true" author="richjo" id="003-9">
+    <!-- Handläggare -->
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="ADM" />
+        <column name="PERSON_ID" value="1009" />
+        <column name="EMAIL" value="carl.claesson@forsakringskassan.se" />
+        <column name="NAME" value="Carl Claesson" />
+        <column name="ORGANISATION" value="Försäkringskassan" />
+        <column name="PHONE" value="08-125845662" />
+        <column name="ROLE" value="Personlig handläggare" />
+        <column name="UNIT" value="Stockholm, City Servicekontor" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <!-- Invånare -->
+    <insert tableName="T_INVANARE">
+        <column name="INVANARE_ID" value="1009" />
+        <column name="created_by" value="test" />
+        <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 17 DAY) FROM DUAL)" />
+        <column name="last_modified_by" value="test" />
+        <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 17 DAY) FROM DUAL)" />
+        <column name="version" valueNumeric="0" />
+        <column name="EMAIL" value="NULL" />
+        <column name="GENDER" value="MALE" />
+        <column name="address_1" value="Palmvägen 14A" />
+        <column name="address_2" value="NULL" />
+        <column name="city" value="Lidingö" />
+        <column name="country" value="Sverige" />
+        <column name="postal_code" value="18138" />
+        <column name="FIRST_NAME" value="Anders" />
+        <column name="LAST_NAME" value="Anrell" />
+        <column name="MIDDLE_NAME" value="NULL" />
+        <column name="PERSONAL_NUMBER" value="19550606-2636" />
+        <column name="PHONE" value="070-45684264" />
+        <column name="SPECIAL_NEEDS" value="Har behov av hiss." />
+    </insert>
+    <!-- Läkare tidigare utredning -->
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="HOS" />
+        <column name="PERSON_ID" value="2009" />
+        <column name="EMAIL" value="NULL" />
+        <column name="NAME" value="Maria Morén" />
+        <column name="ORGANISATION" value="Stockholms Läns Landsting" />
+        <column name="PHONE" value="08-59814502" />
+        <column name="ROLE" value="Leg. Läkare" />
+        <column name="UNIT" value="Närhälsan Gärdet" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <!-- Tidigare utredning -->
+    <insert tableName="T_PRIOR_MEDICAL_EXAMINATION">
+            <column name="PRIOR_MEDICAL_EXAM_ID" value="1009" />
+            <column name="EXAMINED_AT" value="NULL" />
+            <column name="MEDICAL_LEAVE_ISSUED_AT" value="Lidingö Vårdcentral" />
+            <column name="PERSON_ID" value="2009" />
+    </insert>
+    <!-- assign person -->
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="HOS" />
+        <column name="PERSON_ID" value="3009" />
+        <column name="EMAIL" value="sam.ordnarsson@landsting.se" />
+        <column name="NAME" value="Sam Ordnarsson" />
+        <column name="ORGANISATION" value="Landstinget" />
+        <column name="PHONE" value="08-784321500" />
+        <column name="ROLE" value="Samordnare" />
+        <column name="UNIT" value="Landsting" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <!-- respond person -->
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="HOS" />
+        <column name="PERSON_ID" value="4009" />
+        <column name="EMAIL" value="åsa.andersson@fmu.se" />
+        <column name="NAME" value="Åsa Andersson" />
+        <column name="ORGANISATION" value="Karolinska" />
+        <column name="PHONE" value="08-784321501" />
+        <column name="ROLE" value="Leg Läkare" />
+        <column name="UNIT" value="FMU" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <!-- Assignment -->
+    <insert tableName="T_ASSIGNMENT">
+        <column name="ASSIGNMENT_ID" value="1009" />
+        <column name="created_by" value="test" />
+        <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 14 DAY) FROM DUAL)" />
+        <column name="last_modified_by" value="test" />
+        <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 13 DAY) FROM DUAL)" />
+        <column name="version" valueNumeric="0" />
+        <column name="STATUS" value="ACCEPTED" />
+        <column name="vardgivarenhet_VARDGIVARENHET_ID" value="1" />
+        <column name="ASSIGN_PERSON_ID" value="3009" />
+        <column name="RESPOND_PERSON_ID" value="4009" />
+    </insert>
+    
+    <!-- Approval -->
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="ADM" />
+        <column name="PERSON_ID" value="7009" />
+        <column name="EMAIL" value="NULL" />
+        <column name="NAME" value="Magnus Samuelsson" />
+        <column name="ORGANISATION" value="Försäkringskassan" />
+        <column name="PHONE" value="08-542952600" />
+        <column name="ROLE" value="Samordnare" />
+        <column name="UNIT" value="Stockholm, Kungsholmen Servicekontor" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="ADM" />
+        <column name="PERSON_ID" value="8009" />
+        <column name="EMAIL" value="NULL" />
+        <column name="NAME" value="Magnus Samuelsson" />
+        <column name="ORGANISATION" value="Försäkringskassan" />
+        <column name="PHONE" value="08-542952600" />
+        <column name="ROLE" value="Samordnare" />
+        <column name="UNIT" value="Stockholm, Kungsholmen Servicekontor" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <insert tableName="T_NOTE">
+        <column name="NOTE_ID" value="1009" />
+        <column name="created_by" value="test" />
+        <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 10 DAY) FROM DUAL)" />
+        <column name="last_modified_by" value="test" />
+        <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 10 DAY) FROM DUAL)" />
+        <column name="version" valueNumeric="0" />
+        <column name="TYPE" value="APPROVAL" />
+        <column name="TEXT" value="Utredning accepterad" />
+        <column name="PERSON_ID" value="8009" />
+    </insert>
+    <insert tableName="T_EAVROP_APPROVAL">
+        <column name="EAVROP_APPROVAL_ID" value="1009" />
+        <column name="APPROVAL_DATE_TIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 10 DAY) FROM DUAL)" />
+        <column name="NOTE_ID" value="1009" />
+        <column name="PERSON_ID" value="7009" />
+    </insert>
+    
+    <!-- Eavrop -->
+    <insert tableName="T_EAVROP">
+        <column name="EAVROP_ID" value="1009" />
+        <column name="created_by" value="test" />
+        <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 15 DAY) FROM DUAL)" />
+        <column name="last_modified_by" value="test" />
+        <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 15 DAY) FROM DUAL)" />
+        <column name="version" valueNumeric="0" />
+        <column name="ADDITIONAL_INFO" value="Utökad AFU kan behövas." />
+        <column name="ARENDE_ID" value="150000000009" />
+        <column name="DESCRIPTION" value="NULL" />
+        <column name="DOCUMENTS_SENT_DATE_TIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 13 DAY) FROM DUAL)" />
+        <column name="ACCEPTANCE_VALID_LENGTH" valueNumeric="5" />
+        <column name="ASSESSMENT_VALID_LENGTH" valueNumeric="25" />
+        <column name="COMPLETION_VALID_LENGTH" valueNumeric="10" />
+        <column name="START_DATE_OFFSET" valueNumeric="3" />
+        <column name="STATE" value="APPROVED" />
+        <column name="INTERPRETER_DESC" value="NULL " />
+        <column name="CURRENT_INTYG_SENT_DATE" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
+        <column name="CURRENT_START_DATE" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 9 DAY) FROM DUAL)" />
+        <column name="EXAMINATION_FOCUS" value="NULL" />
+        <column name="UTREDNING_TYPE" value="AFU" />
+        <column name="BESTALLAR_PERSON_ID" valueNumeric="1009" />
+        <column name="CURRENT_ASSIGNMENT_ID" valueNumeric="1009" />
+        <column name="EAVROP_APPROVAL_ID" value="1009" />
+        <column name="EAVROP_COMP_APPROVAL_ID" value="NULL" />
+        <column name="INVANARE_ID" valueNumeric="1009" />
+        <column name="LANDSTING_ID" valueNumeric="1" />
+        <column name="PRIOR_EXAMINATION_ID" value="1009" />
+    </insert>
+    
+    <!-- Connect assignment with eavrop -->
+    <insert tableName="R_EAVROP_ASSIGNMENT">
+        <column name="ASSIGNMENT_ID" value="1009" />
+        <column name="EAVROP_ID" value="1009" />
+    </insert>
+    
+    <!-- External documents -->
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="ADM" />
+        <column name="PERSON_ID" value="5009" />
+        <column name="EMAIL" value="NULL" />
+        <column name="NAME" value="Irma Isaksson" />
+        <column name="ORGANISATION" value="Försäkringskassan" />
+        <column name="PHONE" value="08-542952600" />
+        <column name="ROLE" value="Personlig handläggare" />
+        <column name="UNIT" value="Stockholm, Kungsholmen Servicekontor" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <insert tableName="T_REC_DOCUMENT">
+        <column name="DOCUMENT_ID" value="1009" />
+        <column name="DOCUMENT_DATETIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 13 DAY) FROM DUAL)" />
+        <column name="NAME" value="Journal" />
+        <column name="EXTERNAL" value="Y" />
+        <column name="PERSON_ID" value="5009" />
+    </insert>
+    <insert tableName="R_EAVROP_REC_DOCUMENT">
+        <column name="DOCUMENT_ID" value="1009" />
+        <column name="EAVROP_ID" value="1009" />
+    </insert>
+    
+    <!-- Bookings -->
+    <insert tableName="T_BOOKING">
+            <column name="BOOKING_ID" value="1009" />
+            <column name="created_by" value="test" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 13 DAY) FROM DUAL)" />
+            <column name="last_modified_by" value="test" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 13 DAY) FROM DUAL)" />
+            <column name="version" valueNumeric="0" />
+            <column name="ADDITIONAL_SERVICE" value="Y" />
+            <column name="DEVIATION_RESPONSE_DATE_TIME" value="NULL" />
+            <column name="DEVIATION_RESPONSE_TYPE" value="NULL" />
+            <column name="BOOKING_RESOURCE_NAME" value="Åsa Andersson" />
+            <column name="BOOKING_RESOURCE_ROLE" value="Läkare" />
+            <column name="BOOKING_STATUS_TYPE" value="PERFORMED" />
+            <column name="BOOKING_TYPE" value="EXAMINATION" />
+            <column name="END_DATETIME" valueComputed="(SELECT DATE_ADD((DATE_SUB(NOW(), INTERVAL 11 DAY)),INTERVAL 2 HOUR) FROM DUAL)" />
+            <column name="INTERPRETER_STATUS_TYPE" value="NULL" />
+            <column name="START_DATETIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 11 DAY) FROM DUAL)" />
+            <column name="DEVIATION_RESPONSE_NOTE_ID" value="NULL" />
+            <column name="DEVIATION_RESPONSE_PERSON_ID" value="NULL" />
+            <column name="DEVIATION_NOTE_ID" value="NULL" />
+            <column name="INTERPRETER_DEVIATION_NOTE_ID" value="NULL" />
+    </insert>
+    <insert tableName="R_EAVROP_BOOKING">
+        <column name="BOOKING_ID" value="1009" />
+        <column name="EAVROP_ID" value="1009" />
+    </insert>
+
+    <!-- Intyg sent -->
+    <insert tableName="T_PERSON">
+        <column name="DISC" value="HOS" />
+        <column name="PERSON_ID" value="6009" />
+        <column name="EMAIL" value="åsa.andersson@fmu.se" />
+        <column name="NAME" value="Åsa Andersson" />
+        <column name="ORGANISATION" value="Karolinska" />
+        <column name="PHONE" value="08-784321501" />
+        <column name="ROLE" value="Leg Läkare" />
+        <column name="UNIT" value="FMU" />
+        <column name="HSA_ID" value="NULL" />
+    </insert>
+    <insert tableName="T_INTYG_INFORMATION">
+        <column name="DISC" value="SENT" />
+        <column name="INTYG_INFORMATION_ID" value="1009" />
+        <column name="INFO_DATETIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 9 DAY) FROM DUAL)" />
+        <column name="PERSON_ID" value="6009" />
+    </insert>
+    <insert tableName="R_EAVROP_INTYG">
+        <column name="INTYG_INFORMATION_ID" value="1009" />
+        <column name="EAVROP_ID" value="1009" />
     </insert>
 </changeSet>
 
