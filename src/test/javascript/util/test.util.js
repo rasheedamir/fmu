@@ -1,5 +1,5 @@
 'use strict';
-var getCalledURl;
+var getCalledURl, mockLogger;
 beforeEach(function() {
     getCalledURl = function(backend) {
         var calledUrl;
@@ -15,7 +15,16 @@ beforeEach(function() {
         });
 
         backend.flush();
-        
+
         return calledUrl;
+    };
+
+    mockLogger = function(provide) {
+        return provide.value('logger', {
+            info: function() {},
+            error: function() {},
+            warning: function() {},
+            success: function() {}
+        });
     };
 });

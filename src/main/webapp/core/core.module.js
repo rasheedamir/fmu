@@ -8,8 +8,8 @@
 	angular.module('fmu.core', [
 		'templatecache',
 		'gettext',
-
+		
+        'util.exception',
         'util.logger',
-        'util.exception'
 		]);
 })();

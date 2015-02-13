@@ -1,16 +1,15 @@
 (function() {
     'use strict';
 
-    var core = angular.module('fmu.core',[]);
+    var core = angular.module('fmu.core');
     core.config(configure);
 
-    configure.$inject = ['$logProvider', 'exceptionHandlerProvider', 'gettext'];
-    //function configure(/*$logProvider, $routeProvider, routehelperConfigProvider, gettext, exceptionHandlerProvider) {
-    function configure($logProvider, exceptionHandlerProvider, gettext) {
-
+    configure.$inject = ['$logProvider', 'fmuExceptionHandlerProvider', 'gettext'];
+    //function configure(/*$logProvider, $routeProvider, routehelperConfigProvider, gettext, fmuExceptionHandlerProvider) {
+    function configure($logProvider, fmuExceptionHandlerProvider, gettext) {        
         core.value('config', config);
         var config = {
-            appErrorPrefix: '[FMU Error] ',
+            appErrorPrefix: '[FMU Error]: ',
             appTitle: gettext('fmu-title/Fördjupad medicinsk utredning'),
             version: gettext('fmu-version/0.0.1')
         };
@@ -31,6 +30,6 @@
         // routehelperConfigProvider.config.resolveAlways = resolveAlways;
 
         // Configure the common exception handler
-        exceptionHandlerProvider.configure(config.appErrorPrefix);
+        fmuExceptionHandlerProvider.configure(config.appErrorPrefix);
     }
 })();

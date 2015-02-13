@@ -1,28 +1,23 @@
 'use strict';
 
 describe('Exception handling', function() {
-    var exceptionHandlerProvider, $rootScope;
+    var exceptionHandlerProvider, rootscope;
     beforeEach(function() {
-        module('util.exception', function($provide, _exceptionHandlerProvider_) {
-            exceptionHandlerProvider = _exceptionHandlerProvider_;            
-            $provide.value('logger', {
-                info: function() {},
-                error: function() {},
-                warning: function() {},
-                success: function() {}
-            });
+        module('util.exception', function($provide, _fmuExceptionHandlerProvider_) {
+            exceptionHandlerProvider = _fmuExceptionHandlerProvider_;            
+            mockLogger($provide);
         });
 
         inject(function(_$rootScope_) {
-        	$rootScope = _$rootScope_;
+        	rootscope = _$rootScope_;
         });
     });
 
     describe("Default configuration", function() {
         var ehp;
         beforeEach(function() {
-            inject(function(exceptionHandler) {
-                ehp = exceptionHandler;
+            inject(function(fmuExceptionHandler) {
+                ehp = fmuExceptionHandler;
             });
         });
 
@@ -38,38 +33,24 @@ describe('Exception handling', function() {
         var errMsg = 'an error message';
 
         var fnThatThrow = function() {
-            throw (errMsg);
+            throw new Error(errMsg);
         };
 
 
         beforeEach(function() {
         	exceptionHandlerProvider.configure(prefix);
-            inject(function(exceptionHandler) {
-                handler = exceptionHandler;
+            inject(function(fmuExceptionHandler) {
+                handler = fmuExceptionHandler;
             });
         });
 
-        it("should define a handler", function() {
-            expect(handler).toBeDefined();
-        });
-
-        it("should have correct prefix", function() {
-            expect(handler.config.appErrorPrefix).toEqual(prefix);
-            expect(exceptionHandlerProvider.$get().config.appErrorPrefix).toEqual(prefix);
-        });
-
-        it("should throw en exception", function() {
-            expect(fnThatThrow).toThrow();
-        });
+        
 
         it("should catch the error when thrown", function() {
             try {
-                $rootScope.$apply(fnThatThrow);
+                rootscope.$apply(fnThatThrow);
             } catch (ex) {
-            	console.log(ex);
-            	console.log(exceptionHandlerProvider);
-            	console.log(handler);
-                //expect(ex.message).toEqual(prefix + errMsg);
+                expect(ex.message).toEqual(prefix + errMsg);
             }
         });
     });
