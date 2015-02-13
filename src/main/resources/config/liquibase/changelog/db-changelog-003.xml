@@ -2,118 +2,307 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 	<property name="now" value="now()" dbms="mysql,h2" />
 	<property name="now" value="current_timestamp" dbms="postgresql" />
+	<property name="eavrops" value="'1001', '1002', '1003', '1004', '1005', '1006', '1007', '1008', '1009'"/>
     <!-- These change sets should only be run on mySql -->
     <preConditions>
         <dbms type="mysql" />
     </preConditions>
-   <!-- Remove reamains of objects from previous runs before recreating them below
+   <!-- Remove reamains of objects from previous runs before recreating them below  -->
    <changeSet runAlways="true" author="richjo" id="003-0">
     
     <update tableName="t_eavrop">
         <column name="CURRENT_ASSIGNMENT_ID" />
-        <where>EAVROP_ID in ("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008")</where>
+        <where>EAVROP_ID in (${eavrops})</where>
     </update>
 
     <sql dbms="mysql">
-        DELETE R_EAVROP_ASSIGNMENT, T_ASSIGNMENT, assignPerson, respondPerson, rejectionNote, rejectionNotePerson 
-        FROM R_EAVROP_ASSIGNMENT 
-        INNER JOIN T_ASSIGNMENT ON R_EAVROP_ASSIGNMENT.assignment_id=T_ASSIGNMENT.assignment_id
-        INNER JOIN T_PERSON assignPerson ON T_ASSIGNMENT.assign_person_id=assignPerson.person_id
-        LEFT OUTER JOIN T_PERSON respondPerson ON T_ASSIGNMENT.respond_person_id=respondPerson.person_id
-        LEFT OUTER JOIN T_NOTE rejectionNote ON T_ASSIGNMENT.rejection_note_id=rejectionNote.note_id
-            LEFT OUTER JOIN T_PERSON rejectionNotePerson ON rejectionNote.person_id=rejectionNotePerson.person_id
-        WHERE R_EAVROP_ASSIGNMENT.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008") ;
+        drop table if exists TMP_ASSIGNMENT;
+        
+        create  table if not exists TMP_ASSIGNMENT as (
+	        select T_ASSIGNMENT.assignment_id, 
+	        T_ASSIGNMENT.assign_person_id, 
+	        T_ASSIGNMENT.respond_person_id, 
+	        T_ASSIGNMENT.rejection_note_id, 
+	        REJECTION_NOTE_PERSON.person_id as rejection_note_person_id
+	        from  R_EAVROP_ASSIGNMENT 
+	        inner join T_ASSIGNMENT on R_EAVROP_ASSIGNMENT.assignment_id=T_ASSIGNMENT.assignment_id
+	        left outer join T_NOTE as REJECTION_NOTE on T_ASSIGNMENT.rejection_note_id=REJECTION_NOTE.note_id
+	        left outer join T_PERSON as REJECTION_NOTE_PERSON on REJECTION_NOTE.person_id=REJECTION_NOTE_PERSON.person_id
+	        where R_EAVROP_ASSIGNMENT.eavrop_id in(${eavrops})
+        );
+        
+        delete  
+        from R_EAVROP_ASSIGNMENT
+        where R_EAVROP_ASSIGNMENT.assignment_id in( select assignment_id from TMP_ASSIGNMENT);
+
+        delete  
+        from T_ASSIGNMENT
+        where T_ASSIGNMENT.assignment_id in( select assignment_id from TMP_ASSIGNMENT);
+        
+        delete  
+        from T_NOTE
+        where T_NOTE.note_id in(select rejection_note_id from TMP_ASSIGNMENT);
+        
+        delete  
+        from T_PERSON
+        where T_PERSON.person_id in(select assign_person_id from TMP_ASSIGNMENT)
+        or T_PERSON.person_id in(select respond_person_id from TMP_ASSIGNMENT)
+        or T_PERSON.person_id in(select rejection_note_person_id from TMP_ASSIGNMENT);
+        
+        drop  table if exists TMP_ASSIGNMENT;
+        
     </sql>
     
     <sql dbms="mysql">
-        DELETE R_EAVROP_NOTE, T_NOTE, T_PERSON 
-        FROM R_EAVROP_NOTE
-        INNER JOIN T_NOTE ON R_EAVROP_NOTE.note_id=T_NOTE.note_id
-        INNER JOIN T_PERSON ON T_NOTE.person_id=T_PERSON.person_id
-        WHERE R_EAVROP_NOTE.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008");
+    
+        drop  table if exists TMP_NOTE;
+        
+        create  table if not exists TMP_NOTE as (
+            select T_NOTE.note_id, T_NOTE.person_id
+            from R_EAVROP_NOTE
+            inner join T_NOTE on R_EAVROP_NOTE.note_id=T_NOTE.note_id
+            where R_EAVROP_NOTE.eavrop_id in(${eavrops})
+        );
+
+        delete  
+        from R_EAVROP_NOTE
+        where R_EAVROP_NOTE.note_id in(select note_id from TMP_NOTE);
+
+        delete  
+        from T_NOTE
+        where T_NOTE.note_id in(select note_id from TMP_NOTE);
+        
+        delete  
+        from T_PERSON
+        where T_PERSON.person_id in(select person_id from TMP_NOTE);
+    
+        drop  table if exists TMP_NOTE;
+    
     </sql>
 
     <sql dbms="mysql">
-        DELETE R_EAVROP_INTYG, T_INTYG_INFORMATION, T_PERSON 
-        FROM R_EAVROP_INTYG
-        INNER JOIN T_INTYG_INFORMATION ON R_EAVROP_INTYG.intyg_information_id=T_INTYG_INFORMATION.intyg_information_id
-        LEFT OUTER JOIN T_PERSON ON T_INTYG_INFORMATION.person_id=T_PERSON.person_id
-        WHERE R_EAVROP_INTYG.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008");
+    
+        drop  table if exists TMP_INTYG;
+        
+        create  table if not exists TMP_INTYG as (
+	        select T_INTYG_INFORMATION.intyg_information_id, T_INTYG_INFORMATION.person_id 
+	        from R_EAVROP_INTYG
+	        inner join T_INTYG_INFORMATION on R_EAVROP_INTYG.intyg_information_id=T_INTYG_INFORMATION.intyg_information_id
+	        where R_EAVROP_INTYG.eavrop_id in(${eavrops})
+        );
+
+        delete  
+        from R_EAVROP_INTYG
+        where R_EAVROP_INTYG.intyg_information_id in(select intyg_information_id from TMP_INTYG);
+
+        delete  
+        from T_INTYG_INFORMATION
+        where T_INTYG_INFORMATION.intyg_information_id in(select intyg_information_id from TMP_INTYG);
+        
+        delete  
+        from T_PERSON
+        where T_PERSON.person_id in(select person_id from TMP_INTYG);
+    
+        drop  table if exists TMP_INTYG;
+
     </sql>
 
     <sql dbms="mysql">
-        DELETE R_EAVROP_REC_DOCUMENT, T_REC_DOCUMENT, T_PERSON 
-        FROM R_EAVROP_REC_DOCUMENT
-        INNER JOIN T_REC_DOCUMENT ON R_EAVROP_REC_DOCUMENT.document_id=T_REC_DOCUMENT.document_id
-        LEFT OUTER JOIN T_PERSON ON T_REC_DOCUMENT.person_id=T_PERSON.person_id
-        WHERE R_EAVROP_REC_DOCUMENT.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008");
+    
+        drop  table if exists TMP_REC_DOCUMENT;
+        
+        create  table if not exists TMP_REC_DOCUMENT as (
+	        select T_REC_DOCUMENT.document_id, T_REC_DOCUMENT.person_id 
+	        from R_EAVROP_REC_DOCUMENT
+	        inner join T_REC_DOCUMENT on R_EAVROP_REC_DOCUMENT.document_id=T_REC_DOCUMENT.document_id
+	        where R_EAVROP_REC_DOCUMENT.eavrop_id in(${eavrops})    
+        );
+
+        delete  
+        from R_EAVROP_REC_DOCUMENT
+        where R_EAVROP_REC_DOCUMENT.document_id in(select document_id from TMP_REC_DOCUMENT);
+
+        delete  
+        from T_REC_DOCUMENT
+        where T_REC_DOCUMENT.document_id in(select document_id from TMP_REC_DOCUMENT);
+        
+        delete  
+        from T_PERSON
+        where T_PERSON.person_id in(select person_id from TMP_REC_DOCUMENT);
+    
+        drop  table if exists TMP_REC_DOCUMENT;
+
     </sql>
 
     <sql dbms="mysql">
-        DELETE R_EAVROP_NOTE, T_NOTE, T_PERSON 
-        FROM R_EAVROP_NOTE
-        INNER JOIN T_NOTE ON R_EAVROP_NOTE.note_id=T_NOTE.note_id
-        INNER JOIN T_PERSON ON T_NOTE.person_id=T_PERSON.person_id
-        WHERE R_EAVROP_NOTE.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008");
-    </sql>
+        drop  table if exists TMP_NOTE;
+        
+        create  table if not exists TMP_NOTE as (
+            select T_NOTE.note_id,T_NOTE.person_id  
+            from R_EAVROP_NOTE
+            inner join T_NOTE on R_EAVROP_NOTE.note_id=T_NOTE.note_id
+            where R_EAVROP_NOTE.eavrop_id in(${eavrops})
+        );
+        
+        delete  
+        from R_EAVROP_NOTE
+        where R_EAVROP_NOTE.note_id in( select note_id from TMP_NOTE);
 
-<sql dbms="mysql">
-        DELETE R_EAVROP_REQ_DOCUMENT.*, p1.*, T_NOTE.*, p2.*, T_REQ_DOCUMENT.*
-        FROM R_EAVROP_REQ_DOCUMENT
-        INNER JOIN T_REQ_DOCUMENT ON R_EAVROP_REQ_DOCUMENT.document_id=T_REQ_DOCUMENT.document_id
-        LEFT OUTER JOIN T_PERSON p1 ON T_REQ_DOCUMENT.person_id=p1.person_id
-        LEFT OUTER JOIN T_NOTE ON T_REQ_DOCUMENT.request_note_id = T_NOTE.note_id
-                 LEFT OUTER JOIN T_PERSON p2 ON T_NOTE.person_id = p2.person_id
-        WHERE R_EAVROP_REQ_DOCUMENT.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008");
-    </sql>
+        delete  
+        from T_NOTE
+        where T_NOTE.note_id in( select note_id from TMP_NOTE);
 
-
-    <sql dbms="mysql">
-        DELETE R_EAVROP_BOOKING, T_BOOKING, T_PERSON, devRespNote, devRespNotePerson, intDevNote, intDevNotePerson, devNote, devNotePerson 
-        FROM R_EAVROP_BOOKING
-        INNER JOIN T_BOOKING ON R_EAVROP_BOOKING.booking_id=T_BOOKING.booking_id
-        LEFT OUTER JOIN T_PERSON ON T_BOOKING.deviation_response_person_id=T_PERSON.person_id
-        LEFT OUTER JOIN T_NOTE devRespNote ON T_BOOKING.deviation_response_note_id=devRespNote.note_id
-            LEFT OUTER JOIN T_PERSON devRespNotePerson ON devRespNote.person_id=devRespNotePerson.person_id
-        LEFT OUTER JOIN T_NOTE intDevNote ON T_BOOKING.interpreter_deviation_note_id=intDevNote.note_id
-            LEFT OUTER JOIN T_PERSON intDevNotePerson ON intDevNote.person_id=intDevNotePerson.person_id
-        LEFT OUTER JOIN T_NOTE devNote ON T_BOOKING.deviation_note_id=devNote.note_id
-            LEFT OUTER JOIN T_PERSON devNotePerson ON devNote.person_id=devNotePerson.person_id
-        WHERE R_EAVROP_BOOKING.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008");
+        delete  
+        from T_PERSON
+        where T_PERSON.person_id in(select person_id from TMP_NOTE);
+        
+        drop  table if exists TMP_NOTE;
     </sql>
 
     <sql dbms="mysql">
-        DELETE T_EAVROP, 
-               T_INVANARE, 
-               bestallare, 
-               T_PRIOR_MEDICAL_EXAMINATION, 
-               priorPerson, 
-               T_EAVROP_APPROVAL,
-               approvalPerson,
-               approvalNote,
-               approvalNotePerson,
-               T_EAVROP_COMP_APPROVAL,
-               compApprovalPerson,
-               compApprovalNote,
-               compApprovalNotePerson 
-        FROM T_EAVROP
-        INNER JOIN T_INVANARE ON T_EAVROP.invanare_id=T_INVANARE.invanare_id
-        INNER JOIN T_PERSON bestallare ON T_EAVROP.bestallar_person_id=bestallare.person_id
-        LEFT OUTER JOIN T_PRIOR_MEDICAL_EXAMINATION ON T_EAVROP.prior_examination_id = T_PRIOR_MEDICAL_EXAMINATION.prior_medical_exam_id
-            LEFT OUTER JOIN T_PERSON priorPerson  ON T_PRIOR_MEDICAL_EXAMINATION.person_id = priorPerson.person_id
-        LEFT OUTER JOIN T_EAVROP_APPROVAL ON T_EAVROP.eavrop_approval_id=T_EAVROP_APPROVAL.eavrop_approval_id
-            LEFT OUTER JOIN T_PERSON approvalPerson  ON T_EAVROP_APPROVAL.person_id = approvalPerson.person_id
-            LEFT OUTER JOIN T_NOTE approvalNote  ON T_EAVROP_APPROVAL.note_id = approvalNote.note_id
-                LEFT OUTER JOIN T_PERSON approvalNotePerson ON approvalNote.person_id=approvalNotePerson.person_id
-        LEFT OUTER JOIN T_EAVROP_COMP_APPROVAL ON T_EAVROP.eavrop_comp_approval_id=T_EAVROP_COMP_APPROVAL.id
-            LEFT OUTER JOIN T_PERSON compApprovalPerson ON T_EAVROP_COMP_APPROVAL.person_id = compApprovalPerson.person_id
-            LEFT OUTER JOIN T_NOTE compApprovalNote  ON T_EAVROP_COMP_APPROVAL.note_id = compApprovalNote.note_id
-                LEFT OUTER JOIN T_PERSON compApprovalNotePerson ON compApprovalNote.person_id=compApprovalNotePerson.person_id
-        WHERE T_EAVROP.eavrop_id in("1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008");
+        drop  table if exists TMP_REQ_DOCUMENT;
+
+        create  table if not exists TMP_REQ_DOCUMENT as (
+            select T_REQ_DOCUMENT.document_id, T_REQ_DOCUMENT.person_id as req_person_id, T_NOTE.note_id, T_NOTE.person_id as req_note_person_id 
+            from R_EAVROP_REQ_DOCUMENT 
+            inner join T_REQ_DOCUMENT on R_EAVROP_REQ_DOCUMENT.document_id = T_REQ_DOCUMENT.document_id
+            left outer join T_NOTE on T_REQ_DOCUMENT.request_note_id = T_NOTE.note_id
+            where R_EAVROP_REQ_DOCUMENT.eavrop_id in(${eavrops})
+        );
+        
+        delete  
+        from R_EAVROP_REQ_DOCUMENT
+        where R_EAVROP_REQ_DOCUMENT.document_id in( select document_id from TMP_REQ_DOCUMENT);
+
+        delete  
+        from T_REQ_DOCUMENT
+        where T_REQ_DOCUMENT.document_id in( select document_id from TMP_REQ_DOCUMENT);
+
+        delete  
+        from T_NOTE
+        where T_NOTE.note_id in( select note_id from TMP_REQ_DOCUMENT);
+
+        delete  
+        from T_PERSON
+        where T_PERSON.person_id in(select req_person_id from TMP_REQ_DOCUMENT)
+        or T_PERSON.person_id in(select req_note_person_id from TMP_REQ_DOCUMENT);
+  
+        drop  table if exists TMP_REQ_DOCUMENT;
+    </sql>
+
+
+
+    <sql dbms="mysql">
+
+        drop  table if exists TMP_BOOKING;
+        
+        create table if not exists TMP_BOOKING as (
+	        select T_BOOKING.booking_id, 
+	        T_BOOKING.deviation_response_person_id, 
+	        T_BOOKING.deviation_response_note_id,
+	        DEV_RESP_NOTE.person_id as dev_resp_note_person_id,
+	        T_BOOKING.interpreter_deviation_note_id,
+	        INT_DEV_NOTE.person_id as int_dev_note_person_id,
+	        T_BOOKING.deviation_note_id,
+	        DEV_NOTE.person_id as dev_note_person_id
+	        from R_EAVROP_BOOKING
+	        inner join T_BOOKING on R_EAVROP_BOOKING.booking_id=T_BOOKING.booking_id
+	        left outer join T_NOTE as DEV_RESP_NOTE on T_BOOKING.deviation_response_note_id=DEV_RESP_NOTE.note_id
+	        left outer join T_NOTE as INT_DEV_NOTE on T_BOOKING.interpreter_deviation_note_id=INT_DEV_NOTE.note_id
+	        left outer join T_NOTE as DEV_NOTE on T_BOOKING.deviation_note_id=DEV_NOTE.note_id
+	        where R_EAVROP_BOOKING.eavrop_id in(${eavrops})
+        );
+        
+        delete  
+        from R_EAVROP_BOOKING
+        where R_EAVROP_BOOKING.booking_id in( select booking_id from TMP_BOOKING);
+
+        delete  
+        from T_BOOKING
+        where T_BOOKING.booking_id in( select booking_id from TMP_BOOKING);
+
+        delete  
+        from T_NOTE
+        where T_NOTE.note_id in(select deviation_response_note_id from TMP_BOOKING)
+        or T_NOTE.note_id in(select interpreter_deviation_note_id from TMP_BOOKING)
+        or T_NOTE.note_id in(select deviation_note_id from TMP_BOOKING);
+
+        delete  
+        from T_PERSON
+        where T_PERSON.person_id in(select deviation_response_person_id from TMP_BOOKING)
+        or T_PERSON.person_id in(select dev_resp_note_person_id from TMP_BOOKING)
+        or T_PERSON.person_id in(select int_dev_note_person_id from TMP_BOOKING)
+        or T_PERSON.person_id in(select dev_note_person_id from TMP_BOOKING);
+        
+        drop  table if exists TMP_BOOKING;
+
+    </sql>
+
+    <sql dbms="mysql">
+        drop  table if exists TMP_EAVROP;
+
+        create  table if not exists TMP_EAVROP as (
+            select T_EAVROP.eavrop_id,  
+			T_EAVROP.bestallar_person_id,
+			T_EAVROP.invanare_id,
+			T_EAVROP.prior_examination_id,
+			T_PRIOR_MEDICAL_EXAMINATION.person_id as prior_med_person_id,
+			T_EAVROP.eavrop_approval_id,
+			T_EAVROP_APPROVAL.person_id as approval_person_id,
+			T_EAVROP_APPROVAL.note_id as approval_note_id,
+			APPROVAL_NOTE.person_id as approval_note_person_id,
+			T_EAVROP.eavrop_comp_approval_id,
+			T_EAVROP_COMP_APPROVAL.person_id as comp_approval_person_id,
+			T_EAVROP_COMP_APPROVAL.note_id as comp_approval_note_id,
+			COMP_APPROVAL_NOTE.person_id as comp_approval_note_person_id
+			from T_EAVROP
+			left outer join T_PRIOR_MEDICAL_EXAMINATION on T_EAVROP.prior_examination_id = T_PRIOR_MEDICAL_EXAMINATION.prior_medical_exam_id
+			left outer join T_EAVROP_APPROVAL on T_EAVROP.eavrop_approval_id = T_EAVROP_APPROVAL.eavrop_approval_id
+			left outer join T_NOTE as APPROVAL_NOTE on T_EAVROP_APPROVAL.note_id = APPROVAL_NOTE.note_id
+			left outer join T_EAVROP_COMP_APPROVAL on T_EAVROP.eavrop_comp_approval_id = T_EAVROP_COMP_APPROVAL.id
+			left outer join T_NOTE as COMP_APPROVAL_NOTE on T_EAVROP_COMP_APPROVAL.note_id = COMP_APPROVAL_NOTE.note_id
+            where T_EAVROP.eavrop_id in(${eavrops})
+        );
+
+        delete  
+        from T_EAVROP
+        where T_EAVROP.eavrop_id in(select eavrop_id from TMP_EAVROP);
+
+        delete  
+        from T_INVANARE
+        where T_INVANARE.invanare_id in(select invanare_id from TMP_EAVROP);
+
+        delete  
+        from T_PRIOR_MEDICAL_EXAMINATION
+        where T_PRIOR_MEDICAL_EXAMINATION.prior_medical_exam_id in(select prior_medical_exam_id from TMP_EAVROP);
+
+        delete  
+        from T_EAVROP_APPROVAL
+        where T_EAVROP_APPROVAL.eavrop_approval_id in(select eavrop_approval_id from TMP_EAVROP);
+
+        delete  
+        from T_EAVROP_COMP_APPROVAL
+        where T_EAVROP_COMP_APPROVAL.id in(select eavrop_comp_approval_id from TMP_EAVROP);
+        
+        delete  
+        from T_NOTE
+        where T_NOTE.note_id in(select approval_note_id from TMP_EAVROP)
+        or T_NOTE.note_id in(select comp_approval_note_id from TMP_EAVROP);
+
+        delete  
+        from T_PERSON
+        where T_PERSON.person_id in(select bestallar_person_id from TMP_EAVROP)
+        or T_PERSON.person_id in(select prior_med_person_id from TMP_EAVROP)
+        or T_PERSON.person_id in(select approval_person_id from TMP_EAVROP)
+        or T_PERSON.person_id in(select approval_note_person_id from TMP_EAVROP)
+        or T_PERSON.person_id in(select comp_approval_person_id from TMP_EAVROP)
+        or T_PERSON.person_id in(select comp_approval_note_person_id from TMP_EAVROP);
+
+        drop  table if exists TMP_EAVROP;
     </sql>
 
 </changeSet>
-  -->
+
 <!-- Scenario 1: Tilldelning och acceptans av e-avrop 150000000001 -->
 <changeSet runAlways="true" author="richjo" id="003-1">
     <!-- Handläggare -->
