@@ -10,7 +10,7 @@
    <!-- Remove reamains of objects from previous runs before recreating them below  -->
    <changeSet runAlways="true" author="richjo" id="003-0">
     
-    <update tableName="t_eavrop">
+    <update tableName="T_EAVROP">
         <column name="CURRENT_ASSIGNMENT_ID" />
         <where>EAVROP_ID in (${eavrops})</where>
     </update>
