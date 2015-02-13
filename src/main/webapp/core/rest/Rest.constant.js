@@ -1,7 +1,12 @@
 'use strict';
 
 /* Constants */
-angular.module('RestModule')
+angular.module('rest')
+    .constant('EAVROP_STATES', {
+        incoming: 'NOT_ACCEPTED',
+        ongoing: 'ACCEPTED',
+        completed: 'COMPLETED'
+    })
     .constant('RESTURL', {
         eavrop: 'app/rest/eavrop/:eavropId',
         eavropDocuments: 'app/rest/eavrop/:eavropId/received-documents',
@@ -15,5 +20,9 @@ angular.module('RestModule')
         eavropAccept: 'app/rest/eavrop/:eavropId/accept',
         eavropReject: 'app/rest/eavrop/:eavropId/reject',
         userInfo: 'app/rest/user',
-        changeRole: 'app/rest/user/changerole'
+        changeRole: 'app/rest/user/changerole',
+
+        overview: {
+            incoming: '/app/rest/eavrop/fromdate/:fromdate/todate/:todate/status/:status/page/:page/pagesize/:pagesize/sortkey/:sortkey/sortorder/:sortorder'
+        }
     });

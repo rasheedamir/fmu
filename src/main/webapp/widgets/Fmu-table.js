@@ -1,7 +1,7 @@
 'use strict';
 angular.module('fmuClientApp')
-    .directive('fmuTable', ['ngTableParams', '$state', '$filter', 'EavropService',
-        function(ngTableParams, $state, $filter, EavropService) {
+    .directive('fmuTable', ['ngTableParams', '$state', '$filter', 'Dataservice',
+        function(ngTableParams, $state, $filter, Dataservice) {
             return {
                 restrict: 'E',
                 scope: {
@@ -16,9 +16,9 @@ angular.module('fmuClientApp')
                     accessDataCallback: '&'
                 },
                 controller: function($scope) {
-                    var eavropConstants = EavropService.getEavropConstants;
-                    $scope.isSortable = function(key) {
-                        return eavropConstants.sortKeyMap.hasOwnProperty(key);
+                    var eavropConstants = Dataservice.getEavropConstants;
+                    $scope.isSortable = function(/*key*/) {
+                        return false; //eavropConstants.sortKeyMap.hasOwnProperty(key); //TODO reenable this
                     };
                     $scope.sort = function(key) {
                         if (!$scope.isSortable(key)) {
@@ -40,7 +40,7 @@ angular.module('fmuClientApp')
                                 count: 10 // count per page
                             }, {
                                 getData: function($defer, params) {
-                                    var promise = EavropService.getEavrops(
+                                    var data = Dataservice.getEavrops(
                                         $scope.startDate ? $scope.startDate : null,
                                         $scope.endDate ? $scope.endDate : null,
                                         $scope.eavropStatus ? $scope.eavropStatus : null,
@@ -50,10 +50,8 @@ angular.module('fmuClientApp')
                                         params.sorting()[$scope.currentSortKey] ? params.sorting()[$scope.currentSortKey].toUpperCase() : 'ASC'
                                     );
 
-                                    promise.then(function(serverResponse) {
-                                        params.total(serverResponse.totalElements);
-                                        $defer.resolve(serverResponse.eavrops);
-                                    });
+                                        params.total(data.totalElements);
+                                        $defer.resolve(data.eavrops);
 
                                 },
                                 $scope: $scope

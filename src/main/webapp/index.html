@@ -10,6 +10,7 @@
         <!-- bower:css -->
         <link rel="stylesheet" href="dependencies/bower_components/ng-table/ng-table.css" />
         <link rel="stylesheet" href="dependencies/bower_components/animate.css/animate.css" />
+        <link rel="stylesheet" href="dependencies/bower_components/angularjs-toaster/toaster.css" />
         <!-- endbower -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="dependencies/bootstrap/css/bootstrap.css">
@@ -21,7 +22,7 @@
         <!-- endinject -->
         <!-- endbuild -->
     </head>
-    <body ng-app="fmuClientApp">
+    <body ng-app="fmu">
         <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -29,7 +30,7 @@
             <div class="navigation-wrapper">
                 <div class="navigation-left">
                     <a href="javascript:void(0)" class="logo">
-                        <img src="common/images/fmu_logo.png" alt="Logo Image">
+                        <img src="images/fmu_logo.png" alt="Logo Image">
                     </a>
                 </div>
                 <div class="navigation-center">
@@ -54,7 +55,7 @@
 
                             <td>
                                 <a href="javascript:void(0)" class="user-logo">
-                                    <img src="common/images/avatar.png" alt="User Image">
+                                    <img src="images/avatar.png" alt="User Image">
                                 </a>
                             </td>
                         </tr>
@@ -70,7 +71,7 @@
 
         <footer class="footer" role="contentinfo">
             <div class="footer-logo">
-                <img src="common/images/fmu_logo.png" alt="Logo image">
+                <img src="images/fmu_logo.png" alt="Logo image">
             </div>
             <div class="footer-links">
                 <ul>
@@ -113,79 +114,214 @@
         <script src="dependencies/bower_components/angular-gettext/dist/angular-gettext.js"></script>
         <script src="dependencies/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
         <script src="dependencies/bower_components/angular-resource/angular-resource.js"></script>
+        <script src="dependencies/bower_components/angularjs-toaster/toaster.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
         <!-- build:js scripts/scripts.js -->
         <!-- inject:js -->
 
+
+
         <script src="app-dev.module.js"></script>
+
+
 
         <script src="app.module.js"></script>
 
-        <script src="common/rest/Rest.module.js"></script>
 
-        <script src="common/templatecache/templatecache.module.js"></script>
 
-        <script src="common/rest/Rest.constant.js"></script>
+        <script src="fmu.module.js"></script>
 
-        <script src="common/rest/RestUrlBuilder.service.js"></script>
+
+
+        <script src="core/core.module.js"></script>
+
+
+
+        <script src="eavrop-overview/eavrop.module.js"></script>
+
+
+
+        <script src="orders-overview/overview.module.js"></script>
+
+
+
+        <script src="widgets/widgets.module.js"></script>
+
+
+
+        <script src="core/authentication/Auth.module.js"></script>
+
+
+
+        <script src="core/rest/Rest.module.js"></script>
+
+
+
+        <script src="core/router/RouteHelper.module.js"></script>
+
+
+
+        <script src="core/templatecache/templatecache.module.js"></script>
+
+
+
+        <script src="utilities/exception/exception.module.js"></script>
+
+
+
+        <script src="utilities/logger/logger.module.js"></script>
+
+
+
+        <script src="core/authentication/Auth.constant.js"></script>
+
+
+
+        <script src="core/rest/Rest.constant.js"></script>
+
+
+
+        <script src="core/authentication/Auth.service.js"></script>
+
+
+
+        <script src="core/rest/Rest.service.js"></script>
+
+
+
+        <script src="core/rest/RestUrlBuilder.service.js"></script>
+
+
+
+        <script src="utilities/exception/exception.service.js"></script>
+
+
+
+        <script src="utilities/logger/logger.service.js"></script>
+
+
+
+        <script src="core/core.config.js"></script>
+
+
 
         <script src="eavrop-overview/EavropController.js"></script>
 
+
+
         <script src="eavrop-overview/EavropService.js"></script>
+
+
 
         <script src="eavrop-overview/RequestAcceptanceController.js"></script>
 
+
+
         <script src="eavrop-overview/RequestAssignmentController.js"></script>
+
+
 
         <script src="orders-overview/OverviewCtrl.js"></script>
 
+
+
         <script src="widgets/FMU-errorField.js"></script>
+
+
 
         <script src="widgets/Fmu-datepicker.js"></script>
 
+
+
         <script src="widgets/Fmu-responsive-menu.js"></script>
+
+
 
         <script src="widgets/Fmu-simple-table.js"></script>
 
+
+
         <script src="widgets/Fmu-table.js"></script>
+
+
 
         <script src="widgets/Fmu-utredning-table.js"></script>
 
+
+
         <script src="widgets/HandlingarTableDir.js"></script>
+
+
 
         <script src="widgets/datetime-service.js"></script>
 
-        <script src="common/authentication/AuthService.js"></script>
 
-        <script src="common/authentication/FakeRoleCtrl.js"></script>
 
-        <script src="common/authentication/RestrictedDirective.js"></script>
+        <script src="core/authentication/AuthService.js"></script>
 
-        <script src="common/rest/Eavrops.js"></script>
 
-        <script src="common/router/router-module.js"></script>
 
-        <script src="common/translations/fmu.pot.js"></script>
+        <script src="core/authentication/FakeRoleCtrl.js"></script>
 
-        <script src="common/translations/translations.js"></script>
+
+
+        <script src="core/authentication/RestrictedDirective.js"></script>
+
+
+
+        <script src="core/authentication/Role.controller.js"></script>
+
+
+
+        <script src="core/rest/Eavrops.js"></script>
+
+
+
+        <script src="core/translations/fmu.pot.js"></script>
+
+
+
+        <script src="core/translations/translations.js"></script>
+
+
 
         <script src="eavrop-overview/compensations/CompensationController.js"></script>
 
+
+
         <script src="eavrop-overview/investigation/InvestigationController.js"></script>
+
+
 
         <script src="eavrop-overview/investigation/InvestigationService.js"></script>
 
+
+
         <script src="eavrop-overview/order/AddDocumentController.js"></script>
+
+
 
         <script src="orders-overview/completed/CompletedController.js"></script>
 
+
+
         <script src="orders-overview/incoming/IncomingController.js"></script>
+
+
 
         <script src="orders-overview/ongoing/OngoingController.js"></script>
 
+
+
+        <script src="utilities/exception/exceptionHandler.provider.js"></script>
+
+
+
         <script src="dependencies/bootstrap/js/bootstrap.js"></script>
+
+
 
         <!-- endinject -->
         <!-- endbuild -->

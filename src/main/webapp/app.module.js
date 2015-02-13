@@ -10,6 +10,8 @@
  */
 angular.module('fmuClientApp', [
     'templatecache',
+    'AuthModule',
+    'RestModule',
     'ngAnimate',
     'ngCookies',
     'ngResource',

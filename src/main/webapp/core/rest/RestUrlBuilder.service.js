@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('RestModule').factory('RestUrlBuilderService',
+angular.module('rest').factory('RestUrlBuilderService',
     function () {
         return {
             buildOverViewRestUrl: function (startDate, endDate, eavropStatus, currentPageNumber,
