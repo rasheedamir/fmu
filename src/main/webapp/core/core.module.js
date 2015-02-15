@@ -8,6 +8,7 @@
 	angular.module('fmu.core', [
 		'templatecache',
 		'gettext',
+		'ngResource',
 		
         'util.exception',
         'util.logger',
