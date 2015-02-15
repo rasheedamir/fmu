@@ -9,8 +9,9 @@
 		'templatecache',
 		'gettext',
 		'ngResource',
-		
+
         'util.exception',
         'util.logger',
+        'util.router'
 		]);
 })();
