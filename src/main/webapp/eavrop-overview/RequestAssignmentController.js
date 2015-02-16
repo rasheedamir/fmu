@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fmuClientApp').controller('AssignmentCtrl', ['$scope', '$modal', '$stateParams', 'EavropVardgivarenheter',
+angular.module('fmu.eavrop').controller('RequestAssignmentController', ['$scope', '$modal', '$stateParams', 'EavropVardgivarenheter',
       function($scope, $modal, $stateParams, EavropVardgivarenheter){
 	
 	$scope.openAssignUtredareDialog = function(){

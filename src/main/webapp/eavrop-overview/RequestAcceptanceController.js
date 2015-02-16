@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fmuClientApp').controller('AcceptanceCtrl', ['$scope', '$modal', '$stateParams', '$state', 'EavropAccept', 'EavropReject',
+angular.module('fmu.eavrop').controller('RequestAcceptanceController', ['$scope', '$modal', '$stateParams', '$state', 'EavropAccept', 'EavropReject',
     function($scope, $modal, $stateParams, $state, EavropAccept, EavropReject) {
         $scope.acceptDialog = function() {
             $modal.open({

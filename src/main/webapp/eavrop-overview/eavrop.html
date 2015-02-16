@@ -9,7 +9,7 @@
         </div>
     </div>  
     <div restricted role="ROLE_SAMORDNARE">
-        <div ng-controller="AssignmentCtrl" ng-switch="currentEavrop.status">
+        <div ng-controller="RequestAssignmentController" ng-switch="currentEavrop.status">
             <div class="fmu-assign-banner" ng-switch-when="UNASSIGNED">
                 <h1 translate>Eavrop-vyn/Utse vårdleverantör</h1>
                 <p translate>Eavrop-vyn/Utse vårdleverantör genom att hämta in acceptans av denna förfrågan.</p>
@@ -23,7 +23,7 @@
         </div>
     </div>
     <div restricted role="ROLE_UTREDARE">
-        <div ng-controller="AcceptanceCtrl" ng-switch="currentEavrop.status">
+        <div ng-controller="RequestAcceptanceController" ng-switch="currentEavrop.status">
             <div class="fmu-assign-banner" ng-switch-when="ASSIGNED">
                 <h1 translate>Eavrop-vyn/Förfrågan om acceptans</h1>
                 <p><translate>Eavrop-vyn/acceptera-1/Förfrågan ställd till</translate>: <b>{{currentEavrop.utforandeEnhet}},

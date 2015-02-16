@@ -20,7 +20,7 @@
                         return Dataservice.getPatientByEavropId($stateParams.eavropId);
                     }
                 },
-                controller: 'EavropCtrl',
+                controller: 'EavropController',
                 templateUrl: 'eavrop-overview/eavrop.html'
             }
         }, {

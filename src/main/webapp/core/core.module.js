@@ -9,6 +9,7 @@
 		'templatecache',
 		'gettext',
 		'ngResource',
+		'ui.bootstrap',
 
         'util.exception',
         'util.logger',
