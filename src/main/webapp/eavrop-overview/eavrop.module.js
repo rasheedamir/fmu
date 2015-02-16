@@ -5,9 +5,5 @@
 	*
 	* This module define the eavrop page of FMU application.
 	*/
-	angular.module('fmu.eavrop', [
-		'templatecache',
-        'auth',
-        'rest'
-		]);
+	angular.module('fmu.eavrop', []);
 })();

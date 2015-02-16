@@ -11,6 +11,7 @@
         'fmu.core',
 
         // Sub modules
+        'fmu.login',
         'fmu.overview',
         'fmu.eavrop'
     ]);

@@ -2,7 +2,6 @@
 <html class="no-js">
     <head>
         <meta charset="utf-8">
-        <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -10,7 +9,6 @@
         <!-- bower:css -->
         <link rel="stylesheet" href="dependencies/bower_components/ng-table/ng-table.css" />
         <link rel="stylesheet" href="dependencies/bower_components/animate.css/animate.css" />
-        <link rel="stylesheet" href="dependencies/bower_components/angularjs-toaster/toaster.css" />
         <!-- endbower -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="dependencies/bootstrap/css/bootstrap.css">
@@ -26,6 +24,8 @@
         <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+
+        <title>{{title}}</title>
         <header class="navigation show" role="banner">
             <div class="navigation-wrapper">
                 <div class="navigation-left">
@@ -114,7 +114,6 @@
         <script src="dependencies/bower_components/angular-gettext/dist/angular-gettext.js"></script>
         <script src="dependencies/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
         <script src="dependencies/bower_components/angular-resource/angular-resource.js"></script>
-        <script src="dependencies/bower_components/angularjs-toaster/toaster.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -143,6 +142,10 @@
 
 
 
+        <script src="login/login.module.js"></script>
+
+
+
         <script src="orders-overview/overview.module.js"></script>
 
 
@@ -155,10 +158,6 @@
 
 
 
-        <script src="core/router/routeHelper.module.js"></script>
-
-
-
         <script src="core/templatecache/templatecache.module.js"></script>
 
 
@@ -168,6 +167,10 @@
 
 
         <script src="utilities/logger/logger.module.js"></script>
+
+
+
+        <script src="utilities/router/router.module.js"></script>
 
 
 
@@ -199,6 +202,14 @@
 
 
 
+        <script src="utilities/router/router.service.js"></script>
+
+
+
+        <script src="fmu.config.route.js"></script>
+
+
+
         <script src="core/core.config.js"></script>
 
 
@@ -216,6 +227,10 @@
 
 
         <script src="eavrop-overview/RequestAssignmentController.js"></script>
+
+
+
+        <script src="login/login.route.js"></script>
 
 
 
@@ -287,15 +302,15 @@
 
 
 
+        <script src="eavrop-overview/order/AddDocumentController.js"></script>
+
+
+
         <script src="eavrop-overview/investigation/InvestigationController.js"></script>
 
 
 
         <script src="eavrop-overview/investigation/InvestigationService.js"></script>
-
-
-
-        <script src="eavrop-overview/order/AddDocumentController.js"></script>
 
 
 

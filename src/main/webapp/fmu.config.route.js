@@ -2,10 +2,9 @@
     'use strict';
 
     angular.module('fmu')
-    .config(setUpRoutes);
+        .run(setUpRoutes);
 
-    setUpRoutes.$inject = ['$stateProvider', '$urlRouterProvider']
-    function setUpRoutes($stateProvider, $urlRouterProvider) {
-
-    };
+    setUpRoutes.$inject = ['routeHelper'];
+    function setUpRoutes(routeHelper) {
+    }
 })();

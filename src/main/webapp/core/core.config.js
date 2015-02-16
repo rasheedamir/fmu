@@ -4,9 +4,10 @@
     var core = angular.module('fmu.core');
     core.config(configure);
 
-    configure.$inject = ['$logProvider', 'fmuExceptionHandlerProvider', 'gettext'];
-    //function configure(/*$logProvider, $routeProvider, routehelperConfigProvider, gettext, fmuExceptionHandlerProvider) {
-    function configure($logProvider, fmuExceptionHandlerProvider, gettext) {        
+    configure.$inject = ['$logProvider', 'fmuExceptionHandlerProvider',
+        'routehelperConfigProvider', 'gettext', '$urlRouterProvider', '$stateProvider'
+    ];
+    function configure($logProvider, fmuExceptionHandlerProvider, routehelperConfigProvider, gettext, $urlRouterProvider, $stateProvider) {
         core.value('config', config);
         var config = {
             appErrorPrefix: '[FMU Error]: ',
@@ -19,15 +20,10 @@
             $logProvider.debugEnabled(true);
         }
 
-        // // Configure the common route provider
-        // routehelperConfigProvider.config.$routeProvider = $routeProvider;
-        // routehelperConfigProvider.config.docTitle = gettext('fmu-route-title/Fmu: ');
-        // var resolveAlways = { /* @ngInject */
-        //     ready: function(dataservice) {
-        //         return dataservice.ready();
-        //     }
-        // };
-        // routehelperConfigProvider.config.resolveAlways = resolveAlways;
+        // Configure the common route provider
+        routehelperConfigProvider.config.$urlRouterProvider = $urlRouterProvider;
+        routehelperConfigProvider.config.$stateProvider = $stateProvider;
+        routehelperConfigProvider.config.docTitle = gettext('fmu-route-title/Fmu');
 
         // Configure the common exception handler
         fmuExceptionHandlerProvider.configure(config.appErrorPrefix);
