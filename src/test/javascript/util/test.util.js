@@ -1,5 +1,5 @@
 'use strict';
-var getCalledURl, mockLogger;
+var getCalledURl, mockLogger, routeHelper, getfakeEavrop;
 beforeEach(function() {
     getCalledURl = function(backend) {
         var calledUrl;
@@ -26,5 +26,41 @@ beforeEach(function() {
             warning: function() {},
             success: function() {}
         });
+    };
+
+    routeHelper = (function() {
+        var retval = {
+            setUp: setUp,
+            goTo: goTo
+        };
+
+        return retval;
+
+        function setUp($rootScope, $location) {
+            retval.rootScope = $rootScope;
+            retval.location = $location;
+        }
+
+        function goTo(url) {
+            retval.location.url(url);
+            retval.rootScope.$digest();
+        }
+    })();
+
+    getfakeEavrop = function(eavropId) {
+        return {
+            'arendeId': '150000000004',
+            'eavropId': eavropId,
+            'utredningType': 'SLU',
+            'creationTime': 1422880073000,
+            'status': 'SENT',
+            'bestallareEnhet': 'Stockholm, City Servicekontor',
+            'bestallareOrganisation': 'Försäkringskassan',
+            'mottagarenOrganisation': 'Stockholms läns landsting',
+            'utforandeEnhet': 'FMU Enheten',
+            'utforandeOrganisation': 'Karolinska',
+            'assigningPerson': 'Sam Ordnarsson',
+            'nrOfDaysSinceStart': 1
+        };
     };
 });

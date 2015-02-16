@@ -23,6 +23,6 @@ angular.module('fmu.core')
         changeRole: 'app/rest/user/changerole',
 
         overview: {
-            incoming: '/app/rest/eavrop/fromdate/:fromdate/todate/:todate/status/:status/page/:page/pagesize/:pagesize/sortkey/:sortkey/sortorder/:sortorder'
+            incoming: 'app/rest/eavrop/fromdate/:fromdate/todate/:todate/status/:status/page/:page/pagesize/:pagesize/sortkey/:sortkey/sortorder/:sortorder'
         }
     });

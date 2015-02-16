@@ -26,15 +26,26 @@
     function routeHelper($rootScope, logger, routehelperConfig) {
         var service = {
             registerState: registerState,
+            registerStates: registerStates,
             setDefaultState: setDefaultState
         };
 
         init();
         return service;
 
+        function registerStates(routeStates) {
+            var routes;
+            _.forEach(routeStates, function(state) {
+                if(!routes) {
+                    routes = registerState(state.stateName, state.stateConfig);
+                } else {
+                    routes.state(state.stateName, state.stateConfig);
+                }
+            });
+        }
 
         function registerState(stateName, stateConfig) {
-            routehelperConfig.config.$stateProvider
+            return routehelperConfig.config.$stateProvider
                 .state(stateName, stateConfig);
         }
 
@@ -49,9 +60,15 @@
         }
 
         function handleErrors() {
-            $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams) {
-                console.log('Failed to transition from ' + fromState +
-                    ' with parameters ' + fromParams + ' to ' + toState + ' with params ' + toParams);
+            $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+                logger.error('Failed to route', {
+                    event: event, 
+                    toState: toState, 
+                    toParams: toParams, 
+                    fromState: fromState, 
+                    fromParams: fromParams,
+                    error: error
+                });
             });
         }
 
