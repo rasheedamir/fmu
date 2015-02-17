@@ -1,6 +1,9 @@
-'use strict';
-angular.module('fmuClientApp')
-    .directive('fmuDatepicker', function() {
+(function() {
+    'use strict';
+    angular.module('fmu.widgets')
+        .directive('fmuDatepicker', fmuDatepicker);
+
+    function fmuDatepicker() {
         return {
             restrict: 'E',
             scope: {
@@ -44,4 +47,5 @@ angular.module('fmuClientApp')
                 '</div>' +
                 '</div>'
         };
-    });
+    }
+})();

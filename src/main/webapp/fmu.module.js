@@ -9,6 +9,7 @@
     angular.module('fmu', [
         // Common module dependencies
         'fmu.core',
+        'fmu.widgets',
 
         // Sub modules
         'fmu.login',

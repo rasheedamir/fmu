@@ -69,7 +69,7 @@
                 eavropId: '@eavropId'
             });
 
-            resource.get({
+            return resource.get({
                 eavropId: eavropId
             });
         }

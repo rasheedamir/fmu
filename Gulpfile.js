@@ -142,7 +142,7 @@
             .pipe($.plumber())
             .pipe($.if(args.verbose, $.print()))
             .pipe($.angularGettext.compile({
-                module: 'fmuClientApp',
+                module: 'fmu.core'
                 // Let not do this, our translations are not big enough
                 // format: 'json'
             }))

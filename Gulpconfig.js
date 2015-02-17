@@ -5,7 +5,7 @@
         var appPath = './src/main/webapp';
         var dist = appPath + '/dist';
         var bower = appPath + '/dependencies/bower_components/';
-        var translationfolder = appPath + '/common/translations';
+        var translationfolder = appPath + '/core/translations';
         var unittest = './src/test/javascript';
 
         var config = {
@@ -73,6 +73,7 @@
                         'src/main/webapp/core/authentication/auth.service.js',
                         'src/main/webapp/core/rest/RestUrlBuilder.service.js',
                         'src/main/webapp/core/rest/rest.service.js',
+                        'src/main/webapp/eavrop-overview/investigation/investigation.service.js',
                         'src/main/webapp/utilities/exception/exception.service.js',
                         'src/main/webapp/utilities/logger/logger.service.js',
                         'src/main/webapp/utilities/router/router.service.js',
@@ -98,11 +99,10 @@
                         'src/main/webapp/core/authentication/RestrictedDirective.js',
                         'src/main/webapp/core/authentication/role.controller.js',
                         'src/main/webapp/core/rest/Eavrops.js',
-                        'src/main/webapp/core/translations/fmu.pot.js',
-                        'src/main/webapp/core/translations/translations.js',
-                        'src/main/webapp/eavrop-overview/compensations/CompensationController.js',
-                        'src/main/webapp/eavrop-overview/investigation/InvestigationController.js',
-                        'src/main/webapp/eavrop-overview/investigation/InvestigationService.js',
+                        'src/main/webapp/core/translations/translation.pot.js',
+                        'src/main/webapp/eavrop-overview/compensations/compensation.controller.js',
+                        'src/main/webapp/eavrop-overview/investigation/Investigation.controller.js',
+                        'src/main/webapp/eavrop-overview/investigation/addBookingModal.controller.js',
                         'src/main/webapp/orders-overview/completed/CompletedController.js',
                         'src/main/webapp/orders-overview/incoming/IncomingController.js',
                         'src/main/webapp/orders-overview/ongoing/OngoingController.js',
