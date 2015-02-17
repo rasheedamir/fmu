@@ -15,6 +15,7 @@ import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropBuilder;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
+import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.landsting.Landsting;
@@ -36,6 +37,11 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	private final InvanareRepository invanareRepository;
 	private final Configuration configuration;
 	private final LandstingRepository landstingRepository;
+	
+	private static final int DEFAULT_EAVROP_START_DATE_OFFSET = 3; 
+	private static final int DEFAULT_EAVROP_ACCEPTANCE_VALID_LENGTH = 5;
+	private static final int DEFAULT_EAVROP_ASSESSMENT_VALID_LENGTH = 25;
+	private static final int DEFAULT_EAVROP_COMPLETION_VALID_LENGTH = 10;
 
 	/**
 	 *
@@ -64,7 +70,7 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public ArendeId createEavrop(CreateEavropCommand aCommand) {
-		EavropProperties props = getEavropProperties();
+		EavropProperties props = getEavropProperties(aCommand.getUtredningType());
 
 		Landsting landsting = landstingRepository.findByLandstingCode(aCommand.getLandstingCode());
 		if (landsting == null) {
@@ -92,24 +98,37 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 		return eavrop.getArendeId();
 	}
 
-	private EavropProperties getEavropProperties() {
-		int startDateOffset = getConfiguration().getInteger(
-				Configuration.KEY_EAVROP_START_DATE_OFFSET, 3);
-		int acceptanceValidLength = getConfiguration().getInteger(
-				Configuration.KEY_EAVROP_ACCEPTANCE_VALID_LENGTH, 5);
-		int assessmentValidLength = getConfiguration().getInteger(
-				Configuration.KEY_EAVROP_ASSESSMENT_VALID_LENGTH, 25);
-		int completionValidLength = getConfiguration().getInteger(
-				Configuration.KEY_EAVROP_COMPLETION_VALID_LENGTH, 10);
+	private EavropProperties getEavropProperties(UtredningType utredningType ) {
+		int startDateOffset = getEavropStartDateOffsetProperty(utredningType);
+		int acceptanceValidLength = getEavropAcceptanceValidLengthProperty(utredningType);
+		int assessmentValidLength = getEavropAssessmentValidLengthProperty(utredningType);
+		int completionValidLength = getEavropCompletionValidLengthProperty(utredningType);
 
 		return new EavropProperties(startDateOffset, acceptanceValidLength, assessmentValidLength,
 				completionValidLength);
 	}
+	
+	private int getEavropStartDateOffsetProperty(UtredningType utredningType){
+		return getConfiguration().getInteger(getKeyByType(Configuration.KEY_EAVROP_START_DATE_OFFSET, utredningType), getConfiguration().getInteger(Configuration.KEY_EAVROP_START_DATE_OFFSET, DEFAULT_EAVROP_START_DATE_OFFSET));
+	}
 
+	private int getEavropAcceptanceValidLengthProperty(UtredningType utredningType){
+		return getConfiguration().getInteger(getKeyByType(Configuration.KEY_EAVROP_ACCEPTANCE_VALID_LENGTH, utredningType), getConfiguration().getInteger(Configuration.KEY_EAVROP_ACCEPTANCE_VALID_LENGTH, DEFAULT_EAVROP_ACCEPTANCE_VALID_LENGTH));
+	}
+
+	private int getEavropAssessmentValidLengthProperty(UtredningType utredningType){
+		return getConfiguration().getInteger(getKeyByType(Configuration.KEY_EAVROP_ASSESSMENT_VALID_LENGTH, utredningType), getConfiguration().getInteger(Configuration.KEY_EAVROP_ASSESSMENT_VALID_LENGTH, DEFAULT_EAVROP_ASSESSMENT_VALID_LENGTH));
+	}
+
+	private int getEavropCompletionValidLengthProperty(UtredningType utredningType){
+		return getConfiguration().getInteger(getKeyByType(Configuration.KEY_EAVROP_COMPLETION_VALID_LENGTH, utredningType), getConfiguration().getInteger(Configuration.KEY_EAVROP_COMPLETION_VALID_LENGTH, DEFAULT_EAVROP_COMPLETION_VALID_LENGTH));
+	}
+
+	private String getKeyByType(String key, UtredningType utredningType){
+		return key+((utredningType==null)?"":"."+utredningType);
+	}
+	
 	private Configuration getConfiguration() {
 		return this.configuration;
 	}
-
-
-
 }
