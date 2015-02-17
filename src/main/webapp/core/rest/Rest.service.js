@@ -8,7 +8,9 @@
     dataservice.$inject = ['$resource', 'RESTURL', 'logger', 'EAVROP_STATES'];
 
     function dataservice($resource, RESTURL, logger, EAVROP_STATES) {
+        var dataResources = {};
         var service = {
+            resources: dataResources,
             getOverviewEavrops: getOverviewEavrops,
             getIncomingEavrops: getIncomingEavrops,
             getOngoingEavrops: getOngoingEavrops,
@@ -19,7 +21,11 @@
             assignEavropToVardgivarEnhet: assignEavropToVardgivarEnhet,
             acceptEavrop: acceptEavrop,
             rejectEavrop: rejectEavrop,
-            getEavropOrder: getEavropOrder
+            getEavropOrder: getEavropOrder,
+            getRecievedDocuments: getEavropRecievedDocuments,
+            saveRecievedDocuments: saveRecievedDocuments,
+            getRequestedDocuments: getRequestedDocuments,
+            saverequestedDocuments: saverequestedDocuments
         };
 
         return service;
@@ -144,6 +150,57 @@
             });
 
             return resource.get({
+                eavropId: eavropId
+            });
+        }
+
+        function getRecievedDocumentsResource() {
+            if (!dataResources.EavropRecievedDocuments) {
+                dataResources.EavropRecievedDocuments = $resource(RESTURL.eavropDocuments, {
+                    eavropId: '@eavropId'
+                });
+            }
+
+            return dataResources.EavropRecievedDocuments;
+        }
+
+        function getEavropRecievedDocuments(eavropId) {
+            var Resource = getRecievedDocumentsResource();
+
+            return Resource.query({
+                eavropId: eavropId
+            });
+        }
+
+        function saveRecievedDocuments(eavropId, postdata) {
+            var Resource = getRecievedDocumentsResource();
+
+            var saveResource = new Resource(postdata);
+            saveResource.$save({
+                eavropId: eavropId
+            });
+        }
+
+        function getRequestedDocumentsResource() {
+            if (!dataResources.RequestedDocuments) {
+                dataResources.RequestedDocuments = $resource(RESTURL.eavropRequestedDocuments, {
+                    eavropId: '@eavropId'
+                });
+            }
+
+            return dataResources.RequestedDocuments;
+        }
+
+        function getRequestedDocuments(eavropId) {
+            var resource = getRequestedDocumentsResource();
+            return resource.query({
+                eavropId: eavropId
+            });
+        }
+
+        function saverequestedDocuments(eavropId, postdata) {
+            var Resource = getRequestedDocumentsResource();
+            new Resource(postdata).$save({
                 eavropId: eavropId
             });
         }

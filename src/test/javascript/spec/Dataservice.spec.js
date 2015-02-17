@@ -115,6 +115,34 @@
             dataservice.getEavropOrder(eavropId);
             expect(getCalledURl(backend)).toBe(restUrl.eavropOrder.replace(':eavropId', eavropId));
         });
+
+        it("should call rest api to get recieved documents", function() {
+            var eavropId = 'testId';
+            dataservice.getRecievedDocuments(eavropId);
+            expect(getCalledURl(backend, [])).toBe(restUrl.eavropDocuments.replace(':eavropId', eavropId));
+        });
+
+        it("should call to save documents", function() {
+            var eavropId = 'testId';
+            var data = {test: 'test'};
+            backend.expectPOST(restUrl.eavropDocuments.replace(':eavropId', eavropId), data).respond(200);
+            dataservice.saveRecievedDocuments(eavropId, data);
+            backend.flush();
+        });
+
+        it("should call rest api to get all requested documents", function() {
+            var eavropId = 'testId';
+            dataservice.getRequestedDocuments(eavropId);
+            expect(getCalledURl(backend, [])).toBe(restUrl.eavropRequestedDocuments.replace(':eavropId', eavropId));
+        });
+
+        it("should call rest api to save requested document", function() {
+            var eavropId = 'testId';
+            var data = {test: 'test'};
+            backend.expectPOST(restUrl.eavropRequestedDocuments.replace(':eavropId', eavropId), data).respond(200);
+            dataservice.saverequestedDocuments(eavropId, data);
+            backend.flush();
+        });
     });
 
 })();
