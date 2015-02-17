@@ -18,7 +18,7 @@ import se.inera.fmu.domain.model.auditing.PersistentAuditEvent;
 /**
  * Wraps an implementation of Spring Boot's AuditEventRepository.
  */
-@SuppressWarnings("ALL")
+//@SuppressWarnings("all")
 @Repository
 public class CustomAuditEventRepository {
 

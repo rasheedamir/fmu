@@ -2,7 +2,7 @@
 <skapaFmuEavropRequest xmlns="http://inera.ws/fmu/admin/eavrop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://inera.ws/fmu/admin/eavrop">
 	<arendeId>${ARENDE_ID}</arendeId>
 	<landstingId>${LANDSTING_ID}</landstingId>
-	<utredningType>AFU</utredningType>
+	<utredningType>${UTREDNING_TYPE}</utredningType>
 	<invanare>
 		<personnummer>19791201-2940</personnummer>
 		<namn>

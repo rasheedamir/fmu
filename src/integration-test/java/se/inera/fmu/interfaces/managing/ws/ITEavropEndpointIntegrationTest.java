@@ -49,6 +49,7 @@ import se.inera.fmu.application.impl.command.CreateBookingCommand;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropStateType;
+import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
@@ -61,7 +62,7 @@ import ws.inera.fmu.admin.eavrop.SkapaFmuEavropRequest;
 /**
  * Created by Rasheed, Rickard on 11/17/14.
  */
-@SuppressWarnings("ALL")
+@SuppressWarnings("all")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
@@ -128,12 +129,12 @@ public class ITEavropEndpointIntegrationTest {
     	LandstingCode landstingCode = new LandstingCode(1);
     	
     	//test valid request
-        Source requestPayload = new StreamSource(createCreateEavropOnlyMandatoryRequest(arendeId, landstingCode));
+        Source requestPayload = new StreamSource(createCreateEavropOnlyMandatoryRequest(arendeId, landstingCode, UtredningType.AFU));
         Source succesResponsePayload = new StreamSource(createFMUSuccesResponse(CREATE_EAVROP_RESPONSE, arendeId));
         mockClient.sendRequest(withPayload(requestPayload)).
         andExpect(payload(succesResponsePayload));
     }
-
+    
 	@Test
     public void createSendDocumentsRequest(){
     	ArendeId arendeId = new ArendeId("140000000003");
@@ -559,12 +560,13 @@ public class ITEavropEndpointIntegrationTest {
     }
 
     
-    private InputStream createCreateEavropOnlyMandatoryRequest(ArendeId arendeId, LandstingCode landstingCode){
+    private InputStream createCreateEavropOnlyMandatoryRequest(ArendeId arendeId, LandstingCode landstingCode, UtredningType utredningType){
     	String templateFilename = "ws/TST-CREATE_EAVROP_REQUEST_ONLY_MANDATORY.xml";
 
     	final Map<String, String> valueMap = new HashMap<String, String>();
     	valueMap.put("ARENDE_ID", arendeId.toString());
     	valueMap.put("LANDSTING_ID", landstingCode.toString());
+    	valueMap.put("UTREDNING_TYPE", utredningType.toString());
     	
     	return substitute(templateFilename, valueMap);
     }

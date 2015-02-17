@@ -69,7 +69,7 @@ import ws.inera.fmu.admin.eavrop.SvarBokningsavvikelseResponse;
 /**
  * Created by Rasheed on 10/25/14.
  */
-@SuppressWarnings("ALL")
+@SuppressWarnings("all")
 @Endpoint
 @Slf4j
 public class EavropEndpoint {

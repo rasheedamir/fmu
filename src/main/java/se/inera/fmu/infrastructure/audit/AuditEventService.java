@@ -20,7 +20,7 @@ import se.inera.fmu.domain.model.auditing.PersistentAuditEvent;
  * This is the default implementation to support SpringBoot Actuator AuditEventRepository
  * </p>
  */
-@SuppressWarnings("ALL")
+@SuppressWarnings("all")
 @Service
 @Transactional
 public class AuditEventService {

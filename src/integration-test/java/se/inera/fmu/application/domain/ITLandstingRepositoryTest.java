@@ -36,7 +36,7 @@ import se.inera.fmu.domain.model.shared.Name;
  *
  *
  */
-@SuppressWarnings("ALL")
+@SuppressWarnings("all")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration

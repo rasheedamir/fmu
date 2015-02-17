@@ -43,7 +43,7 @@ import com.google.common.eventbus.Subscribe;
 /**
  * Created by Rasheed on 9/30/14.
  */
-@SuppressWarnings("ALL")
+@SuppressWarnings("all")
 @Component
 @Slf4j
 public class EavropListener implements EventBusListener {
