@@ -35,13 +35,11 @@
             stateConfig: {
                 url: '/contents',
                 title: gettext('Eavrop-content-title/Content'),
-                // resolve: {
-                //     order: function($stateParams, EavropOrder) {
-                //         return EavropOrder.get({
-                //             eavropId: $stateParams.eavropId
-                //         });
-                //     }
-                // },
+                resolve: {
+                    order: function($stateParams) {
+                        return Dataservice.getEavropOrder($stateParams.eavropId);
+                    }
+                },
                 templateUrl: 'eavrop-overview/order/contents.html',
                 controller: function($scope, order) {
                     $scope.order = order;

@@ -27,6 +27,7 @@ describe('fmu navigation', function() {
                 var url = '/eavrop/' + eavropId + '/order/contents';
                 httpBackend.expectGET(RESTURL.eavrop.replace(':eavropId', eavropId)).respond(200, {});
                 httpBackend.expectGET(RESTURL.eavropPatient.replace(':eavropId', eavropId)).respond(200, {});
+                httpBackend.expectGET(RESTURL.eavropOrder.replace(':eavropId', eavropId)).respond(200, {});
 
                 routeHelper.goTo(url);
                 

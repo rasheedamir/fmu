@@ -80,6 +80,41 @@
             dataservice.getPatientByEavropId(eavropId);
             expect(getCalledURl(backend)).toBe(restUrl.eavropPatient.replace(':eavropId', eavropId));
         });
+
+        it("should call to get vardgivarenhet", function() {
+            var eavropId = 'testId';
+            dataservice.getVardgivarenhetByEavropId(eavropId);
+            expect(getCalledURl(backend, []))
+             .toBe(restUrl.eavropVardgivarenheter.replace(':eavropId', eavropId));
+        });
+
+        it("should call to assign eavrop", function() {
+            var eavropId = 'testId';
+            var vardgivarenhet = 'test-enhet'
+            dataservice.assignEavropToVardgivarEnhet(eavropId, vardgivarenhet);
+            expect(getCalledURl(backend))
+             .toBe(restUrl.eavropAssignment.replace(':eavropId', eavropId) + '?veId=' + vardgivarenhet);
+        });
+
+        it("should call rest api when accept eavrop", function() {
+            var eavropId = 'testId';
+            dataservice.acceptEavrop(eavropId);
+            expect(getCalledURl(backend, []))
+             .toBe(restUrl.eavropAccept.replace(':eavropId', eavropId));
+        });
+
+        it("should call rest api to reject eavrop", function() {
+            var eavropId = 'testId';
+            dataservice.rejectEavrop(eavropId);
+            expect(getCalledURl(backend, []))
+             .toBe(restUrl.eavropReject.replace(':eavropId', eavropId));
+        });
+
+        it("should call rest api to get order infomations", function() {
+            var eavropId = 'testId';
+            dataservice.getEavropOrder(eavropId);
+            expect(getCalledURl(backend)).toBe(restUrl.eavropOrder.replace(':eavropId', eavropId));
+        });
     });
 
 })();

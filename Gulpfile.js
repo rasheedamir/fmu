@@ -242,10 +242,10 @@
         var proxy = require('proxy-middleware');
         var browsersync = require('browser-sync');
 
-        var proxyFake = url.parse('http://localhost:8080/fake');
+        var proxyFake = url.parse('http://ec2-54-154-123-186.eu-west-1.compute.amazonaws.com:9000/fake');
         proxyFake.route = '/fake';
 
-        var proxyRest = url.parse('http://localhost:8080/app/');
+        var proxyRest = url.parse('http://ec2-54-154-123-186.eu-west-1.compute.amazonaws.com:9000/app/');
         proxyRest.route = '/app/';
 
 

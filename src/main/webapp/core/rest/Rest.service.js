@@ -14,7 +14,12 @@
             getOngoingEavrops: getOngoingEavrops,
             getCompletedEavrops: getCompletedEavrops,
             getEavropByID: getEavropByID,
-            getPatientByEavropId: getPatientByEavropId
+            getPatientByEavropId: getPatientByEavropId,
+            getVardgivarenhetByEavropId: getVardgivarenhetByEavropId,
+            assignEavropToVardgivarEnhet: assignEavropToVardgivarEnhet,
+            acceptEavrop: acceptEavrop,
+            rejectEavrop: rejectEavrop,
+            getEavropOrder: getEavropOrder
         };
 
         return service;
@@ -68,7 +73,79 @@
                 eavropId: '@eavropId'
             });
 
-            return resource.get({eavropId: eavropId});
+            return resource.get({
+                eavropId: eavropId
+            });
+        }
+
+        function getVardgivarenhetByEavropId(eavropId) {
+            var resource = $resource(RESTURL.eavropVardgivarenheter, {
+                eavropId: '@eavropId'
+            });
+
+            return resource.query({
+                eavropId: eavropId
+            });
+        }
+
+        function assignEavropToVardgivarEnhet(eavropId, vardgivarenhet) {
+            var EavropAssignment = $resource(RESTURL.eavropAssignment, {
+                eavropId: '@eavropId'
+            }, {
+                'assign': {
+                    method: 'PUT'
+                }
+            });
+
+            var resource = new EavropAssignment({
+                eavropId: eavropId
+            });
+
+            return resource.$assign({
+                veId: vardgivarenhet
+            });
+        }
+
+        function acceptEavrop(eavropId) {
+            var EavropAccept = $resource(RESTURL.eavropAccept, {
+                eavropId: '@eavropId'
+            }, {
+                'accept': {
+                    method: 'PUT'
+                }
+            });
+
+            var res = new EavropAccept({
+                eavropId: eavropId
+            });
+
+            return res.$accept();
+        }
+
+        function rejectEavrop(eavropId) {
+            var EavropReject = $resource(RESTURL.eavropReject, {
+                eavropId: '@eavropId'
+            }, {
+                'reject': {
+                    method: 'PUT'
+                }
+            });
+
+            var res = new EavropReject({
+                eavropId: eavropId
+            });
+
+            return res.$reject();
+        }
+
+        function getEavropOrder(eavropId) {
+            var resource = $resource(RESTURL.eavropOrder, {
+                eavropId: '@eavropId'
+            });
+
+            return resource.get({
+                eavropId: eavropId
+            });
         }
     }
 })();

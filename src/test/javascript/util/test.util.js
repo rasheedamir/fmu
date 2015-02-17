@@ -1,11 +1,15 @@
 'use strict';
 var getCalledURl, mockLogger, routeHelper, getfakeEavrop;
 beforeEach(function() {
-    getCalledURl = function(backend) {
+    getCalledURl = function(backend, response) {
         var calledUrl;
         var PATTERN = /.*/;
         backend.whenGET(PATTERN).respond(function(method, url) {
             calledUrl = url;
+
+            if (response) {
+                return response;
+            }
             return [200, 'You called: ' + url];
         });
 

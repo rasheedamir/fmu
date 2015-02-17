@@ -1,39 +1,42 @@
 'use strict';
 
-angular.module('fmu.eavrop').controller('RequestAssignmentController', ['$scope', '$modal', '$stateParams', 'EavropVardgivarenheter',
-      function($scope, $modal, $stateParams, EavropVardgivarenheter){
-	
-	$scope.openAssignUtredareDialog = function(){
+angular.module('fmu.eavrop')
+    .controller('RequestAssignmentController', RequestAssignmentController);
+
+RequestAssignmentController.$inject = ['$scope', '$modal', '$stateParams', 'Dataservice'];
+
+function RequestAssignmentController($scope, $modal, $stateParams, Dataservice) {
+
+    $scope.openAssignUtredareDialog = function() {
         $modal.open({
             templateUrl: 'views/eavrop/assign-utredare-modal.html',
             size: 'md',
             resolve: {
-            	vardgivarenheter: function(){return EavropVardgivarenheter.query({eavropId: $stateParams.eavropId});
-                  }
+                vardgivarenheter: Dataservice.getVardgivarenhetByEavropId($stateParams.eavropId)
             },
-            controller: function ($scope, vardgivarenheter, $modalInstance, EavropAssignment, $stateParams, $state) {
-            	$scope.vardgivarenheter = vardgivarenheter;
-            	$scope.model = {selectedVardgivarenhet: {}};
-            	
-            	$scope.close = function(){
-            		$modalInstance.dismiss('cancel');
-            	};
-            	
-            	$scope.assign = function(){
-            		var res = new EavropAssignment({eavropId: $stateParams.eavropId});
-            		console.log($scope.model.selectedVardgivarenhet);
-            		var result = res.$assign({veId: $scope.model.selectedVardgivarenhet.id});
-            		result.then(function(){
-            			$state.transitionTo($state.current, $stateParams, {
-            			    reload: true,
-            			    inherit: false,
-            			    notify: true
-            			});
-            			
-            			$modalInstance.close();
-            		});
-            	};
+            controller: function($scope, vardgivarenheter, $modalInstance, Dataservice, $stateParams, $state) {
+                $scope.vardgivarenheter = vardgivarenheter;
+                $scope.model = {
+                    selectedVardgivarenhet: {}
+                };
+
+                $scope.close = function() {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.assign = function() {
+                    var result = Dataservice.assignEavropToVardgivarEnhet($stateParams.eavropId, $scope.model.selectedVardgivarenhet.id);
+                    result.then(function() {
+                        $state.transitionTo($state.current, $stateParams, {
+                            reload: true,
+                            inherit: false,
+                            notify: true
+                        });
+
+                        $modalInstance.close();
+                    });
+                };
             }
         });
-	};
-}]);
+    };
+}
