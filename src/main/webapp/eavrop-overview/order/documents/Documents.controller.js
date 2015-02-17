@@ -6,7 +6,7 @@
 
     DocumentsController.$inject = ['$scope', 'Dataservice', 'RecievedDocuments', 'ReqDocuments', '$modal', '$stateParams', 'logger'];
 
-    function DocumentsController($scope, Dataservice, RecievedDocuments, ReqDocuments, $modal, $stateParams) {
+    function DocumentsController($scope, Dataservice, RecievedDocuments, ReqDocuments, $modal, $stateParams, logger) {
         $scope.openReqAmendmentModal = openReqAmendmentModalfn;
         $scope.openAddDocumentModal = openAddDocumentModalfn;
         $scope.documents = RecievedDocuments;
@@ -29,7 +29,7 @@
             });
 
             mod.result.then(function(result) {
-                Dataservice.saveRecievedDocuments($stateParams.eavropId, result)
+                Dataservice.saverequestedDocuments($stateParams.eavropId, result)
                     .then(function() {
                         loadReqDocuments();
                     });
@@ -43,12 +43,14 @@
                 controller: 'AddDocModalController'
             });
 
+            logger.info('mod', mod);
+
             mod.result.then(function(result) {
                 var payload = {
                     name: result.name,
                     regDate: result.regDate.getTime()
                 };
-                Dataservice.saverequestedDocuments($stateParams.eavropId, payload).then(function() {
+                Dataservice.saveRecievedDocuments($stateParams.eavropId, payload).then(function() {
                     loadDocuments();
                 });
             });

@@ -5,6 +5,6 @@
         .run(setUpRoutes);
 
     setUpRoutes.$inject = ['routeHelper'];
-    function setUpRoutes(routeHelper) {
+    function setUpRoutes() {
     }
 })();

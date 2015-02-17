@@ -176,7 +176,7 @@
             var Resource = getRecievedDocumentsResource();
 
             var saveResource = new Resource(postdata);
-            saveResource.$save({
+            return saveResource.$save({
                 eavropId: eavropId
             });
         }
@@ -200,7 +200,7 @@
 
         function saverequestedDocuments(eavropId, postdata) {
             var Resource = getRequestedDocumentsResource();
-            new Resource(postdata).$save({
+            return new Resource(postdata).$save({
                 eavropId: eavropId
             });
         }
