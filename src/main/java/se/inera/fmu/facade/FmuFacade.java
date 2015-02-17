@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropId;
+import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 import se.inera.fmu.interfaces.managing.rest.EavropResource.OverviewEavropStates;
 import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
 import se.inera.fmu.interfaces.managing.rest.dto.AllEventsDTO;
@@ -35,13 +36,7 @@ public interface FmuFacade {
 	/****************************************************************
 	 * Eavrop event/händelse methods.
 	 ****************************************************************/
-	
-	/**
-	 * Returns a list of helnall defined demand sources for the warehouse with the supplied id
-	 *
-	 * @param warehouseId warehouse to get demand sources for
-	 * @return list of demand sources
-	 */
+
 	public List<HandelseDTO> getEavropEvents(String eavropId);
 
 	public AllEventsDTO getAllEvents(EavropId eavropId);
@@ -63,7 +58,7 @@ public interface FmuFacade {
 	public List<RequestedDocumentDTO> getRequestedDocuments(EavropId eavropId);
 
 
-	public void addBooking(BookingRequestDTO changeRequestDto);
+	public BookingId addBooking(BookingRequestDTO changeRequestDto);
 	
 	public void modifyBooking(BookingModificationRequestDTO changeRequestData);
 

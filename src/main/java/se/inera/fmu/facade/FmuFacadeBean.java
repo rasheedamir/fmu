@@ -306,7 +306,7 @@ public class FmuFacadeBean  implements FmuFacade {
 
 	
 	@Override
-	public void addBooking(BookingRequestDTO changeRequestDto) {
+	public BookingId addBooking(BookingRequestDTO changeRequestDto) {
 		BookingType bookingType = changeRequestDto.getBookingType();
 		Long bookingDateMilis = changeRequestDto.getBookingDate();
 		TimeDTO startTime = changeRequestDto.getBookingStartTime();
@@ -323,6 +323,7 @@ public class FmuFacadeBean  implements FmuFacade {
 		
 		this.fmuEventService.publishBookingCreatedEvent(eavropId, bookingId);
 		
+		return bookingId;
 	}
 
 	@Override
