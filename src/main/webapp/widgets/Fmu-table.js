@@ -48,11 +48,12 @@ angular.module('fmu.widgets')
                                         params.count(),
                                         $scope.currentSortKey ? eavropConstants.sortKeyMap[$scope.currentSortKey] : 'arendeId',
                                         params.sorting()[$scope.currentSortKey] ? params.sorting()[$scope.currentSortKey].toUpperCase() : 'ASC'
-                                    );
+                                    ).$promise;
 
-                                        params.total(data.totalElements);
-                                        $defer.resolve(data.eavrops);
-
+                                    data.then(function(response) {                                        
+                                        params.total(response.totalElements);
+                                        $defer.resolve(response.eavrops);
+                                    });
                                 },
                                 $scope: $scope
                             });

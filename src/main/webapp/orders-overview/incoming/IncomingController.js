@@ -3,7 +3,15 @@
 
     angular.module('fmu.overview')
         .controller('OrderController', OrderController);
-    OrderController.$inject = ['$scope', '$state', '$filter', 'AuthService', 'DatetimeService', 'eavropService', 'gettext'];
+
+    OrderController.$inject = ['$scope',
+        '$state',
+        '$filter',
+        'AuthService',
+        'DatetimeService',
+        'eavropService',
+        'gettext'
+    ];
 
     function OrderController($scope, $state, $filter, AuthService, DatetimeService, eavropService, gettext) {
         $scope.authService = AuthService;
@@ -150,7 +158,7 @@
                 case 'status':
                     return eavropService.getEavropConstants.statusMapping[rowData[key]];
                 default:
-                    return rowData[key] ? rowData[key] : '&nbsp;';
+                    return rowData[key] ? rowData[key] : '';
             }
         }
     }
