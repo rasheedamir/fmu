@@ -100,6 +100,7 @@
                         'src/main/webapp/core/authentication/role.controller.js',
                         'src/main/webapp/core/rest/Eavrops.js',
                         'src/main/webapp/core/translations/translation.pot.js',
+                        'src/main/webapp/eavrop-overview/allEvents/AllEvents.controller.js',
                         'src/main/webapp/eavrop-overview/compensations/compensation.controller.js',
                         'src/main/webapp/eavrop-overview/investigation/Investigation.controller.js',
                         'src/main/webapp/eavrop-overview/investigation/addBookingModal.controller.js',

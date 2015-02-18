@@ -9,6 +9,7 @@ angular.module('fmu.core')
     })
     .constant('RESTURL', {
         eavrop: 'app/rest/eavrop/:eavropId',
+        eavropCompensation: '/app/rest/eavrop/:eavropId/compensations',
         eavropDocuments: 'app/rest/eavrop/:eavropId/received-documents',
         eavropRequestedDocuments: 'app/rest/eavrop/:eavropId/requested-documents',
         eavropNotes: 'app/rest/eavrop/:eavropId/notes',

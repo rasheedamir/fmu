@@ -18,6 +18,15 @@
                     },
                     patientInfo: function($stateParams) {
                         return Dataservice.getPatientByEavropId($stateParams.eavropId);
+                    },
+                    RecievedDocuments: function($stateParams) {
+                        return Dataservice.getRecievedDocuments($stateParams.eavropId);
+                    },
+                    ReqDocuments: function($stateParams) {
+                        return Dataservice.getRequestedDocuments($stateParams.eavropId);
+                    },
+                    order: function($stateParams) {
+                        return Dataservice.getEavropOrder($stateParams.eavropId);
                     }
                 },
                 controller: 'EavropController',
@@ -35,11 +44,6 @@
             stateConfig: {
                 url: '/contents',
                 title: gettext('Eavrop-content-title/Content'),
-                resolve: {
-                    order: function($stateParams) {
-                        return Dataservice.getEavropOrder($stateParams.eavropId);
-                    }
-                },
                 templateUrl: 'eavrop-overview/order/contents.html',
                 controller: function($scope, order) {
                     $scope.order = order;
@@ -51,14 +55,6 @@
                 title: gettext('Eavrop-document-title/Document'),
                 url: '/documents',
                 templateUrl: 'eavrop-overview/order/documents/documents.html',
-                resolve: {
-                    RecievedDocuments: function($stateParams) {
-                        return Dataservice.getRecievedDocuments($stateParams.eavropId);
-                    },
-                    ReqDocuments: function($stateParams) {
-                        return Dataservice.getRequestedDocuments($stateParams.eavropId);
-                    }
-                },
                 controller: 'DocumentsController'
             }
         }, {
@@ -83,6 +79,30 @@
                 title: gettext('Eavrop-investigation-title/Investigation'),
                 templateUrl: 'eavrop-overview/investigation/investigation.html',
                 controller: 'InvestigationController'
+            },
+        }, {
+            stateName: 'eavrop.allevents',
+            stateConfig: {
+                url: '/all-events',
+                title: gettext('Eavrop-AllEvents-title/All events'),
+                resolve: {
+                    notes: function($stateParams) {
+                        return Dataservice.getNotes($stateParams.eavropId);
+                    },
+                    allevents: function($stateParams) {
+                        return Dataservice.getAllEvents($stateParams.eavropId);
+                    }
+                },
+                controller: 'AllEventsController',
+                templateUrl: 'eavrop-overview/allEvents/all-events.html'
+            }
+        }, {
+            stateName: 'eavrop.compensation',
+            stateConfig: {
+                url: '/compensation',
+                title: gettext('Eavrop-compensation-title/Compensations'),
+                templateUrl: 'eavrop-overview/compensations/compensation.html',
+                controller: 'CompensationController'
             }
         }];
 

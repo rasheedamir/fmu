@@ -25,7 +25,10 @@
             getRecievedDocuments: getEavropRecievedDocuments,
             saveRecievedDocuments: saveRecievedDocuments,
             getRequestedDocuments: getRequestedDocuments,
-            saverequestedDocuments: saverequestedDocuments
+            saverequestedDocuments: saverequestedDocuments,
+            getNotes: getNotes,
+            getAllEvents: getAllEvents,
+            getCompensation: getCompensation
         };
 
         return service;
@@ -201,6 +204,36 @@
         function saverequestedDocuments(eavropId, postdata) {
             var Resource = getRequestedDocumentsResource();
             return new Resource(postdata).$save({
+                eavropId: eavropId
+            });
+        }
+
+        function getNotes(eavropId) {
+            var Resource = $resource(RESTURL.eavropNotes, {
+                eavropId: '@eavropId'
+            });
+
+            return Resource.query({
+                eavropId: eavropId
+            });
+        }
+
+        function getAllEvents(eavropId) {
+            var Resource = $resource(RESTURL.eavropAllEvents, {
+                eavropId: '@eavropId'
+            });
+
+            return Resource.get({
+                eavropId: eavropId
+            });
+        }
+
+        function getCompensation(eavropId) {
+            var Resource = $resource(RESTURL.eavropCompensation, {
+                eavropId: '@eavropId'
+            });
+
+            return Resource.get({
                 eavropId: eavropId
             });
         }

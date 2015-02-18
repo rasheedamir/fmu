@@ -1,5 +1,5 @@
 'use strict';
-angular.module('fmuClientApp')
+angular.module('fmu.widgets')
     .directive('fmuSimpleTable', ['ngTableParams',
         function (ngTableParams) {
             return {

@@ -143,6 +143,24 @@
             dataservice.saverequestedDocuments(eavropId, data);
             backend.flush();
         });
+
+        it("should call to get eavrop notes", function() {
+            var eavropId = 'testId';
+            dataservice.getNotes(eavropId);
+            expect(getCalledURl(backend, [])).toBe(restUrl.eavropNotes.replace(':eavropId', eavropId));
+        });
+
+        it("should call rest api to get all events", function() {
+            var eavropId = 'testId';
+            dataservice.getAllEvents(eavropId);
+            expect(getCalledURl(backend, [])).toBe(restUrl.eavropAllEvents.replace(':eavropId', eavropId));
+        });
+
+        it("should call rest api to get compensation data", function() {
+            var eavropId = 'testId';
+            dataservice.getCompensation(eavropId);
+            expect(getCalledURl(backend, [])).toBe(restUrl.eavropCompensation.replace(':eavropId', eavropId));
+        });
     });
 
 })();
