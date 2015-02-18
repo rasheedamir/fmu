@@ -1,5 +1,5 @@
 'use strict';
-angular.module('fmuClientApp')
+angular.module('fmu.core')
 .controller('FakeRoleCtrl', ['$scope','AuthService', function($scope, AuthService){
 
     $scope.roles = ['ROLE_SAMORDNARE', 'ROLE_UTREDARE'];

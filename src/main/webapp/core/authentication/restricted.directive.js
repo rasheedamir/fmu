@@ -1,5 +1,5 @@
 'use strict';
-angular.module('fmuClientApp')
+angular.module('fmu.core')
 .directive('restricted', ['AuthService', function(AuthService){
     return {
         restrict: 'A',

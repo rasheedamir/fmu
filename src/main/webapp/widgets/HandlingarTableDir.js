@@ -1,5 +1,5 @@
 'use strict';
-angular.module('fmu')
+angular.module('fmu.widgets')
 .directive('fmuHandlingarTable', ['gettext', function(gettext){
     return {
         scope: {
