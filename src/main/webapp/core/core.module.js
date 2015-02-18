@@ -9,7 +9,7 @@
         'templatecache',
         'gettext',
         'ngResource',
-        'ui.bootstrap',
+        'ngSanitize',
 
         'util.exception',
         'util.logger',

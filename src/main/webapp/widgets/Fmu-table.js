@@ -1,5 +1,5 @@
 'use strict';
-angular.module('fmuClientApp')
+angular.module('fmu.widgets')
     .directive('fmuTable', ['ngTableParams', '$state', '$filter', 'Dataservice',
         function(ngTableParams, $state, $filter, Dataservice) {
             return {
@@ -40,7 +40,7 @@ angular.module('fmuClientApp')
                                 count: 10 // count per page
                             }, {
                                 getData: function($defer, params) {
-                                    var data = Dataservice.getEavrops(
+                                    var data = Dataservice.getOverviewEavrops(
                                         $scope.startDate ? $scope.startDate : null,
                                         $scope.endDate ? $scope.endDate : null,
                                         $scope.eavropStatus ? $scope.eavropStatus : null,

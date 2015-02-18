@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fmuClientApp')
+angular.module('fmu.overview')
     .controller('OngoingController', ['$scope', '$filter', 'AuthService', 'DatetimeService', 'EavropService','gettext',
         function ($scope, $filter, AuthService, DatetimeService, EavropService, gettext) {
             $scope.authService = AuthService;
