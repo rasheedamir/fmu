@@ -161,6 +161,14 @@
             dataservice.getCompensation(eavropId);
             expect(getCalledURl(backend, [])).toBe(restUrl.eavropCompensation.replace(':eavropId', eavropId));
         });
+
+        it("should call rest api to add a note", function() {
+            var eavropId = 'testId';
+            var data = {test: 'test'};
+            backend.expectPOST(restUrl.eavropAddNote, data).respond(200);
+            dataservice.addNote(eavropId, data);
+            backend.flush();
+        });
     });
 
 })();

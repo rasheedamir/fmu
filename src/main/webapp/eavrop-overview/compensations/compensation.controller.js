@@ -1,9 +1,9 @@
 (function() {
     'use strict';
 
-    angular.module('fmuClientApp')
+    angular.module('fmu.eavrop')
         .controller('CompensationController', CompensationController);
-    CompensationController.$inject = ['$scope', '$filter', 'AuthService', 'currentEavrop', 'Dataservice', 'gettext', 'logger'];
+    CompensationController.$inject = ['$scope', '$filter', 'AuthService', 'currentEavrop', 'Dataservice', 'gettext'];
 
     function CompensationController($scope, $filter, AuthService, currentEavrop, Dataservice, gettext) {
         $scope.authService = AuthService;

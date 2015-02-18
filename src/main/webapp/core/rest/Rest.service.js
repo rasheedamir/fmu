@@ -27,6 +27,8 @@
             getRequestedDocuments: getRequestedDocuments,
             saverequestedDocuments: saverequestedDocuments,
             getNotes: getNotes,
+            addNote: addNote,
+            removeNote: removeNote,
             getAllEvents: getAllEvents,
             getCompensation: getCompensation
         };
@@ -208,13 +210,39 @@
             });
         }
 
+        function getNoteResource() {
+            if (!dataResources.Notes) {
+                dataResources.Notes = $resource(RESTURL.eavropNotes, {
+                    eavropId: '@eavropId'
+                });
+            }
+
+            return dataResources.Notes;
+        }
+
         function getNotes(eavropId) {
-            var Resource = $resource(RESTURL.eavropNotes, {
-                eavropId: '@eavropId'
-            });
+            var Resource = getNoteResource();
 
             return Resource.query({
                 eavropId: eavropId
+            });
+        }
+
+        function addNote(eavropId, noteData) {
+            var Note = $resource(RESTURL.eavropAddNote);
+            var newNote = new Note(noteData);
+            return newNote.$save();
+        }
+
+        function removeNote(eavropId, noteId) {
+            var Note = $resource(RESTURL.eavropRemoveNote, {
+                eavropId: '@eavropId',
+                noteId: '@noteId'
+            });
+
+            return Note.remove({
+                eavropId: eavropId,
+                noteId: noteId
             });
         }
 

@@ -13,6 +13,8 @@ angular.module('fmu.core')
         eavropDocuments: 'app/rest/eavrop/:eavropId/received-documents',
         eavropRequestedDocuments: 'app/rest/eavrop/:eavropId/requested-documents',
         eavropNotes: 'app/rest/eavrop/:eavropId/notes',
+        eavropAddNote: 'app/rest/eavrop/note/add',
+        eavropRemoveNote: '/app/rest/eavrop/:eavropId/note/:noteId/remove',
         eavropAllEvents: 'app/rest/eavrop/:eavropId/all-events',
         eavropOrder: 'app/rest/eavrop/:eavropId/order',
         eavropPatient: 'app/rest/eavrop/:eavropId/patient',

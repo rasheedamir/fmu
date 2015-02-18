@@ -104,6 +104,18 @@
                 templateUrl: 'eavrop-overview/compensations/compensation.html',
                 controller: 'CompensationController'
             }
+        }, {
+            stateName: 'eavrop.notes',
+            stateConfig: {
+                url: '/notes',
+                resolve: {
+                    notes: function($stateParams){
+                        return Dataservice.getNotes($stateParams.eavropId);
+                    }
+                },
+                templateUrl: 'eavrop-overview/notes/notes.html',
+                controller: 'NotesController'
+            }
         }];
 
         routeHelper.registerStates(states);
