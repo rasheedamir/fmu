@@ -5,7 +5,8 @@ import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 
 /**
- * Interface implemented by the facade.
+ * Helper service for simulating customer interactions without having to send the actual webservice call. 
+ * To be used as a testing utility and to be called via REST calls from the gui. 
  *
  * @author Rickard
  */

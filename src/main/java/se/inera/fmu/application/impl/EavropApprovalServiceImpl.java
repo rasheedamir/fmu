@@ -26,9 +26,8 @@ import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.Bestallarsamordnare;
 
 /**
- * Service for handling eavrop assignments
  * 
- * @author 
+ * @see EavropApprovalService
  *
  */
 @Service

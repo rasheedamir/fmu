@@ -6,6 +6,7 @@ import se.inera.fmu.domain.model.eavrop.EavropId;
 
 /**
  * Service for handling eavrop approvals
+ * An eavrop can both get approved and get its compensation approved
  * 
  * @author Rickard on 01/11/14.
  *

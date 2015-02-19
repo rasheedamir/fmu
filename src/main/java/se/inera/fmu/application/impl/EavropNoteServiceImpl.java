@@ -22,9 +22,8 @@ import se.inera.fmu.domain.model.eavrop.note.NoteType;
 import se.inera.fmu.domain.model.person.HoSPerson;
 
 /**
- * Service for handling eavrop assignments
  * 
- * @author 
+ * @see EavropNoteService
  *
  */
 @Service

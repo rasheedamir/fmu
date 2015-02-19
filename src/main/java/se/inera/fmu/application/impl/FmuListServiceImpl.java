@@ -4,8 +4,6 @@ import java.util.Arrays;
 
 import javax.inject.Inject;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.hibernate.Hibernate;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -29,9 +27,8 @@ import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.domain.model.landsting.LandstingRepository;
 
 /**
- * Created by Rickard on 3/11/14.
  *
- * Application Service for listing eavrop in  
+ * @see FmuListService
  */
 @Service
 @Validated
@@ -142,5 +139,4 @@ public class FmuListServiceImpl implements FmuListService {
 		}
 		return eavrop;
 	}
-
 }

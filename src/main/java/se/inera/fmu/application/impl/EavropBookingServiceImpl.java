@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import se.inera.fmu.application.EavropAssignmentService;
 import se.inera.fmu.application.EavropBookingService;
 import se.inera.fmu.application.impl.command.AddBookingDeviationResponseCommand;
 import se.inera.fmu.application.impl.command.ChangeBookingStatusCommand;
@@ -27,11 +28,14 @@ import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingSt
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.note.NoteType;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
-import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.HoSPerson;
 import se.inera.fmu.domain.model.person.Person;
 
-@SuppressWarnings("all")
+/**
+ * 
+ * @see EavropBookingService
+ *
+ */
 @Service
 @Validated
 @Slf4j
@@ -135,12 +139,7 @@ public class EavropBookingServiceImpl implements EavropBookingService {
 	private BookingDeviationResponse  createBookingDeviationResponse(AddBookingDeviationResponseCommand aCommand ) {
 		return new BookingDeviationResponse(aCommand.getResponseType(), aCommand.getResponseTimestamp(), aCommand.getBestallaradministrator(), createResponseNote(aCommand.getResponseComment(), aCommand.getBestallaradministrator()));
 	}
-
 	
-	private Bestallaradministrator createBestallaradministrator(String personName, String personRole, String personOrganistation, String personUnit, String personPhone, String personEmail){
-		return new Bestallaradministrator(personName,  personRole, personOrganistation, personUnit, personPhone, personEmail);
-	}
-
 	private Note createResponseNote(String comment, Person person) {
 		Note note = null;
 		

@@ -31,9 +31,8 @@ import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.HoSPerson;
 
 /**
- * Service for handling eavrop assignments
  * 
- * @author 
+ * @see EavropDocumentService
  *
  */
 @Service

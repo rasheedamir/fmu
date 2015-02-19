@@ -15,6 +15,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Service;
 
+import se.inera.fmu.application.FmuEventService;
 import se.inera.fmu.application.IncomingCommunicationGeneratorService;
 import se.inera.fmu.application.impl.command.AddBookingDeviationResponseCommand;
 import se.inera.fmu.application.impl.command.AddIntygApprovedCommand;
@@ -42,6 +43,11 @@ import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
 import se.inera.fmu.facade.FmuWebServiceFacade;
 
+/**
+ * 
+ * @see IncomingCommunicationGeneratorService
+ *
+ */
 @Slf4j
 @Service
 public class IncomingCommunicationGeneratorServiceImpl  implements IncomingCommunicationGeneratorService {

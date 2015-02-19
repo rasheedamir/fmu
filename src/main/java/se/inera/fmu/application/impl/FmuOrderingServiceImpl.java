@@ -16,25 +16,21 @@ import se.inera.fmu.domain.model.eavrop.Eavrop;
 import se.inera.fmu.domain.model.eavrop.EavropBuilder;
 import se.inera.fmu.domain.model.eavrop.EavropRepository;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
-import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingRepository;
 import se.inera.fmu.domain.model.systemparameter.Configuration;
 
 /**
- * Created by Rasheed on 7/7/14.
- *
- * Application Service for managing FMU process
+ * 
+ * @see FmuOrderingService
  */
-@SuppressWarnings("all")
 @Service
 @Validated
 @Slf4j
 public class FmuOrderingServiceImpl implements FmuOrderingService {
 
 	private final EavropRepository eavropRepository;
-	private final InvanareRepository invanareRepository;
 	private final Configuration configuration;
 	private final LandstingRepository landstingRepository;
 	
@@ -52,11 +48,9 @@ public class FmuOrderingServiceImpl implements FmuOrderingService {
 	 */
 	@Inject
 	public FmuOrderingServiceImpl(final EavropRepository eavropRepository,
-								  final InvanareRepository invanareRepository, 
 								  final Configuration configuration,
 								  final LandstingRepository landstingRepository) {
 		this.eavropRepository = eavropRepository;
-		this.invanareRepository = invanareRepository;
 		this.configuration = configuration;
 		this.landstingRepository = landstingRepository;
 	}

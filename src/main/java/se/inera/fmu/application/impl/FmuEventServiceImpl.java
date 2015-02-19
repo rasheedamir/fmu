@@ -43,16 +43,13 @@ import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 
 /**
- * Service for handling eavrop assignments
  * 
- * @author 
+ * @see FmuEventService
  *
  */
 @Service
 @Validated
 @Slf4j
-
-//TODO: refactor to remove need for transactions  
 public class FmuEventServiceImpl implements FmuEventService {
 
     private final EavropRepository eavropRepository;

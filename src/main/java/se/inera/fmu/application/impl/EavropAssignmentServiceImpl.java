@@ -24,9 +24,8 @@ import se.inera.fmu.domain.model.hos.vardgivare.VardgivarenhetRepository;
 import se.inera.fmu.domain.model.person.HoSPerson;
 
 /**
- * Service for handling eavrop assignments
  * 
- * @author 
+ * @see EavropAssignmentService
  *
  */
 @Service

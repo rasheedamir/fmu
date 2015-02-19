@@ -35,7 +35,7 @@ import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 
 /**
- * Service for reading entities
+ * Service for publishing events that occur in the FMU application
  * 
  * @author Rickard on 16/01/15.
  *
