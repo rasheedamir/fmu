@@ -1,3 +1,4 @@
+<!-- ChangeLog for setting up database tables and constraints, generated from domain entities -->
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Changelog created with liquibase 3.3.0-SNAPSHOT, the http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd schema location is not yet public so changed to 3.0 version  -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
