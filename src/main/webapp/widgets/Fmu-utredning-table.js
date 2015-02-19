@@ -85,7 +85,7 @@
 
                 function changeHandelseStatusFn(rowData) {
                     var confirmModal = $modal.open({
-                        templateUrl: 'views/templates/changeBookingConfirmationModal.html',
+                        templateUrl: 'eavrop-overview/investigation/changeBookingConfirmationModal.html',
                         resolve: {
                             parent: function() {
                                 return $scope;

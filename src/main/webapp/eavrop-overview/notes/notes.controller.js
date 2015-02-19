@@ -17,7 +17,7 @@
 
 
         function openRemoveNoteFn(noteData) {
-            var confirmModal = $modal.open({
+            $modal.open({
                 templateUrl: 'eavrop-overview/notes/confirmRemoveModal.html',
                 size: 'md',
                 resolve: {
@@ -25,7 +25,7 @@
                         return noteData;
                     }
                 },
-                controller: function($scope, noteData) {
+                controller: function($scope, noteData, $modalInstance) {
                     $scope.cancelRemoval = cancelRemovalFn;
                     $scope.removeNote = removeNoteFn;
 
@@ -33,7 +33,7 @@
                         if (noteData && noteData.removable) {
                             var promise = Dataservice.removeNote($stateParams.eavropId, noteData.noteId).$promise;
                             promise.then(function() {
-                                confirmModal.close();
+                                $modalInstance.close();
                                 loadNotes();
                             }, function() {
                                 $scope.noteError = [EAVROP_NOTES.cannotRemove];
@@ -41,7 +41,7 @@
                         }
                     }
                     function cancelRemovalFn() {
-                        confirmModal.close();
+                        $modalInstance.close();
                     }
                 }
             });
@@ -52,10 +52,10 @@
         }
 
         function openAddNoteModalFn() {
-            var modalInstance = $modal.open({
+            $modal.open({
                 templateUrl: 'eavrop-overview/notes/add-note-modal.html',
                 size: 'md',
-                controller: function($scope) {
+                controller: function($scope, $modalInstance) {
                     $scope.picker = {
                         opened: false
                     };
@@ -83,7 +83,7 @@
                         var promise = Dataservice.addNote($stateParams.eavropId, createNoteDateObject());
                         promise.then(function() {
                             // Success
-                            modalInstance.close();
+                            $modalInstance.close();
                             loadNotes();
                         }, function() {
                             // Failed
@@ -91,7 +91,7 @@
                         });
                     }
                     function closeFn() {
-                        modalInstance.dismiss();
+                        $modalInstance.dismiss();
                     }
                 }
             });

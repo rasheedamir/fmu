@@ -9,7 +9,7 @@ function RequestAssignmentController($scope, $modal, $stateParams, Dataservice) 
 
     $scope.openAssignUtredareDialog = function() {
         $modal.open({
-            templateUrl: 'views/eavrop/assign-utredare-modal.html',
+            templateUrl: 'eavrop-overview/assign-utredare-modal.html',
             size: 'md',
             resolve: {
                 vardgivarenheter: Dataservice.getVardgivarenhetByEavropId($stateParams.eavropId)

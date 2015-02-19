@@ -7,7 +7,7 @@ RequestAcceptanceController.$inject = ['$scope', '$modal', '$stateParams', '$sta
 function RequestAcceptanceController($scope, $modal, $stateParams, $state, Dataservice) {
     $scope.acceptDialog = function() {
         $modal.open({
-            templateUrl: 'views/eavrop/accept-request-modal.html',
+            templateUrl: 'eavrop-overview/accept-request-modal.html',
             size: 'md',
             resolve: {},
             controller: function($scope, $modalInstance, $stateParams, $state) {
@@ -34,7 +34,7 @@ function RequestAcceptanceController($scope, $modal, $stateParams, $state, Datas
 
     $scope.rejectDialog = function() {
         $modal.open({
-            templateUrl: 'views/eavrop/reject-request-modal.html',
+            templateUrl: 'eavrop-overview/reject-request-modal.html',
             size: 'md',
             resolve: {},
             controller: function($scope, $modalInstance, $stateParams, $state) {
@@ -53,6 +53,7 @@ function RequestAcceptanceController($scope, $modal, $stateParams, $state, Datas
                         });
 
                         $modalInstance.close();
+                        window.location.href = window.location.origin;
                     });
                 };
             }
