@@ -1,0 +1,66 @@
+.investigation {
+    @include container;
+    @include clearfix;
+    padding: 1em;
+    h1 {
+        font-size: $header-font-size;
+    }
+
+    .utredning-laggtill-btn {
+        float: right;
+    }
+}
+
+.fmu-form-item {
+    .event-type {
+        @include span(12);
+    }
+    .date {
+        display: block;
+        @include container;
+    }
+    .time {
+        @include container(12);
+        .start-time {
+            @include span(4);
+            @include post(1);
+
+        }
+        .end-time {
+            @include span(4);
+            @include post(3);
+        }
+    }
+    @include respond-to("tablet") {
+        .event-type {
+        	@include span(5 of 11);
+            @include post(6 of 11);
+        }
+        .date {
+            @include span(5 of 11);
+            @include post(1);
+            label {
+            	margin-bottom: 1em;
+            }
+        }
+        .time {
+            @include span(5 of 11 last);
+            .start-time {
+                @include span(5 of 11);
+                @include post(1);
+            }
+            .end-time {
+                @include span(5 of 11 last);
+            }
+        }
+
+        .person {
+			@include span(5 of 11);
+			@include post(1);
+        }
+
+        .roles {
+			@include span(5 of 11 last);
+        }
+    }
+}

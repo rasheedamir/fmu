@@ -1,0 +1,36 @@
+<div ng-cloak class="eavrop-compensation">
+        <h1 translate>Underlag-ersättningsvy/Underlag för ersättning</h1>
+
+        <div ng-show="arendeHeaderFields && tableData">
+            <h2 translate>Underlag-ersättningsvy/Ärende</h2>
+            <fmu-simple-table
+                    table-parameters="tableParameters"
+                    header-fields="arendeHeaderFields"
+                    access-data-callback="getArendeData"
+                    tabular-data="tableData"
+                    show-all-rows="true">
+            </fmu-simple-table>
+        </div>
+
+        <div ng-show="specificationHeaderFields && specifications">
+            <h2 translate>Underlag-ersättningsvy/Specifikation - avvikelser</h2>
+            <fmu-simple-table
+                    table-parameters="tableParameters"
+                    header-fields="specificationHeaderFields"
+                    access-data-callback="getAvikelserData"
+                    tabular-data="specifications"
+                    show-all-rows="true">
+            </fmu-simple-table>
+        </div>
+
+        <div ng-if="tillaggTjanster">
+            <h2 translate>Underlag-ersättningsvy/Tillägstjänster</h2>
+            <fmu-simple-table
+                    table-parameters="tableParameters"
+                    header-fields="tillaggtjanstHeaderFields"
+                    access-data-callback="getTillaggData"
+                    tabular-data="tillaggTjanster"
+                    show-all-rows="true">
+            </fmu-simple-table>
+        </div>
+</div>

@@ -1,0 +1,17 @@
+<div ng-cloak class="investigation">
+    <h1 translate>Utredningar/Utredning </h1>
+    <div class="table-wrapper">
+        <fmu-utredning-table
+        table-parameters="tableParameters"
+        header-fields="headerFields"
+        eavropid="currentEavropId"
+        row-modifiable="true"
+        access-data-callback="getTableCellValue">
+        </fmu-utredning-table>
+
+        <button class="btn btn-success utredning-laggtill-btn"
+            ng-click="openBookingCreationDialog()" translate>
+            Utredningar/Lägg till händelse
+        </button>
+    </div>
+</div>

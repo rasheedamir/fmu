@@ -1,0 +1,60 @@
+header.navigation {
+    ///////////////////////////////////////////////////////////////////////////////////
+    $base-border-radius: 3px !default;
+    $dark-gray: #333 !default;
+    -webkit-font-smoothing: antialiased;
+    a {
+        text-decoration: none;
+    }
+    //////////////////////////////////////////////////////////////////////////////////
+    $navigation-padding: 0.5em;
+    $navigation-height: 60px;
+    $general-padding: 0.8em 0;
+    $total-columns: 12;
+    $left-columns: 2;
+    $right-columns: 7;
+    $middle-columns: 3;
+    background-color: $navigation-background;
+    border-bottom: 1px solid darken($navigation-background, 10);
+    min-height: $navigation-height;
+    width: 100%;
+    z-index: 1049;
+    .navigation-wrapper {
+        @include layout($total-columns 0 no-gutters);
+        @include clearfix;
+        //@include container(show);
+        @include squish($navigation-padding);
+        position: relative;
+        z-index: 1049;
+    }
+    .navigation-left {
+        @include span($left-columns);
+        .logo {
+            img {
+                height: $navigation-height;
+                padding: $general-padding;
+            }
+        }
+    }
+    .navigation-center {
+        @include span($middle-columns);
+    }
+    .navigation-right {
+        @include span($right-columns last);
+        padding-left: $navigation-padding;
+
+        .navigation-right_content {
+            float: right;
+            td {
+              padding: 0 0.5em;
+            }
+
+            .user-logo {
+                img {
+                    height: $navigation-height;
+                    padding: $general-padding;
+                }
+            }
+        }
+    }
+}

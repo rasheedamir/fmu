@@ -1,0 +1,7 @@
+.order-overview-menu{
+    $background-color: lighten($navigation-background, 15%);
+    @include container;
+    background-color: $background-color;
+    box-shadow: 0 2px 2px -1px darken($background-color, 50%);
+    @include ul-navigation($background-color, $webcert-color);
+}

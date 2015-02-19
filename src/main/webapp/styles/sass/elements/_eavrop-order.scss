@@ -1,0 +1,117 @@
+.eavrop-order {
+    @include container;
+    @include clearfix;
+    padding: 1em;
+    h1 {
+        font-size: $header-font-size;
+    }
+    .fmu-tabs {
+        $border: solid thin $fmu-tabs-base-color;
+        $hover-bg-color: $fmu-tabs-base-color;
+        $hover-text-color: text-contrast($fmu-tabs-base-color);
+        nav {
+            border: $border;
+            @include border-top-radius(0.5em);
+            width: 100%;
+            float: left;
+            ul {
+                margin: 0;
+                padding: 0;
+                li {
+                    width: 100%;
+                    border-bottom: $border;
+                    a {
+                        font-size: 1em;
+                        padding: 0.5em 1em;
+                        line-height: 2em;
+                        font-weight: bold;
+                        text-decoration: none;
+                    }
+                    &:hover {
+                        background-color: $fmu-tabs-base-color;
+                        a {
+                            color: $hover-text-color;
+                        }
+                    }
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
+        .fmu-tab-content {
+            width: 100%;
+            float: left;
+            border: $border;
+            border-top: none;
+        }
+        @include respond-to("desktop") {
+            nav {
+                border: none;
+                ul {
+                    li {
+                        float: left;
+                        width: auto;
+                        border-bottom: none;
+                        border-left: $border;
+                        border-top: $border;
+                        &:first-child {
+                            border-top-left-radius: 0.5em;
+                        }
+                        &:last-child {
+                            border-right: $border;
+                            border-top-right-radius: 0.5em;
+                        }
+                    }
+                }
+            }
+            .fmu-tab-content {
+                border-top: $border;
+                border-top-right-radius: 0.5em;
+            }
+        }
+
+        .tab-highlight {
+            background-color: $fmu-tabs-highlight-color;
+            a {
+                color: $hover-text-color;
+            }
+        }
+    }
+    .eavrop-order-content {
+        @include container;
+        padding: 1em;
+        .bestallning {
+            @include container;
+            margin-bottom: 1em;
+            h2 {
+                font-size: $sub-header-font-size;
+            }
+        }
+        .bestallare {
+            @extend .bestallning;
+        }
+    }
+    .handlingar-tillagg {
+        @include container;
+        @include clearfix;
+        padding: 1em;
+        .table-wrapper {
+            @include container;
+            h2 {
+                font-size: $sub-header-font-size;
+            }
+            &:nth-child(2) {
+                margin-top: 1em;
+            }
+        }
+
+        .btn-handlingar {
+            margin-top: 1em;
+            float: right;
+        }
+    }
+    .citizen {
+        @extend .handlingar-tillagg;
+    }
+}

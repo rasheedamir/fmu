@@ -5,10 +5,10 @@
 *~
 logs/
 node_modules/
-src/main/webapp/bower_components/
+src/main/webapp/dependencies/bower_components/
 src/main/webapp/dist/
 src/main/java/ws/
-./sass_cache/
+.sass-cache/
 ######################
 # Eclipse
 ######################
@@ -94,7 +94,4 @@ Desktop.ini
 
 *.class
 *.log
-/target/
-/target/
-/target/
 /target/

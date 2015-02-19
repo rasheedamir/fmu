@@ -1,0 +1,29 @@
+<div ng-cloak class="overview-order-container">
+    <h1 translate class="order-status-title typl8-delta">Pågående-utredningar/Pågående beställningar</h1>
+    <ul class="order-dates-container">
+        <li class="start-date">
+            <fmu-datepicker title="Start datum" date-model="datetimeService.startDate"></fmu-datepicker>
+        </li>
+        <li class="end-date">
+            <fmu-datepicker title="Slut datum" date-model="datetimeService.endDate"></fmu-datepicker>
+        </li>
+        <li class="date-btn-container">
+            <button class="order-date-button btn btn-info" ng-click="visa()" translate>Pågående-utredningar/Visa</button>
+        </li>
+    </ul>
+    <div class="date-explaination">
+        <p>
+            <i>{{datePickerDescription | translate}} </i>
+        </p>
+    </div>
+    <fmu-table
+    table-parameters="tableParameters"
+    date-key="{{dateKey}}"
+    start-date="datetimeService.startDate.getTime()"
+    end-date="datetimeService.endDate.getTime()"
+    eavrop-status="ongoingStatus"
+    header-groups=headerGroups
+    header-fields="headerFields"
+    access-data-callback="getTableCellValue"
+    footer-hints="footerHints"></fmu-table>
+</div>

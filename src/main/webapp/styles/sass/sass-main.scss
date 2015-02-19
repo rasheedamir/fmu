@@ -1,0 +1,276 @@
+@import "modules/modules";
+@import "elements/elements";
+
+html {
+    background-color: $navigation-background;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    @include global-box-sizing(border-box);
+    ul {
+        list-style: none;
+    }
+}
+
+//ng-table override
+.ng-table th.sortable.sort-desc, .ng-table th.sortable.sort-asc {
+    $sort-highlight-color: lighten($table-header-bgcolor, 10%);
+    background-color: $sort-highlight-color;
+    color: text-contrast($sort-highlight-color);
+    text-shadow: none;
+}
+
+.ng-table th.sortable.sort-desc div:after {
+    border-top: 4px solid text-contrast($table-header-bgcolor);
+}
+
+.ng-table th.sortable div:after,
+.ng-table th.sortable div:before {
+    border-color: text-contrast($table-header-bgcolor) transparent;
+}
+
+.ng-table th.sortable div:before {
+    border-top: 4px solid text-contrast($table-header-bgcolor);
+}
+
+.ng-table th.sortable.sort-asc div:after,
+.ng-table th.sortable.sort-desc div:after,
+.ng-table th.sortable.sort-asc div:hover:after {
+    visibility: visible;
+    filter: alpha(opacity = 100);
+    -khtml-opacity: 1;
+    -moz-opacity: 1;
+    opacity: 1;
+}
+
+.bg-danger {
+    background-color: $danger-color;
+}
+
+.bg-warning {
+    background-color: $warning-color;
+}
+
+.bg-success {
+    background-color: $success-color;
+}
+
+@include respond-to("tablet") {
+    .table-wrapper {
+        @include container;
+        overflow-x: auto;
+        margin-top: 0;
+        padding: 2px;
+    }
+}
+
+
+.fmu-table {
+    display: block;
+    width: 100%;
+    color: text-contrast($table-header-bgcolor);
+    border-collapse: collapse;
+    border-spacing: 0;
+    position: relative;
+    border: solid thin $table-border-color;
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+    .bg-head-danger {
+        background-color: $danger-color;
+        color: text-contrast($danger-color) !important;
+    }
+    .bg-head-warning {
+        background-color: $warning-color;
+        color: text-contrast($warning-color) !important;
+    }
+    .bg-head-success {
+        background-color: $success-color;
+        color: text-contrast($success-color) !important;
+    }
+    thead {
+        display: block;
+        max-width: 60%;
+        float: left;
+        tr:first-child {
+            display: none;
+        }
+        tr:only-child, tr:nth-child(2) {
+            display: block;
+            th {
+                background-color: $table-header-bgcolor;
+                display: block;
+                text-align: left;
+                padding: 0.5em;
+                padding-top: 0;
+                white-space: nowrap;
+                overflow-x: hidden;
+                &:first-child {
+                    padding-top: 0.5em;
+                    border-top-left-radius: em(5px);
+                }
+                &:last-child {
+                    border-bottom-left-radius: em(5px);
+                    margin-bottom: 1em;
+                }
+            }
+        }
+    }
+    tbody {
+        display: block;
+        width: auto;
+        position: relative;
+        overflow-x: auto;
+        white-space: nowrap;
+        @include clearfix;
+        tr {
+            display: inline-block;
+            height: auto;
+            td {
+                display: block;
+                margin: 0;
+                color: text-contrast(white);
+                text-align: left;
+                padding: 0.5em;
+                padding-top: 0;
+                &:first-child {
+                    padding-top: 0.5em;
+                }
+            }
+        }
+    }
+    @include respond-to("tablet") {
+        display: table !important;
+        border: none;
+        thead {
+            display: table-header-group;
+            text-transform: capitalize;
+            float: none;
+            tr {
+                display: table-row !important;
+                cursor: pointer;
+                div {
+                    text-align: center;
+                    //min-height: 2.5em;
+                    max-height: 3.5em;
+                    //padding: 0.5em;
+                }
+                th {
+                    white-space: nowrap;
+                    display: table-cell !important;
+                }
+            }
+            %header-general {
+                background-color: $table-header-bgcolor;
+                th:first-child {
+                    border-top-left-radius: em(5px);
+                }
+                th:last-child {
+                    border-top-right-radius: em(5px);
+                    border-bottom-left-radius: 0;
+                }
+            }
+            tr:nth-child(2) {
+                @extend %header-general;
+            }
+            tr:only-child {
+                @extend %header-general;
+            }
+        }
+        tbody {
+            display: table-row-group !important;
+            tr {
+                display: table-row;
+                td {
+                    display: table-cell !important;
+                    border: 1px solid $table-border-color;
+                }
+            }
+        }
+    }
+
+    @include respond-to('desktop') {
+      thead {
+        tr {
+          th {
+            white-space: normal !important;
+          }
+        }
+      }
+    }
+}
+
+.pager {
+    @include container(12);
+    clear: both;
+    ul {
+        display: block;
+        width: 20em;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    @include respond-to("tablet") {
+        @include squish(4);
+    }
+}
+
+.table-legend {
+    p {
+        float: left;
+        padding-right: 10px;
+        margin-left: 10px;
+        margin-right: 20px;
+    }
+}
+
+.circle {
+  width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+    -moz-border-radius: 4em;
+    -webkit-border-radius: 4em;
+    float: left;
+    box-shadow: 0px 0px 1px 1px #000;
+}
+
+.fmu-form-container {
+    @include container(12);
+    @include clearfix;
+    padding: 1em;
+    .fmu-form-header {
+        @include span(12);
+        h1 {
+            @extend .typl8-delta;
+            text-align: left;
+        }
+    }
+
+    .fmu-form-body {
+        @include span(12);
+        border-top: solid thin $table-border-color;
+        border-bottom: solid thin $table-border-color;
+        margin: 0.5em 0;
+        padding: 0.5em 0;
+    }
+
+    .fmu-form-footer {
+        @include span(12 last);
+        button {
+            margin-left: 1em;
+            &:only-child {
+                float: right;
+            }
+        }
+
+        div {
+            float: right;
+        }
+    }
+
+    .fmu-form-item {
+        @include span(12);
+        margin: 0.5em 0;
+    }
+}
