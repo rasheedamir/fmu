@@ -55,16 +55,16 @@ public class EavropAssignment extends AbstractBaseEntity implements
     @NotNull
     private EavropAssignmentStatusType assignmentStatus;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="ASSIGN_PERSON_ID")
     @NotNull
 	private HoSPerson assigningPerson;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="RESPOND_PERSON_ID")
     private HoSPerson respondingPerson;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="REJECTION_NOTE_ID", nullable = true)
 	private Note rejectionNote;
 

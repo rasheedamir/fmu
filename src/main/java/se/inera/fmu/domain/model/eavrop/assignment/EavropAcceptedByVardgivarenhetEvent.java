@@ -5,6 +5,9 @@ import se.inera.fmu.domain.model.eavrop.EavropEvent;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 
+/**
+ * Domain event describing that the eavrop assignment has been accepted by the care giving unit/vardgivarenhet
+ */
 public class EavropAcceptedByVardgivarenhetEvent extends EavropEvent{
 	private final ArendeId arendeId;
 	private final HsaId hsaId;
