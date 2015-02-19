@@ -1,8 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!-- ChangeLog for setting up testdata with 'sliding' dates, used in test/preview sessions with stakeholders. 
 First the data from previous sesions are cleaned, including data created during test sessions, 
 then new data is setup with dates that are relative to the time of server start date.  
 If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for automatic cleaning of data on restart -->
-<?xml version="1.0" encoding="utf-8"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 	<property name="now" value="now()" dbms="mysql,h2" />
 	<property name="now" value="current_timestamp" dbms="postgresql" />
@@ -313,7 +313,7 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
             <column name="created_by" value="test" />
             <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 2 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 2 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 2 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="EMAIL" value="agneta.andersson@gmail.com" />
             <column name="GENDER" value="FEMALE" />
@@ -352,9 +352,9 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_EAVROP">
             <column name="EAVROP_ID" value="1001" />
             <column name="created_by" value="test" />
-            <column name="created_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 2 DAY) FROM DUAL)" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 2 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 2 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 2 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="ADDITIONAL_INFO" value="NULL" />
             <column name="ARENDE_ID" value="150000000001" />
@@ -402,9 +402,9 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_INVANARE">
             <column name="INVANARE_ID" value="1007" />
             <column name="created_by" value="test" />
-            <column name="created_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="EMAIL" value="maja.månsson@hotmail.com" />
             <column name="GENDER" value="FEMALE" />
@@ -455,9 +455,9 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_ASSIGNMENT">
             <column name="ASSIGNMENT_ID" value="1007" />
             <column name="created_by" value="test" />
-            <column name="created_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="STATUS" value="ASSIGNED" />
             <column name="vardgivarenhet_VARDGIVARENHET_ID" value="1" />
@@ -469,14 +469,14 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_EAVROP">
             <column name="EAVROP_ID" value="1007" />
             <column name="created_by" value="test" />
-            <column name="created_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="ADDITIONAL_INFO" value="NULL" />
             <column name="ARENDE_ID" value="150000000007" />
             <column name="DESCRIPTION" value="NULL" />
-            <column name="DOCUMENTS_SENT_DATE_TIME" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
+            <column name="DOCUMENTS_SENT_DATE_TIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
             <column name="ACCEPTANCE_VALID_LENGTH" valueNumeric="5" />
             <column name="ASSESSMENT_VALID_LENGTH" valueNumeric="25" />
             <column name="COMPLETION_VALID_LENGTH" valueNumeric="10" />
@@ -525,9 +525,9 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_INVANARE">
             <column name="INVANARE_ID" value="1002" />
             <column name="created_by" value="test" />
-            <column name="created_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="EMAIL" value="tina.tyren@hotmail.com" />
             <column name="GENDER" value="FEMALE" />
@@ -590,9 +590,9 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_ASSIGNMENT">
             <column name="ASSIGNMENT_ID" value="1002" />
             <column name="created_by" value="test" />
-            <column name="created_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="STATUS" value="ACCEPTED" />
             <column name="vardgivarenhet_VARDGIVARENHET_ID" value="1" />
@@ -604,14 +604,14 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_EAVROP">
             <column name="EAVROP_ID" value="1002" />
             <column name="created_by" value="test" />
-            <column name="created_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="ADDITIONAL_INFO" value="NULL" />
             <column name="ARENDE_ID" value="150000000002" />
             <column name="DESCRIPTION" value="NULL" />
-            <column name="DOCUMENTS_SENT_DATE_TIME" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
+            <column name="DOCUMENTS_SENT_DATE_TIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
             <column name="ACCEPTANCE_VALID_LENGTH" valueNumeric="5" />
             <column name="ASSESSMENT_VALID_LENGTH" valueNumeric="25" />
             <column name="COMPLETION_VALID_LENGTH" valueNumeric="10" />
@@ -619,7 +619,7 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
             <column name="STATE" value="ACCEPTED" />
             <column name="INTERPRETER_DESC" value="Finska" />
             <column name="CURRENT_INTYG_SENT_DATE" value="NULL" />
-            <column name="CURRENT_START_DATE" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 3 DAY) FROM DUAL)" />
+            <column name="CURRENT_START_DATE" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 3 DAY) FROM DUAL)" />
             <column name="EXAMINATION_FOCUS" value="NULL" />
             <column name="UTREDNING_TYPE" value="TMU" />
             <column name="BESTALLAR_PERSON_ID" valueNumeric="1002" />
@@ -651,7 +651,7 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
 
         <insert tableName="T_REC_DOCUMENT">
             <column name="DOCUMENT_ID" value="1002" />
-            <column name="DOCUMENT_DATETIME" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
+            <column name="DOCUMENT_DATETIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
             <column name="NAME" value="Journal" />
             <column name="EXTERNAL" value="Y" />
             <column name="PERSON_ID" value="5002" />
@@ -687,9 +687,9 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_INVANARE">
             <column name="INVANARE_ID" value="1003" />
             <column name="created_by" value="test" />
-            <column name="created_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="EMAIL" value="NULL" />
             <column name="GENDER" value="MALE" />
@@ -752,9 +752,9 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_ASSIGNMENT">
             <column name="ASSIGNMENT_ID" value="1003" />
             <column name="created_by" value="test" />
-            <column name="created_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 5 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 5 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="STATUS" value="ACCEPTED" />
             <column name="vardgivarenhet_VARDGIVARENHET_ID" value="1" />
@@ -766,14 +766,14 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_EAVROP">
             <column name="EAVROP_ID" value="1003" />
             <column name="created_by" value="test" />
-            <column name="created_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="ADDITIONAL_INFO" value="NULL" />
             <column name="ARENDE_ID" value="150000000003" />
             <column name="DESCRIPTION" value="NULL" />
-            <column name="DOCUMENTS_SENT_DATE_TIME" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 5 DAY) FROM DUAL)" />
+            <column name="DOCUMENTS_SENT_DATE_TIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 5 DAY) FROM DUAL)" />
             <column name="ACCEPTANCE_VALID_LENGTH" valueNumeric="5" />
             <column name="ASSESSMENT_VALID_LENGTH" valueNumeric="25" />
             <column name="COMPLETION_VALID_LENGTH" valueNumeric="10" />
@@ -781,7 +781,7 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
             <column name="STATE" value="ACCEPTED" />
             <column name="INTERPRETER_DESC" value="Turkiska" />
             <column name="CURRENT_INTYG_SENT_DATE" value="NULL" />
-            <column name="CURRENT_START_DATE" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 2 DAY) FROM DUAL)" />
+            <column name="CURRENT_START_DATE" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 2 DAY) FROM DUAL)" />
             <column name="EXAMINATION_FOCUS" value="NULL" />
             <column name="UTREDNING_TYPE" value="TMU" />
             <column name="BESTALLAR_PERSON_ID" valueNumeric="1003" />
@@ -812,7 +812,7 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         </insert>
         <insert tableName="T_REC_DOCUMENT">
             <column name="DOCUMENT_ID" value="1003" />
-            <column name="DOCUMENT_DATETIME" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
+            <column name="DOCUMENT_DATETIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
             <column name="NAME" value="Journal" />
             <column name="EXTERNAL" value="Y" />
             <column name="PERSON_ID" value="5003" />
@@ -846,9 +846,9 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_INVANARE">
             <column name="INVANARE_ID" value="1004" />
             <column name="created_by" value="test" />
-            <column name="created_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 14 DAY) FROM DUAL)" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 14 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 14 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 14 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="EMAIL" value="NULL" />
             <column name="GENDER" value="MALE" />
@@ -911,9 +911,9 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_ASSIGNMENT">
             <column name="ASSIGNMENT_ID" value="1004" />
             <column name="created_by" value="test" />
-            <column name="created_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 13 DAY) FROM DUAL)" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 13 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 12 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 12 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="STATUS" value="ACCEPTED" />
             <column name="vardgivarenhet_VARDGIVARENHET_ID" value="1" />
@@ -925,22 +925,22 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_EAVROP">
             <column name="EAVROP_ID" value="1004" />
             <column name="created_by" value="test" />
-            <column name="created_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 14 DAY) FROM DUAL)" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 14 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 14 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 14 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="ADDITIONAL_INFO" value="NULL" />
             <column name="ARENDE_ID" value="150000000004" />
             <column name="DESCRIPTION" value="NULL" />
-            <column name="DOCUMENTS_SENT_DATE_TIME" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 12 DAY) FROM DUAL)" />
+            <column name="DOCUMENTS_SENT_DATE_TIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 12 DAY) FROM DUAL)" />
             <column name="ACCEPTANCE_VALID_LENGTH" valueNumeric="5" />
             <column name="ASSESSMENT_VALID_LENGTH" valueNumeric="25" />
             <column name="COMPLETION_VALID_LENGTH" valueNumeric="10" />
             <column name="START_DATE_OFFSET" valueNumeric="3" />
             <column name="STATE" value="SENT" />
             <column name="INTERPRETER_DESC" value="NULL" />
-            <column name="CURRENT_INTYG_SENT_DATE" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
-            <column name="CURRENT_START_DATE" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 8 DAY) FROM DUAL)" />
+            <column name="CURRENT_INTYG_SENT_DATE" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 6 DAY) FROM DUAL)" />
+            <column name="CURRENT_START_DATE" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 8 DAY) FROM DUAL)" />
             <column name="EXAMINATION_FOCUS" value="Psykiatri" />
             <column name="UTREDNING_TYPE" value="SLU" />
             <column name="BESTALLAR_PERSON_ID" valueNumeric="1004" />
@@ -971,7 +971,7 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         </insert>
         <insert tableName="T_REC_DOCUMENT">
             <column name="DOCUMENT_ID" value="1004" />
-            <column name="DOCUMENT_DATETIME" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 12 DAY) FROM DUAL)" />
+            <column name="DOCUMENT_DATETIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 12 DAY) FROM DUAL)" />
             <column name="NAME" value="Journal" />
             <column name="EXTERNAL" value="Y" />
             <column name="PERSON_ID" value="5004" />
@@ -985,9 +985,9 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_BOOKING">
             <column name="BOOKING_ID" value="1004" />
             <column name="created_by" value="test" />
-            <column name="created_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 12 DAY) FROM DUAL)" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 12 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 12 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 12 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="ADDITIONAL_SERVICE" value="N" />
             <column name="DEVIATION_RESPONSE_DATE_TIME" value="NULL" />
@@ -996,9 +996,9 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
             <column name="BOOKING_RESOURCE_ROLE" value="Läkare" />
             <column name="BOOKING_STATUS_TYPE" value="PERFORMED" />
             <column name="BOOKING_TYPE" value="EXAMINATION" />
-            <column name="END_DATETIME" valueComputed=""(SELECT DATE_ADD((DATE_SUB(NOW(), INTERVAL 10 DAY)),INTERVAL 2 HOUR) FROM DUAL)" />
+            <column name="END_DATETIME" valueComputed="(SELECT DATE_ADD((DATE_SUB(NOW(), INTERVAL 10 DAY)),INTERVAL 2 HOUR) FROM DUAL)" />
             <column name="INTERPRETER_STATUS_TYPE" value="NULL" />
-            <column name="START_DATETIME" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 10 DAY) FROM DUAL)" />
+            <column name="START_DATETIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 10 DAY) FROM DUAL)" />
             <column name="DEVIATION_RESPONSE_NOTE_ID" value="NULL" />
             <column name="DEVIATION_RESPONSE_PERSON_ID" value="NULL" />
             <column name="DEVIATION_NOTE_ID" value="NULL" />
@@ -1024,7 +1024,7 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_INTYG_INFORMATION">
             <column name="DISC" value="SENT" />
             <column name="INTYG_INFORMATION_ID" value="1004" />
-            <column name="INFO_DATETIME" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 9 DAY) FROM DUAL)" />
+            <column name="INFO_DATETIME" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 9 DAY) FROM DUAL)" />
             <column name="PERSON_ID" value="6004" />
         </insert>
         <insert tableName="R_EAVROP_INTYG">
@@ -1055,9 +1055,9 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_INVANARE">
             <column name="INVANARE_ID" value="1005" />
             <column name="created_by" value="test" />
-            <column name="created_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 15 DAY) FROM DUAL)" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 15 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 15 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 15 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="EMAIL" value="sallysal@gmail.com" />
             <column name="GENDER" value="FEMALE" />
@@ -1120,9 +1120,9 @@ If new Eavrop cases are added, add the eavrop_id to eavrop_ids property tag for 
         <insert tableName="T_ASSIGNMENT">
             <column name="ASSIGNMENT_ID" value="1005" />
             <column name="created_by" value="test" />
-            <column name="created_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 12 DAY) FROM DUAL)" />
+            <column name="created_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 12 DAY) FROM DUAL)" />
             <column name="last_modified_by" value="test" />
-            <column name="last_modified_date" valueComputed=""(SELECT DATE_SUB(NOW(), INTERVAL 11 DAY) FROM DUAL)" />
+            <column name="last_modified_date" valueComputed="(SELECT DATE_SUB(NOW(), INTERVAL 11 DAY) FROM DUAL)" />
             <column name="version" valueNumeric="0" />
             <column name="STATUS" value="ACCEPTED" />
             <column name="vardgivarenhet_VARDGIVARENHET_ID" value="1" />
