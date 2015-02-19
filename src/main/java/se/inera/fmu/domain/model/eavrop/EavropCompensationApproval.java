@@ -22,10 +22,20 @@ import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.ValueObject;
 
+
+/**
+ * The Closed eavrop state is achieved when the customer communicates that the compensation of the eavrop 
+ * have been approved.
+ * This Object defines when this has happened, who has done the compensation approval 
+ * and optionally a note regarding the compensation approval 
+ */
 @Entity
 @Table(name = "T_EAVROP_COMP_APPROVAL")
 @ToString
+//TODO: Embed in Eavrop?
 public class EavropCompensationApproval implements ValueObject<EavropCompensationApproval>{
+
+	private static final long serialVersionUID = 1L;
 
 	//~ Instance fields ================================================================================================
 	@Id
@@ -43,11 +53,11 @@ public class EavropCompensationApproval implements ValueObject<EavropCompensatio
 	@Column(name = "COMPENSATION_DATE_TIME")
 	private DateTime compensationDateTime;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "PERSON_ID")
 	private Person person;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="NOTE_ID", nullable = true)
 	private Note note;
 
@@ -126,6 +136,4 @@ public class EavropCompensationApproval implements ValueObject<EavropCompensatio
     public int hashCode() {
         return this.compensationDateTime.hashCode();
     }
-	
-	//TODO: embed in eavrop?
 }

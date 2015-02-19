@@ -8,6 +8,9 @@ import org.joda.time.DateTime;
 import se.inera.fmu.application.ApplicationEvents;
 import se.inera.fmu.domain.shared.DomainEvent;
 
+/**
+ * Abstract base class for eavrop event, which includes the EavropId
+ */
 @ToString
 public abstract class EavropEvent implements DomainEvent<EavropEvent>, ApplicationEvents{
 	private final DateTime eventDateTime = DateTime.now();

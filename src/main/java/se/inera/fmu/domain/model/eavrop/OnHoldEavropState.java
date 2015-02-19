@@ -19,6 +19,8 @@ import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 @Slf4j
 public class OnHoldEavropState extends AbstractNoteableEavropState{
 
+	private static final long serialVersionUID = -1L;
+
 	@Override
 	public EavropStateType getEavropStateType() {
 		return EavropStateType.ON_HOLD;

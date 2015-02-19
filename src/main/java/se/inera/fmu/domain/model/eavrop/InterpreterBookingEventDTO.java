@@ -4,7 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
-
+/**
+ * DTO for data about a Interpreter booking
+ *
+ */
 public class InterpreterBookingEventDTO { 
 	
     private final InterpreterBookingStatusType interpreterStatus;

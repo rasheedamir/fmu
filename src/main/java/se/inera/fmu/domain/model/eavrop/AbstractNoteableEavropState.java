@@ -7,6 +7,9 @@ import se.inera.fmu.domain.model.eavrop.note.Note;
 * for multiple sub classes  
 */
 public abstract class AbstractNoteableEavropState extends AbstractEavropState {
+
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public void addNote(Eavrop eavrop, Note note) {
 		eavrop.doAddNote(note);

@@ -2,8 +2,10 @@ package se.inera.fmu.domain.model.eavrop;
 
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 
-
-
+/**
+ * Enum describing possible DeviationTypes for events, and functionality to convert from BookingStatusType  
+ *
+ */
 public enum EavropDeviationEventDTOType {
 	CANCELLED_NOT_PRESENT,
 	CANCELLED_BY_CAREGIVER,

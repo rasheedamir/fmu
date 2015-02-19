@@ -2,28 +2,27 @@ package se.inera.fmu.domain.model.eavrop;
 
 import org.joda.time.DateTime;
 
-
+/**
+ * DTO class for EavropDeviationEvent. Defines the type of deviation and when it happened.
+ *
+ */
 public class EavropDeviationEventDTO implements Comparable<EavropDeviationEventDTO>{ 
 
 	private final EavropDeviationEventDTOType deviationType;
-	
     private final long eventTime;
 
     EavropDeviationEventDTO(EavropDeviationEventDTOType deviationType, long eventTime){
     	this.deviationType = deviationType;
     	this.eventTime = eventTime;
     }
-
     
 	private long getEventTime() {
 		return eventTime;
 	}
 
-
 	public EavropDeviationEventDTOType getDeviationType() {
 		return deviationType;
 	}
-
 
 	@Override
 	public int compareTo(EavropDeviationEventDTO o) {
@@ -50,6 +49,7 @@ public class EavropDeviationEventDTO implements Comparable<EavropDeviationEventD
 				&& this.getDeviationType().equals(other.getDeviationType())
 				&& this.getEventTime()==other.getEventTime();
 	}
+
 	/**
 	 * @return HashCode.
 	 */

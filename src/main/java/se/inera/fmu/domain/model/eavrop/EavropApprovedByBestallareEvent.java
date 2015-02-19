@@ -3,6 +3,10 @@ package se.inera.fmu.domain.model.eavrop;
 import org.apache.commons.lang.Validate;
 import org.joda.time.DateTime;
 
+/**
+ * Domain event describing when the eavrop has been approved by the customer/beställare
+ *
+ */
 public class EavropApprovedByBestallareEvent extends EavropEvent{
 	
 	private final DateTime approvalDateTime; 

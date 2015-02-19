@@ -7,7 +7,6 @@ import lombok.ToString;
 import se.inera.fmu.domain.shared.ValueObject;
 
 /**
-* Created by Rickard on 1/10/14.
 *
 * A value object that holds information about needed interpreter language skills 
 *
@@ -15,10 +14,11 @@ import se.inera.fmu.domain.shared.ValueObject;
 @ToString
 @Embeddable
 public class Interpreter implements ValueObject<Interpreter>{
+ 
+	private static final long serialVersionUID = 1L;
 
 	//~ Instance fields ================================================================================================
 
-	// Defines the needed language skills of the interpreter.
 	@Column(name = "INTERPRETER_DESC")
 	private String interpreterDescription;
 

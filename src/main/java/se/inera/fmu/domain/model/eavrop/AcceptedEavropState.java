@@ -23,6 +23,8 @@ import se.inera.fmu.domain.model.eavrop.note.Note;
 @Slf4j
 public class AcceptedEavropState extends AbstractNoteableEavropState {
 
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public EavropStateType getEavropStateType() {
 		return EavropStateType.ACCEPTED;
