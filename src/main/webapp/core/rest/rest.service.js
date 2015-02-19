@@ -11,6 +11,7 @@
         var dataResources = {};
         var service = {
             resources: dataResources,
+            login: login,
             getOverviewEavrops: getOverviewEavrops,
             getIncomingEavrops: getIncomingEavrops,
             getOngoingEavrops: getOngoingEavrops,
@@ -34,6 +35,13 @@
         };
 
         return service;
+
+        function login(data) {
+            var Resource = $resource('/fake', {});
+            var loginResource = new Resource({userJsonDisplay: data});
+
+            return loginResource.$save();
+        }
 
         function getIncomingEavrops(fromdate, todate, page, pagesize, sortkey, sortorder) {
             return getOverviewEavrops(fromdate, todate, EAVROP_STATES.incoming, page, pagesize, sortkey, sortorder);

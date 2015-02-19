@@ -215,8 +215,16 @@
     }
 
     gulp.task('serve',['wiredep'], function() {
+        log('Serving development app');
         startBrowserSync([config.jsfiles, config.htmlfiles, config.cssfiles]);
         gulp.watch(config.sassfiles, ['sass']);
+    });
+
+    gulp.task('serve-prod',['wiredep'], function() {
+        log('Serving production app');
+        startBrowserSync([config.dist]);
+        gulp.watch(config.sassfiles, ['sass']);
+        gulp.watch(config.htmlfiles, ['templatecache']);
     });
 
     gulp.task('build', ['jshint', 'images', 'fonts', 'extras', 'html'], function() {});

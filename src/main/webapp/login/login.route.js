@@ -11,7 +11,8 @@
         var stateConfig = {
             url: '/login',
             templateUrl: 'login/login.html',
-            title: gettext('login-title/Login')
+            title: gettext('login-title/Login'),
+            controller: 'LoginController'
         };
 
         routeHelper.registerState(stateName, stateConfig);
