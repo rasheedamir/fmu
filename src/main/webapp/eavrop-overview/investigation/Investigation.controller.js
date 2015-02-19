@@ -22,7 +22,7 @@
         $scope.openBookingCreationDialog = openBookingCreationDialogFn;
 
         function openBookingCreationDialogFn() {
-            var modal = $modal.open({
+            $modal.open({
                 templateUrl: 'eavrop-overview/investigation/addBookingModal.html',
                 resolve: {
                     Eavrop: function() {
@@ -31,10 +31,6 @@
 
                     tableParameters: function() {
                         return $scope.tableParameters;
-                    },
-
-                    modal: function() {
-                        return modal;
                     }
                 },
                 controller: 'AddBookingModalController'

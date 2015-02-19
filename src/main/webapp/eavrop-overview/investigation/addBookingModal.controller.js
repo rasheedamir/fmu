@@ -2,9 +2,9 @@
     'use strict';
     angular.module('fmu.eavrop').
     controller('AddBookingModalController', AddBookingController);
-    AddBookingController.$inject = ['$scope', 'Eavrop', 'tableParameters', 'investigationService', 'modal'];
+    AddBookingController.$inject = ['$scope', 'Eavrop', 'tableParameters', 'investigationService', '$modalInstance'];
 
-    function AddBookingController($scope, Eavrop, tableParameters, investigationService, modal) {
+    function AddBookingController($scope, Eavrop, tableParameters, investigationService, $modalInstance) {
         $scope.handelseDate = new Date();
         $scope.handelseStartTime = new Date();
         $scope.handelseStartTime.setMinutes(0);
@@ -52,7 +52,9 @@
             var dataPackage = constructBookingObject();
             var promise = investigationService.createBooking(dataPackage);
             promise.then(function() {
-                modal.close();
+                if($modalInstance) {
+                    $modalInstance.close();
+                }
                 tableParameters.reload();
             }, function() {
                 $scope.createBookingErrors.push(investigationService.getTextConstants().errors.cannotCreateBooking);
@@ -60,7 +62,7 @@
         }
 
         function cancelFn() {
-            modal.dismiss('cancel');
+            $modalInstance.dismiss('cancel');
         }
     }
 })();

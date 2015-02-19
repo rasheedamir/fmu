@@ -1,5 +1,5 @@
 'use strict';
-angular.module('fmu.core')
+angular.module('fmu.widgets')
 .directive('restricted', ['AuthService', function(AuthService){
     return {
         restrict: 'A',
@@ -7,9 +7,11 @@ angular.module('fmu.core')
             var role = attrs.role;
             var oldcss = elm.css('display');
 
-            $scope.userInfo = AuthService.userInfo;
-
-
+            $scope.userInfo = AuthService.getUserInfo();
+            $scope.$watch('userInfo', function(){
+                updateCSS();
+            }, true);
+            
             function updateCSS(){
                 if(AuthService.hasRole(role)){
                     elm.css('display', oldcss);
@@ -17,10 +19,6 @@ angular.module('fmu.core')
                     elm.css('display', 'none');
                 }
             }
-            $scope.$watch('userInfo', function(){
-                updateCSS();
-            }, true);
-
         }
     };
 }]);

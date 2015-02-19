@@ -71,7 +71,7 @@
             .pipe(assets)
             .pipe(jsfilter)
             .pipe($.ngAnnotate())
-            .pipe($.uglify())
+            //.pipe($.uglify())
             .pipe(jsfilter.restore())
             .pipe(cssfilter)
             .pipe($.csso())
