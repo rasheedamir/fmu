@@ -1,0 +1,48 @@
+<div class="eavrop-order-content">
+    <div class="bestallning">
+        <h2 translate>Beställning/innehåll/Beställning</h2>
+        <table class="fmu-table">
+            <thead>
+            <tr>
+                <th translate>Beställning/innehåll/Ärende-ID</th>
+                <th translate>Beställning/innehåll/Förfrågan inkom</th>
+                <th translate>Beställning/innehåll/Typ av utredning</th>
+                <th translate>Beställning/innehåll/Tolk</th>
+                <th translate>Beställning/innehåll/Val av inriktning</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>{{order.arendeId}}&nbsp;</td>
+                <td>{{order.inquiryDate | date: 'yyyy-MM-dd'}}&nbsp;</td>
+                <td>{{order.type}}&nbsp;</td>
+                <td>{{order.interpreterLang ? ('Ja, ' + order.interpreterLang) : order.interpreterLang != undefined ? 'Nej': null}}&nbsp;</td>
+                <td>{{order.valAvInriktning}}&nbsp;</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="bestallare">
+        <h2 translate>Beställning/innehåll/Beställare</h2>
+        <table class="fmu-table">
+            <thead>
+            <tr>
+                <th translate>Beställning/innehåll/Enhet</th>
+                <th translate>Beställning/innehåll/Beställare, namn</th>
+                <th translate>Beställning/innehåll/Beställare, tel</th>
+                <th translate>Beställning/innehåll/Beställare, e-post</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>{{order.ordererUnit}}&nbsp;</td>
+                <td>{{order.ordererName}}&nbsp;</td>
+                <td>{{order.ordererPhone}}&nbsp;</td>
+                <td>{{order.ordererEmail}}&nbsp;</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

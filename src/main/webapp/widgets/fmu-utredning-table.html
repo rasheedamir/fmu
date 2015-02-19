@@ -1,0 +1,138 @@
+<table ng-table="tableParams" template-pagination="custom/pager" class="table fmu-table fadeIn fast greyed-hover">
+    <thead>
+        <tr class="header">
+            <th ng-repeat="field in headerFields" class="sortable text-capitalize"
+                ng-class="{'sort-asc': tableParams.isSortBy(field.key, 'asc'),'sort-desc': tableParams.isSortBy(field.key, 'desc')}"
+                ng-click="sort(field.key)">
+                <div>{{field.name | translate}}</div>
+            </th>
+            <th ng-if="rowModifiable" class="text-capitalize">
+                <div translate>Utredning-tabell/Utredning-tabell/Ändra</div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-if="!tableParams.data || tableParams.data.length == 0">
+            <td ng-repeat="field in headerFields">&nbsp;</td>
+            <td ng-if="rowModifiable">&nbsp;</td>
+        </tr>
+        <tr ng-repeat-start="row in tableParams.data"
+            ng-click="rowClicked(row)">
+            <td ng-repeat="column in headerFields"
+                ng-if="!isEditColumn(column.key)"
+                sortable="{{column.key}}" class="text-capitalize">
+                <span ng-bind="getValue(column.key, row)"></span>
+            </td>
+            <td ng-if="rowModifiable">
+                <span ng-if="isEditColumn(row)" class="btn btn-info btn-sm" ng-click="toogleEditRow(row)"><i class="glyphicon glyphicon-edit"></i></span>
+            </td>
+        </tr>
+        <tr ng-repeat-end ng-if="row.isEditExpanded" class="no-hover">
+            <td colspan="{{headerFields.length + 1}}">
+                <div class="utredning-edit-row">
+                    <tabset justified="false">
+                    <tab ng-if="row.selectedTolkStatus" heading="Tolk">
+                    <div class="fmu-form-container">
+                        <div class="fmu-form-header" ng-if="statusModificationErrors.tolk">
+                            <label><translate>Utredning-tabell/Error</translate>: </label>
+                            <i translate>Utredning-tabell/This is an error</i>
+                        </div>
+                        <div class="fmu-form-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label translate>Utredning-tabell/Status</label>
+                                    <select class="form-control"
+                                        ng-model="row.selectedTolkStatus"
+                                        ng-options="tableConstants.tolkMapping[opt.name] for opt in row.tolkStatus.statuses
+                                        track by opt.name">
+                                    </select>
+                                </div>
+                                <div class="col-md-6" ng-if="row.selectedTolkStatus.requireComment">
+                                    <label translate>Utredning-tabell/Kommentar</label>
+                                    <textarea class="form-control"
+                                    ng-model="row.tolkComment"
+                                    placeholder="Ange anledningen till den givna statusändring"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fmu-form-footer">
+                            <div>
+                                <button translate class="btn btn-success" ng-click="changeTolkStatus(row)">Utredning-tabell/Spara</button>
+                                <button translate class="btn btn-danger" ng-click="cancelChange(row)">Utredning-tabell/Avbryt</button>
+                            </div>
+                        </div>
+                    </div>
+                    </tab>
+                    <tab ng-if="row.selectedHandelseStatus" heading="Händelse">
+                    <div class="fmu-form-container">
+                        <div class="fmu-form-header" ng-if="statusModificationErrors.handelse">
+                            <label><translate>Utredning-tabell/Error</translate>: </label>
+                            <itranslate>Utredning-tabell/This is an error</i>
+                        </div>
+                        <div class="fmu-form-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label translate>Utredning-tabell/Status</label>
+                                    <select class="form-control" ng-model="row.selectedHandelseStatus"
+                                        ng-options="tableConstants.handelseMapping[opt.name]
+                                        for opt in row.handelseStatus.statuses track by opt.name">
+                                    </select>
+                                </div>
+                                <div class="col-md-6" ng-if="row.selectedHandelseStatus.requireComment">
+                                    <label translate>Utredning-tabell/Kommentar</label>
+                                    <textarea class="form-control"
+                                    ng-model="row.handelseComment"
+                                    placeholder="Ange anledningen till den givna statusändring"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fmu-form-footer">
+                            <div>
+                                <button translate class="btn btn-success" ng-click="changeHandelseStatus(row)">Utredning-tabell/Spara
+                                </button>
+                                <button translate class="btn btn-danger" ng-click="cancelChange(row)">Utredning-tabell/Avbryt
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    </tab>
+                    </tabset>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<script type="text/ng-template" id="custom/pager">
+<div class="pager">
+    <ul class="ng-cloak">
+        <li ng-repeat="page in pages"
+            ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
+            ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
+            <a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Previous</a>
+            <a ng-switch-when="next" ng-click="params.page(page.number)" href="">Next &raquo;</a>
+        </li>
+        <li>
+            <div class="btn-group">
+                <button type="button" ng-class="{'active':params.count() == 10}" ng-click="params.count(10)"
+                class="btn btn-default">10
+                </button>
+                <button type="button" ng-class="{'active':params.count() == 25}" ng-click="params.count(25)"
+                class="btn btn-default">25
+                </button>
+                <button type="button" ng-class="{'active':params.count() == 50}" ng-click="params.count(50)"
+                class="btn btn-default">50
+                </button>
+                <button type="button" ng-class="{'active':params.count() == 100}" ng-click="params.count(100)"
+                class="btn btn-default">100
+                </button>
+            </div>
+        </li>
+    </ul>
+</div>
+<div>
+    <div ng-repeat="value in params.settings().$scope.footerHints" class="table-legend">
+        <div class="circle {{value.colorClass}}"></div>
+        <p>{{value.description}}</p>
+    </div>
+</div>
+</script>

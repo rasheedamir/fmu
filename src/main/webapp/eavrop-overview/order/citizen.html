@@ -1,0 +1,51 @@
+<div class="citizen">
+    <div class="table-wrapper">
+        <h2 translate>Beställning/Invånaren</h2>
+        <table class="fmu-table">
+            <thead>
+            <tr>
+                <th translate>Beställning/Invånaren/Initialer</th>
+                <th translate>Beställning/Invånaren/Kön</th>
+                <th translate>Beställning/Invånaren/Födelseår</th>
+                <th translate>Beställning/Invånaren/Bostadsort</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>{{patient.initials}}</td>
+                <td>{{patient.gender}}</td>
+                <td>{{patient.dobYear}}</td>
+                <td>{{patient.residenceCity}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-wrapper">
+        <table class="fmu-table">
+            <thead>
+            <tr>
+                <th translate>Beställning/Invånaren/Personnummer</th>
+                <th translate>Beställning/Invånaren/Namn</th>
+                <th translate>Beställning/Invånaren/Telefonnummer</th>
+                <th translate>Beställning/Invånaren/Tidigare utredd vid</th>
+                <th translate>Beställning/Invånaren/Sjukskrivande vårdcentral/klinik</th>
+                <th translate>Beställning/Invånaren/Sjukskrivande läkare</th>
+                <th translate>Beställning/Invånaren/Särskilda behov</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>{{patient.details.socSecNo}}</td>
+                <td>{{patient.details.name}}</td>
+                <td>{{patient.details.phone}}</td>
+                <td>{{patient.details.prevAssesment}}</td>
+                <td>{{patient.details.sjukskrivandeVk}}</td>
+                <td>{{patient.details.sjukskrivandeLakare}}</td>
+                <td>{{patient.details.specialNeeds}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

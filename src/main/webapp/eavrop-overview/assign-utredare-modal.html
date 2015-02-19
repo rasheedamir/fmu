@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="modal-header">
+            <h1 translate>Utse-utredare/Utse utredare</h1>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="assignment"><translate>Utse-utredare/Begär acceptans om utredning från</translate>:</label>
+                <select class="form-control" ng-model="model.selectedVardgivarenhet" ng-options="ve.unitName for ve in vardgivarenheter"></select>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <button class="btn btn-default" type="button" ng-click="assign()">Utse-utredare/Skicka</button>
+            <button class="btn btn-default" type="button" ng-click="close()">Utse-utredare/Avbryt</button>
+        </div>
+    </div>
+</div>

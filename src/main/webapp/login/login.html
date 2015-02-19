@@ -1,0 +1,22 @@
+<div class="loginForm">
+    <form id="loginForm" action="/fake" method="POST" class="form-inline" accept-charset="UTF-8">
+        <div class="content">
+            <h1>Testinloggningar Webcert</h1>
+            <p class="well">Templatelista till vänster - Manuella ändringar kan göras i jsonstrukturen - detta
+            omvandlas till inloggad userContext</p>
+            <div class="login-selection">
+                <h4>Mallar</h4>
+                <select ng-model="selectedItem" size="15" style="width: 100%" class="form-control"
+                ng-options="item as (item.fornamn + ' ' + item.efternamn) for item in loginArr"></select>
+            </div>
+            <div class="login-info">
+                <p>
+                <h4>Inloggningsprofil</h4>
+                <textarea id="userJsonDisplay" name="userJsonDisplay" class="field form-control">
+                {{selectedItem}}
+                </textarea>
+            </div>
+            <input id="loginBtn" type="submit" value="Logga in" class="btn btn-primary">
+        </div>
+    </form>
+</div>

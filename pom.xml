@@ -801,10 +801,20 @@
                     <schemaLanguage>WSDL</schemaLanguage>
                     <generatePackage>fk.wsdl</generatePackage>
                     <forceRegenerate>false</forceRegenerate>
+<<<<<<< HEAD
                     <schemaDirectory>${project.basedir}/src/main/resources/ws/ext/</schemaDirectory>
                     <schemaIncludes>
                         <include>*.wsdl</include>
                     </schemaIncludes>
+=======
+                    <schemas>
+                        <schema>
+                            <!-- ToDo: This must be read from resources
+                            -->
+                            <url>http://localhost:9090/ws/bestallare-ws.wsdl</url>
+                        </schema>
+                    </schemas>
+>>>>>>> clean-code
                 </configuration>
             </plugin>
 		</plugins>

@@ -1,0 +1,122 @@
+$eavrop-header-bcolor: lighten($navigation-background, 15%);
+$eavrop-header-text-color: text-contrast($eavrop-header-bcolor);
+$eavrop-header-link-bcolor: darken($eavrop-header-bcolor, 10%);
+$eavrop-header-element-padding: 0.5em 1em;
+$eavrop-hover-bcolor: lighten($eavrop-header-bcolor, 20%);
+
+.eavrop-header {
+    @include container;
+    @include clearfix;
+    background-color: $eavrop-header-bcolor;
+    color: $eavrop-header-text-color;
+    .header-backlink {
+        padding: $eavrop-header-element-padding;
+        display: table-cell;
+        vertical-align: middle;
+        float: left;
+        color: $eavrop-header-text-color;
+        p {
+            margin: 0;
+            color: white;
+        }
+        cursor: pointer;
+        &:hover {
+            background-color: $eavrop-hover-bcolor;
+            color: text-contrast($eavrop-hover-bcolor);
+        }
+    }
+    .patient-info-banner {
+        padding: $eavrop-header-element-padding;
+        display: table-cell;
+        vertical-align: middle;
+        float: right;
+    }
+}
+
+.fmu-assign-banner {
+    @include container;
+    @include clearfix;
+    padding: 1em;
+    background-color: $assign-banner-bgColor;
+    h1, p {
+        color: text-contrast($assign-banner-bgColor, $webcert-color);
+        text-indent: 0;
+    }
+
+    h1 {
+        font-size: $header-font-size;
+    }
+}
+
+#fmu-nav {
+    min-width: 1em;
+    width: auto !important;
+    @include container;
+    @include ul-navigation(darken($webcert-color, 20%));
+    .navigation-expanded {
+        li:last-child {
+            @include respond-to("desktop") {
+                float: right;
+            }
+        }
+    }
+}
+
+.fmu-status-banner {
+    @include container;
+    @include clearfix;
+    background-color: $fmu-status-bgColor;
+    $color: white;
+    padding: 0.5em 1em;
+    .status {
+        float: left;
+        h1 {
+            font-size: 1.5em;
+            color: $color;
+        }
+    }
+    .nr-of-days {
+        display: inline-block;
+        float: right;
+        text-align: center;
+        h1 {
+            display: none;
+        }
+        p {
+            color: text-contrast($fmu-status-daysBgColor, white);
+            font-weight: bold;
+            border-radius: 0.5em;
+            background-color: $fmu-status-daysBgColor;
+            padding: 0 0.5em;
+        }
+    }
+    @include respond-to("tablet") {
+        padding: 0.5em 1em;
+        .status {
+            float: left;
+            h1 {
+                font-size: 1.5em;
+                color: $color;
+            }
+        }
+        .nr-of-days {
+            display: inline-block;
+            float: right;
+            text-align: center;
+            h1 {
+                display: inline-block;
+                font-size: 1.5em;
+                color: $color;
+                float: left;
+            }
+            p {
+                float: right;
+                margin-left: 1em;
+            }
+        }
+    }
+}
+
+.menu-shadow {
+    box-shadow: 0 8px 8px rgba(128, 128, 128, 0.5) !important;
+}

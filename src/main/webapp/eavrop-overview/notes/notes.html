@@ -1,0 +1,14 @@
+<div ng-cloak class="eavrop-notes">
+    <h1 translate>Anteckningar/Anteckningar</h1>
+    <p translate>Anteckningar/De anteckningar som noteras här skall inte innehålla någon medicinsk eller känslig information.</p>
+    <div class="table-wrapper">
+        <fmu-error-field errors="noteError"></fmu-error-field>
+        <div class="table-wrapper">
+            <fmu-anteckningar-table
+            anteckningar="notes"
+            row-removable="true"
+            remove-func="openRemoveNote"></fmu-anteckningar-table>
+        </div>
+        <button class="btn btn-success" ng-click="openAddNoteModal()" translate>Anteckningar/Lägg till anteckning</button>
+    </div>
+</div>

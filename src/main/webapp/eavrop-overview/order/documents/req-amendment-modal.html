@@ -1,0 +1,34 @@
+<div class="fmu-form-container">
+        <div class="fmu-form-header">
+            <h1 translate>Begär tillägg/Begär tillägg</h1>
+        </div>
+
+        <div class="fmu-form-body">
+            <div class="form-group">
+                <label translate for="name">Begär tillägg/Handling</label>
+                <input class="form-control" ng-model="doc.name" type="text" id="name" />
+            </div>
+            <div class="fmu-form-item">
+                <label translate>Begär tillägg/Begäran skickad av</label>
+                <p>---</p>
+            </div>
+            <div class="fmu-form-item">
+                <label translate>Begär tillägg/Begäran skickad, datum</label>
+                <p>---</p>
+            </div>
+            <div class="fmu-form-item">
+                <label translate for="comment">Begär tillägg/Kommentar</label>
+                <textarea class="form-control" ng-model="doc.comment" rows="4"></textarea>
+            </div>
+            <div class="fmu-form-item">
+                <label translate>Begär tillägg/Begäran skickas till</label>
+                <p>---</p>
+            </div>
+
+        </div>
+
+        <div class="fmu-form-footer">
+            <button class="btn btn-default" type="button" ng-click="save()" translate>Begär tillägg/Skicka</button>
+            <button class="btn btn-default" type="button" ng-click="close()" translate>Begär tillägg/Avbryt</button>
+        </div>
+</div>

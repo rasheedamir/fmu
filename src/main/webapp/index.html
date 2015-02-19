@@ -1,118 +1,356 @@
 <!doctype html>
 <html class="no-js">
-<head>
-<meta charset="utf-8">
-<title></title>
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width">
-<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-<!-- build:css styles/vendor.css -->
-<!-- bower:css -->
-<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-<link rel="stylesheet" href="bower_components/ng-table/ng-table.css" />
-<link rel="stylesheet" href="bower_components/animate.css/animate.css" />
-<!-- endbower -->
-<!-- endbuild -->
-<!-- build:css styles/main.css -->
-<link rel="stylesheet" href="styles/inera-webcert.css">
-<link rel="stylesheet" href="styles/main.css">
-<!-- endbuild -->
-</head>
-<body ng-app="fmuClientAppDev">
-<!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-<div class="header clearfix">
-    <div class="headerbox">
-        <span class="headerbox-logo pull-left"><a href="/web/start"><img
-                alt="Till startsidan" src="/images/fmu_logo.png" /></a></span> <span
-            class="headerbox-date pull-left"> <span class="location">{{today()
-                | date:"shortDate"}}
-            </span>
-        </span>
-    </div>
-    <!-- <div class="headerbox-user pull-right">
-        <div class="headerbox-user-profile headerbox-avatar"
-            ng-show="authenticated">
-            <span>{{ account.userRoles | json }} - {{ account.firstName }} {{account.lastName}}</span> <br>
-            <div>
-                <a class="pull-right" id="logoutLink">Logga
-                    ut</a>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css styles/vendor.css -->
+        <!-- bower:css -->
+        <link rel="stylesheet" href="dependencies/bower_components/ng-table/ng-table.css" />
+        <link rel="stylesheet" href="dependencies/bower_components/animate.css/animate.css" />
+        <!-- endbower -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="dependencies/bootstrap/css/bootstrap.css">
+        <!-- endbuild -->
+
+        <!-- build:css(.tmp) styles/main.css -->
+        <!-- inject:css -->
+        <link rel="stylesheet" href="styles/sass-main.css">
+        <!-- endinject -->
+        <!-- endbuild -->
+    </head>
+    <body ng-app="fmu">
+        <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <title>{{title}}</title>
+        <header class="navigation show" role="banner">
+            <div class="navigation-wrapper">
+                <div class="navigation-left">
+                    <a href="javascript:void(0)" class="logo">
+                        <img src="images/fmu_logo.png" alt="Logo Image">
+                    </a>
+                </div>
+                <div class="navigation-center">
+
+                </div>
+                <div class="navigation-right">
+                    <table class="navigation-right_content">
+                        <tr>
+                            <td>
+                                <div ng-controller="FakeRoleCtrl" class="btn-group" role="group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    Välj roll
+                                    <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li ng-repeat="role in roles">
+                                            <a ng-click="changeRole(role)">{{role}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+
+                            <td>
+                                <a href="javascript:void(0)" class="user-logo">
+                                    <img src="images/avatar.png" alt="User Image">
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-        </div>
-    </div> -->
-    <div class="headerbox-user pull-right">
-        <div class="headerbox-user-profile headerbox-avatar">
-            <table ng-controller="FakeRoleCtrl">
-                <tr ng-repeat="role in roles">
-                    <td>{{role}}</td><td>
-                            <input type="button" class="btn btn-xs btn-danger" value="-" ng-click="removeRole(role)" ng-show="hasRole(role)"/>
-                            <input type="button" class="btn btn-xs" value="+" ng-click="changeRole(role)" ng-show="!hasRole(role)"/>
-                    </td>                
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
+        </header>
 
-<!-- Add your site or application content here -->
-<div ui-view></div>
 
-<footer class="footer"></footer>
+        <!-- Add your site or application content here -->
+        <div ui-view></div>
 
-<!-- build:js scripts/oldieshim.js -->
-<!--[if lt IE 9]>
-    <script src="bower_components/es5-shim/es5-shim.js"></script>
-    <script src="bower_components/json3/lib/json3.js"></script>
-    <![endif]-->
-<!-- endbuild -->
 
-<!-- build:js scripts/vendor.js -->
-<!-- bower:js -->
-<script src="bower_components/jquery/dist/jquery.js"></script>
-<script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script src="bower_components/angular-resource/angular-resource.js"></script>
-<script src="bower_components/angular-cookies/angular-cookies.js"></script>
-<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-<script src="bower_components/angular-animate/angular-animate.js"></script>
-<script src="bower_components/angular-touch/angular-touch.js"></script>
-<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-<script src="bower_components/angular-mocks/angular-mocks.js"></script>
-<script src="bower_components/ng-table/ng-table.js"></script>
-<script src="bower_components/underscore/underscore.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="bower_components/ScrollToFixed/jquery-scrolltofixed.js"></script>
-<!-- endbower -->
-<!-- endbuild -->
+        <footer class="footer" role="contentinfo">
+            <div class="footer-logo">
+                <img src="images/fmu_logo.png" alt="Logo image">
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li><h3>Innehåll</h3></li>
+                    <li><a href="javascript:void(0)">Om FMU</a></li>
+                    <li><a href="javascript:void(0)">Kontakt</a></li>
+                    <li><a href="javascript:void(0)">Tjänster</a></li>
+                </ul>
+                <ul>
+                    <li><h3>Relaterade länkar</h3></li>
+                    <li><a href="javascript:void(0)">Försäkringskassan</a></li>
+                    <li><a href="javascript:void(0)">Webcert</a></li>
+                    <li><a href="javascript:void(0)">Mina intyg</a></li>
+                </ul>
+                <ul>
+                    <li><h3>Lag</h3></li>
+                    <li><a href="javascript:void(0)">Användarvillkor</a></li>
+                    <li><a href="javascript:void(0)">Integritetspolicy</a></li>
+                </ul>
+            </div>
+            <hr>
+            <p>Created by R2M</p>
+        </footer>
 
-<!-- build:js scripts/scripts.js -->
-<script src="scripts/app.js"></script>
-<script src="scripts/app-dev.js"></script>
-<script src="scripts/overview/OverviewCtrl.js"></script>
-<script src="scripts/eavrop/EavropCtrl.js"></script>
-<script src="scripts/eavrop/AssignmentCtrl.js"></script>
-<script src="scripts/eavrop/AcceptanceCtrl.js"></script>
-<script src="scripts/eavrop/Eavrops.js"></script>
-<script src="scripts/eavrop/AddDocCtrl.js"></script>
-<script src="scripts/eavrop/HandlingarTableDir.js"></script>
-<script src="scripts/authentication/AuthService.js"></script>
-<script src="scripts/authentication/RestrictedDirective.js"></script>
-<script src="scripts/authentication/FakeRoleCtrl.js"></script>
-<script src="scripts/constants.js"></script>
-<script src="scripts/overview/EavropService.js"></script>
-<script src="scripts/overview/RestUrlBuilderService.js"></script>
-<script src="scripts/eavrop/UtredningService.js"></script>
-<script src="scripts/Directives/Fmu-utredning-table.js"></script>
-<script src="scripts/Directives/Fmu-datepicker.js"></script>
-<script src="scripts/Directives/Fmu-table.js"></script>
-<script src="scripts/Directives/Fmu-simple-table.js"></script>
-<script src="scripts/Directives/FMU-errorField.js"></script>
-<script src="scripts/eavrop/UtredningController.js"></script>
-<script src="scripts/eavrop/CompensationController.js"></script>
-<script src="scripts/overview/CompletedController.js"></script>
-<script src="scripts/overview/OngoingController.js"></script>
-<script src="scripts/overview/OrderController.js"></script>
-<!-- endbuild -->
-</body>
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="dependencies/bower_components/jquery/dist/jquery.js"></script>
+        <script src="dependencies/bower_components/es5-shim/es5-shim.js"></script>
+        <script src="dependencies/bower_components/angular/angular.js"></script>
+        <script src="dependencies/bower_components/json3/lib/json3.js"></script>
+        <script src="dependencies/bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="dependencies/bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="dependencies/bower_components/angular-animate/angular-animate.js"></script>
+        <script src="dependencies/bower_components/angular-touch/angular-touch.js"></script>
+        <script src="dependencies/bower_components/angular-mocks/angular-mocks.js"></script>
+        <script src="dependencies/bower_components/ng-table/ng-table.js"></script>
+        <script src="dependencies/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="dependencies/bower_components/ScrollToFixed/jquery-scrolltofixed.js"></script>
+        <script src="dependencies/bower_components/lodash/lodash.js"></script>
+        <script src="dependencies/bower_components/angular-gettext/dist/angular-gettext.js"></script>
+        <script src="dependencies/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="dependencies/bower_components/angular-resource/angular-resource.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:js scripts/scripts.js -->
+        <!-- inject:js -->
+
+
+
+        <script src="fmu.module.js"></script>
+
+
+
+        <script src="core/core.module.js"></script>
+
+
+
+        <script src="eavrop-overview/eavrop.module.js"></script>
+
+
+
+        <script src="login/login.module.js"></script>
+
+
+
+        <script src="orders-overview/overview.module.js"></script>
+
+
+
+        <script src="widgets/widgets.module.js"></script>
+
+
+
+        <script src="core/rest/rest.module.js"></script>
+
+
+
+        <script src="core/templatecache/templatecache.module.js"></script>
+
+
+
+        <script src="utilities/exception/exception.module.js"></script>
+
+
+
+        <script src="utilities/logger/logger.module.js"></script>
+
+
+
+        <script src="utilities/router/router.module.js"></script>
+
+
+
+        <script src="eavrop-overview/eavrop.constant.js"></script>
+
+
+
+        <script src="core/authentication/auth.constant.js"></script>
+
+
+
+        <script src="core/rest/rest.constant.js"></script>
+
+
+
+        <script src="core/authentication/auth.service.js"></script>
+
+
+
+        <script src="core/rest/RestUrlBuilder.service.js"></script>
+
+
+
+        <script src="core/rest/rest.service.js"></script>
+
+
+
+        <script src="eavrop-overview/investigation/investigation.service.js"></script>
+
+
+
+        <script src="utilities/exception/exception.service.js"></script>
+
+
+
+        <script src="utilities/logger/logger.service.js"></script>
+
+
+
+        <script src="utilities/router/router.service.js"></script>
+
+
+
+        <script src="core/authentication/restricted.directive.js"></script>
+
+
+
+        <script src="fmu.config.route.js"></script>
+
+
+
+        <script src="core/core.config.js"></script>
+
+
+
+        <script src="eavrop-overview/eavrop.config.route.js"></script>
+
+
+
+        <script src="eavrop-overview/eavrop.controller.js"></script>
+
+
+
+        <script src="eavrop-overview/eavropService.js"></script>
+
+
+
+        <script src="eavrop-overview/requestAcceptance.controller.js"></script>
+
+
+
+        <script src="eavrop-overview/requestAssignment.controller.js"></script>
+
+
+
+        <script src="login/login.controller.js"></script>
+
+
+
+        <script src="login/login.route.js"></script>
+
+
+
+        <script src="orders-overview/overview.config.route.js"></script>
+
+
+
+        <script src="orders-overview/overview.controller.js"></script>
+
+
+
+        <script src="widgets/FMU-errorField.js"></script>
+
+
+
+        <script src="widgets/Fmu-datepicker.js"></script>
+
+
+
+        <script src="widgets/Fmu-responsive-menu.js"></script>
+
+
+
+        <script src="widgets/Fmu-simple-table.js"></script>
+
+
+
+        <script src="widgets/Fmu-table.js"></script>
+
+
+
+        <script src="widgets/Fmu-utredning-table.js"></script>
+
+
+
+        <script src="widgets/HandlingarTableDir.js"></script>
+
+
+
+        <script src="widgets/datetime-service.js"></script>
+
+
+
+        <script src="core/authentication/fakeRole.controller.js"></script>
+
+
+
+        <script src="core/translations/translation.pot.js"></script>
+
+
+
+        <script src="eavrop-overview/allEvents/allEvents.controller.js"></script>
+
+
+
+        <script src="eavrop-overview/compensations/compensation.controller.js"></script>
+
+
+
+        <script src="eavrop-overview/investigation/Investigation.controller.js"></script>
+
+
+
+        <script src="eavrop-overview/investigation/addBookingModal.controller.js"></script>
+
+
+
+        <script src="eavrop-overview/notes/notes.controller.js"></script>
+
+
+
+        <script src="orders-overview/completed/completed.controller.js"></script>
+
+
+
+        <script src="orders-overview/incoming/incoming.controller.js"></script>
+
+
+
+        <script src="orders-overview/ongoing/ongoing.controller.js"></script>
+
+
+
+        <script src="utilities/exception/exceptionHandler.provider.js"></script>
+
+
+
+        <script src="dependencies/bootstrap/js/bootstrap.js"></script>
+
+
+
+        <script src="eavrop-overview/order/documents/addDocModal.controller.js"></script>
+
+
+
+        <script src="eavrop-overview/order/documents/addDocument.controller.js"></script>
+
+
+
+        <script src="eavrop-overview/order/documents/documents.controller.js"></script>
+
+
+
+        <script src="eavrop-overview/order/documents/reqAmendmentModal.controller.js"></script>
+
+
+
+        <!-- endinject -->
+        <!-- endbuild -->
+    </body>
 </html>

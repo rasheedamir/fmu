@@ -1,0 +1,1186 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: Fmu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Language: sv\n"
+"X-Generator: Poedit 1.7.4\n"
+
+#: eavrop-overview/accept-request-modal.html:3
+msgid "Acceptera-utredning/Acceptera förfrågan om utredning"
+msgstr "Acceptera förfrågan om utredning"
+
+#: eavrop-overview/accept-request-modal.html:16
+msgid "Acceptera-utredning/Avbryt"
+msgstr "Avbryt"
+
+#: eavrop-overview/accept-request-modal.html:13
+msgid "Acceptera-utredning/Skicka"
+msgstr "Skicka"
+
+#: eavrop-overview/allEvents/all-events.html:27
+msgid "Alla händelser/Acceptans av utredningen"
+msgstr "Acceptans av utredningen"
+
+#: eavrop-overview/allEvents/all-events.html:2
+msgid "Alla händelser/Alla händelser"
+msgstr "Alla händelser"
+
+#: eavrop-overview/allEvents/all-events.html:37
+msgid "Alla händelser/Antal avvikelser"
+msgstr "Antal avvikelser"
+
+#: eavrop-overview/allEvents/all-events.html:109
+msgid "Alla händelser/Anteckningar"
+msgstr "Anteckningar"
+
+#: eavrop-overview/allEvents/all-events.html:43
+msgid "Alla händelser/Begärda kompletteringar till utredning"
+msgstr "Begärda kompletteringar till utredning"
+
+#: eavrop-overview/allEvents/all-events.html:22
+msgid "Alla händelser/Begärda tillägg, handlingar"
+msgstr "Begärda tillägg, handlingar"
+
+#: eavrop-overview/allEvents/all-events.html:50
+msgid "Alla händelser/Beställning"
+msgstr "Beställning"
+
+#: eavrop-overview/allEvents/all-events.html:63
+msgid "Alla händelser/Beställning/Acceptans av utredning"
+msgstr "Acceptans av utredning"
+
+#: eavrop-overview/allEvents/all-events.html:58
+msgid "Alla händelser/Beställning/Enhet/Avdelning"
+msgstr "Enhet/Avdelning"
+
+#: eavrop-overview/allEvents/all-events.html:59
+msgid "Alla händelser/Beställning/Förfrågan skickad, datum"
+msgstr "Förfrågan skickad, datum"
+
+#: eavrop-overview/allEvents/all-events.html:57
+#: eavrop-overview/allEvents/all-events.html:61
+msgid "Alla händelser/Beställning/Organisation"
+msgstr "Organisation"
+
+#: eavrop-overview/allEvents/all-events.html:60
+msgid "Alla händelser/Beställning/Patientens bostadsort"
+msgstr "Patientens bostadsort"
+
+#: eavrop-overview/allEvents/all-events.html:56
+msgid "Alla händelser/Beställning/Typ"
+msgstr "Typ"
+
+#: eavrop-overview/allEvents/all-events.html:62
+msgid "Alla händelser/Beställning/Utredare, enhet"
+msgstr "Utredare, enhet"
+
+#: eavrop-overview/allEvents/all-events.html:55
+msgid "Alla händelser/Beställning/Ärende-ID"
+msgstr "Ärende-ID"
+
+#: eavrop-overview/allEvents/all-events.html:7
+msgid "Alla händelser/Förfrågan om utredning"
+msgstr "Förfrågan om utredning"
+
+#: eavrop-overview/allEvents/all-events.html:83
+msgid "Alla händelser/Handlingar"
+msgstr "Handlingar"
+
+#: eavrop-overview/allEvents/all-events.html:12
+msgid "Alla händelser/Handlingar översändes"
+msgstr "Handlingar översändes"
+
+#: eavrop-overview/allEvents/all-events.html:32
+msgid "Alla händelser/Intyg skickat till beställaren"
+msgstr "Intyg skickat till beställaren"
+
+#: eavrop-overview/allEvents/all-events.html:4
+msgid "Alla händelser/Sammanfattning"
+msgstr "Sammanfattning"
+
+#: eavrop-overview/allEvents/all-events.html:90
+msgid "Alla händelser/Tillägg"
+msgstr "Tillägg"
+
+#: eavrop-overview/allEvents/all-events.html:96
+msgid "Alla händelser/Utredning"
+msgstr "Utredning"
+
+#: eavrop-overview/allEvents/all-events.html:17
+msgid "Alla händelser/Utredning antal dagar"
+msgstr "Utredning antal dagar"
+
+#: widgets/HandlingarTableDir.js:102
+msgid "Anteckningar-tabell/Datum"
+msgstr "Datum"
+
+#: widgets/HandlingarTableDir.js:100
+msgid "Anteckningar-tabell/Innehåll"
+msgstr "Innehåll"
+
+#: widgets/HandlingarTableDir.js:101
+msgid "Anteckningar-tabell/Skapad av"
+msgstr "Skapad av"
+
+#: widgets/HandlingarTableDir.js:103
+msgid "Anteckningar-tabell/Tabort"
+msgstr "Tabort"
+
+#: eavrop-overview/notes/notes.html:2
+msgid "Anteckningar/Anteckningar"
+msgstr "Anteckningar"
+
+#: app.module.js:222
+msgid "Anteckningar/Anteckningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda"
+msgstr "Anteckningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda"
+
+#: eavrop-overview/notes/notes.html:3
+msgid "Anteckningar/De anteckningar som noteras här skall inte innehålla någon medicinsk eller känslig information."
+msgstr "De anteckningar som noteras här skall inte innehålla någon medicinsk eller känslig information."
+
+#: app.module.js:223
+msgid "Anteckningar/Fel uppstod vid bortagning av anteckning, detta kan beror på att du inte har rätt behörighet att genomföra denna förfrågan"
+msgstr "Fel uppstod vid bortagning av anteckning, detta kan beror på att du inte har rätt behörighet att genomföra denna förfrågan"
+
+#: eavrop-overview/notes/notes.html:12
+msgid "Anteckningar/Lägg till anteckning"
+msgstr "Lägg till anteckning"
+
+#: eavrop-overview/notes/confirmRemoveModal.html:13
+msgid "Anteckningar/tabort-modal-kanappar/Ta bort"
+msgstr "Ta bort"
+
+#: eavrop-overview/notes/confirmRemoveModal.html:12
+msgid "Anteckningar/tabort-modal-knappar/Avbryt"
+msgstr "Avbryt"
+
+#: eavrop-overview/notes/confirmRemoveModal.html:3
+msgid "Anteckningar/tabort-modal/Ta bort"
+msgstr "Ta bort"
+
+#: eavrop-overview/notes/confirmRemoveModal.html:7
+msgid "Anteckningar/tabort-modal/Är du säker på att du vill ta bort anteckningen?"
+msgstr "Är du säker på att du vill ta bort anteckningen?"
+
+#: eavrop-overview/reject-request-modal.html:12
+msgid "Avslå-förfrågan-modal/Avbryt"
+msgstr "Avbryt"
+
+#: eavrop-overview/reject-request-modal.html:3
+msgid "Avslå-förfrågan-modal/Avslå förfrågan om utredning"
+msgstr "Avslå förfrågan om utredning"
+
+#: eavrop-overview/reject-request-modal.html:11
+msgid "Avslå-förfrågan-modal/Skicka"
+msgstr "Skicka"
+
+#: eavrop-overview/order/documents/req-amendment-modal.html:32
+msgid "Begär tillägg/Avbryt"
+msgstr "Avbryt"
+
+#: eavrop-overview/order/documents/req-amendment-modal.html:3
+msgid "Begär tillägg/Begär tillägg"
+msgstr "Begär tillägg"
+
+#: eavrop-overview/order/documents/req-amendment-modal.html:12
+msgid "Begär tillägg/Begäran skickad av"
+msgstr "Begäran skickad av"
+
+#: eavrop-overview/order/documents/req-amendment-modal.html:16
+msgid "Begär tillägg/Begäran skickad, datum"
+msgstr "Begäran skickad, datum"
+
+#: eavrop-overview/order/documents/req-amendment-modal.html:24
+msgid "Begär tillägg/Begäran skickas till"
+msgstr "Begäran skickas till"
+
+#: eavrop-overview/order/documents/req-amendment-modal.html:8
+msgid "Begär tillägg/Handling"
+msgstr "Handling"
+
+#: eavrop-overview/order/documents/req-amendment-modal.html:20
+msgid "Begär tillägg/Kommentar"
+msgstr "Kommentar"
+
+#: eavrop-overview/order/documents/req-amendment-modal.html:31
+msgid "Begär tillägg/Skicka"
+msgstr "Skicka"
+
+#: eavrop-overview/order/order.html:2
+msgid "Beställning/Beställning"
+msgstr "Beställning"
+
+#: eavrop-overview/order/order.html:10
+msgid "Beställning/Handlingar och tillägg"
+msgstr "Handlingar och tillägg"
+
+#: eavrop-overview/order/order.html:7
+msgid "Beställning/Innehåll i beställningen"
+msgstr "Innehåll i beställningen"
+
+#: eavrop-overview/order/citizen.html:3 eavrop-overview/order/order.html:13
+msgid "Beställning/Invånaren"
+msgstr "Invånaren"
+
+#: eavrop-overview/order/citizen.html:10
+msgid "Beställning/Invånaren/Bostadsort"
+msgstr "Bostadsort"
+
+#: eavrop-overview/order/citizen.html:9
+msgid "Beställning/Invånaren/Födelseår"
+msgstr "Födelseår"
+
+#: eavrop-overview/order/citizen.html:7
+msgid "Beställning/Invånaren/Initialer"
+msgstr "Initialer"
+
+#: eavrop-overview/order/citizen.html:8
+msgid "Beställning/Invånaren/Kön"
+msgstr "Kön"
+
+#: eavrop-overview/order/citizen.html:29
+msgid "Beställning/Invånaren/Namn"
+msgstr "Namn"
+
+#: eavrop-overview/order/citizen.html:28
+msgid "Beställning/Invånaren/Personnummer"
+msgstr "Personnummer"
+
+#: eavrop-overview/order/citizen.html:33
+msgid "Beställning/Invånaren/Sjukskrivande läkare"
+msgstr "Sjukskrivande läkare"
+
+#: eavrop-overview/order/citizen.html:32
+msgid "Beställning/Invånaren/Sjukskrivande vårdcentral/klinik"
+msgstr "Sjukskrivande vårdcentral/klinik"
+
+#: eavrop-overview/order/citizen.html:34
+msgid "Beställning/Invånaren/Särskilda behov"
+msgstr "Särskilda behov"
+
+#: eavrop-overview/order/citizen.html:30
+msgid "Beställning/Invånaren/Telefonnummer"
+msgstr "Telefonnummer"
+
+#: eavrop-overview/order/citizen.html:31
+msgid "Beställning/Invånaren/Tidigare utredd vid"
+msgstr "Tidigare utredd vid"
+
+#: eavrop-overview/order/documents/add-doc-modal.html:4
+msgid "Beställning/Lägg till handling"
+msgstr "Lägg till handling"
+
+#: eavrop-overview/order/documents/add-doc-modal.html:9
+msgid "Beställning/Lägg till handling/Handling"
+msgstr "Handling"
+
+#: eavrop-overview/order/documents/add-doc-modal.html:13
+msgid "Beställning/Lägg till handling/Registrerad av"
+msgstr "Registrerad av"
+
+#: eavrop-overview/order/documents/add-doc-modal.html:20
+msgid "Beställning/Lägg till handling/Registrerad, datum"
+msgstr "Registrerad, datum"
+
+#: eavrop-overview/order/contents.html:27
+msgid "Beställning/innehåll/Beställare"
+msgstr "Beställare"
+
+#: eavrop-overview/order/contents.html:34
+msgid "Beställning/innehåll/Beställare, e-post"
+msgstr "Beställare, e-post"
+
+#: eavrop-overview/order/contents.html:32
+msgid "Beställning/innehåll/Beställare, namn"
+msgstr "Beställare, namn"
+
+#: eavrop-overview/order/contents.html:33
+msgid "Beställning/innehåll/Beställare, tel"
+msgstr "Beställare, tel"
+
+#: eavrop-overview/order/contents.html:3
+msgid "Beställning/innehåll/Beställning"
+msgstr "Beställning"
+
+#: eavrop-overview/order/contents.html:31
+msgid "Beställning/innehåll/Enhet"
+msgstr "Enhet"
+
+#: eavrop-overview/order/contents.html:8
+msgid "Beställning/innehåll/Förfrågan inkom"
+msgstr "Förfrågan inkom"
+
+#: eavrop-overview/order/contents.html:10
+msgid "Beställning/innehåll/Tolk"
+msgstr "Tolk"
+
+#: eavrop-overview/order/contents.html:9
+msgid "Beställning/innehåll/Typ av utredning"
+msgstr "Typ av utredning"
+
+#: eavrop-overview/order/contents.html:11
+msgid "Beställning/innehåll/Val av inriktning"
+msgstr "Val av inriktning"
+
+#: eavrop-overview/order/contents.html:7
+msgid "Beställning/innehåll/Ärende-ID"
+msgstr "Ärende-ID"
+
+#: orders-overview/incoming/IncomingController.js:126
+#: orders-overview/incoming/IncomingController.js:63
+msgid "Beställningar/Antal dagar efter förfrågan om utredning"
+msgstr "Antal dagar efter förfrågan om utredning"
+
+#: orders-overview/incoming/IncomingController.js:158
+msgid "Beställningar/Antal dagar har överträtts och/eller annan avvikelse finns"
+msgstr "Antal dagar har överträtts och/eller annan avvikelse finns"
+
+#: orders-overview/incoming/incoming.html:2
+msgid "Beställningar/Beställningar"
+msgstr "Beställningar"
+
+#: orders-overview/incoming/IncomingController.js:163
+msgid "Beställningar/Datumen utgår från det datum då beställningen inkommit"
+msgstr "Datumen utgår från det datum då beställningen inkommit"
+
+#: orders-overview/incoming/IncomingController.js:47
+msgid "Beställningar/Den försäkrades bostadsort"
+msgstr "Den försäkrades bostadsort"
+
+#: orders-overview/incoming/IncomingController.js:118
+#: orders-overview/incoming/IncomingController.js:55
+msgid "Beställningar/Enhet"
+msgstr "Enhet"
+
+#: orders-overview/incoming/IncomingController.js:106
+#: orders-overview/incoming/IncomingController.js:39
+msgid "Beställningar/Enhet/Avdelning"
+msgstr "Enhet/Avdelning"
+
+#: orders-overview/incoming/IncomingController.js:110
+#: orders-overview/incoming/IncomingController.js:43
+msgid "Beställningar/Förfrågan inkommit datum"
+msgstr "Förfrågan inkommit datum"
+
+#: orders-overview/incoming/IncomingController.js:102
+#: orders-overview/incoming/IncomingController.js:114
+#: orders-overview/incoming/IncomingController.js:35
+#: orders-overview/incoming/IncomingController.js:51
+msgid "Beställningar/Organisation"
+msgstr "Organisation"
+
+#: orders-overview/incoming/IncomingController.js:122
+#: orders-overview/incoming/IncomingController.js:59
+msgid "Beställningar/Status"
+msgstr "Status"
+
+#: orders-overview/incoming/IncomingController.js:31
+#: orders-overview/incoming/IncomingController.js:98
+msgid "Beställningar/Typ"
+msgstr "Typ"
+
+#: orders-overview/incoming/incoming.html:11
+msgid "Beställningar/Visa"
+msgstr "Visa"
+
+#: orders-overview/incoming/IncomingController.js:138
+#: orders-overview/incoming/IncomingController.js:75
+msgid "Beställningar/beställare"
+msgstr "beställare"
+
+#: orders-overview/incoming/IncomingController.js:143
+#: orders-overview/incoming/IncomingController.js:80
+msgid "Beställningar/leverantör"
+msgstr "leverantör"
+
+#: orders-overview/incoming/IncomingController.js:27
+#: orders-overview/incoming/IncomingController.js:94
+msgid "Beställningar/Ärende-ID"
+msgstr "Ärende-ID"
+
+#: eavrop-overview/investigation/InvestigationService.js:24
+msgid "Bookning-status/Besök avbokat <48h"
+msgstr "Besök avbokat <48h"
+
+#: eavrop-overview/investigation/InvestigationService.js:26
+msgid "Bookning-status/Besök avbokat <96h"
+msgstr "Besök avbokat <96h"
+
+#: eavrop-overview/investigation/InvestigationService.js:25
+msgid "Bookning-status/Besök avbokat >48h"
+msgstr "Besök avbokat >48h"
+
+#: eavrop-overview/investigation/InvestigationService.js:27
+msgid "Bookning-status/Besök avbokat >96h"
+msgstr "Besök avbokat >96h"
+
+#: eavrop-overview/investigation/InvestigationService.js:23
+msgid "Bookning-status/Besök avbokat av utförare"
+msgstr "Besök avbokat av utförare"
+
+#: eavrop-overview/investigation/InvestigationService.js:20
+msgid "Bookning-status/Bokat"
+msgstr "Bokat"
+
+#: eavrop-overview/investigation/InvestigationService.js:21
+msgid "Bookning-status/Genomfört"
+msgstr "Genomfört"
+
+#: eavrop-overview/investigation/InvestigationService.js:22
+msgid "Bookning-status/Patient uteblev"
+msgstr "Patient uteblev"
+
+#: eavrop-overview/eavrop.config.route.js:68
+msgid "Eavrop-citizen-title/Citizen"
+msgstr "Invånare"
+
+#: eavrop-overview/eavrop.config.route.js:37
+msgid "Eavrop-content-title/Content"
+msgstr "Innehåll"
+
+#: eavrop-overview/eavrop.config.route.js:51
+msgid "Eavrop-document-title/Document"
+msgstr "Handlingar"
+
+#: eavrop-overview/eavrop.config.route.js:83
+msgid "Eavrop-investigation-title/Investigation"
+msgstr "Utredningar"
+
+#: eavrop-overview/EavropService.js:22
+msgid "Eavrop-status/Förfrågan accepterade"
+msgstr "Förfrågan accepterade"
+
+#: eavrop-overview/EavropService.js:20
+msgid "Eavrop-status/Förfrågan om utredning har inkommit"
+msgstr "Förfrågan om utredning har inkommit"
+
+#: eavrop-overview/EavropService.js:21
+msgid "Eavrop-status/Förfrågan tilldelas, inväntar acceptans"
+msgstr "Förfrågan tilldelas, inväntar acceptans"
+
+#: eavrop-overview/EavropService.js:24
+msgid "Eavrop-status/Inväntar acceptans"
+msgstr "Inväntar acceptans"
+
+#: eavrop-overview/EavropService.js:23
+msgid "Eavrop-status/Inväntar beslut från beställare"
+msgstr "Inväntar beslut från beställare"
+
+#: eavrop-overview/EavropService.js:25
+msgid "Eavrop-status/Utredningen godkänts av beställare"
+msgstr "Utredningen godkänts av beställare"
+
+#: eavrop-overview/EavropService.js:26
+msgid "Eavrop-status/Utredningen är avslutad"
+msgstr "Utredningen är avslutad"
+
+#: eavrop-overview/EavropService.js:27
+msgid "Eavrop-status/Utredningen är påbörjad"
+msgstr "Utredningen är påbörjad"
+
+#: eavrop-overview/EavropService.js:36
+msgid "Eavrop-tabell-kompensation-godkänd-status/Ja"
+msgstr "Ja"
+
+#: eavrop-overview/EavropService.js:37
+msgid "Eavrop-tabell-kompensation-godkänd-status/Nej"
+msgstr "Nej"
+
+#: eavrop-overview/EavropService.js:35
+msgid "Eavrop-tabell-kompensation-godkänd-status/inväntar"
+msgstr "inväntar"
+
+#: eavrop-overview/EavropService.js:30
+msgid "Eavrop-tabell-komplett-status/Ja"
+msgstr "Ja"
+
+#: eavrop-overview/EavropService.js:31
+msgid "Eavrop-tabell-komplett-status/Nej"
+msgstr "Nej"
+
+#: eavrop-overview/eavrop.html:28
+msgid "Eavrop-vyn/Förfrågan om acceptans"
+msgstr "Förfrågan om acceptans"
+
+#: eavrop-overview/eavrop.html:7
+msgid "Eavrop-vyn/Invånare"
+msgstr "Invånare"
+
+#: eavrop-overview/eavrop.html:4
+msgid "Eavrop-vyn/Till översikten"
+msgstr "Till översikten"
+
+#: eavrop-overview/eavrop.html:16
+msgid "Eavrop-vyn/Utse utredare"
+msgstr "Utse utredare"
+
+#: eavrop-overview/eavrop.html:14
+msgid "Eavrop-vyn/Utse vårdleverantör"
+msgstr "Utse vårdleverantör"
+
+#: eavrop-overview/eavrop.html:15
+msgid "Eavrop-vyn/Utse vårdleverantör genom att hämta in acceptans av denna förfrågan."
+msgstr "Utse vårdleverantör genom att hämta in acceptans av denna förfrågan."
+
+#: eavrop-overview/eavrop.html:29
+msgid "Eavrop-vyn/acceptera-1/Förfrågan ställd till"
+msgstr "Förfrågan ställd till"
+
+#: eavrop-overview/eavrop.html:31
+msgid "Eavrop-vyn/acceptera-2/Acceptans begärd av"
+msgstr "Acceptans begärd av"
+
+#: eavrop-overview/eavrop.html:33
+msgid "Eavrop-vyn/acceptera/Acceptera förfrågan"
+msgstr "Acceptera förfrågan"
+
+#: eavrop-overview/eavrop.html:34
+msgid "Eavrop-vyn/acceptera/Avslå förfrågan"
+msgstr "Avslå förfrågan"
+
+#: eavrop-overview/eavrop.html:55
+msgid "Eavrop-vyn/meny/Alla händelser"
+msgstr "Alla händelser"
+
+#: eavrop-overview/eavrop.html:61
+msgid "Eavrop-vyn/meny/Anteckningar"
+msgstr "Anteckningar"
+
+#: eavrop-overview/eavrop.html:43
+msgid "Eavrop-vyn/meny/Beställning"
+msgstr "Beställning"
+
+#: eavrop-overview/eavrop.html:74
+msgid "Eavrop-vyn/meny/Status"
+msgstr "Status"
+
+#: eavrop-overview/eavrop.html:67
+msgid "Eavrop-vyn/meny/Underlag för ersättning"
+msgstr "Underlag för ersättning"
+
+#: eavrop-overview/eavrop.html:49
+msgid "Eavrop-vyn/meny/Utredning"
+msgstr "Utredning"
+
+#: eavrop-overview/eavrop.html:84
+msgid "Eavrop-vyn/status/Antal dagar sedan utredningens start:"
+msgstr "Antal dagar sedan utredningens start:"
+
+#: eavrop-overview/eavrop.html:19
+msgid "Eavrop-vyn/tilldela-1/Inväntar svar från vårdleverantör"
+msgstr "Inväntar svar från vårdleverantör"
+
+#: eavrop-overview/eavrop.html:20
+msgid "Eavrop-vyn/tilldela-2/Förfrågan om acceptans för ärende med ID"
+msgstr "Förfrågan om acceptans för ärende med ID"
+
+#: eavrop-overview/eavrop.html:20
+msgid "Eavrop-vyn/tilldela-3/skickades till"
+msgstr "skickades till"
+
+#: eavrop-overview/eavrop.html:8
+msgid "Eavrop-vyn/Ärende-ID"
+msgstr "Ärende-ID"
+
+#: widgets/datePicker.html:3
+msgid "Från, datum"
+msgstr "Från, datum"
+
+#: orders-overview/completed/CompletedController.js:26
+msgid "Genomförda-utredningar/Antal dgr för komplettering"
+msgstr "Antal dgr för komplettering"
+
+#: orders-overview/completed/CompletedController.js:22
+msgid "Genomförda-utredningar/Antal dgr klar"
+msgstr "Antal dgr klar"
+
+#: orders-overview/completed/CompletedController.js:81
+msgid "Genomförda-utredningar/Datumen utgår från det datum då intyg levererats"
+msgstr "Datumen utgår från det datum då intyg levererats"
+
+#: orders-overview/completed/completed.html:2
+msgid "Genomförda-utredningar/Genomförda utredningar"
+msgstr "Genomförda utredningar"
+
+#: orders-overview/completed/CompletedController.js:51
+msgid "Genomförda-utredningar/Godkänd för ersättning"
+msgstr "Godkänd för ersättning"
+
+#: orders-overview/completed/CompletedController.js:43
+msgid "Genomförda-utredningar/Intyg levererades, datum"
+msgstr "Intyg levererades, datum"
+
+#: orders-overview/completed/CompletedController.js:64
+msgid "Genomförda-utredningar/Invänta acceptans av intyg och godkännande för ersättning"
+msgstr "Invänta acceptans av intyg och godkännande för ersättning"
+
+#: orders-overview/completed/CompletedController.js:18
+msgid "Genomförda-utredningar/Typ"
+msgstr "Typ"
+
+#: orders-overview/completed/CompletedController.js:39
+msgid "Genomförda-utredningar/Utredare, ansvarig"
+msgstr "Utredare, ansvarig"
+
+#: orders-overview/completed/CompletedController.js:35
+msgid "Genomförda-utredningar/Utredare, organisation"
+msgstr "Utredare, organisation"
+
+#: orders-overview/completed/CompletedController.js:47
+msgid "Genomförda-utredningar/Utredning komplett"
+msgstr "Utredning komplett"
+
+#: orders-overview/completed/CompletedController.js:72
+msgid "Genomförda-utredningar/Utredning komplett, inväntar godkännande för ersättning"
+msgstr "Utredning komplett, inväntar godkännande för ersättning"
+
+#: orders-overview/completed/CompletedController.js:76
+msgid "Genomförda-utredningar/Utredning är komplett och godkänd"
+msgstr "Utredning är komplett och godkänd"
+
+#: orders-overview/completed/CompletedController.js:68
+msgid "Genomförda-utredningar/Utredningen är ej komplett, ej godkänd, försenad eller innehåller ersättningsbara avvikelser"
+msgstr "Utredningen är ej komplett, ej godkänd, försenad eller innehåller ersättningsbara avvikelser"
+
+#: orders-overview/completed/completed.html:11
+msgid "Genomförda-utredningar/Visa"
+msgstr "Visa"
+
+#: orders-overview/completed/CompletedController.js:30
+msgid "Genomförda-utredningar/avikelser"
+msgstr "avikelser"
+
+#: orders-overview/completed/CompletedController.js:14
+msgid "Genomförda-utredningar/Ärende-ID"
+msgstr "Ärende-ID"
+
+#: eavrop-overview/order/documents/documents.html:10
+msgid "Handlingar/Begär tillägg"
+msgstr "Begär tillägg"
+
+#: eavrop-overview/order/documents/documents.html:3
+msgid "Handlingar/Handlingar"
+msgstr "Handlingar"
+
+#: eavrop-overview/order/documents/documents.html:5
+msgid "Handlingar/Lägg till handling"
+msgstr "Lägg till handling"
+
+#: eavrop-overview/order/documents/documents.html:8
+msgid "Handlingar/Tillägg"
+msgstr "Tillägg"
+
+#: eavrop-overview/investigation/InvestigationService.js:14
+msgid "Händelse-typ/Besök"
+msgstr "Besök"
+
+#: eavrop-overview/investigation/InvestigationService.js:16
+msgid "Händelse-typ/Internt arbete"
+msgstr "Internt arbete"
+
+#: eavrop-overview/investigation/InvestigationService.js:15
+msgid "Händelse-typ/Möte med patient"
+msgstr "Möte med patient"
+
+#: eavrop-overview/investigation/InvestigationService.js:13
+msgid "Händelse-typ/Okänt handelse"
+msgstr "Okänt handelse"
+
+#: eavrop-overview/investigation/InvestigationService.js:11
+msgid "Händelse-typ/Utredningen godkänts"
+msgstr "Utredningen godkänts"
+
+#: eavrop-overview/investigation/InvestigationService.js:12
+msgid "Händelse-typ/Utredningens godkänts för utbetalning"
+msgstr "Utredningens godkänts för utbetalning"
+
+#: eavrop-overview/investigation/InvestigationService.js:47
+msgid "Händelse-typer/Besök"
+msgstr "Besök"
+
+#: eavrop-overview/investigation/InvestigationService.js:50
+msgid "Händelse-typer/Genomgång med patient"
+msgstr "Genomgång med patient"
+
+#: eavrop-overview/investigation/InvestigationService.js:53
+msgid "Händelse-typer/Internt arbete"
+msgstr "Internt arbete"
+
+#: eavrop-overview/investigation/InvestigationService.js:41
+msgid "Händelser-som-måste-bekräftas/Besök avbokat <96h"
+msgstr "Besök avbokat <96h"
+
+#: eavrop-overview/investigation/InvestigationService.js:39
+msgid "Händelser-som-måste-bekräftas/Besök avbokat >48h"
+msgstr "Besök avbokat >48h"
+
+#: eavrop-overview/investigation/InvestigationService.js:42
+msgid "Händelser-som-måste-bekräftas/Besök avbokat >96h"
+msgstr "Besök avbokat >96h"
+
+#: eavrop-overview/investigation/InvestigationService.js:40
+msgid "Händelser-som-måste-bekräftas/Patient uteblev"
+msgstr "Patient uteblev"
+
+#: eavrop-overview/investigation/InvestigationService.js:8
+msgid "Intyg-status/Intyg godkänt"
+msgstr "Intyg godkänt"
+
+#: eavrop-overview/investigation/InvestigationService.js:9
+msgid "Intyg-status/Intyg kompleteras"
+msgstr "Intyg kompleteras"
+
+#: eavrop-overview/investigation/InvestigationService.js:10
+msgid "Intyg-status/Intyg signeras"
+msgstr "Intyg signeras"
+
+#: eavrop-overview/investigation/addBookingModal.html:77
+msgid "Lägg till Händelse/Avbryt"
+msgstr "Avbryt"
+
+#: eavrop-overview/investigation/addBookingModal.html:50
+#: eavrop-overview/investigation/addBookingModal.html:63
+msgid "Lägg till Händelse/Ja"
+msgstr "Ja"
+
+#: eavrop-overview/investigation/addBookingModal.html:4
+msgid "Lägg till Händelse/Lägg till Händelse"
+msgstr "Lägg till Händelse"
+
+#: eavrop-overview/investigation/addBookingModal.html:54
+#: eavrop-overview/investigation/addBookingModal.html:67
+msgid "Lägg till Händelse/Nej"
+msgstr "Nej"
+
+#: eavrop-overview/investigation/addBookingModal.html:34
+msgid "Lägg till Händelse/Person"
+msgstr "Person"
+
+#: eavrop-overview/investigation/addBookingModal.html:38
+msgid "Lägg till Händelse/Roll"
+msgstr "Roll"
+
+#: eavrop-overview/investigation/addBookingModal.html:74
+msgid "Lägg till Händelse/Spara"
+msgstr "Spara"
+
+#: eavrop-overview/investigation/addBookingModal.html:59
+msgid "Lägg till Händelse/Tolk?"
+msgstr "Tolk?"
+
+#: eavrop-overview/investigation/addBookingModal.html:10
+msgid "Lägg till Händelse/Typ av händelse"
+msgstr "Typ av händelse"
+
+#: eavrop-overview/investigation/addBookingModal.html:46
+msgid "Lägg till Händelse/Är detta en tilläggstjänst?"
+msgstr "Är detta en tilläggstjänst?"
+
+#: eavrop-overview/notes/add-note-modal.html:10
+msgid "Lägg till anteckning/Anteckning"
+msgstr "Anteckning"
+
+#: eavrop-overview/notes/add-note-modal.html:18
+msgid "Lägg till anteckning/Avbryt"
+msgstr "Avbryt"
+
+#: eavrop-overview/notes/add-note-modal.html:3
+msgid "Lägg till anteckning/Lägg till anteckning"
+msgstr "Lägg till anteckning"
+
+#: eavrop-overview/notes/add-note-modal.html:17
+msgid "Lägg till anteckning/Spara"
+msgstr "Spara"
+
+#: eavrop-overview/investigation/InvestigationService.js:61
+msgid "Lägg-till-bokning-Roller/Arbetsterapeut"
+msgstr "Arbetsterapeut"
+
+#: eavrop-overview/investigation/InvestigationService.js:57
+msgid "Lägg-till-bokning-Roller/Läkare"
+msgstr "Läkare"
+
+#: eavrop-overview/investigation/InvestigationService.js:59
+msgid "Lägg-till-bokning-Roller/Psykolog"
+msgstr "Psykolog"
+
+#: eavrop-overview/investigation/InvestigationService.js:63
+msgid "Lägg-till-bokning-Roller/Sjukgymnast"
+msgstr "Sjukgymnast"
+
+#: eavrop-overview/investigation/InvestigationService.js:65
+msgid "Lägg-till-bokning-Roller/Utredare"
+msgstr "Utredare"
+
+#: eavrop-overview/investigation/InvestigationService.js:70
+msgid "Lägg-till-bokning-misslyckad/Bookningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda"
+msgstr "Bookningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda"
+
+#: orders-overview/ongoing/OngoingController.js:43
+msgid "Pågående-utredningar/Antal dagar från start"
+msgstr "Antal dagar från start"
+
+#: orders-overview/ongoing/OngoingController.js:76
+msgid "Pågående-utredningar/Antal dagar har överträtts och/eller annan avvikelse finns"
+msgstr "Antal dagar har överträtts och/eller annan avvikelse finns"
+
+#: orders-overview/ongoing/OngoingController.js:47
+msgid "Pågående-utredningar/Avikelser"
+msgstr "Avikelser"
+
+#: orders-overview/ongoing/OngoingController.js:81
+msgid "Pågående-utredningar/Datumen utgår från det datum då utredningen startat"
+msgstr "Datumen utgår från det datum då utredningen startat"
+
+#: orders-overview/ongoing/OngoingController.js:27
+msgid "Pågående-utredningar/Enhet/Avdelning"
+msgstr "Enhet/Avdelning"
+
+#: orders-overview/ongoing/OngoingController.js:23
+#: orders-overview/ongoing/OngoingController.js:31
+msgid "Pågående-utredningar/Organisation"
+msgstr "Organisation"
+
+#: orders-overview/ongoing/ongoing.html:2
+msgid "Pågående-utredningar/Pågående beställningar"
+msgstr "Pågående beställningar"
+
+#: orders-overview/ongoing/OngoingController.js:35
+msgid "Pågående-utredningar/Status"
+msgstr "Status"
+
+#: orders-overview/ongoing/OngoingController.js:19
+msgid "Pågående-utredningar/Typ"
+msgstr "Typ"
+
+#: orders-overview/ongoing/OngoingController.js:39
+msgid "Pågående-utredningar/Utredning start"
+msgstr "Utredning start"
+
+#: orders-overview/ongoing/ongoing.html:11
+msgid "Pågående-utredningar/Visa"
+msgstr "Visa"
+
+#: orders-overview/ongoing/OngoingController.js:58
+msgid "Pågående-utredningar/beställare"
+msgstr "beställare"
+
+#: orders-overview/ongoing/OngoingController.js:63
+msgid "Pågående-utredningar/leverantör"
+msgstr "leverantör"
+
+#: orders-overview/ongoing/OngoingController.js:15
+msgid "Pågående-utredningar/Ärende-ID"
+msgstr "Ärende-ID"
+
+#: widgets/datePicker.html:17
+msgid "Till, datum"
+msgstr "Till, datum"
+
+#: widgets/HandlingarTableDir.js:50
+msgid "Tillägg-tabell/Begäran skickad till"
+msgstr "Begäran skickad till"
+
+#: widgets/HandlingarTableDir.js:47
+msgid "Tillägg-tabell/Begäran skickad, av"
+msgstr "Begäran skickad, av"
+
+#: widgets/HandlingarTableDir.js:48
+msgid "Tillägg-tabell/Begäran skickad, datum"
+msgstr "Begäran skickad, datum"
+
+#: widgets/HandlingarTableDir.js:46
+msgid "Tillägg-tabell/Handling"
+msgstr "Handling"
+
+#: widgets/HandlingarTableDir.js:49
+msgid "Tillägg-tabell/Kommentar"
+msgstr "Kommentar"
+
+#: eavrop-overview/investigation/InvestigationService.js:31
+msgid "Tolk-status/Bokat"
+msgstr "Bokat"
+
+#: eavrop-overview/investigation/InvestigationService.js:35
+msgid "Tolk-status/Tolk anlänt, men tolkning inte använd"
+msgstr "Tolk anlänt, men tolkning inte använd"
+
+#: eavrop-overview/investigation/InvestigationService.js:33
+msgid "Tolk-status/Tolk avbokad"
+msgstr "Tolk avbokad"
+
+#: eavrop-overview/investigation/InvestigationService.js:34
+msgid "Tolk-status/Tolk uteblev"
+msgstr "Tolk uteblev"
+
+#: eavrop-overview/investigation/InvestigationService.js:32
+msgid "Tolk-status/Tolkning genomförd"
+msgstr "Tolkning genomförd"
+
+#: eavrop-overview/compensations/CompensationController.js:51
+msgid "Underlag-ersättningsvy/Antal avikelser"
+msgstr "Antal avikelser"
+
+#: eavrop-overview/compensations/CompensationController.js:48
+msgid "Underlag-ersättningsvy/Antal dagar efter komplettering"
+msgstr "Antal dagar efter komplettering"
+
+#: eavrop-overview/compensations/CompensationController.js:18
+msgid "Underlag-ersättningsvy/Antal dagar för acceptans av förfrågan om utredning har överskridits"
+msgstr "Antal dagar för acceptans av förfrågan om utredning har överskridits"
+
+#: eavrop-overview/compensations/CompensationController.js:17
+msgid "Underlag-ersättningsvy/Antal dagar för komplettering har överskridits"
+msgstr "Antal dagar för komplettering har överskridits"
+
+#: eavrop-overview/compensations/CompensationController.js:19
+msgid "Underlag-ersättningsvy/Antal dagar för utredning har överskridits"
+msgstr "Antal dagar för utredning har överskridits"
+
+#: eavrop-overview/compensations/CompensationController.js:54
+msgid "Underlag-ersättningsvy/Antal utredningsstarter"
+msgstr "Antal utredningsstarter"
+
+#: eavrop-overview/compensations/CompensationController.js:103
+msgid "Underlag-ersättningsvy/Avvikelse"
+msgstr "Avvikelse"
+
+#: eavrop-overview/compensations/CompensationController.js:12
+msgid "Underlag-ersättningsvy/Besök avbokat <48h"
+msgstr "Besök avbokat <48h"
+
+#: eavrop-overview/compensations/CompensationController.js:14
+msgid "Underlag-ersättningsvy/Besök avbokat <96h"
+msgstr "Besök avbokat <96h"
+
+#: eavrop-overview/compensations/CompensationController.js:13
+msgid "Underlag-ersättningsvy/Besök avbokat >48h"
+msgstr "Besök avbokat >48h"
+
+#: eavrop-overview/compensations/CompensationController.js:15
+msgid "Underlag-ersättningsvy/Besök avbokat >96h"
+msgstr "Besök avbokat >96h"
+
+#: eavrop-overview/compensations/CompensationController.js:11
+msgid "Underlag-ersättningsvy/Besök avbokat av utförare"
+msgstr "Besök avbokat av utförare"
+
+#: eavrop-overview/compensations/CompensationController.js:23
+msgid "Underlag-ersättningsvy/Ja"
+msgstr "Ja"
+
+#: eavrop-overview/compensations/CompensationController.js:24
+msgid "Underlag-ersättningsvy/Nej"
+msgstr "Nej"
+
+#: eavrop-overview/compensations/CompensationController.js:20
+msgid "Underlag-ersättningsvy/Ops detta ska inte hända"
+msgstr "Ops detta ska inte hända"
+
+#: eavrop-overview/compensations/CompensationController.js:10
+msgid "Underlag-ersättningsvy/Patient uteblev"
+msgstr "Patient uteblev"
+
+#: eavrop-overview/compensations/compensation.html:16
+msgid "Underlag-ersättningsvy/Specifikation - avvikelser"
+msgstr "Specifikation - avvikelser"
+
+#: eavrop-overview/compensations/CompensationController.js:112
+msgid "Underlag-ersättningsvy/Tillägstjänst"
+msgstr "Tillägstjänst"
+
+#: eavrop-overview/compensations/compensation.html:27
+msgid "Underlag-ersättningsvy/Tillägstjänster"
+msgstr "Tillägstjänster"
+
+#: eavrop-overview/compensations/CompensationController.js:115
+msgid "Underlag-ersättningsvy/Timmar"
+msgstr "Timmar"
+
+#: eavrop-overview/compensations/CompensationController.js:118
+msgid "Underlag-ersättningsvy/Tolk"
+msgstr "Tolk"
+
+#: eavrop-overview/compensations/CompensationController.js:42
+msgid "Underlag-ersättningsvy/Tolk anlitad?"
+msgstr "Tolk anlitad?"
+
+#: eavrop-overview/compensations/CompensationController.js:16
+msgid "Underlag-ersättningsvy/Tolk uteblev"
+msgstr "Tolk uteblev"
+
+#: eavrop-overview/compensations/CompensationController.js:33
+msgid "Underlag-ersättningsvy/Typ"
+msgstr "Typ"
+
+#: eavrop-overview/compensations/compensation.html:2
+msgid "Underlag-ersättningsvy/Underlag för ersättning"
+msgstr "Underlag för ersättning"
+
+#: eavrop-overview/compensations/CompensationController.js:39
+msgid "Underlag-ersättningsvy/Utförare, namn"
+msgstr "Utförare, namn"
+
+#: eavrop-overview/compensations/CompensationController.js:36
+msgid "Underlag-ersättningsvy/Utförare, organisation"
+msgstr "Utförare, organisation"
+
+#: eavrop-overview/compensations/CompensationController.js:57
+msgid "Underlag-ersättningsvy/Utredning är komplett och godkänd?"
+msgstr "Utredning är komplett och godkänd?"
+
+#: eavrop-overview/compensations/CompensationController.js:45
+msgid "Underlag-ersättningsvy/Utredningen genomfördes på, antal dagar"
+msgstr "Utredningen genomfördes på, antal dagar"
+
+#: eavrop-overview/compensations/compensation.html:5
+msgid "Underlag-ersättningsvy/Ärende"
+msgstr "Ärende"
+
+#: eavrop-overview/compensations/CompensationController.js:30
+msgid "Underlag-ersättningsvy/Ärende-ID"
+msgstr "Ärende-ID"
+
+#: widgets/fmu-utredning-table.html:108 widgets/fmu-utredning-table.html:71
+msgid "Utredning-tabell/Avbryt"
+msgstr "Avbryt"
+
+#: eavrop-overview/investigation/InvestigationService.js:136
+msgid "Utredning-tabell/Datum"
+msgstr "Datum"
+
+#: widgets/fmu-utredning-table.html:44 widgets/fmu-utredning-table.html:81
+msgid "Utredning-tabell/Error"
+msgstr "Error"
+
+#: eavrop-overview/investigation/InvestigationService.js:132
+msgid "Utredning-tabell/Händelse"
+msgstr "Händelse"
+
+#: widgets/fmu-utredning-table.html:60 widgets/fmu-utredning-table.html:96
+msgid "Utredning-tabell/Kommentar"
+msgstr "Kommentar"
+
+#: eavrop-overview/investigation/InvestigationService.js:144
+msgid "Utredning-tabell/Person"
+msgstr "Person"
+
+#: eavrop-overview/investigation/InvestigationService.js:148
+msgid "Utredning-tabell/Roll"
+msgstr "Roll"
+
+#: widgets/fmu-utredning-table.html:106 widgets/fmu-utredning-table.html:70
+msgid "Utredning-tabell/Spara"
+msgstr "Spara"
+
+#: eavrop-overview/investigation/InvestigationService.js:158
+#: widgets/fmu-utredning-table.html:51 widgets/fmu-utredning-table.html:88
+msgid "Utredning-tabell/Status"
+msgstr "Status"
+
+#: widgets/fmu-utredning-table.html:45
+msgid "Utredning-tabell/This is an error"
+msgstr ""
+
+#: eavrop-overview/investigation/InvestigationService.js:140
+msgid "Utredning-tabell/Tidpunkt"
+msgstr "Tidpunkt"
+
+#: eavrop-overview/investigation/InvestigationService.js:154
+msgid "Utredning-tabell/Tolk"
+msgstr "Tolk"
+
+#: widgets/fmu-utredning-table.html:12
+msgid "Utredning-tabell/Utredning-tabell/Ändra"
+msgstr "Utredning-tabell/Ändra"
+
+#: eavrop-overview/investigation/investigation.html:12
+msgid "Utredningar/Lägg till händelse"
+msgstr "Lägg till händelse"
+
+#: eavrop-overview/investigation/investigation.html:2
+msgid "Utredningar/Utredning"
+msgstr "Utredning"
+
+#: eavrop-overview/assign-utredare-modal.html:9
+msgid "Utse-utredare/Begär acceptans om utredning från"
+msgstr "Begär acceptans om utredning från"
+
+#: eavrop-overview/assign-utredare-modal.html:4
+msgid "Utse-utredare/Utse utredare"
+msgstr "Utse utredare"
+
+#: widgets/datePicker.html:30
+msgid "Visa"
+msgstr "Visa"
+
+#: core/core.config.js:26
+msgid "fmu-route-title/Fmu"
+msgstr "Fmu"
+
+#: core/core.config.js:14
+msgid "fmu-title/Fördjupad medicinsk utredning"
+msgstr "Fördjupad medicinsk utredning"
+
+#: core/core.config.js:15
+msgid "fmu-version/0.0.1"
+msgstr ""
+
+#: widgets/HandlingarTableDir.js:11
+msgid "handlingar-tabell/Handling"
+msgstr "Handling"
+
+#: widgets/HandlingarTableDir.js:12
+msgid "handlingar-tabell/Registrerad av"
+msgstr "Registrerad av"
+
+#: widgets/HandlingarTableDir.js:13
+msgid "handlingar-tabell/Registrerad, datum"
+msgstr "Registrerad, datum"
+
+#: login/login.route.js:14
+msgid "login-title/Login"
+msgstr "Inloggning"
+
+#: eavrop-overview/investigation/changeBookingConfirmationModal.html:16
+msgid "Ändra-bokning-modal/Avbryt"
+msgstr "Avbryt"
+
+#: eavrop-overview/investigation/changeBookingConfirmationModal.html:17
+msgid "Ändra-bokning-modal/Spara"
+msgstr "Spara"
+
+#: eavrop-overview/investigation/changeBookingConfirmationModal.html:9
+msgid "Ändra-bokning-modal/kommer att pausa utredningen till dess att beställaren godkänner att utredningen får fortsätta"
+msgstr "kommer att pausa utredningen till dess att beställaren godkänner att utredningen får fortsätta"
+
+#: eavrop-overview/investigation/changeBookingConfirmationModal.html:3
+msgid "Ändra-bokning-modal/Ändra"
+msgstr "Ändra"
+
+#: eavrop-overview/investigation/changeBookingConfirmationModal.html:8
+msgid "Ändra-bokning-modal/Ändringen till statusen"
+msgstr "Ändringen till statusen"
+
+#: eavrop-overview/investigation/changeBookingConfirmationModal.html:10
+msgid "Ändra-bokning-modal/Är du säker på att du vill spara ändringarna?"
+msgstr "Är du säker på att du vill spara ändringarna?"
+
+#: orders-overview/overview.html:3
+msgid "Översikt/Beställningar"
+msgstr "Beställningar"
+
+#: orders-overview/overview.html:5
+msgid "Översikt/Genomförda utredningar"
+msgstr "Genomförda utredningar"
+
+#: orders-overview/overview.html:4
+msgid "Översikt/Pågående utredningar"
+msgstr "Pågående utredningar"

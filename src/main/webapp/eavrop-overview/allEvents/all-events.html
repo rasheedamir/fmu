@@ -1,0 +1,114 @@
+<div ng-cloak class="alla-handelser fadeIn fast">
+    <h1 translate>Alla händelser/Alla händelser</h1>
+    <div class="sammanfattning">
+        <h2 translate>Alla händelser/Sammanfattning</h2>
+        <div class="badges-container">
+            <div class="summary-badge">
+                <div class="panel-heading"><strong translate>Alla händelser/Förfrågan om utredning</strong></div>
+                <div class="panel-body"><span>{{allevents.dateInquiry | date:'yyyy-MM-dd'}}</span>
+                </div>
+            </div>
+            <div class="summary-badge">
+                <div class="panel-heading"><strong translate>Alla händelser/Handlingar översändes</strong></div>
+                <div class="panel-body"><span>{{allevents.documentsSent | date:'yyyy-MM-dd'}}</span>
+                </div>
+            </div>
+            <div class="summary-badge">
+                <div class="panel-heading"><strong translate>Alla händelser/Utredning antal dagar</strong></div>
+                <div class="panel-body"><span
+                >{{allevents.investigationNoDays}}</span></div>
+            </div>
+            <div class="summary-badge">
+                <div class="panel-heading"><strong translate>Alla händelser/Begärda tillägg, handlingar</strong></div>
+                <div class="panel-body"><span
+                >{{allevents.reqAmendmentsDocuments}}</span></div>
+            </div>
+            <div class="summary-badge">
+                <div class="panel-heading"><strong translate>Alla händelser/Acceptans av utredningen</strong></div>
+                <div class="panel-body"><span>{{allevents.acceptanceDate | date:'yyyy-MM-dd'}}</span>
+                </div>
+            </div>
+            <div class="summary-badge">
+                <div class="panel-heading"><strong translate>Alla händelser/Intyg skickat till beställaren</strong></div>
+                <div class="panel-body"><span>{{allevents.certSentToOrdererDate |  date:'yyyy-MM-dd'}}</span>
+                </div>
+            </div>
+            <div class="summary-badge">
+                <div class="panel-heading"><strong translate>Alla händelser/Antal avvikelser</strong></div>
+                <div class="panel-body" ng-class="allevents.noDeviations > 0 ? 'badge-danger' : ''">
+                    <span>{{allevents.noDeviations}}</span>
+                </div>
+            </div>
+            <div class="summary-badge">
+                <div class="panel-heading"><strong translate>Alla händelser/Begärda kompletteringar till utredning</strong></div>
+                <div class="panel-body"><span>{{allevents.reqAmendmentsInvestigation}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="events-bestallning">
+        <h2 translate>Alla händelser/Beställning</h2>
+        <div class="table-wrapper">
+            <table class="fmu-table">
+                <thead>
+                    <tr>
+                        <th translate>Alla händelser/Beställning/Ärende-ID</th>
+                        <th translate>Alla händelser/Beställning/Typ</th>
+                        <th translate>Alla händelser/Beställning/Organisation</th>
+                        <th translate>Alla händelser/Beställning/Enhet/Avdelning</th>
+                        <th translate>Alla händelser/Beställning/Förfrågan skickad, datum</th>
+                        <th translate>Alla händelser/Beställning/Patientens bostadsort</th>
+                        <th translate>Alla händelser/Beställning/Organisation</th>
+                        <th translate>Alla händelser/Beställning/Utredare, enhet</th>
+                        <th translate>Alla händelser/Beställning/Acceptans av utredning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{order.arendeId}}&nbsp;</td>
+                        <td>{{order.type}}&nbsp;</td>
+                        <td>{{order.ordererOrganization}}&nbsp;</td>
+                        <td>{{order.ordererUnit}}&nbsp;</td>
+                        <td>{{order.inquiryDate | date:'yyyy-MM-dd'}}&nbsp;</td>
+                        <td>{{order.patientResidence}}&nbsp;</td>
+                        <td>{{order.investigatorOrganization}}&nbsp;</td>
+                        <td>{{order.investigatorUnit}}&nbsp;</td>
+                        <td>{{order.acceptanceDate | date:'yyyy-MM-dd'}}&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="events-handlingar">
+        <h2 translate>Alla händelser/Handlingar</h2>
+        <div class="table-wrapper">
+            <fmu-handlingar-table handlingar="documents"></fmu-handlingar-table>
+        </div>
+    </div>
+    
+    <div class="events-tillagg">
+        <h2 translate>Alla händelser/Tillägg</h2>
+        <div class="table-wrapper">
+            <fmu-tillagg-table tillagg="requestedDocuments"></fmu-tillagg-table>
+        </div>
+    </div>
+    <div class="events-utredning">
+        <h2 translate>Alla händelser/Utredning</h2>
+        <div class="table-wrapper">
+            <fmu-utredning-table
+            table-parameters="tableParameters"
+            header-fields="headerFields"
+            eavropid="currentEavropId"
+            row-modifiable="false"
+            access-data-callback="getTableCellValue">
+            </fmu-utredning-table>
+        </div>
+    </div>
+    
+    <div class="events-anteckningar">
+        <h2 translate>Alla händelser/Anteckningar</h2>
+        <div class="table-wrapper">
+            <fmu-anteckningar-table anteckningar="notes"></fmu-anteckningar-table>
+        </div>
+    </div>
+</div>
