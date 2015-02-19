@@ -16,6 +16,5 @@
         };
 
         routeHelper.registerState(stateName, stateConfig);
-        routeHelper.setDefaultState(stateConfig.url);
     }
 })();

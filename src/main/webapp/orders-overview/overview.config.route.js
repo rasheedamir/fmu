@@ -42,5 +42,6 @@
         }];
 
         routeHelper.registerStates(states);
+        routeHelper.setDefaultState('/overview/orders');
     }
 })();

@@ -30,7 +30,7 @@
         }
 
         function login() {
-            Dataservice.login($.param(($scope.selectedItem)));
+            Dataservice.login($scope.selectedItem);
         }
     }
 })();
