@@ -3,3 +3,7 @@ ID;KEY;VALUE;DESCRIPTION
 2;fmu.domain.model.eavrop.acceptanceValidLength;5;Defines the number of business days from order date that the are allowed to get acceptance from caregiver before deviation is issued 
 3;fmu.domain.model.eavrop.assessmentValidLength;25;Defines the number of business days that are allowed to spend during assessment.
 4;fmu.domain.model.eavrop.completionValidLength;10;Defines the number of business days that are allowed to spend during completion of intyg.
+5;fmu.domain.model.eavrop.startDateOffset.AFU;3;Defines the number of days, specialized for AFU, that are added to the start date after documents have been sent from beställare
+6;fmu.domain.model.eavrop.acceptanceValidLength.AFU;5;Defines the number of business days, specialized for AFU, from order date that the are allowed to get acceptance from caregiver before deviation is issued 
+7;fmu.domain.model.eavrop.assessmentValidLength.AFU;25;Defines the number of business days, specialized for AFU, that are allowed to spend during assessment.
+8;fmu.domain.model.eavrop.completionValidLength.AFU;10;Defines the number of business days, specialized for AFU, that are allowed to spend during completion of intyg.
