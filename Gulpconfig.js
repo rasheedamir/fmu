@@ -39,6 +39,7 @@
                 json: require('./bower.json'),
                 directory: bower
             },
+            backendServerUrl: 'http://ec2-54-154-123-186.eu-west-1.compute.amazonaws.com:9000',
             unittestFolder: unittest,
             mockRestData: unittest + '/mocks/db.json',
             karmaconfig: getKarmaConfigOptions()

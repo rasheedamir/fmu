@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: Fmu\n"
+"Project-Id-Version: fmu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
@@ -277,6 +277,10 @@ msgstr "Tidigare utredd vid"
 msgid "Beställning/Lägg till handling"
 msgstr "Lägg till handling"
 
+#: eavrop-overview/order/documents/add-doc-modal.html:34
+msgid "Beställning/Lägg till handling/Avbryt"
+msgstr "Avbryt"
+
 #: eavrop-overview/order/documents/add-doc-modal.html:9
 msgid "Beställning/Lägg till handling/Handling"
 msgstr "Handling"
@@ -288,6 +292,10 @@ msgstr "Registrerad av"
 #: eavrop-overview/order/documents/add-doc-modal.html:20
 msgid "Beställning/Lägg till handling/Registrerad, datum"
 msgstr "Registrerad, datum"
+
+#: eavrop-overview/order/documents/add-doc-modal.html:33
+msgid "Beställning/Lägg till handling/Spara"
+msgstr "Spara"
 
 #: eavrop-overview/order/contents.html:27
 msgid "Beställning/innehåll/Beställare"
@@ -1107,7 +1115,7 @@ msgstr "Status"
 
 #: widgets/fmu-utredning-table.html:38
 msgid "Utredning-tabell/This is an error"
-msgstr ""
+msgstr "This is an error"
 
 #: eavrop-overview/investigation/investigation.service.js:158
 msgid "Utredning-tabell/Tidpunkt"
