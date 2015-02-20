@@ -20,12 +20,16 @@ import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.ValueObject;
 
+/**
+ * This class/entity represents a text note and who wrote it
+ */
 @Entity
 @Table(name = "T_NOTE")
 @ToString
 public class Note extends AbstractBaseEntity implements ValueObject<Note>, Comparable<Note>, Serializable  {
-	// ~ Instance fields ================================================================================================
+	private static final long serialVersionUID = 1L;
 
+	// ~ Instance fields ================================================================================================
 	// database primary key
 	@EmbeddedId
 	private NoteId noteId;
@@ -37,7 +41,7 @@ public class Note extends AbstractBaseEntity implements ValueObject<Note>, Compa
 	@Column(name = "TEXT", columnDefinition="TEXT")
 	private String text;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="PERSON_ID")
 	private Person person;
 	
