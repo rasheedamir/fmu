@@ -26,12 +26,8 @@ import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
 
 /**
- * Created by Rickard on 8/26/14.
- * 
  * This class corresponds to the 'Vårdgivare' entity in the Domain Information Model.  	
  */
-
-
 @Entity
 @Table(name = "T_VARDGIVARE", uniqueConstraints=@UniqueConstraint(columnNames="HSA_ID"))
 @ToString

@@ -25,6 +25,9 @@ import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
 
+/**
+ * This class corresponds to the 'Landsting' entity in the Domain Information Model.  	
+ */
 @Entity
 @Table(name = "T_LANDSTING",  uniqueConstraints=@UniqueConstraint(columnNames="LANDSTING_ID"))
 @ToString

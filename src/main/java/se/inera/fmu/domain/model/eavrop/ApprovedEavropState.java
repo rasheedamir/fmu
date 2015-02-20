@@ -3,10 +3,15 @@ package se.inera.fmu.domain.model.eavrop;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * When an Eavrop is approved we only await the compensation approval, then the Eavrop statewise will be closed
+ * The Approved state is achieved when the customer communicates that the eavrop have been approved 
+ * 
+ * Available behavior besides Notes is compensation approval.
+ * CompensationApproval will move Eavrop forward into Closed state.
  */
 @Slf4j
 public class ApprovedEavropState extends AbstractNoteableEavropState{
+
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public EavropStateType getEavropStateType() {

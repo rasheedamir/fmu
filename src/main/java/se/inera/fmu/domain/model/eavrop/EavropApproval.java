@@ -19,11 +19,16 @@ import org.joda.time.DateTime;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.ValueObject;
-
+/**
+ * The Approved state is achieved when the customer communicates that the eavrop have been approved 
+ * This Object defines when this has happened, who has done the approval and optionally a note regarding the approval 
+ */
 @Entity
 @Table(name = "T_EAVROP_APPROVAL")
 @ToString
 public class EavropApproval implements ValueObject<EavropApproval>{
+
+	private static final long serialVersionUID = 1L;
 
 	//~ Instance fields ================================================================================================
 
@@ -37,11 +42,11 @@ public class EavropApproval implements ValueObject<EavropApproval>{
     @Column(name = "APPROVAL_DATE_TIME")
 	private DateTime approvalTimestamp;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="PERSON_ID")
 	private Person person;
 	
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="NOTE_ID", nullable = true)
 	private Note note;
     

@@ -2,7 +2,9 @@ package se.inera.fmu.domain.model.eavrop;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-
+/**
+ * Converter that converts state to database value and vice versa  
+ */
 @Converter
 public class EavropStateConverter implements AttributeConverter<EavropState, String> {
 

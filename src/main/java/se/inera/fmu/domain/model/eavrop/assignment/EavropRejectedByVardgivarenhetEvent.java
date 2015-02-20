@@ -6,6 +6,9 @@ import se.inera.fmu.domain.model.eavrop.EavropEvent;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 
+/**
+ * Domain event describing that the eavrop assignment has been rejected by the care giving unit/vardgivarenhet
+ */
 public class EavropRejectedByVardgivarenhetEvent extends EavropEvent{
 	private final ArendeId arendeId;
 	private final HsaId hsaId;

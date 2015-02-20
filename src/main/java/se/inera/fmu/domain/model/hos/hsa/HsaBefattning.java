@@ -6,7 +6,10 @@ import javax.persistence.Embeddable;
 import org.apache.commons.lang3.Validate;
 
 
-
+/**
+ * Work in progress, not finalized. 
+ * 
+ */
 @Embeddable
 public class HsaBefattning {
 

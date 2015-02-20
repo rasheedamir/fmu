@@ -7,12 +7,15 @@ import se.inera.fmu.domain.model.eavrop.EavropEvent;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 
+/**
+ * Domain event that states that a deviation has occurred on a booking.
+ */
 @ToString
 public class BookingDeviationEvent extends EavropEvent{
 
 	private final ArendeId arendeId;
 	private final BookingId bookingId;
-	private final BookingDeviationType bookingDeviationTyoe;
+	private final BookingDeviationType bookingDeviationType;
 	private boolean bookingDeviationResponseRequired;
 	private final Note bookingDeviationNote;
 	
@@ -21,7 +24,7 @@ public class BookingDeviationEvent extends EavropEvent{
 		super(eavropId);
 		this.arendeId = arendeId;
 		this.bookingId = bookingId;
-		this.bookingDeviationTyoe = bookingDeviationType;
+		this.bookingDeviationType = bookingDeviationType;
 		this.bookingDeviationResponseRequired = isBookingDevationResponseRequired;
 		this.bookingDeviationNote = bookingDeviationNote;
 	}
@@ -37,7 +40,7 @@ public class BookingDeviationEvent extends EavropEvent{
 	}
 
 	public BookingDeviationType getBookingDeviationType() {
-		return bookingDeviationTyoe;
+		return bookingDeviationType;
 	}
 
 	public boolean isBookingDeviationResponseRequired() {

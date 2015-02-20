@@ -7,6 +7,10 @@ import javax.persistence.Embeddable;
 
 import se.inera.fmu.domain.shared.ValueObject;
 
+/**
+ * Internal id of Note
+ *
+ */
 @Embeddable
 public class NoteId  implements ValueObject<NoteId>, Serializable {
 

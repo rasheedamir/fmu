@@ -9,8 +9,7 @@ import lombok.ToString;
 import se.inera.fmu.domain.shared.ValueObject;
 
 /**
- * Created by Rasheed on 7/26/14.
- *
+ * A Name
  */
 @ToString
 @Embeddable

@@ -10,13 +10,16 @@ import javax.persistence.Table;
 
 import se.inera.fmu.application.util.ObjectUtils;
 
+/**
+ * A System parameter entity  
+ *
+ */
 @Entity
 @Table(name = "T_SYSTEM_PARAMETER")
 @Cacheable(false) 
-						
 public class SystemParameter implements Serializable {
 
-	private static final long serialVersionUID = 2012080601L;
+	private static final long serialVersionUID = 2014100601L;
 
 	@Id
 	@Column(name = "ID")

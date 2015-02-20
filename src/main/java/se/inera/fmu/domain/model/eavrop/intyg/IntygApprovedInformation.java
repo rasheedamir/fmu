@@ -9,6 +9,11 @@ import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.person.Person;
 
+/**
+ * This Class represents information about the Intyg approval. 
+ * When it has been approved and by whom.
+ *
+ */
 @Entity
 @DiscriminatorValue("APPROVED")
 @ToString

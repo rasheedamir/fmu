@@ -5,6 +5,9 @@ import se.inera.fmu.domain.model.eavrop.EavropEvent;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.booking.BookingId;
 
+/**
+ * Domain event that states that a deviation has occurred on a interpreter booking.
+ */
 public class InterpreterBookingDeviationEvent extends EavropEvent{
 
 	private final BookingId bookingId;

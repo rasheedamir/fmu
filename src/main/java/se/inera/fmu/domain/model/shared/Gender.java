@@ -1,7 +1,8 @@
 package se.inera.fmu.domain.model.shared;
 
 /**
- * Created by Rasheed on 7/23/14.
+ * A gender
+ * Should be refactored to using a 'Kodverk' 
  */
 public enum Gender {
     MALE,

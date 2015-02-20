@@ -8,8 +8,7 @@ import javax.persistence.Embeddable;
 import se.inera.fmu.domain.shared.ValueObject;
 
 /**
- * Created by Rickard on 9/26/14.
- *
+ * Internal id of Booking
  */
 @Embeddable
 public final class BookingId implements ValueObject<BookingId>, Serializable {

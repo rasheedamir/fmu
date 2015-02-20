@@ -8,11 +8,24 @@ import lombok.ToString;
 import org.apache.commons.lang3.Validate;
 
 import se.inera.fmu.domain.shared.ValueObject;
-
+/**
+ * Represents the calculation properties of the Eavrop.
+ * START_DATE_OFFSET:  The number of business days between that the documentation has been sent and the Eavrop should 
+ * be considered started
+ * ACCEPTANCE_VALID_LENGTH: The number of business days that the Landstingssamordnare has to find a care giving unit 
+ * that will accept the eavrop
+ * ASSESSMENT_VALID_LENGTH: The number of business days that the care giving unit has to perform the assessment and
+ * send an Intyg to the customer
+ * COMPLETION_VALID_LENGTH: The number of business days that the care giving unit has to add completions to an Intyg and 
+ * resend to customer    
+ *
+ */
 @Embeddable
 @ToString
 public class EavropProperties implements ValueObject<EavropProperties> {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Column(name = "START_DATE_OFFSET", updatable = false, nullable = false )
 	private int startDateOffset;
 

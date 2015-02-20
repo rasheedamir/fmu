@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 
 /**
- * Created by Rickard on 9/9/14.
+ * Repository class for handling Landstingssamordnare 
  */
 public interface LandstingssamordnareRepository extends JpaRepository<Landstingssamordnare, Long> {
 	

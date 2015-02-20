@@ -11,15 +11,16 @@ import org.apache.commons.lang3.math.NumberUtils;
 import se.inera.fmu.domain.shared.ValueObject;
 
 /**
- * Created by Rasheed on 7/7/14.
- *
+ * 
  * A key that uniquely identifies a particular Eavrop between Inera & FK Systems.
- *
+ * The ArendeId is owned by the customer.
  */
 @Embeddable
 public final class ArendeId implements ValueObject<ArendeId> {
 
-    //~ Instance fields ================================================================================================
+	private static final long serialVersionUID = -1L;
+	
+	//~ Instance fields ================================================================================================
 
 	@Column(name = "ARENDE_ID", nullable = false, updatable = false, unique = true, columnDefinition="char(12)")
     @NotNull
@@ -52,7 +53,6 @@ public final class ArendeId implements ValueObject<ArendeId> {
         }
     }
     
-    
     @Override
     public boolean equals(Object o) {
         if (this == o){
@@ -61,10 +61,7 @@ public final class ArendeId implements ValueObject<ArendeId> {
         if (o == null || getClass() != o.getClass()){
         	return false;
         }
-
-        ArendeId other = (ArendeId) o;
-
-        return sameValueAs(other);
+        return sameValueAs((ArendeId) o);
     }
 
     @Override
@@ -81,6 +78,4 @@ public final class ArendeId implements ValueObject<ArendeId> {
     public String toString() {
     	return arendeId;
     }
-    
-    
 }

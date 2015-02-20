@@ -18,6 +18,11 @@ import org.joda.time.DateTime;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
 
+/**
+ * This class represents a response from the customer on a booking deviation.
+ * It carries inforamtion about the response type and who at the customer made the response, and
+ * optionally a note from the customer regarding the response.
+ */
 @Embeddable
 @ToString
 public class BookingDeviationResponse {
@@ -32,11 +37,11 @@ public class BookingDeviationResponse {
     @Column(name = "DEVIATION_RESPONSE_DATE_TIME")
 	private DateTime responseTimestamp;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="DEVIATION_RESPONSE_PERSON_ID")
 	private Person person;
 	
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="DEVIATION_RESPONSE_NOTE_ID", nullable = true)
 	private Note deviationResponseNote;
 

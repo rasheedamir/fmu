@@ -8,7 +8,9 @@ import org.joda.time.DateTime;
 import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropEvent;
 import se.inera.fmu.domain.model.eavrop.EavropId;
-
+/**
+ * Domain event describing that a booking has been created on the eavrop
+ */
 @ToString
 public class BookingCreatedEvent extends EavropEvent{
 	private final ArendeId arendeId;

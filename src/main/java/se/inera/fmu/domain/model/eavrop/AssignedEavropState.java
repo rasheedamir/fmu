@@ -4,14 +4,17 @@ import lombok.extern.slf4j.Slf4j;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
 import se.inera.fmu.domain.model.person.HoSPerson;
 
-/*
- * The Eavrop is assigned to a vårdgivare/care giver. Available behavior is accept and reject.
+/**
+ * The Assigned state tells that the Eavrop is assigned to a vårdgivare/care giver. 
+ * Available behavior is accept and reject.
  * Accept will move Eavrop forward into Accepted state.
  * Reject will move Eavrop back to Unassigned state.
  */
 @Slf4j
 public class AssignedEavropState extends AbstractEavropState {
 		
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public EavropStateType getEavropStateType() {
 		return EavropStateType.ASSIGNED;

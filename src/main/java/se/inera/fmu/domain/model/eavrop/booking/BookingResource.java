@@ -9,7 +9,7 @@ import lombok.ToString;
 import se.inera.fmu.domain.shared.ValueObject;
 
 /**
- * Created by Rickard on 9/26/14.
+ * This class represents the booked resource on a booking.
  *
  */
 @ToString

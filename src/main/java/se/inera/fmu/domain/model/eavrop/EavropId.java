@@ -8,12 +8,14 @@ import javax.persistence.Embeddable;
 import se.inera.fmu.domain.shared.ValueObject;
 
 /**
- * Created by Rickard on 9/26/14.
+ * Internal id of Eavrop
  *
  */
 @Embeddable
 public final class EavropId implements ValueObject<EavropId>, Serializable {
-
+	
+	private static final long serialVersionUID = 1L;
+	
     //~ Instance fields ================================================================================================
 
 	@Column(name = "EAVROP_ID", unique=true, updatable = false, nullable = false, columnDefinition="char(36)")

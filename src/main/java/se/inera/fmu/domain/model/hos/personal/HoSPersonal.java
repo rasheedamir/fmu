@@ -29,6 +29,12 @@ import se.inera.fmu.domain.model.shared.Name;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
 
+
+/**
+ * Work in progress, not finalized.
+ * Should possibly be removed and only use sub class Lanstingssamordnare  
+ * 
+ */
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="DISC", discriminatorType=DiscriminatorType.STRING, length=4)

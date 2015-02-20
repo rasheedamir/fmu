@@ -17,7 +17,7 @@ import se.inera.fmu.domain.model.hos.vardgivare.Vardgivarenhet;
 import se.inera.fmu.domain.model.person.HoSPerson;
 
 /*
- * Inteface of state controlled behaviour
+ * Interface of state controlled behaviour
  */
 public interface EavropState{
 	

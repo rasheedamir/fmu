@@ -2,6 +2,11 @@ package se.inera.fmu.domain.model.eavrop.booking;
 
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
 
+/**
+ * Enum represents a Bokking deviation type.
+ * Should probably be refactored and removed and only use bookingStatusType   
+ *
+ */
 public enum BookingDeviationType {
 	INVANARE_ABSENT,
 	CANCELLED_BY_INVANARE_LT_48,

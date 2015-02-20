@@ -19,25 +19,25 @@ public class BookingDeviationTypeUtil {
 		BookingStatusType.CANCELLED_GT_48_H};
 
 	
-	private static final BookingDeviationType[] DEVIATION_AFU_ON_HOLD_STATUSES = {
-		BookingDeviationType.INVANARE_ABSENT, 
-		BookingDeviationType.CANCELLED_BY_INVANARE_LT_96,
-		BookingDeviationType.CANCELLED_BY_INVANARE_GT_96};
-
-	private static final BookingDeviationType[] DEFAULT_DEVIATION_ON_HOLD_STATUSES = {
-		BookingDeviationType.INVANARE_ABSENT,
-		BookingDeviationType.CANCELLED_BY_INVANARE_LT_48,
-		BookingDeviationType.CANCELLED_BY_INVANARE_GT_48};
+//	private static final BookingDeviationType[] DEVIATION_AFU_ON_HOLD_STATUSES = {
+//		BookingDeviationType.INVANARE_ABSENT, 
+//		BookingDeviationType.CANCELLED_BY_INVANARE_LT_96,
+//		BookingDeviationType.CANCELLED_BY_INVANARE_GT_96};
+//
+//	private static final BookingDeviationType[] DEFAULT_DEVIATION_ON_HOLD_STATUSES = {
+//		BookingDeviationType.INVANARE_ABSENT,
+//		BookingDeviationType.CANCELLED_BY_INVANARE_LT_48,
+//		BookingDeviationType.CANCELLED_BY_INVANARE_GT_48};
 
 	
 	
-	public static boolean isDeviationTypeReasonForOnHold(BookingDeviationType bookingDeviationType, UtredningType utredningType ){
-		if(UtredningType.AFU.equals(utredningType )){
-			return  Arrays.asList(DEVIATION_AFU_ON_HOLD_STATUSES).contains(bookingDeviationType);
-		}else{
-			return Arrays.asList(DEFAULT_DEVIATION_ON_HOLD_STATUSES).contains(bookingDeviationType);
-		}
-	}
+//	public static boolean isDeviationTypeReasonForOnHold(BookingDeviationType bookingDeviationType, UtredningType utredningType ){
+//		if(UtredningType.AFU.equals(utredningType )){
+//			return  Arrays.asList(DEVIATION_AFU_ON_HOLD_STATUSES).contains(bookingDeviationType);
+//		}else{
+//			return Arrays.asList(DEFAULT_DEVIATION_ON_HOLD_STATUSES).contains(bookingDeviationType);
+//		}
+//	}
 
 	public static boolean isBookingStatusReasonForOnHold(BookingStatusType bookingStatus, UtredningType utredningType ){
 		if(UtredningType.AFU.equals(utredningType )){
@@ -47,11 +47,11 @@ public class BookingDeviationTypeUtil {
 		}
 	}
 	
-	public static boolean isEavropBookingDeviation(BookingDeviationType bookingDeviationType, UtredningType utredningType ){
-		if(UtredningType.AFU.equals(utredningType )){
-			return  Arrays.asList(AFU_ON_HOLD_STATUSES).contains(bookingDeviationType);
-		}else{
-			return Arrays.asList(DEFAULT_ON_HOLD_STATUSES).contains(bookingDeviationType);
-		}
-	}
+//	public static boolean isEavropBookingDeviation(BookingDeviationType bookingDeviationType, UtredningType utredningType ){
+//		if(UtredningType.AFU.equals(utredningType )){
+//			return  Arrays.asList(AFU_ON_HOLD_STATUSES).contains(bookingDeviationType);
+//		}else{
+//			return Arrays.asList(DEFAULT_ON_HOLD_STATUSES).contains(bookingDeviationType);
+//		}
+//	}
 }

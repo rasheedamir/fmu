@@ -68,6 +68,7 @@ import se.inera.fmu.domain.shared.IEntity;
 @Entity
 @Table(name = "T_EAVROP", uniqueConstraints = @UniqueConstraint(columnNames = "ARENDE_ID"))
 @ToString
+@SuppressWarnings("unused")
 public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 
 	// ~ Instance fields
@@ -117,25 +118,25 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	private EavropProperties eavropProperties;
 	
 	// A log of all assignments to vardgivarenheter and their replies
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinTable(name = "R_EAVROP_ASSIGNMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "ASSIGNMENT_ID"))
 	private List<EavropAssignment> assignments;
 
 	// Maps the current assignment of the eavrop
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "CURRENT_ASSIGNMENT_ID", unique= true, nullable=true)
 	private EavropAssignment currentAssignment;
 
 	//The main character of the Eavrop
 	@NotNull
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "INVANARE_ID")
 	private Invanare invanare;
 
 	// TODO: set as embeded object or create a relation to value object or only
 	// handle as event?
 	@NotNull
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "BESTALLAR_PERSON_ID")
 	private Bestallaradministrator bestallaradministrator;
 
@@ -145,27 +146,27 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	private Landsting landsting;
 
 	// The bookings made
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinTable(name = "R_EAVROP_BOOKING", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "BOOKING_ID"))
 	private Set<Booking> bookings;
 
 	// The notes related to this eavrop
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinTable(name = "R_EAVROP_NOTE", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "NOTE_ID"))
 	private Set<Note> notes;
 
 	// Examination that led up to this FMU
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "PRIOR_EXAMINATION_ID")
 	private PriorMedicalExamination priorMedicalExamination;
 
 	// Documents received received this FMU
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinTable(name = "R_EAVROP_REC_DOCUMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "DOCUMENT_ID"))
 	private Set<ReceivedDocument> receivedDocuments;
 
 	// Documents requested to this FMU
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinTable(name = "R_EAVROP_REQ_DOCUMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "DOCUMENT_ID"))
 	private Set<RequestedDocument> requestedDocuments;
 	
@@ -187,17 +188,17 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 
 	
 	// A log of all intyg events
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinTable(name = "R_EAVROP_INTYG", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "INTYG_INFORMATION_ID"))
 	private Set<IntygInformation> intygInformations;
 
 	// The approval of this eavrop
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "EAVROP_APPROVAL_ID")
 	private EavropApproval eavropApproval;
 
 	// The compensation approval of this eavrop
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "EAVROP_COMP_APPROVAL_ID")
 	private EavropCompensationApproval eavropCompensationApproval;
 	
@@ -257,7 +258,7 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 		this.eavropProperties =  eavropProperties;
 	}
 	
-	private EavropProperties getEavropProperties(){
+	public EavropProperties getEavropProperties(){
 		return this.eavropProperties;
 	}
 

@@ -3,7 +3,7 @@ package se.inera.fmu.domain.model.landsting;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * Created by Rickard on 9/9/14.
+ * Repository class for handling Landsting 
  */
 public interface LandstingRepository extends JpaRepository<Landsting, Long> {
 	
