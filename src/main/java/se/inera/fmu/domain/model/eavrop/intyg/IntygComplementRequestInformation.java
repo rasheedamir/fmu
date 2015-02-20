@@ -9,7 +9,11 @@ import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.ValueObject;
-
+/**
+ * This Class represents information about the Intyg has been requested for complements. 
+ * When it has been requested and by who.
+ *
+ */
 @Entity
 @DiscriminatorValue("REQUEST")
 @ToString

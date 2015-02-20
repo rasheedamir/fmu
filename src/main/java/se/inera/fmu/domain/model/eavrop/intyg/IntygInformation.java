@@ -40,7 +40,7 @@ public abstract class IntygInformation {
 	private DateTime informationTimestamp;
 	
 	@NotNull
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="PERSON_ID")
 	private Person person;
 	

@@ -7,6 +7,9 @@ import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropEvent;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 
+/**
+ * Domain event describing that the intyg related to the eavrop has been sent to the beställare/customer
+ */
 public class IntygSentEvent extends EavropEvent{
 	
 	private final ArendeId arendeId;

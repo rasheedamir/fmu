@@ -6,6 +6,9 @@ import org.joda.time.DateTime;
 import se.inera.fmu.domain.model.eavrop.EavropEvent;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 
+/**
+ * Domain event describing that the intyg related to the eavrop has been approved by the beställare/customer
+ */
 public class IntygApprovedByBestallareEvent extends EavropEvent{
 	
 	private final DateTime requestDateTime; 

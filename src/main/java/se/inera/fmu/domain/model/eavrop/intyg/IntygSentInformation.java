@@ -10,6 +10,12 @@ import org.joda.time.DateTime;
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.ValueObject;
 
+/**
+ * This Class represents information about the Intyg having been created, signed 
+ * and sent to the beställare/customer. 
+ * When it was sent and by whom.
+ *
+ */
 @Entity
 @DiscriminatorValue("SENT")
 @ToString
