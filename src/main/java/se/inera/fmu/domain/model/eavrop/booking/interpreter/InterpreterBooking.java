@@ -11,7 +11,10 @@ import javax.validation.constraints.NotNull;
 
 import se.inera.fmu.domain.model.eavrop.InterpreterBookingEventDTO;
 import se.inera.fmu.domain.model.eavrop.note.Note;
-
+/**
+ * This Class represents a booked interpreter resource.
+ * It belongs to a booking and 'inherits' the bookings timespan but has its own status, and therefore also its own deviation notes
+ */
 @Embeddable
 public class InterpreterBooking {
     
@@ -20,7 +23,7 @@ public class InterpreterBooking {
     @NotNull
 	private InterpreterBookingStatusType interpreterBookingStatus;
     
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="INTERPRETER_DEVIATION_NOTE_ID", nullable = true, updatable = true)
 	private Note deviationNote;
 

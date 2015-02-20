@@ -26,7 +26,16 @@ import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBooking;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
-
+/**
+ * This class represents a Booking of a resource to the eavrop.
+ * The booking has a BookingType, a startDate and endDate, the booked resource and a status.
+ * The booking may include an interpreter booking, which has its own status.
+ * It may also in certain cases be defined as an 'additional service'
+ * A booking might not always be performed as planned, then its possible to set the status to one of the 
+ * deviant types and add a DeviationNote to the booking.
+ * The BookingDeviationResponse represents the customers answer and the desired action due to the deviation
+ *
+ */
 @Entity
 @Table(name = "T_BOOKING")
 @ToString
@@ -65,7 +74,7 @@ public class Booking extends AbstractBaseEntity implements IEntity<Booking> {
 	@NotNull
 	private BookingStatusType bookingStatusType;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="DEVIATION_NOTE_ID", nullable = true)
 	private Note deviationNote;
     

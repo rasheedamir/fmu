@@ -5,6 +5,11 @@ import java.util.List;
 
 import se.inera.fmu.domain.model.eavrop.UtredningType;
 
+/**
+ * This Enum defines the statuses that a  Booking can have.
+ * The statuses are also dependent on BookingType and UtredningType.
+ * Booked and Performed represents the normal statuses, the other ones represents deviant statuses.     
+ */
 public enum BookingStatusType {
 	BOOKED,
 	PERFORMED,
