@@ -21,6 +21,11 @@ import org.joda.time.DateTime;
 import se.inera.fmu.domain.converter.BooleanToStringConverter;
 import se.inera.fmu.domain.model.person.Person;
 
+/**
+ * This class represents a received document related to the Eavrop
+ * The document might have been added externally by the customer or internally by the user connected to a care giving unit  
+ *
+ */
 @Entity
 @Table(name = "T_REC_DOCUMENT")
 @ToString
@@ -40,7 +45,7 @@ public class ReceivedDocument{
     @Column(name = "NAME", updatable = false,  nullable = false)
     private String documentName;
     
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="PERSON_ID")
 	private Person person;
 	

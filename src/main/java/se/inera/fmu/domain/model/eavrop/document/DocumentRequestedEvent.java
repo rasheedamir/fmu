@@ -1,7 +1,5 @@
 package se.inera.fmu.domain.model.eavrop.document;
 
-
-
 import org.joda.time.DateTime;
 
 import se.inera.fmu.domain.model.eavrop.ArendeId;
@@ -10,6 +8,9 @@ import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
 
+/**
+ * Domain event describing that a document have been requested
+ */
 public class DocumentRequestedEvent extends EavropEvent {
 	
 	private final String documentId;
@@ -56,7 +57,6 @@ public class DocumentRequestedEvent extends EavropEvent {
 	public Note getRequestNote() {
 		return requestNote;
 	}
-	
 	
 	//~ Other Methods ==================================================================================================
 }

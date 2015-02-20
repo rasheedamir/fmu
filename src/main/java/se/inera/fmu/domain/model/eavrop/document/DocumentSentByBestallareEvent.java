@@ -7,6 +7,9 @@ import se.inera.fmu.domain.model.eavrop.ArendeId;
 import se.inera.fmu.domain.model.eavrop.EavropEvent;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 
+/**
+ * Domain event describing that documents regading the Eavrop have been sent by the customer/beställare 
+ */
 public class DocumentSentByBestallareEvent extends EavropEvent{
 	
 	private final ArendeId arendeId; 

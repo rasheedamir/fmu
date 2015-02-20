@@ -21,7 +21,10 @@ import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.person.Person;
 
 
-
+/**
+ * This class represents a a request for a document which has not yet been received
+ *
+ */
 @Entity
 @Table(name = "T_REQ_DOCUMENT")
 @ToString
@@ -41,11 +44,11 @@ public class RequestedDocument {
     @Column(name = "NAME", updatable = false,  nullable = false)
     private String documentName;
     
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="PERSON_ID")
 	private Person person;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="REQUEST_NOTE_ID", nullable = true)
 	private Note requestNote;
 	
