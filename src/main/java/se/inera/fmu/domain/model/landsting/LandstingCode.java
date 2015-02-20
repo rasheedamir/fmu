@@ -8,6 +8,11 @@ import javax.validation.constraints.NotNull;
 
 import se.inera.fmu.domain.shared.ValueObject;
 
+/**
+ * Business id for Landsting
+ * Should probably be refactored to use some kind of defined 'Kodverk'
+ * Now we use Länskod: http://sv.wikipedia.org/wiki/Sveriges_l%C3%A4n
+ */
 @Embeddable
 public class LandstingCode implements ValueObject<LandstingCode>, Serializable {
 	

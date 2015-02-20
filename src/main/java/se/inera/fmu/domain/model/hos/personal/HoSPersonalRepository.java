@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 
 /**
- * Created by Rickard on 8/26/14.
+ * Work in progress, not finalized. 
+ * Should possibly be removed 
  */
 public interface HoSPersonalRepository extends JpaRepository<HoSPersonal, Long> {
 

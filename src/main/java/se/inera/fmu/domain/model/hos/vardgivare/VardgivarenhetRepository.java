@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 
 /**
- * Created by Rasheed on 8/26/14.
+ * Repository class for handling Vardgivarenheter 
  */
 public interface VardgivarenhetRepository extends JpaRepository<Vardgivarenhet, Long> {
 

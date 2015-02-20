@@ -26,6 +26,9 @@ import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
 
+/**
+ * This class corresponds to the 'Vårdgivarenhet' entity in the Domain Information Model.  	
+ */
 @Entity
 @Table(name = "T_VARDGIVARENHET" , uniqueConstraints=@UniqueConstraint(columnNames="HSA_ID"))
 public class Vardgivarenhet extends AbstractBaseEntity implements IEntity<Vardgivarenhet> {
