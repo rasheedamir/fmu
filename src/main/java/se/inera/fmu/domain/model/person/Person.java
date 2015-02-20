@@ -14,7 +14,12 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Email;
-	
+/**
+ * This class represents a person
+ * This should be refactored and person should not be treated as a value object if there is a possibility of a business key
+ * and a way to deal with remote updates of these entities
+ *
+ */
 @Entity
 @Table(name = "T_PERSON")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
