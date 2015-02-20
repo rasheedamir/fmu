@@ -15,11 +15,6 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import se.inera.fmu.application.EavropApprovalService;
-import se.inera.fmu.application.EavropBookingService;
-import se.inera.fmu.application.EavropDocumentService;
-import se.inera.fmu.application.EavropIntygService;
-import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.application.impl.command.AddBookingDeviationResponseCommand;
 import se.inera.fmu.application.impl.command.AddIntygApprovedCommand;
 import se.inera.fmu.application.impl.command.AddIntygComplementRequestCommand;
@@ -67,9 +62,8 @@ import ws.inera.fmu.admin.eavrop.SvarBokningsavvikelseRequest;
 import ws.inera.fmu.admin.eavrop.SvarBokningsavvikelseResponse;
 
 /**
- * Created by Rasheed on 10/25/14.
+ * Enpoint for FMU application
  */
-@SuppressWarnings("all")
 @Endpoint
 @Slf4j
 public class EavropEndpoint {
@@ -94,7 +88,6 @@ public class EavropEndpoint {
 
         try {
             CreateEavropCommand aCommand = mapSkapaFmuEavropRequestToCreateEavropCommand(request);
-            //ArendeId arendeId = fmuOrderingService.createEavrop(aCommand);
             ArendeId arendeId = fmuWebServiceFacade.createEavrop(aCommand);
             fmuResponse.setArendeId(arendeId.toString());
             fmuResponse.setStatusCode(StatusCodeType.OK);
@@ -129,7 +122,6 @@ public class EavropEndpoint {
 
         try {
         	AddReceivedExternalDocumentsCommand aCommand = mapSkickatFmuHandlingarRequestToAddReceivedExternalDocumentCommand(request);
-        	//eavropDocumentService.addReceivedExternalDocument(aCommand);
         	fmuWebServiceFacade.addReceivedExternalDocument(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
             fmuResponse.setStatusCode(StatusCodeType.OK);
@@ -164,7 +156,6 @@ public class EavropEndpoint {
 
         try {
         	AddBookingDeviationResponseCommand aCommand = mapSvarBokningsavvikelseRequestToAddBookingDeviationResponseCommand (request);
-            //eavropBookingService.addBookingDeviationResponse(aCommand);
         	fmuWebServiceFacade	.addBookingDeviationResponse(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
             fmuResponse.setStatusCode(StatusCodeType.OK);
@@ -199,7 +190,6 @@ public class EavropEndpoint {
 
         try {
         	AddIntygSentCommand aCommand = mapSkickatFmuIntygRequestToAddIntygSentCommand (request);
-            //eavropIntygService.addIntygSentInformation(aCommand);
             fmuWebServiceFacade.addIntygSentInformation(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
             fmuResponse.setStatusCode(StatusCodeType.OK);
@@ -234,7 +224,6 @@ public class EavropEndpoint {
 
         try {
         	AddIntygComplementRequestCommand aCommand = mapBegartFmuIntygKompletteringRequestToAddIntygComplementRequestCommand (request);
-            //eavropIntygService.addIntygComplementRequestInformation(aCommand);
             fmuWebServiceFacade.addIntygComplementRequestInformation(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
             fmuResponse.setStatusCode(StatusCodeType.OK);
@@ -269,7 +258,6 @@ public class EavropEndpoint {
 
         try {
         	AddIntygApprovedCommand aCommand = mapAccepteratFmuIntygRequestToAddIntygApprovedCommand(request);
-            //eavropIntygService.addIntygApprovedInformation(aCommand);
             fmuWebServiceFacade.addIntygApprovedInformation(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
             fmuResponse.setStatusCode(StatusCodeType.OK);
@@ -304,7 +292,6 @@ public class EavropEndpoint {
 
         try {
         	ApproveEavropCommand aCommand = mapAccepteratFmuUtredningRequestToApproveEavropCommand(request);
-            //eavropApprovalService.approveEavrop(aCommand);
         	fmuWebServiceFacade.approveEavrop(aCommand);
             fmuResponse.setArendeId(request.getArendeId());
             fmuResponse.setStatusCode(StatusCodeType.OK);
@@ -339,7 +326,6 @@ public class EavropEndpoint {
 
         try {
         	ApproveEavropCompensationCommand aCommand = mapGodkannandeErsattningFmuUtredningRequestToApproveEavropCompensationCommand(request);
-            //eavropApprovalService.approveEavropCompensation(aCommand);
         	fmuWebServiceFacade.approveEavropCompensation(aCommand);
         	fmuResponse.setArendeId(request.getArendeId());
             fmuResponse.setStatusCode(StatusCodeType.OK);
@@ -470,7 +456,6 @@ public class EavropEndpoint {
 		DateTime eavropApprovedDateTime = new DateTime(request.getUtredningAccepteradDateTime().toGregorianCalendar().getTimeInMillis());
         Bestallaradministrator bestallaradministrator = createBestallaradministrator(request.getUtredningAccepteradAv());
 		String note = null;
-		Bestallaradministrator administrator = null;		
 		if(request.getNotering()!=null && !isBlankOrNull(request.getNotering().getNotering())){
 			note = request.getNotering().getNotering();
 		}
@@ -490,7 +475,6 @@ public class EavropEndpoint {
 		DateTime eavropCompensationApprovedDateTime = new DateTime(request.getUtredningErsattningGodkandDateTime().toGregorianCalendar().getTimeInMillis());
         Bestallarsamordnare bestallarsamordnare = createBestallarsamordnare(request.getUtredningErsattningGodkandAv());
 		String note = null;
-		Bestallaradministrator administrator = null;		
 		if(request.getNotering()!=null && !isBlankOrNull(request.getNotering().getNotering())){
 			note = request.getNotering().getNotering();
 		}
@@ -627,13 +611,4 @@ public class EavropEndpoint {
         }
     	return null;
     }
-
-    //handlingarSkickade or initialDocumentsSent
-    //kompletteringSkickade or complimentedDocumentsSent
-    //beslutFortsättning
-    //notifieraUtredningSkickad
-    //notifieraOmBegärdKomplettering
-    //notifieraKompletteringSkickad
-    //utredningAccepterad
-    //ersättning godkänns rad för rad, en i taget or flera åt gången
 }

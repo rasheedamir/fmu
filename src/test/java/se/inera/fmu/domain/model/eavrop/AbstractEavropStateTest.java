@@ -7,10 +7,8 @@ import org.junit.Test;
 
 import se.inera.fmu.application.util.EavropPropertiesUtil;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
-import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
-import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
@@ -30,7 +28,6 @@ import se.inera.fmu.domain.model.landsting.Landsting;
 import se.inera.fmu.domain.model.landsting.LandstingCode;
 import se.inera.fmu.domain.model.person.Bestallaradministrator;
 import se.inera.fmu.domain.model.person.HoSPerson;
-import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.model.shared.Address;
 import se.inera.fmu.domain.model.shared.Gender;
 import se.inera.fmu.domain.model.shared.Name;
@@ -270,10 +267,6 @@ public abstract class AbstractEavropStateTest {
 
 	protected EavropCompensationApproval createEavropCompensationApproval(){
 		return new EavropCompensationApproval(Boolean.TRUE, new DateTime(), createHoSPerson());
-	}
-
-	protected BookingDeviation createBookingDevation(){
-		return new BookingDeviation(BookingDeviationType.INVANARE_ABSENT, createNote());
 	}
 
 	protected BookingDeviationResponse createBookingDevationResponse(){
