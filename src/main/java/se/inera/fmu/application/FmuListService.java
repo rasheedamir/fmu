@@ -80,7 +80,6 @@ public interface FmuListService {
 	 * 
 	 * * @param arendeId
 	 * */
-    @Deprecated
     public Eavrop findByArendeIdInitialized(ArendeId arendeId);
 
     

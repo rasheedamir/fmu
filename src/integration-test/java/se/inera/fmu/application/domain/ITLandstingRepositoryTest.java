@@ -36,7 +36,6 @@ import se.inera.fmu.domain.model.shared.Name;
  *
  *
  */
-@SuppressWarnings("all")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
@@ -70,13 +69,11 @@ public class ITLandstingRepositoryTest {
 		Landsting landsting = createLandsting(this.landstingCode, "Stockholms Läns Landsting");
 
 		this.landstingssamordnarId = new HsaId("SE160000000000-00000000A");
-		Landstingssamordnare landstingssamordnare = createLandstingssamordnare(this.landstingssamordnarId, new Name("Sam", null, "Ordnarsson"), new HsaBefattning("S3", "Samordnare"), landsting, "sam@land.se");
+		createLandstingssamordnare(this.landstingssamordnarId, new Name("Sam", null, "Ordnarsson"), new HsaBefattning("S3", "Samordnare"), landsting, "sam@land.se");
 
 		this.vardgivareId = new HsaId("SE160000000000-00000000B");
-		Vardgivare vardgivare = createVardgivare(this.vardgivareId, "Personal Care AB");
-		
 		this.vardgivarenhetId = new HsaId("SE160000000000-00000000C");
-		Vardgivarenhet vardgivarenhet = createVardgivarenhet(this.vardgivarenhetId, "Roinekliniken", new Address("Barnhusgatan 12", "33443", "Stockholm", "Sverige"),"epost@epost.se","555-123123", vardgivare, landsting);
+		createVardgivarenhet(this.vardgivarenhetId, "Roinekliniken", new Address("Barnhusgatan 12", "33443", "Stockholm", "Sverige"),"epost@epost.se","555-123123", createVardgivare(this.vardgivareId, "Personal Care AB"), landsting);
 		
 	}
     
