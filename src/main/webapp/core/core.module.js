@@ -6,7 +6,7 @@
      * This module include all common utilities modules used accross the app.
      */
     angular.module('fmu.core', [
-        //'templatecache',
+        'templatecache',
         'gettext',
         'ngResource',
         'ngSanitize',
