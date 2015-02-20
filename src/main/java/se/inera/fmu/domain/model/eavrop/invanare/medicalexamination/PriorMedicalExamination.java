@@ -17,12 +17,17 @@ import lombok.ToString;
 import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.ValueObject;
 
+/**
+ * This class/entity represents a prior medical examination of the citizen which can have a impact on the assessment being performed.
+ * It also represents medical leave issued due to that examination and by who   
+ */
 @Entity
 @Table(name = "T_PRIOR_MEDICAL_EXAMINATION")
 @ToString
 public class PriorMedicalExamination implements ValueObject<PriorMedicalExamination>, Serializable {  
-	    //~ Instance fields ================================================================================================
+	private static final long serialVersionUID = 1L;
 
+		//~ Instance fields ================================================================================================
 	    // database primary key
 		@Id
 	    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,7 +41,7 @@ public class PriorMedicalExamination implements ValueObject<PriorMedicalExaminat
 	    private String medicalLeaveIssuedAt;
 
 		@NotNull
-	    @OneToOne(cascade = CascadeType.ALL)
+	    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	    @JoinColumn(name="PERSON_ID")
 		private Person medicalLeaveIssuedBy;
 

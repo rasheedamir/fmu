@@ -22,7 +22,8 @@ import se.inera.fmu.domain.shared.AbstractBaseEntity;
 import se.inera.fmu.domain.shared.IEntity;
 
 /**
- * Created by Rasheed on 7/23/14.
+ * This class/entity represents a Invånare/Citizen 
+ *
  */
 @Entity
 @Table(name = "T_INVANARE")
