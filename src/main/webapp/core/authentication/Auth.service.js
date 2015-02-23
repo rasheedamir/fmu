@@ -26,7 +26,7 @@
         }
 
         function changeRole(roleName) {
-            $http.put(AUTH.changeRole, null, {
+            return $http.put(AUTH.changeRole, null, {
                 params: {
                     role: roleName
                 }

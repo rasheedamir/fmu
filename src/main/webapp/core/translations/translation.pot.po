@@ -137,7 +137,7 @@ msgstr "Tabort"
 msgid "Anteckningar/Anteckningar"
 msgstr "Anteckningar"
 
-#: eavrop-overview/notes/notes.controller.js:10
+#: eavrop-overview/notes/notes.controller.js:9
 msgid "Anteckningar/Anteckningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda"
 msgstr "Anteckningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda"
 
@@ -145,7 +145,7 @@ msgstr "Anteckningen kunde inte skapas, var god och kolla att alla fält är kor
 msgid "Anteckningar/De anteckningar som noteras här skall inte innehålla någon medicinsk eller känslig information."
 msgstr "De anteckningar som noteras här skall inte innehålla någon medicinsk eller känslig information."
 
-#: eavrop-overview/notes/notes.controller.js:11
+#: eavrop-overview/notes/notes.controller.js:10
 msgid "Anteckningar/Fel uppstod vid bortagning av anteckning, detta kan beror på att du inte har rätt behörighet att genomföra denna förfrågan"
 msgstr "Fel uppstod vid bortagning av anteckning, detta kan beror på att du inte har rätt behörighet att genomföra denna förfrågan"
 
@@ -181,7 +181,7 @@ msgstr "Avslå förfrågan om utredning"
 msgid "Avslå-förfrågan-modal/Skicka"
 msgstr "Skicka"
 
-#: eavrop-overview/order/documents/req-amendment-modal.html:32
+#: eavrop-overview/order/documents/req-amendment-modal.html:30
 msgid "Begär tillägg/Avbryt"
 msgstr "Avbryt"
 
@@ -189,27 +189,27 @@ msgstr "Avbryt"
 msgid "Begär tillägg/Begär tillägg"
 msgstr "Begär tillägg"
 
-#: eavrop-overview/order/documents/req-amendment-modal.html:12
+#: eavrop-overview/order/documents/req-amendment-modal.html:11
 msgid "Begär tillägg/Begäran skickad av"
 msgstr "Begäran skickad av"
 
-#: eavrop-overview/order/documents/req-amendment-modal.html:16
+#: eavrop-overview/order/documents/req-amendment-modal.html:15
 msgid "Begär tillägg/Begäran skickad, datum"
 msgstr "Begäran skickad, datum"
 
-#: eavrop-overview/order/documents/req-amendment-modal.html:24
+#: eavrop-overview/order/documents/req-amendment-modal.html:23
 msgid "Begär tillägg/Begäran skickas till"
 msgstr "Begäran skickas till"
 
-#: eavrop-overview/order/documents/req-amendment-modal.html:8
+#: eavrop-overview/order/documents/req-amendment-modal.html:7
 msgid "Begär tillägg/Handling"
 msgstr "Handling"
 
-#: eavrop-overview/order/documents/req-amendment-modal.html:20
+#: eavrop-overview/order/documents/req-amendment-modal.html:19
 msgid "Begär tillägg/Kommentar"
 msgstr "Kommentar"
 
-#: eavrop-overview/order/documents/req-amendment-modal.html:31
+#: eavrop-overview/order/documents/req-amendment-modal.html:29
 msgid "Begär tillägg/Skicka"
 msgstr "Skicka"
 
@@ -273,27 +273,27 @@ msgstr "Telefonnummer"
 msgid "Beställning/Invånaren/Tidigare utredd vid"
 msgstr "Tidigare utredd vid"
 
-#: eavrop-overview/order/documents/add-doc-modal.html:4
+#: eavrop-overview/order/documents/add-doc-modal.html:3
 msgid "Beställning/Lägg till handling"
 msgstr "Lägg till handling"
 
-#: eavrop-overview/order/documents/add-doc-modal.html:34
+#: eavrop-overview/order/documents/add-doc-modal.html:27
 msgid "Beställning/Lägg till handling/Avbryt"
 msgstr "Avbryt"
 
-#: eavrop-overview/order/documents/add-doc-modal.html:9
+#: eavrop-overview/order/documents/add-doc-modal.html:7
 msgid "Beställning/Lägg till handling/Handling"
 msgstr "Handling"
 
-#: eavrop-overview/order/documents/add-doc-modal.html:13
+#: eavrop-overview/order/documents/add-doc-modal.html:11
 msgid "Beställning/Lägg till handling/Registrerad av"
 msgstr "Registrerad av"
 
-#: eavrop-overview/order/documents/add-doc-modal.html:20
+#: eavrop-overview/order/documents/add-doc-modal.html:15
 msgid "Beställning/Lägg till handling/Registrerad, datum"
 msgstr "Registrerad, datum"
 
-#: eavrop-overview/order/documents/add-doc-modal.html:33
+#: eavrop-overview/order/documents/add-doc-modal.html:26
 msgid "Beställning/Lägg till handling/Spara"
 msgstr "Spara"
 
@@ -341,12 +341,12 @@ msgstr "Val av inriktning"
 msgid "Beställning/innehåll/Ärende-ID"
 msgstr "Ärende-ID"
 
-#: orders-overview/incoming/incoming.controller.js:129
-#: orders-overview/incoming/incoming.controller.js:80
+#: orders-overview/incoming/incoming.controller.js:121
+#: orders-overview/incoming/incoming.controller.js:72
 msgid "Beställningar/Antal dagar efter förfrågan om utredning"
 msgstr "Antal dagar efter förfrågan om utredning"
 
-#: orders-overview/incoming/incoming.controller.js:25
+#: orders-overview/incoming/incoming.controller.js:17
 msgid "Beställningar/Antal dagar har överträtts och/eller annan avvikelse finns"
 msgstr "Antal dagar har överträtts och/eller annan avvikelse finns"
 
@@ -354,43 +354,43 @@ msgstr "Antal dagar har överträtts och/eller annan avvikelse finns"
 msgid "Beställningar/Beställningar"
 msgstr "Beställningar"
 
-#: orders-overview/incoming/incoming.controller.js:28
+#: orders-overview/incoming/incoming.controller.js:20
 msgid "Beställningar/Datumen utgår från det datum då beställningen inkommit"
 msgstr "Datumen utgår från det datum då beställningen inkommit"
 
-#: orders-overview/incoming/incoming.controller.js:68
+#: orders-overview/incoming/incoming.controller.js:60
 msgid "Beställningar/Den försäkrades bostadsort"
 msgstr "Den försäkrades bostadsort"
 
-#: orders-overview/incoming/incoming.controller.js:123
-#: orders-overview/incoming/incoming.controller.js:74
+#: orders-overview/incoming/incoming.controller.js:115
+#: orders-overview/incoming/incoming.controller.js:66
 msgid "Beställningar/Enhet"
 msgstr "Enhet"
 
-#: orders-overview/incoming/incoming.controller.js:114
-#: orders-overview/incoming/incoming.controller.js:62
+#: orders-overview/incoming/incoming.controller.js:106
+#: orders-overview/incoming/incoming.controller.js:54
 msgid "Beställningar/Enhet/Avdelning"
 msgstr "Enhet/Avdelning"
 
-#: orders-overview/incoming/incoming.controller.js:117
-#: orders-overview/incoming/incoming.controller.js:65
+#: orders-overview/incoming/incoming.controller.js:109
+#: orders-overview/incoming/incoming.controller.js:57
 msgid "Beställningar/Förfrågan inkommit datum"
 msgstr "Förfrågan inkommit datum"
 
-#: orders-overview/incoming/incoming.controller.js:111
-#: orders-overview/incoming/incoming.controller.js:120
-#: orders-overview/incoming/incoming.controller.js:59
-#: orders-overview/incoming/incoming.controller.js:71
+#: orders-overview/incoming/incoming.controller.js:103
+#: orders-overview/incoming/incoming.controller.js:112
+#: orders-overview/incoming/incoming.controller.js:51
+#: orders-overview/incoming/incoming.controller.js:63
 msgid "Beställningar/Organisation"
 msgstr "Organisation"
 
-#: orders-overview/incoming/incoming.controller.js:126
-#: orders-overview/incoming/incoming.controller.js:77
+#: orders-overview/incoming/incoming.controller.js:118
+#: orders-overview/incoming/incoming.controller.js:69
 msgid "Beställningar/Status"
 msgstr "Status"
 
-#: orders-overview/incoming/incoming.controller.js:108
-#: orders-overview/incoming/incoming.controller.js:56
+#: orders-overview/incoming/incoming.controller.js:100
+#: orders-overview/incoming/incoming.controller.js:48
 msgid "Beställningar/Typ"
 msgstr "Typ"
 
@@ -398,18 +398,18 @@ msgstr "Typ"
 msgid "Beställningar/Visa"
 msgstr "Visa"
 
-#: orders-overview/incoming/incoming.controller.js:139
-#: orders-overview/incoming/incoming.controller.js:90
+#: orders-overview/incoming/incoming.controller.js:131
+#: orders-overview/incoming/incoming.controller.js:82
 msgid "Beställningar/beställare"
 msgstr "beställare"
 
-#: orders-overview/incoming/incoming.controller.js:143
-#: orders-overview/incoming/incoming.controller.js:94
+#: orders-overview/incoming/incoming.controller.js:135
+#: orders-overview/incoming/incoming.controller.js:86
 msgid "Beställningar/leverantör"
 msgstr "leverantör"
 
-#: orders-overview/incoming/incoming.controller.js:105
-#: orders-overview/incoming/incoming.controller.js:53
+#: orders-overview/incoming/incoming.controller.js:45
+#: orders-overview/incoming/incoming.controller.js:97
 msgid "Beställningar/Ärende-ID"
 msgstr "Ärende-ID"
 
@@ -445,27 +445,27 @@ msgstr "Genomfört"
 msgid "Bookning-status/Patient uteblev"
 msgstr "Patient uteblev"
 
-#: eavrop-overview/eavrop.config.route.js:87
+#: eavrop-overview/eavrop.config.route.js:86
 msgid "Eavrop-AllEvents-title/All events"
 msgstr "Alla händelser"
 
-#: eavrop-overview/eavrop.config.route.js:64
+#: eavrop-overview/eavrop.config.route.js:63
 msgid "Eavrop-citizen-title/Citizen"
 msgstr "Invånare"
 
-#: eavrop-overview/eavrop.config.route.js:103
+#: eavrop-overview/eavrop.config.route.js:102
 msgid "Eavrop-compensation-title/Compensations"
 msgstr "Kompensation/Ersättningar"
 
-#: eavrop-overview/eavrop.config.route.js:46
+#: eavrop-overview/eavrop.config.route.js:45
 msgid "Eavrop-content-title/Content"
 msgstr "Innehåll"
 
-#: eavrop-overview/eavrop.config.route.js:55
+#: eavrop-overview/eavrop.config.route.js:54
 msgid "Eavrop-document-title/Document"
 msgstr "Handlingar"
 
-#: eavrop-overview/eavrop.config.route.js:79
+#: eavrop-overview/eavrop.config.route.js:78
 msgid "Eavrop-investigation-title/Investigation"
 msgstr "Utredningar"
 
@@ -609,15 +609,15 @@ msgstr "Ärende-ID"
 msgid "Från, datum"
 msgstr "Från, datum"
 
-#: orders-overview/completed/completed.controller.js:25
+#: orders-overview/completed/completed.controller.js:24
 msgid "Genomförda-utredningar/Antal dgr för komplettering"
 msgstr "Antal dgr för komplettering"
 
-#: orders-overview/completed/completed.controller.js:22
+#: orders-overview/completed/completed.controller.js:21
 msgid "Genomförda-utredningar/Antal dgr klar"
 msgstr "Antal dgr klar"
 
-#: orders-overview/completed/completed.controller.js:68
+#: orders-overview/completed/completed.controller.js:67
 msgid "Genomförda-utredningar/Datumen utgår från det datum då intyg levererats"
 msgstr "Datumen utgår från det datum då intyg levererats"
 
@@ -625,43 +625,43 @@ msgstr "Datumen utgår från det datum då intyg levererats"
 msgid "Genomförda-utredningar/Genomförda utredningar"
 msgstr "Genomförda utredningar"
 
-#: orders-overview/completed/completed.controller.js:45
+#: orders-overview/completed/completed.controller.js:44
 msgid "Genomförda-utredningar/Godkänd för ersättning"
 msgstr "Godkänd för ersättning"
 
-#: orders-overview/completed/completed.controller.js:39
+#: orders-overview/completed/completed.controller.js:38
 msgid "Genomförda-utredningar/Intyg levererades, datum"
 msgstr "Intyg levererades, datum"
 
-#: orders-overview/completed/completed.controller.js:55
+#: orders-overview/completed/completed.controller.js:54
 msgid "Genomförda-utredningar/Invänta acceptans av intyg och godkännande för ersättning"
 msgstr "Invänta acceptans av intyg och godkännande för ersättning"
 
-#: orders-overview/completed/completed.controller.js:19
+#: orders-overview/completed/completed.controller.js:18
 msgid "Genomförda-utredningar/Typ"
 msgstr "Typ"
 
-#: orders-overview/completed/completed.controller.js:36
+#: orders-overview/completed/completed.controller.js:35
 msgid "Genomförda-utredningar/Utredare, ansvarig"
 msgstr "Utredare, ansvarig"
 
-#: orders-overview/completed/completed.controller.js:33
+#: orders-overview/completed/completed.controller.js:32
 msgid "Genomförda-utredningar/Utredare, organisation"
 msgstr "Utredare, organisation"
 
-#: orders-overview/completed/completed.controller.js:42
-msgid "Genomförda-utredningar/Utredning komplett"
-msgstr "Utredning komplett"
-
-#: orders-overview/completed/completed.controller.js:61
+#: orders-overview/completed/completed.controller.js:60
 msgid "Genomförda-utredningar/Utredning komplett, inväntar godkännande för ersättning"
 msgstr "Utredning komplett, inväntar godkännande för ersättning"
 
-#: orders-overview/completed/completed.controller.js:64
+#: orders-overview/completed/completed.controller.js:41
+msgid "Genomförda-utredningar/Utredning komplett?"
+msgstr "Utredning komplett?"
+
+#: orders-overview/completed/completed.controller.js:63
 msgid "Genomförda-utredningar/Utredning är komplett och godkänd"
 msgstr "Utredning är komplett och godkänd"
 
-#: orders-overview/completed/completed.controller.js:58
+#: orders-overview/completed/completed.controller.js:57
 msgid "Genomförda-utredningar/Utredningen är ej komplett, ej godkänd, försenad eller innehåller ersättningsbara avvikelser"
 msgstr "Utredningen är ej komplett, ej godkänd, försenad eller innehåller ersättningsbara avvikelser"
 
@@ -669,11 +669,11 @@ msgstr "Utredningen är ej komplett, ej godkänd, försenad eller innehåller er
 msgid "Genomförda-utredningar/Visa"
 msgstr "Visa"
 
-#: orders-overview/completed/completed.controller.js:28
+#: orders-overview/completed/completed.controller.js:27
 msgid "Genomförda-utredningar/avikelser"
 msgstr "avikelser"
 
-#: orders-overview/completed/completed.controller.js:16
+#: orders-overview/completed/completed.controller.js:15
 msgid "Genomförda-utredningar/Ärende-ID"
 msgstr "Ärende-ID"
 
@@ -839,40 +839,40 @@ msgstr "Utredare"
 msgid "Lägg-till-bokning-misslyckad/Bookningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda"
 msgstr "Bookningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda"
 
-#: orders-overview/overview.config.route.js:38
+#: orders-overview/overview.config.route.js:37
 msgid "Overview-completed-title/Completed"
 msgstr "Genomförda"
 
-#: orders-overview/overview.config.route.js:30
+#: orders-overview/overview.config.route.js:29
 msgid "Overview-ongoing-title/Ongoing"
 msgstr "Pågående"
 
-#: orders-overview/overview.config.route.js:22
+#: orders-overview/overview.config.route.js:21
 msgid "Overview-order-title/Orders"
 msgstr "Beställningar"
 
-#: orders-overview/ongoing/ongoing.controller.js:38
+#: orders-overview/ongoing/ongoing.controller.js:37
 msgid "Pågående-utredningar/Antal dagar från start"
 msgstr "Antal dagar från start"
 
-#: orders-overview/ongoing/ongoing.controller.js:63
+#: orders-overview/ongoing/ongoing.controller.js:62
 msgid "Pågående-utredningar/Antal dagar har överträtts och/eller annan avvikelse finns"
 msgstr "Antal dagar har överträtts och/eller annan avvikelse finns"
 
-#: orders-overview/ongoing/ongoing.controller.js:41
+#: orders-overview/ongoing/ongoing.controller.js:40
 msgid "Pågående-utredningar/Avikelser"
 msgstr "Avikelser"
 
-#: orders-overview/ongoing/ongoing.controller.js:67
+#: orders-overview/ongoing/ongoing.controller.js:66
 msgid "Pågående-utredningar/Datumen utgår från det datum då utredningen startat"
 msgstr "Datumen utgår från det datum då utredningen startat"
 
-#: orders-overview/ongoing/ongoing.controller.js:26
+#: orders-overview/ongoing/ongoing.controller.js:25
 msgid "Pågående-utredningar/Enhet/Avdelning"
 msgstr "Enhet/Avdelning"
 
-#: orders-overview/ongoing/ongoing.controller.js:23
-#: orders-overview/ongoing/ongoing.controller.js:29
+#: orders-overview/ongoing/ongoing.controller.js:22
+#: orders-overview/ongoing/ongoing.controller.js:28
 msgid "Pågående-utredningar/Organisation"
 msgstr "Organisation"
 
@@ -880,15 +880,15 @@ msgstr "Organisation"
 msgid "Pågående-utredningar/Pågående beställningar"
 msgstr "Pågående beställningar"
 
-#: orders-overview/ongoing/ongoing.controller.js:32
+#: orders-overview/ongoing/ongoing.controller.js:31
 msgid "Pågående-utredningar/Status"
 msgstr "Status"
 
-#: orders-overview/ongoing/ongoing.controller.js:20
+#: orders-overview/ongoing/ongoing.controller.js:19
 msgid "Pågående-utredningar/Typ"
 msgstr "Typ"
 
-#: orders-overview/ongoing/ongoing.controller.js:35
+#: orders-overview/ongoing/ongoing.controller.js:34
 msgid "Pågående-utredningar/Utredning start"
 msgstr "Utredning start"
 
@@ -896,15 +896,15 @@ msgstr "Utredning start"
 msgid "Pågående-utredningar/Visa"
 msgstr "Visa"
 
-#: orders-overview/ongoing/ongoing.controller.js:49
+#: orders-overview/ongoing/ongoing.controller.js:48
 msgid "Pågående-utredningar/beställare"
 msgstr "beställare"
 
-#: orders-overview/ongoing/ongoing.controller.js:53
+#: orders-overview/ongoing/ongoing.controller.js:52
 msgid "Pågående-utredningar/leverantör"
 msgstr "leverantör"
 
-#: orders-overview/ongoing/ongoing.controller.js:17
+#: orders-overview/ongoing/ongoing.controller.js:16
 msgid "Pågående-utredningar/Ärende-ID"
 msgstr "Ärende-ID"
 
@@ -952,67 +952,67 @@ msgstr "Tolk uteblev"
 msgid "Tolk-status/Tolkning genomförd"
 msgstr "Tolkning genomförd"
 
-#: eavrop-overview/compensations/compensation.controller.js:34
+#: eavrop-overview/compensations/compensation.controller.js:33
 msgid "Underlag-ersättningsvy/Antal avikelser"
 msgstr "Antal avikelser"
 
-#: eavrop-overview/compensations/compensation.controller.js:31
+#: eavrop-overview/compensations/compensation.controller.js:30
 msgid "Underlag-ersättningsvy/Antal dagar efter komplettering"
 msgstr "Antal dagar efter komplettering"
 
-#: eavrop-overview/compensations/compensation.controller.js:55
+#: eavrop-overview/compensations/compensation.controller.js:54
 msgid "Underlag-ersättningsvy/Antal dagar för acceptans av förfrågan om utredning har överskridits"
 msgstr "Antal dagar för acceptans av förfrågan om utredning har överskridits"
 
-#: eavrop-overview/compensations/compensation.controller.js:54
+#: eavrop-overview/compensations/compensation.controller.js:53
 msgid "Underlag-ersättningsvy/Antal dagar för komplettering har överskridits"
 msgstr "Antal dagar för komplettering har överskridits"
 
-#: eavrop-overview/compensations/compensation.controller.js:56
+#: eavrop-overview/compensations/compensation.controller.js:55
 msgid "Underlag-ersättningsvy/Antal dagar för utredning har överskridits"
 msgstr "Antal dagar för utredning har överskridits"
 
-#: eavrop-overview/compensations/compensation.controller.js:37
+#: eavrop-overview/compensations/compensation.controller.js:36
 msgid "Underlag-ersättningsvy/Antal utredningsstarter"
 msgstr "Antal utredningsstarter"
 
-#: eavrop-overview/compensations/compensation.controller.js:110
+#: eavrop-overview/compensations/compensation.controller.js:109
 msgid "Underlag-ersättningsvy/Avvikelse"
 msgstr "Avvikelse"
 
-#: eavrop-overview/compensations/compensation.controller.js:49
+#: eavrop-overview/compensations/compensation.controller.js:48
 msgid "Underlag-ersättningsvy/Besök avbokat <48h"
 msgstr "Besök avbokat <48h"
 
-#: eavrop-overview/compensations/compensation.controller.js:51
+#: eavrop-overview/compensations/compensation.controller.js:50
 msgid "Underlag-ersättningsvy/Besök avbokat <96h"
 msgstr "Besök avbokat <96h"
 
-#: eavrop-overview/compensations/compensation.controller.js:50
+#: eavrop-overview/compensations/compensation.controller.js:49
 msgid "Underlag-ersättningsvy/Besök avbokat >48h"
 msgstr "Besök avbokat >48h"
 
-#: eavrop-overview/compensations/compensation.controller.js:52
+#: eavrop-overview/compensations/compensation.controller.js:51
 msgid "Underlag-ersättningsvy/Besök avbokat >96h"
 msgstr "Besök avbokat >96h"
 
-#: eavrop-overview/compensations/compensation.controller.js:48
+#: eavrop-overview/compensations/compensation.controller.js:47
 msgid "Underlag-ersättningsvy/Besök avbokat av utförare"
 msgstr "Besök avbokat av utförare"
 
-#: eavrop-overview/compensations/compensation.controller.js:60
+#: eavrop-overview/compensations/compensation.controller.js:59
 msgid "Underlag-ersättningsvy/Ja"
 msgstr "Ja"
 
-#: eavrop-overview/compensations/compensation.controller.js:61
+#: eavrop-overview/compensations/compensation.controller.js:60
 msgid "Underlag-ersättningsvy/Nej"
 msgstr "Nej"
 
-#: eavrop-overview/compensations/compensation.controller.js:57
+#: eavrop-overview/compensations/compensation.controller.js:56
 msgid "Underlag-ersättningsvy/Ops detta ska inte hända"
 msgstr "Ops detta ska inte hända"
 
-#: eavrop-overview/compensations/compensation.controller.js:47
+#: eavrop-overview/compensations/compensation.controller.js:46
 msgid "Underlag-ersättningsvy/Patient uteblev"
 msgstr "Patient uteblev"
 
@@ -1020,7 +1020,7 @@ msgstr "Patient uteblev"
 msgid "Underlag-ersättningsvy/Specifikation - avvikelser"
 msgstr "Specifikation - avvikelser"
 
-#: eavrop-overview/compensations/compensation.controller.js:119
+#: eavrop-overview/compensations/compensation.controller.js:118
 msgid "Underlag-ersättningsvy/Tillägstjänst"
 msgstr "Tillägstjänst"
 
@@ -1028,23 +1028,23 @@ msgstr "Tillägstjänst"
 msgid "Underlag-ersättningsvy/Tillägstjänster"
 msgstr "Tillägstjänster"
 
-#: eavrop-overview/compensations/compensation.controller.js:122
+#: eavrop-overview/compensations/compensation.controller.js:121
 msgid "Underlag-ersättningsvy/Timmar"
 msgstr "Timmar"
 
-#: eavrop-overview/compensations/compensation.controller.js:125
+#: eavrop-overview/compensations/compensation.controller.js:124
 msgid "Underlag-ersättningsvy/Tolk"
 msgstr "Tolk"
 
-#: eavrop-overview/compensations/compensation.controller.js:25
+#: eavrop-overview/compensations/compensation.controller.js:24
 msgid "Underlag-ersättningsvy/Tolk anlitad?"
 msgstr "Tolk anlitad?"
 
-#: eavrop-overview/compensations/compensation.controller.js:53
+#: eavrop-overview/compensations/compensation.controller.js:52
 msgid "Underlag-ersättningsvy/Tolk uteblev"
 msgstr "Tolk uteblev"
 
-#: eavrop-overview/compensations/compensation.controller.js:16
+#: eavrop-overview/compensations/compensation.controller.js:15
 msgid "Underlag-ersättningsvy/Typ"
 msgstr "Typ"
 
@@ -1052,19 +1052,19 @@ msgstr "Typ"
 msgid "Underlag-ersättningsvy/Underlag för ersättning"
 msgstr "Underlag för ersättning"
 
-#: eavrop-overview/compensations/compensation.controller.js:22
+#: eavrop-overview/compensations/compensation.controller.js:21
 msgid "Underlag-ersättningsvy/Utförare, namn"
 msgstr "Utförare, namn"
 
-#: eavrop-overview/compensations/compensation.controller.js:19
+#: eavrop-overview/compensations/compensation.controller.js:18
 msgid "Underlag-ersättningsvy/Utförare, organisation"
 msgstr "Utförare, organisation"
 
-#: eavrop-overview/compensations/compensation.controller.js:40
+#: eavrop-overview/compensations/compensation.controller.js:39
 msgid "Underlag-ersättningsvy/Utredning är komplett och godkänd?"
 msgstr "Utredning är komplett och godkänd?"
 
-#: eavrop-overview/compensations/compensation.controller.js:28
+#: eavrop-overview/compensations/compensation.controller.js:27
 msgid "Underlag-ersättningsvy/Utredningen genomfördes på, antal dagar"
 msgstr "Utredningen genomfördes på, antal dagar"
 
@@ -1072,7 +1072,7 @@ msgstr "Utredningen genomfördes på, antal dagar"
 msgid "Underlag-ersättningsvy/Ärende"
 msgstr "Ärende"
 
-#: eavrop-overview/compensations/compensation.controller.js:13
+#: eavrop-overview/compensations/compensation.controller.js:12
 msgid "Underlag-ersättningsvy/Ärende-ID"
 msgstr "Ärende-ID"
 
@@ -1115,7 +1115,7 @@ msgstr "Status"
 
 #: widgets/fmu-utredning-table.html:38
 msgid "Utredning-tabell/This is an error"
-msgstr "This is an error"
+msgstr "Något gick fel"
 
 #: eavrop-overview/investigation/investigation.service.js:158
 msgid "Utredning-tabell/Tidpunkt"
@@ -1149,15 +1149,15 @@ msgstr "Utse utredare"
 msgid "Visa"
 msgstr "Visa"
 
-#: core/core.config.js:26
+#: core/core.config.js:24
 msgid "fmu-route-title/Fmu"
 msgstr "Fmu"
 
-#: core/core.config.js:14
+#: core/core.config.js:12
 msgid "fmu-title/Fördjupad medicinsk utredning"
 msgstr "Fördjupad medicinsk utredning"
 
-#: core/core.config.js:15
+#: core/core.config.js:13
 msgid "fmu-version/0.0.1"
 msgstr "v0.0.1"
 
@@ -1173,7 +1173,7 @@ msgstr "Registrerad av"
 msgid "handlingar-tabell/Registrerad, datum"
 msgstr "Registrerad, datum"
 
-#: login/login.route.js:14
+#: login/login.route.js:13
 msgid "login-title/Login"
 msgstr "Inloggning"
 

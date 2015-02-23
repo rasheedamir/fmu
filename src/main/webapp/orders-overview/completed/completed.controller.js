@@ -38,7 +38,7 @@
                 name: gettext('Genomförda-utredningar/Intyg levererades, datum')
             }, {
                 key: 'isCompleted',
-                name: gettext('Genomförda-utredningar/Utredning komplett') + '&nbsp;?'
+                name: gettext('Genomförda-utredningar/Utredning komplett?')
             }, {
                 key: 'isCompensationApproved',
                 name: gettext('Genomförda-utredningar/Godkänd för ersättning')
