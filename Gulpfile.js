@@ -10,7 +10,7 @@
     });
 
     gulp.task('clean-styles', function() {
-        clean(config.tmp + '/styles');
+        clean(config.appPath + '/styles');
     });
 
     gulp.task('clean-fonts', function() {
@@ -40,7 +40,7 @@
             }))
             .pipe($.autoprefixer('last 2 versions', '> 5%'))
             .pipe($.sourcemaps.write('/'))
-            .pipe(gulp.dest(config.tmp + '/styles'));
+            .pipe(gulp.dest(config.cssPath));
     });
 
     gulp.task('jshint', function() {
@@ -62,9 +62,9 @@
     gulp.task('html', ['wiredep'], function() {
         log('Processing index.html and minifying css/js dependencies');
         var assets = $.useref.assets({
-            searchPath: '{.tmp,' + config.appPath + '}'
+            searchPath: config.appPath
         });
-        var jsfilter = $.filter('**/*.js');
+        var jsfilter = $.filter(['**/*.js']);
         var cssfilter = $.filter('**/*.css');
 
         return gulp.src(config.index)
@@ -157,13 +157,13 @@
             .pipe(wiredep(options))
             .pipe($.inject(gulp.src(config.jsfiles, {
                 read: false
-            }).pipe($.print()), {
+            }), {
                 relative: true
             }))
             .pipe($.inject(gulp.src(config.cssfiles, {
                 read: false
             }), {
-                ignorePath: '.tmp',
+                ignorePath: 'src/main/webapp/',
                 addRootSlash: false
             }))
             .pipe(gulp.dest(config.appPath));
@@ -216,15 +216,14 @@
 
     gulp.task('serve',['wiredep'], function() {
         log('Serving development app');
-        startBrowserSync([config.jsfiles, config.htmlfiles, config.cssfiles]);
-        gulp.watch(config.sassfiles, ['sass']);
-    });
-
-    gulp.task('serve-prod',['wiredep'], function() {
-        log('Serving production app');
-        startBrowserSync([config.dist]);
+        startBrowserSync(config.appPath);
         gulp.watch(config.sassfiles, ['sass']);
         gulp.watch(config.htmlfiles, ['templatecache']);
+    });
+    
+    gulp.task('serve-prod',['build'], function() {
+        log('Serving production app');
+        startBrowserSync(config.dist);
     });
 
     gulp.task('build', ['jshint', 'images', 'fonts', 'extras', 'html'], function() {});
@@ -263,7 +262,7 @@
         var options = {
             port: 9000,
             server: {
-                baseDir: [config.appPath, config.tmp, '!' + config.dist],
+                baseDir: [files],
                 //directory: true,
                 middleware: [proxy(proxyFake), proxy(proxyRest)]
             },

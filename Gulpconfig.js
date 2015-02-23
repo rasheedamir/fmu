@@ -24,7 +24,9 @@
             sassfiles: [
                 appPath + '/styles/sass/**/*.scss'
             ],
-            cssfiles: ['.tmp/styles/*.css'],
+            cssPath: appPath + '/styles/css',
+            sassPath: appPath + '/styles/sass',
+            cssfiles: [appPath + '/styles/css/*.css'],
             htmlfiles: appPath + '**/**.html',
             translationfolder: translationfolder,
             translationfiles: [appPath + '/**/**.{html,js}',
