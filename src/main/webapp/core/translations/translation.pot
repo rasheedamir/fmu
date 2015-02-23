@@ -2,1507 +2,1219 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: fmu\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"MIME-Version: 1.0\n"
-"Language: sv\n"
-"X-Generator: Poedit 1.7.4\n"
+"Project-Id-Version: \n"
 
 #: eavrop-overview/accept-request-modal.html:3
-#, fuzzy
 msgid "Acceptera-utredning/Acceptera förfrågan om utredning"
-msgstr "Acceptera förfrågan om utredning"
+msgstr ""
 
 #: eavrop-overview/accept-request-modal.html:16
-#, fuzzy
 msgid "Acceptera-utredning/Avbryt"
-msgstr "Avbryt"
+msgstr ""
 
 #: eavrop-overview/accept-request-modal.html:13
-#, fuzzy
 msgid "Acceptera-utredning/Skicka"
-msgstr "Skicka"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:27
-#, fuzzy
 msgid "Alla händelser/Acceptans av utredningen"
-msgstr "Acceptans av utredningen"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:2
-#, fuzzy
 msgid "Alla händelser/Alla händelser"
-msgstr "Alla händelser"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:37
-#, fuzzy
 msgid "Alla händelser/Antal avvikelser"
-msgstr "Antal avvikelser"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:109
-#, fuzzy
 msgid "Alla händelser/Anteckningar"
-msgstr "Anteckningar"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:43
-#, fuzzy
 msgid "Alla händelser/Begärda kompletteringar till utredning"
-msgstr "Begärda kompletteringar till utredning"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:22
-#, fuzzy
 msgid "Alla händelser/Begärda tillägg, handlingar"
-msgstr "Begärda tillägg, handlingar"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:50
-#, fuzzy
 msgid "Alla händelser/Beställning"
-msgstr "Beställning"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:63
-#, fuzzy
 msgid "Alla händelser/Beställning/Acceptans av utredning"
-msgstr "Acceptans av utredning"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:58
-#, fuzzy
 msgid "Alla händelser/Beställning/Enhet/Avdelning"
-msgstr "Enhet/Avdelning"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:59
-#, fuzzy
 msgid "Alla händelser/Beställning/Förfrågan skickad, datum"
-msgstr "Förfrågan skickad, datum"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:57
 #: eavrop-overview/allEvents/all-events.html:61
-#, fuzzy
 msgid "Alla händelser/Beställning/Organisation"
-msgstr "Organisation"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:60
-#, fuzzy
 msgid "Alla händelser/Beställning/Patientens bostadsort"
-msgstr "Patientens bostadsort"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:56
-#, fuzzy
 msgid "Alla händelser/Beställning/Typ"
-msgstr "Typ"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:62
-#, fuzzy
 msgid "Alla händelser/Beställning/Utredare, enhet"
-msgstr "Utredare, enhet"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:55
-#, fuzzy
 msgid "Alla händelser/Beställning/Ärende-ID"
-msgstr "Ärende-ID"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:7
-#, fuzzy
 msgid "Alla händelser/Förfrågan om utredning"
-msgstr "Förfrågan om utredning"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:83
-#, fuzzy
 msgid "Alla händelser/Handlingar"
-msgstr "Handlingar"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:12
-#, fuzzy
 msgid "Alla händelser/Handlingar översändes"
-msgstr "Handlingar översändes"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:32
-#, fuzzy
 msgid "Alla händelser/Intyg skickat till beställaren"
-msgstr "Intyg skickat till beställaren"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:4
-#, fuzzy
 msgid "Alla händelser/Sammanfattning"
-msgstr "Sammanfattning"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:90
-#, fuzzy
 msgid "Alla händelser/Tillägg"
-msgstr "Tillägg"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:96
-#, fuzzy
 msgid "Alla händelser/Utredning"
-msgstr "Utredning"
+msgstr ""
 
 #: eavrop-overview/allEvents/all-events.html:17
-#, fuzzy
 msgid "Alla händelser/Utredning antal dagar"
-msgstr "Utredning antal dagar"
+msgstr ""
 
 #: widgets/HandlingarTableDir.js:102
-#, fuzzy
 msgid "Anteckningar-tabell/Datum"
-msgstr "Datum"
+msgstr ""
 
 #: widgets/HandlingarTableDir.js:100
-#, fuzzy
 msgid "Anteckningar-tabell/Innehåll"
-msgstr "Innehåll"
+msgstr ""
 
 #: widgets/HandlingarTableDir.js:101
-#, fuzzy
 msgid "Anteckningar-tabell/Skapad av"
-msgstr "Skapad av"
+msgstr ""
 
 #: widgets/HandlingarTableDir.js:103
-#, fuzzy
 msgid "Anteckningar-tabell/Tabort"
-msgstr "Tabort"
+msgstr ""
 
 #: eavrop-overview/notes/notes.html:2
-#, fuzzy
 msgid "Anteckningar/Anteckningar"
-msgstr "Anteckningar"
+msgstr ""
 
 #: eavrop-overview/notes/notes.controller.js:9
-#, fuzzy
 msgid "Anteckningar/Anteckningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda"
-msgstr "Anteckningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda"
+msgstr ""
 
 #: eavrop-overview/notes/notes.html:3
-#, fuzzy
 msgid "Anteckningar/De anteckningar som noteras här skall inte innehålla någon medicinsk eller känslig information."
-msgstr "De anteckningar som noteras här skall inte innehålla någon medicinsk eller känslig information."
+msgstr ""
 
 #: eavrop-overview/notes/notes.controller.js:10
-#, fuzzy
 msgid "Anteckningar/Fel uppstod vid bortagning av anteckning, detta kan beror på att du inte har rätt behörighet att genomföra denna förfrågan"
-msgstr "Fel uppstod vid bortagning av anteckning, detta kan beror på att du inte har rätt behörighet att genomföra denna förfrågan"
+msgstr ""
 
 #: eavrop-overview/notes/notes.html:12
-#, fuzzy
 msgid "Anteckningar/Lägg till anteckning"
-msgstr "Lägg till anteckning"
+msgstr ""
 
 #: eavrop-overview/notes/confirmRemoveModal.html:13
-#, fuzzy
 msgid "Anteckningar/tabort-modal-kanappar/Ta bort"
-msgstr "Ta bort"
+msgstr ""
 
 #: eavrop-overview/notes/confirmRemoveModal.html:12
-#, fuzzy
 msgid "Anteckningar/tabort-modal-knappar/Avbryt"
-msgstr "Avbryt"
+msgstr ""
 
 #: eavrop-overview/notes/confirmRemoveModal.html:3
-#, fuzzy
 msgid "Anteckningar/tabort-modal/Ta bort"
-msgstr "Ta bort"
+msgstr ""
 
 #: eavrop-overview/notes/confirmRemoveModal.html:7
-#, fuzzy
 msgid "Anteckningar/tabort-modal/Är du säker på att du vill ta bort anteckningen?"
-msgstr "Är du säker på att du vill ta bort anteckningen?"
+msgstr ""
 
 #: eavrop-overview/reject-request-modal.html:12
-#, fuzzy
 msgid "Avslå-förfrågan-modal/Avbryt"
-msgstr "Avbryt"
+msgstr ""
 
 #: eavrop-overview/reject-request-modal.html:3
-#, fuzzy
 msgid "Avslå-förfrågan-modal/Avslå förfrågan om utredning"
-msgstr "Avslå förfrågan om utredning"
+msgstr ""
 
 #: eavrop-overview/reject-request-modal.html:11
-#, fuzzy
 msgid "Avslå-förfrågan-modal/Skicka"
-msgstr "Skicka"
+msgstr ""
 
 #: eavrop-overview/order/documents/req-amendment-modal.html:30
-#, fuzzy
 msgid "Begär tillägg/Avbryt"
-msgstr "Avbryt"
+msgstr ""
 
 #: eavrop-overview/order/documents/req-amendment-modal.html:3
-#, fuzzy
 msgid "Begär tillägg/Begär tillägg"
-msgstr "Begär tillägg"
+msgstr ""
 
 #: eavrop-overview/order/documents/req-amendment-modal.html:11
-#, fuzzy
 msgid "Begär tillägg/Begäran skickad av"
-msgstr "Begäran skickad av"
+msgstr ""
 
 #: eavrop-overview/order/documents/req-amendment-modal.html:15
-#, fuzzy
 msgid "Begär tillägg/Begäran skickad, datum"
-msgstr "Begäran skickad, datum"
+msgstr ""
 
 #: eavrop-overview/order/documents/req-amendment-modal.html:23
-#, fuzzy
 msgid "Begär tillägg/Begäran skickas till"
-msgstr "Begäran skickas till"
+msgstr ""
 
 #: eavrop-overview/order/documents/req-amendment-modal.html:7
-#, fuzzy
 msgid "Begär tillägg/Handling"
-msgstr "Handling"
+msgstr ""
 
 #: eavrop-overview/order/documents/req-amendment-modal.html:19
-#, fuzzy
 msgid "Begär tillägg/Kommentar"
-msgstr "Kommentar"
+msgstr ""
 
 #: eavrop-overview/order/documents/req-amendment-modal.html:29
-#, fuzzy
 msgid "Begär tillägg/Skicka"
-msgstr "Skicka"
+msgstr ""
 
 #: eavrop-overview/order/order.html:2
-#, fuzzy
 msgid "Beställning/Beställning"
-msgstr "Beställning"
+msgstr ""
 
 #: eavrop-overview/order/order.html:10
-#, fuzzy
 msgid "Beställning/Handlingar och tillägg"
-msgstr "Handlingar och tillägg"
+msgstr ""
 
 #: eavrop-overview/order/order.html:7
-#, fuzzy
 msgid "Beställning/Innehåll i beställningen"
-msgstr "Innehåll i beställningen"
+msgstr ""
 
-#: eavrop-overview/order/citizen.html:3 eavrop-overview/order/order.html:13
-#, fuzzy
+#: eavrop-overview/order/citizen.html:3
+#: eavrop-overview/order/order.html:13
 msgid "Beställning/Invånaren"
-msgstr "Invånaren"
+msgstr ""
 
 #: eavrop-overview/order/citizen.html:10
-#, fuzzy
 msgid "Beställning/Invånaren/Bostadsort"
-msgstr "Bostadsort"
+msgstr ""
 
 #: eavrop-overview/order/citizen.html:9
-#, fuzzy
 msgid "Beställning/Invånaren/Födelseår"
-msgstr "Födelseår"
+msgstr ""
 
 #: eavrop-overview/order/citizen.html:7
-#, fuzzy
 msgid "Beställning/Invånaren/Initialer"
-msgstr "Initialer"
+msgstr ""
 
 #: eavrop-overview/order/citizen.html:8
-#, fuzzy
 msgid "Beställning/Invånaren/Kön"
-msgstr "Kön"
+msgstr ""
 
 #: eavrop-overview/order/citizen.html:29
-#, fuzzy
 msgid "Beställning/Invånaren/Namn"
-msgstr "Namn"
+msgstr ""
 
 #: eavrop-overview/order/citizen.html:28
-#, fuzzy
 msgid "Beställning/Invånaren/Personnummer"
-msgstr "Personnummer"
+msgstr ""
 
 #: eavrop-overview/order/citizen.html:33
-#, fuzzy
 msgid "Beställning/Invånaren/Sjukskrivande läkare"
-msgstr "Sjukskrivande läkare"
+msgstr ""
 
 #: eavrop-overview/order/citizen.html:32
-#, fuzzy
 msgid "Beställning/Invånaren/Sjukskrivande vårdcentral/klinik"
-msgstr "Sjukskrivande vårdcentral/klinik"
+msgstr ""
 
 #: eavrop-overview/order/citizen.html:34
-#, fuzzy
 msgid "Beställning/Invånaren/Särskilda behov"
-msgstr "Särskilda behov"
+msgstr ""
 
 #: eavrop-overview/order/citizen.html:30
-#, fuzzy
 msgid "Beställning/Invånaren/Telefonnummer"
-msgstr "Telefonnummer"
+msgstr ""
 
 #: eavrop-overview/order/citizen.html:31
-#, fuzzy
 msgid "Beställning/Invånaren/Tidigare utredd vid"
-msgstr "Tidigare utredd vid"
+msgstr ""
 
 #: eavrop-overview/order/documents/add-doc-modal.html:3
-#, fuzzy
 msgid "Beställning/Lägg till handling"
-msgstr "Lägg till handling"
+msgstr ""
 
 #: eavrop-overview/order/documents/add-doc-modal.html:27
-#, fuzzy
 msgid "Beställning/Lägg till handling/Avbryt"
-msgstr "Avbryt"
+msgstr ""
 
 #: eavrop-overview/order/documents/add-doc-modal.html:7
-#, fuzzy
 msgid "Beställning/Lägg till handling/Handling"
-msgstr "Handling"
+msgstr ""
 
 #: eavrop-overview/order/documents/add-doc-modal.html:11
-#, fuzzy
 msgid "Beställning/Lägg till handling/Registrerad av"
-msgstr "Registrerad av"
+msgstr ""
 
 #: eavrop-overview/order/documents/add-doc-modal.html:15
-#, fuzzy
 msgid "Beställning/Lägg till handling/Registrerad, datum"
-msgstr "Registrerad, datum"
+msgstr ""
 
 #: eavrop-overview/order/documents/add-doc-modal.html:26
-#, fuzzy
 msgid "Beställning/Lägg till handling/Spara"
-msgstr "Spara"
+msgstr ""
 
 #: eavrop-overview/order/contents.html:27
-#, fuzzy
 msgid "Beställning/innehåll/Beställare"
-msgstr "Beställare"
+msgstr ""
 
 #: eavrop-overview/order/contents.html:34
-#, fuzzy
 msgid "Beställning/innehåll/Beställare, e-post"
-msgstr "Beställare, e-post"
+msgstr ""
 
 #: eavrop-overview/order/contents.html:32
-#, fuzzy
 msgid "Beställning/innehåll/Beställare, namn"
-msgstr "Beställare, namn"
+msgstr ""
 
 #: eavrop-overview/order/contents.html:33
-#, fuzzy
 msgid "Beställning/innehåll/Beställare, tel"
-msgstr "Beställare, tel"
+msgstr ""
 
 #: eavrop-overview/order/contents.html:3
-#, fuzzy
 msgid "Beställning/innehåll/Beställning"
-msgstr "Beställning"
+msgstr ""
 
 #: eavrop-overview/order/contents.html:31
-#, fuzzy
 msgid "Beställning/innehåll/Enhet"
-msgstr "Enhet"
+msgstr ""
 
 #: eavrop-overview/order/contents.html:8
-#, fuzzy
 msgid "Beställning/innehåll/Förfrågan inkom"
-msgstr "Förfrågan inkom"
+msgstr ""
 
 #: eavrop-overview/order/contents.html:10
-#, fuzzy
 msgid "Beställning/innehåll/Tolk"
-msgstr "Tolk"
+msgstr ""
 
 #: eavrop-overview/order/contents.html:9
-#, fuzzy
 msgid "Beställning/innehåll/Typ av utredning"
-msgstr "Typ av utredning"
+msgstr ""
 
 #: eavrop-overview/order/contents.html:11
-#, fuzzy
 msgid "Beställning/innehåll/Val av inriktning"
-msgstr "Val av inriktning"
+msgstr ""
 
 #: eavrop-overview/order/contents.html:7
-#, fuzzy
 msgid "Beställning/innehåll/Ärende-ID"
-msgstr "Ärende-ID"
+msgstr ""
 
 #: orders-overview/incoming/incoming.controller.js:121
 #: orders-overview/incoming/incoming.controller.js:72
-#, fuzzy
 msgid "Beställningar/Antal dagar efter förfrågan om utredning"
-msgstr "Antal dagar efter förfrågan om utredning"
+msgstr ""
 
 #: orders-overview/incoming/incoming.controller.js:17
-#, fuzzy
 msgid "Beställningar/Antal dagar har överträtts och/eller annan avvikelse finns"
-msgstr "Antal dagar har överträtts och/eller annan avvikelse finns"
+msgstr ""
 
 #: orders-overview/incoming/incoming.html:2
-#, fuzzy
 msgid "Beställningar/Beställningar"
-msgstr "Beställningar"
+msgstr ""
 
 #: orders-overview/incoming/incoming.controller.js:20
-#, fuzzy
 msgid "Beställningar/Datumen utgår från det datum då beställningen inkommit"
-msgstr "Datumen utgår från det datum då beställningen inkommit"
+msgstr ""
 
 #: orders-overview/incoming/incoming.controller.js:60
-#, fuzzy
 msgid "Beställningar/Den försäkrades bostadsort"
-msgstr "Den försäkrades bostadsort"
+msgstr ""
 
 #: orders-overview/incoming/incoming.controller.js:115
 #: orders-overview/incoming/incoming.controller.js:66
-#, fuzzy
 msgid "Beställningar/Enhet"
-msgstr "Enhet"
+msgstr ""
 
 #: orders-overview/incoming/incoming.controller.js:106
 #: orders-overview/incoming/incoming.controller.js:54
-#, fuzzy
 msgid "Beställningar/Enhet/Avdelning"
-msgstr "Enhet/Avdelning"
+msgstr ""
 
 #: orders-overview/incoming/incoming.controller.js:109
 #: orders-overview/incoming/incoming.controller.js:57
-#, fuzzy
 msgid "Beställningar/Förfrågan inkommit datum"
-msgstr "Förfrågan inkommit datum"
+msgstr ""
 
 #: orders-overview/incoming/incoming.controller.js:103
 #: orders-overview/incoming/incoming.controller.js:112
 #: orders-overview/incoming/incoming.controller.js:51
 #: orders-overview/incoming/incoming.controller.js:63
-#, fuzzy
 msgid "Beställningar/Organisation"
-msgstr "Organisation"
+msgstr ""
 
 #: orders-overview/incoming/incoming.controller.js:118
 #: orders-overview/incoming/incoming.controller.js:69
-#, fuzzy
 msgid "Beställningar/Status"
-msgstr "Status"
+msgstr ""
 
 #: orders-overview/incoming/incoming.controller.js:100
 #: orders-overview/incoming/incoming.controller.js:48
-#, fuzzy
 msgid "Beställningar/Typ"
-msgstr "Typ"
+msgstr ""
 
 #: orders-overview/incoming/incoming.html:11
-#, fuzzy
 msgid "Beställningar/Visa"
-msgstr "Visa"
+msgstr ""
 
 #: orders-overview/incoming/incoming.controller.js:131
 #: orders-overview/incoming/incoming.controller.js:82
-#, fuzzy
 msgid "Beställningar/beställare"
-msgstr "beställare"
+msgstr ""
 
 #: orders-overview/incoming/incoming.controller.js:135
 #: orders-overview/incoming/incoming.controller.js:86
-#, fuzzy
 msgid "Beställningar/leverantör"
-msgstr "leverantör"
+msgstr ""
 
 #: orders-overview/incoming/incoming.controller.js:45
 #: orders-overview/incoming/incoming.controller.js:97
-#, fuzzy
 msgid "Beställningar/Ärende-ID"
-msgstr "Ärende-ID"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:28
-#, fuzzy
 msgid "Bookning-status/Besök avbokat <48h"
-msgstr "Besök avbokat <48h"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:30
-#, fuzzy
 msgid "Bookning-status/Besök avbokat <96h"
-msgstr "Besök avbokat <96h"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:29
-#, fuzzy
 msgid "Bookning-status/Besök avbokat >48h"
-msgstr "Besök avbokat >48h"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:31
-#, fuzzy
 msgid "Bookning-status/Besök avbokat >96h"
-msgstr "Besök avbokat >96h"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:27
-#, fuzzy
 msgid "Bookning-status/Besök avbokat av utförare"
-msgstr "Besök avbokat av utförare"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:24
-#, fuzzy
 msgid "Bookning-status/Bokat"
-msgstr "Bokat"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:25
-#, fuzzy
 msgid "Bookning-status/Genomfört"
-msgstr "Genomfört"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:26
-#, fuzzy
 msgid "Bookning-status/Patient uteblev"
-msgstr "Patient uteblev"
+msgstr ""
 
 #: eavrop-overview/eavrop.config.route.js:86
-#, fuzzy
 msgid "Eavrop-AllEvents-title/All events"
-msgstr "Alla händelser"
+msgstr ""
 
 #: eavrop-overview/eavrop.config.route.js:63
-#, fuzzy
 msgid "Eavrop-citizen-title/Citizen"
-msgstr "Invånare"
+msgstr ""
 
 #: eavrop-overview/eavrop.config.route.js:102
-#, fuzzy
 msgid "Eavrop-compensation-title/Compensations"
-msgstr "Kompensation/Ersättningar"
+msgstr ""
 
 #: eavrop-overview/eavrop.config.route.js:45
-#, fuzzy
 msgid "Eavrop-content-title/Content"
-msgstr "Innehåll"
+msgstr ""
 
 #: eavrop-overview/eavrop.config.route.js:54
-#, fuzzy
 msgid "Eavrop-document-title/Document"
-msgstr "Handlingar"
+msgstr ""
 
 #: eavrop-overview/eavrop.config.route.js:78
-#, fuzzy
 msgid "Eavrop-investigation-title/Investigation"
-msgstr "Utredningar"
+msgstr ""
 
 #: eavrop-overview/eavropService.js:22
-#, fuzzy
 msgid "Eavrop-status/Förfrågan accepterade"
-msgstr "Förfrågan accepterade"
+msgstr ""
 
 #: eavrop-overview/eavropService.js:20
-#, fuzzy
 msgid "Eavrop-status/Förfrågan om utredning har inkommit"
-msgstr "Förfrågan om utredning har inkommit"
+msgstr ""
 
 #: eavrop-overview/eavropService.js:21
-#, fuzzy
 msgid "Eavrop-status/Förfrågan tilldelas, inväntar acceptans"
-msgstr "Förfrågan tilldelas, inväntar acceptans"
+msgstr ""
 
 #: eavrop-overview/eavropService.js:24
-#, fuzzy
 msgid "Eavrop-status/Inväntar acceptans"
-msgstr "Inväntar acceptans"
+msgstr ""
 
 #: eavrop-overview/eavropService.js:23
-#, fuzzy
 msgid "Eavrop-status/Inväntar beslut från beställare"
-msgstr "Inväntar beslut från beställare"
+msgstr ""
 
 #: eavrop-overview/eavropService.js:25
-#, fuzzy
 msgid "Eavrop-status/Utredningen godkänts av beställare"
-msgstr "Utredningen godkänts av beställare"
+msgstr ""
 
 #: eavrop-overview/eavropService.js:26
-#, fuzzy
 msgid "Eavrop-status/Utredningen är avslutad"
-msgstr "Utredningen är avslutad"
+msgstr ""
 
 #: eavrop-overview/eavropService.js:27
-#, fuzzy
 msgid "Eavrop-status/Utredningen är påbörjad"
-msgstr "Utredningen är påbörjad"
+msgstr ""
 
 #: eavrop-overview/eavropService.js:36
-#, fuzzy
 msgid "Eavrop-tabell-kompensation-godkänd-status/Ja"
-msgstr "Ja"
+msgstr ""
 
 #: eavrop-overview/eavropService.js:37
-#, fuzzy
 msgid "Eavrop-tabell-kompensation-godkänd-status/Nej"
-msgstr "Nej"
+msgstr ""
 
 #: eavrop-overview/eavropService.js:35
-#, fuzzy
 msgid "Eavrop-tabell-kompensation-godkänd-status/inväntar"
-msgstr "inväntar"
+msgstr ""
 
 #: eavrop-overview/eavropService.js:30
-#, fuzzy
 msgid "Eavrop-tabell-komplett-status/Ja"
-msgstr "Ja"
+msgstr ""
 
 #: eavrop-overview/eavropService.js:31
-#, fuzzy
 msgid "Eavrop-tabell-komplett-status/Nej"
-msgstr "Nej"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:28
-#, fuzzy
 msgid "Eavrop-vyn/Förfrågan om acceptans"
-msgstr "Förfrågan om acceptans"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:7
-#, fuzzy
 msgid "Eavrop-vyn/Invånare"
-msgstr "Invånare"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:4
-#, fuzzy
 msgid "Eavrop-vyn/Till översikten"
-msgstr "Till översikten"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:16
-#, fuzzy
 msgid "Eavrop-vyn/Utse utredare"
-msgstr "Utse utredare"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:14
-#, fuzzy
 msgid "Eavrop-vyn/Utse vårdleverantör"
-msgstr "Utse vårdleverantör"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:15
-#, fuzzy
 msgid "Eavrop-vyn/Utse vårdleverantör genom att hämta in acceptans av denna förfrågan."
-msgstr "Utse vårdleverantör genom att hämta in acceptans av denna förfrågan."
+msgstr ""
 
 #: eavrop-overview/eavrop.html:29
-#, fuzzy
 msgid "Eavrop-vyn/acceptera-1/Förfrågan ställd till"
-msgstr "Förfrågan ställd till"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:31
-#, fuzzy
 msgid "Eavrop-vyn/acceptera-2/Acceptans begärd av"
-msgstr "Acceptans begärd av"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:33
-#, fuzzy
 msgid "Eavrop-vyn/acceptera/Acceptera förfrågan"
-msgstr "Acceptera förfrågan"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:34
-#, fuzzy
 msgid "Eavrop-vyn/acceptera/Avslå förfrågan"
-msgstr "Avslå förfrågan"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:55
-#, fuzzy
 msgid "Eavrop-vyn/meny/Alla händelser"
-msgstr "Alla händelser"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:61
-#, fuzzy
 msgid "Eavrop-vyn/meny/Anteckningar"
-msgstr "Anteckningar"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:43
-#, fuzzy
 msgid "Eavrop-vyn/meny/Beställning"
-msgstr "Beställning"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:74
-#, fuzzy
 msgid "Eavrop-vyn/meny/Status"
-msgstr "Status"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:67
-#, fuzzy
 msgid "Eavrop-vyn/meny/Underlag för ersättning"
-msgstr "Underlag för ersättning"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:49
-#, fuzzy
 msgid "Eavrop-vyn/meny/Utredning"
-msgstr "Utredning"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:84
-#, fuzzy
 msgid "Eavrop-vyn/status/Antal dagar sedan utredningens start:"
-msgstr "Antal dagar sedan utredningens start:"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:19
-#, fuzzy
 msgid "Eavrop-vyn/tilldela-1/Inväntar svar från vårdleverantör"
-msgstr "Inväntar svar från vårdleverantör"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:20
-#, fuzzy
 msgid "Eavrop-vyn/tilldela-2/Förfrågan om acceptans för ärende med ID"
-msgstr "Förfrågan om acceptans för ärende med ID"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:20
-#, fuzzy
 msgid "Eavrop-vyn/tilldela-3/skickades till"
-msgstr "skickades till"
+msgstr ""
 
 #: eavrop-overview/eavrop.html:8
-#, fuzzy
 msgid "Eavrop-vyn/Ärende-ID"
-msgstr "Ärende-ID"
+msgstr ""
 
 #: widgets/datePicker.html:3
-#, fuzzy
 msgid "Från, datum"
-msgstr "Från, datum"
+msgstr ""
 
 #: orders-overview/completed/completed.controller.js:24
-#, fuzzy
 msgid "Genomförda-utredningar/Antal dgr för komplettering"
-msgstr "Antal dgr för komplettering"
+msgstr ""
 
 #: orders-overview/completed/completed.controller.js:21
-#, fuzzy
 msgid "Genomförda-utredningar/Antal dgr klar"
-msgstr "Antal dgr klar"
+msgstr ""
 
 #: orders-overview/completed/completed.controller.js:67
-#, fuzzy
 msgid "Genomförda-utredningar/Datumen utgår från det datum då intyg levererats"
-msgstr "Datumen utgår från det datum då intyg levererats"
+msgstr ""
 
 #: orders-overview/completed/completed.html:2
-#, fuzzy
 msgid "Genomförda-utredningar/Genomförda utredningar"
-msgstr "Genomförda utredningar"
+msgstr ""
 
 #: orders-overview/completed/completed.controller.js:44
-#, fuzzy
 msgid "Genomförda-utredningar/Godkänd för ersättning"
-msgstr "Godkänd för ersättning"
+msgstr ""
 
 #: orders-overview/completed/completed.controller.js:38
-#, fuzzy
 msgid "Genomförda-utredningar/Intyg levererades, datum"
-msgstr "Intyg levererades, datum"
+msgstr ""
 
 #: orders-overview/completed/completed.controller.js:54
-#, fuzzy
 msgid "Genomförda-utredningar/Invänta acceptans av intyg och godkännande för ersättning"
-msgstr "Invänta acceptans av intyg och godkännande för ersättning"
+msgstr ""
 
 #: orders-overview/completed/completed.controller.js:18
-#, fuzzy
 msgid "Genomförda-utredningar/Typ"
-msgstr "Typ"
+msgstr ""
 
 #: orders-overview/completed/completed.controller.js:35
-#, fuzzy
 msgid "Genomförda-utredningar/Utredare, ansvarig"
-msgstr "Utredare, ansvarig"
+msgstr ""
 
 #: orders-overview/completed/completed.controller.js:32
-#, fuzzy
 msgid "Genomförda-utredningar/Utredare, organisation"
-msgstr "Utredare, organisation"
+msgstr ""
 
 #: orders-overview/completed/completed.controller.js:60
-#, fuzzy
 msgid "Genomförda-utredningar/Utredning komplett, inväntar godkännande för ersättning"
-msgstr "Utredning komplett, inväntar godkännande för ersättning"
+msgstr ""
 
 #: orders-overview/completed/completed.controller.js:41
 msgid "Genomförda-utredningar/Utredning komplett?"
-msgstr "Utredning komplett?"
+msgstr ""
 
 #: orders-overview/completed/completed.controller.js:63
-#, fuzzy
 msgid "Genomförda-utredningar/Utredning är komplett och godkänd"
-msgstr "Utredning är komplett och godkänd"
+msgstr ""
 
 #: orders-overview/completed/completed.controller.js:57
-#, fuzzy
 msgid "Genomförda-utredningar/Utredningen är ej komplett, ej godkänd, försenad eller innehåller ersättningsbara avvikelser"
-msgstr "Utredningen är ej komplett, ej godkänd, försenad eller innehåller ersättningsbara avvikelser"
+msgstr ""
 
 #: orders-overview/completed/completed.html:11
-#, fuzzy
 msgid "Genomförda-utredningar/Visa"
-msgstr "Visa"
+msgstr ""
 
 #: orders-overview/completed/completed.controller.js:27
-#, fuzzy
 msgid "Genomförda-utredningar/avikelser"
-msgstr "avikelser"
+msgstr ""
 
 #: orders-overview/completed/completed.controller.js:15
-#, fuzzy
 msgid "Genomförda-utredningar/Ärende-ID"
-msgstr "Ärende-ID"
+msgstr ""
 
 #: eavrop-overview/order/documents/documents.html:10
-#, fuzzy
 msgid "Handlingar/Begär tillägg"
-msgstr "Begär tillägg"
+msgstr ""
 
 #: eavrop-overview/order/documents/documents.html:3
-#, fuzzy
 msgid "Handlingar/Handlingar"
-msgstr "Handlingar"
+msgstr ""
 
 #: eavrop-overview/order/documents/documents.html:5
-#, fuzzy
 msgid "Handlingar/Lägg till handling"
-msgstr "Lägg till handling"
+msgstr ""
 
 #: eavrop-overview/order/documents/documents.html:8
-#, fuzzy
 msgid "Handlingar/Tillägg"
-msgstr "Tillägg"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:18
-#, fuzzy
 msgid "Händelse-typ/Besök"
-msgstr "Besök"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:20
-#, fuzzy
 msgid "Händelse-typ/Internt arbete"
-msgstr "Internt arbete"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:19
-#, fuzzy
 msgid "Händelse-typ/Möte med patient"
-msgstr "Möte med patient"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:17
-#, fuzzy
 msgid "Händelse-typ/Okänt handelse"
-msgstr "Okänt handelse"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:15
-#, fuzzy
 msgid "Händelse-typ/Utredningen godkänts"
-msgstr "Utredningen godkänts"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:16
-#, fuzzy
 msgid "Händelse-typ/Utredningens godkänts för utbetalning"
-msgstr "Utredningens godkänts för utbetalning"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:51
-#, fuzzy
 msgid "Händelse-typer/Besök"
-msgstr "Besök"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:54
-#, fuzzy
 msgid "Händelse-typer/Genomgång med patient"
-msgstr "Genomgång med patient"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:57
-#, fuzzy
 msgid "Händelse-typer/Internt arbete"
-msgstr "Internt arbete"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:45
-#, fuzzy
 msgid "Händelser-som-måste-bekräftas/Besök avbokat <96h"
-msgstr "Besök avbokat <96h"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:43
-#, fuzzy
 msgid "Händelser-som-måste-bekräftas/Besök avbokat >48h"
-msgstr "Besök avbokat >48h"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:46
-#, fuzzy
 msgid "Händelser-som-måste-bekräftas/Besök avbokat >96h"
-msgstr "Besök avbokat >96h"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:44
-#, fuzzy
 msgid "Händelser-som-måste-bekräftas/Patient uteblev"
-msgstr "Patient uteblev"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:12
-#, fuzzy
 msgid "Intyg-status/Intyg godkänt"
-msgstr "Intyg godkänt"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:13
-#, fuzzy
 msgid "Intyg-status/Intyg kompleteras"
-msgstr "Intyg kompleteras"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:14
-#, fuzzy
 msgid "Intyg-status/Intyg signeras"
-msgstr "Intyg signeras"
+msgstr ""
 
 #: eavrop-overview/investigation/addBookingModal.html:77
-#, fuzzy
 msgid "Lägg till Händelse/Avbryt"
-msgstr "Avbryt"
+msgstr ""
 
 #: eavrop-overview/investigation/addBookingModal.html:50
 #: eavrop-overview/investigation/addBookingModal.html:63
-#, fuzzy
 msgid "Lägg till Händelse/Ja"
-msgstr "Ja"
+msgstr ""
 
 #: eavrop-overview/investigation/addBookingModal.html:4
-#, fuzzy
 msgid "Lägg till Händelse/Lägg till Händelse"
-msgstr "Lägg till Händelse"
+msgstr ""
 
 #: eavrop-overview/investigation/addBookingModal.html:54
 #: eavrop-overview/investigation/addBookingModal.html:67
-#, fuzzy
 msgid "Lägg till Händelse/Nej"
-msgstr "Nej"
+msgstr ""
 
 #: eavrop-overview/investigation/addBookingModal.html:34
-#, fuzzy
 msgid "Lägg till Händelse/Person"
-msgstr "Person"
+msgstr ""
 
 #: eavrop-overview/investigation/addBookingModal.html:38
-#, fuzzy
 msgid "Lägg till Händelse/Roll"
-msgstr "Roll"
+msgstr ""
 
 #: eavrop-overview/investigation/addBookingModal.html:74
-#, fuzzy
 msgid "Lägg till Händelse/Spara"
-msgstr "Spara"
+msgstr ""
 
 #: eavrop-overview/investigation/addBookingModal.html:59
-#, fuzzy
 msgid "Lägg till Händelse/Tolk?"
-msgstr "Tolk?"
+msgstr ""
 
 #: eavrop-overview/investigation/addBookingModal.html:10
-#, fuzzy
 msgid "Lägg till Händelse/Typ av händelse"
-msgstr "Typ av händelse"
+msgstr ""
 
 #: eavrop-overview/investigation/addBookingModal.html:46
-#, fuzzy
 msgid "Lägg till Händelse/Är detta en tilläggstjänst?"
-msgstr "Är detta en tilläggstjänst?"
+msgstr ""
 
 #: eavrop-overview/notes/add-note-modal.html:10
-#, fuzzy
 msgid "Lägg till anteckning/Anteckning"
-msgstr "Anteckning"
+msgstr ""
 
 #: eavrop-overview/notes/add-note-modal.html:18
-#, fuzzy
 msgid "Lägg till anteckning/Avbryt"
-msgstr "Avbryt"
+msgstr ""
 
 #: eavrop-overview/notes/add-note-modal.html:3
-#, fuzzy
 msgid "Lägg till anteckning/Lägg till anteckning"
-msgstr "Lägg till anteckning"
+msgstr ""
 
 #: eavrop-overview/notes/add-note-modal.html:17
-#, fuzzy
 msgid "Lägg till anteckning/Spara"
-msgstr "Spara"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:65
-#, fuzzy
 msgid "Lägg-till-bokning-Roller/Arbetsterapeut"
-msgstr "Arbetsterapeut"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:61
-#, fuzzy
 msgid "Lägg-till-bokning-Roller/Läkare"
-msgstr "Läkare"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:63
-#, fuzzy
 msgid "Lägg-till-bokning-Roller/Psykolog"
-msgstr "Psykolog"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:67
-#, fuzzy
 msgid "Lägg-till-bokning-Roller/Sjukgymnast"
-msgstr "Sjukgymnast"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:69
-#, fuzzy
 msgid "Lägg-till-bokning-Roller/Utredare"
-msgstr "Utredare"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:74
-#, fuzzy
 msgid "Lägg-till-bokning-misslyckad/Bookningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda"
-msgstr "Bookningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda"
+msgstr ""
 
 #: orders-overview/overview.config.route.js:37
-#, fuzzy
 msgid "Overview-completed-title/Completed"
-msgstr "Genomförda"
+msgstr ""
 
 #: orders-overview/overview.config.route.js:29
-#, fuzzy
 msgid "Overview-ongoing-title/Ongoing"
-msgstr "Pågående"
+msgstr ""
 
 #: orders-overview/overview.config.route.js:21
-#, fuzzy
 msgid "Overview-order-title/Orders"
-msgstr "Beställningar"
+msgstr ""
 
 #: orders-overview/ongoing/ongoing.controller.js:37
-#, fuzzy
 msgid "Pågående-utredningar/Antal dagar från start"
-msgstr "Antal dagar från start"
+msgstr ""
 
 #: orders-overview/ongoing/ongoing.controller.js:62
-#, fuzzy
 msgid "Pågående-utredningar/Antal dagar har överträtts och/eller annan avvikelse finns"
-msgstr "Antal dagar har överträtts och/eller annan avvikelse finns"
+msgstr ""
 
 #: orders-overview/ongoing/ongoing.controller.js:40
-#, fuzzy
 msgid "Pågående-utredningar/Avikelser"
-msgstr "Avikelser"
+msgstr ""
 
 #: orders-overview/ongoing/ongoing.controller.js:66
-#, fuzzy
 msgid "Pågående-utredningar/Datumen utgår från det datum då utredningen startat"
-msgstr "Datumen utgår från det datum då utredningen startat"
+msgstr ""
 
 #: orders-overview/ongoing/ongoing.controller.js:25
-#, fuzzy
 msgid "Pågående-utredningar/Enhet/Avdelning"
-msgstr "Enhet/Avdelning"
+msgstr ""
 
 #: orders-overview/ongoing/ongoing.controller.js:22
 #: orders-overview/ongoing/ongoing.controller.js:28
-#, fuzzy
 msgid "Pågående-utredningar/Organisation"
-msgstr "Organisation"
+msgstr ""
 
 #: orders-overview/ongoing/ongoing.html:2
-#, fuzzy
 msgid "Pågående-utredningar/Pågående beställningar"
-msgstr "Pågående beställningar"
+msgstr ""
 
 #: orders-overview/ongoing/ongoing.controller.js:31
-#, fuzzy
 msgid "Pågående-utredningar/Status"
-msgstr "Status"
+msgstr ""
 
 #: orders-overview/ongoing/ongoing.controller.js:19
-#, fuzzy
 msgid "Pågående-utredningar/Typ"
-msgstr "Typ"
+msgstr ""
 
 #: orders-overview/ongoing/ongoing.controller.js:34
-#, fuzzy
 msgid "Pågående-utredningar/Utredning start"
-msgstr "Utredning start"
+msgstr ""
 
 #: orders-overview/ongoing/ongoing.html:11
-#, fuzzy
 msgid "Pågående-utredningar/Visa"
-msgstr "Visa"
+msgstr ""
 
 #: orders-overview/ongoing/ongoing.controller.js:48
-#, fuzzy
 msgid "Pågående-utredningar/beställare"
-msgstr "beställare"
+msgstr ""
 
 #: orders-overview/ongoing/ongoing.controller.js:52
-#, fuzzy
 msgid "Pågående-utredningar/leverantör"
-msgstr "leverantör"
+msgstr ""
 
 #: orders-overview/ongoing/ongoing.controller.js:16
-#, fuzzy
 msgid "Pågående-utredningar/Ärende-ID"
-msgstr "Ärende-ID"
+msgstr ""
 
 #: widgets/datePicker.html:17
-#, fuzzy
 msgid "Till, datum"
-msgstr "Till, datum"
+msgstr ""
 
 #: widgets/HandlingarTableDir.js:50
-#, fuzzy
 msgid "Tillägg-tabell/Begäran skickad till"
-msgstr "Begäran skickad till"
+msgstr ""
 
 #: widgets/HandlingarTableDir.js:47
-#, fuzzy
 msgid "Tillägg-tabell/Begäran skickad, av"
-msgstr "Begäran skickad, av"
+msgstr ""
 
 #: widgets/HandlingarTableDir.js:48
-#, fuzzy
 msgid "Tillägg-tabell/Begäran skickad, datum"
-msgstr "Begäran skickad, datum"
+msgstr ""
 
 #: widgets/HandlingarTableDir.js:46
-#, fuzzy
 msgid "Tillägg-tabell/Handling"
-msgstr "Handling"
+msgstr ""
 
 #: widgets/HandlingarTableDir.js:49
-#, fuzzy
 msgid "Tillägg-tabell/Kommentar"
-msgstr "Kommentar"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:35
-#, fuzzy
 msgid "Tolk-status/Bokat"
-msgstr "Bokat"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:39
-#, fuzzy
 msgid "Tolk-status/Tolk anlänt, men tolkning inte använd"
-msgstr "Tolk anlänt, men tolkning inte använd"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:37
-#, fuzzy
 msgid "Tolk-status/Tolk avbokad"
-msgstr "Tolk avbokad"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:38
-#, fuzzy
 msgid "Tolk-status/Tolk uteblev"
-msgstr "Tolk uteblev"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:36
-#, fuzzy
 msgid "Tolk-status/Tolkning genomförd"
-msgstr "Tolkning genomförd"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:33
-#, fuzzy
 msgid "Underlag-ersättningsvy/Antal avikelser"
-msgstr "Antal avikelser"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:30
-#, fuzzy
 msgid "Underlag-ersättningsvy/Antal dagar efter komplettering"
-msgstr "Antal dagar efter komplettering"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:54
-#, fuzzy
 msgid "Underlag-ersättningsvy/Antal dagar för acceptans av förfrågan om utredning har överskridits"
-msgstr "Antal dagar för acceptans av förfrågan om utredning har överskridits"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:53
-#, fuzzy
 msgid "Underlag-ersättningsvy/Antal dagar för komplettering har överskridits"
-msgstr "Antal dagar för komplettering har överskridits"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:55
-#, fuzzy
 msgid "Underlag-ersättningsvy/Antal dagar för utredning har överskridits"
-msgstr "Antal dagar för utredning har överskridits"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:36
-#, fuzzy
 msgid "Underlag-ersättningsvy/Antal utredningsstarter"
-msgstr "Antal utredningsstarter"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:109
-#, fuzzy
 msgid "Underlag-ersättningsvy/Avvikelse"
-msgstr "Avvikelse"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:48
-#, fuzzy
 msgid "Underlag-ersättningsvy/Besök avbokat <48h"
-msgstr "Besök avbokat <48h"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:50
-#, fuzzy
 msgid "Underlag-ersättningsvy/Besök avbokat <96h"
-msgstr "Besök avbokat <96h"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:49
-#, fuzzy
 msgid "Underlag-ersättningsvy/Besök avbokat >48h"
-msgstr "Besök avbokat >48h"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:51
-#, fuzzy
 msgid "Underlag-ersättningsvy/Besök avbokat >96h"
-msgstr "Besök avbokat >96h"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:47
-#, fuzzy
 msgid "Underlag-ersättningsvy/Besök avbokat av utförare"
-msgstr "Besök avbokat av utförare"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:59
-#, fuzzy
 msgid "Underlag-ersättningsvy/Ja"
-msgstr "Ja"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:60
-#, fuzzy
 msgid "Underlag-ersättningsvy/Nej"
-msgstr "Nej"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:56
-#, fuzzy
 msgid "Underlag-ersättningsvy/Ops detta ska inte hända"
-msgstr "Ops detta ska inte hända"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:46
-#, fuzzy
 msgid "Underlag-ersättningsvy/Patient uteblev"
-msgstr "Patient uteblev"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.html:16
-#, fuzzy
 msgid "Underlag-ersättningsvy/Specifikation - avvikelser"
-msgstr "Specifikation - avvikelser"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:118
-#, fuzzy
 msgid "Underlag-ersättningsvy/Tillägstjänst"
-msgstr "Tillägstjänst"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.html:27
-#, fuzzy
 msgid "Underlag-ersättningsvy/Tillägstjänster"
-msgstr "Tillägstjänster"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:121
-#, fuzzy
 msgid "Underlag-ersättningsvy/Timmar"
-msgstr "Timmar"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:124
-#, fuzzy
 msgid "Underlag-ersättningsvy/Tolk"
-msgstr "Tolk"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:24
-#, fuzzy
 msgid "Underlag-ersättningsvy/Tolk anlitad?"
-msgstr "Tolk anlitad?"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:52
-#, fuzzy
 msgid "Underlag-ersättningsvy/Tolk uteblev"
-msgstr "Tolk uteblev"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:15
-#, fuzzy
 msgid "Underlag-ersättningsvy/Typ"
-msgstr "Typ"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.html:2
-#, fuzzy
 msgid "Underlag-ersättningsvy/Underlag för ersättning"
-msgstr "Underlag för ersättning"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:21
-#, fuzzy
 msgid "Underlag-ersättningsvy/Utförare, namn"
-msgstr "Utförare, namn"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:18
-#, fuzzy
 msgid "Underlag-ersättningsvy/Utförare, organisation"
-msgstr "Utförare, organisation"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:39
-#, fuzzy
 msgid "Underlag-ersättningsvy/Utredning är komplett och godkänd?"
-msgstr "Utredning är komplett och godkänd?"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:27
-#, fuzzy
 msgid "Underlag-ersättningsvy/Utredningen genomfördes på, antal dagar"
-msgstr "Utredningen genomfördes på, antal dagar"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.html:5
-#, fuzzy
 msgid "Underlag-ersättningsvy/Ärende"
-msgstr "Ärende"
+msgstr ""
 
 #: eavrop-overview/compensations/compensation.controller.js:12
-#, fuzzy
 msgid "Underlag-ersättningsvy/Ärende-ID"
-msgstr "Ärende-ID"
+msgstr ""
 
-#: widgets/fmu-utredning-table.html:61 widgets/fmu-utredning-table.html:93
-#, fuzzy
+#: widgets/fmu-utredning-table.html:61
+#: widgets/fmu-utredning-table.html:93
 msgid "Utredning-tabell/Avbryt"
-msgstr "Avbryt"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:154
-#, fuzzy
 msgid "Utredning-tabell/Datum"
-msgstr "Datum"
+msgstr ""
 
-#: widgets/fmu-utredning-table.html:37 widgets/fmu-utredning-table.html:69
-#, fuzzy
+#: widgets/fmu-utredning-table.html:37
+#: widgets/fmu-utredning-table.html:69
 msgid "Utredning-tabell/Error"
-msgstr "Error"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:150
-#, fuzzy
 msgid "Utredning-tabell/Händelse"
-msgstr "Händelse"
+msgstr ""
 
-#: widgets/fmu-utredning-table.html:51 widgets/fmu-utredning-table.html:82
-#, fuzzy
+#: widgets/fmu-utredning-table.html:51
+#: widgets/fmu-utredning-table.html:82
 msgid "Utredning-tabell/Kommentar"
-msgstr "Kommentar"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:162
-#, fuzzy
 msgid "Utredning-tabell/Person"
-msgstr "Person"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:166
-#, fuzzy
 msgid "Utredning-tabell/Roll"
-msgstr "Roll"
+msgstr ""
 
-#: widgets/fmu-utredning-table.html:60 widgets/fmu-utredning-table.html:91
-#, fuzzy
+#: widgets/fmu-utredning-table.html:60
+#: widgets/fmu-utredning-table.html:91
 msgid "Utredning-tabell/Spara"
-msgstr "Spara"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:176
-#: widgets/fmu-utredning-table.html:43 widgets/fmu-utredning-table.html:75
-#, fuzzy
+#: widgets/fmu-utredning-table.html:43
+#: widgets/fmu-utredning-table.html:75
 msgid "Utredning-tabell/Status"
-msgstr "Status"
+msgstr ""
 
 #: widgets/fmu-utredning-table.html:38
 msgid "Utredning-tabell/This is an error"
 msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:158
-#, fuzzy
 msgid "Utredning-tabell/Tidpunkt"
-msgstr "Tidpunkt"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.service.js:172
-#, fuzzy
 msgid "Utredning-tabell/Tolk"
-msgstr "Tolk"
+msgstr ""
 
 #: widgets/fmu-utredning-table.html:10
-#, fuzzy
 msgid "Utredning-tabell/Utredning-tabell/Ändra"
-msgstr "Ändra"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.html:12
-#, fuzzy
 msgid "Utredningar/Lägg till händelse"
-msgstr "Lägg till händelse"
+msgstr ""
 
 #: eavrop-overview/investigation/investigation.html:2
-#, fuzzy
 msgid "Utredningar/Utredning"
-msgstr "Utredning"
+msgstr ""
+
+#: eavrop-overview/assign-utredare-modal.html:16
+msgid "Utse-utredare/Avbryt"
+msgstr ""
 
 #: eavrop-overview/assign-utredare-modal.html:9
-#, fuzzy
 msgid "Utse-utredare/Begär acceptans om utredning från"
-msgstr "Begär acceptans om utredning från"
+msgstr ""
+
+#: eavrop-overview/assign-utredare-modal.html:15
+msgid "Utse-utredare/Skicka"
+msgstr ""
 
 #: eavrop-overview/assign-utredare-modal.html:4
-#, fuzzy
 msgid "Utse-utredare/Utse utredare"
-msgstr "Utse utredare"
+msgstr ""
 
 #: widgets/datePicker.html:30
-#, fuzzy
 msgid "Visa"
-msgstr "Visa"
+msgstr ""
 
 #: core/core.config.js:24
-#, fuzzy
 msgid "fmu-route-title/Fmu"
-msgstr "Fmu"
+msgstr ""
 
 #: core/core.config.js:12
-#, fuzzy
 msgid "fmu-title/Fördjupad medicinsk utredning"
-msgstr "Fördjupad medicinsk utredning"
+msgstr ""
 
 #: core/core.config.js:13
-#, fuzzy
 msgid "fmu-version/0.0.1"
-msgstr "v0.0.1"
+msgstr ""
 
 #: widgets/HandlingarTableDir.js:11
-#, fuzzy
 msgid "handlingar-tabell/Handling"
-msgstr "Handling"
+msgstr ""
 
 #: widgets/HandlingarTableDir.js:12
-#, fuzzy
 msgid "handlingar-tabell/Registrerad av"
-msgstr "Registrerad av"
+msgstr ""
 
 #: widgets/HandlingarTableDir.js:13
-#, fuzzy
 msgid "handlingar-tabell/Registrerad, datum"
-msgstr "Registrerad, datum"
+msgstr ""
 
 #: login/login.route.js:13
-#, fuzzy
 msgid "login-title/Login"
-msgstr "Inloggning"
+msgstr ""
 
 #: eavrop-overview/investigation/changeBookingConfirmationModal.html:16
-#, fuzzy
 msgid "Ändra-bokning-modal/Avbryt"
-msgstr "Avbryt"
+msgstr ""
 
 #: eavrop-overview/investigation/changeBookingConfirmationModal.html:17
-#, fuzzy
 msgid "Ändra-bokning-modal/Spara"
-msgstr "Spara"
+msgstr ""
 
 #: eavrop-overview/investigation/changeBookingConfirmationModal.html:9
-#, fuzzy
 msgid "Ändra-bokning-modal/kommer att pausa utredningen till dess att beställaren godkänner att utredningen får fortsätta"
-msgstr "kommer att pausa utredningen till dess att beställaren godkänner att utredningen får fortsätta"
+msgstr ""
 
 #: eavrop-overview/investigation/changeBookingConfirmationModal.html:3
-#, fuzzy
 msgid "Ändra-bokning-modal/Ändra"
-msgstr "Ändra"
+msgstr ""
 
 #: eavrop-overview/investigation/changeBookingConfirmationModal.html:8
-#, fuzzy
 msgid "Ändra-bokning-modal/Ändringen till statusen"
-msgstr "Ändringen till statusen"
+msgstr ""
 
 #: eavrop-overview/investigation/changeBookingConfirmationModal.html:10
-#, fuzzy
 msgid "Ändra-bokning-modal/Är du säker på att du vill spara ändringarna?"
-msgstr "Är du säker på att du vill spara ändringarna?"
+msgstr ""
 
 #: orders-overview/overview.html:3
-#, fuzzy
 msgid "Översikt/Beställningar"
-msgstr "Beställningar"
+msgstr ""
 
 #: orders-overview/overview.html:5
-#, fuzzy
 msgid "Översikt/Genomförda utredningar"
-msgstr "Genomförda utredningar"
+msgstr ""
 
 #: orders-overview/overview.html:4
-#, fuzzy
 msgid "Översikt/Pågående utredningar"
-msgstr "Pågående utredningar"
+msgstr ""

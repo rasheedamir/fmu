@@ -1115,7 +1115,7 @@ msgstr "Status"
 
 #: widgets/fmu-utredning-table.html:38
 msgid "Utredning-tabell/This is an error"
-msgstr "Något gick fel"
+msgstr "Nåt blev fel"
 
 #: eavrop-overview/investigation/investigation.service.js:158
 msgid "Utredning-tabell/Tidpunkt"
@@ -1137,9 +1137,17 @@ msgstr "Lägg till händelse"
 msgid "Utredningar/Utredning"
 msgstr "Utredning"
 
+#: eavrop-overview/assign-utredare-modal.html:16
+msgid "Utse-utredare/Avbryt"
+msgstr "Avbryt"
+
 #: eavrop-overview/assign-utredare-modal.html:9
 msgid "Utse-utredare/Begär acceptans om utredning från"
 msgstr "Begär acceptans om utredning från"
+
+#: eavrop-overview/assign-utredare-modal.html:15
+msgid "Utse-utredare/Skicka"
+msgstr "Skicka"
 
 #: eavrop-overview/assign-utredare-modal.html:4
 msgid "Utse-utredare/Utse utredare"

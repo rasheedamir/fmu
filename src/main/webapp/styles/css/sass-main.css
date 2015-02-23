@@ -1353,7 +1353,8 @@ body {
       clear: both; }
     .fmu-table tbody tr {
       display: inline-block;
-      height: auto; }
+      height: auto;
+      cursor: pointer; }
       .fmu-table tbody tr td {
         display: block;
         margin: 0;
