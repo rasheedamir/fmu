@@ -1,7 +1,6 @@
 'use strict';
 angular.module('fmu.widgets')
-    .directive('fmuTable', ['ngTableParams', '$state', '$filter', 'Dataservice',
-        function(ngTableParams, $state, $filter, Dataservice) {
+    .directive('fmuTable', ['ngTableParams', '$state', '$filter', 'Dataservice', function(ngTableParams, $state, $filter, Dataservice) {
             return {
                 restrict: 'E',
                 scope: {
@@ -15,7 +14,7 @@ angular.module('fmu.widgets')
                     eavropStatus: '=?',
                     accessDataCallback: '&'
                 },
-                controller: function($scope) {
+                controller: ['$scope', function($scope) {
                     var eavropConstants = Dataservice.getEavropConstants;
                     $scope.isSortable = function(/*key*/) {
                         return false; //eavropConstants.sortKeyMap.hasOwnProperty(key); //TODO reenable this
@@ -60,7 +59,7 @@ angular.module('fmu.widgets')
                             /* jshint +W055 */
                         }
                     };
-                },
+                }],
                 link: function(scope) {
                     scope.getValue = function(key, row) {
                         return scope.accessDataCallback() ? scope.accessDataCallback()(key, row) : row[key];

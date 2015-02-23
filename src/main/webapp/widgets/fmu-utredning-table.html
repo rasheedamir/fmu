@@ -21,7 +21,7 @@
             <td ng-repeat="column in headerFields"
                 ng-if="!isEditColumn(column.key)"
                 sortable="{{column.key}}" class="text-capitalize">
-                <span ng-bind="getValue(column.key, row)"></span>
+                <span ng-bind="getValue(column.key, row) | translate"></span>
             </td>
             <td ng-if="rowModifiable">
                 <span ng-if="isEditColumn(row)" class="btn btn-info btn-sm" ng-click="toogleEditRow(row)"><i class="glyphicon glyphicon-edit"></i></span>
@@ -43,7 +43,7 @@
                                     <label translate>Utredning-tabell/Status</label>
                                     <select class="form-control"
                                         ng-model="row.selectedTolkStatus"
-                                        ng-options="tableConstants.tolkMapping[opt.name] for opt in row.tolkStatus.statuses
+                                        ng-options="tableConstants.tolkMapping[opt.name] | translate for opt in row.tolkStatus.statuses
                                         track by opt.name">
                                     </select>
                                 </div>
@@ -74,7 +74,7 @@
                                 <div class="col-md-6">
                                     <label translate>Utredning-tabell/Status</label>
                                     <select class="form-control" ng-model="row.selectedHandelseStatus"
-                                        ng-options="tableConstants.handelseMapping[opt.name]
+                                        ng-options="tableConstants.handelseMapping[opt.name] | translate
                                         for opt in row.handelseStatus.statuses track by opt.name">
                                     </select>
                                 </div>

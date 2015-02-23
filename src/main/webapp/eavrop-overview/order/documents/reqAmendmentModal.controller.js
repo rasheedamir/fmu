@@ -2,8 +2,7 @@
     'use strict';
     angular.module('fmu.eavrop')
         .controller('ReqAmendmentModalController', ReqAmendmentModalCtrl);
-    ReqAmendmentModalCtrl.$inject = ['$scope', '$modalInstance'];
-
+    /*@ngInject*/
     function ReqAmendmentModalCtrl($scope, $modalInstance) {
 
         $scope.doc = {};
@@ -18,4 +17,5 @@
             $modalInstance.dismiss();
         }
     }
+    ReqAmendmentModalCtrl.$inject = ['$scope', '$modalInstance'];
 })();

@@ -2,8 +2,8 @@
     'use strict';
     angular.module('fmu.eavrop').
     controller('AddBookingModalController', AddBookingController);
-    AddBookingController.$inject = ['$scope', 'Eavrop', 'tableParameters', 'investigationService', '$modalInstance'];
 
+    /*@ngInject*/
     function AddBookingController($scope, Eavrop, tableParameters, investigationService, $modalInstance) {
         $scope.handelseDate = new Date();
         $scope.handelseStartTime = new Date();
@@ -65,4 +65,5 @@
             $modalInstance.dismiss('cancel');
         }
     }
+    AddBookingController.$inject = ['$scope', 'Eavrop', 'tableParameters', 'investigationService', '$modalInstance'];
 })();

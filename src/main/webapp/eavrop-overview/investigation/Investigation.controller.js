@@ -3,17 +3,7 @@
 
     angular.module('fmu.eavrop')
         .controller('InvestigationController', InvestigationController);
-    InvestigationController.$inject = [
-        '$scope',
-        '$filter',
-        '$stateParams',
-        'AuthService',
-        'investigationService',
-        '$modal',
-        'logger',
-        'currentEavrop'
-    ];
-
+    /*@ngInject*/
     function InvestigationController($scope, $filter, $stateParams, AuthService, investigationService, $modal, logger, currentEavrop) {
         $scope.authService = AuthService;
         $scope.currentEavropId = $stateParams.eavropId;
@@ -37,4 +27,5 @@
             });
         }
     }
+    InvestigationController.$inject = ['$scope', '$filter', '$stateParams', 'AuthService', 'investigationService', '$modal', 'logger', 'currentEavrop'];
 })();

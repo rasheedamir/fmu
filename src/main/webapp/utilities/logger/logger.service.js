@@ -4,7 +4,7 @@
     angular.module('util.logger', [])
         .factory('logger', logger);
 
-    logger.$inject = ['$log'];
+    /*@ngInject*/
     function logger($log) {
         var service = {
             error   : error,
@@ -35,4 +35,5 @@
             $log.warn('Warning: ' + message, data);
         }
     }
+    logger.$inject = ['$log'];
 })();

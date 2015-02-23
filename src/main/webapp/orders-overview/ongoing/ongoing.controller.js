@@ -3,8 +3,7 @@
 
     angular.module('fmu.overview')
         .controller('OngoingController', OngoingController);
-    OngoingController.$inject = ['$scope', '$filter', 'AuthService', 'DatetimeService', 'eavropService', 'gettext'];
-
+    /*@ngInject*/
     function OngoingController($scope, $filter, AuthService, DatetimeService, eavropService, gettext) {
         $scope.authService = AuthService;
         $scope.datetimeService = DatetimeService;
@@ -88,4 +87,5 @@
         }
 
     }
+    OngoingController.$inject = ['$scope', '$filter', 'AuthService', 'DatetimeService', 'eavropService', 'gettext'];
 })();

@@ -214,14 +214,24 @@
         }, karmaCompleted);
     }
 
-    gulp.task('serve',['wiredep'], function() {
+    gulp.task('annotate', function() {
+        return gulp.src(config.jsfiles)
+            .pipe($.ngAnnotate({
+                remove: true,
+                add: true,
+                'single_quotes': true
+            }))
+            .pipe(gulp.dest(config.appPath));
+    });
+
+    gulp.task('serve', ['wiredep'], function() {
         log('Serving development app');
         startBrowserSync(config.appPath);
         gulp.watch(config.sassfiles, ['sass']);
         gulp.watch(config.htmlfiles, ['templatecache']);
     });
-    
-    gulp.task('serve-prod',['build'], function() {
+
+    gulp.task('serve-prod', ['build'], function() {
         log('Serving production app');
         startBrowserSync(config.dist);
     });
@@ -266,7 +276,7 @@
                 //directory: true,
                 middleware: [proxy(proxyFake), proxy(proxyRest)]
             },
-            files: files,
+            files: [config.jsfiles, config.cssfiles, config.sassfiles],
             watchOptions: {
                 debounceDelay: 1000
             },

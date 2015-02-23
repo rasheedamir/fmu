@@ -4,8 +4,7 @@
     angular.module('fmu.eavrop')
         .run(setUpRoutes);
 
-    setUpRoutes.$inject = ['routeHelper', 'gettext', 'Dataservice', 'logger'];
-
+    /*@ngInject*/
     function setUpRoutes(routeHelper, gettext, Dataservice) {
         var states = [{
             stateName: 'eavrop',
@@ -13,21 +12,21 @@
                 url: '/eavrop/{eavropId:[A-Za-z0-9-]+}',
                 abstract: true,
                 resolve: {
-                    currentEavrop: function($stateParams) {
+                    currentEavrop: /* @ngInject */ ['$stateParams', function($stateParams) {
                         return Dataservice.getEavropByID($stateParams.eavropId);
-                    },
-                    patientInfo: function($stateParams) {
+                    }],
+                    patientInfo: /* @ngInject */ ['$stateParams', function($stateParams) {
                         return Dataservice.getPatientByEavropId($stateParams.eavropId);
-                    },
-                    RecievedDocuments: function($stateParams) {
+                    }],
+                    RecievedDocuments: /* @ngInject */ ['$stateParams', function($stateParams) {
                         return Dataservice.getRecievedDocuments($stateParams.eavropId);
-                    },
-                    ReqDocuments: function($stateParams) {
+                    }],
+                    ReqDocuments: /* @ngInject */ ['$stateParams', function($stateParams) {
                         return Dataservice.getRequestedDocuments($stateParams.eavropId);
-                    },
-                    order: function($stateParams) {
+                    }],
+                    order: /* @ngInject */ ['$stateParams', function($stateParams) {
                         return Dataservice.getEavropOrder($stateParams.eavropId);
-                    }
+                    }]
                 },
                 controller: 'EavropController',
                 templateUrl: 'eavrop-overview/eavrop.html'
@@ -45,9 +44,9 @@
                 url: '/contents',
                 title: gettext('Eavrop-content-title/Content'),
                 templateUrl: 'eavrop-overview/order/contents.html',
-                controller: function($scope, order) {
+                controller: /* @ngInject */ ['$scope', 'order', function($scope, order) {
                     $scope.order = order;
-                }
+                }]
             }
         }, {
             stateName: 'eavrop.order.documents',
@@ -64,13 +63,13 @@
                 title: gettext('Eavrop-citizen-title/Citizen'),
                 templateUrl: 'eavrop-overview/order/citizen.html',
                 resolve: {
-                    patient: function($stateParams) {
+                    patient: /* @ngInject */ ['$stateParams', function($stateParams) {
                         return Dataservice.getPatientByEavropId($stateParams.eavropId);
-                    }
+                    }]
                 },
-                controller: function($scope, patient) {
+                controller: /* @ngInject */ ['$scope', 'patient', function($scope, patient) {
                     $scope.patient = patient;
-                }
+                }]
             }
         }, {
             stateName: 'eavrop.investigation',
@@ -86,12 +85,12 @@
                 url: '/all-events',
                 title: gettext('Eavrop-AllEvents-title/All events'),
                 resolve: {
-                    notes: function($stateParams) {
+                    notes: /* @ngInject */ ['$stateParams', function($stateParams) {
                         return Dataservice.getNotes($stateParams.eavropId);
-                    },
-                    allevents: function($stateParams) {
+                    }],
+                    allevents: /* @ngInject */ ['$stateParams', function($stateParams) {
                         return Dataservice.getAllEvents($stateParams.eavropId);
-                    }
+                    }]
                 },
                 controller: 'AllEventsController',
                 templateUrl: 'eavrop-overview/allEvents/all-events.html'
@@ -109,9 +108,9 @@
             stateConfig: {
                 url: '/notes',
                 resolve: {
-                    notes: function($stateParams){
+                    notes: /* @ngInject */ ['$stateParams', function($stateParams){
                         return Dataservice.getNotes($stateParams.eavropId);
-                    }
+                    }]
                 },
                 templateUrl: 'eavrop-overview/notes/notes.html',
                 controller: 'NotesController'
@@ -120,4 +119,5 @@
 
         routeHelper.registerStates(states);
     }
+    setUpRoutes.$inject = ['routeHelper', 'gettext', 'Dataservice'];
 })();

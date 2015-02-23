@@ -4,9 +4,7 @@
     var core = angular.module('fmu.core');
     core.config(configure);
 
-    configure.$inject = ['$logProvider', 'fmuExceptionHandlerProvider',
-        'routehelperConfigProvider', 'gettext', '$urlRouterProvider', '$stateProvider'
-    ];
+    /*@ngInject*/
     function configure($logProvider, fmuExceptionHandlerProvider, routehelperConfigProvider, gettext, $urlRouterProvider, $stateProvider) {
         core.value('config', config);
         var config = {
@@ -28,4 +26,5 @@
         // Configure the common exception handler
         fmuExceptionHandlerProvider.configure(config.appErrorPrefix);
     }
+    configure.$inject = ['$logProvider', 'fmuExceptionHandlerProvider', 'routehelperConfigProvider', 'gettext', '$urlRouterProvider', '$stateProvider'];
 })();

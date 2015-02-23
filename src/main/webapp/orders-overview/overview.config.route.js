@@ -4,8 +4,7 @@
     angular.module('fmu.overview')
         .run(setUpRoutes);
 
-    setUpRoutes.$inject = ['routeHelper', 'gettext', 'Dataservice', 'logger'];
-
+    /*@ngInject*/
     function setUpRoutes(routeHelper, gettext) {
         var states = [{
             stateName: 'overview',
@@ -44,4 +43,5 @@
         routeHelper.registerStates(states);
         routeHelper.setDefaultState('/overview/orders');
     }
+    setUpRoutes.$inject = ['routeHelper', 'gettext'];
 })();

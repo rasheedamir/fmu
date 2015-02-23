@@ -4,14 +4,14 @@
     angular.module('fmu.eavrop')
         .controller('EavropController', EavropController);
 
-    EavropController.$inject = ['$scope', 'currentEavrop', 'AuthService', 'patientInfo', 'eavropService'];
-
-    function EavropController($scope, currentEavrop, AuthService, patientInfo, EavropService) {
+    /*@ngInject*/
+    function EavropController($scope, currentEavrop, AuthService, patientInfo, eavropService) {
         $scope.patientInfo = patientInfo;
         $scope.currentEavrop = currentEavrop;
 
         $scope.getStatus = function(status) {
-            return EavropService.getEavropConstants.statusMapping[status];
+            return eavropService.getEavropConstants.statusMapping[status];
         };
     }
+    EavropController.$inject = ['$scope', 'currentEavrop', 'AuthService', 'patientInfo', 'eavropService'];
 })();

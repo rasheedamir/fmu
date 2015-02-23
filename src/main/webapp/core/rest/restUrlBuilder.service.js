@@ -1,10 +1,13 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('fmu.core').factory('RestUrlBuilderService',
-    function () {
+    angular.module('fmu.core')
+        .factory('RestUrlBuilderService', RestUrlBuilderService);
+    /*@ngInject*/
+    function RestUrlBuilderService() {
         return {
-            buildOverViewRestUrl: function (startDate, endDate, eavropStatus, currentPageNumber,
-                                            currentNrOfElementPerPage, sortKey, sortOrder) {
+            buildOverViewRestUrl: function(startDate, endDate, eavropStatus, currentPageNumber,
+                currentNrOfElementPerPage, sortKey, sortOrder) {
                 return '/app/rest/eavrop' +
                     '/fromdate/' + startDate +
                     '/todate/' + endDate +
@@ -15,32 +18,33 @@ angular.module('fmu.core').factory('RestUrlBuilderService',
                     '/sortorder/' + sortOrder;
             },
 
-            buildEventsRestUrl: function (eavropId) {
-                return '/app/rest/eavrop/'+ eavropId + '/utredning';
+            buildEventsRestUrl: function(eavropId) {
+                return '/app/rest/eavrop/' + eavropId + '/utredning';
             },
 
-            buildCreateBookingRestUrl: function () {
+            buildCreateBookingRestUrl: function() {
                 return '/app/rest/eavrop/utredning/create/booking';
             },
 
-            changeBookingRestUrl: function () {
+            changeBookingRestUrl: function() {
                 return '/app/rest/eavrop/utredning/modify/booking';
             },
 
-            changeTolkBookingRestUrl: function () {
+            changeTolkBookingRestUrl: function() {
                 return '/app/rest/eavrop/utredning/modify/tolk';
             },
 
-            buildAddNoteRestUrl: function () {
+            buildAddNoteRestUrl: function() {
                 return '/app/rest/eavrop/note/add';
             },
 
-            buildRemoveNoteRestUrl: function (eavropId, noteId) {
-                return '/app/rest/eavrop/'+ eavropId + '/note/' + noteId + '/remove';
+            buildRemoveNoteRestUrl: function(eavropId, noteId) {
+                return '/app/rest/eavrop/' + eavropId + '/note/' + noteId + '/remove';
             },
 
-            buildCompensationRestUrl: function (eavropId) {
+            buildCompensationRestUrl: function(eavropId) {
                 return '/app/rest/eavrop/' + eavropId + '/compensations';
             }
         };
-    });
+    }
+})();

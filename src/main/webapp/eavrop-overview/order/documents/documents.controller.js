@@ -4,9 +4,8 @@
     angular.module('fmu.eavrop').
     controller('DocumentsController', DocumentsController);
 
-    DocumentsController.$inject = ['$scope', 'Dataservice', 'RecievedDocuments', 'ReqDocuments', '$modal', '$stateParams', 'logger'];
-
-    function DocumentsController($scope, Dataservice, RecievedDocuments, ReqDocuments, $modal, $stateParams, logger) {
+    /*@ngInject*/
+    function DocumentsController($scope, Dataservice, RecievedDocuments, ReqDocuments, $modal, $stateParams) {
         $scope.openReqAmendmentModal = openReqAmendmentModalfn;
         $scope.openAddDocumentModal = openAddDocumentModalfn;
         $scope.documents = RecievedDocuments;
@@ -42,9 +41,6 @@
                 size: 'md',
                 controller: 'AddDocModalController'
             });
-
-            logger.info('mod', mod);
-
             mod.result.then(function(result) {
                 var payload = {
                     name: result.name,
@@ -56,4 +52,5 @@
             });
         }
     }
+    DocumentsController.$inject = ['$scope', 'Dataservice', 'RecievedDocuments', 'ReqDocuments', '$modal', '$stateParams', 'logger'];
 })();

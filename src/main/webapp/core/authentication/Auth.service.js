@@ -5,8 +5,7 @@
 
         .factory('AuthService', authService);
 
-    authService.$inject = ['$resource', '$http', 'AUTH'];
-
+    /*@ngInject*/
     function authService($resource, $http, AUTH) {
         var userInfo = {};
         var UserResource = $resource(AUTH.userInfo);
@@ -34,4 +33,5 @@
             });
         }
     }
+    authService.$inject = ['$resource', '$http', 'AUTH'];
 })();

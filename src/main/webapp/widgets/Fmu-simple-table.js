@@ -1,7 +1,6 @@
 'use strict';
 angular.module('fmu.widgets')
-    .directive('fmuSimpleTable', ['ngTableParams',
-        function (ngTableParams) {
+    .directive('fmuSimpleTable', ['ngTableParams', function (ngTableParams) {
             return {
                 restrict: 'E',
                 scope: {
@@ -12,7 +11,7 @@ angular.module('fmu.widgets')
                     showAllRows: '=?',
                     tabularData: '='
                 },
-                controller: function ($scope) {
+                controller: ['$scope', function ($scope) {
                     // Todo enable sortable fields
                     $scope.isSortable = function () {
                         return false;
@@ -46,7 +45,7 @@ angular.module('fmu.widgets')
                             /* jshint +W055 */
                         }
                     };
-                },
+                }],
                 link: function (scope) {
                     scope.getValue = function (key, row) {
                      return scope.accessDataCallback() ? scope.accessDataCallback()(key, row) : row[key];

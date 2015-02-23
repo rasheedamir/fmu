@@ -3,14 +3,7 @@
     angular.module('fmu.eavrop')
         .controller('AllEventsController', AllEventsController);
 
-    AllEventsController.$inject = ['$scope',
-        '$stateParams', 'RecievedDocuments',
-        'ReqDocuments',
-        'notes',
-        'allevents',
-        'order',
-        'investigationService'
-    ];
+    /*@ngInject*/
     function AllEventsController($scope, $stateParams, RecievedDocuments, ReqDocuments, notes, allevents, order, investigationService) {
         $scope.headerFields = investigationService.getTableFields();
         $scope.getTableCellValue = investigationService.getTableCellValue;
@@ -21,4 +14,5 @@
         $scope.allevents = allevents;
         $scope.order = order;
     }
+    AllEventsController.$inject = ['$scope', '$stateParams', 'RecievedDocuments', 'ReqDocuments', 'notes', 'allevents', 'order', 'investigationService'];
 })();

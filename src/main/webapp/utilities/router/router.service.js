@@ -21,8 +21,7 @@
         };
     }
 
-    routeHelper.$inject = ['$rootScope', 'logger', 'routehelperConfig'];
-
+    /*@ngInject*/
     function routeHelper($rootScope, logger, routehelperConfig) {
         var service = {
             registerState: registerState,
@@ -80,5 +79,6 @@
                 });
         }
     }
+    routeHelper.$inject = ['$rootScope', 'logger', 'routehelperConfig'];
 
 })();

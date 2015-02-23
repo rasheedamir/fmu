@@ -2,8 +2,7 @@
     'use strict';
     angular.module('fmu.eavrop')
         .controller('AddDocumentController', AddDocumentController);
-    AddDocumentController.$inject = ['$scope', '$modalInstance', 'currentEavrop'];
-
+    /*@ngInject*/
     function AddDocumentController($scope, $modalInstance, currentEavrop) {
 
         $scope.currentEavrop = currentEavrop;
@@ -34,4 +33,5 @@
             $modalInstance.dismiss('cancel');
         }
     }
+    AddDocumentController.$inject = ['$scope', '$modalInstance', 'currentEavrop'];
 })();

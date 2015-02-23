@@ -3,8 +3,7 @@
     angular.module('fmu.login')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$scope', 'Dataservice'];
-
+    /*@ngInject*/
     function LoginController($scope, Dataservice) {
         $scope.loginArr = [{
             'fornamn': 'Åsa',
@@ -33,4 +32,5 @@
             Dataservice.login($scope.selectedItem);
         }
     }
+    LoginController.$inject = ['$scope', 'Dataservice'];
 })();

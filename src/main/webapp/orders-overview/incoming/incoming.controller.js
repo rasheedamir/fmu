@@ -4,15 +4,7 @@
     angular.module('fmu.overview')
         .controller('OrderController', OrderController);
 
-    OrderController.$inject = ['$scope',
-        '$state',
-        '$filter',
-        'AuthService',
-        'DatetimeService',
-        'eavropService',
-        'gettext'
-    ];
-
+    /*@ngInject*/
     function OrderController($scope, $state, $filter, AuthService, DatetimeService, eavropService, gettext) {
         $scope.authService = AuthService;
         $scope.dateKey = 'creationTime';
@@ -162,4 +154,5 @@
             }
         }
     }
+    OrderController.$inject = ['$scope', '$state', '$filter', 'AuthService', 'DatetimeService', 'eavropService', 'gettext'];
 })();

@@ -1,10 +1,10 @@
-'use strict';
+(function() {
+    'use strict';
 
 angular.module('fmu.eavrop')
     .factory('eavropService', eavropService);
 
-eavropService.$inject = ['$q', '$http', 'Dataservice', 'gettext'];
-
+/*@ngInject*/
 function eavropService($q, $http, Dataservice, gettext) {
     var eavropConstants = {
         dateFormat: 'yyyy-MM-dd',
@@ -47,38 +47,7 @@ function eavropService($q, $http, Dataservice, gettext) {
         getEavropConstants: eavropConstants,
     };
 
-    //     addNote: function(dataPackage) {
-    //         return $http.post(RestUrlBuilderService.buildAddNoteRestUrl(), dataPackage)
-    //             .then(function(data) {
-    //                 // Success
-    //                 return data.data;
-    //             }, function(err) {
-    //                 // Failed to retrieve data
-    //                 return $q.reject(err.data);
-    //             });
-    //     },
-
-    //     removeNote: function(eavropId, noteId) {
-    //         return $http.delete(RestUrlBuilderService.buildRemoveNoteRestUrl(eavropId, noteId))
-    //             .then(function(data) {
-    //                 // Success
-    //                 return data.data;
-    //             }, function(err) {
-    //                 // Failed to retrieve data
-    //                 return $q.reject(err.data);
-    //             });
-    //     },
-    //     getCompensation: function(eavropId) {
-    //         return $http.get(RestUrlBuilderService.buildCompensationRestUrl(eavropId))
-    //             .then(function(data) {
-    //                 // Success
-    //                 return data.data;
-    //             }, function(err) {
-    //                 // Failed to retrieve data
-    //                 return $q.reject(err.data);
-    //             });
-    //     }
-    // };
-
     return service;
 }
+eavropService.$inject = ['$q', '$http', 'Dataservice', 'gettext'];
+})();

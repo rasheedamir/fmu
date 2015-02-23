@@ -2,8 +2,7 @@
     'use strict';
     angular.module('fmu.eavrop')
         .controller('AddDocModalController', AddDocModalController);
-    AddDocModalController.$inject = ['$scope', '$modalInstance'];
-
+    /*@ngInject*/
     function AddDocModalController($scope, $modalInstance) {
         $scope.doc = {};
         $scope.picker = {
@@ -29,4 +28,5 @@
             $modalInstance.dismiss();
         }
     }
+    AddDocModalController.$inject = ['$scope', '$modalInstance'];
 })();

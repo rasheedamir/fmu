@@ -21,12 +21,13 @@
         };
     }
     
-    config.$inject = ['$provide'];
+    /*@ngInject*/
     function config($provide) {
         $provide.decorator('$exceptionHandler', extendExceptionHandler);
     }
+    config.$inject = ['$provide'];
 
-    extendExceptionHandler.$inject = ['$delegate', 'fmuExceptionHandler', 'logger'];
+    /*@ngInject*/
     function extendExceptionHandler($delegate, fmuExceptionHandler, logger) {
         return function(exception, cause) {
             var appErrorPrefix = fmuExceptionHandler.config.appErrorPrefix || '';
@@ -39,4 +40,5 @@
             logger.error(exception.message, errorData);
         };
     }
+    extendExceptionHandler.$inject = ['$delegate', 'fmuExceptionHandler', 'logger'];
 })();

@@ -3,8 +3,6 @@
 
     angular.module('fmu')
         .run(setUpRoutes);
-
-    setUpRoutes.$inject = ['routeHelper'];
     function setUpRoutes() {
     }
 })();

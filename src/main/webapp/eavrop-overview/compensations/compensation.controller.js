@@ -3,8 +3,7 @@
 
     angular.module('fmu.eavrop')
         .controller('CompensationController', CompensationController);
-    CompensationController.$inject = ['$scope', '$filter', 'AuthService', 'currentEavrop', 'Dataservice', 'gettext'];
-
+    /*@ngInject*/
     function CompensationController($scope, $filter, AuthService, currentEavrop, Dataservice, gettext) {
         $scope.authService = AuthService;
         $scope.currentEavrop = currentEavrop;
@@ -140,4 +139,5 @@
             });
         }
     }
+    CompensationController.$inject = ['$scope', '$filter', 'AuthService', 'currentEavrop', 'Dataservice', 'gettext'];
 })();

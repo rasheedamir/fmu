@@ -3,8 +3,7 @@
 
     angular.module('fmu.overview')
         .controller('CompletedController', CompletedController);
-    CompletedController.$inject = ['$scope', '$filter', 'AuthService', 'DatetimeService', 'eavropService', 'gettext'];
-
+    /*@ngInject*/
     function CompletedController($scope, $filter, AuthService, DatetimeService, eavropService, gettext) {
         $scope.authService = AuthService;
         $scope.dateKey = 'creationTime';
@@ -97,4 +96,5 @@
             }
         }
     }
+    CompletedController.$inject = ['$scope', '$filter', 'AuthService', 'DatetimeService', 'eavropService', 'gettext'];
 })();

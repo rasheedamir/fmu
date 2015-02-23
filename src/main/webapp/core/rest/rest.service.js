@@ -5,8 +5,7 @@
         .module('fmu.core')
         .factory('Dataservice', dataservice);
 
-    dataservice.$inject = ['$resource', 'RESTURL', 'logger', 'EAVROP_STATES'];
-
+    /*@ngInject*/
     function dataservice($resource, RESTURL, logger, EAVROP_STATES) {
         var dataResources = {};
         var service = {
@@ -274,4 +273,5 @@
             });
         }
     }
+    dataservice.$inject = ['$resource', 'RESTURL', 'logger', 'EAVROP_STATES'];
 })();

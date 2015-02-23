@@ -10,7 +10,7 @@
                 dateModel: '=',
                 title: '@'
             },
-            controller: function($scope) {
+            controller: ['$scope', function($scope) {
                 $scope.isOpened = false;
                 $scope.dateOptions = {
                     'show-weeks': false
@@ -27,7 +27,7 @@
 
                     $scope.isOpened = !$scope.isOpened;
                 };
-            },
+            }],
             template: '<div class="form-group row"> ' +
                 '<label>{{title}}</label> ' +
                 '<div class="input-group">' +

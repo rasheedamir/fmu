@@ -35,7 +35,7 @@ angular.module('fmu.widgets')
         '</table> '
     };
 }])
-.directive('fmuTillaggTable', function(gettext){
+.directive('fmuTillaggTable', ['gettext', function(gettext){
     return {
         scope: {
             tillagg: '=tillagg'
@@ -76,8 +76,8 @@ angular.module('fmu.widgets')
                 '</tbody> ' +
             '</table>'
     };
-})
-.directive('fmuAnteckningarTable', function($filter, gettext){
+}])
+.directive('fmuAnteckningarTable', ['$filter', 'gettext', function($filter, gettext){
     return {
         scope: {
             anteckningar: '=',
@@ -85,11 +85,11 @@ angular.module('fmu.widgets')
             removeFunc: '&'
         },
         restrict: 'E',
-        controller: function ($scope) {
+        controller: ['$scope', function ($scope) {
             $scope.toYYMMDD = function (date) {
                 return $filter('date')(date, 'yyyy-MM-dd');
             };
-        },
+        }],
 
         link: function (scope) {
             scope.remove = function (note) {
@@ -132,4 +132,4 @@ angular.module('fmu.widgets')
             '</tbody> ' +
         '</table>'
     };
-});
+}]);

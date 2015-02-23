@@ -4,8 +4,7 @@
     angular.module('fmu.login')
         .run(setUpRoutes);
 
-    setUpRoutes.$inject = ['routeHelper', 'gettext'];
-
+    /*@ngInject*/
     function setUpRoutes(routeHelper, gettext) {
         var stateName = 'login';
         var stateConfig = {
@@ -17,4 +16,5 @@
 
         routeHelper.registerState(stateName, stateConfig);
     }
+    setUpRoutes.$inject = ['routeHelper', 'gettext'];
 })();

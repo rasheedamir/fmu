@@ -5,7 +5,7 @@
         .module('util.exception',[])
         .factory('exception', exception);
 
-        exception.$inject = ['logger'];
+        /*@ngInject*/
         function exception(logger) {
         var service = {
             catcher: catcher
@@ -18,4 +18,5 @@
             };
         }
     }
+    exception.$inject = ['logger'];
 })();

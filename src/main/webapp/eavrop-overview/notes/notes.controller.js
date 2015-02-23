@@ -3,8 +3,7 @@
     angular.module('fmu.eavrop')
         .controller('NotesController', NotesController);
 
-    NotesController.$inject = ['$scope', '$modal', '$filter', '$stateParams', 'Dataservice', 'eavropService', 'gettext'];
-
+    /*@ngInject*/
     function NotesController($scope, $modal, $filter, $stateParams, Dataservice, eavropService, gettext) {
         var EAVROP_NOTES = {
             cannotAdd: gettext('Anteckningar/Anteckningen kunde inte skapas, var god och kolla att alla fält är korrekt ifyllda'),
@@ -25,7 +24,7 @@
                         return noteData;
                     }
                 },
-                controller: function($scope, noteData, $modalInstance) {
+                controller: ['$scope', 'noteData', '$modalInstance', function($scope, noteData, $modalInstance) {
                     $scope.cancelRemoval = cancelRemovalFn;
                     $scope.removeNote = removeNoteFn;
 
@@ -43,7 +42,7 @@
                     function cancelRemovalFn() {
                         $modalInstance.close();
                     }
-                }
+                }]
             });
         }
 
@@ -55,7 +54,7 @@
             $modal.open({
                 templateUrl: 'eavrop-overview/notes/add-note-modal.html',
                 size: 'md',
-                controller: function($scope, $modalInstance) {
+                controller: ['$scope', '$modalInstance', function($scope, $modalInstance) {
                     $scope.picker = {
                         opened: false
                     };
@@ -93,8 +92,9 @@
                     function closeFn() {
                         $modalInstance.dismiss();
                     }
-                }
+                }]
             });
         }
     }
+    NotesController.$inject = ['$scope', '$modal', '$filter', '$stateParams', 'Dataservice', 'eavropService', 'gettext'];
 })();

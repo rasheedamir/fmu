@@ -3,8 +3,7 @@
     angular.module('fmu.widgets')
         .directive('fmuUtredningTable', fmuUtredningTable);
 
-    fmuUtredningTable.$inject = ['ngTableParams', '$filter', 'investigationService', '$modal'];
-
+    /*@ngInject*/
     function fmuUtredningTable(ngTableParams, $filter, investigationService, $modal) {
         return {
             restrict: 'E',
@@ -17,7 +16,7 @@
                 accessDataCallback: '&',
                 rowModifiable: '=?'
             },
-            controller: function($scope) {
+            controller: ['$scope', function($scope) {
                 $scope.tableConstants = investigationService.getTextConstants();
                 // TODO when eavrop status is onhold disable editing functionalities
                 $scope.cancelChange = cancelChangeFn;
@@ -59,7 +58,7 @@
                                 return $scope;
                             }
                         },
-                        controller: function($scope, parent) {
+                        controller: ['$scope', 'parent', function($scope, parent) {
                             $scope.save = function() {
                                 var dataPackage = createDataPackage(rowData.bookingId,
                                     rowData.selectedTolkStatus.name,
@@ -79,7 +78,7 @@
                             $scope.cancel = function() {
                                 confirmModal.close();
                             };
-                        }
+                        }]
                     });
                 }
 
@@ -91,7 +90,7 @@
                                 return $scope;
                             }
                         },
-                        controller: function($scope, parent) {
+                        controller: ['$scope', 'parent', function($scope, parent) {
                             $scope.save = function() {
                                 var dataPackage = createDataPackage(rowData.bookingId,
                                     rowData.selectedHandelseStatus.name,
@@ -120,7 +119,7 @@
 
                                 return investigationService.getTextConstants().eventsRequireConfirmation[rowData.selectedHandelseStatus.name];
                             };
-                        }
+                        }]
                     });
                 }
 
@@ -165,7 +164,7 @@
                         comment: comment
                     };
                 }
-            },
+            }],
             link: function(scope) {
                 scope.getValue = function(key, row) {
                     return scope.accessDataCallback() ? scope.accessDataCallback()(key, row) : row[key];
@@ -176,4 +175,5 @@
             templateUrl: 'widgets/fmu-utredning-table.html'
         };
     }
+    fmuUtredningTable.$inject = ['ngTableParams', '$filter', 'investigationService', '$modal'];
 })();
