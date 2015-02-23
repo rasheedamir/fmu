@@ -6,7 +6,14 @@
     function FakeRoleCtrl($scope, AuthService) {
         $scope.roles = ['ROLE_SAMORDNARE', 'ROLE_UTREDARE'];
         $scope.hasRole = AuthService.hasRole;
-        $scope.changeRole = AuthService.changeRole;
+        $scope.changeRole = changeRoleFn;
+
+
+        function changeRoleFn(role) {
+            AuthService.changeRole(role).then(function() {
+                location.reload();
+            });
+        }
     }
     FakeRoleCtrl.$inject = ['$scope', 'AuthService'];
 })();
