@@ -118,12 +118,12 @@ public class Eavrop extends AbstractBaseEntity implements IEntity<Eavrop> {
 	private EavropProperties eavropProperties;
 	
 	// A log of all assignments to vardgivarenheter and their replies
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "R_EAVROP_ASSIGNMENT", joinColumns = @JoinColumn(name = "EAVROP_ID"), inverseJoinColumns = @JoinColumn(name = "ASSIGNMENT_ID"))
 	private List<EavropAssignment> assignments;
 
 	// Maps the current assignment of the eavrop
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "CURRENT_ASSIGNMENT_ID", unique= true, nullable=true)
 	private EavropAssignment currentAssignment;
 
