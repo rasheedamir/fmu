@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -22,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import se.inera.fmu.application.CurrentUserService;
-import se.inera.fmu.application.FmuOrderingService;
 import se.inera.fmu.domain.model.eavrop.EavropId;
 import se.inera.fmu.facade.FmuFacade;
 import se.inera.fmu.interfaces.managing.rest.dto.AddNoteRequestDTO;
@@ -53,19 +49,14 @@ import com.codahale.metrics.annotation.Timed;
  *
  * REST controller for tracking eavrops
  */
-@SuppressWarnings("all")
 @RestController
 @RequestMapping("/app")
 @Validated
-@Slf4j
 public class EavropResource {
 
 	@Inject
 	private FmuFacade fmuFacade;
 	
-	@Inject
-	private CurrentUserService currentUserService;
-
 	public static enum OverviewEavropStates {
 		NOT_ACCEPTED, ACCEPTED, COMPLETED
 	}

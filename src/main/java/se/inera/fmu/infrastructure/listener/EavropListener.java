@@ -43,7 +43,6 @@ import com.google.common.eventbus.Subscribe;
 /**
  * Created by Rasheed on 9/30/14.
  */
-@SuppressWarnings("all")
 @Component
 @Slf4j
 public class EavropListener implements EventBusListener {
@@ -86,7 +85,6 @@ public class EavropListener implements EventBusListener {
      *
      * @param event: EavropAssignedToVardgivarenhetEvent
      */
-
     @Subscribe
     @AllowConcurrentEvents
     public void handleEavropAssignedToVardgivarenhetEvent(final EavropAssignedToVardgivarenhetEvent event) {
@@ -113,7 +111,6 @@ public class EavropListener implements EventBusListener {
         
         bestallareWebserviceClient.publishFmuAssignmentResponse(assignmentResponseCommand);
         log.debug("FmuAssignmentResponse  published for ARENDE ID {} EAVROP ID {} ",  event.getArendeId().toString(), event.getEavropId().toString());
-
     }
 
     /**
@@ -198,7 +195,6 @@ public class EavropListener implements EventBusListener {
         
     }
 
-
     @Subscribe
     @AllowConcurrentEvents
     public void handleIntygApprovedByBestallareEvent(final IntygApprovedByBestallareEvent event) {
@@ -243,7 +239,7 @@ public class EavropListener implements EventBusListener {
     @AllowConcurrentEvents
     public void handleEavropRestartedByBestallareEvent(final EavropRestartedByBestallareEvent event) {
     	log.debug("EavropRestartedByBestallareEvent received for EAVROP ID {} ", event.getEavropId().toString());
-        //Mail someone?
+        //Mail someone or publishFmuStartDate?
     }
 
     private Vardgivarenhet getVardgivarenhet(HsaId hsaId){

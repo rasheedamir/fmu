@@ -21,7 +21,7 @@ import se.inera.fmu.domain.model.person.Person;
 import se.inera.fmu.domain.shared.ValueObject;
 /**
  * The Approved state is achieved when the customer communicates that the eavrop have been approved 
- * This Object defines when this has happened, who has done the approval and optionally a note regarding the approval 
+ * This Object represents the approval, who has done the approval and optionally a note regarding the approval 
  */
 @Entity
 @Table(name = "T_EAVROP_APPROVAL")

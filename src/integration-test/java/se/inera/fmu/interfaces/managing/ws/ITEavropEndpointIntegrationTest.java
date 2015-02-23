@@ -62,7 +62,6 @@ import ws.inera.fmu.admin.eavrop.SkapaFmuEavropRequest;
 /**
  * Created by Rasheed, Rickard on 11/17/14.
  */
-@SuppressWarnings("all")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration

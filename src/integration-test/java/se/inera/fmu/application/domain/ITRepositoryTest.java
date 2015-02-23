@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
-import javax.persistence.Column;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
@@ -31,7 +30,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import se.inera.fmu.Application;
-import se.inera.fmu.application.util.BusinessDaysUtil;
 import se.inera.fmu.application.util.EavropPropertiesUtil;
 import se.inera.fmu.domain.model.eavrop.AcceptedEavropState;
 import se.inera.fmu.domain.model.eavrop.ApprovedEavropState;
@@ -51,10 +49,8 @@ import se.inera.fmu.domain.model.eavrop.SentEavropState;
 import se.inera.fmu.domain.model.eavrop.UnassignedEavropState;
 import se.inera.fmu.domain.model.eavrop.UtredningType;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
-import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
-import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.document.ReceivedDocument;
@@ -65,7 +61,6 @@ import se.inera.fmu.domain.model.eavrop.invanare.InvanareRepository;
 import se.inera.fmu.domain.model.eavrop.invanare.PersonalNumber;
 import se.inera.fmu.domain.model.eavrop.note.Note;
 import se.inera.fmu.domain.model.eavrop.note.NoteType;
-import se.inera.fmu.domain.model.eavrop.properties.EavropProperties;
 import se.inera.fmu.domain.model.hos.hsa.HsaId;
 import se.inera.fmu.domain.model.hos.vardgivare.Vardgivare;
 import se.inera.fmu.domain.model.hos.vardgivare.VardgivareRepository;
@@ -86,7 +81,7 @@ import se.inera.fmu.domain.model.shared.Name;
  *
  * @see se.inera.fmu.application.impl.UserService
  */
-@SuppressWarnings("all")
+//@SuppressWarnings("all")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
@@ -133,13 +128,11 @@ public class ITRepositoryTest {
 		Landsting landsting = createLandsting(this.landstingCode, "Stockholms Läns Landsting");
 
 		this.vardgivareId = new HsaId("SE160000000000-00000000B");
-		Vardgivare vardgivare = createVardgivare(this.vardgivareId, "Personal Care AB");
-
 		this.vardgivarenhetId = new HsaId("SE160000000000-00000000C");
-		Vardgivarenhet vardgivarenhet = createVardgivarenhet(this.vardgivarenhetId, "Roinekliniken", new Address("Barnhusgatan 12", "33443", "Stockholm", "Sverige"),"epost@epost.se","555-123123",vardgivare, landsting);
+		createVardgivarenhet(this.vardgivarenhetId, "Roinekliniken", new Address("Barnhusgatan 12", "33443", "Stockholm", "Sverige"),"epost@epost.se","555-123123",createVardgivare(this.vardgivareId, "Personal Care AB"), landsting);
 
 		this.arendeId = new ArendeId("140212042744");
-		Eavrop eavrop = createEavrop(this.arendeId, landsting);
+		createEavrop(this.arendeId, landsting);
 	}
 
     @Test
@@ -812,37 +805,6 @@ public class ITRepositoryTest {
         return eavropRepository.save(eavrop);
     }
 
-    
-    private Eavrop createDeviatedEavrop(ArendeId arendeId, Landsting landsting){
-    	Invanare invanare = createInvanare(); 
-    	Bestallaradministrator bestallaradministrator = createBestallaradministrator();
-    	
-        Eavrop eavrop = EavropBuilder.eavrop()
-		.withArendeId(arendeId)
-		.withUtredningType(UtredningType.TMU) 
-		.withInvanare(invanare)
-		.withLandsting(landsting)
-		.withBestallaradministrator(bestallaradministrator)
-		.withEavropProperties(EavropPropertiesUtil.createEavropProperties())
-		.build();
-        
-        //assign
-        Vardgivarenhet vardgivarenhet = vardgivarenhetRepository.findByHsaId(this.vardgivarenhetId);
-        assertNotNull(vardgivarenhet);
-        eavrop.assignEavropToVardgivarenhet(vardgivarenhet, createHoSPerson());
-        
-        //accept
-        eavrop.acceptEavropAssignment(createHoSPerson());
-        
-        //deviate
-        Booking booking = createBooking();
-        eavrop.addBooking(booking);
-        eavrop.setBookingStatus(booking.getBookingId(), BookingStatusType.CANCELLED_NOT_PRESENT, createNote());
-        assertEquals(EavropStateType.ON_HOLD, eavrop.getEavropState().getEavropStateType());   
-    
-        return eavropRepository.saveAndFlush(eavrop);
-    }
-
     private Eavrop assignEavrop(Eavrop eavrop, Vardgivarenhet vardgivarenhet, HoSPerson assigningPerson){
     	eavrop.assignEavropToVardgivarenhet(vardgivarenhet, assigningPerson);
     	return eavropRepository.save(eavrop);
@@ -851,11 +813,6 @@ public class ITRepositoryTest {
     private Eavrop acceptEavrop(Eavrop eavrop, HoSPerson acceptingPerson){
     	eavrop.acceptEavropAssignment(acceptingPerson);
     	return eavropRepository.save(eavrop);
-    }
-
-    private Eavrop rejectEavrop(Eavrop eavrop, HoSPerson rejectingPerson){
-    	eavrop.rejectEavropAssignment(rejectingPerson, null);
-    	return eavropRepository.saveAndFlush(eavrop);
     }
 
     private Eavrop deviateEavrop(Eavrop eavrop){
@@ -939,21 +896,6 @@ public class ITRepositoryTest {
     }   
 
 
-    private Booking createBooking(){
-    	DateTime start = new DateTime();
-    	DateTime end = start.plusHours(1);
-    	Person person = new HoSPerson(new HsaId("SE160000000000-HAHAHHSBB"), "Dr Hudson", "Surgeon", "Danderyds sjukhus", "AVD fmu");
-    	Booking booking = new Booking(BookingType.EXAMINATION, start,end, Boolean.FALSE, person.getName(), person.getRole(), Boolean.FALSE);
-
-    	return booking;
-    }
-    
-    private BookingDeviation createBookingDeviation(){
-    	BookingDeviation deviation = new BookingDeviation(BookingDeviationType.CANCELLED_BY_INVANARE_LT_48, new Note(NoteType.BOOKING_DEVIATION, "No Show", new HoSPerson(new HsaId("SE160000000000-HAHAHHSLC"), "Lasse Kongo", "Läkare", "Danderydssjukhus", "AVD fmu")));
-    	return deviation;
-    }
-
-    
     private BookingDeviationResponse createBookingDeviationResponse(){
     	Bestallaradministrator adm = new Bestallaradministrator("Törn Valdegård", "Driver", "Försäkringskassan", "STCC", "555-123456", "rattmuff@saab.se");
     	

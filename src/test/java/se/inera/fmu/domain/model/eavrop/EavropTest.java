@@ -1,7 +1,5 @@
 package se.inera.fmu.domain.model.eavrop;
 
-import java.text.SimpleDateFormat;
-
 import junit.framework.TestCase;
 
 import org.joda.time.DateTime;
@@ -10,10 +8,8 @@ import org.junit.Test;
 import se.inera.fmu.application.util.EavropPropertiesUtil;
 import se.inera.fmu.domain.model.eavrop.assignment.EavropAssignment;
 import se.inera.fmu.domain.model.eavrop.booking.Booking;
-import se.inera.fmu.domain.model.eavrop.booking.BookingDeviation;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponse;
 import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationResponseType;
-import se.inera.fmu.domain.model.eavrop.booking.BookingDeviationType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingStatusType;
 import se.inera.fmu.domain.model.eavrop.booking.BookingType;
 import se.inera.fmu.domain.model.eavrop.booking.interpreter.InterpreterBookingStatusType;
@@ -650,10 +646,6 @@ public class EavropTest extends TestCase {
     	return new Booking(BookingType.EXAMINATION, start,start.plusHours(1), false, doctorPerson.getName(), doctorPerson.getRole(), Boolean.FALSE);
 	}
 	
-    private BookingDeviation createBookingDeviation(){
-    	return new BookingDeviation(BookingDeviationType.CANCELLED_BY_INVANARE_LT_48, new Note(NoteType.BOOKING_DEVIATION, "No Show", doctorPerson));
-    }
-    
     private BookingDeviationResponse createBookingDeviationResponse(DateTime dateTime){
     	
     	Bestallaradministrator adm = new Bestallaradministrator("Törn Valdegård", "Driver", "Försäkringskassan", "STCC", "555-123456", "rattmuff@saab.se");
