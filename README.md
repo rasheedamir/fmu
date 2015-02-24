@@ -42,12 +42,12 @@ without requiring the components to explicitly register with one another (and th
 exclusively to replace traditional Java in-process event distribution using explicit registration. 
 
 ###Frontend (Client Side)
-Build tools and optimization
+####Build tools and optimization
 1. [NodeJs](http://nodejs.org/): For builtools dependencies management
 2. [Bower](http://bower.io/): For webapp package dependency management 
 3. [Gulp](http://gulpjs.com/): is one of the most widely used build tool for your JavaScript and CSS assets. We moved from Grunt since the latest merge to provide better readability and maintainability
 
-Frameworks
+####Frameworks
 1. [AngularJS](http://angularjs.org/)
 2. [Angular-resource](https://docs.angularjs.org/api/ngResource/service/$resource): For backend REST communication
 3. [Angular-animate](https://docs.angularjs.org/guide/animations): To provide event-based entry-points for animations (Not very frequently used in this project)
@@ -62,8 +62,8 @@ Frameworks
 12. [_Jquery_](http://jquery.com/): For dynamic DOM manipulation
 13. [_angular-gettext_](https://angular-gettext.rocketeer.be): For customizable text extraction and translation in both Html and Javascript code
 
-Gulp processes
-Development
+####Gulp processes
+#####Development
 1. [wiredep]: Automatic Javascripts and CSS dependencies injection to indext.html
 2. [Sass]: Compile SCSS files to CSS files using Libsass
 3. [Serve]: Serving development resources as-is
@@ -74,7 +74,7 @@ Development
 8. [Extract-pot]: Extract all static texts from the application to a .pot file which can be used for translation using any gettext compatible editors for example Poedit which also support update of existing translations
 9. [Compile-po]: Convert all translated .po files to a lookup module which apply translations to the angular application
 
-Distribution
+#####Distribution
 1. [Jshint]: Perform static Javascript code-inspection
 2. [Html]: Collect, concaternate and uglify all CSS and Javascript dependencies
 3. [Templatecache]: Convert all Html fragments to Angular templatecache for easier access especially during unit-tests
@@ -84,21 +84,22 @@ Distribution
 7. [Serve-prod]: Serve the distribution webapp, this provide quick preview of the client application
 8. [Build]: Assemble the application for distribution
 
-Coding standards
+####Coding standards
 1. Folders and files are organized based on functionality and not by type
 2. Immediately Invoked Function Expression (IIFE) for more consistent code structure
 3. Jshint
 4. Functionalities are devided in different modules
 5. Services and controllers exposes its API before everything else specific implementations, avoid anonymous function declarations for better readability and consistentcy
 
-Setup
+####Setup
 1. Install node using installer from http://nodejs.org/
 2. Install bower with `npm install -g bower` from commandline
 3. Navigate to the application rootfolder and run `npm install` to fetch all nodejs build dependencies. `sudo` might be required on OSX and Linux
 4. Run `bower install` to fetch all app-dependencies
 5. run `gulp` to build and wire all dependencies and make sure everything is ok
 6. Now the application should have all required dependencies and can be run, either with both client- and backend-application using maven commands further down or with only client-application with `gulp serve` or `gulp serve-prod`.
-NOTE: When serving the application using gulp all rest requests are proxied to the defined backend server URL with the key `backendServerUrl` defined in `GulpConfig.js` file. Depending on where the application is running from this should be changed accordingly.
+#####NOTE 
+When serving the application using gulp all rest requests are proxied to the defined backend server URL with the key `backendServerUrl` defined in `GulpConfig.js` file. Depending on where the application is running from this should be changed accordingly.
 
 ###Other
 
