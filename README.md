@@ -97,7 +97,9 @@ exclusively to replace traditional Java in-process event distribution using expl
 3. Navigate to the application rootfolder and run `npm install` to fetch all nodejs build dependencies. `sudo` might be required on OSX and Linux
 4. Run `bower install` to fetch all app-dependencies
 5. run `gulp` to build and wire all dependencies and make sure everything is ok
-6. Now the application should have all required dependencies and can be run, either with both client- and backend-application using maven commands further down or with only client-application with `gulp serve` or `gulp serve-prod`.
+6. Now the application should have all required dependencies and can be run, either with both client- and backend-application using maven commands further down or with only client-application with `gulp serve` or `gulp serve-prod`
+
+
 #####NOTE 
 When serving the application using gulp all rest requests are proxied to the defined backend server URL with the key `backendServerUrl` defined in `GulpConfig.js` file. Depending on where the application is running from this should be changed accordingly.
 
