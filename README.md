@@ -96,8 +96,9 @@ exclusively to replace traditional Java in-process event distribution using expl
 2. Install bower with `npm install -g bower` from commandline
 3. Navigate to the application rootfolder and run `npm install` to fetch all nodejs build dependencies. `sudo` might be required on OSX and Linux
 4. Run `bower install` to fetch all app-dependencies
-5. run `gulp` to build and wire all dependencies and make sure everything is ok
-6. Now the application should have all required dependencies and can be run, either with both client- and backend-application using maven commands further down or with only client-application with `gulp serve` or `gulp serve-prod`
+5. Run `npm install --global gulp` to install gulp globally
+6. run `gulp` to build and wire all dependencies and make sure everything is ok
+7. Now the application should have all required dependencies and can be run, either with both client- and backend-application using maven commands further down or with only client-application with `gulp serve` or `gulp serve-prod`
 
 
 #####NOTE 
@@ -280,17 +281,14 @@ An alternative that can get you a more recent version of Node.js is to add a PPA
 1. `npm install -g bower` ,`to install Bower. Make sure that Git is installed prior becasue Bower is dependent on it
 2. Now verify the version by running `bower --version`    
 
-###- Grunt
+###- Gulp
 
-- Ubuntu 14.04:
+1. Install gulp globally:
 
-1. `npm install -g grunt-cli`
-2. Now verify the version by running `grunt --version`
+$ npm install --global gulp
+2. Install gulp in your project devDependencies:
 
-- Windows:
-
-1. `npm install -g grunt-cli` , to install the Grunt's command line interface (CLI) and put it on the system path
-2. Now verify the version by running `grunt --version`
+$ npm install --save-dev gulp
 
 ###- MySql
 - Window users:
