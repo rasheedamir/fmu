@@ -3,13 +3,13 @@
 ######################
 *.*~
 *~
-node/
-logs/
-node_modules/
-src/main/webapp/dependencies/bower_components/
-src/main/webapp/dist/
-src/main/java/ws/
-.sass-cache/
+node/**
+logs/**
+node_modules/**
+src/main/webapp/dependencies/bower_components/**
+src/main/webapp/dist/**
+src/main/java/ws/**
+.sass-cache/**
 ######################
 # Eclipse
 ######################

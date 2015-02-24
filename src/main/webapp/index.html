@@ -25,7 +25,7 @@
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <title>{{title}}</title>
+        <title ng-bind="title | translate"></title>
         <header class="navigation show" role="banner">
             <div class="navigation-wrapper">
                 <div class="navigation-left">
@@ -164,12 +164,12 @@
         <script src="core/translations/translation.pot.js"></script>
         <script src="eavrop-overview/allEvents/allEvents.controller.js"></script>
         <script src="eavrop-overview/compensations/compensation.controller.js"></script>
-        <script src="eavrop-overview/notes/notes.controller.js"></script>
         <script src="eavrop-overview/investigation/Investigation.controller.js"></script>
         <script src="eavrop-overview/investigation/addBookingModal.controller.js"></script>
+        <script src="eavrop-overview/notes/notes.controller.js"></script>
         <script src="orders-overview/completed/completed.controller.js"></script>
-        <script src="orders-overview/incoming/incoming.controller.js"></script>
         <script src="orders-overview/ongoing/ongoing.controller.js"></script>
+        <script src="orders-overview/incoming/incoming.controller.js"></script>
         <script src="utilities/exception/exceptionHandler.provider.js"></script>
         <script src="dependencies/bootstrap/js/bootstrap.js"></script>
         <script src="eavrop-overview/order/documents/addDocModal.controller.js"></script>
