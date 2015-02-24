@@ -395,23 +395,6 @@ From your IDE, right-click on the `se.inera.fmu.Application` class at the root o
 The application will be available on `http://localhost:8080`.
 Note: The default profile is `dev` so, it will run on port `8080`
 
-###Console
-
-#####Deploy frontend only (Grunt)
-Since front end code does not depend on back-end code the app can be built and run by itself using grunt. The following commands should be used at the project root folder when building front end resources:
-
-1. `npm install` to fetch all packages specified in the Package.json file
-2. `bower install` to fetch all packages specified in the bower.json file
-3. `grunt` to run all grunt tasks to make sure nothing breaks
-
-When invoking these commands they should be invoked in this order. 
-
-There is also `grunt shell:assemble` command to run all these commands at once.
-
-#####Live-coding
-When developing front-end app live-coding could be a useful feature to use while developing the UI. 
-use `grunt server` to start live-coding, all changes made to the .html, .js, .css files will be loaded and refreshed automatically by grunt. 
-
 #####Deploy both frontend & backend (Maven)
 You can launch the Java server with Maven by running following command at the project root folder:
 
@@ -478,14 +461,7 @@ When running integration tests from within `IntelliJ` just ensure to write click
 
 ####Unit Tests (JavaScript)
 Front end unit tests can be run directly using command line at the project folder.
-Use `grunt karma` for unit testing 
-
-####E2E tests (JavaScript)
-Front end e2e tests can be run using `grunt protractor:singlerun` command. Make sure the rest server is active while running these tests.
-
-####Run seperate test cases in the test specs
-Use
- `ddescribe()` or `iit()` instead of `describe()` and `it()` to single out the test cases you want to run
+Use `gulp test` for unit testing 
 
 ####Skipping Tests
 
