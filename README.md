@@ -64,25 +64,25 @@ exclusively to replace traditional Java in-process event distribution using expl
 
 ####Gulp processes
 #####Development
-1. [wiredep]: Automatic Javascripts and CSS dependencies injection to indext.html
-2. [Sass]: Compile SCSS files to CSS files using Libsass
-3. [Serve]: Serving development resources as-is
-4. [Karma-inject]: Inject all dependencies to use during unit-tests
-5. [Test]: Run all unit-test and quit
-6. [Tdd]: Run all tests and watch for changes and rerun, useful for test driven development
-7. [Annotate]: Inject angular dependency injections to make uglify possible. [Html] task does this automatically for -Pprod profile but not -Pdev
-8. [Extract-pot]: Extract all static texts from the application to a .pot file which can be used for translation using any gettext compatible editors for example Poedit which also support update of existing translations
-9. [Compile-po]: Convert all translated .po files to a lookup module which apply translations to the angular application
+1. [_wiredep_]: Automatic Javascripts and CSS dependencies injection to indext.html
+2. [_Sass_]: Compile SCSS files to CSS files using Libsass
+3. [_Serve_]: Serving development resources as-is
+4. [_Karma-inject_]: Inject all dependencies to use during unit-tests
+5. [_Test_]: Run all unit-test and quit
+6. [_Tdd_]: Run all tests and watch for changes and rerun, useful for test driven development
+7. [_Annotate_]: Inject angular dependency injections to make uglify possible. [Html] task does this automatically for -Pprod profile but not -Pdev
+8. [_Extract-pot_]: Extract all static texts from the application to a .pot file which can be used for translation using any gettext compatible editors for example Poedit which also support update of existing translations
+9. [_Compile-po_]: Convert all translated .po files to a lookup module which apply translations to the angular application
 
 #####Distribution
-1. [Jshint]: Perform static Javascript code-inspection
-2. [Html]: Collect, concaternate and uglify all CSS and Javascript dependencies
-3. [Templatecache]: Convert all Html fragments to Angular templatecache for easier access especially during unit-tests
-4. [images]: Collect and optimize all image-resources
-5. [Fonts]: Collect all fonts
-6. [Extras]: Copy all related resources missing from other tasks for example favicons, .httpaccess file etc.
-7. [Serve-prod]: Serve the distribution webapp, this provide quick preview of the client application
-8. [Build]: Assemble the application for distribution
+1. [_Jshint_]: Perform static Javascript code-inspection
+2. [_Html_]: Collect, concaternate and uglify all CSS and Javascript dependencies
+3. [_Templatecache_]: Convert all Html fragments to Angular templatecache for easier access especially during unit-tests
+4. [_images_]: Collect and optimize all image-resources
+5. [_Fonts_]: Collect all fonts
+6. [_Extras_]: Copy all related resources missing from other tasks for example favicons, .httpaccess file etc.
+7. [_Serve-prod_]: Serve the distribution webapp, this provide quick preview of the client application
+8. [_Build_]: Assemble the application for distribution
 
 ####Coding standards
 1. Folders and files are organized based on functionality and not by type
