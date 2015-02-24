@@ -102,7 +102,7 @@ exclusively to replace traditional Java in-process event distribution using expl
 
 
 #####NOTE 
-When serving the application using gulp all rest requests are proxied to the defined backend server URL with the key `backendServerUrl` defined in `GulpConfig.js` file. Depending on where the application is running from this should be changed accordingly.
+When serving the application using gulp all rest requests are proxied to the defined backend server URL with the key `backendServerUrl` defined in `GulpConfig.js` file. Depending on where the backend-application is running from this should be changed accordingly.
 
 ###Other
 
