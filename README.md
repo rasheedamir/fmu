@@ -42,20 +42,63 @@ without requiring the components to explicitly register with one another (and th
 exclusively to replace traditional Java in-process event distribution using explicit registration. 
 
 ###Frontend (Client Side)
+Build tools and optimization
+1. [NodeJs](http://nodejs.org/): For builtools dependencies management
+2. [Bower](http://bower.io/): For webapp package dependency management 
+3. [Gulp](http://gulpjs.com/): is one of the most widely used build tool for your JavaScript and CSS assets. We moved from Grunt since the latest merge to provide better readability and maintainability
 
-Single Web Page Application (SPA)
+Frameworks
+1. [AngularJS](http://angularjs.org/)
+2. [Angular-resource](https://docs.angularjs.org/api/ngResource/service/$resource): For backend REST communication
+3. [Angular-animate](https://docs.angularjs.org/guide/animations): To provide event-based entry-points for animations (Not very frequently used in this project)
+4. [Angular-sanitize](https://docs.angularjs.org/api/ngSanitize/service/$sanitize): For secure Html loading
+5. [HTML5 Boilerplate](http://html5boilerplate.com/)
+6. [Twitter Bootstrap](http://getbootstrap.com/) (Stripped down with minimal use, mostly to provide support for Angular-ui elements)
+7. [_Karma_](http://karma-runner.github.io/) & [_PhantomJS_](http://phantomjs.org/) & [Jasmine](http://jasmine.github.io/): For unit-testing 
+8. [_SASS-SCSS_]: CSS-preprocessor for more dynamic and maintainable CSS
+9. [_Susy-grid_](http://susy.oddbird.net/): For on demand grid-layout using SCSS
+10. [_Breakpoint_](http://breakpoint-sass.com/): To simplify responsive styling and native support with Susy
+11. [_Typeplate_](http://typeplate.com/): For more structured typepographic styling using SCSS (So far we only setup basic functionalities)
+12. [_Jquery_](http://jquery.com/): For dynamic DOM manipulation
+13. [_angular-gettext_](https://angular-gettext.rocketeer.be): For customizable text extraction and translation in both Html and Javascript code
 
-1. Responsive Web Design!
-2. [HTML5 Boilerplate](http://html5boilerplate.com/)
-3. [Twitter Bootstrap](http://getbootstrap.com/)
-4. [AngularJS](http://angularjs.org/)
-5. Build, Optimization & Live Reload: [_Grunt_](http://gruntjs.com/) : is the most widely used and most mature build tool for your JavaScript and CSS assets
-6. Testing: [_Karma_](http://karma-runner.github.io/) & [_PhantomJS_](http://phantomjs.org/)
-7. Dependency Management: [_Bower_](http://bower.io/)
-8. Full internationalization support with [_Angular Translate_](https://github.com/angular-translate/angular-translate)
-9. Protractor
-10. [Jasmine](http://jasmine.github.io/)
-11. [JSHint](http://www.jshint.com/) The static code analysis and code quality tools!
+Gulp processes
+Development
+1. [wiredep]: Automatic Javascripts and CSS dependencies injection to indext.html
+2. [Sass]: Compile SCSS files to CSS files using Libsass
+3. [Serve]: Serving development resources as-is
+4. [Karma-inject]: Inject all dependencies to use during unit-tests
+5. [Test]: Run all unit-test and quit
+6. [Tdd]: Run all tests and watch for changes and rerun, useful for test driven development
+7. [Annotate]: Inject angular dependency injections to make uglify possible. [Html] task does this automatically for -Pprod profile but not -Pdev
+8. [Extract-pot]: Extract all static texts from the application to a .pot file which can be used for translation using any gettext compatible editors for example Poedit which also support update of existing translations
+9. [Compile-po]: Convert all translated .po files to a lookup module which apply translations to the angular application
+
+Distribution
+1. [Jshint]: Perform static Javascript code-inspection
+2. [Html]: Collect, concaternate and uglify all CSS and Javascript dependencies
+3. [Templatecache]: Convert all Html fragments to Angular templatecache for easier access especially during unit-tests
+4. [images]: Collect and optimize all image-resources
+5. [Fonts]: Collect all fonts
+6. [Extras]: Copy all related resources missing from other tasks for example favicons, .httpaccess file etc.
+7. [Serve-prod]: Serve the distribution webapp, this provide quick preview of the client application
+8. [Build]: Assemble the application for distribution
+
+Coding standards
+1. Folders and files are organized based on functionality and not by type
+2. Immediately Invoked Function Expression (IIFE) for more consistent code structure
+3. Jshint
+4. Functionalities are devided in different modules
+5. Services and controllers exposes its API before everything else specific implementations, avoid anonymous function declarations for better readability and consistentcy
+
+Setup
+1. Install node using installer from http://nodejs.org/
+2. Install bower with `npm install -g bower` from commandline
+3. Navigate to the application rootfolder and run `npm install` to fetch all nodejs build dependencies. `sudo` might be required on OSX and Linux
+4. Run `bower install` to fetch all app-dependencies
+5. run `gulp` to build and wire all dependencies and make sure everything is ok
+6. Now the application should have all required dependencies and can be run, either with both client- and backend-application using maven commands further down or with only client-application with `gulp serve` or `gulp serve-prod`.
+NOTE: When serving the application using gulp all rest requests are proxied to the defined backend server URL with the key `backendServerUrl` defined in `GulpConfig.js` file. Depending on where the application is running from this should be changed accordingly.
 
 ###Other
 
