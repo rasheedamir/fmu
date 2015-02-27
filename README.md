@@ -99,6 +99,7 @@ exclusively to replace traditional Java in-process event distribution using expl
 5. Run `npm install --global gulp` to install gulp globally
 6. run `gulp` to build and wire all dependencies and make sure everything is ok
 7. Now the application should have all required dependencies and can be run, either with both client- and backend-application using maven commands further down or with only client-application with `gulp serve` or `gulp serve-prod`
+8. Log in with fake id by clicking the user icon at the top right corner
 
 
 #####NOTE 
