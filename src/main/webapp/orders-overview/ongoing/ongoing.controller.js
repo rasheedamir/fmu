@@ -39,25 +39,7 @@
             key: 'avikelser',
             name: gettext('Pågående-utredningar/Avikelser')
         }];
-
-        $scope.headerGroups = [{
-            name: null,
-            colorClass: null,
-            colspan: 2
-        }, {
-            name: gettext('Pågående-utredningar/beställare'),
-            colorClass: 'bg-head-danger',
-            colspan: 2
-        }, {
-            name: gettext('Pågående-utredningar/leverantör'),
-            colorClass: 'bg-head-warning',
-            colspan: 1
-        }, {
-            name: null,
-            colorClass: null,
-            colspan: 4
-        }];
-
+        
         $scope.footerHints = [{
             description: gettext('Pågående-utredningar/Antal dagar har överträtts och/eller annan avvikelse finns'),
             colorClass: 'bg-danger'

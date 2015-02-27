@@ -5,7 +5,6 @@ angular.module('fmu.widgets')
                 restrict: 'E',
                 scope: {
                     tableParams: '=tableParameters',
-                    headerGroups: '=?',
                     headerFields: '=?',
                     dateKey: '@',
                     footerHints: '=?',

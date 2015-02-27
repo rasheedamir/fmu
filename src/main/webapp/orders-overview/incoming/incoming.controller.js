@@ -74,23 +74,6 @@
 
                 ];
 
-                $scope.headerGroups = [{
-                    name: null,
-                    colorClass: null,
-                    colspan: 2
-                }, {
-                    name: gettext('Beställningar/beställare'),
-                    colorClass: 'bg-head-danger',
-                    colspan: 4
-                }, {
-                    name: gettext('Beställningar/leverantör'),
-                    colorClass: 'bg-head-warning',
-                    colspan: 2
-                }, {
-                    name: null,
-                    colorClass: null,
-                    colspan: 2
-                }];
             } else {
                 $scope.headerFields = [{
                         key: 'arendeId',
@@ -122,24 +105,6 @@
                     }
 
                 ];
-
-                $scope.headerGroups = [{
-                    name: null,
-                    colorClass: null,
-                    colspan: 2
-                }, {
-                    name: gettext('Beställningar/beställare'),
-                    colorClass: 'bg-head-danger',
-                    colspan: 3
-                }, {
-                    name: gettext('Beställningar/leverantör'),
-                    colorClass: 'bg-head-warning',
-                    colspan: 2
-                }, {
-                    name: null,
-                    colorClass: null,
-                    colspan: 2
-                }];
             }
         }
 
