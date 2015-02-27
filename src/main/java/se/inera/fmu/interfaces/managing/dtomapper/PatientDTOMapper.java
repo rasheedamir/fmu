@@ -14,11 +14,12 @@ public class PatientDTOMapper {
 		dto.setDobYear(invanare.getPersonalNumber().getPersonalNumber().substring(0, 4));
 		dto.setGender(invanare.getGender().toString());
 		dto.setInitials(invanare.getName().getInitials());
+		dto.setResidenceCity(invanare.getHomeAddress() != null ? invanare.getHomeAddress().getCity(): null);
 		
 		if(detailed){
 			Details details = new Details();
 			details.setName(invanare.getName().getFullName());
-			//Phone?
+			details.setPhone(invanare.getPhone());
 			details.setSpecialNeeds(invanare.getSpecialNeeds());
 			details.setSocSecNo(invanare.getPersonalNumber().getPersonalNumber());
 			PriorMedicalExamination priorMedicalExamination = eavrop.getPriorMedicalExamination();

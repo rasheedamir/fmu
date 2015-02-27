@@ -1,12 +1,12 @@
 <table ng-table="tableParams" template-pagination="custom/pager" class="table fmu-table fadeIn fast greyed-hover">
     <thead>
         <tr class="header">
-            <th ng-repeat="field in headerFields" class="sortable text-capitalize"
+            <th ng-repeat="field in headerFields" class="sortable"
                 ng-class="{'sort-asc': tableParams.isSortBy(field.key, 'asc'),'sort-desc': tableParams.isSortBy(field.key, 'desc')}"
                 ng-click="sort(field.key)">
                 <div>{{field.name | translate}}</div>
             </th>
-            <th ng-if="rowModifiable" class="text-capitalize">
+            <th ng-if="rowModifiable">
                 <div translate>Utredning-tabell/Utredning-tabell/Ändra</div>
             </th>
         </tr>
@@ -20,7 +20,7 @@
             ng-click="rowClicked(row)">
             <td ng-repeat="column in headerFields"
                 ng-if="!isEditColumn(column.key)"
-                sortable="{{column.key}}" class="text-capitalize">
+                sortable="{{column.key}}">
                 <span ng-bind="getValue(column.key, row) | translate"></span>
             </td>
             <td ng-if="rowModifiable">

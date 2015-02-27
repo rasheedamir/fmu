@@ -3,15 +3,14 @@
 
         <thead>
         <tr>
-            <th class="text-capitalize"
-                ng-repeat="group in headerGroups" colspan="{{group.colspan}}"
+            <th ng-repeat="group in headerGroups" colspan="{{group.colspan}}"
                 ng-class="group.colorClass == null || group.name == null ? 'invisible-header' : group.colorClass">
                 {{group.name | translate}}
             </th>
         </tr>
 
         <tr class="header">
-            <th ng-repeat="field in headerFields" class="text-center text-capitalize"
+            <th ng-repeat="field in headerFields" class="text-center"
                 ng-class="{'sortable': isSortable(field.key), 'sort-asc': tableParams.isSortBy(field.key, 'asc'),'sort-desc': tableParams.isSortBy(field.key, 'desc')}"
                 ng-click="sort(field.key)">
                 <div ng-bind-html="field.name | translate"></div>
