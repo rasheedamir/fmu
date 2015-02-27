@@ -103,7 +103,10 @@ exclusively to replace traditional Java in-process event distribution using expl
 
 
 #####NOTE 
-When serving the application using gulp all rest requests are proxied to the defined backend server URL with the key `backendServerUrl` defined in `GulpConfig.js` file. Depending on where the backend-application is running from this should be changed accordingly.
+1. When serving the application using gulp all rest requests are proxied to the defined backend server URL with the key `backendServerUrl` defined in `GulpConfig.js` file. Depending on where the backend-application is running from this should be changed accordingly.
+2. The application was tested using `node v0.10.34` and `npm v1.4.28`, other versions might cause errors.
+3. If maven fails because some node task does not run correctly, try remove `node_modules` folder and rerun `npm install`.
+4. Make sure `mysql` service is running if maven throw errors related to `SQL INSERT`. It might be a good idea to drop and recreate the existing database. The scripts for doing so can be located at `src/main/resources/scripts/database/mysql/`
 
 ###Other
 
